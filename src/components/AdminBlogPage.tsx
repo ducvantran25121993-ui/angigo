@@ -1685,6 +1685,49 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     }
   };
 
+  // Delete User Uploaded Image
+  const handleDeleteUserImage = async (imgUrl: string, imgName?: string) => {
+    if (!window.confirm(`Bạn có chắc muốn xóa ảnh "${imgName || 'này'}" khỏi danh sách tải lên không?`)) {
+      return;
+    }
+
+    try {
+      // 1. Call server API to delete the physical image file if stored on server
+      if (imgUrl.startsWith('/images/')) {
+        await fetch('/api/admin/delete-image', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: imgUrl }),
+        }).catch((err) => console.warn('Failed to delete image file on server:', err));
+      }
+
+      // 2. Remove from local state and localStorage
+      setUserUploadedImages((prev) => {
+        const updated = prev.filter((item) => item.url !== imgUrl);
+        try {
+          localStorage.setItem('angigio_user_uploaded_images', JSON.stringify(updated));
+        } catch {}
+        return updated;
+      });
+
+      // 3. Clear preview if current uploadedResult is this image
+      if (uploadedResult && uploadedResult.url === imgUrl) {
+        setUploadedResult(null);
+      }
+
+      // 4. If current coverImage was this image, reset to default placeholder
+      if (coverImage === imgUrl) {
+        setCoverImage('/images/an-gi-cho-do-ngan.jpg');
+        showToast('Đã xóa ảnh tải lên và hoàn nguyên ảnh đại diện về mặc định!', 'success');
+      } else {
+        showToast(`Đã xóa ảnh "${imgName || 'đã chọn'}" thành công!`, 'success');
+      }
+    } catch (err) {
+      console.error('Error deleting user image:', err);
+      showToast('Có lỗi xảy ra khi xóa hình ảnh.', 'error');
+    }
+  };
+
   // Insert Table
   const handleInsertTable = () => {
     if (!editorRef.current) return;
@@ -3711,6 +3754,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
                       {filteredPickerImages.map((img) => {
                         const isCurrentCover = imagePickerMode === 'cover' && coverImage === img.url;
+                        const isUserUploaded = img.category === 'Ảnh Của Bạn' || userUploadedImages.some((u) => u.url === img.url);
                         return (
                           <div
                             key={img.url}
@@ -3737,10 +3781,23 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
                               />
                               {isCurrentCover && (
-                                <span className="absolute top-1 right-1 bg-orange-600 text-white p-1 rounded-md shadow-xs flex items-center gap-1 text-[10px] font-bold">
+                                <span className="absolute top-1 right-1 bg-orange-600 text-white p-1 rounded-md shadow-xs flex items-center gap-1 text-[10px] font-bold z-10">
                                   <Check className="w-3 h-3" />
                                   <span className="hidden sm:inline">Ảnh bìa</span>
                                 </span>
+                              )}
+                              {isUserUploaded && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteUserImage(img.url, img.name);
+                                  }}
+                                  className="absolute top-1 left-1 bg-red-600 hover:bg-red-700 text-white p-1.5 rounded-lg shadow-md transition-transform hover:scale-110 z-20 flex items-center justify-center opacity-90 hover:opacity-100"
+                                  title="Xóa ảnh này khỏi danh sách tải lên"
+                                >
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                </button>
                               )}
                               <div className="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                                 <span className="bg-white text-stone-900 font-bold text-[11px] px-2.5 py-1 rounded-lg shadow-md">
@@ -3748,9 +3805,24 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                                 </span>
                               </div>
                             </div>
-                            <span className="text-[11px] font-bold text-stone-800 group-hover:text-orange-600 line-clamp-1 w-full leading-tight">
-                              {img.name}
-                            </span>
+                            <div className="flex items-center justify-between gap-1 w-full">
+                              <span className="text-[11px] font-bold text-stone-800 group-hover:text-orange-600 line-clamp-1 flex-1 leading-tight">
+                                {img.name}
+                              </span>
+                              {isUserUploaded && (
+                                <button
+                                  type="button"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDeleteUserImage(img.url, img.name);
+                                  }}
+                                  className="text-stone-400 hover:text-red-600 p-0.5 rounded transition-colors"
+                                  title="Xóa ảnh tải lên"
+                                >
+                                  <Trash2 className="w-3 h-3" />
+                                </button>
+                              )}
+                            </div>
                             <span className="text-[9px] text-stone-400 mt-0.5">{img.category}</span>
                           </div>
                         );
@@ -3872,25 +3944,34 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                         <p className="text-[11px] text-stone-500">
                           Hình ảnh đã được lưu vào máy chủ và sẵn sàng sử dụng.
                         </p>
-                        <div className="pt-1 flex items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              if (imagePickerMode === 'cover') {
-                                setCoverImage(uploadedResult.url);
-                                setIsImagePickerOpen(false);
-                                showToast('Đã đặt làm ảnh đại diện bài viết!', 'success');
-                              } else {
-                                handleInsertImage(uploadedResult.url, imageCaption);
-                              }
-                            }}
-                            className="text-xs font-bold px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl shadow-xs transition-colors cursor-pointer"
-                          >
-                            {imagePickerMode === 'cover'
-                              ? '✓ Đặt Làm Ảnh Đại Diện Ngay'
-                              : '＋ Chèn Ảnh Này Vào Bài Viết'}
-                          </button>
-                        </div>
+                          <div className="pt-1 flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (imagePickerMode === 'cover') {
+                                  setCoverImage(uploadedResult.url);
+                                  setIsImagePickerOpen(false);
+                                  showToast('Đã đặt làm ảnh đại diện bài viết!', 'success');
+                                } else {
+                                  handleInsertImage(uploadedResult.url, imageCaption);
+                                }
+                              }}
+                              className="text-xs font-bold px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl shadow-xs transition-colors cursor-pointer"
+                            >
+                              {imagePickerMode === 'cover'
+                                ? '✓ Đặt Làm Ảnh Đại Diện Ngay'
+                                : '＋ Chèn Ảnh Này Vào Bài Viết'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteUserImage(uploadedResult.url, uploadedResult.filename || 'Ảnh vừa tải lên')}
+                              className="text-xs font-bold px-3 py-2 bg-white hover:bg-red-50 text-red-600 border border-red-200 rounded-xl transition-colors cursor-pointer flex items-center gap-1.5"
+                              title="Xóa ảnh vừa tải lên nếu không thích"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                              <span>Xóa ảnh này</span>
+                            </button>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -3904,9 +3985,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                     </label>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                       {userUploadedImages.map((img) => (
-                        <button
+                        <div
                           key={img.url}
-                          type="button"
                           onClick={() => {
                             if (imagePickerMode === 'cover') {
                               setCoverImage(img.url);
@@ -3916,19 +3996,48 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                               handleInsertImage(img.url, img.name);
                             }
                           }}
-                          className="group relative flex flex-col items-center p-2 rounded-xl border border-stone-200 hover:border-orange-500 hover:bg-orange-50/30 transition-all text-left cursor-pointer bg-white"
+                          className="group relative flex flex-col p-2 rounded-xl border border-stone-200 hover:border-orange-500 hover:bg-orange-50/30 transition-all text-left cursor-pointer bg-white"
                         >
-                          <div className="w-full aspect-square rounded-lg overflow-hidden mb-1 bg-stone-100">
+                          <div className="relative w-full aspect-square rounded-lg overflow-hidden mb-1 bg-stone-100">
                             <img
                               src={img.url}
                               alt={img.name}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                             />
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteUserImage(img.url, img.name);
+                              }}
+                              className="absolute top-1 left-1 bg-red-600 hover:bg-red-700 text-white p-1.5 rounded-lg shadow-md transition-transform hover:scale-110 z-20 flex items-center justify-center opacity-90 hover:opacity-100"
+                              title="Xóa ảnh này khỏi danh sách tải lên"
+                            >
+                              <Trash2 className="w-3.5 h-3.5" />
+                            </button>
+                            <div className="absolute inset-0 bg-stone-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                              <span className="bg-white text-stone-900 font-bold text-[10px] px-2 py-0.5 rounded shadow-sm">
+                                {imagePickerMode === 'cover' ? 'Chọn làm bìa' : 'Chèn vào bài'}
+                              </span>
+                            </div>
                           </div>
-                          <span className="text-[10px] font-bold text-stone-700 truncate w-full text-center">
-                            {img.name}
-                          </span>
-                        </button>
+                          <div className="flex items-center justify-between gap-1 w-full">
+                            <span className="text-[10px] font-bold text-stone-700 truncate flex-1">
+                              {img.name}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeleteUserImage(img.url, img.name);
+                              }}
+                              className="text-stone-400 hover:text-red-600 p-0.5 rounded transition-colors"
+                              title="Xóa ảnh tải lên"
+                            >
+                              <Trash2 className="w-3 h-3" />
+                            </button>
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>

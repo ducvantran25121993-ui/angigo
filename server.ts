@@ -1428,6 +1428,46 @@ app.get("/api/admin/images", (_req, res) => {
   }
 });
 
+// API: Delete an uploaded image from /public/images/ and dist/images/
+app.post("/api/admin/delete-image", (req, res) => {
+  try {
+    const { url, filename } = req.body || {};
+    let targetFilename = filename;
+    if (!targetFilename && url && typeof url === "string") {
+      targetFilename = path.basename(url);
+    }
+
+    if (!targetFilename || typeof targetFilename !== "string") {
+      return res.status(400).json({ success: false, message: "Tên tệp không hợp lệ" });
+    }
+
+    // Security check: prevent directory traversal
+    const safeName = path.basename(targetFilename);
+    if (!safeName || safeName.startsWith(".") || safeName.includes("/")) {
+      return res.status(400).json({ success: false, message: "Tên tệp không hợp lệ" });
+    }
+
+    const publicPath = path.join(process.cwd(), "public", "images", safeName);
+    const distPath = path.join(process.cwd(), "dist", "images", safeName);
+
+    let deletedAny = false;
+    if (fs.existsSync(publicPath)) {
+      fs.unlinkSync(publicPath);
+      deletedAny = true;
+    }
+    if (fs.existsSync(distPath)) {
+      fs.unlinkSync(distPath);
+      deletedAny = true;
+    }
+
+    console.log(`[Delete Image] Deleted image: ${safeName} (deletedAny: ${deletedAny})`);
+    return res.json({ success: true, message: `Đã xóa ảnh ${safeName}`, filename: safeName });
+  } catch (err: any) {
+    console.error("Error deleting image:", err);
+    return res.status(500).json({ success: false, message: err?.message || "Lỗi xóa hình ảnh" });
+  }
+});
+
 async function startServer() {
   // 301 Permanent Redirects for SEO: clean flat URLs
   app.get([

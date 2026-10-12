@@ -435,7 +435,7 @@ export async function updateRecipeArticleSEO(dish: Dish, recipe?: DishRecipe): P
   const description =
     dish.description ||
     `Hướng dẫn chi tiết ${articleTitle.toLowerCase()}. Công thức định lượng nguyên liệu chuẩn xác, các bước nấu đơn giản và mẹo bí quyết giúp món ăn thơm ngon chuẩn vị.`;
-  const image = dish.image?.startsWith('http') ? dish.image : `https://www.angigio.com${dish.image}`;
+  const image = dish.image?.startsWith('http') ? dish.image : `https://angigio.com${dish.image}`;
 
   applyMetaToDOM({
     path: recipePath,

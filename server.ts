@@ -789,22 +789,66 @@ app.get("/deleted_posts.json", async (_req, res) => {
   return res.json(deleted);
 });
 
-function addUrlToSitemap(slug: string) {
-  try {
-    const pubFile = path.join(process.cwd(), "public", "sitemap.xml");
-    const distFile = path.join(process.cwd(), "dist", "sitemap.xml");
-    const targets = [pubFile, distFile].filter((f) => fs.existsSync(f));
-    const fullUrl = `https://angigio.com/${slug.replace(/^\//, '')}`;
-    const today = new Date().toISOString().split("T")[0];
-    const newXmlEntry = `  <url>\n    <loc>${fullUrl}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>`;
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 
-    for (const target of targets) {
-      let content = fs.readFileSync(target, "utf-8");
-      if (!content.includes(`<loc>${fullUrl}</loc>`)) {
-        content = content.replace("</urlset>", newXmlEntry);
-        fs.writeFileSync(target, content, "utf-8");
+function generateFreshSitemapXml(): string {
+  try {
+    const routes = getAllSeoRoutes();
+    const urlEntries = Object.values(routes)
+      .filter((meta: any) => !meta.isAlias)
+      .map((meta: any) => {
+        const loc = `https://angigio.com${meta.path === "/" ? "/" : meta.path}`;
+        const lastmod = meta.lastmod || new Date().toISOString().split("T")[0];
+        const changefreq = meta.changefreq || "weekly";
+        const priority = meta.priority !== undefined ? Number(meta.priority).toFixed(2) : "0.80";
+        const imageLoc = meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`;
+        const imageTitle = escapeXml(meta.imageAlt || meta.title || "");
+
+        return `  <url>
+    <loc>${escapeXml(loc)}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+    <image:image>
+      <image:loc>${escapeXml(imageLoc)}</image:loc>
+      <image:title>${imageTitle}</image:title>
+    </image:image>
+  </url>`;
+      });
+
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n        xmlns:xhtml="http://www.w3.org/1999/xhtml"\n        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urlEntries.join("\n")}\n</urlset>\n`;
+
+    // Persist to public/sitemap.xml and dist/sitemap.xml
+    try {
+      const pubFile = path.join(process.cwd(), "public", "sitemap.xml");
+      fs.writeFileSync(pubFile, xml, "utf-8");
+      const distFile = path.join(process.cwd(), "dist", "sitemap.xml");
+      if (fs.existsSync(path.dirname(distFile))) {
+        fs.writeFileSync(distFile, xml, "utf-8");
       }
+    } catch {}
+
+    return xml;
+  } catch (err) {
+    console.error("Error generating fresh dynamic sitemap:", err);
+    const pubFile = path.join(process.cwd(), "public", "sitemap.xml");
+    if (fs.existsSync(pubFile)) {
+      return fs.readFileSync(pubFile, "utf-8");
     }
+    return "";
+  }
+}
+
+function addUrlToSitemap(_slug: string) {
+  try {
+    generateFreshSitemapXml();
   } catch (err) {
     console.error("Error updating sitemap with new post:", err);
   }
@@ -1474,13 +1518,16 @@ async function startServer() {
   });
 
   app.get("/sitemap.xml", (_req, res) => {
-    const distFile = path.join(process.cwd(), "dist", "sitemap.xml");
-    const pubFile = path.join(process.cwd(), "public", "sitemap.xml");
-    const target = fs.existsSync(distFile) ? distFile : pubFile;
-    if (fs.existsSync(target)) {
-      res.type("application/xml").sendFile(target);
+    const xml = generateFreshSitemapXml();
+    if (xml) {
+      res.type("application/xml; charset=utf-8").send(xml);
     } else {
-      res.status(404).send("Sitemap not found");
+      const pubFile = path.join(process.cwd(), "public", "sitemap.xml");
+      if (fs.existsSync(pubFile)) {
+        res.type("application/xml").sendFile(pubFile);
+      } else {
+        res.status(404).send("Sitemap not found");
+      }
     }
   });
 

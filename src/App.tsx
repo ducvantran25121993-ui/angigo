@@ -181,7 +181,7 @@ export default function App() {
         if (syncedPosts && syncedPosts.length > 0) {
           const cleanSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
           const isCustomPost = syncedPosts.some(
-            (p) => p.slug === cleanSlug || p.id === cleanSlug
+            (p) => p.slug === cleanSlug || p.id === cleanSlug || (p as any).oldSlug === cleanSlug
           );
           if (isCustomPost && activeTab !== 'blog') {
             setActiveTab('blog');

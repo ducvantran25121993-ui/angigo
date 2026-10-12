@@ -254,6 +254,12 @@ export function getTabFromUrl(): TabType {
   if (pathname === '/mon-ngon') return 'catalog';
   if (pathname === '/tra-sua-an-vat' || pathname === '/tra-sua' || pathname === '/an-vat' || pathname === '/do-uong-an-vat') return 'snacks';
   if (
+    pathname === '/blog' ||
+    pathname.startsWith('/blog/') ||
+    isBlogPostSlug(pathname) ||
+    (typeof window !== 'undefined' && window.history.state?.tab === 'blog' && pathname !== '/')
+  ) return 'blog';
+  if (
     pathname === '/am-thuc-vung-mien' ||
     pathname === '/thuc-don-moi-ngay' ||
     pathname === '/cach-nau-mon-ngon' ||
@@ -270,12 +276,6 @@ export function getTabFromUrl(): TabType {
   if (pathname === '/lien-he' || pathname === '/contact') return 'contact';
   if (pathname === '/chinh-sach-bao-mat' || pathname === '/privacy' || pathname === '/bao-mat') return 'privacy';
   if (pathname === '/dieu-khoan-su-dung' || pathname === '/terms' || pathname === '/dieu-khoan') return 'terms';
-  if (
-    pathname === '/blog' ||
-    pathname.startsWith('/blog/') ||
-    isBlogPostSlug(pathname) ||
-    (typeof window !== 'undefined' && window.history.state?.tab === 'blog' && pathname !== '/')
-  ) return 'blog';
   if (pathname === '/admin' || pathname === '/quan-tri' || pathname.startsWith('/admin/')) return 'admin';
   if (pathname === '/quan-ngon' || pathname === '/quan-ngon-gan-ban' || pathname === '/dia-diem-an-uong' || pathname === '/nha-hang-quan-an') return 'restaurants';
   if (pathname === '/') {

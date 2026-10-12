@@ -625,58 +625,47 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     const deleted = getDeletedPostSlugs();
 
     // Fetch all posts from Cloud Firestore, API, and local storage (Unified Merging)
+    const customOnlyMap = new Map<string, BlogPost>();
     const postMap = new Map<string, BlogPost>();
 
-    // 1. Initial posts baseline
-    INITIAL_BLOG_POSTS.forEach((p) => {
+    const mergeCustom = (p: BlogPost) => {
+      if (!p || (!p.slug && !p.id)) return;
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
-      if (!deleted.has(s) && !deleted.has(id)) {
-        postMap.set(p.slug || p.id, p);
+      if (deleted.has(s) || deleted.has(id)) return;
+      const key = s || id;
+      const existing = customOnlyMap.get(key);
+      if (existing) {
+        const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+        const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
+        if (existTime > newTime) return; // Keep newest
       }
-    });
+      customOnlyMap.set(key, p);
+    };
 
-    // 2. Local custom posts from window or localStorage
+    // 1. Local custom posts from window or localStorage (immediate client edits)
     try {
       const localCustom = getCustomBlogPosts();
-      localCustom.forEach((p) => {
-        postMap.set(p.slug || p.id, p);
-      });
+      localCustom.forEach(mergeCustom);
     } catch {}
 
-    // 3. Try server API (/api/admin/posts)
+    // 2. Try server API (/api/admin/posts)
     try {
-      const res = await fetch('/api/admin/posts');
+      const res = await fetch('/api/admin/posts?_t=' + Date.now(), { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data.customPosts)) {
-          data.customPosts.forEach((p: BlogPost) => {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            if (!deleted.has(s) && !deleted.has(id)) {
-              postMap.set(p.slug || p.id, p);
-            }
-          });
-        }
-        if (Array.isArray(data.posts)) {
-          data.posts.forEach((p: BlogPost) => {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            if (!deleted.has(s) && !deleted.has(id)) {
-              postMap.set(p.slug || p.id, p);
-            }
-          });
+          data.customPosts.forEach(mergeCustom);
         }
       }
     } catch (apiErr) {
       console.warn('API posts load warning:', apiErr);
     }
 
-    // 4. Try Cloud Firestore (Primary Cloud Authority)
+    // 3. Try Cloud Firestore (Primary Cloud Authority)
     try {
       const cloudPosts = await getPostsFromFirestore();
       if (cloudPosts && cloudPosts.length > 0) {
-        // Active posts retrieved from Firestore unblock local deleted blacklist
         cloudPosts.forEach((p) => {
           if (p.slug) {
             deleted.delete(p.slug.toLowerCase().trim());
@@ -686,20 +675,44 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
             deleted.delete(p.id.toLowerCase().trim());
             removeDeletedPostSlugLocal(p.id);
           }
-          postMap.set(p.slug || p.id, p);
+          mergeCustom(p);
         });
       }
     } catch (e) {
       console.warn('Firestore load error:', e);
     }
 
+    // 4. Populate table postMap: custom posts first
+    customOnlyMap.forEach((p, k) => {
+      postMap.set(k, p);
+      if (p.slug) postMap.set(p.slug.toLowerCase().trim(), p);
+    });
+
+    // 5. Initial baseline posts (only if not overridden by custom post)
+    INITIAL_BLOG_POSTS.forEach((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      if (!deleted.has(s) && !deleted.has(id)) {
+        const isOverridden = Array.from(customOnlyMap.values()).some((cp) => {
+          const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          const cpId = (cp.id || '').toLowerCase().trim();
+          const cpOldSlug = ((cp as any).oldSlug || (cp as any).previousSlug || '').toLowerCase().trim();
+          return cpSlug === s || cpId === id || cpId === s || cpOldSlug === s || cpOldSlug === id;
+        });
+        if (!isOverridden && !postMap.has(s)) {
+          postMap.set(s, p);
+        }
+      }
+    });
+
     const merged = Array.from(postMap.values());
+    const customList = Array.from(customOnlyMap.values());
     setPosts(merged);
 
-    // Save custom posts back to localStorage for instant cache fallback
-    if (typeof window !== 'undefined') {
-      const allCustom = merged.filter((p) => !INITIAL_BLOG_POSTS.some((ip) => ip.slug === p.slug));
-      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(allCustom));
+    // Save only genuine custom / edited posts back to localStorage and window
+    if (typeof window !== 'undefined' && customList.length > 0) {
+      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(customList));
+      (window as any).__INITIAL_CUSTOM_POSTS__ = customList;
     }
     if (!silent) setLoading(false);
   }, []);
@@ -881,9 +894,19 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         continue;
       }
 
-      // Paragraph
-      if (line.trim()) {
-        htmlChunks.push(`<p class="my-3 text-stone-800 leading-relaxed text-base">${formatInline(line)}</p>`);
+      // Paragraph or HTML block
+      const trimmed = line.trim();
+      if (trimmed) {
+        if (
+          trimmed.startsWith('<div') ||
+          trimmed.startsWith('<table') ||
+          trimmed.startsWith('<figure') ||
+          trimmed.startsWith('<p')
+        ) {
+          htmlChunks.push(line);
+        } else {
+          htmlChunks.push(`<p class="my-3 text-stone-800 leading-relaxed text-base">${formatInline(line)}</p>`);
+        }
       } else {
         htmlChunks.push('<p class="my-2">&nbsp;</p>');
       }
@@ -946,10 +969,18 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           if (isCallout && inner.trim()) {
             return `\n:::tip\n${inner.trim()}\n:::\n\n`;
           }
+          const align = el.style.textAlign || el.getAttribute('align');
+          if (align && ['center', 'right', 'justify'].includes(align) && inner.trim()) {
+            return `\n<div style="text-align: ${align};">\n${inner.trim()}\n</div>\n\n`;
+          }
           return inner.trim() ? `\n${inner.trim()}\n` : '\n';
         }
         if (tag === 'p') {
+          const align = el.style.textAlign || el.getAttribute('align');
           const inner = Array.from(el.childNodes).map(processNode).join('');
+          if (align && ['center', 'right', 'justify'].includes(align) && inner.trim()) {
+            return `\n<div style="text-align: ${align};">\n${inner.trim()}\n</div>\n\n`;
+          }
           return inner.trim() ? `\n${inner.trim()}\n` : '\n';
         }
         if (tag === 'ul') {
@@ -979,12 +1010,36 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           const inner = Array.from(el.childNodes).map(processNode).join('');
           return `**${inner}**`;
         }
-        if (tag === 'em' || tag === 'i') {
+        if (tag === 'u') {
           const inner = Array.from(el.childNodes).map(processNode).join('');
-          return `*${inner}*`;
+          return inner.trim() ? `<u>${inner}</u>` : '';
         }
-        if (tag === 'u' || tag === 'span') {
-          return Array.from(el.childNodes).map(processNode).join('');
+        if (tag === 'mark') {
+          const style = el.getAttribute('style') || '';
+          const inner = Array.from(el.childNodes).map(processNode).join('');
+          return inner.trim() ? `<mark${style ? ` style="${style}"` : ''}>${inner}</mark>` : '';
+        }
+        if (tag === 'span' || tag === 'font') {
+          const style = el.getAttribute('style') || '';
+          const color = el.getAttribute('color');
+          const inner = Array.from(el.childNodes).map(processNode).join('');
+          if (style || color) {
+            const combinedStyle = style || (color ? `color: ${color};` : '');
+            return `<span style="${combinedStyle}">${inner}</span>`;
+          }
+          return inner;
+        }
+        if (tag === 'sub') {
+          const inner = Array.from(el.childNodes).map(processNode).join('');
+          return `<sub>${inner}</sub>`;
+        }
+        if (tag === 'sup') {
+          const inner = Array.from(el.childNodes).map(processNode).join('');
+          return `<sup>${inner}</sup>`;
+        }
+        if (tag === 's' || tag === 'del' || tag === 'strike') {
+          const inner = Array.from(el.childNodes).map(processNode).join('');
+          return `~~${inner}~~`;
         }
         if (tag === 'img') {
           const src = el.getAttribute('src') || '';
@@ -1120,11 +1175,25 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setEditorSubTab('visual');
     setFloatingLink(null);
 
-    setTimeout(() => {
+    const htmlContent = markdownToHtml(post.content || '');
+    const populateEditor = () => {
       if (editorRef.current) {
-        editorRef.current.innerHTML = markdownToHtml(post.content);
+        editorRef.current.innerHTML = htmlContent;
+        updateCounts();
+        return true;
       }
-    }, 50);
+      return false;
+    };
+
+    if (!populateEditor()) {
+      requestAnimationFrame(() => {
+        if (!populateEditor()) {
+          setTimeout(populateEditor, 40);
+          setTimeout(populateEditor, 120);
+          setTimeout(populateEditor, 250);
+        }
+      });
+    }
   };
 
   // Update live word & character counts
@@ -1780,19 +1849,20 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       return;
     }
 
+    const oldSlug = editingPostId && editingPostId !== cleanSlug ? editingPostId : undefined;
+
     // Capture exact scroll positions of window and editor before saving
     const savedWindowScrollY = window.scrollY || document.documentElement.scrollTop;
     const savedEditorScrollTop = editorRef.current?.scrollTop || 0;
 
     setSaving(true);
 
-    // Get current HTML from editor and convert to clean markdown
     const currentHtml = editorRef.current?.innerHTML || '';
     const rawMarkdown = htmlToMarkdown(currentHtml);
-    const markdownContent = autoFormatLinksAndReferences(rawMarkdown, posts);
+    const markdownContent = rawMarkdown;
 
     const postPayload: BlogPost = {
-      id: editingPostId || cleanSlug,
+      id: cleanSlug,
       slug: cleanSlug,
       title: title.trim(),
       excerpt: excerpt.trim() || title.trim(),
@@ -1811,13 +1881,14 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       readTime: readTime.trim() || '6 phút đọc',
       featured: !!featured,
       content: markdownContent,
+      updatedAt: new Date().toISOString(),
     };
 
     let cloudSaved = false;
     try {
       removeDeletedPostSlugLocal(cleanSlug);
-      if (editingPostId) removeDeletedPostSlugLocal(editingPostId);
-      await savePostToFirestore(postPayload);
+      if (oldSlug) removeDeletedPostSlugLocal(oldSlug);
+      await savePostToFirestore(postPayload, oldSlug);
       cloudSaved = true;
     } catch (fbErr) {
       console.warn('Firestore save warning:', fbErr);
@@ -1827,13 +1898,13 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     let serverErrorMsg = '';
 
     try {
-      // 1. Send to server API
+      // 1. Send to server API with oldSlug for clean transition & 301 alias registration
       const res = await fetch('/api/admin/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(postPayload),
+        body: JSON.stringify({ ...postPayload, oldSlug }),
       });
 
       const resData = await res.json().catch(() => null);
@@ -1851,12 +1922,14 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     try {
       const existingCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
       let customList: BlogPost[] = existingCustomStr ? JSON.parse(existingCustomStr) : [];
-      const idx = customList.findIndex((p) => p.slug === cleanSlug || p.id === postPayload.id);
-      if (idx >= 0) {
-        customList[idx] = postPayload;
-      } else {
-        customList.unshift(postPayload);
-      }
+      customList = customList.filter((p) => {
+        const s = (p.slug || '').toLowerCase().trim();
+        const id = (p.id || '').toLowerCase().trim();
+        if (oldSlug && (s === oldSlug || id === oldSlug)) return false;
+        if (s === cleanSlug || id === cleanSlug) return false;
+        return true;
+      });
+      customList.unshift(postPayload);
       localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(customList));
 
       if (typeof window !== 'undefined') {
@@ -1866,7 +1939,6 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       // Add to KNOWN_BLOG_SLUGS so route is immediately recognized
       const { KNOWN_BLOG_SLUGS } = await import('../data/blogSlugs');
       KNOWN_BLOG_SLUGS.add(cleanSlug);
-      if (postPayload.id) KNOWN_BLOG_SLUGS.add(postPayload.id);
     } catch (storageErr) {
       console.warn('LocalStorage error:', storageErr);
     }
@@ -1879,8 +1951,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
     setSaving(false);
 
-    // Update current post ID & slug
-    setEditingPostId(postPayload.id);
+    // Update current post ID & slug to newly saved slug
+    setEditingPostId(cleanSlug);
     setSlug(cleanSlug);
 
     // Lock and restore exact scroll position so the user never jumps to the top!
@@ -2557,7 +2629,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                     <input
                       type="text"
                       value={slug}
-                      onChange={(e) => setSlug(generateSlug(e.target.value))}
+                      onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))}
+                      onBlur={() => setSlug((prev) => generateSlug(prev))}
                       className="font-mono font-bold text-orange-700 bg-white border border-stone-300 px-2 py-0.5 rounded text-xs flex-1 focus:outline-none focus:ring-1 focus:ring-orange-500"
                       placeholder="duong-dan-bai-viet"
                     />

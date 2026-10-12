@@ -18,6 +18,8 @@ export interface BlogPost {
   featured?: boolean;
   relatedDishIds?: string[];
   content: string;
+  htmlContent?: string;
+  oldSlug?: string;
   updatedAt?: string;
 }
 
@@ -45,10 +47,10 @@ export const BLOG_SLUG_ALIASES: Record<string, string> = {
   "thuc-don-100k": "100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem",
   "hom-nay-an-gi-voi-100-nghin": "100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem",
   "thuc-don-4-nguoi": "hom-nay-an-gi-cho-4-nguoi",
-  "mon-an-do-ngan": "an-gi-cho-do-ngan",
-  "hom-nay-an-gi-cho-do-ngan": "an-gi-cho-do-ngan",
-  "an-gi-do-ngan": "an-gi-cho-do-ngan",
-  "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha": "an-gi-cho-do-ngan",
+  "an-gi-cho-do-ngan": "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
+  "mon-an-do-ngan": "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
+  "hom-nay-an-gi-cho-do-ngan": "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
+  "an-gi-do-ngan": "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
   "thit-ba-chi-lam-mon-gi-ngon": "mon-ngon-tu-thit-ba-chi",
   "thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi": "mon-ngon-tu-thit-ba-chi",
   "thit-ba-roi-lam-mon-gi-ngon": "mon-ngon-tu-thit-ba-chi",
@@ -680,6 +682,9 @@ export function normalizeBlogPost(raw: any): BlogPost {
     featured: Boolean(raw.featured),
     relatedDishIds: Array.isArray(raw.relatedDishIds) ? raw.relatedDishIds : [],
     content,
+    htmlContent: raw.htmlContent ? String(raw.htmlContent) : undefined,
+    oldSlug: raw.oldSlug ? String(raw.oldSlug) : undefined,
+    updatedAt: raw.updatedAt ? String(raw.updatedAt) : undefined,
   };
 }
 
@@ -797,26 +802,57 @@ export function getCustomBlogPosts(): BlogPost[] {
       return !deleted.has(s) && !deleted.has(id);
     });
 
-  // 1. Check window.__INITIAL_CUSTOM_POSTS__ injected by server for cross-device & instant page loads
-  if (typeof window !== 'undefined' && Array.isArray(window.__INITIAL_CUSTOM_POSTS__) && window.__INITIAL_CUSTOM_POSTS__.length > 0) {
-    const normalized = filterDeleted(window.__INITIAL_CUSTOM_POSTS__.map(normalizeBlogPost));
-    try {
-      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(normalized));
-    } catch {}
-    return normalized;
-  }
-  // 2. Fallback to localStorage
+  // 1. Read from localStorage first (local client always has the latest edits made in Admin)
+  let localList: BlogPost[] = [];
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      return filterDeleted(parsed.map(normalizeBlogPost));
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        localList = filterDeleted(parsed.map(normalizeBlogPost));
+      }
     }
-    return [];
-  } catch {
-    return [];
+  } catch {}
+
+  // 2. Read from window.__INITIAL_CUSTOM_POSTS__ (injected by server on page load)
+  let initialList: BlogPost[] = [];
+  if (typeof window !== 'undefined' && Array.isArray((window as any).__INITIAL_CUSTOM_POSTS__) && (window as any).__INITIAL_CUSTOM_POSTS__.length > 0) {
+    initialList = filterDeleted((window as any).__INITIAL_CUSTOM_POSTS__.map(normalizeBlogPost));
   }
+
+  // 3. Merge: Compare updatedAt between localList and initialList so newest edits always win
+  const postMap = new Map<string, BlogPost>();
+  initialList.forEach((p) => {
+    const key = (p.slug || p.id || '').toLowerCase().trim();
+    if (key) postMap.set(key, p);
+  });
+
+  localList.forEach((p) => {
+    const key = (p.slug || p.id || '').toLowerCase().trim();
+    if (key) {
+      const existing = postMap.get(key);
+      if (existing) {
+        const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+        const localTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
+        // Server data only overrides if strictly newer AND localTime is set
+        if (existTime > localTime && localTime > 0) {
+          return;
+        }
+      }
+      postMap.set(key, p);
+    }
+  });
+
+  const merged = Array.from(postMap.values());
+  if (merged.length > 0) {
+    try {
+      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
+      (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
+    } catch {}
+    return merged;
+  }
+
+  return [];
 }
 
 export function getAllBlogPosts(): BlogPost[] {
@@ -838,7 +874,19 @@ export function getAllBlogPosts(): BlogPost[] {
     const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const id = (p.id || '').toLowerCase().trim();
     if (!deleted.has(s) && !deleted.has(id)) {
-      if (!map.has(p.slug)) {
+      // Check if overridden by ANY custom post
+      const isOverridden = custom.some((cp) => {
+        const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+        const cpId = (cp.id || '').toLowerCase().trim();
+        const cpOldSlug = ((cp as any).oldSlug || (cp as any).previousSlug || '').toLowerCase().trim();
+        const sCanonical = (BLOG_SLUG_ALIASES[s] || s).toLowerCase();
+        const cpCanonical = (BLOG_SLUG_ALIASES[cpSlug] || cpSlug).toLowerCase();
+        return (
+          cpSlug === s || cpId === id || cpId === s || cpOldSlug === s || cpOldSlug === id ||
+          cpSlug === sCanonical || cpCanonical === s || cpCanonical === sCanonical
+        );
+      });
+      if (!isOverridden && !map.has(p.slug)) {
         map.set(p.slug, normalizeBlogPost(p));
       }
     }
@@ -849,32 +897,69 @@ export function getAllBlogPosts(): BlogPost[] {
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   if (!slug) return undefined;
   const cleanSlug = slug.replace(/^\/?blog\//, "").replace(/^\//, "").replace(/\/$/, "").toLowerCase();
-  const canonicalSlug = (BLOG_SLUG_ALIASES[cleanSlug] || cleanSlug).toLowerCase();
   const deleted = getDeletedPostSlugs();
-  if (deleted.has(cleanSlug) || deleted.has(canonicalSlug)) {
+  if (deleted.has(cleanSlug)) {
     return undefined;
   }
+
+  const canonicalSlug = (BLOG_SLUG_ALIASES[cleanSlug] || cleanSlug).toLowerCase();
+  if (deleted.has(canonicalSlug)) {
+    return undefined;
+  }
+
+  // 1. Direct match in custom posts first (highest priority for newly edited content)
+  const custom = getCustomBlogPosts();
+  const customMatch = custom.find((p) => {
+    const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const pId = (p.id || '').toLowerCase().trim();
+    const pOld = ((p as any).oldSlug || '').toLowerCase().trim();
+    return (
+      pSlug === cleanSlug || pId === cleanSlug || pOld === cleanSlug ||
+      pSlug === canonicalSlug || pId === canonicalSlug || pOld === canonicalSlug
+    );
+  });
+  if (customMatch) return normalizeBlogPost(customMatch);
+
   const all = getAllBlogPosts();
+
+  // 2. Direct match across all
+  const directMatch = all.find((p) => {
+    const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    return pSlug === cleanSlug || pId === cleanSlug;
+  });
+  if (directMatch) return directMatch;
+
   return all.find((p) => {
-    const pSlug = (p.slug || '').toLowerCase();
-    const pId = (p.id || '').toLowerCase();
-    return pSlug === canonicalSlug || pId === canonicalSlug || pSlug === cleanSlug || pId === cleanSlug;
+    const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    return pSlug === canonicalSlug || pId === canonicalSlug;
   });
 }
 
 export function isBlogPostSlug(slug: string): boolean {
   if (!slug) return false;
   const clean = slug.replace(/^\/?blog\//, "").replace(/^\//, "").replace(/\/$/, "").toLowerCase();
-  const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
   const deleted = getDeletedPostSlugs();
-  if (deleted.has(clean) || deleted.has(canonical)) {
+  if (deleted.has(clean)) {
     return false;
   }
   const all = getAllBlogPosts();
+  const directMatch = all.some((p) => {
+    const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    return pSlug === clean || pId === clean;
+  });
+  if (directMatch) return true;
+
+  const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+  if (deleted.has(canonical)) {
+    return false;
+  }
   return all.some((p) => {
-    const pSlug = (p.slug || '').toLowerCase();
-    const pId = (p.id || '').toLowerCase();
-    return pSlug === canonical || pId === canonical || pSlug === clean || pId === clean;
+    const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    return pSlug === canonical || pId === canonical;
   });
 }
 
@@ -900,51 +985,64 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
   const cacheBust = Date.now();
   const postMap = new Map<string, BlogPost>();
 
-  // 1. Fast static / local custom_blog_posts.json
+  // 1. Read existing localStorage first so newly saved local edits are NEVER lost!
   try {
-    const res = await fetch(`/custom_blog_posts.json?_t=${cacheBust}`);
+    const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        parsed.forEach((p) => {
+          if (p && (p.slug || p.id)) {
+            const key = (p.slug || p.id || '').toLowerCase().trim();
+            if (!deleted.has(key)) postMap.set(key, normalizeBlogPost(p));
+          }
+        });
+      }
+    }
+  } catch {}
+
+  const mergeItem = (p: any) => {
+    if (!p || (!p.slug && !p.id)) return;
+    const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const id = (p.id || '').toLowerCase().trim();
+    if (deleted.has(s) || deleted.has(id)) return;
+    const key = s || id;
+    const existing = postMap.get(key);
+    if (existing) {
+      const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+      const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
+      if (existTime > newTime) return; // Keep the newer one
+    }
+    postMap.set(key, normalizeBlogPost(p));
+  };
+
+  // 2. Fast static / local custom_blog_posts.json
+  try {
+    const res = await fetch(`/custom_blog_posts.json?_t=${cacheBust}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
-        data.forEach((p) => {
-          if (p && (p.slug || p.id)) {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            if (!deleted.has(s) && !deleted.has(id)) {
-              const normalized = normalizeBlogPost(p);
-              postMap.set(normalized.slug, normalized);
-            }
-          }
-        });
+        data.forEach(mergeItem);
       }
     }
   } catch {
     // ignore
   }
 
-  // 2. Try dynamic Express server API
+  // 3. Try dynamic Express server API
   try {
-    const res = await fetch(`/api/admin/posts?_t=${cacheBust}`);
+    const res = await fetch(`/api/admin/posts?_t=${cacheBust}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data.customPosts)) {
-        data.customPosts.forEach((p: any) => {
-          if (p && (p.slug || p.id)) {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            if (!deleted.has(s) && !deleted.has(id)) {
-              const normalized = normalizeBlogPost(p);
-              postMap.set(normalized.slug, normalized);
-            }
-          }
-        });
+        data.customPosts.forEach(mergeItem);
       }
     }
   } catch {
     // ignore
   }
 
-  // 3. Cloud Firestore (source of truth for admin posts across devices)
+  // 4. Cloud Firestore (source of truth for admin posts across devices)
   try {
     const { getPostsFromFirestore } = await import('../firebase');
     const cloudPromise = getPostsFromFirestore();
@@ -954,14 +1052,9 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
     const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
     if (Array.isArray(cloudPosts)) {
       cloudPosts.forEach((p) => {
-        if (p && (p.slug || p.id)) {
-          const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-          const id = (p.id || '').toLowerCase().trim();
-          deleted.delete(s);
-          deleted.delete(id);
-          const normalized = normalizeBlogPost(p);
-          postMap.set(normalized.slug, normalized);
-        }
+        if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
+        if (p.id) deleted.delete(p.id.toLowerCase().trim());
+        mergeItem(p);
       });
     }
   } catch {
@@ -970,7 +1063,7 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
 
   const merged = Array.from(postMap.values());
   try {
-    window.__INITIAL_CUSTOM_POSTS__ = merged;
+    (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
     localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
     // Register all slugs into KNOWN_BLOG_SLUGS dynamically
     const { KNOWN_BLOG_SLUGS } = await import('./blogSlugs');

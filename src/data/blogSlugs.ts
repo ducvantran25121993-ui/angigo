@@ -24,6 +24,7 @@ export const KNOWN_BLOG_SLUGS_LIST: string[] = [
   "hom-nay-an-gi-voi-100-nghin",
   "hom-nay-an-gi-cho-4-nguoi",
   "an-gi-cho-do-ngan",
+  "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
   "hom-nay-an-gi-khi-ban-ron",
   "top-10-mon-an-vat-sai-gon",
   "bi-quyet-nau-pho-bo-ha-noi",

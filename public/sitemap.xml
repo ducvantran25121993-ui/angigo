@@ -2213,7 +2213,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/an-gi-cho-do-ngan</loc>
+    <loc>https://angigio.com/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -2470,16 +2470,6 @@
     <image:image>
       <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
       <image:title>Hôm Nay Ăn Gì Cho 4 Người? Thực Đơn Mâm Cơm Gia Đình Chuẩn Ngon</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/hom-nay-an-gi-khi-ban-ron</loc>
-    <lastmod>2026-10-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/com_tam.jpg</image:loc>
-      <image:title>Hôm Nay Ăn Gì Khi Bận? 10 Món Ngon Dễ Làm Nấu Nhanh Dưới 15 Phút</image:title>
     </image:image>
   </url>
 </urlset>

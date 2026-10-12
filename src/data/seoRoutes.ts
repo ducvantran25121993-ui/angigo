@@ -326,12 +326,18 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
     // ignore
   }
 
-  // Add initial blog posts if not deleted
+  // Add initial blog posts if not deleted and not overridden
   INITIAL_BLOG_POSTS.forEach((p) => {
     const clean = String(p.slug).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const cleanId = String(p.id || '').toLowerCase().trim();
     if (!deletedSlugs.has(clean) && !deletedSlugs.has(cleanId)) {
-      if (!blogPostMap.has(p.slug)) {
+      const isOverridden = Array.from(blogPostMap.values()).some((cp: any) => {
+        const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+        const cpId = (cp.id || '').toLowerCase().trim();
+        const cpOldSlug = ((cp as any).oldSlug || (cp as any).previousSlug || '').toLowerCase().trim();
+        return cpSlug === clean || cpId === cleanId || cpId === clean || cpOldSlug === clean || cpOldSlug === cleanId;
+      });
+      if (!isOverridden && !blogPostMap.has(p.slug)) {
         blogPostMap.set(p.slug, p);
       }
     }

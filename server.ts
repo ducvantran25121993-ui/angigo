@@ -527,6 +527,37 @@ const CUSTOM_POSTS_FILE = path.join(process.cwd(), "public", "custom_blog_posts.
 const DIST_POSTS_FILE = path.join(process.cwd(), "dist", "custom_blog_posts.json");
 const DELETED_POSTS_FILE = path.join(process.cwd(), "public", "deleted_posts.json");
 const DIST_DELETED_POSTS_FILE = path.join(process.cwd(), "dist", "deleted_posts.json");
+const DYNAMIC_ALIASES_FILE = path.join(process.cwd(), "public", "dynamic_slug_aliases.json");
+const DIST_DYNAMIC_ALIASES_FILE = path.join(process.cwd(), "dist", "dynamic_slug_aliases.json");
+
+function loadDynamicAliases(): Record<string, string> {
+  try {
+    if (fs.existsSync(DYNAMIC_ALIASES_FILE)) {
+      return JSON.parse(fs.readFileSync(DYNAMIC_ALIASES_FILE, "utf-8"));
+    }
+    if (fs.existsSync(DIST_DYNAMIC_ALIASES_FILE)) {
+      return JSON.parse(fs.readFileSync(DIST_DYNAMIC_ALIASES_FILE, "utf-8"));
+    }
+  } catch {}
+  return {};
+}
+
+function saveDynamicAlias(oldSlug: string, newSlug: string) {
+  if (!oldSlug || !newSlug || oldSlug === newSlug) return;
+  try {
+    const aliases = loadDynamicAliases();
+    aliases[oldSlug.toLowerCase().trim()] = newSlug.toLowerCase().trim();
+    const dir = path.dirname(DYNAMIC_ALIASES_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(DYNAMIC_ALIASES_FILE, JSON.stringify(aliases, null, 2), "utf-8");
+    const distDir = path.dirname(DIST_DYNAMIC_ALIASES_FILE);
+    if (fs.existsSync(distDir)) {
+      fs.writeFileSync(DIST_DYNAMIC_ALIASES_FILE, JSON.stringify(aliases, null, 2), "utf-8");
+    }
+  } catch (err) {
+    console.error("Error saving dynamic alias:", err);
+  }
+}
 
 function loadDeletedPostSlugs(): string[] {
   try {
@@ -756,7 +787,7 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     const allList = Array.from(map.values());
     const merged = allList.map((p) => ({
       ...p,
-      content: enrichPostContentLinks(p.content, allList),
+      content: p.content || '',
     }));
     saveCustomBlogPosts(merged);
     return merged;
@@ -862,6 +893,9 @@ function addUrlToSitemap(_slug: string) {
 
 // API: Get all blog posts (initial + custom)
 app.get("/api/admin/posts", async (_req, res) => {
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
   const deletedSlugs = new Set(await syncFirestoreDeletedPosts());
   const customPosts = (await syncFirestorePostsToServer()).filter((p) => {
     const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -870,12 +904,28 @@ app.get("/api/admin/posts", async (_req, res) => {
   });
   const postMap = new Map<string, any>();
   // Custom posts first
-  customPosts.forEach((p) => postMap.set(p.slug, p));
+  customPosts.forEach((p) => {
+    const key = (p.slug || p.id || '').toLowerCase().trim();
+    if (key) postMap.set(key, p);
+  });
   INITIAL_BLOG_POSTS.forEach((p) => {
     const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const id = (p.id || '').toLowerCase().trim();
     if (!deletedSlugs.has(s) && !deletedSlugs.has(id)) {
-      if (!postMap.has(p.slug)) postMap.set(p.slug, p);
+      const isOverridden = customPosts.some((cp) => {
+        const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+        const cpId = (cp.id || '').toLowerCase().trim();
+        const cpOldSlug = ((cp.oldSlug || cp.previousSlug || '')).toLowerCase().trim();
+        const sCanonical = (BLOG_SLUG_ALIASES[s] || s).toLowerCase();
+        const cpCanonical = (BLOG_SLUG_ALIASES[cpSlug] || cpSlug).toLowerCase();
+        return (
+          cpSlug === s || cpId === id || cpId === s || cpOldSlug === s || cpOldSlug === id ||
+          cpSlug === sCanonical || cpCanonical === s || cpCanonical === sCanonical
+        );
+      });
+      if (!isOverridden && !postMap.has(s)) {
+        postMap.set(s, p);
+      }
     }
   });
   return res.json({
@@ -890,11 +940,20 @@ let SEO_ROUTES_CONFIG = getAllSeoRoutes();
 
 function injectSeoMeta(html: string, requestedPath: string): string {
   const cleanPath = requestedPath.replace(/\/$/, "") || "/";
-  const slug = cleanPath.replace(/^\//, "").replace(/^\/?blog\//, "");
+  const slug = cleanPath.replace(/^\//, "").replace(/^\/?blog\//, "").toLowerCase();
 
   // 1. Check custom posts first so any newly published or edited admin posts take immediate effect
   const customPosts = loadCustomBlogPosts();
-  const customMatch = customPosts.find((p) => p.slug === slug || p.id === slug);
+  const canonicalSlug = (BLOG_SLUG_ALIASES[slug] || slug).toLowerCase();
+  const customMatch = customPosts.find((p) => {
+    const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const pId = (p.id || '').toLowerCase().trim();
+    const pOld = ((p.oldSlug || p.previousSlug || '')).toLowerCase().trim();
+    return (
+      pSlug === slug || pId === slug || pOld === slug ||
+      pSlug === canonicalSlug || pId === canonicalSlug || pOld === canonicalSlug
+    );
+  });
   let meta = customMatch
     ? {
         path: `/${customMatch.slug}`,
@@ -1040,20 +1099,34 @@ function injectSeoMeta(html: string, requestedPath: string): string {
   // Inject initial custom posts so all devices and machines see new posts instantaneously on page load
   if (customPosts && Array.isArray(customPosts) && customPosts.length > 0) {
     const serialized = JSON.stringify(customPosts).replace(/</g, '\\u003c');
-    updatedHtml = updatedHtml.replace(
-      '</head>',
-      `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>\n  </head>`
-    );
+    if (updatedHtml.includes('window.__INITIAL_CUSTOM_POSTS__')) {
+      updatedHtml = updatedHtml.replace(
+        /<script>window\.__INITIAL_CUSTOM_POSTS__\s*=.*?<\/script>/,
+        `<script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>`
+      );
+    } else {
+      updatedHtml = updatedHtml.replace(
+        '</head>',
+        `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>\n  </head>`
+      );
+    }
   }
 
   // Inject initial deleted posts so all devices, browsers, and visitors filter out deleted posts instantaneously
   const deletedPosts = loadDeletedPostSlugs();
   if (deletedPosts && Array.isArray(deletedPosts) && deletedPosts.length > 0) {
     const serializedDeleted = JSON.stringify(deletedPosts).replace(/</g, '\\u003c');
-    updatedHtml = updatedHtml.replace(
-      '</head>',
-      `    <script>window.__INITIAL_DELETED_POSTS__ = ${serializedDeleted};</script>\n  </head>`
-    );
+    if (updatedHtml.includes('window.__INITIAL_DELETED_POSTS__')) {
+      updatedHtml = updatedHtml.replace(
+        /<script>window\.__INITIAL_DELETED_POSTS__\s*=.*?<\/script>/,
+        `<script>window.__INITIAL_DELETED_POSTS__ = ${serializedDeleted};</script>`
+      );
+    } else {
+      updatedHtml = updatedHtml.replace(
+        '</head>',
+        `    <script>window.__INITIAL_DELETED_POSTS__ = ${serializedDeleted};</script>\n  </head>`
+      );
+    }
   }
 
   return updatedHtml;
@@ -1069,13 +1142,27 @@ app.post("/api/admin/posts", async (req, res) => {
 
     const customPosts = loadCustomBlogPosts();
     const cleanSlug = postData.slug.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    const existingIdx = customPosts.findIndex((p) => p.slug === cleanSlug || p.id === postData.id);
+    const oldSlug = (postData.oldSlug || postData.previousSlug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
 
-    const enrichedContent = enrichPostContentLinks(postData.content, customPosts);
+    // If slug was renamed in Admin, automatically set up 301 alias redirect so old links never 404
+    if (oldSlug && oldSlug !== cleanSlug) {
+      saveDynamicAlias(oldSlug, cleanSlug);
+      try {
+        const oldFile = path.join(process.cwd(), "dist", `${oldSlug}.html`);
+        if (fs.existsSync(oldFile)) fs.unlinkSync(oldFile);
+        const oldSubDir = path.join(process.cwd(), "dist", oldSlug);
+        if (fs.existsSync(oldSubDir)) fs.rmSync(oldSubDir, { recursive: true, force: true });
+      } catch {}
+    }
+
+    const existingIdx = customPosts.findIndex(
+      (p) => p.slug === cleanSlug || p.id === cleanSlug || (oldSlug && (p.slug === oldSlug || p.id === oldSlug)) || (postData.id && p.id === postData.id)
+    );
+
     const savedPost = {
       ...postData,
-      content: enrichedContent,
-      id: postData.id || cleanSlug,
+      content: postData.content || "",
+      id: cleanSlug,
       slug: cleanSlug,
       publishDate: postData.publishDate || new Date().toLocaleDateString("vi-VN", { day: '2-digit', month: '2-digit', year: 'numeric' }),
       updatedAt: new Date().toISOString(),
@@ -1083,7 +1170,8 @@ app.post("/api/admin/posts", async (req, res) => {
 
     // If re-saving/creating, remove from deleted post blacklist
     removeDeletedPostSlug(cleanSlug);
-    removeDeletedPostSlug(postData.id || cleanSlug);
+    if (oldSlug) removeDeletedPostSlug(oldSlug);
+    if (postData.id) removeDeletedPostSlug(postData.id);
 
     if (existingIdx >= 0) {
       customPosts[existingIdx] = savedPost;
@@ -1099,12 +1187,39 @@ app.post("/api/admin/posts", async (req, res) => {
       const distIndex = path.join(process.cwd(), "dist", "index.html");
       if (fs.existsSync(distIndex)) {
         const baseHtml = fs.readFileSync(distIndex, "utf-8");
+        // Update post HTML
         const seoHtml = injectSeoMeta(baseHtml, `/${cleanSlug}`);
         const distFile = path.join(process.cwd(), "dist", `${cleanSlug}.html`);
         fs.writeFileSync(distFile, seoHtml, "utf-8");
         const distSubDir = path.join(process.cwd(), "dist", cleanSlug);
         if (!fs.existsSync(distSubDir)) fs.mkdirSync(distSubDir, { recursive: true });
         fs.writeFileSync(path.join(distSubDir, "index.html"), seoHtml, "utf-8");
+
+        // Update SPA shell index.html with fresh __INITIAL_CUSTOM_POSTS__
+        const updatedIndex = injectSeoMeta(baseHtml, "/");
+        fs.writeFileSync(distIndex, updatedIndex, "utf-8");
+
+        // Update blog listing if present
+        const blogFile = path.join(process.cwd(), "dist", "blog.html");
+        if (fs.existsSync(blogFile)) {
+          fs.writeFileSync(blogFile, injectSeoMeta(baseHtml, "/blog"), "utf-8");
+        }
+        const blogSub = path.join(process.cwd(), "dist", "blog", "index.html");
+        if (fs.existsSync(blogSub)) {
+          fs.writeFileSync(blogSub, injectSeoMeta(baseHtml, "/blog"), "utf-8");
+        }
+
+        // Update any aliases pointing to cleanSlug
+        for (const [aliasKey, targetSlug] of Object.entries(BLOG_SLUG_ALIASES)) {
+          if (targetSlug.toLowerCase() === cleanSlug) {
+            const aliasHtml = injectSeoMeta(baseHtml, `/${aliasKey}`);
+            const aliasFile = path.join(process.cwd(), "dist", `${aliasKey}.html`);
+            fs.writeFileSync(aliasFile, aliasHtml, "utf-8");
+            const aliasSub = path.join(process.cwd(), "dist", aliasKey);
+            if (!fs.existsSync(aliasSub)) fs.mkdirSync(aliasSub, { recursive: true });
+            fs.writeFileSync(path.join(aliasSub, "index.html"), aliasHtml, "utf-8");
+          }
+        }
       }
     } catch (ssgErr) {
       console.warn("Could not generate static post html:", ssgErr);
@@ -1137,6 +1252,17 @@ app.post("/api/admin/posts", async (req, res) => {
           featured: Boolean(savedPost.featured),
           updatedAt: savedPost.updatedAt,
         });
+
+        // If renamed from oldSlug, delete old doc from Firestore
+        if (oldSlug && oldSlug !== cleanSlug) {
+          const oldDocId = oldSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+          if (oldDocId !== docId) {
+            await deleteDoc(doc(db, "posts", oldDocId)).catch(() => {});
+            if (oldSlug !== oldDocId) {
+              await deleteDoc(doc(db, "posts", oldSlug)).catch(() => {});
+            }
+          }
+        }
 
         // Unmark from Firestore deleted_posts
         await deleteDoc(doc(db, "deleted_posts", docId)).catch(() => {});
@@ -1610,11 +1736,43 @@ async function startServer() {
   });
 
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
-  for (const [aliasSlug, canonicalSlug] of Object.entries(BLOG_SLUG_ALIASES)) {
-    app.get(`/${aliasSlug}`, (_req, res) => {
-      res.redirect(301, `/${canonicalSlug}`);
+  // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
+  app.use((req, res, next) => {
+    if (req.method !== "GET" && req.method !== "HEAD") return next();
+    const cleanPath = req.path.toLowerCase().replace(/^\//, '').replace(/\/$/, '');
+    if (!cleanPath || cleanPath.startsWith("api") || cleanPath.startsWith("@") || cleanPath.includes(".")) {
+      return next();
+    }
+
+    // 1. If cleanPath is an active custom post, ALWAYS allow direct serving
+    const customPosts = loadCustomBlogPosts();
+    const isDirectCustomPost = customPosts.some((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      return s === cleanPath;
     });
-  }
+    if (isDirectCustomPost) {
+      return next();
+    }
+
+    // 2. Check dynamic aliases (from posts renamed in Admin)
+    const dynamicAliases = loadDynamicAliases();
+    if (dynamicAliases[cleanPath]) {
+      const target = dynamicAliases[cleanPath];
+      if (target.toLowerCase() !== cleanPath) {
+        return res.redirect(301, `/${target}`);
+      }
+    }
+
+    // 3. Check static BLOG_SLUG_ALIASES
+    if (BLOG_SLUG_ALIASES[cleanPath]) {
+      const target = BLOG_SLUG_ALIASES[cleanPath];
+      if (target.toLowerCase() !== cleanPath) {
+        return res.redirect(301, `/${target}`);
+      }
+    }
+
+    next();
+  });
 
   // Intercept deleted blog posts globally so deleted posts are NEVER served across any machine or browser
   app.use((req, res, next) => {
@@ -1655,7 +1813,12 @@ async function startServer() {
           const rawHtml = fs.readFileSync(path.join(process.cwd(), "index.html"), "utf-8");
           const transformedHtml = await vite.transformIndexHtml(req.originalUrl, rawHtml);
           const seoHtml = injectSeoMeta(transformedHtml, req.path);
-          return res.status(200).set({ "Content-Type": "text/html; charset=utf-8" }).end(seoHtml);
+          return res.status(200).set({
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "no-cache, no-store, must-revalidate",
+            "Pragma": "no-cache",
+            "Expires": "0",
+          }).end(seoHtml);
         } catch (e) {
           return next(e);
         }
@@ -1677,7 +1840,12 @@ async function startServer() {
       if (fs.existsSync(indexPath)) {
         const rawHtml = fs.readFileSync(indexPath, "utf-8");
         const seoHtml = injectSeoMeta(rawHtml, req.path);
-        res.status(200).set({ "Content-Type": "text/html; charset=utf-8" }).send(seoHtml);
+        res.status(200).set({
+          "Content-Type": "text/html; charset=utf-8",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          "Pragma": "no-cache",
+          "Expires": "0",
+        }).send(seoHtml);
       } else {
         res.status(404).send("Application dist index.html not found");
       }

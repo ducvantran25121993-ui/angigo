@@ -104,7 +104,14 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
       if (!deletedSlugs.has(s) && !deletedSlugs.has(id)) {
-        if (!postMap.has(p.slug)) {
+        // Check if overridden by ANY custom post
+        const isOverridden = (customPosts || []).some((cp) => {
+          const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          const cpId = (cp.id || '').toLowerCase().trim();
+          const cpOldSlug = ((cp as any).oldSlug || (cp as any).previousSlug || '').toLowerCase().trim();
+          return cpSlug === s || cpId === id || cpId === s || cpOldSlug === s || cpOldSlug === id;
+        });
+        if (!isOverridden && !postMap.has(p.slug)) {
           postMap.set(p.slug, normalizeBlogPost(p));
         }
       }
@@ -129,7 +136,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         if (currentDel.has(currentSlug.toLowerCase())) {
           setActivePost(null);
         } else {
-          const updated = synced.find((p) => p.slug === currentSlug || p.id === currentSlug);
+          const updated = getBlogPostBySlug(currentSlug);
           if (updated) {
             setActivePost(normalizeBlogPost(updated));
           }
@@ -140,7 +147,16 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
 
     const handleCustomPostsUpdated = () => {
       setDeletedSlugs(getDeletedPostSlugs());
-      setCustomPosts(getCustomBlogPosts().map(normalizeBlogPost));
+      const latest = getCustomBlogPosts().map(normalizeBlogPost);
+      setCustomPosts(latest);
+      const pathname = window.location.pathname.replace(/\/$/, '') || '';
+      if (pathname !== '/blog' && pathname !== '') {
+        const currentSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
+        const updated = getBlogPostBySlug(currentSlug);
+        if (updated) {
+          setActivePost(normalizeBlogPost(updated));
+        }
+      }
     };
     window.addEventListener('custom-posts-updated', handleCustomPostsUpdated);
     return () => {
@@ -156,42 +172,20 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         setActivePost(null);
       } else if (pathname.startsWith('/blog/')) {
         const slug = pathname.replace('/blog/', '');
-        const post = allPosts.find((p) => p.slug === slug || p.id === slug) || getBlogPostBySlug(slug) || null;
-        setActivePost(post);
+        const post = getBlogPostBySlug(slug) || allPosts.find((p) => p.slug === slug || p.id === slug) || null;
+        setActivePost(post ? normalizeBlogPost(post) : null);
       } else {
         const slug = pathname.replace(/^\//, '');
-        const post = allPosts.find((p) => p.slug === slug || p.id === slug) || getBlogPostBySlug(slug) || null;
-        setActivePost(post);
+        const post = getBlogPostBySlug(slug) || allPosts.find((p) => p.slug === slug || p.id === slug) || null;
+        setActivePost(post ? normalizeBlogPost(post) : null);
       }
     };
     window.addEventListener('popstate', handleUrlChange);
     window.addEventListener('locationchange', handleUrlChange);
 
-    const handleCustomPostsUpdated = () => {
-      try {
-        const saved = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          setCustomPosts(parsed);
-          const pathname = window.location.pathname.replace(/\/$/, '') || '';
-          if (pathname !== '/blog' && pathname !== '') {
-            const currentSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
-            const updated = parsed.find((p: BlogPost) => p.slug === currentSlug || p.id === currentSlug);
-            if (updated) {
-              setActivePost(normalizeBlogPost(updated));
-            }
-          }
-        }
-      } catch {
-        // ignore
-      }
-    };
-    window.addEventListener('custom-posts-updated', handleCustomPostsUpdated);
-
     return () => {
       window.removeEventListener('popstate', handleUrlChange);
       window.removeEventListener('locationchange', handleUrlChange);
-      window.removeEventListener('custom-posts-updated', handleCustomPostsUpdated);
     };
   }, [allPosts]);
 
@@ -200,15 +194,20 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     const pathname = window.location.pathname.replace(/\/$/, '') || '';
     if (pathname !== '/blog' && pathname !== '') {
       const slug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
-      const found = allPosts.find((p) => p.slug === slug || p.id === slug) || getBlogPostBySlug(slug);
+      const found = getBlogPostBySlug(slug) || allPosts.find((p) => p.slug === slug || p.id === slug);
       if (
         found &&
         (!activePost ||
+          activePost.id !== found.id ||
           activePost.slug !== found.slug ||
+          activePost.title !== found.title ||
           activePost.content !== found.content ||
-          activePost.coverImage !== found.coverImage)
+          activePost.coverImage !== found.coverImage ||
+          activePost.excerpt !== found.excerpt ||
+          activePost.publishDate !== found.publishDate ||
+          activePost.updatedAt !== found.updatedAt)
       ) {
-        setActivePost(found);
+        setActivePost(normalizeBlogPost(found));
       }
     }
   }, [allPosts]);
@@ -555,7 +554,25 @@ ${newContent}
     );
   };
 
-  // Helper to parse inline markdown & HTML: images, bold and links
+  // Helper to parse CSS style string into React.CSSProperties
+  const parseInlineCss = (styleStr: string): React.CSSProperties => {
+    const res: Record<string, string> = {};
+    if (!styleStr) return res;
+    styleStr.split(';').forEach((pair) => {
+      const idx = pair.indexOf(':');
+      if (idx > -1) {
+        const prop = pair.slice(0, idx).trim().toLowerCase();
+        const val = pair.slice(idx + 1).trim();
+        if (prop && val) {
+          const camel = prop.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
+          res[camel] = val;
+        }
+      }
+    });
+    return res as React.CSSProperties;
+  };
+
+  // Helper to parse inline markdown & HTML: images, bold, colors, underlines, highlights, and links
   const parseInlineContent = (text: string): React.ReactNode => {
     if (!text) return null;
 
@@ -578,8 +595,8 @@ ${newContent}
       }
     }
 
-    // Tokenizer regex: matches markdown images, markdown links, html links, bold, or raw URLs
-    const TOKEN_REGEX = /(!\[[^\]]*\]\([^)]+\)|\[[^\]]+\]\([^)]+\)|<a\s+[^>]*>.*?<\/a>|\*\*[^*]+\*\*|https?:\/\/[^\s<)"']+|(?:\b)angigio\.com\/[^\s<)"']+)/gi;
+    // Tokenizer regex: matches markdown images, links, html styled spans, u, mark, sub, sup, bold, italic, del, or raw URLs
+    const TOKEN_REGEX = /(!\[[^\]]*\]\([^)]+\)|\[[^\]]+\]\([^)]+\)|<a\s+[^>]*>.*?<\/a>|<span\s+[^>]*>.*?<\/span>|<mark\s*[^>]*>.*?<\/mark>|<u>.*?<\/u>|<sub>.*?<\/sub>|<sup>.*?<\/sup>|~~[^~]+~~|\*\*[^*]+\*\*|\*[^*]+\*|https?:\/\/[^\s<)"']+|(?:\b)angigio\.com\/[^\s<)"']+)/gi;
     const parts = enriched.split(TOKEN_REGEX);
 
     return parts.map((part, index) => {
@@ -628,7 +645,63 @@ ${newContent}
         return renderClickableLink(rawLabel.trim() || rawHref.trim(), rawHref.trim(), index);
       }
 
-      // 4. Bare / Raw URL: https://... or angigio.com/...
+      // 4. HTML Styled span (<span style="...">...</span>)
+      const spanMatch = part.match(/^<span\s+[^>]*style=["']([^"']*)["'][^>]*>(.*?)<\/span>$/i);
+      if (spanMatch) {
+        const [, styleStr, inner] = spanMatch;
+        return (
+          <span key={`span-${index}`} style={parseInlineCss(styleStr)}>
+            {parseInlineContent(inner)}
+          </span>
+        );
+      }
+
+      // 5. HTML Underline (<u>...</u>)
+      const uMatch = part.match(/^<u>(.*?)<\/u>$/i);
+      if (uMatch) {
+        return (
+          <u key={`u-${index}`} className="underline underline-offset-2">
+            {parseInlineContent(uMatch[1])}
+          </u>
+        );
+      }
+
+      // 6. HTML Mark (<mark style="...">...</mark>)
+      const markMatch = part.match(/^<mark(?:\s+[^>]*style=["']([^"']*)["'])?[^>]*>(.*?)<\/mark>$/i);
+      if (markMatch) {
+        const [, styleStr, inner] = markMatch;
+        return (
+          <mark
+            key={`mark-${index}`}
+            className="bg-amber-200/80 px-1 py-0.5 rounded-xs text-stone-900"
+            style={styleStr ? parseInlineCss(styleStr) : undefined}
+          >
+            {parseInlineContent(inner)}
+          </mark>
+        );
+      }
+
+      // 7. HTML sub / sup
+      const subMatch = part.match(/^<sub>(.*?)<\/sub>$/i);
+      if (subMatch) {
+        return <sub key={`sub-${index}`}>{parseInlineContent(subMatch[1])}</sub>;
+      }
+      const supMatch = part.match(/^<sup>(.*?)<\/sup>$/i);
+      if (supMatch) {
+        return <sup key={`sup-${index}`}>{parseInlineContent(supMatch[1])}</sup>;
+      }
+
+      // 8. Strikethrough ~~text~~
+      const delMatch = part.match(/^~~([^~]+)~~$/);
+      if (delMatch) {
+        return (
+          <del key={`del-${index}`} className="line-through text-stone-400">
+            {parseInlineContent(delMatch[1])}
+          </del>
+        );
+      }
+
+      // 9. Bare / Raw URL: https://... or angigio.com/...
       if (/^(?:https?:\/\/[^\s<)"']+|(?:\b)angigio\.com\/[^\s<)"']+)$/i.test(part.trim())) {
         const rawUrl = part.trim();
         const fullHref = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
@@ -638,13 +711,23 @@ ${newContent}
         return renderClickableLink(displayLabel, fullHref, index);
       }
 
-      // 5. Bold: **text** (recursively parse inside so bold links work)
+      // 10. Bold: **text** (recursively parse inside so bold links work)
       const boldMatch = part.match(/^\*\*([^*]+)\*\*$/);
       if (boldMatch) {
         return (
           <strong key={`inline-bold-${index}`} className="font-extrabold text-stone-900">
             {parseInlineContent(boldMatch[1])}
           </strong>
+        );
+      }
+
+      // 11. Italic: *text*
+      const italicMatch = part.match(/^\*([^*]+)\*$/);
+      if (italicMatch) {
+        return (
+          <em key={`inline-italic-${index}`} className="italic">
+            {parseInlineContent(italicMatch[1])}
+          </em>
         );
       }
 
@@ -1020,6 +1103,32 @@ ${newContent}
             </figure>
           );
         }
+      } else if (line.match(/^<div\s+[^>]*style=["'][^"']*text-align:\s*(center|right|justify)[^"']*["'][^>]*>(.*?)<\/div>$/i)) {
+        const alignMatch = line.match(/^<div\s+[^>]*style=["'][^"']*text-align:\s*(center|right|justify)[^"']*["'][^>]*>(.*?)<\/div>$/i)!;
+        const [, alignDir, innerText] = alignMatch;
+        elements.push(
+          <div
+            key={`aligned-${currentKey++}`}
+            className="my-3 leading-relaxed text-sm sm:text-base text-stone-700"
+            style={{ textAlign: alignDir as any }}
+          >
+            {parseInlineContent(innerText)}
+          </div>
+        );
+      } else if (line.trim().startsWith('<p') && line.trim().endsWith('</p>')) {
+        const innerText = line.trim().replace(/^<p[^>]*>/i, '').replace(/<\/p>$/i, '');
+        if (!innerText.trim() || innerText.trim() === '&nbsp;') {
+          elements.push(<div key={`spacer-${currentKey++}`} className="h-3" />);
+        } else {
+          elements.push(
+            <p
+              key={`p-html-${currentKey++}`}
+              className="text-stone-700 my-3 leading-relaxed text-sm sm:text-base"
+            >
+              {parseInlineContent(innerText)}
+            </p>
+          );
+        }
       } else if (line.trim().length > 0) {
         elements.push(
           <p
@@ -1350,8 +1459,14 @@ ${newContent}
 
           {/* Featured Post Card (Show when viewing "Tất Cả" and no search query) */}
           {selectedCategory === 'Tất Cả' && !searchQuery && featuredPost && (
-            <div
-              onClick={() => handleOpenPost(featuredPost)}
+            <a
+              href={`/${featuredPost.slug}`}
+              onClick={(e) => {
+                if (!e.ctrlKey && !e.metaKey && e.button === 0) {
+                  e.preventDefault();
+                  handleOpenPost(featuredPost);
+                }
+              }}
               className="group bg-white rounded-3xl overflow-hidden border border-stone-200/90 shadow-sm hover:shadow-xl transition-all duration-300 mb-10 cursor-pointer grid grid-cols-1 lg:grid-cols-12"
             >
               <div className="lg:col-span-7 relative overflow-hidden aspect-16/10 lg:aspect-auto min-h-[260px] lg:min-h-[380px]">
@@ -1424,7 +1539,7 @@ ${newContent}
                   </span>
                 </div>
               </div>
-            </div>
+            </a>
           )}
 
           {/* Posts Grid */}
@@ -1485,9 +1600,15 @@ ${newContent}
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredPosts.map((post) => (
-                <div
-                  key={post.id}
-                  onClick={() => handleOpenPost(post)}
+                <a
+                  key={post.slug || post.id}
+                  href={`/${post.slug}`}
+                  onClick={(e) => {
+                    if (!e.ctrlKey && !e.metaKey && e.button === 0) {
+                      e.preventDefault();
+                      handleOpenPost(post);
+                    }
+                  }}
                   className="group bg-white rounded-3xl overflow-hidden border border-stone-200/80 shadow-2xs hover:shadow-lg hover:border-orange-200 transition-all duration-300 cursor-pointer flex flex-col justify-between"
                 >
                   <div>
@@ -1554,7 +1675,7 @@ ${newContent}
                       Đọc tiếp <ChevronRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           )}

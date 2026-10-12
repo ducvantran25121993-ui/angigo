@@ -91,13 +91,14 @@ if (typeof window !== 'undefined') {
 /**
  * Save / Update a post in Cloud Firestore
  */
-export async function savePostToFirestore(post: BlogPost): Promise<void> {
-  const docId = (post.slug || post.id).toLowerCase().replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Promise<void> {
+  const cleanSlug = (post.slug || post.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+  const docId = cleanSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
   const path = `posts/${docId}`;
   
   const payload = {
-    id: post.id || docId,
-    slug: post.slug || docId,
+    id: cleanSlug,
+    slug: cleanSlug,
     title: post.title || '',
     excerpt: post.excerpt || '',
     content: post.content || '',
@@ -115,13 +116,24 @@ export async function savePostToFirestore(post: BlogPost): Promise<void> {
 
   try {
     await setDoc(doc(db, 'posts', docId), payload);
+
+    // If slug was renamed, delete old document from Firestore so there are no duplicates
+    if (oldSlug) {
+      const cleanOldSlug = String(oldSlug).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const oldDocId = cleanOldSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+      if (oldDocId && oldDocId !== docId) {
+        await deleteDoc(doc(db, 'posts', oldDocId)).catch(() => {});
+        if (cleanOldSlug !== oldDocId) {
+          await deleteDoc(doc(db, 'posts', cleanOldSlug)).catch(() => {});
+        }
+      }
+      await removeDeletedPostFromFirestore(cleanOldSlug).catch(() => {});
+    }
+
     // Remove from deleted_posts if it was previously marked deleted
     await removeDeletedPostFromFirestore(docId).catch(() => {});
-    if (post.slug && post.slug !== docId) {
-      await removeDeletedPostFromFirestore(post.slug).catch(() => {});
-    }
-    if (post.id && post.id !== docId) {
-      await removeDeletedPostFromFirestore(post.id).catch(() => {});
+    if (cleanSlug && cleanSlug !== docId) {
+      await removeDeletedPostFromFirestore(cleanSlug).catch(() => {});
     }
   } catch (error) {
     handleFirestoreError(error, OperationType.WRITE, path);

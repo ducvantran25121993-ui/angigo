@@ -5774,6 +5774,483 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chấm cùng chén nước tương tỏi ớt hiểm hoặc đĩa ớt ngâm giấm chua cay, vắt thêm miếng chanh tươi và ăn kèm rau cần tàu giòn ngọt mát lạnh.',
   },
+
+  'hu-tieu-go-sai-gon': {
+    dishId: 'hu-tieu-go-sai-gon',
+    dishName: 'Hủ Tiếu Gõ Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    seoTitle: 'Cách Nấu Hủ Tiếu Gõ Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    prepTime: '25 phút',
+    cookTime: '1.5 giờ',
+    difficulty: 'Dễ',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Xương & Nước dùng thanh ngọt bí truyền xe gõ',
+        items: [
+          '800g - 1kg xương ống heo hoặc xương bay heo (chọn xương tươi, tủy đỏ hồng)',
+          '500g xương gà (ninh cùng xương heo giúp nước trong vắt và ngọt thanh tao)',
+          '50g tôm khô loại ngon (ngâm nước ấm 15 phút, rửa sạch cát)',
+          '1 con khô mực nhỏ hoặc râu mực khô (nướng thơm vàng, đập dập - bí quyết mùi thơm xe gõ đêm)',
+          '1 củ cải trắng & 1 củ sắn (củ đậu) gọt vỏ cắt khoanh dày (tạo vị ngọt mát tự nhiên của nước lèo)',
+          '1 củ hành tây nướng thơm lột vỏ, vài cọng rễ ngò rí rửa sạch',
+          'Gia vị nấu nước dùng: 2 thìa canh đường phèn, 2 thìa canh muối hạt, 2 thìa canh nước mắm nhĩ, 1 thìa cà phê hạt nêm',
+        ],
+      },
+      {
+        category: 'Topping bình dân đúng chuẩn hủ tiếu gõ Sài Gòn',
+        items: [
+          '300g thịt nạc thăn hoặc nạc dăm heo tươi (luộc chín trong nồi nước dùng, thái lát mỏng tang)',
+          '1 khoanh móng giò heo hoặc 300g sườn non chặt khúc vừa ăn (tùy thích)',
+          '150g thịt heo xay nhuyễn (xào tơi với hành tím, tiêu xay thơm lừng)',
+          '150g bò viên gân (khía hoa chữ thập, thả vào nồi nước dùng cho nở giòn dai)',
+          '10 quả trứng cút luộc bóc vỏ (tùy thích)',
+          '150g mỡ gáy heo thái hạt lựu (thắng tóp mỡ giòn rụm) & 1 chén hành tím, tỏi băm phi vàng thơm',
+        ],
+      },
+      {
+        category: 'Sợi hủ tiếu, Rau ăn kèm & Nước chấm',
+        items: [
+          '500g sợi hủ tiếu dai khô (hủ tiếu Sa Đéc hoặc Mỹ Tho)',
+          '1 bó hẹ lá tươi cắt khúc ngắn (linh hồn không thể thiếu của hủ tiếu gõ)',
+          '200g giá đỗ tươi giòn, hành lá thái nhỏ, ngò rí, tiêu đen xay thơm nồng',
+          'Ăn kèm: Chanh tươi, ớt hiểm đỏ thái lát, ớt ngâm giấm chua cay, nước tương (xì dầu) nguyên chất',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế sạch xương & Ninh nước dùng thanh ngọt từ củ sắn, tôm khô',
+        time: '15 phút (ninh 1.5 giờ)',
+        heat: 'Lửa lớn đun sôi rồi hạ lửa nhỏ liu riu',
+        goal: 'Nước lèo trong vắt không váng bẩn, ngọt mát tự nhiên từ tủy xương và củ quả, thoang thoảng mùi mực nướng thơm nức',
+        actionPoints: [
+          'Chặt xương heo và xương gà thành khúc vừa. Đun sôi nồi nước với 1 thìa muối và vài lát gừng, thả toàn bộ xương vào chần trong 3 - 5 phút cho nhả sạch bọt máu đọng. Vớt ra xả rửa từng khúc xương thật sạch dưới vòi nước lạnh.',
+          'Mực khô nướng trên lửa nhỏ cho thơm nức mũi, đập dập xé nhỏ. Tôm khô ngâm nước ấm 15 phút, rửa sạch để ráo.',
+          'Cho xương heo và xương gà vào nồi cùng 3.5 - 4 lít nước lọc. Cho mực nướng, tôm khô, củ cải trắng, củ sắn (củ đậu) cắt khúc, hành tây nướng và rễ ngò rí vào cùng.',
+          'Đun sôi bùng lên thì hạ lửa nhỏ liu riu. Hớt sạch bọt nổi trong 10 - 15 phút đầu, giữ nồi nước sôi lăn tăn và tuyệt đối KHÔNG đậy nắp vung để nước dùng trong vắt.',
+          'Nêm 2 thìa canh đường phèn và muối hạt. Ninh liu riu trong 1 - 1.5 giờ cho xương và củ quả tiết trọn vị ngọt thanh mát.',
+        ],
+        description:
+          'Chần sạch xương heo và xương gà rồi rửa kỹ. Cho xương vào ninh cùng mực khô nướng, tôm khô, củ cải trắng, củ sắn (củ đậu) và hành tây nướng trên lửa nhỏ, hớt bọt thường xuyên để nước dùng trong vắt, ngọt thanh dịu mát chuẩn vị xe gõ.',
+        tip: 'Bí quyết nước dùng hủ tiếu gõ ngọt thanh mát dịu nằm ở Củ Sắn (củ đậu) và Xương Gà: Củ sắn ninh giúp nước ngọt thanh tự nhiên mà không bị gắt đường, còn xương gà giúp nước lèo trong veo không ngấy mỡ.',
+      },
+      {
+        step: 2,
+        title: 'Luộc thịt nạc, giò heo, bò viên & Xào thịt băm',
+        time: '20 phút',
+        heat: 'Lửa vừa',
+        goal: 'Thịt luộc chín tới ngọt mọng thái mỏng tang, bò viên giòn dai nở đẹp, thịt băm tơi xốp thơm tiêu',
+        actionPoints: [
+          'Thả miếng thịt nạc thăn heo và giò heo/sườn non vào nồi nước dùng đang ninh. Luộc thịt nạc chín tới trong khoảng 15 - 20 phút. Vớt ra ngâm ngay vào thau nước đá lạnh để thịt săn chắc, giữ màu trắng sáng không bị thâm mặt.',
+          'Bí quyết thái thịt hủ tiếu gõ: Dùng dao thật sắc thái thịt thành từng lát mỏng tang như tờ giấy nhưng bản to. Khi ăn, miếng thịt mỏng ngấm nước lèo mềm ngọt tan ngay trong miệng.',
+          'Khía hoa chữ thập trên từng viên bò viên gân, thả vào nồi nước dùng đang sôi lăn tăn khoảng 5 phút cho bò viên nở căng giòn sần sật.',
+          'Xào thịt băm: Phi thơm 1 thìa hành tỏi băm trong chảo với chút mỡ heo, cho thịt heo xay vào đảo nhanh tay trên lửa lớn cùng 1 thìa cà phê hạt nêm và 1/2 thìa tiêu xay cho hạt thịt tơi xốp, chín thơm thì trút ra bát.',
+        ],
+        description:
+          'Luộc chín thịt nạc và giò heo trong nồi nước dùng, ngâm nước đá lạnh rồi thái lát mỏng tang. Khía hoa thả bò viên vào nước dùng cho nở giòn dai. Xào thịt băm tơi xốp với hành tỏi phi và tiêu thơm nức.',
+        tip: 'Thịt hủ tiếu gõ bắt buộc phải thái mỏng tang; thái dày thịt sẽ bị dai và khô, không đúng nét ẩm thực bình dân đặc trưng của xe gõ.',
+      },
+      {
+        step: 3,
+        title: 'Thắng tóp mỡ giòn rụm & Phi tỏi hành thơm nức',
+        time: '15 phút',
+        heat: 'Lửa nhỏ đến vừa',
+        goal: 'Tóp mỡ giòn rôm rốp không ngấy, hành tỏi phi vàng ruộm thơm lừng tạo nên 50% hương vị quyến rũ của tô hủ tiếu gõ',
+        actionPoints: [
+          'Mỡ gáy heo rửa sạch, lau khô, cắt hạt lựu nhỏ đều nhau. Cho mỡ vào chảo cùng 2 thìa canh nước lọc và 1 nhúm muối nhỏ.',
+          'Đun lửa vừa cho nước bay hơi hết và mỡ tự tiết ra. Đảo đều tay đến khi tóp mỡ teo lại, chuyển màu vàng ruộm giòn tan thì vớt ngay ra đĩa có lót giấy thấm dầu.',
+          'Lấy phần mỡ nước vừa thắng, cho tỏi băm và hành tím băm vào phi trên lửa nhỏ. Khi hành tỏi vừa ngả màu vàng rơm hanh thì tắt bếp ngay, sức nóng của mỡ sẽ làm hành tỏi giòn tan thơm phức mà không bị cháy khét.',
+        ],
+        description:
+          'Thắng mỡ gáy heo thành những viên tóp mỡ giòn rôm rốp. Dùng mỡ heo phi hành tím và tỏi băm đến khi vàng ruộm thơm nức mũi.',
+        tip: 'Thêm chút nước và muối khi bắt đầu thắng mỡ sẽ giúp mỡ không bị bắn, tóp mỡ phồng xốp giòn tan và để được lâu không bị ỉu.',
+      },
+      {
+        step: 4,
+        title: 'Trụng hủ tiếu & Hoàn thiện tô hủ tiếu gõ nóng hổi thơm lừng',
+        time: '5 phút',
+        heat: 'Nước trụng sôi già - Thưởng thức nóng bốc khói',
+        goal: 'Sợi hủ tiếu bóng mướt dai ngon, nước dùng chan ngập bốc khói nghi ngút, thơm nức mùi hẹ, tóp mỡ và tiêu đen',
+        actionPoints: [
+          'Đun sôi bùng một nồi nước riêng để trụng hủ tiếu. Cho vắt hủ tiếu vào vợt trụng nhanh trong 15 - 20 giây cho sợi vừa mềm tới, nhấc ra rảy thật ráo nước rồi cho ngay vào tô.',
+          'Rưới ngay 1 thìa cà phê mỡ tỏi phi vào tô hủ tiếu vừa trụng, dùng đũa xóc đều tay cho từng sợi hủ tiếu bóng bẩy, tơi rời không bị dính chùm.',
+          'Xếp giá đỗ sống (hoặc giá chần) và lá hẹ cắt khúc vào tô, bày lên trên vài lát thịt nạc thái mỏng tang, 1 thìa thịt băm xào, khoanh giò heo, vài viên bò viên gân, trứng cút.',
+          'Rắc một nhúm tóp mỡ giòn rụm, hành tỏi phi thơm, hành ngò thái nhỏ và thật nhiều tiêu đen xay thơm nồng.',
+          'Múc nước dùng đang sôi sùng sục chan ngập mặt tô hủ tiếu. Thưởng thức ngay khi còn bốc khói nghi ngút cùng đĩa ớt ngâm giấm chua cay và chén nước tương nguyên chất dầm ớt đỏ!',
+        ],
+        description:
+          'Trụng nhanh sợi hủ tiếu qua nước sôi rồi trộn mỡ tỏi phi cho sợi bóng mướt. Xếp thịt nạc thái mỏng, giò heo, bò viên, thịt băm, giá hẹ, rắc tóp mỡ tỏi phi và tiêu xay. Chan ngập nước dùng sôi sùng sục thưởng thức nóng hổi.',
+        tip: 'Lá hẹ tươi và tiêu đen xay nồng là bộ đôi không thể thiếu của hủ tiếu gõ; hãy chan nước dùng thật sôi trực tiếp lên lá hẹ để vị hẹ chín tới tỏa hương thơm ngát.',
+      },
+    ],
+    chefSecret:
+      '3 bí mật làm nên nồi nước lèo Hủ Tiếu Gõ thanh ngọt nức tiếng Sài Gòn: 1. Ninh kết hợp Xương Heo và Xương Gà cùng Củ Sắn (củ đậu) gọt vỏ – củ sắn nhả vị ngọt mát thanh lành vào nước lèo; 2. Nướng thơm con Mực Khô nhỏ đập dập thả vào nồi – tạo mùi thơm đặc trưng của các xe gõ ven đường; 3. Thịt nạc phải thái thật mỏng tang và luôn có một muỗng mỡ tỏi phi rưới lên sợi hủ tiếu ngay sau khi trụng.',
+    recommendedSauce:
+      'Chén nước tương (xì dầu) ngon dầm ớt hiểm đỏ cay xé lưỡi, hũ tỏi ớt ngâm giấm chua thanh giải ngấy, vắt thêm miếng chanh tươi mọng nước.',
+  },
+
+  'hu-tieu-sa-te-nai': {
+    dishId: 'hu-tieu-sa-te-nai',
+    dishName: 'Hủ Tiếu Sa Tế Nai Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    seoTitle: 'Cách Nấu Hủ Tiếu Sa Tế Nai Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    prepTime: '30 phút',
+    cookTime: '1.5 giờ',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Thịt nai tươi mềm ngọt & Gia vị ướp',
+        items: [
+          '500g thịt phi lê nai tươi ngon (hoặc bắp nai nạc mềm không mỡ)',
+          '1 thìa canh dầu hào, 1 thìa canh nước tương ngon',
+          '1 thìa cà phê dầu mè thơm, 1 thìa cà phê tiêu sọ xay',
+          '1 thìa canh rượu mai quế lộ (hoặc rượu trắng khử tanh, dậy mùi thơm)',
+          '1 thìa cà phê bột bắp (giữ thịt nai mọng nước, mềm tan không bị khô dai)',
+          '1 thìa tỏi băm, hành tím băm nhuyễn',
+        ],
+      },
+      {
+        category: 'Nước hầm xương thanh ngọt & Thảo mộc Triều Châu',
+        items: [
+          '1kg xương ống heo hoặc xương bò/xương gà hầm lấy 3.5 lít nước dùng ngọt trong',
+          '1 củ hành tây nướng, 1 củ cải trắng cắt khoanh dày',
+          'Gói thảo mộc sa tế nướng thơm: 2 hoa hồi (đại hồi), 1 thanh quế nhỏ, 1 quả thảo quả đập dập, 3 nụ đinh hương, 1 thìa cà phê hạt ngò',
+          'Gia vị nêm nước dùng: 2 thìa canh đường phèn, 2 thìa canh muối hạt, 1 thìa canh hạt nêm',
+        ],
+      },
+      {
+        category: 'Sốt sa tế đậu phộng bùi béo đặc trưng Chợ Lớn',
+        items: [
+          '150g đậu phộng (lạc) rang vàng giòn, xát vỏ, giã nhuyễn mịn béo bùi',
+          '30g mè trắng (vừng) rang vàng thơm lừng, giã dập',
+          '3 - 4 thìa canh sa tế tôm hoặc sa tế ớt Triều Châu cay thơm',
+          '2 viên chao trắng (hoặc chao đỏ), tán nhuyễn mịn (bí quyết béo bùi đậm đà của người Hoa)',
+          '100ml nước cốt dừa béo dịu (giúp nước lèo sánh mịn hòa quyện)',
+          '3 cây sả tươi băm nhuyễn, 1 củ tỏi băm, 2 củ hành tím băm, dầu màu điều',
+        ],
+      },
+      {
+        category: 'Sợi hủ tiếu & Rau ăn kèm thanh mát giải ngấy',
+        items: [
+          '500g sợi hủ tiếu gạo mềm bản to (hoặc hủ tiếu dai Sa Đéc)',
+          '2 quả dưa leo (dưa chuột) tươi giòn, thái sợi dài hoặc thái lát mỏng (topping bắt buộc giải cay ngấy)',
+          '2 quả cà chua chín mọng cắt múi cau',
+          '200g giá đỗ tươi, 1 bó ngò gai (mùi tàu), húng quế, chanh tươi, ớt hiểm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ninh nước dùng xương thanh trong & Rang thảo mộc dậy hương',
+        time: '15 phút (ninh 1.5 giờ)',
+        heat: 'Lửa lớn đun sôi rồi hạ lửa nhỏ liu riu',
+        goal: 'Nước dùng trong veo, ngọt đậm đà từ tủy xương và thảo mộc thơm nức mùi hồi quế',
+        actionPoints: [
+          'Chặt xương ống heo/bò thành khúc vừa. Chần qua nồi nước sôi pha muối và gừng đập dập trong 3 - 5 phút cho nhả sạch bọt máu. Vớt ra rửa sạch dưới vòi nước lạnh.',
+          'Cho xương vào nồi cùng 3.5 lít nước, hành tây nướng và củ cải trắng. Đun sôi bùng rồi hạ lửa nhỏ liu riu, hớt sạch bọt nổi để nước dùng trong vắt.',
+          'Gói thảo mộc (hoa hồi, quế, thảo quả, đinh hương, hạt ngò) cho vào chảo rang thơm trên lửa nhỏ, cho vào túi lọc rồi thả vào nồi nước dùng ninh cùng.',
+          'Nêm 2 thìa canh đường phèn và muối hạt. Ninh trong 1.5 giờ cho xương tiết trọn vị ngọt thanh tao.',
+        ],
+        description:
+          'Chần sạch xương rồi ninh cùng củ cải, hành tây và túi thảo mộc rang thơm (hồi, quế, thảo quả, đinh hương) trên lửa nhỏ, hớt bọt để nước dùng trong vắt, ngọt đậm đà tự nhiên.',
+        tip: 'Chỉ rang thảo mộc trên lửa nhỏ đến khi tỏa mùi thơm dịu; không rang cháy khét sẽ làm nước dùng bị đắng và tối màu.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế & Ướp thịt nai mềm mọng chuẩn bí quyết đầu bếp Hoa',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng mát',
+        goal: 'Thịt nai thái mỏng ngang thớ ngấm sâu gia vị, mềm mọng nước, thơm mùi dầu mè và rượu thơm',
+        actionPoints: [
+          'Thịt nai rửa sạch với nước pha chút rượu trắng và gừng đập dập để khử sạch mùi gây tự nhiên, thấm thật khô ráo bằng khăn giấy.',
+          'Dùng dao thật bén thái thịt nai thành từng lát mỏng ngang thớ bản vừa ăn (thái mỏng giúp thịt thấm sốt và chín nhanh mềm ngọt).',
+          'Ướp thịt nai với: 1 thìa canh dầu hào, 1 thìa canh nước tương, 1 thìa cà phê dầu mè, 1 thìa cà phê tiêu sọ, 1 thìa canh rượu mai quế lộ, tỏi băm và đặc biệt là 1 thìa cà phê tinh bột bắp.',
+          'Trộn đều tay theo một chiều cho gia vị và bột bắp áo đều từng thớ thịt. Để nghỉ trong 20 phút cho thịt thấm sâu.',
+        ],
+        description:
+          'Rửa sạch thịt nai với rượu gừng, thấm khô và thái mỏng ngang thớ. Ướp cùng dầu hào, nước tương, dầu mè, tiêu, rượu mai quế lộ và 1 thìa bột bắp để thịt giữ trọn độ ẩm, mềm tan khi nấu.',
+        tip: 'Một thìa bột bắp kết hợp dầu mè là kỹ thuật "khóa ẩm" kinh điển của người Hoa, giúp miếng thịt nai khi xào hoặc nhúng giữ nguyên độ ngọt mềm mọng nước, không bao giờ bị dai xơ.',
+      },
+      {
+        step: 3,
+        title: 'Nấu sốt sa tế đậu phộng Chợ Lớn & Hòa quyện nước lèo sánh béo',
+        time: '20 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước dùng có màu vàng cam sóng sánh, độ sánh mịn vừa phải, bùi béo ngậy đậu phộng mè rang và thơm lừng vị sa tế cay ấm',
+        actionPoints: [
+          'Đặt chảo sâu lòng lên bếp, cho 3 thìa dầu màu điều vào đun nóng. Cho sả băm, tỏi băm, hành tím băm vào phi thơm vàng ruộm.',
+          'Hạ lửa nhỏ, cho 3 - 4 thìa sa tế tôm/ớt, 2 viên chao trắng tán nhuyễn, 150g đậu phộng rang giã mịn và mè rang vào xào đều tay trong 2 phút cho dậy mùi thơm nồng nàn.',
+          'Trút toàn bộ hỗn hợp sốt sa tế đậu phộng vừa xào vào nồi nước dùng hầm xương đang sôi lăn tăn trên bếp.',
+          'Thêm 100ml nước cốt dừa vào nồi, khuấy đều nhẹ tay. Nêm lại gia vị với đường phèn, nước mắm, hạt nêm cho vừa miệng, có vị thanh ngọt đậm đà, béo bùi sánh nhẹ đặc trưng.',
+        ],
+        description:
+          'Phi thơm sả, tỏi, hành tím với dầu màu điều. Xào hỗn hợp sa tế, chao nhuyễn, đậu phộng rang giã mịn và mè rang rồi trút vào nồi nước dùng. Thêm chút nước cốt dừa đun sôi lăn tăn tạo nên nồi nước lèo sóng sánh béo ngậy thơm lừng.',
+        tip: 'Đậu phộng rang phải giã thật mịn một nửa để tạo độ sánh béo tự nhiên cho nước lèo, nửa còn lại giã dập để khi ăn nhai trúng hạt đậu giòn bùi thích thú.',
+      },
+      {
+        step: 4,
+        title: 'Chế biến thịt nai & Trình bày tô hủ tiếu sa tế nai trứ danh',
+        time: '10 phút',
+        heat: 'Lửa lớn xào nhanh - Nước dùng sôi sùng sục',
+        goal: 'Tô hủ tiếu bắt mắt với màu vàng cam sóng sánh, thịt nai mềm ngọt đậm đà, dưa leo cà chua thanh mát giòn rụm',
+        actionPoints: [
+          'Xào thịt nai: Đun nóng chảo với 1 thìa dầu ăn và tỏi băm trên lửa lớn. Cho thịt nai đã ướp vào đảo nhanh tay trong 1 - 2 phút cho thịt vừa chín tới (hoặc chín tái hồng hào) là trút ngay ra đĩa (không xào lâu kẻo thịt dai).',
+          'Trụng hủ tiếu: Trụng nhanh sợi hủ tiếu qua nồi nước sôi trong 15 - 20 giây cho mềm dai, vớt ra rảy ráo nước cho vào tô, xóc đều với chút dầu tỏi phi.',
+          'Bày biện: Xếp giá đỗ sống, dưa leo thái sợi/lát mỏng và vài miếng cà chua tươi xung quanh miệng tô. Xếp thịt nai xào mềm mọng vào giữa.',
+          'Múc nước lèo sa tế đậu phộng đang sôi sùng sục chan ngập mặt hủ tiếu, rưới đều phần nước sốt sóng sánh lên trên thịt nai.',
+          'Rắc thêm ngò gai, húng quế thái nhỏ, một ít đậu phộng rang và tiêu xay lên trên cùng. Thưởng thức ngay khi còn bốc khói ngào ngạt!',
+        ],
+        description:
+          'Xào nhanh thịt nai trên lửa lớn vừa chín tới mềm ngọt. Trụng hủ tiếu cho vào tô, xếp dưa leo thái sợi, cà chua, thịt nai và rau thơm. Chan ngập nước lèo sa tế đậu phộng sánh béo cay nồng bốc khói nghi ngút.',
+        tip: 'Dưa leo và cà chua tươi là "chìa khóa vàng" của món ăn: Vị thanh mát giòn rụm của dưa leo giúp cân bằng hoàn hảo độ béo ngậy của đậu phộng và vị cay nồng của sa tế, ăn đến giọt cuối cùng mà không hề ngấy.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết độc nhất vô nhị làm nên tô Hủ Tiếu Sa Tế Nai chuẩn gốc Chợ Lớn: 1. Nước lèo sánh mịn béo bùi từ Đậu Phộng Rang giã mịn kết hợp Chao Trắng tán nhuyễn và nước cốt dừa – tạo độ ngậy bùi sâu thẳm mà không hề ngấy; 2. Ướp thịt nai với 1 thìa Bột Bắp, Dầu Mè và Rượu Mai Quế Lộ – kỹ thuật khóa ẩm giúp thịt giữ trọn độ mọng ngọt mềm tan khi xào lửa lớn; 3. Bắt buộc ăn cùng Dưa Leo thái sợi và Cà Chua tươi – sự kết hợp kinh điển của người Hoa giúp giải nhiệt, cân bằng trọn vẹn vị cay béo của nồi sa tế.',
+    recommendedSauce:
+      'Chấm cùng đĩa sa tế tôm đậm đà, vài lát ớt hiểm đỏ, vắt thêm miếng chanh tươi chua thanh hoặc chấm sốt tương đen pha chút giấm tiều Triều Châu.',
+  },
+
+  'mi-hoanh-thanh-xa-xiu': {
+    dishId: 'mi-hoanh-thanh-xa-xiu',
+    dishName: 'Mì Hoành Thánh Xá Xíu Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    seoTitle: 'Cách Nấu Mì Hoành Thánh Xá Xíu Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    prepTime: '35 phút',
+    cookTime: '1.5 - 2 giờ',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Nước dùng thanh ngọt trong veo chuẩn vị Quảng Đông',
+        items: [
+          '1kg xương ống heo hoặc xương bay heo (chọn xương tươi, tủy đỏ hồng)',
+          '500g xương gà (ninh cùng xương heo giúp nước trong vắt, ngọt thanh nhẹ)',
+          '60g tôm khô loại 1 (ngâm nước ấm 15 phút, rửa sạch cát)',
+          '1 con mực khô nhỏ hoặc râu mực nướng thơm đập dập (bí quyết nước lèo người Hoa ngọt sâu hậu vị)',
+          '1 củ cải trắng cắt khoanh dày 2cm, 1 củ hành tây nướng thơm bóc vỏ',
+          'Vài cọng rễ ngò rí rửa sạch đất cát (tỏa hương thanh mát, khử mùi hôi thịt)',
+          'Gia vị nêm nước dùng: 2 thìa canh đường phèn, 2 thìa canh muối hạt, 1 thìa canh nước mắm ngon, 1 thìa cà phê dầu mè thơm',
+        ],
+      },
+      {
+        category: 'Nhân & Vỏ hoành thánh tôm thịt béo giòn sần sật',
+        items: [
+          '30 - 40 lá vỏ hoành thánh tươi bằng bột mì trứng (chọn loại mỏng mịn, thơm mùi trứng)',
+          '250g thịt nạc dăm heo xay nhuyễn (vừa có nạc vừa có mỡ mềm ngọt)',
+          '200g tôm sú tươi bóc vỏ, rút chỉ đen (đập dập, cắt hạt lựu to - giữ độ giòn sần sật ngọt mọng)',
+          '1 thìa canh dầu mè thơm, 1 thìa canh dầu hào, 1 thìa cà phê tiêu sọ trắng',
+          '1 thìa cà phê tinh bột bắp (tạo độ kết dính dẻo dai cho nhân)',
+          'Hành lá, hành tím băm nhuyễn, chút đầu hành trắng băm nhỏ',
+        ],
+      },
+      {
+        category: 'Thịt xá xíu hồng hào óng ả chuẩn vị Chợ Lớn',
+        items: [
+          '400g thịt nạc dăm hoặc nạc vai heo tươi (cắt dải dài bản dày 3cm)',
+          'Gia vị ướp xá xíu: 2 thìa canh sốt xá xíu Lee Kum Kee (hoặc ngũ vị hương), 1 thìa canh dầu hào, 1 thìa canh mật ong, 1 thìa canh nước tương, 1 thìa canh rượu mai quế lộ, 1 thìa tỏi băm, chút tiêu xay',
+          '1 thìa dầu màu điều tạo màu đỏ cam hồng hào tự nhiên',
+        ],
+      },
+      {
+        category: 'Sợi mì trứng tươi, Rau ăn kèm & Nước chấm',
+        items: [
+          '500g sợi mì trứng tươi Hong Kong (hoặc mì sợi tròn dai giòn)',
+          '1 bó hẹ lá tươi xanh mướt cắt khúc ngắn (linh hồn hương vị mì hoành thánh)',
+          '200g cải ngọt hoặc cải thìa non (chần vừa chín tới giòn ngọt)',
+          'Hành lá, ngò rí thái nhỏ, tóp mỡ giòn rụm & tỏi phi vàng thơm',
+          'Ăn kèm: Nước tương ngon dầm ớt hiểm đỏ, giấm tiều (giấm đỏ Triều Châu) hoặc ớt ngâm giấm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ninh nước dùng xương trong veo thanh ngọt cùng tôm khô, mực nướng',
+        time: '15 phút (ninh 1.5 - 2 giờ)',
+        heat: 'Lửa lớn đun sôi rồi hạ lửa nhỏ liu riu',
+        goal: 'Nước dùng trong vắt như hổ phách, ngọt lịm từ tủy xương và hải sản khô, thoang thoảng hương rễ ngò rí',
+        actionPoints: [
+          'Chặt xương heo và xương gà thành khúc vừa. Đun sôi nồi nước với 1 thìa muối và vài lát gừng, thả xương vào chần trong 3 - 5 phút cho nhả sạch bọt máu. Vớt ra xả rửa từng khúc xương thật sạch dưới vòi nước lạnh.',
+          'Nướng mực khô trên lửa nhỏ cho thơm nức mũi, đập dập xé nhỏ. Tôm khô ngâm nước ấm 15 phút, rửa sạch cát.',
+          'Cho xương heo và xương gà vào nồi cùng 3.5 - 4 lít nước lọc. Thả mực nướng, tôm khô, củ cải trắng, hành tây nướng và rễ ngò rí vào cùng.',
+          'Đun sôi bùng lên thì hạ lửa nhỏ liu riu. Hớt sạch bọt nổi trong 15 phút đầu và tuyệt đối KHÔNG đậy nắp vung để nước dùng trong vắt.',
+          'Nêm 2 thìa canh đường phèn và muối hạt. Ninh liu riu trong 1.5 - 2 giờ cho xương tiết trọn vị ngọt thanh tao.',
+        ],
+        description:
+          'Chần sạch xương heo và xương gà rồi rửa kỹ. Ninh cùng khô mực nướng thơm, tôm khô, củ cải trắng, hành tây nướng và rễ ngò rí trên lửa nhỏ, hớt bọt thường xuyên để nước dùng trong vắt, ngọt thanh đậm đà chuẩn vị Quảng Đông.',
+        tip: 'Khô mực nướng và tôm khô là bí quyết gia truyền của người Hoa giúp nước lèo có hậu vị ngọt sâu đậm đà đọng lại ở cuống họng mà không cần dùng nhiều bột ngọt.',
+      },
+      {
+        step: 2,
+        title: 'Làm thịt xá xíu hồng hào óng ả & Thơm lừng ngũ vị',
+        time: '25 phút (ướp 30 phút)',
+        heat: 'Lửa vừa áp chảo hoặc nướng 180°C',
+        goal: 'Miếng xá xíu ngoài óng ả màu đỏ cam caramel xém cạnh, bên trong mềm mọng thơm nức mùi mai quế lộ',
+        actionPoints: [
+          'Thịt nạc dăm rửa sạch, thấm khô ráo. Trộn đều hỗn hợp sốt ướp: sốt xá xíu, dầu hào, mật ong, nước tương, rượu mai quế lộ, tỏi băm, tiêu và dầu màu điều.',
+          'Thoa đều sốt lên các mặt thịt, dùng nĩa xăm nhẹ để sốt ngấm sâu. Để ướp trong ít nhất 30 phút (hoặc để ngăn mát tủ lạnh 1 - 2 tiếng).',
+          'Nấu xá xíu: Đun nóng chảo với 1 thìa dầu ăn, cho các dải thịt vào áp chảo vàng đều các mặt trên lửa vừa. Rưới phần nước ướp còn lại vào chảo cùng 1/2 chén nước lọc, đậy nắp rim nhỏ lửa trong 15 - 20 phút cho nước sốt sánh kẹo bám chặt quanh miếng thịt.',
+          'Khi thịt chín vàng xém thơm lừng, gắp ra để nguội bớt rồi dùng dao thật bén thái lát mỏng vừa ăn.',
+        ],
+        description:
+          'Ướp thịt nạc dăm với sốt xá xíu, mật ong, rượu mai quế lộ và dầu điều trong 30 phút. Áp chảo vàng xém rồi rim nhỏ lửa cho sốt sánh kẹo bám chặt quanh thịt. Thái lát mỏng óng ả đẹp mắt.',
+        tip: 'Dùng thịt nạc dăm (có vân mỡ xen kẽ) làm xá xíu sẽ giúp miếng thịt luôn mềm ngọt, béo ngậy mà không bao giờ bị khô cứng như thịt nạc thăn.',
+      },
+      {
+        step: 3,
+        title: 'Trộn nhân, gói hoành thánh tôm thịt & Luộc chín giòn dai',
+        time: '25 phút',
+        heat: 'Nước luộc sôi sùng sục',
+        goal: 'Viên hoành thánh vỏ mỏng mướt ôm trọn nhân tôm thịt giòn béo sần sật, không bị bục rách',
+        actionPoints: [
+          'Trộn nhân: Cho thịt heo xay và tôm cắt hạt lựu to vào tô. Nêm dầu mè, dầu hào, tiêu sọ trắng, bột bắp, hành tím băm và đầu hành trắng băm.',
+          'Dùng đũa quết nhân theo một chiều khoảng 3 - 5 phút cho hỗn hợp dẻo quánh, có độ kết dính dai giòn.',
+          'Gói hoành thánh: Đặt lá hoành thánh lên lòng bàn tay, múc một muỗng nhân vừa vặn (khoảng 1 thìa cà phê) đặt vào giữa. Thoa chút nước lọc quanh mép bột, gập đôi lại thành hình tam giác rồi túm nhẹ hai góc mép dính vào nhau như thỏi vàng hoặc xếp nếp cánh bướm.',
+          'Luộc hoành thánh: Đun sôi một nồi nước riêng. Thả từng viên hoành thánh vào luộc trên lửa vừa. Khi hoành thánh nổi bồng bềnh lên mặt nước và vỏ chuyển màu trong suốt (khoảng 3 - 4 phút) là nhân đã chín tới.',
+          'Vớt ngay ra thau nước đá lạnh trong 30 giây rồi vớt ra để ráo, xóc nhẹ với chút dầu tỏi phi để các viên không bị dính vào nhau.',
+        ],
+        description:
+          'Trộn thịt xay cùng tôm đập dập cắt hạt lựu to với dầu mè, tiêu và bột bắp rồi quết dẻo dai. Gói nhân vào lá hoành thánh thành hình thỏi vàng xinh xắn. Luộc chín tới trong nước sôi rồi ngâm nước đá lạnh cho vỏ giòn dai mướt mát.',
+        tip: 'Tôm chỉ đập dập và cắt hạt lựu to chứ không xay nhuyễn; khi cắn ngập viên hoành thánh bạn sẽ cảm nhận trọn vẹn từng miếng thịt tôm tươi giòn sần sật mọng nước.',
+      },
+      {
+        step: 4,
+        title: 'Trụng mì trứng giòn sần sật & Hoàn thiện tô mì hoành thánh xá xíu',
+        time: '10 phút',
+        heat: 'Nước trụng sôi sùng sục - Thưởng thức nóng bốc khói',
+        goal: 'Sợi mì trứng dai giòn không nhũn, hoành thánh tôm thịt ngọt béo, xá xíu thơm lừng, nước lèo chan ngập nghi ngút khói',
+        actionPoints: [
+          'Kỹ thuật trụng mì "quá lãnh" giòn sần sật: Rũ tơi vắt mì trứng cho sạch bột phấn thừa. Nhúng mì vào nồi nước sôi bùng đảo đều trong 15 - 20 giây cho sợi vừa chín tới. Nhấc ra nhúng ngay vào thau nước lạnh 5 giây rồi nhúng lại nước sôi 3 giây, rảy thật ráo nước cho vào tô, xóc ngay 1 thìa dầu tỏi phi thơm.',
+          'Chần rau: Chần cải ngọt vừa chín tới xanh mướt, giữ độ giòn ngọt.',
+          'Bày tô: Cho mì trứng vào tô, xếp cải ngọt và lá hẹ cắt khúc một bên. Bày lần lượt 4 - 5 viên hoành thánh tôm thịt béo ngậy, vài lát thịt xá xíu óng ả hồng hào lên mặt.',
+          'Múc nước dùng hầm xương đang sôi sùng sục chan ngập mặt tô, rắc hành ngò thái nhỏ, tóp mỡ giòn rụm, tỏi phi và chút tiêu sọ xay.',
+          'Thưởng thức ngay khi còn bốc khói ngào ngạt cùng chén nước tương dầm ớt hiểm và chén giấm tiều Triều Châu chua thanh!',
+        ],
+        description:
+          'Trụng mì trứng theo kỹ thuật "quá lãnh" nhúng nước lạnh để sợi giòn sần sật. Bày mì ra tô cùng cải ngọt, lá hẹ, hoành thánh tôm thịt và xá xíu thái lát mỏng. Rắc tóp mỡ, tỏi phi và chan ngập nước dùng sôi sùng sục thưởng thức nóng hổi.',
+        tip: 'Kỹ thuật "quá lãnh" (trụng nước sôi rồi sốc nước lạnh) làm sợi mì co lại tức thì, tạo nên độ dai giòn sần sật đặc trưng của mì hoành thánh Hong Kong mà không bị mềm bở.',
+      },
+    ],
+    chefSecret:
+      '4 bí quyết gia truyền làm nên tô Mì Hoành Thánh Xá Xíu đỉnh cao: 1. Nước dùng hầm xương heo + gà cùng Mực Khô Nướng và Tôm Khô tạo độ ngọt sâu thăm thẳm và trong vắt; 2. Tôm làm nhân hoành thánh chỉ đập dập cắt hạt lựu to và quết cùng bột bắp – giữ trọn độ giòn sần sật mọng nước; 3. Kỹ thuật trụng mì "quá lãnh" (nước sôi - nước lạnh - nước sôi) giúp sợi mì giòn sực sần sật; 4. Lá Hẹ tươi cắt khúc là linh hồn thảo mộc không thể thay thế của mì hoành thánh gốc Hoa.',
+    recommendedSauce:
+      'Chén nước tương nguyên chất dầm ớt hiểm đỏ, hũ giấm tiều (giấm đỏ Triều Châu) chua dịu kích thích vị giác và chút sa tế ớt thơm cay.',
+  },
+
+  'hu-tieu-muc-tuoi': {
+    dishId: 'hu-tieu-muc-tuoi',
+    dishName: 'Hủ Tiếu Mực Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    seoTitle: 'Cách Nấu Hủ Tiếu Mực Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    prepTime: '25 phút',
+    cookTime: '1.5 giờ',
+    difficulty: 'Dễ',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Mực ống tươi rói & Topping ăn kèm',
+        items: [
+          '700g - 800g mực ống tươi loại 1 (chọn mực mắt trong, da lấp lánh ánh kim, thịt dày săn chắc)',
+          '200g thịt nạc dăm heo xay nhuyễn (xào tơi thơm cùng hành tím và tiêu sọ)',
+          '12 - 15 quả trứng cút luộc chín, bóc sạch vỏ',
+          'Gừng tươi đập dập, 2 thìa canh rượu trắng (khử tanh triệt để cho mực)',
+          '150g mỡ gáy heo thái hạt lựu (thắng tóp mỡ giòn rụm) & 1 chén hành tím, tỏi phi vàng thơm',
+        ],
+      },
+      {
+        category: 'Nước dùng thanh ngọt trong veo từ xương & hải sản khô',
+        items: [
+          '1kg xương ống heo hoặc xương bay heo (chọn xương tươi, tủy đỏ)',
+          '60g tôm khô loại 1 (ngâm nước ấm 15 phút, rửa sạch cát)',
+          '1 con mực khô cỡ vừa (nướng thơm vàng, đập dập xé đôi - bí quyết nước lèo ngọt sâu)',
+          '1 củ cải trắng cắt khoanh dày 2cm, 1 củ hành tây nướng xém cạnh lột vỏ',
+          'Vài cọng rễ ngò rí rửa sạch đất cát (tỏa hương thanh mát tự nhiên)',
+          'Gia vị nấu nước dùng: 2 thìa canh đường phèn, 2 thìa canh muối hạt, 1 thìa canh nước mắm nhĩ ngon, 1 thìa cà phê hạt nêm',
+        ],
+      },
+      {
+        category: 'Muối ớt xanh sữa đặc chấm mực & Sợi hủ tiếu, rau thơm',
+        items: [
+          '500g sợi hủ tiếu dai Sa Đéc (hoặc hủ tiếu khô Mỹ Tho)',
+          'Rau ăn kèm: Cần tàu (cần tây lá nhỏ), hẹ lá cắt khúc, giá đỗ sống, ngò rí, chanh tươi, ớt hiểm',
+          'Pha muối ớt xanh sữa đặc: 5 trái ớt xiêm xanh, 2 thìa canh sữa đặc Ông Thọ, 1 thìa canh muối hạt, 2 thìa canh đường, 2 thìa canh nước cốt chanh, 2 lá chanh non (xay nhuyễn mịn sánh kẹo)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ninh nước dùng xương trong vắt thanh ngọt cùng khô mực nướng',
+        time: '15 phút (ninh 1.5 giờ)',
+        heat: 'Lửa lớn đun sôi rồi hạ lửa nhỏ liu riu',
+        goal: 'Nước lèo trong vắt như hổ phách, ngọt lịm từ tủy xương và hải sản khô, không vẩn đục hay tanh mùi mực',
+        actionPoints: [
+          'Xương heo chặt khúc, chần trong nồi nước sôi pha 1 thìa muối và gừng đập dập trong 3 - 5 phút cho nhả sạch bọt máu. Vớt ra rửa sạch từng khúc xương dưới vòi nước lạnh.',
+          'Nướng mực khô trên lửa nhỏ đến khi thơm phức, dùng chày đập dập rồi xé đôi. Tôm khô ngâm nước ấm 15 phút, rửa sạch để ráo.',
+          'Cho xương heo vào nồi cùng 3.5 - 4 lít nước lọc. Thả mực nướng, tôm khô, củ cải trắng, hành tây nướng và rễ ngò rí vào cùng.',
+          'Đun sôi bùng lên thì hạ lửa nhỏ liu riu. Hớt sạch bọt nổi trong 15 phút đầu và tuyệt đối KHÔNG đậy nắp vung để nước dùng trong veo.',
+          'Nêm 2 thìa canh đường phèn và muối hạt. Ninh liu riu trong 1.5 giờ cho xương tiết trọn vị ngọt tự nhiên.',
+        ],
+        description:
+          'Chần sạch xương heo với nước gừng rồi rửa kỹ. Ninh cùng khô mực nướng thơm, tôm khô, củ cải trắng, hành tây nướng và rễ ngò rí trên lửa liu riu, hớt bọt liên tục để nước dùng trong vắt, ngọt thanh đậm đà.',
+        tip: 'Tuyệt đối KHÔNG thả mực tươi vào ninh cùng nước dùng từ đầu; làm vậy nước sẽ bị đục ngầu, ám mùi tanh và mực bị dai quắt mất ngon.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế mực ống giòn ngọt & Xào thịt băm thơm nức',
+        time: '20 phút',
+        heat: 'Lửa lớn',
+        goal: 'Mực ống giòn sần sật mọng nước, trắng tinh không tanh; thịt băm tơi xốp đậm vị tiêu sọ',
+        actionPoints: [
+          'Mực ống rút nhẹ túi mực và xương sống, bóc sạch lớp màng mỏng ngoài da. Bóp nhẹ mực với 2 thìa rượu trắng, gừng đập dập và chút muối hạt trong 1 phút rồi rửa sạch, để ráo.',
+          'Dùng dao khía nhẹ đường vảy rồng ca-rô bên trong lòng con mực rồi cắt thành từng khoanh tròn dày 1.5 - 2cm (hoặc để nguyên con tùy thích).',
+          'Luộc mực giòn: Đun sôi một nồi nước riêng với vài lát gừng và cọng sả. Thả mực vào chần nhanh trong 1.5 - 2 phút cho mực vừa chín tới, nở hoa cong lại giòn rụm thì vớt ra ngay.',
+          'Ngâm ngay mực vào thau nước đá lạnh trong 2 phút (kỹ thuật sốc nhiệt giúp mực giòn sần sật, giữ vị ngọt thanh tự nhiên và màu trắng muốt), sau đó vớt ra để ráo.',
+          'Xào thịt băm: Đun nóng chảo với chút mỡ heo, phi thơm hành tím băm rồi trút 200g thịt heo xay vào xào nhanh tay trên lửa lớn cùng 1 thìa cà phê hạt nêm và 1/2 thìa tiêu sọ xay cho thịt tơi xốp, thơm lừng thì múc ra bát.',
+        ],
+        description:
+          'Rửa mực với rượu gừng khử tanh, khía vảy rồng cắt khoanh. Chần nhanh trong nước sôi 2 phút rồi ngâm ngay vào nước đá lạnh để mực giòn sần sật. Thịt heo xay xào tơi thơm với hành tím và tiêu sọ.',
+        tip: 'Chần mực riêng chỉ từ 1.5 - 2 phút rồi sốc nước đá lạnh là bí quyết vàng giúp khoanh mực giòn sần sật, mọng nước, không bị dai teo.',
+      },
+      {
+        step: 3,
+        title: 'Pha muối ớt xanh sữa đặc sánh kẹo & Thắng tóp mỡ hành phi',
+        time: '15 phút',
+        heat: 'Lửa nhỏ đến vừa',
+        goal: 'Chén muối ớt xanh thơm nức sánh mịn chua cay béo ngọt; tóp mỡ giòn rôm rốp vàng ươm',
+        actionPoints: [
+          'Pha muối ớt xanh: Cho ớt xiêm xanh bỏ cuống, 2 thìa canh sữa đặc Ông Thọ, 1 thìa canh muối hạt, 2 thìa canh đường vàng, 2 thìa canh nước cốt chanh và 2 lá chanh non vào cối máy xay. Xay thật nhuyễn mịn thành hỗn hợp sánh kẹo màu xanh ngọc bích, chua cay béo ngậy.',
+          'Thắng tóp mỡ: Mỡ gáy heo cắt hạt lựu, cho vào chảo cùng 2 thìa nước và nhúm muối nhỏ. Đun lửa vừa cho nước cạn và mỡ tiết ra, đảo đều tay đến khi tóp mỡ vàng rụm thì vớt ra để ráo dầu.',
+          'Phi hành tỏi: Dùng phần mỡ heo vừa thắng, phi thơm hành tím và tỏi băm trên lửa nhỏ đến khi vàng rơm giòn tan thì tắt bếp ngay.',
+        ],
+        description:
+          'Xay nhuyễn hỗn hợp muối ớt xanh với sữa đặc, nước cốt chanh và lá chanh non tạo thành nước chấm sánh mịn chua cay. Thắng mỡ heo làm tóp mỡ giòn rụm và phi hành tỏi vàng thơm.',
+        tip: 'Muối ớt xanh sữa đặc là "linh hồn không thể tách rời" của hủ tiếu mực, vị béo ngọt cay nồng của sốt chấm đẩy vị ngọt giòn của mực tươi lên đỉnh điểm.',
+      },
+      {
+        step: 4,
+        title: 'Trụng hủ tiếu & Hoàn thiện tô hủ tiếu mực nóng hổi bốc khói',
+        time: '5 phút',
+        heat: 'Nước trụng sôi già - Thưởng thức nóng bốc khói',
+        goal: 'Sợi hủ tiếu tơi bóng dai mướt, khoanh mực tươi giòn sần sật, nước dùng trong veo bốc khói ngào ngạt mùi cần tàu hẹ lá',
+        actionPoints: [
+          'Trụng hủ tiếu: Đun sôi một nồi nước riêng. Cho từng vắt hủ tiếu vào vợt trụng nhanh trong 15 - 20 giây cho sợi vừa chín tới, nhấc ra rảy thật ráo nước rồi cho ngay vào tô, rưới 1 thìa dầu tỏi phi xóc đều cho sợi tơi bóng thơm lừng.',
+          'Xếp giá đỗ sống, cần tàu và hẹ lá cắt khúc vào tô. Cho sợi hủ tiếu lên trên.',
+          'Bày lên mặt: 5 - 6 khoanh mực ống tươi luộc giòn rụm, 1 muỗng thịt băm xào tiêu thơm nức, 2 - 3 quả trứng cút luộc bóc vỏ.',
+          'Rắc tóp mỡ giòn rụm, hành tỏi phi thơm, ngò rí thái nhỏ và thật nhiều tiêu sọ xay thơm nồng.',
+          'Múc nước dùng hầm xương đang sôi sùng sục chan ngập mặt tô hủ tiếu (chan trực tiếp lên cần tàu và hẹ để rau chín tới tỏa hương thơm mát). Thưởng thức ngay khi còn bốc khói nghi ngút, chấm từng khoanh mực giòn sần sật vào chén muối ớt xanh sữa đặc!',
+        ],
+        description:
+          'Trụng nhanh sợi hủ tiếu qua nước sôi rồi trộn dầu tỏi phi cho tơi bóng. Xếp cần tàu, hẹ lá, mực ống tươi giòn, thịt băm xào và trứng cút. Rắc tóp mỡ, hành phi, tiêu sọ rồi chan ngập nước dùng sôi sùng sục. Chấm mực kèm chén muối ớt xanh sữa đặc chuẩn vị.',
+        tip: 'Rau cần tàu (cần tây lá nhỏ) có mùi thơm thảo mộc đặc trưng kết hợp với hải sản mực cực kỳ hợp vị, át sạch vị tanh và làm dậy mùi nước lèo.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm nên tô Hủ Tiếu Mực ngon đỉnh cao: 1. Nước dùng ninh riêng từ xương heo, mực khô nướng và tôm khô – tuyệt đối không luộc mực tươi trong nồi nước dùng kẻo đục tanh; 2. Mực tươi chỉ chần nhanh 1.5 - 2 phút trong nước sôi pha gừng sả rồi ngâm ngay vào âu nước đá lạnh – giúp khoanh mực giòn sần sật mọng nước; 3. Nước chấm muối ớt xanh pha sữa đặc sánh kẹo – đòn bẩy vị giác hoàn hảo nâng tầm món hủ tiếu mực.',
+    recommendedSauce:
+      'Chén muối ớt xanh sữa đặc chua cay béo ngậy chấm ngập khoanh mực giòn, ăn kèm rau cần tàu và hẹ lá xanh mướt.',
+  },
 };
 
 /**
@@ -6503,6 +6980,10 @@ export const ACTIVE_RECIPE_DISH_IDS: string[] = [
   'mi-quang-tom-thit',
   'com-ga-hoi-an',
   'hu-tieu-nam-vang-kho',
+  'hu-tieu-go-sai-gon',
+  'hu-tieu-sa-te-nai',
+  'mi-hoanh-thanh-xa-xiu',
+  'hu-tieu-muc-tuoi',
 ];
 
 export function getActiveRecipeDishes(allDishes: Dish[]): Dish[] {
@@ -6701,6 +7182,36 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-hu-tieu-nam-vang-kho': 'hu-tieu-nam-vang-kho',
   'cach-lam-hu-tieu-nam-vang': 'hu-tieu-nam-vang-kho',
   'cach-lam-hu-tieu-nam-vang-kho': 'hu-tieu-nam-vang-kho',
+
+  'hu-tieu-go': 'hu-tieu-go-sai-gon',
+  'hu-tieu-go-sai-gon': 'hu-tieu-go-sai-gon',
+  'cach-nau-hu-tieu-go': 'hu-tieu-go-sai-gon',
+  'cach-nau-hu-tieu-go-sai-gon': 'hu-tieu-go-sai-gon',
+  'cach-lam-hu-tieu-go': 'hu-tieu-go-sai-gon',
+  'cach-lam-hu-tieu-go-sai-gon': 'hu-tieu-go-sai-gon',
+
+  'hu-tieu-sa-te': 'hu-tieu-sa-te-nai',
+  'hu-tieu-sa-te-nai': 'hu-tieu-sa-te-nai',
+  'cach-nau-hu-tieu-sa-te': 'hu-tieu-sa-te-nai',
+  'cach-nau-hu-tieu-sa-te-nai': 'hu-tieu-sa-te-nai',
+  'cach-lam-hu-tieu-sa-te': 'hu-tieu-sa-te-nai',
+  'cach-lam-hu-tieu-sa-te-nai': 'hu-tieu-sa-te-nai',
+
+  'mi-hoanh-thanh': 'mi-hoanh-thanh-xa-xiu',
+  'mi-hoanh-thanh-xa-xiu': 'mi-hoanh-thanh-xa-xiu',
+  'cach-nau-mi-hoanh-thanh': 'mi-hoanh-thanh-xa-xiu',
+  'cach-nau-mi-hoanh-thanh-xa-xiu': 'mi-hoanh-thanh-xa-xiu',
+  'cach-lam-mi-hoanh-thanh': 'mi-hoanh-thanh-xa-xiu',
+  'cach-lam-mi-hoanh-thanh-xa-xiu': 'mi-hoanh-thanh-xa-xiu',
+  'hu-tieu-mi-hoanh-thanh': 'mi-hoanh-thanh-xa-xiu',
+  'cach-nau-hu-tieu-mi-hoanh-thanh': 'mi-hoanh-thanh-xa-xiu',
+
+  'hu-tieu-muc': 'hu-tieu-muc-tuoi',
+  'hu-tieu-muc-tuoi': 'hu-tieu-muc-tuoi',
+  'cach-nau-hu-tieu-muc': 'hu-tieu-muc-tuoi',
+  'cach-nau-hu-tieu-muc-tuoi': 'hu-tieu-muc-tuoi',
+  'cach-lam-hu-tieu-muc': 'hu-tieu-muc-tuoi',
+  'cach-lam-hu-tieu-muc-tuoi': 'hu-tieu-muc-tuoi',
 };
 
 /**

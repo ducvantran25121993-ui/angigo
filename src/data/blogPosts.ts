@@ -45,10 +45,10 @@ export const BLOG_SLUG_ALIASES: Record<string, string> = {
   "thuc-don-100k": "100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem",
   "hom-nay-an-gi-voi-100-nghin": "100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem",
   "thuc-don-4-nguoi": "hom-nay-an-gi-cho-4-nguoi",
-  "mon-an-do-ngan": "ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam",
-  "hom-nay-an-gi-cho-do-ngan": "ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam",
-  "an-gi-do-ngan": "ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam",
-  "an-gi-cho-do-ngan": "ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam",
+  "mon-an-do-ngan": "an-gi-cho-do-ngan",
+  "hom-nay-an-gi-cho-do-ngan": "an-gi-cho-do-ngan",
+  "an-gi-do-ngan": "an-gi-cho-do-ngan",
+  "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha": "an-gi-cho-do-ngan",
   "thit-ba-chi-lam-mon-gi-ngon": "mon-ngon-tu-thit-ba-chi",
   "thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi": "mon-ngon-tu-thit-ba-chi",
   "thit-ba-roi-lam-mon-gi-ngon": "mon-ngon-tu-thit-ba-chi",
@@ -957,10 +957,10 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
         if (p && (p.slug || p.id)) {
           const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
           const id = (p.id || '').toLowerCase().trim();
-          if (!deleted.has(s) && !deleted.has(id)) {
-            const normalized = normalizeBlogPost(p);
-            postMap.set(normalized.slug, normalized);
-          }
+          deleted.delete(s);
+          deleted.delete(id);
+          const normalized = normalizeBlogPost(p);
+          postMap.set(normalized.slug, normalized);
         }
       });
     }

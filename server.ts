@@ -709,6 +709,11 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     const cloudPosts: any[] = [];
     snap.forEach((d) => {
       const data = d.data();
+      const pSlug = (data.slug || d.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const pId = (data.id || d.id || '').toLowerCase().trim();
+      // An active post in Firestore must never be blocked by a stale deleted record
+      if (pSlug) removeDeletedPostSlug(pSlug);
+      if (pId) removeDeletedPostSlug(pId);
       cloudPosts.push({
         id: data.id || d.id,
         slug: data.slug || d.id,
@@ -732,6 +737,11 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
 
     const localPosts = loadCustomBlogPosts();
     const deletedSlugs = new Set(loadDeletedPostSlugs());
+    // Active cloud posts override deleted list
+    cloudPosts.forEach((p) => {
+      deletedSlugs.delete((p.slug || '').toLowerCase().trim());
+      deletedSlugs.delete((p.id || '').toLowerCase().trim());
+    });
     const map = new Map<string, any>();
     localPosts.forEach((p) => {
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -741,11 +751,7 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
       }
     });
     cloudPosts.forEach((p) => {
-      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-      const id = (p.id || '').toLowerCase().trim();
-      if (!deletedSlugs.has(s) && !deletedSlugs.has(id)) {
-        map.set(p.slug || p.id, p);
-      }
+      map.set(p.slug || p.id, p);
     });
     const allList = Array.from(map.values());
     const merged = allList.map((p) => ({
@@ -1632,7 +1638,7 @@ async function startServer() {
     const vite = await createViteServer({
       server: {
         middlewareMode: true,
-        hmr: process.env.DISABLE_HMR !== "true" ? { server: httpServer } : false,
+        hmr: false,
       },
       appType: "spa",
     });

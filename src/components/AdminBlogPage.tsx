@@ -69,6 +69,7 @@ import {
   syncDeletedPosts,
   recordDeletedPostSlugLocal,
   removeDeletedPostSlugLocal,
+  getCustomBlogPosts,
   getAllBlogPosts,
 } from '../data/blogPosts';
 import {
@@ -623,82 +624,83 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     await syncDeletedPosts();
     const deleted = getDeletedPostSlugs();
 
-    // 1. Try Cloud Firestore first for global multi-device sync
+    // Fetch all posts from Cloud Firestore, API, and local storage (Unified Merging)
+    const postMap = new Map<string, BlogPost>();
+
+    // 1. Initial posts baseline
+    INITIAL_BLOG_POSTS.forEach((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      if (!deleted.has(s) && !deleted.has(id)) {
+        postMap.set(p.slug || p.id, p);
+      }
+    });
+
+    // 2. Local custom posts from window or localStorage
+    try {
+      const localCustom = getCustomBlogPosts();
+      localCustom.forEach((p) => {
+        postMap.set(p.slug || p.id, p);
+      });
+    } catch {}
+
+    // 3. Try server API (/api/admin/posts)
+    try {
+      const res = await fetch('/api/admin/posts');
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data.customPosts)) {
+          data.customPosts.forEach((p: BlogPost) => {
+            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+            const id = (p.id || '').toLowerCase().trim();
+            if (!deleted.has(s) && !deleted.has(id)) {
+              postMap.set(p.slug || p.id, p);
+            }
+          });
+        }
+        if (Array.isArray(data.posts)) {
+          data.posts.forEach((p: BlogPost) => {
+            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+            const id = (p.id || '').toLowerCase().trim();
+            if (!deleted.has(s) && !deleted.has(id)) {
+              postMap.set(p.slug || p.id, p);
+            }
+          });
+        }
+      }
+    } catch (apiErr) {
+      console.warn('API posts load warning:', apiErr);
+    }
+
+    // 4. Try Cloud Firestore (Primary Cloud Authority)
     try {
       const cloudPosts = await getPostsFromFirestore();
       if (cloudPosts && cloudPosts.length > 0) {
-        const validCloudPosts = cloudPosts.filter((p) => {
-          const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-          const id = (p.id || '').toLowerCase().trim();
-          return !deleted.has(s) && !deleted.has(id);
-        });
-
-        const map = new Map<string, BlogPost>();
-        // Custom posts first
-        validCloudPosts.forEach((p) => map.set(p.slug || p.id, p));
-        INITIAL_BLOG_POSTS.forEach((p) => {
-          const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-          const id = (p.id || '').toLowerCase().trim();
-          if (!deleted.has(s) && !deleted.has(id)) {
-            if (!map.has(p.slug)) map.set(p.slug, p);
+        // Active posts retrieved from Firestore unblock local deleted blacklist
+        cloudPosts.forEach((p) => {
+          if (p.slug) {
+            deleted.delete(p.slug.toLowerCase().trim());
+            removeDeletedPostSlugLocal(p.slug);
           }
+          if (p.id) {
+            deleted.delete(p.id.toLowerCase().trim());
+            removeDeletedPostSlugLocal(p.id);
+          }
+          postMap.set(p.slug || p.id, p);
         });
-        const merged = Array.from(map.values());
-        setPosts(merged);
-        if (typeof window !== 'undefined') {
-          localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(validCloudPosts));
-        }
-        if (!silent) setLoading(false);
-        return;
       }
     } catch (e) {
       console.warn('Firestore load error:', e);
     }
 
-    // 2. Try server API
-    try {
-      const res = await fetch('/api/admin/posts');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.posts && Array.isArray(data.posts)) {
-          const map = new Map<string, BlogPost>();
-          if (Array.isArray(data.customPosts)) {
-            data.customPosts.forEach((p: BlogPost) => {
-              const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-              const id = (p.id || '').toLowerCase().trim();
-              if (!deleted.has(s) && !deleted.has(id)) {
-                map.set(p.slug || p.id, p);
-              }
-            });
-          }
-          data.posts.forEach((p: BlogPost) => {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            if (!deleted.has(s) && !deleted.has(id)) {
-              if (!map.has(p.slug || p.id)) map.set(p.slug || p.id, p);
-            }
-          });
-          setPosts(Array.from(map.values()));
-          // Sync custom posts into localStorage as instant fallback
-          if (data.customPosts && typeof window !== 'undefined') {
-            const validCustom = (data.customPosts as BlogPost[]).filter((p) => {
-              const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-              const id = (p.id || '').toLowerCase().trim();
-              return !deleted.has(s) && !deleted.has(id);
-            });
-            localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(validCustom));
-          }
-          if (!silent) setLoading(false);
-          return;
-        }
-      }
-    } catch {
-      // Fallback to local
-    }
+    const merged = Array.from(postMap.values());
+    setPosts(merged);
 
-    // 3. Local fallback
-    const all = getAllBlogPosts();
-    setPosts(all);
+    // Save custom posts back to localStorage for instant cache fallback
+    if (typeof window !== 'undefined') {
+      const allCustom = merged.filter((p) => !INITIAL_BLOG_POSTS.some((ip) => ip.slug === p.slug));
+      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(allCustom));
+    }
     if (!silent) setLoading(false);
   }, []);
 
@@ -1813,6 +1815,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
     let cloudSaved = false;
     try {
+      removeDeletedPostSlugLocal(cleanSlug);
+      if (editingPostId) removeDeletedPostSlugLocal(editingPostId);
       await savePostToFirestore(postPayload);
       cloudSaved = true;
     } catch (fbErr) {

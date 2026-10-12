@@ -5662,6 +5662,118 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Bát nước mắm tỏi ớt chua ngọt pha kẹo sền sệt, điểm xuyết đồ chua củ cải cà rốt và củ kiệu giòn ngọt.',
   },
+
+  'hu-tieu-nam-vang-kho': {
+    dishId: 'hu-tieu-nam-vang-kho',
+    dishName: 'Hủ Tiếu Nam Vang Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    seoTitle: 'Cách Nấu Hủ Tiếu Nam Vang Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    prepTime: '30 phút',
+    cookTime: '1.5 - 2 giờ',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Xương & Nguyên liệu hầm nước dùng thanh ngọt',
+        items: [
+          '1kg xương ống heo hoặc xương đuôi, sườn non heo tươi ngon',
+          '100g tôm khô loại 1 (ngâm nước ấm 15 phút, rửa sạch cát)',
+          '1 con mực khô cỡ vừa (nướng vàng thơm lừng, xé đôi đập dập - bí quyết nước lèo ngọt sâu)',
+          '1 củ cải trắng lớn (gọt vỏ, cắt khoanh tròn dày 2cm)',
+          '1 củ hành tây nướng xém cạnh, bóc lớp vỏ cháy bên ngoài',
+          '1 bó rễ ngò rí (5 - 6 gốc ngò rí rửa sạch đất, thả vào nồi nước dùng tỏa hương thanh khiết)',
+          'Gia vị nêm nước dùng: 2 thìa canh đường phèn, 2 thìa canh muối hạt, 2 thìa canh nước mắm nhĩ ngon, 1 thìa cà phê hạt nêm',
+        ],
+      },
+      {
+        category: 'Topping thập cẩm chuẩn vị Nam Vang',
+        items: [
+          '300g tôm sú tươi (chọn tôm còn nhảy, luộc vừa chín tới bóc vỏ chừa đuôi)',
+          '300g thịt nạc dăm hoặc nạc thăn heo tươi (luộc chín trong nồi nước dùng rồi thái lát mỏng)',
+          '200g thịt heo xay nhuyễn (xào tơi thơm cùng tỏi phi và tiêu sọ)',
+          '200g gan heo & tim heo tươi (ngâm sữa tươi khử mùi, luộc chín tới ngâm nước đá)',
+          '12 - 15 quả trứng cút luộc chín, bóc sạch vỏ',
+          '150g mỡ gáy heo thái hạt lựu (thắng tóp mỡ giòn rụm) & 1 chén tỏi băm phi vàng ruộm',
+        ],
+      },
+      {
+        category: 'Sợi hủ tiếu, Rau sống & Nước sốt trộn khô',
+        items: [
+          '500g sợi hủ tiếu dai Sa Đéc (hoặc hủ tiếu khô Mỹ Tho)',
+          'Rau ăn kèm: Cần tàu (cần tây lá nhỏ), hẹ lá tươi cắt khúc, giá đỗ sống, xà lách tần ô, chanh, ớt hiểm',
+          'Sốt trộn hủ tiếu khô đặc chế: 2 thìa canh hắc xì dầu (hoặc tương đen ngọt), 1 thìa canh dầu hào, 1 thìa canh nước tương, 1 thìa cà phê đường phèn, 2 thìa canh nước dùng hầm xương, 1 thìa dầu tỏi phi thơm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế sạch xương & Ninh nước dùng thanh ngọt cùng hải sản khô',
+        time: '20 phút (ninh 1.5 - 2 giờ)',
+        heat: 'Lửa lớn đun sôi rồi hạ lửa nhỏ liu riu',
+        goal: 'Nước dùng trong vắt như hổ phách, ngọt lịm từ tủy xương và mực khô nướng, thơm mát hương rễ ngò',
+        actionPoints: [
+          'Xương heo chặt khúc, chần trong nồi nước sôi pha 1 thìa muối và gừng đập dập trong 3 - 5 phút cho nhả sạch bọt máu đọng. Vớt ra rửa sạch từng khúc xương dưới vòi nước lạnh.',
+          'Nướng mực khô trên lửa nhỏ đến khi thơm nức mũi, dùng chày đập dập rồi xé đôi. Tôm khô ngâm nước ấm 15 phút, rửa sạch để ráo.',
+          'Cho xương heo vào nồi cùng 3.5 - 4 lít nước lọc. Thả mực khô nướng, tôm khô, củ cải trắng, hành tây nướng và rễ ngò rí vào cùng.',
+          'Đun sôi bùng lên thì hạ lửa nhỏ liu riu. Hớt sạch bọt nổi trong 15 phút đầu và tuyệt đối KHÔNG đậy nắp vung để nước dùng trong vắt.',
+          'Nêm 2 thìa canh đường phèn và muối hạt. Ninh liu riu trong 1.5 - 2 giờ cho xương tiết trọn vị ngọt tự nhiên.',
+        ],
+        description:
+          'Chần sạch xương heo với nước sôi pha gừng muối rồi rửa kỹ. Cho xương vào ninh cùng mực khô nướng thơm, tôm khô, củ cải trắng, hành tây nướng và rễ ngò rí trên lửa liu riu, hớt bọt thường xuyên để nước dùng trong vắt, ngọt thanh đậm đà.',
+        tip: 'Mực khô nướng và rễ ngò rí là 2 bí quyết gia truyền tạo nên hương vị đặc trưng không thể lẫn của hủ tiếu Nam Vang: Mực nướng tạo độ ngọt sâu đọng lại nơi cuống họng, còn rễ ngò đánh tan hoàn toàn mùi tanh của thịt xương.',
+      },
+      {
+        step: 2,
+        title: 'Luộc tôm, thịt nạc, gan tim & Xào thịt băm thơm nức',
+        time: '25 phút',
+        heat: 'Lửa vừa',
+        goal: 'Thịt luộc trắng giòn ngọt mọng, gan bùi béo không thâm, tôm đỏ au và thịt băm tơi xốp đậm vị',
+        actionPoints: [
+          'Thả miếng thịt nạc heo vào nồi nước dùng đang ninh, luộc chín trong 20 phút. Vớt ra ngâm ngay vào âu nước đá lạnh pha vài giọt cốt chanh để thịt săn chắc, giữ màu trắng đẹp không bị thâm, sau đó thái lát mỏng.',
+          'Gan heo và tim heo rửa sạch, ngâm sữa tươi không đường 15 phút để khử độc và tanh. Luộc chín tới trong nồi nhỏ riêng pha chút giấm và gừng, vớt ra ngâm nước đá rồi thái lát mỏng vừa ăn.',
+          'Tôm sú luộc chín tới trong 3 - 4 phút, vớt ra bóc vỏ chừa đuôi. Phần nước luộc tôm gạn lấy nước trong đổ ngược vào nồi nước dùng hầm xương để tăng thêm vị ngọt hải sản.',
+          'Xào thịt băm: Đun nóng 1 thìa mỡ heo trong chảo, phi thơm tỏi băm rồi trút 200g thịt heo xay vào đảo nhanh tay trên lửa lớn. Nêm 1 thìa cà phê hạt nêm, 1/2 thìa tiêu sọ xay. Đảo đều cho thịt chín tơi xốp, thơm lừng thì múc ra bát.',
+        ],
+        description:
+          'Luộc chín thịt nạc, tôm sú, gan và tim heo rồi ngâm nước đá lạnh để giữ độ giòn ngọt và màu sắc tươi sáng. Thịt heo xay xào săn trên lửa lớn với tỏi phi và tiêu cho hạt thịt tơi xốp thơm nồng.',
+        tip: 'Gan heo chỉ nên luộc chín tới khoảng 8 - 10 phút; ngâm ngay vào nước đá lạnh sẽ giúp miếng gan giòn mềm, bùi béo mà không hề bị khô xác hay thâm xỉn.',
+      },
+      {
+        step: 3,
+        title: 'Thắng tóp mỡ, phi tỏi giòn rụm & Nấu sốt trộn hủ tiếu khô',
+        time: '15 phút',
+        heat: 'Lửa nhỏ đến vừa',
+        goal: 'Tóp mỡ giòn rôm rốp, tỏi phi vàng óng thơm nức mũi và chén sốt trộn khô sánh kẹo đậm đà',
+        actionPoints: [
+          'Mỡ heo cắt hạt lựu, cho vào chảo cùng 2 thìa canh nước và 1 nhúm muối nhỏ. Đun lửa vừa cho nước cạn và mỡ tự tiết ra, đảo đều tay đến khi tóp mỡ teo lại vàng giòn thì vớt ra để ráo dầu.',
+          'Dùng phần mỡ heo vừa thắng, cho chén tỏi băm nhuyễn vào phi trên lửa nhỏ. Khi tỏi vừa chuyển sang màu vàng nhạt thì tắt bếp ngay, hơi nóng của dầu sẽ làm tỏi chín vàng ruộm giòn tan mà không bị đắng.',
+          'Nấu sốt hủ tiếu khô: Cho vào chảo nhỏ 2 thìa canh hắc xì dầu (hoặc tương đen), 1 thìa canh dầu hào, 1 thìa canh nước tương, 1 thìa cà phê đường phèn và 2 thìa canh nước hầm xương. Khuấy đều trên lửa nhỏ cho sốt tan sánh sền sệt, tắt bếp múc thêm 1 thìa dầu tỏi phi thơm.',
+        ],
+        description:
+          'Thắng tóp mỡ heo giòn rụm và phi tỏi băm vàng ruộm. Nấu hỗn hợp sốt trộn khô gồm hắc xì dầu, dầu hào, nước tương, đường phèn và nước hầm xương cho sánh mịn đậm đà.',
+        tip: 'Tỏi phi thơm và tóp mỡ giòn rụm chính là linh hồn đánh thức khứu giác của tô hủ tiếu Nam Vang; nhớ vớt tỏi ra khi vừa ngả vàng rơm kẻo để trong chảo dầu nóng tỏi sẽ bị cháy sẫm và đắng.',
+      },
+      {
+        step: 4,
+        title: 'Trụng sợi hủ tiếu & Trình bày thưởng thức (Hủ Tiếu Nước & Hủ Tiếu Khô)',
+        time: '10 phút',
+        heat: 'Nước trụng sôi sùng sục - Thưởng thức nóng',
+        goal: 'Sợi hủ tiếu dai mướt bóng bẩy không dính chùm, topping đầy đặn hấp dẫn, nước dùng nóng bốc khói ngào ngạt',
+        actionPoints: [
+          'Trụng hủ tiếu: Đun sôi một nồi nước riêng. Cho từng vắt hủ tiếu vào vợt trụng nhanh trong 15 - 20 giây cho sợi vừa chín tới, nhấc ra rảy thật ráo nước rồi cho ngay vào tô, rưới 1 thìa dầu tỏi phi xóc đều cho sợi tơi bóng thơm lừng.',
+          'Thưởng thức Hủ Tiếu Nước: Xếp giá đỗ và hẹ lá cắt khúc dưới đáy tô, cho hủ tiếu lên trên. Bày lần lượt tôm sú, thịt nạc lát, gan heo, tim heo, trứng cút, 1 thìa thịt băm xào, cần tàu và rắc tóp mỡ, tỏi phi lên mặt. Chan nước dùng sôi sùng sục ngập mặt tô, rắc thêm tiêu xay.',
+          'Thưởng thức Hủ Tiếu Khô: Cho hủ tiếu đã trụng vào tô, rưới 2 thìa sốt trộn khô sánh mịn và trộn đều cho từng sợi hủ tiếu thấm đẫm màu nâu óng ả. Xếp đầy đủ topping tôm thịt, tóp mỡ, tỏi phi lên trên. Múc một chén nước dùng hầm xương nóng hổi rắc hành ngò rí, tiêu sọ để bên cạnh húp kèm.',
+        ],
+        description:
+          'Trụng nhanh sợi hủ tiếu qua nước sôi rồi trộn dầu tỏi phi cho tơi bóng. Xếp topping tôm sú, thịt nạc, gan, thịt băm, trứng cút, tóp mỡ và cần tàu hẹ lá. Tùy sở thích chan nước dùng sôi sùng sục (hủ tiếu nước) hoặc rưới sốt trộn đậm đà kèm chén súp nóng hổi (hủ tiếu khô).',
+        tip: 'Sợi hủ tiếu chỉ trụng nhanh 15-20 giây trong nước sôi già; trụng quá lâu sợi sẽ bị nhũn nát mất đi độ dai giòn đặc trưng.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu nước dùng Hủ Tiếu Nam Vang thanh ngọt đỉnh cao: 1. Ninh xương cùng Mực Khô Nướng và Tôm Khô tạo hậu vị ngọt hậu tự nhiên đọng lại sâu trong cổ họng; 2. Thả vài gốc Rễ Ngò Rí vào nồi nước dùng tạo hương thơm thảo mộc thanh tao đặc trưng xứ Nam; 3. Nêm hoàn toàn bằng Đường Phèn và muối hạt thay vì bột ngọt hay đường cát để nước lèo trong veo, thanh tao và không bao giờ bị gắt cổ.',
+    recommendedSauce:
+      'Chấm cùng chén nước tương tỏi ớt hiểm hoặc đĩa ớt ngâm giấm chua cay, vắt thêm miếng chanh tươi và ăn kèm rau cần tàu giòn ngọt mát lạnh.',
+  },
 };
 
 /**
@@ -6390,6 +6502,7 @@ export const ACTIVE_RECIPE_DISH_IDS: string[] = [
   'bun-bo-hue-dac-biet',
   'mi-quang-tom-thit',
   'com-ga-hoi-an',
+  'hu-tieu-nam-vang-kho',
 ];
 
 export function getActiveRecipeDishes(allDishes: Dish[]): Dish[] {
@@ -6581,6 +6694,13 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-ga-nuong-com-lam-thom-ngon': 'ga-nuong-com-lam',
   'cach-lam-ga-nuong-com-lam-thom-ngon-dam-da': 'ga-nuong-com-lam',
   'cach-lam-ga-nuong-com-lam-thom-ngon-dam-da-chuan-quan': 'ga-nuong-com-lam',
+
+  'hu-tieu-nam-vang': 'hu-tieu-nam-vang-kho',
+  'hu-tieu-nam-vang-kho': 'hu-tieu-nam-vang-kho',
+  'cach-nau-hu-tieu-nam-vang': 'hu-tieu-nam-vang-kho',
+  'cach-nau-hu-tieu-nam-vang-kho': 'hu-tieu-nam-vang-kho',
+  'cach-lam-hu-tieu-nam-vang': 'hu-tieu-nam-vang-kho',
+  'cach-lam-hu-tieu-nam-vang-kho': 'hu-tieu-nam-vang-kho',
 };
 
 /**

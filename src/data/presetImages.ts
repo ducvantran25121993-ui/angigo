@@ -87,6 +87,11 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "category": "Bánh Mì & Cuốn"
   },
   {
+    "name": "Ram bắp Quảng Ngãi giòn rụm",
+    "url": "/images/ram_bap_quang_ngai.jpg",
+    "category": "Bánh Mì & Cuốn"
+  },
+  {
     "name": "Bánh đập mắm nêm",
     "url": "/images/banh_dap_mam_nem.jpg",
     "category": "Bún, Phở, Mì"

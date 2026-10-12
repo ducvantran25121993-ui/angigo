@@ -251,7 +251,7 @@ export const BANHMI_CUON_DISHES: Dish[] = [
     estimatedPrice: 40000,
     calories: '400 - 500 kcal',
     description: 'Bắp nếp non nạo nhỏ giã nhuyễn cuốn bánh tráng mỏng chiên giòn tan thơm lừng vị bắp sữa ngọt ngào bọc rau sống dưa leo mát lành.',
-    image: '/images/cha_gio.jpg',
+    image: '/images/ram_bap_quang_ngai.jpg',
     popularTags: ['Bắp nếp ngọt', 'Giòn tan', 'Ăn vặt'],
     searchKeyword: 'Ram bắp Quảng Ngãi',
   },

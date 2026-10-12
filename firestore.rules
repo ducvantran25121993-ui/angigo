@@ -33,6 +33,10 @@ service cloud.firestore {
       allow update: if isValidId(slugId) && isValidDeletedPost(request.resource.data);
       allow delete: if isValidId(slugId);
     }
+
+    match /test/{testId} {
+      allow read: if true;
+    }
   }
 }
 

@@ -99,6 +99,17 @@
         }
       },
       "required": ["slugOrId"]
+    },
+    "TestConnection": {
+      "title": "TestConnection",
+      "description": "Tài liệu kiểm tra kết nối kiểm thử Firestore",
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Trạng thái kết nối"
+        }
+      }
     }
   },
   "firestore": {
@@ -109,6 +120,10 @@
     "/deleted_posts/{slugId}": {
       "schema": "DeletedPost",
       "description": "Danh sách các slug/ID bài viết đã bị xóa để đồng bộ trên mọi thiết bị và trình duyệt"
+    },
+    "/test/{testId}": {
+      "schema": "TestConnection",
+      "description": "Đường dẫn kiểm tra kết nối Firestore lúc khởi động"
     }
   }
 }

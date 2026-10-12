@@ -1,0 +1,353 @@
+import React, { useEffect, useState } from 'react';
+import { ChevronRight, Home } from 'lucide-react';
+import {
+  TAB_CONFIG,
+  DISCOVER_SUB_CONFIG,
+  TabType,
+  DiscoverSubSection,
+  getDiscoverSubSectionFromUrl,
+} from '../utils/navigation';
+import { getRegionFromUrl, getRegionById, isRegionPath, RegionId } from '../data/regionalCuisine';
+import { findDishByRecipeSlug, getDishRecipe, getRecipeArticleTitle, getRecipePath } from '../data/recipes';
+import { INITIAL_DISHES } from '../data/dishes';
+
+interface BreadcrumbsProps {
+  activeTab: TabType;
+  discoverSub?: DiscoverSubSection;
+  onNavigate: (tab: TabType, sub?: DiscoverSubSection) => void;
+}
+
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
+  activeTab,
+  discoverSub,
+  onNavigate,
+}) => {
+  // Force re-render on any popstate or custom locationchange events
+  // Note: All hooks MUST be called unconditionally at top of component before any early return
+  const [tick, setTick] = useState(0);
+  const [activeBlogPost, setActiveBlogPost] = useState<{ title: string; slug: string } | null>(null);
+
+  useEffect(() => {
+    const handleUrlChange = () => setTick((t) => t + 1);
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('locationchange', handleUrlChange);
+    return () => {
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('locationchange', handleUrlChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const isBlog = activeTab === 'blog';
+    const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+    if (isBlog && currentPath !== '/blog' && currentPath !== '') {
+      import('../data/blogPosts').then((m) => {
+        const post = m.getBlogPostBySlug(currentPath);
+        if (post) {
+          setActiveBlogPost({ title: post.title, slug: post.slug });
+        }
+      });
+    } else {
+      setActiveBlogPost(null);
+    }
+  }, [activeTab, tick]);
+
+  if (activeTab === 'tarot' || activeTab === 'admin') {
+    return null; // On homepage root or admin panel, breadcrumbs aren't necessary
+  }
+
+  const currentTabMeta = TAB_CONFIG[activeTab];
+  const isDiscover = activeTab === 'discover';
+  const effectiveDiscoverSub = isDiscover
+    ? discoverSub || getDiscoverSubSectionFromUrl()
+    : null;
+  const discoverSubMeta = effectiveDiscoverSub
+    ? DISCOVER_SUB_CONFIG[effectiveDiscoverSub]
+    : null;
+
+  // Check if currently on a specific regional page (e.g. /am-thuc-mien-bac)
+  const isSpecificRegion =
+    effectiveDiscoverSub === 'region' &&
+    typeof window !== 'undefined' &&
+    isRegionPath(window.location.pathname);
+  const activeRegionId = isSpecificRegion ? getRegionFromUrl() : null;
+  const activeRegion = activeRegionId ? getRegionById(activeRegionId) : null;
+
+  // Check if currently on a specific recipe article page (e.g. /cach-nau-pho-bo-tai-lan)
+  const currentPathname = typeof window !== 'undefined' ? window.location.pathname : '';
+  const isRecipeArticle =
+    effectiveDiscoverSub === 'recipe' &&
+    (currentPathname.startsWith('/cach-nau-') ||
+      currentPathname.startsWith('/cach-lam-') ||
+      currentPathname.startsWith('/cach-nau-mon-ngon/')) &&
+    currentPathname !== '/cach-nau-mon-ngon';
+
+  const recipeDish = isRecipeArticle ? findDishByRecipeSlug(currentPathname, INITIAL_DISHES) : null;
+  const recipeArticleTitle = recipeDish ? getRecipeArticleTitle(recipeDish, getDishRecipe(recipeDish)) : null;
+
+  // Check if article was navigated to from a specific region
+  const stateReturnRegionId = typeof window !== 'undefined' ? (window.history.state?.returnRegion as RegionId | undefined) : undefined;
+  const returnRegion = stateReturnRegionId ? getRegionById(stateReturnRegionId) : null;
+
+  // Check if currently on a specific blog post
+  const isBlog = activeTab === 'blog';
+
+  const currentLabel =
+    isDiscover && discoverSubMeta ? discoverSubMeta.label : currentTabMeta?.label;
+  const currentPath =
+    isDiscover && discoverSubMeta ? discoverSubMeta.path : currentTabMeta?.path;
+
+  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.ctrlKey || e.metaKey || e.button === 1) return;
+    e.preventDefault();
+    onNavigate('tarot');
+  };
+
+  const handleRegionHubClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.ctrlKey || e.metaKey || e.button === 1) return;
+    e.preventDefault();
+    onNavigate('discover', 'region');
+  };
+
+  const handleRecipeHubClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (e.ctrlKey || e.metaKey || e.button === 1) return;
+    e.preventDefault();
+    onNavigate('discover', 'recipe');
+  };
+
+  return (
+    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3">
+      <ol
+        className="flex items-center gap-1.5 text-xs text-stone-500 font-medium"
+        itemScope
+        itemType="https://schema.org/BreadcrumbList"
+      >
+        <li
+          className="flex items-center"
+          itemProp="itemListElement"
+          itemScope
+          itemType="https://schema.org/ListItem"
+        >
+          <a
+            href="/"
+            onClick={handleHomeClick}
+            itemProp="item"
+            className="flex items-center gap-1 hover:text-orange-600 transition-colors"
+          >
+            <Home className="w-3.5 h-3.5" />
+            <span itemProp="name">Trang chủ</span>
+          </a>
+          <meta itemProp="position" content="1" />
+        </li>
+
+        {isSpecificRegion && activeRegion ? (
+          <>
+            <li
+              className="flex items-center gap-1.5"
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+            >
+              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              <a
+                href="/am-thuc-vung-mien"
+                onClick={handleRegionHubClick}
+                itemProp="item"
+                className="hover:text-orange-600 transition-colors"
+              >
+                <span itemProp="name">Ẩm Thực Vùng Miền</span>
+              </a>
+              <meta itemProp="position" content="2" />
+            </li>
+
+            <li
+              className="flex items-center gap-1.5"
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+            >
+              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              <span
+                className="text-stone-800 font-semibold"
+                aria-current="page"
+                itemProp="name"
+              >
+                {activeRegion.name}
+              </span>
+              <link itemProp="item" href={`https://angigio.com${activeRegion.path}`} />
+              <meta itemProp="position" content="3" />
+            </li>
+          </>
+        ) : isRecipeArticle && recipeDish && recipeArticleTitle ? (
+          returnRegion ? (
+            <>
+              <li
+                className="flex items-center gap-1.5"
+                itemProp="itemListElement"
+                itemScope
+                itemType="https://schema.org/ListItem"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+                <a
+                  href="/am-thuc-vung-mien"
+                  onClick={handleRegionHubClick}
+                  itemProp="item"
+                  className="hover:text-orange-600 transition-colors"
+                >
+                  <span itemProp="name">Ẩm Thực Vùng Miền</span>
+                </a>
+                <meta itemProp="position" content="2" />
+              </li>
+
+              <li
+                className="flex items-center gap-1.5"
+                itemProp="itemListElement"
+                itemScope
+                itemType="https://schema.org/ListItem"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+                <a
+                  href={returnRegion.path}
+                  onClick={(e) => {
+                    if (e.ctrlKey || e.metaKey || e.button === 1) return;
+                    e.preventDefault();
+                    window.history.pushState(
+                      { tab: 'discover', sub: 'region', region: returnRegion.id },
+                      '',
+                      returnRegion.path
+                    );
+                    window.dispatchEvent(new Event('locationchange'));
+                  }}
+                  itemProp="item"
+                  className="hover:text-orange-600 transition-colors"
+                >
+                  <span itemProp="name">{returnRegion.name}</span>
+                </a>
+                <meta itemProp="position" content="3" />
+              </li>
+
+              <li
+                className="flex items-center gap-1.5"
+                itemProp="itemListElement"
+                itemScope
+                itemType="https://schema.org/ListItem"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+                <span
+                  className="text-stone-800 font-semibold truncate max-w-xs sm:max-w-md"
+                  aria-current="page"
+                  itemProp="name"
+                >
+                  {recipeArticleTitle}
+                </span>
+                <link itemProp="item" href={`https://angigio.com${getRecipePath(recipeDish)}`} />
+                <meta itemProp="position" content="4" />
+              </li>
+            </>
+          ) : (
+            <>
+              <li
+                className="flex items-center gap-1.5"
+                itemProp="itemListElement"
+                itemScope
+                itemType="https://schema.org/ListItem"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+                <a
+                  href="/cach-nau-mon-ngon"
+                  onClick={handleRecipeHubClick}
+                  itemProp="item"
+                  className="hover:text-orange-600 transition-colors"
+                >
+                  <span itemProp="name">Cách Nấu Món Ngon</span>
+                </a>
+                <meta itemProp="position" content="2" />
+              </li>
+
+              <li
+                className="flex items-center gap-1.5"
+                itemProp="itemListElement"
+                itemScope
+                itemType="https://schema.org/ListItem"
+              >
+                <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+                <span
+                  className="text-stone-800 font-semibold truncate max-w-xs sm:max-w-md"
+                  aria-current="page"
+                  itemProp="name"
+                >
+                  {recipeArticleTitle}
+                </span>
+                <link itemProp="item" href={`https://angigio.com${getRecipePath(recipeDish)}`} />
+                <meta itemProp="position" content="3" />
+              </li>
+            </>
+          )
+        ) : isBlog && activeBlogPost ? (
+          <>
+            <li
+              className="flex items-center gap-1.5"
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+            >
+              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              <a
+                href="/blog"
+                onClick={(e) => {
+                  if (e.ctrlKey || e.metaKey || e.button === 1) return;
+                  e.preventDefault();
+                  onNavigate('blog');
+                  window.history.pushState({ tab: 'blog' }, '', '/blog');
+                  window.dispatchEvent(new Event('locationchange'));
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                itemProp="item"
+                className="hover:text-orange-600 transition-colors"
+              >
+                <span itemProp="name">Blog Ẩm Thực</span>
+              </a>
+              <meta itemProp="position" content="2" />
+            </li>
+
+            <li
+              className="flex items-center gap-1.5"
+              itemProp="itemListElement"
+              itemScope
+              itemType="https://schema.org/ListItem"
+            >
+              <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+              <span
+                className="text-stone-800 font-semibold truncate max-w-xs sm:max-w-md"
+                aria-current="page"
+                itemProp="name"
+              >
+                {activeBlogPost.title}
+              </span>
+              <link itemProp="item" href={`https://angigio.com/${activeBlogPost.slug}`} />
+              <meta itemProp="position" content="3" />
+            </li>
+          </>
+        ) : (
+          <li
+            className="flex items-center gap-1.5"
+            itemProp="itemListElement"
+            itemScope
+            itemType="https://schema.org/ListItem"
+          >
+            <ChevronRight className="w-3.5 h-3.5 text-stone-400" />
+            <span
+              className="text-stone-800 font-semibold"
+              aria-current="page"
+              itemProp="name"
+            >
+              {currentLabel}
+            </span>
+            <link itemProp="item" href={`https://angigio.com${currentPath}`} />
+            <meta itemProp="position" content="2" />
+          </li>
+        )}
+      </ol>
+    </nav>
+  );
+};

@@ -1,0 +1,211 @@
+import { AffiliateConfig, Dish, UserLocation } from '../types';
+import { getStoredUserLocation } from './location';
+
+export const DEFAULT_AFFILIATE_CONFIG: AffiliateConfig = {
+  shopeeAffiliateId: '17307790541',
+  shopeeSubId: 'homnayangi_web',
+  shopeeBaseUrl: 'https://shopeefood.vn',
+  grabfoodAffiliateId: 'GRAB_AFF_VN_777',
+  grabfoodWebUrl: 'https://food.grab.com/vn/vi/',
+  befoodPartnerId: 'BEFOOD_VN_666',
+  befoodWebUrl: 'https://be.com.vn/dich-vu/be-food/',
+  averageCommissionRate: 5.5,
+  defaultCity: 'TP. Hồ Chí Minh',
+};
+
+/**
+ * Clean and optimize dish search query for Food delivery apps
+ */
+export function cleanDishSearchQuery(dishName: string): string {
+  if (!dishName) return 'món ngon';
+  // Remove markdown, extra annotations like (Hot), [Mới], etc.
+  let cleaned = dishName
+    .replace(/\(.*?\)/g, '')
+    .replace(/\[.*?\]/g, '')
+    .replace(/✦/g, '')
+    .trim();
+  return cleaned;
+}
+
+/**
+ * Build dish search query optimized with user's specific district/city
+ * E.g., dish "Salad Ức Gà Healthy" + district "Quận 1" => "Salad Ức Gà Healthy Quận 1"
+ * This guarantees food delivery apps (ShopeeFood, GrabFood, BeFood) actively locate shops in that district
+ */
+export function buildLocationDishQuery(dishName: string, userLocation?: UserLocation): string {
+  const cleaned = cleanDishSearchQuery(dishName);
+  if (!userLocation) return cleaned;
+
+  const district = userLocation.district?.trim();
+  if (district && !cleaned.toLowerCase().includes(district.toLowerCase())) {
+    return `${cleaned} ${district}`;
+  }
+
+  const city = userLocation.city?.trim();
+  if (city && !cleaned.toLowerCase().includes(city.toLowerCase())) {
+    const shortCity = city.replace('Thành phố ', '').replace('TP. ', '').replace('Tỉnh ', '');
+    return `${cleaned} ${shortCity}`;
+  }
+
+  return cleaned;
+}
+
+export function buildAffiliateUrl(
+  platform: 'shopeefood' | 'grabfood' | 'befood' | 'googlemaps',
+  dishName: string,
+  config: AffiliateConfig = DEFAULT_AFFILIATE_CONFIG,
+  userLocation?: UserLocation
+): string {
+  const loc = userLocation || getStoredUserLocation();
+  const cleanedQuery = cleanDishSearchQuery(dishName);
+  const locationDishQuery = buildLocationDishQuery(dishName, loc);
+  const query = encodeURIComponent(locationDishQuery);
+  const encodedSubId = encodeURIComponent(config.shopeeSubId || 'homnayangi');
+
+  switch (platform) {
+    case 'shopeefood': {
+      // ShopeeFood Vietnam search link:
+      // Passing dish + district (e.g. "Salad Ức Gà Healthy Quận 1") actively searches and prioritizes restaurants in that district
+      const cityPath = loc?.citySlug ? `${loc.citySlug}/` : '';
+      return `https://shopeefood.vn/${cityPath}search?q=${query}&utm_source=affiliate&utm_medium=cpa&utm_campaign=${encodedSubId}&aff_id=${config.shopeeAffiliateId}`;
+    }
+
+    case 'grabfood': {
+      // GrabFood:
+      // Passing dish + district in search query AND passing coordinates + address pins the search directly at the district
+      const lat = loc?.latitude || 10.7769;
+      const lng = loc?.longitude || 106.7009;
+      const encodedAddr = encodeURIComponent(loc?.address || `${loc?.district || ''}, ${loc?.city || ''}`);
+      return `https://food.grab.com/vn/vi/restaurants?search=${query}&lat=${lat}&lng=${lng}&location=${encodedAddr}&utm_source=affiliate_partner&utm_medium=${config.grabfoodAffiliateId}&utm_campaign=grab_food_suggest`;
+    }
+
+    case 'befood': {
+      const locParam = loc?.city ? `&city=${encodeURIComponent(loc.city)}` : '';
+      const districtParam = loc?.district ? `&district=${encodeURIComponent(loc.district)}` : '';
+      return `https://be.com.vn/dich-vu/be-food/?search=${query}${locParam}${districtParam}&ref=${config.befoodPartnerId}&utm_source=affiliate`;
+    }
+
+    case 'googlemaps': {
+      const lat = loc?.latitude || 10.7769;
+      const lng = loc?.longitude || 106.7009;
+      return `https://www.google.com/maps/search/${encodeURIComponent(locationDishQuery + ' quán ăn ngon gần đây')}/@${lat},${lng},15z`;
+    }
+
+    default:
+      return `https://shopeefood.vn/search?q=${query}`;
+  }
+}
+
+/**
+ * Bulletproof external link opening that avoids popup blockers in browsers,
+ * webviews, and iframes, ensuring the food delivery app or search page opens reliably.
+ */
+export function safeOpenExternalUrl(targetUrl: string): boolean {
+  if (!targetUrl) return false;
+
+  // 1. Synthetic native anchor click (bypasses most mobile & desktop popup blockers)
+  try {
+    const link = document.createElement('a');
+    link.href = targetUrl;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      if (document.body.contains(link)) {
+        document.body.removeChild(link);
+      }
+    }, 150);
+    return true;
+  } catch (e) {
+    console.warn('Anchor click error, attempting window.open', e);
+  }
+
+  // 2. Direct window.open fallback
+  try {
+    const newWindow = window.open(targetUrl, '_blank', 'noopener,noreferrer');
+    if (newWindow && !newWindow.closed) {
+      return true;
+    }
+  } catch (e) {
+    console.warn('window.open blocked, trying top navigation', e);
+  }
+
+  // 3. In-frame or same-window fallback if popup was completely blocked
+  try {
+    if (window.top && window.top !== window) {
+      window.top.location.href = targetUrl;
+    } else {
+      window.location.href = targetUrl;
+    }
+    return true;
+  } catch {
+    window.location.href = targetUrl;
+    return true;
+  }
+}
+
+export async function trackAndOpenAffiliateLink(
+  platform: 'shopeefood' | 'grabfood' | 'befood' | 'googlemaps',
+  dish: { id?: string; name: string; estimatedPrice?: number },
+  config: AffiliateConfig = DEFAULT_AFFILIATE_CONFIG,
+  customLocation?: UserLocation
+): Promise<string> {
+  const activeLocation = customLocation || getStoredUserLocation();
+  const targetUrl = buildAffiliateUrl(platform, dish.name, config, activeLocation);
+
+  // Immediately launch navigation to prevent browser popup block heuristics
+  safeOpenExternalUrl(targetUrl);
+
+  // Dispatch interactive notification event for instant feedback
+  try {
+    window.dispatchEvent(
+      new CustomEvent('affiliate-order-opened', {
+        detail: {
+          dishName: cleanDishSearchQuery(dish.name),
+          locationDishQuery: buildLocationDishQuery(dish.name, activeLocation),
+          platform,
+          location: activeLocation,
+          url: targetUrl,
+        },
+      })
+    );
+  } catch {
+    // ignore
+  }
+
+  // Send telemetry beacon to backend asynchronously
+  try {
+    fetch('/api/affiliate/track-click', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        dishId: dish.id || dish.name.toLowerCase().replace(/\s+/g, '-'),
+        dishName: cleanDishSearchQuery(dish.name),
+        platform: platform === 'googlemaps' ? 'grabfood' : platform,
+        priceEstimate: dish.estimatedPrice || 50000,
+        userLocation: {
+          city: activeLocation.city,
+          district: activeLocation.district,
+          source: activeLocation.source,
+          latitude: activeLocation.latitude,
+          longitude: activeLocation.longitude,
+        },
+      }),
+    }).catch(() => {
+      // silent fallback
+    });
+  } catch (err) {
+    console.warn('Click tracking beacon failed', err);
+  }
+
+  return targetUrl;
+}
+
+export function formatVND(amount: number): string {
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: 'VND',
+    maximumFractionDigits: 0,
+  }).format(amount);
+}

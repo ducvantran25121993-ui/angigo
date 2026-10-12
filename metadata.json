@@ -1,0 +1,10 @@
+{
+  "name": "Remix Hôm Nay Ăn Gì - Gợi Ý Món Ăn \u0026 Affiliate App Food",
+  "description": "Web app gợi ý món ăn hôm nay với Vòng quay may mắn, Trợ lý AI Gemini, bộ lọc thời tiết \u0026 ngân sách, tích hợp liên kết đặt món ShopeeFood, GrabFood, BeFood để nhận hoa hồng affiliate.",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

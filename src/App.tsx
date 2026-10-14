@@ -101,6 +101,16 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-heo-quay-banh-hoi');
       } else if (pathname === '/cach-nau-be-thui') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-be-thui');
+      } else if (pathname === '/cach-nau-banh-dap-mam-nem') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-dap-mam-nem');
+      } else if (pathname === '/cach-nau-banh-beo') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-beo');
+      } else if (pathname === '/cach-nau-nem-lui-nuong-cuon') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-nem-lui-nuong-cuon');
+      } else if (pathname === '/cach-nau-banh-mi-cha-ca-nong') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-mi-cha-ca-nong');
+      } else if (pathname === '/cach-nau-de-tai-chanh-tuong-ban' || pathname === '/cach-nau-de-tai-chanh') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-de-tai-chanh');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

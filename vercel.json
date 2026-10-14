@@ -32,6 +32,66 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-banh-dap-mam-nem",
+      "destination": "/cach-lam-banh-dap-mam-nem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-dap-mam-nem/",
+      "destination": "/cach-lam-banh-dap-mam-nem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-beo",
+      "destination": "/cach-lam-banh-beo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-beo/",
+      "destination": "/cach-lam-banh-beo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nem-lui-nuong-cuon",
+      "destination": "/cach-lam-nem-lui-nuong-cuon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nem-lui-nuong-cuon/",
+      "destination": "/cach-lam-nem-lui-nuong-cuon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-cha-ca-nong",
+      "destination": "/cach-lam-banh-mi-cha-ca-nong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-cha-ca-nong/",
+      "destination": "/cach-lam-banh-mi-cha-ca-nong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-de-tai-chanh-tuong-ban",
+      "destination": "/cach-lam-de-tai-chanh",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-de-tai-chanh-tuong-ban/",
+      "destination": "/cach-lam-de-tai-chanh",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-de-tai-chanh",
+      "destination": "/cach-lam-de-tai-chanh",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-de-tai-chanh/",
+      "destination": "/cach-lam-de-tai-chanh",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

@@ -7007,6 +7007,11 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'muc-mot-nang-nuong-sa-te': 'cach-lam-muc-mot-nang-nuong-sa-te',
   'heo-quay-banh-hoi': 'cach-lam-heo-quay-banh-hoi',
   'be-thui': 'cach-lam-be-thui',
+  'banh-dap-mam-nem': 'cach-lam-banh-dap-mam-nem',
+  'banh-beo': 'cach-lam-banh-beo',
+  'nem-lui-nuong-cuon': 'cach-lam-nem-lui-nuong-cuon',
+  'banh-mi-cha-ca-nong': 'cach-lam-banh-mi-cha-ca-nong',
+  'de-tai-chanh-tuong-ban': 'cach-lam-de-tai-chanh',
 };
 
 /**

@@ -1890,6 +1890,78 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-com-ga-xoi-mo");
   });
 
+  // 301 Permanent Redirect for bot chien trung
+  app.get([
+    "/cach-nau-bot-chien-gion-trung-doi",
+    "/cach-nau-bot-chien-gion-trung-doi/",
+    "/cach-nau-bot-chien-trung",
+    "/cach-nau-bot-chien-trung/",
+    "/cach-nau-bot-chien",
+    "/cach-nau-bot-chien/",
+    "/cach-lam-bot-chien",
+    "/cach-lam-bot-chien/",
+    "/cach-lam-bot-chien-gion-trung-doi",
+    "/cach-lam-bot-chien-gion-trung-doi/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-bot-chien-trung");
+  });
+
+  // 301 Permanent Redirect for nui xao bo
+  app.get([
+    "/cach-nau-nui-xao-bo-ap-chao",
+    "/cach-nau-nui-xao-bo-ap-chao/",
+    "/cach-nau-nui-xao-bo",
+    "/cach-nau-nui-xao-bo/",
+    "/cach-lam-nui-xao-bo-ap-chao",
+    "/cach-lam-nui-xao-bo-ap-chao/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-nui-xao-bo");
+  });
+
+  // 301 Permanent Redirect for nui gio heo
+  app.get([
+    "/cach-lam-nui-gio-heo",
+    "/cach-lam-nui-gio-heo/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-nui-gio-heo");
+  });
+
+  // 301 Permanent Redirect for goi cuon tom thit
+  app.get([
+    "/cach-nau-goi-cuon-tom-thit",
+    "/cach-nau-goi-cuon-tom-thit/",
+    "/cach-nau-goi-cuon",
+    "/cach-nau-goi-cuon/",
+    "/cach-lam-goi-cuon",
+    "/cach-lam-goi-cuon/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-goi-cuon-tom-thit");
+  });
+
+  // 301 Permanent Redirect for bun thit nuong
+  app.get([
+    "/cach-nau-bun-thit-nuong-cha-gio",
+    "/cach-nau-bun-thit-nuong-cha-gio/",
+    "/cach-nau-bun-thit-nuong",
+    "/cach-nau-bun-thit-nuong/",
+    "/cach-lam-bun-thit-nuong-cha-gio",
+    "/cach-lam-bun-thit-nuong-cha-gio/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-bun-thit-nuong");
+  });
+
+  // 301 Permanent Redirect for banh canh cua
+  app.get([
+    "/cach-lam-banh-canh-cua",
+    "/cach-lam-banh-canh-cua/",
+    "/cach-nau-banh-canh-cua-gio-heo",
+    "/cach-nau-banh-canh-cua-gio-heo/",
+    "/cach-lam-banh-canh-cua-gio-heo",
+    "/cach-lam-banh-canh-cua-gio-heo/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-banh-canh-cua");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

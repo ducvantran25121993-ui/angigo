@@ -262,6 +262,186 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-bot-chien-gion-trung-doi",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bot-chien-gion-trung-doi/",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bot-chien-trung",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bot-chien-trung/",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bot-chien",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bot-chien/",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bot-chien",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bot-chien/",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bot-chien-gion-trung-doi",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bot-chien-gion-trung-doi/",
+      "destination": "/cach-lam-bot-chien-trung",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nui-xao-bo-ap-chao",
+      "destination": "/cach-lam-nui-xao-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nui-xao-bo-ap-chao/",
+      "destination": "/cach-lam-nui-xao-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nui-xao-bo",
+      "destination": "/cach-lam-nui-xao-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nui-xao-bo/",
+      "destination": "/cach-lam-nui-xao-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nui-xao-bo-ap-chao",
+      "destination": "/cach-lam-nui-xao-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nui-xao-bo-ap-chao/",
+      "destination": "/cach-lam-nui-xao-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nui-gio-heo",
+      "destination": "/cach-nau-nui-gio-heo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nui-gio-heo/",
+      "destination": "/cach-nau-nui-gio-heo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-goi-cuon-tom-thit",
+      "destination": "/cach-lam-goi-cuon-tom-thit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-goi-cuon-tom-thit/",
+      "destination": "/cach-lam-goi-cuon-tom-thit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-goi-cuon",
+      "destination": "/cach-lam-goi-cuon-tom-thit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-goi-cuon/",
+      "destination": "/cach-lam-goi-cuon-tom-thit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-goi-cuon",
+      "destination": "/cach-lam-goi-cuon-tom-thit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-goi-cuon/",
+      "destination": "/cach-lam-goi-cuon-tom-thit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-thit-nuong-cha-gio",
+      "destination": "/cach-lam-bun-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-thit-nuong-cha-gio/",
+      "destination": "/cach-lam-bun-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-thit-nuong",
+      "destination": "/cach-lam-bun-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-thit-nuong/",
+      "destination": "/cach-lam-bun-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-thit-nuong-cha-gio",
+      "destination": "/cach-lam-bun-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-thit-nuong-cha-gio/",
+      "destination": "/cach-lam-bun-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-canh-cua",
+      "destination": "/cach-nau-banh-canh-cua",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-canh-cua/",
+      "destination": "/cach-nau-banh-canh-cua",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-canh-cua-gio-heo",
+      "destination": "/cach-nau-banh-canh-cua",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-canh-cua-gio-heo/",
+      "destination": "/cach-nau-banh-canh-cua",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-canh-cua-gio-heo",
+      "destination": "/cach-nau-banh-canh-cua",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-canh-cua-gio-heo/",
+      "destination": "/cach-nau-banh-canh-cua",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

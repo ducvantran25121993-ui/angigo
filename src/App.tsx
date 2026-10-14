@@ -123,6 +123,18 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bo-kho-banh-mi');
       } else if (pathname === '/cach-nau-com-ga-xoi-mo') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-com-ga-xoi-mo');
+      } else if (pathname === '/cach-nau-bot-chien-gion-trung-doi' || pathname === '/cach-nau-bot-chien-trung' || pathname === '/cach-nau-bot-chien' || pathname === '/cach-lam-bot-chien' || pathname === '/cach-lam-bot-chien-gion-trung-doi') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bot-chien-trung');
+      } else if (pathname === '/cach-nau-nui-xao-bo-ap-chao' || pathname === '/cach-nau-nui-xao-bo' || pathname === '/cach-lam-nui-xao-bo-ap-chao') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-nui-xao-bo');
+      } else if (pathname === '/cach-lam-nui-gio-heo') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-nui-gio-heo');
+      } else if (pathname === '/cach-nau-goi-cuon-tom-thit' || pathname === '/cach-nau-goi-cuon' || pathname === '/cach-lam-goi-cuon') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-goi-cuon-tom-thit');
+      } else if (pathname === '/cach-nau-bun-thit-nuong-cha-gio' || pathname === '/cach-nau-bun-thit-nuong' || pathname === '/cach-lam-bun-thit-nuong-cha-gio') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bun-thit-nuong');
+      } else if (pathname === '/cach-lam-banh-canh-cua' || pathname === '/cach-nau-banh-canh-cua-gio-heo' || pathname === '/cach-lam-banh-canh-cua-gio-heo') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-banh-canh-cua');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

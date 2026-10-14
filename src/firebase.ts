@@ -102,6 +102,7 @@ export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Pro
     title: post.title || '',
     excerpt: post.excerpt || '',
     content: post.content || '',
+    htmlContent: post.htmlContent || '',
     coverImage: post.coverImage || '',
     category: post.category || 'Gợi Ý Thực Đơn',
     tags: Array.isArray(post.tags) ? post.tags.join(', ') : (post.tags || ''),
@@ -111,7 +112,7 @@ export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Pro
     publishDate: post.publishDate || new Date().toLocaleDateString('vi-VN'),
     readTime: post.readTime || '5 phút đọc',
     featured: Boolean(post.featured),
-    updatedAt: new Date().toISOString(),
+    updatedAt: post.updatedAt || new Date().toISOString(),
   };
 
   try {
@@ -213,6 +214,7 @@ export async function getPostsFromFirestore(): Promise<BlogPost[]> {
         title: data.title || '',
         excerpt: data.excerpt || '',
         content: data.content || '',
+        htmlContent: data.htmlContent || data.contentHtml || '',
         coverImage: data.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
         category: (data.category as BlogPost['category']) || 'Gợi Ý Thực Đơn',
         tags: typeof data.tags === 'string' ? data.tags.split(',').map((t: string) => t.trim()) : (data.tags || []),
@@ -224,6 +226,7 @@ export async function getPostsFromFirestore(): Promise<BlogPost[]> {
         publishDate: data.publishDate || '',
         readTime: data.readTime || '5 phút đọc',
         featured: Boolean(data.featured),
+        updatedAt: data.updatedAt || new Date().toISOString(),
       });
     });
     return posts;

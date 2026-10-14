@@ -751,6 +751,7 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
         title: data.title || "",
         excerpt: data.excerpt || "",
         content: data.content || "",
+        htmlContent: data.htmlContent || undefined,
         coverImage: data.coverImage || "/images/an-gi-cho-do-ngan.jpg",
         category: data.category || "Gợi Ý Thực Đơn",
         tags: typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()).filter(Boolean) : (data.tags || []),
@@ -788,6 +789,7 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     const merged = allList.map((p) => ({
       ...p,
       content: p.content || '',
+      htmlContent: p.htmlContent || undefined,
     }));
     saveCustomBlogPosts(merged);
     return merged;
@@ -1159,9 +1161,11 @@ app.post("/api/admin/posts", async (req, res) => {
       (p) => p.slug === cleanSlug || p.id === cleanSlug || (oldSlug && (p.slug === oldSlug || p.id === oldSlug)) || (postData.id && p.id === postData.id)
     );
 
+    const rawHtml = postData.htmlContent || (postData.content && /<[a-z][\s\S]*>/i.test(postData.content) && !postData.content.trim().startsWith('#') ? postData.content : "");
     const savedPost = {
       ...postData,
       content: postData.content || "",
+      htmlContent: rawHtml || undefined,
       id: cleanSlug,
       slug: cleanSlug,
       publishDate: postData.publishDate || new Date().toLocaleDateString("vi-VN", { day: '2-digit', month: '2-digit', year: 'numeric' }),
@@ -1733,6 +1737,14 @@ async function startServer() {
       return res.redirect(301, `/${canonicalSlug}`);
     }
     return res.redirect(301, "/blog");
+  });
+
+  // 301 Permanent Redirect for squid recipe alias requested by user
+  app.get([
+    "/cach-nau-muc-mot-nang-nuong-sa-te",
+    "/cach-nau-muc-mot-nang-nuong-sa-te/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-muc-mot-nang-nuong-sa-te");
   });
 
   // 301 Permanent Redirect for blog slug aliases to canonical post URL

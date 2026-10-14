@@ -7003,11 +7003,18 @@ export const FEATURED_RECIPE_IDS = [
   'com-rang-dua-bo',
 ];
 
+export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
+  'muc-mot-nang-nuong-sa-te': 'cach-lam-muc-mot-nang-nuong-sa-te',
+};
+
 /**
  * Generate standard SEO slug for a dish recipe
  * Example: 'pho-bo-tai-lan' -> 'cach-nau-pho-bo-tai-lan'
  */
 export function getRecipeSlug(dish: Dish): string {
+  if (dish && CUSTOM_RECIPE_SLUGS[dish.id]) {
+    return CUSTOM_RECIPE_SLUGS[dish.id];
+  }
   if (dish.id.startsWith('cach-nau-') || dish.id.startsWith('cach-lam-')) {
     return dish.id;
   }

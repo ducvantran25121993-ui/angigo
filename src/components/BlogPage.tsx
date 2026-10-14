@@ -745,9 +745,12 @@ ${newContent}
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      if (trimmed === '</div>' || trimmed === '</span>' || trimmed === '</p>') continue;
 
       // 0. Callout Box :::tip ... :::
-      if (line.trim().startsWith(':::tip') || line.trim().startsWith(':::callout')) {
+      if (trimmed.startsWith(':::tip') || trimmed.startsWith(':::callout')) {
         const tipLines: string[] = [];
         i++;
         while (i < lines.length && !lines[i].trim().startsWith(':::')) {
@@ -1103,16 +1106,31 @@ ${newContent}
             </figure>
           );
         }
-      } else if (line.match(/^<div\s+[^>]*style=["'][^"']*text-align:\s*(center|right|justify)[^"']*["'][^>]*>(.*?)<\/div>$/i)) {
-        const alignMatch = line.match(/^<div\s+[^>]*style=["'][^"']*text-align:\s*(center|right|justify)[^"']*["'][^>]*>(.*?)<\/div>$/i)!;
-        const [, alignDir, innerText] = alignMatch;
+      } else if (line.trim().match(/^<div\s+[^>]*style=["'][^"']*text-align:\s*(center|right|justify)/i)) {
+        const alignMatch = line.match(/text-align:\s*(center|right|justify)/i);
+        const alignDir = alignMatch ? alignMatch[1] : 'left';
+        let innerHtml = line.replace(/^<div\s+[^>]*style=["'][^"']*text-align:\s*(center|right|justify)[^"']*["'][^>]*>/i, '');
+        if (innerHtml.includes('</div>')) {
+          innerHtml = innerHtml.replace(/<\/div>.*$/, '');
+        } else {
+          const innerLines: string[] = [innerHtml];
+          while (i + 1 < lines.length && !lines[i + 1].includes('</div>')) {
+            i++;
+            innerLines.push(lines[i]);
+          }
+          if (i + 1 < lines.length && lines[i + 1].includes('</div>')) {
+            i++;
+            innerLines.push(lines[i].replace(/<\/div>.*$/, ''));
+          }
+          innerHtml = innerLines.join('\n');
+        }
         elements.push(
           <div
             key={`aligned-${currentKey++}`}
             className="my-3 leading-relaxed text-sm sm:text-base text-stone-700"
             style={{ textAlign: alignDir as any }}
           >
-            {parseInlineContent(innerText)}
+            {parseInlineContent(innerHtml.trim())}
           </div>
         );
       } else if (line.trim().startsWith('<p') && line.trim().endsWith('</p>')) {
@@ -1257,7 +1275,36 @@ ${newContent}
 
           {/* Main Article Content */}
           <div className="bg-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-stone-200/80 shadow-xs mb-8 prose prose-stone max-w-none">
-            {renderFormattedContent(activePost.content)}
+            {(activePost.htmlContent || (activePost.content && /<[a-z][\s\S]*>/i.test(activePost.content) && !activePost.content.trim().startsWith('#'))) ? (
+              <div
+                className="blog-rich-content leading-relaxed text-stone-700 font-normal space-y-4"
+                dangerouslySetInnerHTML={{
+                  __html: activePost.htmlContent || activePost.content
+                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-orange-600 underline font-semibold hover:text-orange-700">$1</a>')
+                    .replace(/^##\s+(.*)$/gm, '<h2 class="text-2xl sm:text-3xl font-black text-stone-900 mt-10 mb-4 pb-2 border-b border-stone-200">$1</h2>')
+                    .replace(/^###\s+(.*)$/gm, '<h3 class="text-xl sm:text-2xl font-bold text-stone-900 mt-8 mb-3 text-stone-800">$1</h3>')
+                }}
+                onClick={(e) => {
+                  const target = e.target as HTMLElement;
+                  const link = target.closest('a');
+                  if (link && link.href) {
+                    try {
+                      const url = new URL(link.href, window.location.origin);
+                      if (url.origin === window.location.origin) {
+                        e.preventDefault();
+                        const path = url.pathname + url.search + url.hash;
+                        window.history.pushState({}, '', path);
+                        window.dispatchEvent(new Event('popstate'));
+                        window.dispatchEvent(new Event('locationchange'));
+                      }
+                    } catch {}
+                  }
+                }}
+              />
+            ) : (
+              renderFormattedContent(activePost.content)
+            )}
 
             {/* Tags footer */}
             <div className="mt-10 pt-6 border-t border-stone-100">

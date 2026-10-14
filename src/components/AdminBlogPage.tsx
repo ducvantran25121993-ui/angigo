@@ -899,9 +899,41 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       if (trimmed) {
         if (
           trimmed.startsWith('<div') ||
+          trimmed.startsWith('</div') ||
+          trimmed.startsWith('<span') ||
+          trimmed.startsWith('</span') ||
           trimmed.startsWith('<table') ||
+          trimmed.startsWith('</table') ||
+          trimmed.startsWith('<thead') ||
+          trimmed.startsWith('</thead') ||
+          trimmed.startsWith('<tbody') ||
+          trimmed.startsWith('</tbody') ||
+          trimmed.startsWith('<tr') ||
+          trimmed.startsWith('</tr') ||
+          trimmed.startsWith('<td') ||
+          trimmed.startsWith('</td') ||
+          trimmed.startsWith('<th') ||
+          trimmed.startsWith('</th') ||
           trimmed.startsWith('<figure') ||
-          trimmed.startsWith('<p')
+          trimmed.startsWith('</figure') ||
+          trimmed.startsWith('<p') ||
+          trimmed.startsWith('</p') ||
+          trimmed.startsWith('<h1') ||
+          trimmed.startsWith('</h1') ||
+          trimmed.startsWith('<h2') ||
+          trimmed.startsWith('</h2') ||
+          trimmed.startsWith('<h3') ||
+          trimmed.startsWith('</h3') ||
+          trimmed.startsWith('<h4') ||
+          trimmed.startsWith('</h4') ||
+          trimmed.startsWith('<blockquote') ||
+          trimmed.startsWith('</blockquote') ||
+          trimmed.startsWith('<ul') ||
+          trimmed.startsWith('</ul') ||
+          trimmed.startsWith('<ol') ||
+          trimmed.startsWith('</ol') ||
+          trimmed.startsWith('<li') ||
+          trimmed.startsWith('</li')
         ) {
           htmlChunks.push(line);
         } else {
@@ -971,17 +1003,17 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           }
           const align = el.style.textAlign || el.getAttribute('align');
           if (align && ['center', 'right', 'justify'].includes(align) && inner.trim()) {
-            return `\n<div style="text-align: ${align};">\n${inner.trim()}\n</div>\n\n`;
+            return `\n<div style="text-align: ${align};">${inner.trim().replace(/\n+/g, ' ')}</div>\n\n`;
           }
-          return inner.trim() ? `\n${inner.trim()}\n` : '\n';
+          return inner.trim() ? `\n\n${inner.trim()}\n\n` : '\n';
         }
         if (tag === 'p') {
           const align = el.style.textAlign || el.getAttribute('align');
           const inner = Array.from(el.childNodes).map(processNode).join('');
           if (align && ['center', 'right', 'justify'].includes(align) && inner.trim()) {
-            return `\n<div style="text-align: ${align};">\n${inner.trim()}\n</div>\n\n`;
+            return `\n<div style="text-align: ${align};">${inner.trim().replace(/\n+/g, ' ')}</div>\n\n`;
           }
-          return inner.trim() ? `\n${inner.trim()}\n` : '\n';
+          return inner.trim() ? `\n\n${inner.trim()}\n\n` : '\n';
         }
         if (tag === 'ul') {
           return (
@@ -1175,7 +1207,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setEditorSubTab('visual');
     setFloatingLink(null);
 
-    const htmlContent = markdownToHtml(post.content || '');
+    const htmlContent = post.htmlContent || (post.content && /<[a-z][\s\S]*>/i.test(post.content) && !post.content.trim().startsWith('#') ? post.content : markdownToHtml(post.content || ''));
     const populateEditor = () => {
       if (editorRef.current) {
         editorRef.current.innerHTML = htmlContent;
@@ -1881,6 +1913,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       readTime: readTime.trim() || '6 phút đọc',
       featured: !!featured,
       content: markdownContent,
+      htmlContent: currentHtml,
       updatedAt: new Date().toISOString(),
     };
 

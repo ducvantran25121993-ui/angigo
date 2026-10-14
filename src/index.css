@@ -99,3 +99,100 @@
   animation: gold-shimmer 3s linear infinite;
 }
 
+/* Rich Blog Content styling - guarantees visual sync with Admin editor */
+.blog-rich-content {
+  font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+  color: #374151;
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+.blog-rich-content p {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.blog-rich-content h1,
+.blog-rich-content h2,
+.blog-rich-content h3,
+.blog-rich-content h4 {
+  color: #111827;
+  font-weight: 700;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+.blog-rich-content h1 { font-size: 1.75rem; }
+.blog-rich-content h2 { font-size: 1.45rem; }
+.blog-rich-content h3 { font-size: 1.25rem; }
+.blog-rich-content h4 { font-size: 1.1rem; }
+.blog-rich-content ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.blog-rich-content ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.blog-rich-content li {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+.blog-rich-content blockquote {
+  border-left: 4px solid #f97316;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #4b5563;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  background-color: #fff7ed;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.blog-rich-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.blog-rich-content figure {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.blog-rich-content figcaption {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+.blog-rich-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.blog-rich-content th,
+.blog-rich-content td {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.blog-rich-content th {
+  background-color: #f9fafb;
+  font-weight: 600;
+}
+.blog-rich-content a {
+  color: #ea580c;
+  text-decoration: underline;
+  font-weight: 600;
+}
+.blog-rich-content a:hover {
+  color: #c2410c;
+}
+
+

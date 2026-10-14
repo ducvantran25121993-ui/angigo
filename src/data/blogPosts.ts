@@ -1,3 +1,5 @@
+import { KNOWN_BLOG_SLUGS } from './blogSlugs';
+
 export interface BlogAuthor {
   name: string;
   role: string;
@@ -682,7 +684,7 @@ export function normalizeBlogPost(raw: any): BlogPost {
     featured: Boolean(raw.featured),
     relatedDishIds: Array.isArray(raw.relatedDishIds) ? raw.relatedDishIds : [],
     content,
-    htmlContent: raw.htmlContent ? String(raw.htmlContent) : undefined,
+    htmlContent: raw.htmlContent ? String(raw.htmlContent) : (content && /<[a-z][\s\S]*>/i.test(content) && !content.trim().startsWith('#') ? String(content) : undefined),
     oldSlug: raw.oldSlug ? String(raw.oldSlug) : undefined,
     updatedAt: raw.updatedAt ? String(raw.updatedAt) : undefined,
   };
@@ -824,18 +826,24 @@ export function getCustomBlogPosts(): BlogPost[] {
   const postMap = new Map<string, BlogPost>();
   initialList.forEach((p) => {
     const key = (p.slug || p.id || '').toLowerCase().trim();
-    if (key) postMap.set(key, p);
+    if (key) {
+      const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
+      if (oldSlug && oldSlug !== key) postMap.delete(oldSlug);
+      postMap.set(key, p);
+    }
   });
 
   localList.forEach((p) => {
     const key = (p.slug || p.id || '').toLowerCase().trim();
     if (key) {
+      const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
+      if (oldSlug && oldSlug !== key) postMap.delete(oldSlug);
       const existing = postMap.get(key);
       if (existing) {
         const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
         const localTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-        // Server data only overrides if strictly newer AND localTime is set
-        if (existTime > localTime && localTime > 0) {
+        // Server data overrides if strictly newer or equal and existTime is valid
+        if (existTime >= localTime && existTime > 0) {
           return;
         }
       }
@@ -944,6 +952,16 @@ export function isBlogPostSlug(slug: string): boolean {
   if (deleted.has(clean)) {
     return false;
   }
+  if (KNOWN_BLOG_SLUGS.has(clean)) {
+    return true;
+  }
+  const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+  if (deleted.has(canonical)) {
+    return false;
+  }
+  if (KNOWN_BLOG_SLUGS.has(canonical)) {
+    return true;
+  }
   const all = getAllBlogPosts();
   const directMatch = all.some((p) => {
     const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -952,10 +970,6 @@ export function isBlogPostSlug(slug: string): boolean {
   });
   if (directMatch) return true;
 
-  const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
-  if (deleted.has(canonical)) {
-    return false;
-  }
   return all.some((p) => {
     const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');

@@ -1664,7 +1664,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
       },
     ],
-    instructions: [
+    steps: [
       {
         step: 1,
         title: 'Giã lọc cua đồng & Nấu mảng riêu cua béo ngậy',
@@ -1777,7 +1777,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
       },
     ],
-    instructions: [
+    steps: [
       {
         step: 1,
         title: 'Pha bột tráng bánh ướt chuẩn tỷ lệ & Ủ bột lắng nước',
@@ -1888,7 +1888,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
       },
     ],
-    instructions: [
+    steps: [
       {
         step: 1,
         title: 'Sơ chế khử hôi thịt vịt & Sơ chế luộc măng xả đắng',
@@ -1997,7 +1997,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
       },
     ],
-    instructions: [
+    steps: [
       {
         step: 1,
         title: 'Ngâm ốc hương nhả cát & Chần nhanh sốc nước đá',
@@ -2106,7 +2106,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
       },
     ],
-    instructions: [
+    steps: [
       {
         step: 1,
         title: 'Sơ chế khía hoa viên chiên & Chuẩn bị rau củ',
@@ -2208,7 +2208,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
       },
     ],
-    instructions: [
+    steps: [
       {
         step: 1,
         title: 'Cắt bánh tráng sợi & Sơ chế các topping ăn kèm',
@@ -8758,12 +8758,18 @@ export function getRecipeArticleTitle(dish: Dish, recipe?: DishRecipe): string {
  * Otherwise, generates a structured, culturally accurate Vietnamese recipe based on the dish characteristics.
  */
 export function getDishRecipe(dish: Dish): DishRecipe {
-  if (CURATED_RECIPES[dish.id]) {
-    return CURATED_RECIPES[dish.id];
+  let curated = CURATED_RECIPES[dish.id];
+  if (!curated) {
+    const aliasId = RECIPE_SLUG_ALIASES[dish.id] || Object.keys(RECIPE_SLUG_ALIASES).find((k) => RECIPE_SLUG_ALIASES[k] === dish.id);
+    if (aliasId && CURATED_RECIPES[aliasId]) {
+      curated = CURATED_RECIPES[aliasId];
+    }
   }
-  const aliasId = RECIPE_SLUG_ALIASES[dish.id] || Object.keys(RECIPE_SLUG_ALIASES).find((k) => RECIPE_SLUG_ALIASES[k] === dish.id);
-  if (aliasId && CURATED_RECIPES[aliasId]) {
-    return CURATED_RECIPES[aliasId];
+  if (curated) {
+    return {
+      ...curated,
+      steps: curated.steps || (curated as any).instructions || [],
+    };
   }
 
   // Derive cooking method & ingredients intelligently based on categories and tags

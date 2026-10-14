@@ -1095,11 +1095,11 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
       {/* 1. Header Banner */}
-      <div className="relative rounded-3xl overflow-hidden bg-radial from-amber-500/15 via-orange-500/10 to-transparent border border-orange-200/80 p-6 sm:p-10 mb-8 sm:mb-12 shadow-sm text-center">
+      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-radial from-amber-500/15 via-orange-500/10 to-transparent border border-orange-200/80 p-4 sm:p-6 mb-5 sm:mb-7 shadow-sm text-center">
         <div className="max-w-5xl xl:max-w-6xl mx-auto flex flex-col items-center">
-          <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-100/90 text-orange-800 text-xs sm:text-sm font-bold mb-4 border border-orange-200">
+          <div className="inline-flex items-center justify-center gap-2 px-3.5 py-1 rounded-full bg-orange-100/90 text-orange-800 text-xs sm:text-sm font-bold mb-2.5 border border-orange-200">
             <Compass className="w-4 h-4 text-orange-600 animate-spin-slow" />
             <span>
               {sectionTab === 'region'
@@ -1109,14 +1109,14 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                 : 'Công Thức Nấu Ăn Chuẩn Vị & Bí Quyết Bếp Trưởng'}
             </span>
           </div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[34px] xl:text-[38px] font-extrabold text-stone-900 tracking-tight leading-tight mb-3 md:whitespace-nowrap">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-extrabold text-stone-900 tracking-tight leading-tight mb-2 md:whitespace-nowrap">
             {sectionTab === 'region'
               ? 'Ẩm Thực Vùng Miền - Tinh Hoa Hương Vị 3 Miền Bắc, Trung, Nam'
               : sectionTab === 'daily'
               ? 'Thực Đơn Mỗi Ngày - Gợi Ý Bữa Cơm Gia Đình Chuẩn Vị & Đủ Chất'
               : 'Cách Nấu Món Ngon - Công Thức Chuẩn Xác & Bí Quyết Bếp Trưởng'}
           </h1>
-          <p className="text-stone-600 text-sm sm:text-base leading-relaxed mb-6 max-w-3xl mx-auto">
+          <p className="text-stone-600 text-xs sm:text-sm leading-relaxed mb-4 max-w-3xl mx-auto">
             {sectionTab === 'region'
               ? `Khám phá hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và trù phú miền Tây sông nước cùng danh mục hơn ${INITIAL_DISHES.length}+ món ngon đặc sắc.`
               : sectionTab === 'daily'
@@ -1125,11 +1125,11 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
           </p>
 
           {/* 3 Main Pillars Navigation Tabs */}
-          <nav aria-label="Chuyên mục khám phá ẩm thực" className="w-full max-w-2xl grid grid-cols-3 gap-2 p-1.5 bg-stone-900/5 backdrop-blur-md rounded-2xl border border-stone-200">
+          <nav aria-label="Chuyên mục khám phá ẩm thực" className="w-full max-w-2xl grid grid-cols-3 gap-1.5 p-1 bg-stone-900/5 backdrop-blur-md rounded-2xl border border-stone-200">
             <a
               href={DISCOVER_SUB_CONFIG.region.path}
               onClick={(e) => handleSwitchSection('region', e)}
-              className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
                 sectionTab === 'region'
                   ? 'bg-white text-orange-600 shadow-md scale-[1.02]'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-white/50'
@@ -1142,7 +1142,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
             <a
               href={DISCOVER_SUB_CONFIG.daily.path}
               onClick={(e) => handleSwitchSection('daily', e)}
-              className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
                 sectionTab === 'daily'
                   ? 'bg-white text-orange-600 shadow-md scale-[1.02]'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-white/50'
@@ -1155,7 +1155,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
             <a
               href={DISCOVER_SUB_CONFIG.recipe.path}
               onClick={(e) => handleSwitchSection('recipe', e)}
-              className={`flex items-center justify-center gap-2 py-3 px-3 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all cursor-pointer ${
                 sectionTab === 'recipe'
                   ? 'bg-white text-orange-600 shadow-md scale-[1.02]'
                   : 'text-stone-600 hover:text-stone-900 hover:bg-white/50'
@@ -1172,7 +1172,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
       {/* 2. SECTION 1: ẨM THỰC VÙNG MIỀN */}
       {/* ========================================================================= */}
       {sectionTab === 'region' && (
-        <div id="regional-cuisine-section" className="space-y-8 animate-fade-in">
+        <div id="regional-cuisine-section" className="space-y-4 sm:space-y-5 animate-fade-in">
           {/* Region Tabs (4 Regional SEO Links) */}
           <nav aria-label="Danh mục 4 vùng miền ẩm thực" className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
             {REGIONAL_CUISINES.map((region) => {
@@ -1197,10 +1197,10 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
           </nav>
 
           {/* Selected Region Detailed Card */}
-          <div className="bg-white rounded-3xl border border-stone-200 p-6 sm:p-8 shadow-xs">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 mb-6 pb-6 border-b border-stone-100 items-start">
+          <div className="bg-white rounded-3xl border border-stone-200 p-4 sm:p-6 shadow-xs">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 mb-4 pb-4 border-b border-stone-100 items-start">
               {/* Left Column: Region Badge, Title & Description (7 cols) */}
-              <div className="lg:col-span-7 space-y-2.5">
+              <div className="lg:col-span-7 space-y-2">
                 <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-orange-100/80 text-orange-800 text-[11px] font-extrabold uppercase tracking-wider">
                   <span className="w-1.5 h-1.5 rounded-full bg-orange-600"></span>
                   {currentRegion.badge}
@@ -1342,9 +1342,9 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
       {/* 3. SECTION 2: THỰC ĐƠN MỖI NGÀY */}
       {/* ========================================================================= */}
       {sectionTab === 'daily' && (
-        <div id="daily-menu-section" className="space-y-8 animate-fade-in">
+        <div id="daily-menu-section" className="space-y-4 sm:space-y-5 animate-fade-in">
           {/* 7 Days Weekly Menus */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Day Pills */}
             <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
                 {DAILY_DAY_MENUS.map((day) => {
@@ -1820,16 +1820,16 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
       {/* 4. SECTION 3: CÁCH NẤU (LẤY TỪ MÓN NGON QUA) */}
       {/* ========================================================================= */}
       {sectionTab === 'recipe' && (
-        <div id="recipe-discovery-section" className="space-y-8 animate-fade-in">
+        <div id="recipe-discovery-section" className="space-y-4 sm:space-y-5 animate-fade-in">
           {/* If viewing full recipe article */}
           {viewingRecipeArticle ? (
-            <div id="recipe-article-container" className="space-y-6">
+            <div id="recipe-article-container" className="space-y-4">
               {/* Back navigation & breadcrumb bar */}
-              <div className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xs">
+              <div className="bg-white rounded-2xl border border-stone-200 p-2.5 sm:p-3.5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
                 <button
                   type="button"
                   onClick={handleBackToRecipeList}
-                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-stone-50 hover:bg-orange-50 text-stone-800 hover:text-orange-700 border border-stone-200 hover:border-orange-300 font-extrabold text-xs sm:text-sm transition-all cursor-pointer shadow-2xs group"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-stone-50 hover:bg-orange-50 text-stone-800 hover:text-orange-700 border border-stone-200 hover:border-orange-300 font-extrabold text-xs sm:text-sm transition-all cursor-pointer shadow-2xs group"
                 >
                   <ArrowLeft className="w-4 h-4 text-orange-600 group-hover:-translate-x-1 transition-transform" />
                   <span>{backButtonLabel}</span>
@@ -1860,9 +1860,9 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
               </div>
 
               {/* Selected Recipe Display Box / Article */}
-              <article className="bg-stone-50 rounded-3xl border border-stone-200 p-6 sm:p-8">
+              <article className="bg-stone-50 rounded-3xl border border-stone-200 p-4 sm:p-6">
                 {/* Recipe Hero banner */}
-                <div className="flex flex-col md:flex-row items-start gap-6 mb-8 pb-8 border-b border-stone-200">
+                <div className="flex flex-col md:flex-row items-start gap-5 mb-5 pb-5 border-b border-stone-200">
                   <img
                     src={selectedRecipeDish.image}
                     alt={getRecipeArticleTitle(selectedRecipeDish, currentRecipe)}

@@ -92,10 +92,10 @@ export const DishCatalog: React.FC<DishCatalogProps> = ({
   }, [foodDishes, searchQuery, selectedCategory, selectedMeal]);
 
   return (
-    <div className="py-6 sm:py-8 max-w-7xl mx-auto px-4">
+    <div className="py-3 sm:py-5 max-w-7xl mx-auto px-4">
       {/* Submenu tab switcher for Món Ngon */}
       {onNavigate && (
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-4">
           <div className="inline-flex p-1 rounded-2xl bg-stone-100/90 border border-stone-200/80 shadow-2xs">
             <button
               className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white shadow-xs text-stone-900 text-xs sm:text-sm font-bold border border-stone-200/60"

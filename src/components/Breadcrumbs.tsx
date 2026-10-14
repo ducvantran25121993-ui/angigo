@@ -116,7 +116,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   };
 
   return (
-    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3">
+    <nav aria-label="Breadcrumb" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-1.5 pb-0.5">
       <ol
         className="flex items-center gap-1.5 text-xs text-stone-500 font-medium"
         itemScope

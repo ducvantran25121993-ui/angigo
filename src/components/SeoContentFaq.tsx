@@ -3552,25 +3552,25 @@ export const SeoContentFaq: React.FC<{
   return (
     <section
       aria-label="Nội dung giới thiệu & Câu hỏi thường gặp"
-      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-12 mb-10 sm:mb-14"
+      className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-5 sm:mt-7 mb-6 sm:mb-8"
     >
-      <div className="bg-white rounded-3xl border border-stone-200/90 shadow-xs p-6 sm:p-10">
+      <div className="bg-white rounded-3xl border border-stone-200/90 shadow-xs p-4 sm:p-6">
         {/* Editorial Content Section */}
-        <div className={finalData.faqs && finalData.faqs.length > 0 ? "mb-8 pb-8 border-b border-stone-100" : ""}>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-xs font-bold mb-3">
+        <div className={finalData.faqs && finalData.faqs.length > 0 ? "mb-5 pb-5 border-b border-stone-100" : ""}>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-xs font-bold mb-2.5">
             <BookOpen className="w-3.5 h-3.5 text-orange-600" />
             <span>{finalData.badge}</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-stone-900 mb-3 tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-stone-900 mb-2 tracking-tight">
             {finalData.title}
           </h2>
-          <p className="text-sm sm:text-base text-stone-600 leading-relaxed mb-6">
+          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed mb-4">
             {finalData.desc}
           </p>
 
           {/* Render In-depth Editorial Content if present */}
           {Boolean('sections' in finalData && (finalData as DiscoverSeoItem).sections && (finalData as DiscoverSeoItem).sections!.length > 0) && (
-            <div className="space-y-8 mt-6">
+            <div className="space-y-4 mt-4">
               {(finalData as DiscoverSeoItem).sections!.map((section, sIdx) => (
                 <div key={sIdx} className="space-y-3.5">
                   <h3 className="text-lg sm:text-xl font-bold text-stone-900 flex items-center gap-2">

@@ -513,7 +513,7 @@ export default function App() {
 
       {/* Main Container */}
       <ErrorBoundary>
-        <main className="flex-1 pb-12">
+        <main className="flex-1 pb-4 sm:pb-6">
         {activeTab === 'wheel' && (
           <Suspense fallback={<div className="min-h-[280px] flex items-center justify-center text-stone-400 text-xs">Đang tải Vòng Quay...</div>}>
             <LuckyWheel

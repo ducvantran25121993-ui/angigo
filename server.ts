@@ -1838,6 +1838,18 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-banh-mi-thit-nuong");
   });
 
+  // 301 Permanent Redirect for banh mi heo quay
+  app.get([
+    "/cach-nau-banh-mi-heo-quay-gion",
+    "/cach-nau-banh-mi-heo-quay-gion/",
+    "/cach-nau-banh-mi-heo-quay",
+    "/cach-nau-banh-mi-heo-quay/",
+    "/cach-lam-banh-mi-heo-quay-gion",
+    "/cach-lam-banh-mi-heo-quay-gion/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-banh-mi-heo-quay");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

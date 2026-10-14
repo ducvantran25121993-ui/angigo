@@ -152,6 +152,36 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-banh-mi-heo-quay-gion",
+      "destination": "/cach-lam-banh-mi-heo-quay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-heo-quay-gion/",
+      "destination": "/cach-lam-banh-mi-heo-quay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-heo-quay",
+      "destination": "/cach-lam-banh-mi-heo-quay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-heo-quay/",
+      "destination": "/cach-lam-banh-mi-heo-quay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-heo-quay-gion",
+      "destination": "/cach-lam-banh-mi-heo-quay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-heo-quay-gion/",
+      "destination": "/cach-lam-banh-mi-heo-quay",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

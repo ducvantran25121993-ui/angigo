@@ -115,6 +115,8 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-mi-chao');
       } else if (pathname === '/cach-nau-banh-mi-thit-nuong' || pathname === '/cach-nau-banh-mi-thit-nuong-sa-te') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-mi-thit-nuong');
+      } else if (pathname === '/cach-nau-banh-mi-heo-quay-gion' || pathname === '/cach-nau-banh-mi-heo-quay' || pathname === '/cach-lam-banh-mi-heo-quay-gion') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-mi-heo-quay');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

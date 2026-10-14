@@ -253,6 +253,128 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Sốt tương đen bơ đậu phộng đượm vị béo bùi, rưới thêm tương ớt Chin-su cay nồng.',
   },
+  'banh-mi-heo-quay-gion': {
+    dishId: 'banh-mi-heo-quay-gion',
+    dishName: 'Bánh Mì Heo Quay Da Nổ Giòn Rụm',
+    seoTitle: 'Cách Làm Bánh Mì Heo Quay Giòn Rụm, Đậm Đà Chuẩn Vị Đường Phố',
+    prepTime: '30 phút (sấy da 2 giờ)',
+    cookTime: '45 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Thịt heo quay da nổ xốp giòn',
+        items: [
+          '600g thịt ba chỉ heo tươi ngon (loại có lớp nạc mỡ xen kẽ đều đặn)',
+          '1.5 thìa cà phê bột ngũ vị hương thơm lừng',
+          '1 thìa canh nước mắm ngon',
+          '1 thìa canh dầu hào Maggi',
+          '1 thìa cà phê bột tỏi, 1/2 thìa cà phê bột gừng',
+          '1/2 thìa cà phê tiêu trắng hoặc tiêu đen xay',
+          '1 thìa cà phê muối tinh & 1 thìa canh giấm ăn (dùng xát mặt da)',
+        ],
+      },
+      {
+        category: 'Nước sốt xì dầu bơ tỏi chan bánh mì',
+        items: [
+          '3 thìa canh nước tương đậm đặc (xì dầu Maggi/Nhất Phẩm Tiên)',
+          '1 thìa canh dầu hào Maggi',
+          '1 thìa canh tương đen (tương hột xay làm phở/bánh mì)',
+          '1 thìa canh đường thốt nốt hoặc đường cát',
+          '1 thìa cà phê bơ lạt (hoặc bơ thực vật Tường An) giúp sốt béo thơm',
+          '2 tép tỏi băm nhuyễn & 2 củ hành tím phi thơm',
+          '1 thìa cà phê bột năng hòa tan với 2 thìa nước lọc',
+          '150ml nước dùng xương hoặc nước ấm',
+        ],
+      },
+      {
+        category: 'Bánh mì & Đồ ăn kèm giòn mát',
+        items: [
+          '4 - 6 ổ bánh mì vỏ giòn rụm, ruột đặc vừa',
+          '2 thìa canh bơ trứng gà thơm béo (hoặc mayonnaise) & pate gan heo',
+          '2 quả dưa leo giòn mát thái lát mỏng',
+          '100g đồ chua cà rốt và củ cải trắng ngâm giấm đường chua ngọt',
+          'Rau ngò rí (rau mùi), ớt sừng xắt mỏng',
+          'Xì dầu tỏi ớt chấm kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt ba chỉ và kỹ thuật xăm da nổ phồng giòn rụm',
+        time: '20 phút',
+        heat: 'Sấy khô da trong tủ lạnh 2 - 3 giờ',
+        goal: 'Mặt da xăm đều ráo nước tuyệt đối, phần thịt thấm đẫm ngũ vị hương đậm đà',
+        actionPoints: [
+          'Thịt ba chỉ rửa sạch, chần sơ phần da trong nồi nước sôi với vài lát gừng đập dập khoảng 3 phút rồi vớt ra xả nước lạnh.',
+          'Dùng khăn giấy thấm thật khô ráo hoàn toàn cả bề mặt da lẫn mặt thịt.',
+          'Dùng dụng cụ xăm da (hoặc tăm nhọn/dĩa) xăm đều tít tắp khắp bề mặt da heo (chỉ xăm nông trên lớp da, không đâm thủng vào lớp mỡ bên dưới để mỡ không bị sùi làm dai da).',
+          'Khía nhẹ các đường dọc ở mặt thịt bên dưới giúp thịt ngấm sâu gia vị.',
+          'Pha gia vị ướp thịt: Trộn ngũ vị hương, nước mắm, dầu hào, bột tỏi, bột gừng và tiêu. Thoa đều hỗn hợp này lên phần thịt (tuyệt đối không để gia vị dính vào mặt da).',
+          'Quét một lớp mỏng giấm ăn lên bề mặt da, rắc đều 1 lớp muối tinh mỏng phủ kín da.',
+          'Cho miếng thịt vào tủ lạnh (để hở mặt da không bọc kín) từ 2 - 3 giờ để da heo khô đét lại hoàn toàn (da càng ráo khô nổ càng phồng xốp giòn tan).',
+        ],
+        description:
+          'Chần sơ da ba chỉ, thấm thật khô ráo rồi dùng tăm xăm đều khắp bề mặt da. Thoa hỗn hợp ngũ vị hương, nước mắm, dầu hào vào phần thịt. Phủ muối giấm lên da và để tủ lạnh 2 giờ cho da ráo khô đét.',
+        tip: 'Mặt da bắt buộc phải ráo khô hoàn toàn trước khi nướng thì da heo quay mới nổ xốp rôm rốp cáy mắt mà không bị cứng dai.',
+      },
+      {
+        step: 2,
+        title: 'Quay heo da nổ phồng giòn rụm bằng nồi chiên không dầu',
+        time: '45 phút',
+        heat: 'Lần 1: 180°C (25 phút) - Lần 2: 200°C (18 phút)',
+        goal: 'Lớp da nổ lách tách phồng xốp vàng rụm cáy mắt, thịt bên trong chín mềm mọng nước',
+        actionPoints: [
+          'Gạt bỏ lớp muối phủ trên da heo. Dùng giấy bạc bọc kín 4 xung quanh và đáy miếng thịt, chỉ để lộ duy nhất mặt da heo lên trên.',
+          'Lần 1 (Sấy chín thịt & làm ráo da): Cho miếng thịt vào nồi chiên không dầu nướng ở 180°C trong 25 - 30 phút.',
+          'Lấy miếng thịt ra, bóc bỏ bọc giấy bạc, lau sạch mỡ sủi trên da nếu có.',
+          'Lần 2 (Nổ da giòn rụm): Cho thịt trở lại nồi chiên không dầu, tăng nhiệt độ lên 200°C - 210°C nướng tiếp 15 - 18 phút.',
+          'Quan sát qua mặt kính thấy lớp da nổ lách tách phồng xốp vàng rụm đều khắp bề mặt.',
+          'Vớt thịt ra để trên giá thoáng khí nghỉ 10 phút rồi chặt thành từng miếng thịt heo quay nhỏ dài vừa ăn.',
+        ],
+        description:
+          'Bọc giấy bạc chừa mặt da, sấy nướng lần 1 ở 180°C trong 25 phút. Tháo giấy bạc, tăng nhiệt độ lên 200°C nướng lần 2 trong 18 phút đến khi da nổ phồng xốp vàng rụm lách tách.',
+        tip: 'Để thịt heo quay nghỉ 10 phút trước khi chặt sẽ giúp phần mỡ thịt ổn định, thịt cắt không bị nát và da giữ nguyên độ giòn xốp.',
+      },
+      {
+        step: 3,
+        title: 'Nấu nước sốt xì dầu bơ tỏi chan bánh mì đượm vị',
+        time: '10 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước sốt xì dầu mặn ngọt sánh nhẹ bóng mượt, thơm nức hương bơ tỏi phi',
+        actionPoints: [
+          'Phi thơm hành tím và tỏi băm nhuyễn với 1 thìa dầu ăn trong chảo nhỏ.',
+          'Trút 3 thìa nước tương, 1 thìa dầu hào, 1 thìa tương đen, 1 thìa đường thốt nốt, chút tiêu và 150ml nước ấm vào khuấy đều.',
+          'Đun sôi liu riu lửa nhỏ 3 phút, rưới nhẹ chén nước bột năng vào khuấy đều tay cho nước sốt sánh nhẹ óng ả.',
+          'Thả 1 thìa bơ lạt vào khuấy tan tạo độ béo bùi thơm lừng rồi tắt bếp.',
+        ],
+        description:
+          'Phi thơm hành tỏi, đun nước tương cùng dầu hào, tương đen, đường và nước ấm sánh nhẹ với bột năng. Thả bơ lạt vào khuấy tan thơm ngậy.',
+      },
+      {
+        step: 4,
+        title: 'Kẹp ổ bánh mì ngập đẫm heo quay giòn rụm và thưởng thức',
+        time: '5 phút',
+        heat: 'Thưởng thức nóng giòn',
+        goal: 'Ổ bánh mì vỏ giòn tan, kẹp đầy đặn heo quay da nổ giòn rôm rốp quyện sốt bùi béo dưa chua ngò rí',
+        actionPoints: [
+          'Nướng nóng lại các ổ bánh mì cho vỏ giòn rụm.',
+          'Rạch dọc thân bánh, phết một lớp bơ trứng gà thơm béo và pate gan heo đậm đà.',
+          'Xếp dưa leo thái lát mỏng, đồ chua cà rốt củ cải ngâm giấm đường và rau ngò rí tươi.',
+          'Xếp đẫm các miếng thịt heo quay da nổ giòn rụm vào giữa ổ bánh.',
+          'Chan 2 - 3 muỗng nước sốt xì dầu bơ tỏi đậm đà lên trên thịt heo quay, rưới thêm tương ớt Chin-su và vài lát ớt sừng cay xè.',
+          'Thưởng thức ngay: Cắn miếng bánh mì giòn tan nghe rõ tiếng da heo quay nổ giòn rôm rốp rộn ràng trong miệng, thịt heo quay mềm ngậy thấm đẫm sốt xì dầu bùi béo và vị chua ngọt giải ngấy bùng nổ hương vị.',
+        ],
+        description:
+          'Phết bơ pate vào ổ bánh mì giòn rụm, kẹp dưa leo đồ chua, ngập đẫm thịt heo quay da nổ giòn tan rồi chan sốt xì dầu bơ tỏi thơm ngậy thưởng thức.',
+      },
+    ],
+    chefSecret:
+      'Bí quyết tạo nên ổ bánh mì heo quay chuẩn vị đường phố giòn ngon bất bại nằm ở 3 điểm: Thứ nhất, khi sơ chế heo quay, sau khi luộc sơ và xăm da thật kĩ bắt buộc phải để da heo thật khô đét trong tủ lạnh trước khi quay, giúp da nổ phồng xốp giòn rụm không bị cứng dai. Thứ hai, gia vị ngũ vị hương và dầu hào chỉ thoa ở mặt thịt bên dưới, giữ cho mặt da sạch khô khi nổ. Thứ ba, nước sốt chan kẹp bánh mì phải được nấu từ xì dầu, bơ và tương đen sánh nhẹ, chan vừa đủ để từng miếng da heo quay giữ nguyên độ giòn tan khi thưởng thức.',
+    recommendedSauce:
+      'Sốt xì dầu bơ tỏi mặn ngọt đượm vị, chấm kèm xì dầu tỏi ớt xắt và tương ớt Chin-su.',
+  },
   'suon-nuong-bbq': {
     dishId: 'suon-nuong-bbq',
     dishName: 'Dẻ Sườn Heo Nướng Tảng BBQ Sốt Khói',
@@ -7266,6 +7388,7 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'de-tai-chanh-tuong-ban': 'cach-lam-de-tai-chanh',
   'banh-mi-chao-xiu-mai': 'cach-lam-banh-mi-chao',
   'banh-mi-thit-nuong': 'cach-lam-banh-mi-thit-nuong',
+  'banh-mi-heo-quay-gion': 'cach-lam-banh-mi-heo-quay',
 };
 
 /**
@@ -7291,6 +7414,12 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'banh-mi-heo-quay': 'banh-mi-heo-quay-gion',
+  'banh-mi-heo-quay-gion': 'banh-mi-heo-quay-gion',
+  'cach-nau-banh-mi-heo-quay': 'banh-mi-heo-quay-gion',
+  'cach-lam-banh-mi-heo-quay': 'banh-mi-heo-quay-gion',
+  'cach-nau-banh-mi-heo-quay-gion': 'banh-mi-heo-quay-gion',
+  'cach-lam-banh-mi-heo-quay-gion': 'banh-mi-heo-quay-gion',
   'banh-mi-thit-nuong': 'banh-mi-thit-nuong',
   'banh-mi-thit-nuong-sa-te': 'banh-mi-thit-nuong',
   'cach-nau-banh-mi-thit-nuong': 'banh-mi-thit-nuong',

@@ -33,6 +33,15 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${canonicalUrl}" />`)
     .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${meta.image}" />`);
 
+  if (meta.canonicalPath && meta.canonicalPath !== meta.path) {
+    const targetPath = meta.canonicalPath;
+    const targetFullUrl = `https://angigio.com${targetPath === "/" ? "/" : targetPath}`;
+    updatedHtml = updatedHtml.replace(
+      '</head>',
+      `    <meta http-equiv="refresh" content="0; url=${targetFullUrl}" />\n    <script>if (typeof window !== 'undefined' && window.location.pathname !== '${targetPath}') { window.location.replace('${targetPath}'); }</script>\n  </head>`
+    );
+  }
+
   if (meta.isArticle) {
     const publishedTime = '2026-09-28T08:00:00+07:00';
     const modifiedTime = '2026-09-30T00:00:00+07:00';

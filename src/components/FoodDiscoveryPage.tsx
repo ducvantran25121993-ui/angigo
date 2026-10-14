@@ -471,7 +471,13 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
       if (isRecipePath) {
         const slug = pathname.replace('/cach-nau-mon-ngon/', '').replace(/^\//, '');
         const match = findDishByRecipeSlug(slug, INITIAL_DISHES) || findDishByRecipeSlug(pathname, INITIAL_DISHES);
-        if (match) return match;
+        if (match) {
+          const canonical = getRecipePath(match);
+          if (pathname !== canonical) {
+            window.history.replaceState({ section: 'recipe', dishId: match.id }, '', canonical);
+          }
+          return match;
+        }
       }
       if (window.location.hash.startsWith('#recipe-')) {
         const match = findDishByRecipeSlug(window.location.hash, INITIAL_DISHES);
@@ -523,9 +529,9 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
         if (match) {
           setSelectedRecipeDish(match);
           setViewingRecipeArticle(true);
-          // Canonicalize legacy /cach-nau-mon-ngon/:slug into international clean URL /:slug
-          if (pathname.startsWith('/cach-nau-mon-ngon/')) {
-            window.history.replaceState({ section: 'recipe', dishId: match.id }, '', getRecipePath(match));
+          const canonical = getRecipePath(match);
+          if (pathname !== canonical) {
+            window.history.replaceState({ section: 'recipe', dishId: match.id }, '', canonical);
           }
           updateRecipeArticleSEO(match, getDishRecipe(match));
           return;

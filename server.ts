@@ -1021,6 +1021,15 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${fullUrl}" />`)
     .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${meta.image}" />`);
 
+  if (meta.canonicalPath && meta.canonicalPath !== meta.path) {
+    const targetPath = meta.canonicalPath;
+    const targetFullUrl = `https://angigio.com${targetPath === "/" ? "/" : targetPath}`;
+    updatedHtml = updatedHtml.replace(
+      '</head>',
+      `    <meta http-equiv="refresh" content="0; url=${targetFullUrl}" />\n    <script>if (typeof window !== 'undefined' && window.location.pathname !== '${targetPath}') { window.location.replace('${targetPath}'); }</script>\n  </head>`
+    );
+  }
+
   if (isRecipeRoute || meta.isArticle) {
     const publishedTime = '2026-09-28T08:00:00+07:00';
     const modifiedTime = '2026-09-30T00:00:00+07:00';
@@ -1745,6 +1754,14 @@ async function startServer() {
     "/cach-nau-muc-mot-nang-nuong-sa-te/",
   ], (_req, res) => {
     return res.redirect(301, "/cach-lam-muc-mot-nang-nuong-sa-te");
+  });
+
+  // 301 Permanent Redirect for heo quay banh hoi recipe alias requested by user
+  app.get([
+    "/cach-nau-heo-quay-banh-hoi",
+    "/cach-nau-heo-quay-banh-hoi/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-heo-quay-banh-hoi");
   });
 
   // 301 Permanent Redirect for blog slug aliases to canonical post URL

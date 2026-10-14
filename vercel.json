@@ -1,5 +1,37 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/cach-nau-muc-mot-nang-nuong-sa-te",
+      "destination": "/cach-lam-muc-mot-nang-nuong-sa-te",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-muc-mot-nang-nuong-sa-te/",
+      "destination": "/cach-lam-muc-mot-nang-nuong-sa-te",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-heo-quay-banh-hoi",
+      "destination": "/cach-lam-heo-quay-banh-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-heo-quay-banh-hoi/",
+      "destination": "/cach-lam-heo-quay-banh-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/an-gi-cho-do-ngan",
+      "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
+      "permanent": true
+    },
+    {
+      "source": "/an-gi-cho-do-ngan/",
+      "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!api/|_next/|_static/|[\\w-]+\\.\\w+).*)",

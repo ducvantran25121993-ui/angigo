@@ -1,6 +1,258 @@
 import { Dish, DishRecipe } from '../types';
 
 export const CURATED_RECIPES: Record<string, DishRecipe> = {
+  'banh-mi-chao-xiu-mai': {
+    dishId: 'banh-mi-chao-xiu-mai',
+    dishName: 'Bánh Mì Chảo Xíu Mại Trứng Lòng Đào',
+    seoTitle: 'Cách Làm Bánh Mì Chảo Giòn Rụm, Đậm Đà Chuẩn Vị Đường Phố',
+    prepTime: '20 phút',
+    cookTime: '20 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần nhân chảo chính (Topping)',
+        items: [
+          '300g thịt nạc dăm heo xay nhuyễn (tỷ lệ 8 nạc 2 mỡ mềm mọng)',
+          '100g củ đậu (củ sắn) băm nhỏ, vắt ráo kiệt nước',
+          '4 quả trứng gà tươi (để ốp la lòng đào)',
+          '150g - 200g pate gan heo loại ngon (cắt lát dày 1 - 1.5cm)',
+          '4 cây xúc xích tiệt trùng hoặc xúc xích hun khói (khía vảy rồng)',
+          '150g thịt thăn bò mềm thái lát mỏng (tùy chọn làm bò né)',
+          '4 miếng phô mai con bò cười (hoặc phô mai mozzarella kéo sợi)',
+          '4 - 6 ổ bánh mì vỏ giòn rụm nướng nóng hổi',
+        ],
+      },
+      {
+        category: 'Nước sốt cà chua tiêu đen sánh quyện',
+        items: [
+          '3 quả cà chua chín đỏ mọng (bỏ hạt, băm nhuyễn mịn)',
+          '2 thìa canh tương cà (ketchup) tạo màu đỏ cam óng ả',
+          '1.5 thìa canh dầu hào Maggi',
+          '1 thìa canh nước tương đậm đặc',
+          '1 thìa canh đường cát',
+          '1 thìa cà phê tiêu đen hoặc tiêu sọ xay vỡ hạt',
+          '1 thìa canh bơ lạt (hoặc bơ thực vật Tường An) giúp sốt bóng thơm',
+          '1 củ hành tây nhỏ thái múi cau mỏng',
+          '3 tép tỏi và 2 củ hành tím băm nhuyễn',
+          '150ml nước dùng xương hoặc nước sôi',
+        ],
+      },
+      {
+        category: 'Gia vị quết xíu mại & ướp thịt bò',
+        items: [
+          '1 thìa canh hành tím phi thơm',
+          '1 thìa cà phê hạt nêm, 1 thìa cà phê đường, 1/2 thìa cà phê tiêu xay',
+          '1 thìa cà phê dầu mè thơm',
+          '1 thìa canh bột năng (giúp thịt kết dính dẻo dai)',
+        ],
+      },
+      {
+        category: 'Rau tươi & Đồ chua ăn kèm chống ngấy',
+        items: [
+          '2 quả dưa leo giòn mát thái lát mỏng',
+          '100g đồ chua cà rốt và củ cải ngâm chua ngọt',
+          'Rau ngò rí (rau mùi), ớt sừng cắt khoanh',
+          'Tương ớt Chin-su và nước tương tỏi ớt chấm kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Quết viên xíu mại mềm mọng và hấp chín sơ',
+        time: '15 phút',
+        heat: 'Lửa vừa (Hấp cách thủy)',
+        goal: 'Viên xíu mại tròn đều, dẻo dai mọng nước, không bị khô bở nát',
+        actionPoints: [
+          'Củ đậu băm nhỏ cho vào khăn vải mỏng vắt thật ráo kiệt nước (đây là bí quyết then chốt giúp viên xíu mại ngọt thanh sần sật mà không bị nhão).',
+          'Cho thịt heo xay, củ đậu, hành tím phi, 1 thìa cà phê hạt nêm, 1 thìa đường, 1/2 thìa tiêu xay, 1 thìa dầu mè và 1 thìa canh bột năng vào tô lớn.',
+          'Dùng tay hoặc thìa quết mạnh đều theo một chiều trong 3 - 5 phút cho đến khi khối thịt dẻo quánh, có độ kết dính cao.',
+          'Thoa chút dầu ăn lên lòng bàn tay, vo thịt thành từng viên tròn cỡ quả bóng bàn (khoảng 35 - 40g/viên).',
+          'Xếp xíu mại vào đĩa sâu lòng, cho vào xửng hấp cách thủy khoảng 10 - 12 phút cho xíu mại vừa chín tới. Giữ lại toàn bộ phần nước ngọt tiết ra từ xíu mại để nấu nước sốt.',
+        ],
+        description:
+          'Trộn thịt nạc dăm xay với củ đậu đã vắt kiệt nước và gia vị. Quết dẻo tay rồi vo viên tròn, hấp cách thủy 10 phút. Giữ lại nước hấp ngọt thịt để hòa vào sốt cà chua.',
+        tip: 'Bắt buộc phải vắt kiệt nước củ đậu trước khi trộn, nếu không nước trong củ đậu sẽ làm xíu mại bị bở rời và mất độ kết dính khi nấu sốt.',
+      },
+      {
+        step: 2,
+        title: 'Nấu nước sốt cà chua sánh óng, béo ngậy vị bơ',
+        time: '12 phút',
+        heat: 'Lửa vừa đến nhỏ',
+        goal: 'Nước sốt sánh mượt, màu đỏ cam bắt mắt, vị chua ngọt hài hòa dậy mùi thơm nức của bơ và tiêu sọ',
+        actionPoints: [
+          'Đặt chảo sâu lòng lên bếp, cho 1 thìa canh dầu ăn đun nóng rồi phi thơm hành tím và tỏi băm nhuyễn.',
+          'Trút toàn bộ cà chua băm nhuyễn vào xào với 1/2 thìa cà phê muối trên lửa vừa, dầm đều tay khoảng 3 - 4 phút đến khi cà chua chín mềm nhuyễn mịn.',
+          'Đổ phần nước hấp xíu mại và 150ml nước sôi vào chảo.',
+          'Nêm gia vị gồm: 2 thìa canh tương cà, 1.5 thìa canh dầu hào, 1 thìa canh nước tương, 1 thìa canh đường và 1 thìa cà phê tiêu xay. Khuấy đều và đun sôi liu riu 5 phút cho sốt sánh lại.',
+          'Thả nhẹ các viên xíu mại đã hấp vào chảo sốt, hạ lửa nhỏ om thêm 5 phút cho từng viên thịt ngấm đẫm hương vị chua ngọt mặn mà.',
+          'Trước khi tắt bếp, thả 1 thìa canh bơ lạt vào khuấy tan nhẹ để tạo độ bóng mượt và mùi thơm béo ngậy đặc trưng.',
+        ],
+        description:
+          'Phi thơm hành tỏi, xào nhuyễn cà chua rồi thêm tương cà, dầu hào, nước hấp xíu mại và gia vị đun sánh mịn. Thả viên xíu mại vào om lửa nhỏ cho ngấm sâu, cuối cùng cho bơ lạt vào khuấy bóng mượt.',
+        tip: 'Thêm tương cà (ketchup) cùng cà chua tươi giúp nước sốt có màu đỏ cam óng ánh tuyệt đẹp và vị chua dịu cân bằng mà không cần dùng phẩm màu.',
+      },
+      {
+        step: 3,
+        title: 'Làm nóng chảo gang và áp chảo các nguyên liệu xèo xèo',
+        time: '5 phút / chảo',
+        heat: 'Lửa lớn lúc đầu, sau hạ lửa vừa',
+        goal: 'Chảo gang bốc khói xèo xèo nức mũi, viền trứng giòn lách tách, lòng đỏ sóng sánh, pate thơm xém cạnh',
+        actionPoints: [
+          'Đặt từng chiếc chảo gang cá nhân lên bếp lửa lớn khoảng 2 - 3 phút cho chảo gang tích đủ nhiệt thật nóng (chảo gang giữ nhiệt lâu là linh hồn của món ăn).',
+          'Quét một lớp mỏng bơ lạt vào đáy chảo cho bơ tan chảy sủi bọt thơm lừng.',
+          'Đặt lát pate dày và cây xúc xích đã khía vảy rồng vào áp chảo nhanh 1 phút cho xém cạnh vàng giòn.',
+          'Nếu dùng thêm thịt bò, cho vài lát thịt bò ướp tỏi vào đảo nhanh 30 giây vừa chín tái mềm ngọt.',
+          'Gắp 1 - 2 viên xíu mại đặt vào giữa, múc 2 - 3 muỗng canh nước sốt cà chua nóng rẫy rưới đẫm xung quanh cho sốt sôi sùng sục xèo xèo.',
+          'Đập trực tiếp 1 quả trứng gà tươi vào góc chảo còn trống. Giữ lửa vừa khoảng 1 phút để lòng trắng chín giòn viền đáy nhưng lòng đỏ vẫn còn lòng đào béo ngậy.',
+          'Đặt 1 viên phô mai con bò cười hoặc rắc chút phô mai sợi lên cạnh xíu mại cho phô mai chảy mềm quyến rũ.',
+        ],
+        description:
+          'Nung chảo gang thật nóng, láng bơ thơm rồi cho pate, xúc xích và thịt bò áp chảo xém cạnh. Đặt xíu mại, rưới đẫm sốt cà chua sôi sùng sục rồi đập quả trứng lòng đào vào giữa chảo.',
+        tip: 'Chảo gang phải thật nóng trước khi cho bơ và trứng vào, nhiệt độ cao sẽ làm viền lòng trắng phồng giòn lách tách mà lòng đỏ bên trong vẫn dẻo quánh hoàn hảo.',
+      },
+      {
+        step: 4,
+        title: 'Rắc tiêu hành và thưởng thức cùng bánh mì nóng giòn',
+        time: '3 phút',
+        heat: 'Thưởng thức nóng hổi tại bàn',
+        goal: 'Chảo bánh mì sôi xèo xèo đặt trên đế gỗ, bánh mì giòn tan quết đẫm sốt béo ngậy bùng nổ hương vị',
+        actionPoints: [
+          'Dùng kẹp nhấc cẩn thận chảo gang xuống, đặt ngay lên đĩa hoặc khay đế lót gỗ chống nóng.',
+          'Rắc thêm chút hành lá thái nhỏ, vài cọng ngò rí tươi xanh và tiêu sọ đập dập lên trên lòng đỏ trứng và mặt sốt.',
+          'Nướng nóng lại các ổ bánh mì cho vỏ giòn rụm rôm rốp.',
+          'Dọn kèm đĩa dưa leo tươi, đĩa đồ chua củ cải cà rốt và chén ớt xắt xì dầu.',
+          'Thưởng thức đúng điệu: Bẻ miếng bánh mì giòn tan, dầm nhẹ lòng đỏ trứng lòng đào để quyện vào nước sốt cà chua sóng sánh và miếng pate béo ngậy, quết một miếng đẫm sốt đưa vào miệng cảm nhận trọn vẹn vị giòn rụm, béo bùi, chua ngọt đậm đà đánh thức mọi giác quan.',
+        ],
+        description:
+          'Nhấc chảo gang đặt lên đế gỗ, rắc tiêu ngò thơm nức. Ăn ngay khi chảo còn nóng sôi xèo xèo, xé bánh mì giòn rụm chấm đẫm sốt trứng lòng đào, pate và xíu mại mềm thơm.',
+      },
+    ],
+    chefSecret:
+      'Linh hồn của chảo bánh mì đường phố thơm ngon bất bại nằm ở 3 bí quyết vàng của bếp trưởng: Thứ nhất, củ đậu trộn xíu mại bắt buộc phải vắt kiệt nước để viên thịt khi chín dẻo dai mọng nước mà không bị bở rời. Thứ hai, nước sốt cà chua phải kết hợp tương cà cùng bơ lạt ở phút cuối để tạo độ sánh óng ánh và hương thơm béo ngậy đặc trưng. Thứ ba, chảo gang phải được nung thật nóng trước khi láng bơ và đập trứng, giúp viền trứng giòn rụm lách tách mà lòng đỏ vẫn dẻo quánh, giữ nóng trọn vẹn từng miếng bánh mì đến giọt sốt cuối cùng.',
+    recommendedSauce:
+      'Nước sốt cà chua bơ tỏi tiêu đen đun sôi xèo xèo ngay trong lòng chảo gang, chấm kèm xì dầu tỏi ớt và tương ớt Chin-su.',
+  },
+  'banh-mi-thit-nuong': {
+    dishId: 'banh-mi-thit-nuong',
+    dishName: 'Bánh Mì Thịt Nướng Sả Thơm Lừng',
+    seoTitle: 'Cách Làm Bánh Mì Thịt Nướng Giòn Rụm, Đậm Đà Chuẩn Vị Đường Phố',
+    prepTime: '25 phút (ướp 1 - 2 giờ)',
+    cookTime: '20 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thịt heo & Sốt ướp sả đậm đà',
+        items: [
+          '500g thịt nạc dăm heo (loại có chút mỡ giắt mềm mọng không khô)',
+          '3 củ sả tươi băm thật nhuyễn',
+          '3 tép tỏi và 2 củ hành tím băm nhỏ',
+          '1.5 thìa canh nước mắm ngon',
+          '1 thìa canh dầu hào Maggi',
+          '1 thìa canh mật ong nguyên chất',
+          '1 thìa cà phê nước màu dừa (tạo màu nâu cánh gián vàng ruộm)',
+          '1 thìa cà phê dầu mè thơm',
+          '1/2 thìa cà phê ngũ vị hương (tạo hương vị đường phố đặc trưng)',
+          '1 thìa cà phê tiêu đen xay vỡ',
+          '1 thìa canh vừng trắng (mè trắng) rang thơm',
+        ],
+      },
+      {
+        category: 'Nước sốt tương bơ đậu phộng kẹp bánh mì',
+        items: [
+          '2 thìa canh tương đen (tương hột xay làm phở/bánh mì)',
+          '1 thìa canh bơ đậu phộng béo bùi',
+          '1 thìa canh đường cát',
+          '1 thìa cà phê dầu hào',
+          '2 tép tỏi băm phi thơm với 1 thìa dầu ăn',
+          '1/2 chén nhỏ nước dùng hoặc nước ấm',
+        ],
+      },
+      {
+        category: 'Bánh mì & Đồ ăn kèm chuẩn vị',
+        items: [
+          '4 - 6 ổ bánh mì vỏ giòn rụm, ruột mềm',
+          '2 thìa canh bơ trứng gà thơm béo (làm từ lòng đỏ trứng và dầu ăn)',
+          '2 quả dưa leo giòn thái thanh dài mỏng',
+          '100g đồ chua cà rốt và củ cải bào ngâm giấm đường',
+          'Rau ngò rí (rau mùi), ớt sừng cắt lát',
+          'Mỡ hành phi thơm lừng (tùy chọn)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt heo và pha sốt ướp sả thơm nức',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Lát thịt thái mỏng vừa ăn, ngấm đẫm sốt ướp sả thơm lừng màu nâu cánh gián',
+        actionPoints: [
+          'Thịt nạc dăm rửa sạch với nước muối loãng, dùng khăn thấm thật khô ráo.',
+          'Dùng dao sắc thái thịt thành từng lát mỏng dài vừa ăn (dày khoảng 0.3 - 0.4cm), dùng sống dao đập nhẹ lên miếng thịt cho thớ thịt mềm mại.',
+          'Pha hỗn hợp sốt ướp: Cho sả băm nhuyễn, hành tỏi băm, 1.5 thìa nước mắm, 1 thìa dầu hào, 1 thìa mật ong, 1 thìa cà phê nước màu dừa, 1 thìa dầu mè, 1/2 thìa ngũ vị hương và 1/2 thìa tiêu xay vào bát trộn đều.',
+          'Trút sốt ướp vào tô thịt, đeo găng tay bóp trộn thật kĩ trong 3 phút cho từng thớ thịt ngấm sâu gia vị.',
+          'Bọc màng bọc thực phẩm, để ngăn mát tủ lạnh ướp ít nhất 1 - 2 giờ (ướp qua đêm thịt càng đậm đà thơm nức).',
+        ],
+        description:
+          'Thái thịt nạc dăm mỏng vừa ăn. Pha sốt ướp gồm sả băm, hành tỏi, nước mắm, mật ong, dầu hào, dầu mè, ngũ vị hương và nước màu dừa. Trộn đều ướp ít nhất 1 giờ.',
+        tip: 'Chọn thịt nạc dăm có các thớ mỡ giắt xen kẽ sẽ giúp xiên thịt nướng xong mềm mọng, béo ngậy mà không bị khô cứng.',
+      },
+      {
+        step: 2,
+        title: 'Xiên thịt và nướng vàng xém cạnh thơm lừng khói sả',
+        time: '15 phút',
+        heat: 'Nướng than hoa / Nồi chiên không dầu (180°C)',
+        goal: 'Thịt chín vàng xém nhẹ các góc, mỡ chảy xèo xèo thơm nức mùi sả mật ong',
+        actionPoints: [
+          'Ngâm que xiên tre vào nước ấm 15 phút để khi nướng không bị cháy khói.',
+          'Xiên từng lát thịt gập đôi hoặc gập ba vào que tre, không nén quá chặt để thịt chín đều.',
+          'Rắc vừng trắng rang lên hai mặt các xiên thịt.',
+          'Nướng thịt: Nếu nướng than hoa (ngon nhất), lật trở liên tục 8 - 10 phút cho thịt xém cạnh thơm nức. Nếu dùng nồi chiên không dầu, xếp thịt vào lót giấy bạc nướng 180°C trong 10 phút, lật mặt quét chút mỡ hành hoặc bơ nướng thêm 5 phút.',
+        ],
+        description:
+          'Xiên thịt vào que tre, rắc mè trắng. Nướng trên bếp than hoa lật đều tay hoặc nướng nồi chiên không dầu 180°C trong 15 phút đến khi thịt xém vàng ngát hương thơm.',
+        tip: 'Phết nhẹ chút mỡ bơ hoặc nước ướp thịt còn dư lên bề mặt ở 2 phút nướng cuối giúp xiên thịt bóng mượt, mọng nước.',
+      },
+      {
+        step: 3,
+        title: 'Nấu nước sốt tương bơ đậu phộng và chuẩn bị dưa chua',
+        time: '10 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước sốt tương đen sánh béo bùi vị bơ đậu phộng, đồ chua cà rốt giòn ngọt sần sật',
+        actionPoints: [
+          'Phi thơm tỏi băm với chút dầu ăn trên chảo nhỏ, cho 2 thìa tương đen, 1 thìa bơ đậu phộng, 1 thìa đường, 1 thìa dầu hào và 1/2 chén nước ấm vào khuấy đều.',
+          'Đun sôi liu riu trên lửa nhỏ 3 - 5 phút cho sốt sánh quánh béo ngậy, nêm nếm lại vị mặn ngọt thanh dẻo vừa ăn.',
+          'Cà rốt củ cải bào sợi bóp muối vắt sạch, ngâm giấm đường 15 phút cho giòn ngọt.',
+        ],
+        description:
+          'Nấu sốt tương đen kết hợp bơ đậu phộng, đường, dầu hào và tỏi phi cho sánh béo đượm vị. Làm đồ chua dưa leo ngò rí ăn kèm.',
+      },
+      {
+        step: 4,
+        title: 'Kẹp bánh mì ngập đẫm thịt nướng và thưởng thức',
+        time: '5 phút',
+        heat: 'Thưởng thức nóng giòn',
+        goal: 'Ổ bánh mì giòn rôm rốp, nhân thịt nướng thơm nức quyện sốt béo bùi và đồ chua thanh mát',
+        actionPoints: [
+          'Nướng lại ổ bánh mì trên bếp hoặc nồi chiên 1 phút cho vỏ giòn rụm.',
+          'Rạch dọc thân bánh mì, phết 1 lớp bơ trứng gà và pate béo ngậy vào bên trong.',
+          'Xếp dưa leo thái lát mỏng, đồ chua cà rốt củ cải và ngò rí tươi.',
+          'Tuốt 2 - 3 xiên thịt nướng sả nóng hổi xếp đầy đặn vào giữa ổ bánh.',
+          'Rưới 2 - 3 muỗng nước sốt tương bơ đậu phộng đượm vị, thêm vài lát ớt sừng cay xè và tương ớt Chin-su.',
+          'Cắn ngay miếng đầu tiên cảm nhận vỏ bánh mì giòn rụm rôm rốp, thịt nướng sả đậm đà mọng nước hòa quyện sốt béo ngọt và vị chua thanh giải ngấy.',
+        ],
+        description:
+          'Phết bơ pate vào bánh mì giòn rụm, xếp dưa leo đồ chua, kẹp đẫm thịt nướng sả thơm lừng rồi chan sốt tương bơ đậu phộng đậm đà thưởng thức.',
+      },
+    ],
+    chefSecret:
+      'Bí quyết giúp bánh mì thịt nướng sả thơm ngon chuẩn vị đường phố Sài Gòn nằm ở 3 điểm: Thứ nhất, khi ướp thịt bắt buộc phải dùng sả băm thật nhuyễn kết hợp chút ngũ vị hương, dầu mè và nước màu dừa để thịt dậy mùi thơm nức đặc trưng và màu nâu cánh gián vàng ruộm. Thứ hai, sốt chan kẹp bánh mì phải nấu bằng tương đen kết hợp bơ đậu phộng để tạo vị béo bùi sánh quyện chứ không dùng nước mắm loãng. Thứ ba, phết một lớp bơ trứng gà béo ngậy trong lòng bánh mì trước khi kẹp thịt nướng nóng hổi sẽ tạo độ giòn thơm bất bại.',
+    recommendedSauce:
+      'Sốt tương đen bơ đậu phộng đượm vị béo bùi, rưới thêm tương ớt Chin-su cay nồng.',
+  },
   'suon-nuong-bbq': {
     dishId: 'suon-nuong-bbq',
     dishName: 'Dẻ Sườn Heo Nướng Tảng BBQ Sốt Khói',
@@ -7012,6 +7264,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'nem-lui-nuong-cuon': 'cach-lam-nem-lui-nuong-cuon',
   'banh-mi-cha-ca-nong': 'cach-lam-banh-mi-cha-ca-nong',
   'de-tai-chanh-tuong-ban': 'cach-lam-de-tai-chanh',
+  'banh-mi-chao-xiu-mai': 'cach-lam-banh-mi-chao',
+  'banh-mi-thit-nuong': 'cach-lam-banh-mi-thit-nuong',
 };
 
 /**
@@ -7037,6 +7291,20 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'banh-mi-thit-nuong': 'banh-mi-thit-nuong',
+  'banh-mi-thit-nuong-sa-te': 'banh-mi-thit-nuong',
+  'cach-nau-banh-mi-thit-nuong': 'banh-mi-thit-nuong',
+  'cach-lam-banh-mi-thit-nuong': 'banh-mi-thit-nuong',
+  'cach-nau-banh-mi-thit-nuong-sa-te': 'banh-mi-thit-nuong',
+  'cach-lam-banh-mi-thit-nuong-sa-te': 'banh-mi-thit-nuong',
+
+  'banh-mi-chao': 'banh-mi-chao-xiu-mai',
+  'banh-mi-chao-xiu-mai': 'banh-mi-chao-xiu-mai',
+  'cach-nau-banh-mi-chao': 'banh-mi-chao-xiu-mai',
+  'cach-lam-banh-mi-chao': 'banh-mi-chao-xiu-mai',
+  'cach-nau-banh-mi-chao-xiu-mai': 'banh-mi-chao-xiu-mai',
+  'cach-lam-banh-mi-chao-xiu-mai': 'banh-mi-chao-xiu-mai',
+
   'cach-nau-banh-canh-ca-loc': 'banh-canh-ca-loc',
   'banh-mi-cha-ca': 'banh-mi-cha-ca-nong',
   'banh-mi-cha-ca-nong': 'banh-mi-cha-ca-nong',

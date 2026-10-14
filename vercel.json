@@ -92,6 +92,66 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-banh-mi-chao-xiu-mai",
+      "destination": "/cach-lam-banh-mi-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-chao-xiu-mai/",
+      "destination": "/cach-lam-banh-mi-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-chao",
+      "destination": "/cach-lam-banh-mi-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-chao/",
+      "destination": "/cach-lam-banh-mi-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-chao-xiu-mai",
+      "destination": "/cach-lam-banh-mi-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-chao-xiu-mai/",
+      "destination": "/cach-lam-banh-mi-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-thit-nuong",
+      "destination": "/cach-lam-banh-mi-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-thit-nuong/",
+      "destination": "/cach-lam-banh-mi-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-thit-nuong-sa-te",
+      "destination": "/cach-lam-banh-mi-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-thit-nuong-sa-te/",
+      "destination": "/cach-lam-banh-mi-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-thit-nuong-sa-te",
+      "destination": "/cach-lam-banh-mi-thit-nuong",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-thit-nuong-sa-te/",
+      "destination": "/cach-lam-banh-mi-thit-nuong",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

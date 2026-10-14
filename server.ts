@@ -1962,6 +1962,98 @@ async function startServer() {
     return res.redirect(301, "/cach-nau-banh-canh-cua");
   });
 
+  // 301 Permanent Redirect for banh khot vung tau
+  app.get([
+    "/cach-nau-banh-khot-tom-vung-tau",
+    "/cach-nau-banh-khot-tom-vung-tau/",
+    "/cach-nau-banh-khot-vung-tau",
+    "/cach-nau-banh-khot-vung-tau/",
+    "/cach-nau-banh-khot",
+    "/cach-nau-banh-khot/",
+    "/cach-lam-banh-khot-tom-vung-tau",
+    "/cach-lam-banh-khot-tom-vung-tau/",
+    "/cach-lam-banh-khot",
+    "/cach-lam-banh-khot/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-banh-khot-vung-tau");
+  });
+
+  // 301 Permanent Redirect for bo ne
+  app.get([
+    "/cach-nau-bo-ne",
+    "/cach-nau-bo-ne/",
+    "/cach-nau-bo-ne-chao-gang",
+    "/cach-nau-bo-ne-chao-gang/",
+    "/cach-lam-bo-ne-chao-gang",
+    "/cach-lam-bo-ne-chao-gang/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-bo-ne");
+  });
+
+  // 301 Permanent Redirect for canh bun
+  app.get([
+    "/cach-lam-canh-bun",
+    "/cach-lam-canh-bun/",
+    "/cach-nau-canh-bun-rau-muong",
+    "/cach-nau-canh-bun-rau-muong/",
+    "/cach-lam-canh-bun-rau-muong",
+    "/cach-lam-canh-bun-rau-muong/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-canh-bun");
+  });
+
+  // 301 Permanent Redirect for banh uot
+  app.get([
+    "/cach-nau-banh-uot",
+    "/cach-nau-banh-uot/",
+    "/cach-lam-banh-uot-cha-lua",
+    "/cach-lam-banh-uot-cha-lua/",
+    "/cach-nau-banh-uot-cha-lua",
+    "/cach-nau-banh-uot-cha-lua/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-banh-uot");
+  });
+
+  // 301 Permanent Redirect for bun mang vit
+  app.get([
+    "/cach-lam-bun-mang-vit",
+    "/cach-lam-bun-mang-vit/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-bun-mang-vit");
+  });
+
+  // 301 Permanent Redirect for oc huong xao bo toi
+  app.get([
+    "/cach-nau-oc-huong-xao-bo-toi",
+    "/cach-nau-oc-huong-xao-bo-toi/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-oc-huong-xao-bo-toi");
+  });
+
+  // 301 Permanent Redirect for ca vien chien nuoc mam
+  app.get([
+    "/cach-nau-ca-vien-chien-nuoc-mam",
+    "/cach-nau-ca-vien-chien-nuoc-mam/",
+    "/cach-lam-ca-vien-chien",
+    "/cach-lam-ca-vien-chien/",
+    "/cach-nau-ca-vien-chien",
+    "/cach-nau-ca-vien-chien/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-ca-vien-chien-nuoc-mam");
+  });
+
+  // 301 Permanent Redirect for banh trang tron sa te
+  app.get([
+    "/cach-nau-banh-trang-tron-sa-te",
+    "/cach-nau-banh-trang-tron-sa-te/",
+    "/cach-lam-banh-trang-tron-sa-te",
+    "/cach-lam-banh-trang-tron-sa-te/",
+    "/cach-nau-banh-trang-tron",
+    "/cach-nau-banh-trang-tron/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-banh-trang-tron");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

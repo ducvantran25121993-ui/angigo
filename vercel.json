@@ -442,6 +442,176 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-banh-khot-tom-vung-tau",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-khot-tom-vung-tau/",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-khot-vung-tau",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-khot-vung-tau/",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-khot",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-khot/",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-khot-tom-vung-tau",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-khot-tom-vung-tau/",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-khot",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-khot/",
+      "destination": "/cach-lam-banh-khot-vung-tau",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-ne",
+      "destination": "/cach-lam-bo-ne",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-ne/",
+      "destination": "/cach-lam-bo-ne",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-ne-chao-gang",
+      "destination": "/cach-lam-bo-ne",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-ne-chao-gang/",
+      "destination": "/cach-lam-bo-ne",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-ne-chao-gang",
+      "destination": "/cach-lam-bo-ne",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-ne-chao-gang/",
+      "destination": "/cach-lam-bo-ne",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-bun",
+      "destination": "/cach-nau-canh-bun",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-bun/",
+      "destination": "/cach-nau-canh-bun",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-canh-bun-rau-muong",
+      "destination": "/cach-nau-canh-bun",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-canh-bun-rau-muong/",
+      "destination": "/cach-nau-canh-bun",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-bun-rau-muong",
+      "destination": "/cach-nau-canh-bun",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-bun-rau-muong/",
+      "destination": "/cach-nau-canh-bun",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-uot",
+      "destination": "/cach-lam-banh-uot",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-uot/",
+      "destination": "/cach-lam-banh-uot",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-mang-vit",
+      "destination": "/cach-nau-bun-mang-vit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-mang-vit/",
+      "destination": "/cach-nau-bun-mang-vit",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-oc-huong-xao-bo-toi",
+      "destination": "/cach-lam-oc-huong-xao-bo-toi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-oc-huong-xao-bo-toi/",
+      "destination": "/cach-lam-oc-huong-xao-bo-toi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-ca-vien-chien-nuoc-mam",
+      "destination": "/cach-lam-ca-vien-chien-nuoc-mam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-ca-vien-chien-nuoc-mam/",
+      "destination": "/cach-lam-ca-vien-chien-nuoc-mam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-trang-tron-sa-te",
+      "destination": "/cach-lam-banh-trang-tron",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-trang-tron-sa-te/",
+      "destination": "/cach-lam-banh-trang-tron",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-trang-tron-sa-te",
+      "destination": "/cach-lam-banh-trang-tron",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-trang-tron-sa-te/",
+      "destination": "/cach-lam-banh-trang-tron",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

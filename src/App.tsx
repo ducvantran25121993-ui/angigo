@@ -135,6 +135,22 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bun-thit-nuong');
       } else if (pathname === '/cach-lam-banh-canh-cua' || pathname === '/cach-nau-banh-canh-cua-gio-heo' || pathname === '/cach-lam-banh-canh-cua-gio-heo') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-banh-canh-cua');
+      } else if (pathname === '/cach-nau-banh-khot-tom-vung-tau' || pathname === '/cach-nau-banh-khot-vung-tau' || pathname === '/cach-nau-banh-khot' || pathname === '/cach-lam-banh-khot-tom-vung-tau' || pathname === '/cach-lam-banh-khot') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-khot-vung-tau');
+      } else if (pathname === '/cach-nau-bo-ne' || pathname === '/cach-nau-bo-ne-chao-gang' || pathname === '/cach-lam-bo-ne-chao-gang') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bo-ne');
+      } else if (pathname === '/cach-lam-canh-bun' || pathname === '/cach-nau-canh-bun-rau-muong' || pathname === '/cach-lam-canh-bun-rau-muong') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-canh-bun');
+      } else if (pathname === '/cach-nau-banh-uot' || pathname === '/cach-lam-banh-uot-cha-lua' || pathname === '/cach-nau-banh-uot-cha-lua') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-uot');
+      } else if (pathname === '/cach-lam-bun-mang-vit') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-mang-vit');
+      } else if (pathname === '/cach-nau-oc-huong-xao-bo-toi') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-oc-huong-xao-bo-toi');
+      } else if (pathname === '/cach-nau-ca-vien-chien-nuoc-mam' || pathname === '/cach-lam-ca-vien-chien' || pathname === '/cach-nau-ca-vien-chien') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-ca-vien-chien-nuoc-mam');
+      } else if (pathname === '/cach-nau-banh-trang-tron-sa-te' || pathname === '/cach-lam-banh-trang-tron-sa-te' || pathname === '/cach-nau-banh-trang-tron') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-trang-tron');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

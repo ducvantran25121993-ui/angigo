@@ -99,6 +99,8 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-muc-mot-nang-nuong-sa-te');
       } else if (pathname === '/cach-nau-heo-quay-banh-hoi') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-heo-quay-banh-hoi');
+      } else if (pathname === '/cach-nau-be-thui') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-be-thui');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

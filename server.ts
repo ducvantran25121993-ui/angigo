@@ -1764,6 +1764,14 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-heo-quay-banh-hoi");
   });
 
+  // 301 Permanent Redirect for be thui recipe alias requested by user
+  app.get([
+    "/cach-nau-be-thui",
+    "/cach-nau-be-thui/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-be-thui");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

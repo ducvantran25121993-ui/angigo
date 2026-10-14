@@ -22,6 +22,16 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-be-thui",
+      "destination": "/cach-lam-be-thui",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-be-thui/",
+      "destination": "/cach-lam-be-thui",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

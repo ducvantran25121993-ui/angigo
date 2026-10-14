@@ -7006,6 +7006,7 @@ export const FEATURED_RECIPE_IDS = [
 export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'muc-mot-nang-nuong-sa-te': 'cach-lam-muc-mot-nang-nuong-sa-te',
   'heo-quay-banh-hoi': 'cach-lam-heo-quay-banh-hoi',
+  'be-thui': 'cach-lam-be-thui',
 };
 
 /**

@@ -17,5 +17,13 @@
   "cach-lam-banh-mi-thit-nuong-sa-te": "cach-lam-banh-mi-thit-nuong",
   "cach-nau-banh-mi-heo-quay-gion": "cach-lam-banh-mi-heo-quay",
   "cach-nau-banh-mi-heo-quay": "cach-lam-banh-mi-heo-quay",
-  "cach-lam-banh-mi-heo-quay-gion": "cach-lam-banh-mi-heo-quay"
+  "cach-lam-banh-mi-heo-quay-gion": "cach-lam-banh-mi-heo-quay",
+  "cach-nau-banh-mi-pate-thap-cam": "cach-lam-banh-mi-pate-thap-cam",
+  "cach-nau-banh-mi-pate": "cach-lam-banh-mi-pate-thap-cam",
+  "cach-lam-banh-mi-pate": "cach-lam-banh-mi-pate-thap-cam",
+  "cach-nau-bo-kho-banh-my-nong-gion": "cach-lam-bo-kho-banh-mi",
+  "cach-nau-bo-kho-banh-mi": "cach-lam-bo-kho-banh-mi",
+  "cach-lam-bo-kho-banh-my-nong-gion": "cach-lam-bo-kho-banh-mi",
+  "cach-lam-pha-lau-bo": "cach-nau-pha-lau-bo",
+  "cach-nau-com-ga-xoi-mo": "cach-lam-com-ga-xoi-mo"
 }

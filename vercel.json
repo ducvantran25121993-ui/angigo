@@ -182,6 +182,86 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-banh-mi-pate-thap-cam",
+      "destination": "/cach-lam-banh-mi-pate-thap-cam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-pate-thap-cam/",
+      "destination": "/cach-lam-banh-mi-pate-thap-cam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-pate",
+      "destination": "/cach-lam-banh-mi-pate-thap-cam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-banh-mi-pate/",
+      "destination": "/cach-lam-banh-mi-pate-thap-cam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-pate",
+      "destination": "/cach-lam-banh-mi-pate-thap-cam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-banh-mi-pate/",
+      "destination": "/cach-lam-banh-mi-pate-thap-cam",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-kho-banh-my-nong-gion",
+      "destination": "/cach-lam-bo-kho-banh-mi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-kho-banh-my-nong-gion/",
+      "destination": "/cach-lam-bo-kho-banh-mi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-kho-banh-mi",
+      "destination": "/cach-lam-bo-kho-banh-mi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-kho-banh-mi/",
+      "destination": "/cach-lam-bo-kho-banh-mi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-kho-banh-my-nong-gion",
+      "destination": "/cach-lam-bo-kho-banh-mi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-kho-banh-my-nong-gion/",
+      "destination": "/cach-lam-bo-kho-banh-mi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pha-lau-bo",
+      "destination": "/cach-nau-pha-lau-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pha-lau-bo/",
+      "destination": "/cach-nau-pha-lau-bo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-com-ga-xoi-mo",
+      "destination": "/cach-lam-com-ga-xoi-mo",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-com-ga-xoi-mo/",
+      "destination": "/cach-lam-com-ga-xoi-mo",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

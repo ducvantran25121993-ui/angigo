@@ -9003,6 +9003,130 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chén nước mắm nhĩ mặn nguyên chất dầm ớt hiểm đỏ rực vắt tí chanh tươi, chấm ngập khúc cá hú béo ngậy và tôm mực giòn ngọt.',
   },
+
+  'com-ca-kho-to': {
+    dishId: 'com-ca-kho-to',
+    dishName: 'Cơm Cá Kho Tộ Đậm Đà',
+    seoTitle: 'Cách Nấu Cơm Cá Kho Tộ Đậm Đà, Mềm Mọng Chuẩn Vị Mẹ Nấu',
+    description:
+      'Hướng dẫn chi tiết cách nấu cơm cá kho tộ đất đậm đà béo ngậy chuẩn vị cơm nhà mẹ nấu: Cá lóc/cá hú cắt khứa săn chắc, thịt ba chỉ cháy cạnh thơm lừng, nước dừa tươi kho 2 lửa sền sệt kẹo sốt màu cánh gián ngấm sâu từng thớ thịt.',
+    prepTime: '25 phút',
+    cookTime: '40 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Cá tươi & Thịt ba chỉ kho kèm',
+        items: [
+          '600g cá lóc đồng tươi sống (hoặc cá hú / cá trắm / cá bống) cắt khứa dày 2.5 - 3cm',
+          '150g thịt ba chỉ (ba rọi) heo thái con chì mỏng (kho cùng cá tạo độ ngậy béo tự nhiên)',
+        ],
+      },
+      {
+        category: 'Gia vị ướp & Nước màu kho tộ',
+        items: [
+          '3 thìa canh nước mắm nhĩ ngon (độ đạm cao 40 độ)',
+          '1 thìa canh nước màu dừa Bến Tre (cho sắc nâu cánh gián ánh kim đẹp mắt)',
+          '1.5 thìa canh đường thốt nốt (hoặc đường phèn/đường cát vàng)',
+          '1 thìa cà phê hạt nêm, 1 thìa cà phê tiêu sọ đập dập',
+          '2 củ hành tím băm, 1 củ tỏi băm, 3 nhánh đầu hành lá giã dập',
+          '3 - 4 quả ớt hiểm đỏ dầm dập (hoặc ớt chỉ thiên)',
+        ],
+      },
+      {
+        category: 'Nước dừa & Thảo mộc béo thơm',
+        items: [
+          '250ml nước dừa tươi xiêm ngọt thanh',
+          '2 thìa canh mỡ heo thắng (hoặc dầu ăn)',
+          'Hành lá cắt khúc, ớt sừng thái chỉ, tiêu xay rắc mặt',
+        ],
+      },
+      {
+        category: 'Cơm dẻo ăn kèm chuẩn vị cơm nhà',
+        items: [
+          'Gạo Tám Thái / ST25 dẻo thơm nấu cơm niêu hoặc cơm trắng nóng hổi',
+          'Rau luộc ăn kèm: Đĩa dưa leo, cà chua thái lát, đọt rau muống luộc, dưa chua muối',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế & khử tanh cá lóc/cá hú sạch màng đen triệt để',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Khử sạch mùi tanh hôi và lớp nhớt trên da cá, thịt cá ngấm gia vị ngạt ngào thơm',
+        actionPoints: [
+          'Cá lóc hoặc cá hú mua về cạo sạch nhớt ngoài da bằng muối hạt và nước cốt chanh tươi (hoặc rửa với rượu trắng và gừng đập dập).',
+          'Mổ bụng lấy sạch lòng cá, cạo kỹ lớp màng đen bám bên trong khoang bụng (đây là nguyên nhân chính gây mùi tanh). Rửa sạch cá lại bằng nước lạnh rồi cắt khứa tròn dày 2.5 - 3cm, để thật ráo nước.',
+          'Thịt ba chỉ rửa sạch, thái con chì mỏng vừa ăn.',
+        ],
+        description:
+          'Chà chanh muối khử nhớt cá, cạo sạch màng đen khoang bụng để tuyệt đối không tanh. Cắt khứa dày 3cm. Thái thịt ba chỉ con chì mỏng.',
+      },
+      {
+        step: 2,
+        title: 'Ướp cá & thịt ba chỉ ngấm sâu gia vị đậm đà',
+        time: '25 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Gia vị thấm sâu vào từng thớ thịt cá, đầu hành giã dập triệt tiêu mùi tanh',
+        actionPoints: [
+          'Cho khứa cá và thịt ba chỉ vào tô lớn. Ướp cùng 3 thìa canh nước mắm nhĩ ngon, 1.5 thìa canh đường thốt nốt, 1 thìa canh nước màu dừa, 1 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu sọ.',
+          'Cho toàn bộ hành tím băm, tỏi băm và đặc biệt là 3 nhánh đầu hành lá giã dập vào đảo đều nhẹ tay.',
+          'Ướp tối thiểu 20 - 25 phút để thịt cá cứng cáp, ngấm trọn sắc màu cánh gián và hương thơm của gia vị.',
+        ],
+        description:
+          'Ướp cá và thịt ba chỉ với mắm nhĩ, đường thốt nốt, nước màu dừa, tiêu sọ, hành tỏi băm và đầu hành giã dập trong 25 phút cho cá ngấm vị đậm đà.',
+      },
+      {
+        step: 3,
+        title: 'Chưng thịt ba chỉ cháy cạnh & xếp cá vào tộ đất',
+        time: '8 phút',
+        heat: 'Lửa vừa',
+        goal: 'Tạo lớp mỡ ngậy béo chưng cháy cạnh dưới đáy tộ đất, chống dính và tăng mùi thơm',
+        actionPoints: [
+          'Đặt tộ đất (hoặc nồi gốm/nồi dày) lên bếp, cho 2 thìa canh mỡ heo vào đun nóng.',
+          'Vớt phần thịt ba chỉ đã ướp vào chưng xào trước trên lửa vừa cho đến khi thịt ba chỉ săn lại, xém vàng nhẹ cạnh và tiết ra mỡ thơm ngậy.',
+          'Tắt bếp tạm thời, lót một lớp đầu hành lá cắt khúc xuống đáy tộ, sau đó xếp từng khứa cá lên trên lớp thịt ba chỉ. Trút toàn bộ phần nước ướp cá trong tô vào tộ đất.',
+        ],
+        description:
+          'Đun mỡ heo trong tộ đất, xào thịt ba chỉ xém cạnh tiết mỡ thơm. Lót đầu hành lá, xếp khứa cá lên trên thịt ba chỉ và trút nước ướp cá vào tộ.',
+      },
+      {
+        step: 4,
+        title: 'Kho 2 lửa với nước dừa tươi kẹo sốt béo ngậy màu cánh gián',
+        time: '25 phút',
+        heat: 'Lửa liu riu',
+        goal: 'Khứa cá săn chắc, nước sốt kho sánh quánh sền sệt kẹo béo ngập tràn vị thơm',
+        actionPoints: [
+          'Bật bếp lửa vừa cho tộ cá sôi bùng lên 3 phút cho khứa cá săn bề mặt. Đổ 250ml nước dừa tươi xiêm vào sâm sấp mặt cá.',
+          'Khi tộ cá sôi lại, hạ lửa xuống mức liu riu nhỏ nhất. Đậy nắp tộ kho trong 15 phút (Lửa 1). Trong quá trình kho, vớt bọt nhẹ nhàng và dùng thìa rưới nước kho lên mặt cá cho ngấm màu đều.',
+          'Mở nắp tộ cá, thả ớt hiểm dầm dập vào, tiếp tục kho liu riu thêm 10 phút không đậy nắp (Lửa 2) cho nước dừa tươi rút bớt và sắc mặn ngọt sánh kẹo lại thành lớp sốt màu nâu cánh gián bóng mượt.',
+          'Khi nước kho cá cạn sền sệt, rắc hành lá cắt khúc, ớt sừng thái chỉ và tiêu xay lên mặt rồi tắt bếp. Độ nóng giữ lâu của tộ đất sẽ tiếp tục làm nước sốt keo quánh lại cực kỳ quyến rũ.',
+        ],
+        description:
+          'Đổ nước dừa tươi đun sôi rồi đậy nắp kho lửa 1 liu riu 15 phút. Mở nắp kho lửa 2 thêm 10 phút cho nước kho sánh kẹo sền sệt màu cánh gián bóng mượt. Rắc hành ớt tiêu.',
+      },
+      {
+        step: 5,
+        title: 'Nấu cơm dẻo thơm & trình bày mâm cơm cá kho tộ chuẩn vị mẹ nấu',
+        time: '20 phút',
+        heat: 'Lửa vừa',
+        goal: 'Mâm cơm gia đình ấm cúng với thố cơm dẻo khói nghi ngút ăn cùng cá kho tộ đậm đà',
+        actionPoints: [
+          'Vo gạo Tám Thái / ST25 nấu cơm trắng hoặc cơm niêu cho hạt cơm dẻo ráo, ngạt ngào mùi thơm.',
+          'Bày tộ cá kho nóng hổi còn reo xèo xèo trên lót gỗ. Bên cạnh là đĩa rau luộc (đọt rau muống, dưa leo, cà chua), chén dưa chua muối.',
+          'Múc cơm nóng ra thố/bát, gắp khứa cá kho tộ đậm đà béo ngậy kèm miếng thịt ba chỉ mỏng trong veo, rưới thìa nước kho kẹo quánh lên hạt cơm dẻo. Hương vị mặn ngọt hài hòa, thơm nồng mùi tiêu sọ và nước dừa tươi khiến bữa cơm gia đình tròn vị ngất ngây.',
+        ],
+        description:
+          'Nấu cơm trắng/cơm niêu dẻo thơm. Bày tộ cá kho nóng hổi béo ngậy ăn kèm dưa leo, rau muống luộc và dưa chua. Rưới nước cá kho kẹo sền sệt lên cơm nóng thưởng thức.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng kho cá tộ ngon xuất sắc chuẩn vị mẹ nấu: 1. Cạo sạch màng đen bên trong bụng cá và ướp đầu hành giã dập cùng tiêu sọ triệt tiêu hoàn toàn mùi tanh; 2. Kho bằng tộ đất và kho 2 lửa (lửa 1 đậy nắp thấm vị, lửa 2 mở nắp kẹo sốt) kết hợp nước dừa tươi giúp nước kho cá dính quánh, lên màu cánh gián tự nhiên không cần nhiều phẩm màu; 3. Lót thịt ba chỉ mỡ ở đáy tộ vừa chống cháy dính cá vừa tiết mỡ ngậy béo phủ đều quanh từng khứa cá bóng mượt.',
+    recommendedSauce:
+      'Đĩa cơm trắng dẻo thơm nóng hổi nghi ngút khói, rưới thìa nước cá kho tộ kẹo quánh béo ngậy đậm đà, chấm ngập đọt rau muống luộc và dưa leo giòn rụm.',
+  },
 };
 
 /**
@@ -9798,6 +9922,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'bun-nuoc-leo-soc-trang': 'cach-nau-bun-nuoc-leo-soc-trang',
   'canh-chua-ca-loc': 'cach-nau-canh-chua-ca-loc',
   'lau-mam-mien-tay': 'cach-nau-lau-mam-mien-tay',
+  'com-ca-kho-to': 'cach-nau-com-ca-kho-to',
+  'ca-kho-to': 'cach-nau-com-ca-kho-to',
 };
 
 /**
@@ -9823,6 +9949,12 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'com-ca-kho-to': 'com-ca-kho-to',
+  'cach-nau-com-ca-kho-to': 'com-ca-kho-to',
+  'cach-lam-com-ca-kho-to': 'com-ca-kho-to',
+  'ca-kho-to': 'com-ca-kho-to',
+  'cach-nau-ca-kho-to': 'com-ca-kho-to',
+  'cach-lam-ca-kho-to': 'com-ca-kho-to',
   'lau-mam-mien-tay': 'lau-mam-mien-tay',
   'cach-nau-lau-mam-mien-tay': 'lau-mam-mien-tay',
   'cach-lam-lau-mam-mien-tay': 'lau-mam-mien-tay',

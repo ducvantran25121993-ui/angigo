@@ -159,6 +159,8 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-canh-chua-ca-loc');
       } else if (pathname === '/lau-mam-mien-tay' || pathname === '/cach-lam-lau-mam-mien-tay' || pathname === '/lau-mam' || pathname === '/cach-lam-lau-mam' || pathname === '/cach-nau-lau-mam') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-lau-mam-mien-tay');
+      } else if (pathname === '/ca-kho-to' || pathname === '/cach-lam-ca-kho-to' || pathname === '/cach-nau-ca-kho-to' || pathname === '/com-ca-kho-to' || pathname === '/cach-lam-com-ca-kho-to') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-com-ca-kho-to');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

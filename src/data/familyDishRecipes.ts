@@ -12,33 +12,44 @@ export interface FamilyDishRecipe {
 export const FAMILY_DISH_RECIPES: Record<string, FamilyDishRecipe> = {
   // --- THỨ HAI ---
   'com-ca-kho-to': {
-    prepTime: '15 phút',
-    cookTime: '30 phút',
+    prepTime: '25 phút',
+    cookTime: '40 phút',
     servings: '3 - 4 người',
     ingredients: [
-      '500g cá lóc hoặc cá bống làm sạch, cắt khúc vừa ăn',
-      '100g thịt ba chỉ heo thái con chì (kho cùng cá ngậy béo)',
-      '2 thìa canh nước mắm ngon, 1 thìa nước màu dừa Bến Tre',
-      'Tỏi băm, hành tím, ớt hiểm đỏ, tiêu sọ đập dập, hành lá',
+      '600g cá lóc đồng tươi cắt khứa 3cm (cạo sạch nhớt & màng đen khoang bụng)',
+      '150g thịt ba chỉ thái con chì mỏng (xào cháy cạnh lót đáy tộ)',
+      '3 thìa canh nước mắm nhĩ 40 độ đạm, 1.5 thìa canh đường thốt nốt',
+      '1 thìa canh nước màu dừa Bến Tre, 250ml nước dừa tươi xiêm',
+      '3 nhánh đầu hành giã dập, 1 thìa cà phê tiêu sọ đập dập, tỏi, hành tím, ớt hiểm',
     ],
     steps: [
       {
         step: 1,
-        title: 'Ướp cá & thịt',
-        desc: 'Ướp cá và thịt ba chỉ với 2 thìa mắm, 1 thìa đường, nước màu dừa, hành tỏi băm và tiêu sọ trong 20 phút cho ngấm sâu.',
+        title: 'Sơ chế & khử tanh cá',
+        desc: 'Cạo sạch nhớt da cá bằng muối chanh. Cạo sạch lớp màng đen trong khoang bụng cá để triệt tiêu mùi tanh, cắt khứa 3cm.',
       },
       {
         step: 2,
-        title: 'Áp chảo thịt & xếp cá',
-        desc: 'Làm nóng tộ đất với chút dầu ăn, cho thịt ba chỉ vào đảo cháy cạnh xém vàng, sau đó xếp từng khúc cá vào áp chảo 2 mặt.',
+        title: 'Ướp cá & thịt ba chỉ',
+        desc: 'Ướp cá và thịt ba chỉ với nước mắm nhĩ, đường thốt nốt, nước màu dừa, tiêu sọ, hành tỏi băm và đầu hành giã dập trong 25 phút.',
       },
       {
         step: 3,
-        title: 'Kho liu riu kẹo sốt',
-        desc: 'Châm nước sôi (hoặc nước dừa tươi) sâm sấp mặt cá. Đun sôi rồi hạ nhỏ lửa liu riu 25 phút cho nước sốt keo sánh, rắc ớt hiểm và hành hoa.',
+        title: 'Chưng ba chỉ & xếp tộ đất',
+        desc: 'Đun mỡ heo trong tộ đất, xào thịt ba chỉ xém vàng tiết mỡ ngậy. Lót đầu hành, xếp từng khúc cá lên trên thịt ba chỉ.',
+      },
+      {
+        step: 4,
+        title: 'Kho 2 lửa kẹo sốt cánh gián',
+        desc: 'Đổ nước dừa tươi đun sôi, đậy nắp kho lửa 1 liu riu 15 phút. Mở nắp kho lửa 2 thêm 10 phút cho nước sốt dính quánh kẹo sền sệt màu nâu cánh gián bóng mượt.',
+      },
+      {
+        step: 5,
+        title: 'Nấu cơm dẻo & thưởng thức',
+        desc: 'Ăn kèm cơm niêu/cơm trắng nóng dẻo, đĩa đọt rau muống luộc, dưa leo tươi. Rưới thìa nước kho kẹo béo lên cơm nóng.',
       },
     ],
-    tip: 'Kho bằng tộ đất trên lửa liu riu giúp thịt cá săn chắc, đậm đà màu cánh gián mà không bị bở nát.',
+    tip: 'Bí quyết mẹ nấu: Cạo sạch màng đen bụng cá + kho 2 lửa bằng tộ đất với nước dừa tươi + lót thịt ba chỉ tiết mỡ thơm ngậy.',
   },
 
   'canh-chua-ca-loc': {

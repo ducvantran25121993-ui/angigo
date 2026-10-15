@@ -1291,11 +1291,20 @@ ${newContent}
               <div
                 className="blog-rich-content leading-relaxed text-stone-700 font-normal space-y-4"
                 dangerouslySetInnerHTML={{
-                  __html: activePost.htmlContent || activePost.content
-                    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-orange-600 underline font-semibold hover:text-orange-700">$1</a>')
-                    .replace(/^##\s+(.*)$/gm, '<h2 class="text-2xl sm:text-3xl font-black text-stone-900 mt-10 mb-4 pb-2 border-b border-stone-200">$1</h2>')
-                    .replace(/^###\s+(.*)$/gm, '<h3 class="text-xl sm:text-2xl font-bold text-stone-900 mt-8 mb-3 text-stone-800">$1</h3>')
+                  __html: (() => {
+                    let raw = activePost.htmlContent || activePost.content || '';
+                    // Convert markdown blockquotes in content if present
+                    raw = raw.replace(/^>\s+(.*)$/gm, '<blockquote class="border-l-4 border-orange-500 bg-orange-50/80 px-4 py-3 my-4 italic text-stone-700 rounded-r-xl shadow-2xs">$1</blockquote>');
+                    // Clean and style any HTML blockquotes that have browser execCommand inline styles (border: none, margin: 0 0 0 40px)
+                    raw = raw.replace(/<blockquote(?:\s+style="[^"]*")?(?:\s+class="[^"]*")?[^>]*>/gi, '<blockquote class="border-l-4 border-orange-500 bg-orange-50/80 px-4 py-3 my-4 italic text-stone-700 rounded-r-xl shadow-2xs">');
+                    // Format standard markdown if present
+                    raw = raw
+                      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-orange-600 underline font-semibold hover:text-orange-700">$1</a>')
+                      .replace(/^##\s+(.*)$/gm, '<h2 class="text-2xl sm:text-3xl font-black text-stone-900 mt-10 mb-4 pb-2 border-b border-stone-200">$1</h2>')
+                      .replace(/^###\s+(.*)$/gm, '<h3 class="text-xl sm:text-2xl font-bold text-stone-900 mt-8 mb-3 text-stone-800">$1</h3>');
+                    return raw;
+                  })()
                 }}
                 onClick={(e) => {
                   const target = e.target as HTMLElement;

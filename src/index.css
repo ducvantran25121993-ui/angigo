@@ -147,8 +147,8 @@ article blockquote {
   border-top: none !important;
   border-right: none !important;
   border-bottom: none !important;
-  padding: 0.625rem 1.25rem !important;
-  margin: 1.25rem 0 !important;
+  padding: 0.5rem 1rem !important;
+  margin: 1rem 0 !important;
   font-style: italic !important;
   color: #44403c !important;
   background-color: #fff7ed !important;

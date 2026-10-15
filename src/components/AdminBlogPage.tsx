@@ -1889,7 +1889,12 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
     setSaving(true);
 
-    const currentHtml = editorRef.current?.innerHTML || '';
+    let currentHtml = editorRef.current?.innerHTML || '';
+    // Clean browser execCommand blockquote inline artifacts (border: none, margin: 0 0 0 40px)
+    currentHtml = currentHtml.replace(
+      /<blockquote(?:\s+style="[^"]*")?(?:\s+class="[^"]*")?[^>]*>/gi,
+      '<blockquote class="border-l-4 border-orange-500 bg-orange-50/80 px-4 py-3 my-4 italic text-stone-700 rounded-r-xl shadow-2xs">'
+    );
     const rawMarkdown = htmlToMarkdown(currentHtml);
     const markdownContent = rawMarkdown;
 

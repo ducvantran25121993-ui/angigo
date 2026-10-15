@@ -321,7 +321,7 @@ function setOrCreateMeta(selector: string, attributeName: 'name' | 'property', a
 function applyMetaToDOM(meta: TabMeta): void {
   if (typeof document === 'undefined') return;
 
-  const fullUrl = 'https://www.angigio.com' + meta.path;
+  const fullUrl = 'https://angigio.com' + meta.path;
   const image = meta.ogImage || DEFAULT_OG_IMAGE;
   const imageAlt = meta.ogImageAlt || meta.title;
 
@@ -433,6 +433,7 @@ export async function updateRecipeArticleSEO(dish: Dish, recipe?: DishRecipe): P
   const articleTitle = getRecipeArticleTitle(dish, recipe);
   const title = formatRecipeSeoTitle(articleTitle);
   const description =
+    recipe?.description ||
     dish.description ||
     `Hướng dẫn chi tiết ${articleTitle.toLowerCase()}. Công thức định lượng nguyên liệu chuẩn xác, các bước nấu đơn giản và mẹo bí quyết giúp món ăn thơm ngon chuẩn vị.`;
   const image = dish.image?.startsWith('http') ? dish.image : `https://angigio.com${dish.image}`;

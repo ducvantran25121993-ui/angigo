@@ -253,6 +253,7 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
     const articleTitle = getRecipeArticleTitle(dish, recipe);
     const title = formatRecipeSeoTitle(articleTitle);
     const description =
+      recipe?.description ||
       dish.description ||
       `Hướng dẫn chi tiết cách làm ${dish.name} thơm ngon chuẩn vị gia đình Việt Nam: Định lượng nguyên liệu chuẩn xác, các bước thực hiện dễ hiểu và mẹo bí quyết bếp trưởng.`;
     const image = dish.image?.startsWith('http') ? dish.image : dish.image;

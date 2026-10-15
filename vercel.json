@@ -642,6 +642,66 @@
       "permanent": true
     },
     {
+      "source": "/cach-nau-bun-nuoc-leo",
+      "destination": "/cach-nau-bun-nuoc-leo-soc-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-nuoc-leo/",
+      "destination": "/cach-nau-bun-nuoc-leo-soc-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-nuoc-leo",
+      "destination": "/cach-nau-bun-nuoc-leo-soc-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-nuoc-leo/",
+      "destination": "/cach-nau-bun-nuoc-leo-soc-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-nuoc-leo-soc-trang",
+      "destination": "/cach-nau-bun-nuoc-leo-soc-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-nuoc-leo-soc-trang/",
+      "destination": "/cach-nau-bun-nuoc-leo-soc-trang",
+      "permanent": true
+    },
+    {
+      "source": "/canh-chua-ca-loc",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/canh-chua-ca-loc/",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-chua-ca-loc",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-chua-ca-loc/",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-canh-chua-ca-loc-nam-bo",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-canh-chua-ca-loc-nam-bo/",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

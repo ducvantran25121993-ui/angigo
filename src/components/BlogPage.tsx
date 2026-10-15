@@ -1049,10 +1049,22 @@ ${newContent}
         elements.push(
           <blockquote
             key={`quote-${currentKey++}`}
-            className={`my-6 p-4 sm:p-5 border-l-4 rounded-r-2xl leading-relaxed text-sm sm:text-base space-y-2 ${
+            style={{
+              borderLeft: '4px solid #ea580c',
+              borderTop: 'none',
+              borderRight: 'none',
+              borderBottom: 'none',
+              backgroundColor: '#fff7ed',
+              padding: '0.625rem 1.25rem',
+              margin: '1.25rem 0',
+              fontStyle: 'italic',
+              color: '#44403c',
+              borderRadius: '0 0.5rem 0.5rem 0',
+            }}
+            className={`my-5 leading-relaxed text-sm sm:text-base border-l-4 border-solid border-orange-600 bg-orange-50/80 text-stone-800 italic rounded-r-lg shadow-2xs space-y-1 ${
               isTipBlock
-                ? 'bg-gradient-to-r from-amber-50 to-orange-50/80 border-orange-500 text-stone-800 shadow-2xs font-normal border-r border-t border-b border-orange-100/60'
-                : 'bg-amber-50/80 border-amber-500 text-stone-800 italic'
+                ? 'bg-gradient-to-r from-amber-50 to-orange-50/80 border-orange-500 font-normal border-r border-t border-b border-orange-100/60'
+                : ''
             }`}
           >
             {isTipBlock && (
@@ -1062,7 +1074,7 @@ ${newContent}
               </div>
             )}
             {bqLines.map((bql, bqIdx) => (
-              <p key={bqIdx} className={isTipBlock ? 'not-italic my-1 text-stone-700' : 'my-1'}>
+              <p key={bqIdx} className={isTipBlock ? 'not-italic my-0.5 text-stone-700' : 'my-0.5'}>
                 {parseInlineContent(bql)}
               </p>
             ))}
@@ -1303,7 +1315,9 @@ ${newContent}
                 }}
               />
             ) : (
-              renderFormattedContent(activePost.content)
+              <div className="blog-rich-content leading-relaxed text-stone-700 font-normal space-y-4">
+                {renderFormattedContent(activePost.content)}
+              </div>
             )}
 
             {/* Tags footer */}

@@ -1888,7 +1888,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                     </h1>
 
                     <p className="text-stone-600 text-sm leading-relaxed">
-                      {selectedRecipeDish.description || `Hướng dẫn chi tiết từng bước ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()} đậm đà hương vị truyền thống gia đình Việt Nam.`}
+                      {currentRecipe.description || selectedRecipeDish.description || `Hướng dẫn chi tiết từng bước ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()} đậm đà hương vị truyền thống gia đình Việt Nam.`}
                     </p>
 
                     {/* Metadata pills: Prep Time, Cook Time, Difficulty, Servings */}
@@ -2437,7 +2437,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                   ? currentRegion.metaTitle
                   : DISCOVER_SUB_CONFIG[sectionTab].title,
                 "description": viewingRecipeArticle
-                  ? (selectedRecipeDish.description || `Hướng dẫn chi tiết ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()} chuẩn vị gia đình Việt Nam.`)
+                  ? (currentRecipe.description || selectedRecipeDish.description || `Hướng dẫn chi tiết ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()} chuẩn vị gia đình Việt Nam.`)
                   : sectionTab === 'region' && typeof window !== 'undefined' && isRegionPath(window.location.pathname)
                   ? currentRegion.metaDescription
                   : DISCOVER_SUB_CONFIG[sectionTab].description,
@@ -2530,6 +2530,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                           : `https://angigio.com${selectedRecipeDish.image}`
                       ],
                       "description":
+                        currentRecipe.description ||
                         selectedRecipeDish.description ||
                         `Hướng dẫn chi tiết từng bước ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()} đậm đà hương vị truyền thống Việt Nam.`,
                       "keywords": `${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()}, ${currentRecipe.dishName}, cách nấu ${selectedRecipeDish.vietnameseName}, công thức ${selectedRecipeDish.vietnameseName}, cách làm ${selectedRecipeDish.vietnameseName}, món ngon mỗi ngày, ẩm thực Việt Nam, ${selectedRecipeDish.category}`,

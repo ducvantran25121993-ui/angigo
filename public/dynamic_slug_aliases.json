@@ -68,5 +68,11 @@
   "cach-nau-banh-trang-tron": "cach-lam-banh-trang-tron",
   "cach-lam-bun-mam-mien-tay": "cach-nau-bun-mam-mien-tay",
   "cach-lam-bun-mam": "cach-nau-bun-mam-mien-tay",
-  "cach-nau-bun-mam": "cach-nau-bun-mam-mien-tay"
+  "cach-nau-bun-mam": "cach-nau-bun-mam-mien-tay",
+  "cach-nau-bun-nuoc-leo": "cach-nau-bun-nuoc-leo-soc-trang",
+  "cach-lam-bun-nuoc-leo": "cach-nau-bun-nuoc-leo-soc-trang",
+  "cach-lam-bun-nuoc-leo-soc-trang": "cach-nau-bun-nuoc-leo-soc-trang",
+  "cach-lam-canh-chua-ca-loc": "cach-nau-canh-chua-ca-loc",
+  "cach-nau-canh-chua-ca-loc-nam-bo": "cach-nau-canh-chua-ca-loc",
+  "canh-chua-ca-loc": "cach-nau-canh-chua-ca-loc"
 }

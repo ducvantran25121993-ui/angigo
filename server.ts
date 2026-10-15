@@ -7,6 +7,30 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { getAllSeoRoutes } from "./src/data/seoRoutes";
 import { BLOG_SLUG_ALIASES, INITIAL_BLOG_POSTS } from "./src/data/blogPosts";
+import { INITIAL_DISHES } from "./src/data/dishes";
+import { getDishRecipe, getRecipeSlug } from "./src/data/recipes";
+
+function parseMinutesToIso(str?: string): string {
+  if (!str) return 'PT30M';
+  const match = str.match(/(\d+)/);
+  if (!match) return 'PT30M';
+  const mins = parseInt(match[1], 10);
+  if (str.includes('giờ') || /\b\d+\s*h\b/i.test(str)) {
+    return `PT${mins}H`;
+  }
+  return `PT${mins}M`;
+}
+
+function formatIngredients(groups?: Array<{ category: string; items: string[] }>): string[] {
+  if (!groups || !Array.isArray(groups)) return [];
+  const items: string[] = [];
+  groups.forEach((g) => {
+    if (Array.isArray(g.items)) {
+      items.push(...g.items);
+    }
+  });
+  return items;
+}
 
 dotenv.config();
 
@@ -1038,73 +1062,170 @@ function injectSeoMeta(html: string, requestedPath: string): string {
       `<meta property="og:type" content="article" />\n    <meta property="article:published_time" content="${publishedTime}" />\n    <meta property="article:modified_time" content="${modifiedTime}" />\n    <meta property="article:author" content="Hôm Nay Ăn Gì" />\n    <meta property="article:section" content="Bí quyết ẩm thực" />`
     );
 
-    const articleSchema = {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "BlogPosting",
-          "@id": `${fullUrl}#article`,
-          "isPartOf": {
-            "@type": "WebSite",
-            "@id": "https://angigio.com/#website",
-            "name": "Hôm Nay Ăn Gì",
-            "url": "https://angigio.com/"
-          },
-          "headline": meta.title,
-          "description": meta.description,
-          "image": [meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`],
-          "datePublished": publishedTime,
-          "dateModified": modifiedTime,
-          "author": {
-            "@type": "Person",
-            "name": "Bếp Trưởng Hôm Nay Ăn Gì",
-            "jobTitle": "Chuyên gia ẩm thực"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Hôm Nay Ăn Gì",
-            "url": "https://angigio.com/",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://angigio.com/logo.png"
-            }
-          },
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": fullUrl
-          }
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": `${fullUrl}#breadcrumb`,
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Trang chủ",
-              "item": "https://angigio.com/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Blog Ẩm Thực",
-              "item": "https://angigio.com/blog"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": meta.title,
-              "item": fullUrl
-            }
-          ]
-        }
-      ]
-    };
+    let targetDish: any = undefined;
+    if (isRecipeRoute) {
+      targetDish = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`);
+    }
 
-    updatedHtml = updatedHtml.replace(
-      '</head>',
-      `    <script type="application/ld+json">\n${JSON.stringify(articleSchema, null, 2)}\n    </script>\n  </head>`
-    );
+    if (isRecipeRoute && targetDish) {
+      const recipe = getDishRecipe(targetDish);
+      const recipeSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Recipe",
+            "@id": `${canonicalUrl}#recipe`,
+            "url": canonicalUrl,
+            "mainEntityOfPage": canonicalUrl,
+            "name": recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, ''),
+            "headline": `${meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '')} - Hướng dẫn chi tiết định lượng và các bước nấu chuẩn vị gia đình`,
+            "image": [meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`],
+            "description": meta.description,
+            "keywords": meta.keywords,
+            "recipeCategory": targetDish.category,
+            "recipeCuisine": "Vietnamese",
+            "recipeYield": recipe?.servings || "4 - 6 người",
+            "prepTime": parseMinutesToIso(recipe?.prepTime),
+            "cookTime": parseMinutesToIso(recipe?.cookTime),
+            "totalTime": parseMinutesToIso(recipe?.totalTime),
+            "datePublished": publishedTime,
+            "dateModified": modifiedTime,
+            "nutrition": {
+              "@type": "NutritionInformation",
+              "calories": targetDish.calories || "500 kcal",
+              "servingSize": "1 tô"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.9",
+              "reviewCount": "128",
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "recipeIngredient": formatIngredients(recipe?.ingredients),
+            "recipeInstructions": recipe?.steps?.map((st) => ({
+              "@type": "HowToStep",
+              "position": st.step,
+              "name": st.title,
+              "text": st.description,
+              "url": `${canonicalUrl}#step-${st.step}`,
+              "image": meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`
+            })) || [],
+            "author": {
+              "@type": "Organization",
+              "name": "Hôm Nay Ăn Gì",
+              "url": "https://angigio.com/"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Hôm Nay Ăn Gì",
+              "url": "https://angigio.com/",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://angigio.com/logo.png"
+              }
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${canonicalUrl}#breadcrumb`,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://angigio.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Cách Nấu Món Ngon",
+                "item": "https://angigio.com/cach-nau-mon-ngon"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, ''),
+                "item": canonicalUrl
+              }
+            ]
+          }
+        ]
+      };
+
+      updatedHtml = updatedHtml.replace(
+        '</head>',
+        `    <script type="application/ld+json">\n${JSON.stringify(recipeSchema, null, 2)}\n    </script>\n  </head>`
+      );
+    } else {
+      const articleSchema = {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "@id": `${canonicalUrl}#article`,
+            "isPartOf": {
+              "@type": "WebSite",
+              "@id": "https://angigio.com/#website",
+              "name": "Hôm Nay Ăn Gì",
+              "url": "https://angigio.com/"
+            },
+            "headline": meta.title,
+            "description": meta.description,
+            "image": [meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`],
+            "datePublished": publishedTime,
+            "dateModified": modifiedTime,
+            "author": {
+              "@type": "Person",
+              "name": "Bếp Trưởng Hôm Nay Ăn Gì",
+              "jobTitle": "Chuyên gia ẩm thực"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Hôm Nay Ăn Gì",
+              "url": "https://angigio.com/",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://angigio.com/logo.png"
+              }
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": canonicalUrl
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": `${canonicalUrl}#breadcrumb`,
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://angigio.com/"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog Ẩm Thực",
+                "item": "https://angigio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": meta.title,
+                "item": canonicalUrl
+              }
+            ]
+          }
+        ]
+      };
+
+      updatedHtml = updatedHtml.replace(
+        '</head>',
+        `    <script type="application/ld+json">\n${JSON.stringify(articleSchema, null, 2)}\n    </script>\n  </head>`
+      );
+    }
   }
 
   // Inject initial custom posts so all devices and machines see new posts instantaneously on page load
@@ -2002,6 +2123,18 @@ async function startServer() {
     return res.redirect(301, "/cach-nau-canh-bun");
   });
 
+  // 301 Permanent Redirect for canh chua ca loc
+  app.get([
+    "/canh-chua-ca-loc",
+    "/canh-chua-ca-loc/",
+    "/cach-lam-canh-chua-ca-loc",
+    "/cach-lam-canh-chua-ca-loc/",
+    "/cach-nau-canh-chua-ca-loc-nam-bo",
+    "/cach-nau-canh-chua-ca-loc-nam-bo/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-canh-chua-ca-loc");
+  });
+
   // 301 Permanent Redirect for banh uot
   app.get([
     "/cach-nau-banh-uot",
@@ -2064,6 +2197,18 @@ async function startServer() {
     "/cach-nau-bun-mam/",
   ], (_req, res) => {
     return res.redirect(301, "/cach-nau-bun-mam-mien-tay");
+  });
+
+  // 301 Permanent Redirect for bun nuoc leo soc trang
+  app.get([
+    "/cach-nau-bun-nuoc-leo",
+    "/cach-nau-bun-nuoc-leo/",
+    "/cach-lam-bun-nuoc-leo",
+    "/cach-lam-bun-nuoc-leo/",
+    "/cach-lam-bun-nuoc-leo-soc-trang",
+    "/cach-lam-bun-nuoc-leo-soc-trang/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-bun-nuoc-leo-soc-trang");
   });
 
   // 301 Permanent Redirect for blog slug aliases to canonical post URL

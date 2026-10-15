@@ -217,7 +217,7 @@ const DISCOVER_SEO_DETAILS: Record<string, DiscoverSeoItem> = {
     badge: 'CẨM NANG ẨM THỰC MIỀN BẮC',
     title: 'Ẩm Thực Miền Bắc: Tinh Hoa Vị Giác Kinh Kỳ, Thanh Tao & Hài Hòa Đất Tràng An',
     desc: 'Ẩm thực miền Bắc mang chiều sâu văn hóa ngàn năm Thăng Long - Hà Nội, nổi bật với triết lý cân bằng âm dương và nghệ thuật nêm nếm gia vị vừa vặn, không thiên quá ngọt, không quá béo cũng không cay gắt. Tinh hoa món Bắc nằm ở vị ngọt nguyên bản từ nước hầm xương ống, hương thơm ấm nồng của tiêu bắc, gừng già, hành hoa và vị chua thanh tao từ giấm bỗng nếp lên men tự nhiên. Thưởng thức món Bắc là thưởng thức sự cầu kỳ, tinh tế từ thị giác đến khứu giác, từ bát phở bò bốc khói nghi ngút, đĩa bún chả thơm nức than hoa đến mẹt bún đậu mắm tôm nồng đượm vị phố cổ.',
-    schemaUrl: 'https://www.angigio.com/am-thuc-mien-bac',
+    schemaUrl: 'https://angigio.com/am-thuc-mien-bac',
     sections: [
       {
         heading: '1. Triết Lý Ẩm Thực Kinh Kỳ & Nghệ Thuật Nêm Nếm Cân Bằng Âm Dương',
@@ -339,7 +339,7 @@ const DISCOVER_SEO_DETAILS: Record<string, DiscoverSeoItem> = {
     badge: 'CẨM NANG ẨM THỰC MIỀN TRUNG',
     title: 'Ẩm Thực Miền Trung: Đậm Đà Cay Nồng Cố Đô & Nắng Gió Duyên Hải Rực Rỡ',
     desc: 'Ẩm thực miền Trung kết tinh từ vẻ đẹp cung đình Cố Đô Huế cầu kỳ trang nhã cùng sự hào sảng, kiên cường của người dân duyên hải quanh năm đối mặt nắng gió bão táp. Món ăn miền Trung sở hữu cá tính vô cùng rõ rệt: vị đậm đà sâu lắng, cay nồng xé lưỡi từ ớt chỉ thiên và tiêu cay, hòa quyện hương thơm nức mũi của mắm ruốc nguyên chất và sả cây đập dập. Màu sắc món ăn rực rỡ với sắc đỏ của dầu màu điều và ớt tươi, khơi dậy mọi giác quan từ những tô bún bò Huế thơm nức, đĩa mì Quảng trứ danh, nem nướng Nha Trang giòn rụm đến từng chén bánh bèo tôm cháy thanh tao.',
-    schemaUrl: 'https://www.angigio.com/am-thuc-mien-trung',
+    schemaUrl: 'https://angigio.com/am-thuc-mien-trung',
     sections: [
       {
         heading: '1. Bản Sắc Đậm Đà, Cay Nồng Cố Đô & Nắng Gió Duyên Hải',
@@ -432,7 +432,7 @@ const DISCOVER_SEO_DETAILS: Record<string, DiscoverSeoItem> = {
     badge: 'CẨM NANG ẨM THỰC MIỀN NAM & SÀI GÒN',
     title: 'Ẩm Thực Miền Nam & Sài Gòn: Hào Sảng Phóng Khoáng, Béo Ngọt Đậm Chất Phố Thị',
     desc: 'Được mệnh danh là miền đất hứa hội tụ tinh hoa đa văn hóa (Kinh, Hoa, Chăm, Khmer), ẩm thực Sài Gòn và miền Nam mang đậm tính cách con người nơi đây: hào sảng, chân chất và phóng khoáng. Món ăn miền Nam có phong vị rõ ràng dứt khoát: ngọt ra ngọt, cay ra cay, béo ngậy nước cốt dừa và thoảng thơm nức mũi mùi mỡ hành tóp mỡ giòn rụm. Đĩa cơm tấm sườn bì chả mọng nước, tô hủ tiếu Nam Vang thanh ngọt nước xương hầm mực khô, chảo bánh mì xíu mại pate bốc khói hay cuốn gỏi tôm thịt chấm tương đen đều là những mảnh ghép ẩm thực không thể thiếu của nhịp sống đô thị sôi động.',
-    schemaUrl: 'https://www.angigio.com/am-thuc-mien-nam',
+    schemaUrl: 'https://angigio.com/am-thuc-mien-nam',
     sections: [
       {
         heading: '1. Vùng Đất Hào Sảng & Ngọt Béo Tự Nhiên Của Phố Thị Phương Nam',
@@ -525,7 +525,7 @@ const DISCOVER_SEO_DETAILS: Record<string, DiscoverSeoItem> = {
     badge: 'CẨM NANG ẨM THỰC MIỀN TÂY SÔNG NƯỚC',
     title: 'Ẩm Thực Miền Tây Sông Nước: Hương Đồng Gió Nội & Đậm Đà Tình Nghĩa Phù Sa',
     desc: 'Đồng bằng sông Cửu Long với hệ thống kênh rạch chằng chịt và phù sa màu mỡ đã ban tặng cho miền Tây một kho tàng sản vật thiên nhiên vô giá: mùa nước nổi cá linh non, ốc bươu đồng, cá lóc, cá kèo tươi sống cùng cả thiên đường rau dại hoa đồng như bông điên điển, bông súng, rau đắng, lục bình. Ẩm thực miền Tây không câu nệ khuôn mẫu, mộc mạc hoang sơ nhưng chan chứa ân tình. Hương vị mặn mà đậm đà của các loại mắm cá đồng, vị chua thanh ngọt ngào của me dốt và dừa xiêm tạo nên những kiệt tác dân dã: nồi lẩu mắm nghi ngút khói bên rổ rau rừng hơn 20 loại, ơ cá kho tộ tiêu ớt sánh keo, hay chiếc bánh xèo vỏ giòn rụm vàng thơm nước cốt dừa.',
-    schemaUrl: 'https://www.angigio.com/am-thuc-mien-tay',
+    schemaUrl: 'https://angigio.com/am-thuc-mien-tay',
     sections: [
       {
         heading: '1. Kho Tàng Sản Vật Phù Sa Cửu Long & Mùa Nước Nổi',
@@ -618,7 +618,7 @@ const DISCOVER_SEO_DETAILS: Record<string, DiscoverSeoItem> = {
     badge: 'CẨM NANG THỰC ĐƠN MỖI NGÀY',
     title: 'Thực Đơn Mỗi Ngày: Gợi Ý Mâm Cơm Gia Đình 7 Ngày Cân Bằng Dinh Dưỡng, Ngon Miệng & Tiết Kiệm',
     desc: 'Băn khoăn "Hôm nay ăn gì?", "Trưa nay nấu món gì?", "Tối nay ăn cơm với gì?" là trăn trở thường trực của hàng triệu người nội trợ mỗi ngày. Chuyên trang Thực Đơn Mỗi Ngày mang đến giải pháp toàn diện: Lịch mâm cơm gia đình khoa học từ Thứ 2 đến Chủ Nhật, chuẩn hóa theo tỷ lệ vàng 4 món (Món mặn giàu protein + Món xào chất xơ + Canh thanh nhiệt + Món chua/đồ ăn kèm đưa cơm). Thực đơn được thiết kế thông minh giúp chống ngấy, tránh lặp món giữa các ngày, cân đối calo hợp lý cho cả người lớn lẫn trẻ nhỏ và tối ưu hóa thời gian đứng bếp chỉ còn 30–45 phút mỗi bữa.',
-    schemaUrl: 'https://www.angigio.com/thuc-don-moi-ngay',
+    schemaUrl: 'https://angigio.com/thuc-don-moi-ngay',
     sections: [
       {
         heading: '1. Nguyên Tắc "Tỷ Lệ Vàng 4 Món" Cho Bữa Cơm Gia Đình Đạt Chuẩn Dinh Dưỡng',
@@ -721,7 +721,7 @@ const DISCOVER_SEO_DETAILS: Record<string, DiscoverSeoItem> = {
     badge: 'CẨM NANG CÁCH NẤU MÓN NGON',
     title: 'Công Thức Nấu Ăn Chuẩn Vị & Bí Quyết Nấu Ngon Tại Nhà',
     desc: `Tuyển tập hướng dẫn chi tiết cách nấu hơn ${INITIAL_DISHES.length}+ món ngon Việt Nam từ bữa cơm nhà mộc mạc, bình dị đến những món tiệc xôm tụ cuối tuần. Không còn bỡ ngỡ với câu hỏi "Hôm nay nấu thế nào cho ngon?", cẩm nang đồng hành cùng bạn qua từng bước định lượng nguyên liệu vừa vặn, bí quyết khử mùi tanh dân dã, cách căn chỉnh ngọn lửa và mẹo nêm nếm gia truyền để mâm cơm gia đình lúc nào cũng đượm tình, tròn vị.`,
-    schemaUrl: 'https://www.angigio.com/cach-nau-mon-ngon',
+    schemaUrl: 'https://angigio.com/cach-nau-mon-ngon',
     sections: [
       {
         heading: '1. Bước Vào Gian Bếp Bằng Niềm Vui: Quy Trình 3 Bước Dành Cho Mọi Người',
@@ -1206,39 +1206,39 @@ export const SeoContentFaq: React.FC<{
                 "@graph": [
                   {
                     "@type": "WebPage",
-                    "@id": "https://www.angigio.com/#webpage",
-                    "url": "https://www.angigio.com/",
+                    "@id": "https://angigio.com/#webpage",
+                    "url": "https://angigio.com/",
                     "name": "Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị",
                     "description": "Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh mỗi ngày và đặt món nhanh chóng.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
-                      "@id": "https://www.angigio.com/#website",
+                      "@id": "https://angigio.com/#website",
                       "name": "Hôm Nay Ăn Gì",
-                      "url": "https://www.angigio.com/"
+                      "url": "https://angigio.com/"
                     }
                   },
                   {
                     "@type": "BreadcrumbList",
-                    "@id": "https://www.angigio.com/#breadcrumb",
+                    "@id": "https://angigio.com/#breadcrumb",
                     "itemListElement": [
                       {
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Trang Chủ",
-                        "item": "https://www.angigio.com/"
+                        "item": "https://angigio.com/"
                       },
                       {
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Tarot Ẩm Thực",
-                        "item": "https://www.angigio.com/"
+                        "item": "https://angigio.com/"
                       }
                     ]
                   },
                   {
                     "@type": "FAQPage",
-                    "@id": "https://www.angigio.com/#faq",
+                    "@id": "https://angigio.com/#faq",
                     "mainEntity": tarotFaqs.map((faq) => ({
                       "@type": "Question",
                       "name": faq.question,
@@ -1672,39 +1672,39 @@ export const SeoContentFaq: React.FC<{
                 "@graph": [
                   {
                     "@type": "WebPage",
-                    "@id": "https://www.angigio.com/vong-quay#webpage",
-                    "url": "https://www.angigio.com/vong-quay",
+                    "@id": "https://angigio.com/vong-quay#webpage",
+                    "url": "https://angigio.com/vong-quay",
                     "name": "Vòng Quay Ăn Gì - Quay Món Ngẫu Nhiên Trong 3 Giây | Hôm Nay Ăn Gì",
                     "description": "Quay vòng quay ăn gì ngẫu nhiên giúp bạn chốt món chỉ trong 3 giây. Tùy chỉnh danh sách món ngon, chọn chủ đề cơm trưa, bún phở, lẩu nướng và kết nối đặt ship ngay.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
-                      "@id": "https://www.angigio.com/#website",
+                      "@id": "https://angigio.com/#website",
                       "name": "Hôm Nay Ăn Gì",
-                      "url": "https://www.angigio.com/"
+                      "url": "https://angigio.com/"
                     }
                   },
                   {
                     "@type": "BreadcrumbList",
-                    "@id": "https://www.angigio.com/vong-quay#breadcrumb",
+                    "@id": "https://angigio.com/vong-quay#breadcrumb",
                     "itemListElement": [
                       {
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Trang Chủ",
-                        "item": "https://www.angigio.com/"
+                        "item": "https://angigio.com/"
                       },
                       {
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Vòng Quay Ăn Gì",
-                        "item": "https://www.angigio.com/vong-quay"
+                        "item": "https://angigio.com/vong-quay"
                       }
                     ]
                   },
                   {
                     "@type": "HowTo",
-                    "@id": "https://www.angigio.com/vong-quay#howto",
+                    "@id": "https://angigio.com/vong-quay#howto",
                     "name": "Cách dùng Vòng Quay Ăn Gì để chọn món ăn trong 3 giây",
                     "description": "Hướng dẫn 4 bước sử dụng vòng quay may mắn chọn món ăn ngẫu nhiên cho bữa trưa và bữa tối.",
                     "step": [
@@ -2116,39 +2116,39 @@ export const SeoContentFaq: React.FC<{
                 "@graph": [
                   {
                     "@type": "WebPage",
-                    "@id": "https://www.angigio.com/lich-an-theo-tuan#webpage",
-                    "url": "https://www.angigio.com/lich-an-theo-tuan",
+                    "@id": "https://angigio.com/lich-an-theo-tuan#webpage",
+                    "url": "https://angigio.com/lich-an-theo-tuan",
                     "name": "Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Chuẩn Vị & Tiết Kiệm | Hôm Nay Ăn Gì",
                     "description": "Lên lịch ăn tuần thông minh từ Thứ 2 đến Chủ Nhật: Tự động chống trùng món, tính calo & chi phí, đổi món linh hoạt, gợi ý bữa sáng trưa tối chuẩn ngon.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
-                      "@id": "https://www.angigio.com/#website",
+                      "@id": "https://angigio.com/#website",
                       "name": "Hôm Nay Ăn Gì",
-                      "url": "https://www.angigio.com/"
+                      "url": "https://angigio.com/"
                     }
                   },
                   {
                     "@type": "BreadcrumbList",
-                    "@id": "https://www.angigio.com/lich-an-theo-tuan#breadcrumb",
+                    "@id": "https://angigio.com/lich-an-theo-tuan#breadcrumb",
                     "itemListElement": [
                       {
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Trang Chủ",
-                        "item": "https://www.angigio.com/"
+                        "item": "https://angigio.com/"
                       },
                       {
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Lịch Ăn Theo Tuần",
-                        "item": "https://www.angigio.com/lich-an-theo-tuan"
+                        "item": "https://angigio.com/lich-an-theo-tuan"
                       }
                     ]
                   },
                   {
                     "@type": "FAQPage",
-                    "@id": "https://www.angigio.com/lich-an-theo-tuan#faq",
+                    "@id": "https://angigio.com/lich-an-theo-tuan#faq",
                     "mainEntity": [
                       {
                         "@type": "Question",
@@ -2674,16 +2674,16 @@ export const SeoContentFaq: React.FC<{
                 "@graph": [
                   {
                     "@type": "WebPage",
-                    "@id": "https://www.angigio.com/ai-goi-y-mon-an#webpage",
-                    "url": "https://www.angigio.com/ai-goi-y-mon-an",
+                    "@id": "https://angigio.com/ai-goi-y-mon-an#webpage",
+                    "url": "https://angigio.com/ai-goi-y-mon-an",
                     "name": "Trợ Lý Gợi Ý Món Ăn - Người Bạn Đồng Hành Bữa Cơm Ngon | Hôm Nay Ăn Gì",
                     "description": "Trợ lý gợi ý món ăn thông minh và gần gũi, giúp bạn chọn món theo tâm trạng, thời tiết, ngân sách và khẩu vị, kết nối tìm quán ngon gần nhất.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
-                      "@id": "https://www.angigio.com/#website",
+                      "@id": "https://angigio.com/#website",
                       "name": "Hôm Nay Ăn Gì",
-                      "url": "https://www.angigio.com/"
+                      "url": "https://angigio.com/"
                     }
                   },
                   {
@@ -2700,25 +2700,25 @@ export const SeoContentFaq: React.FC<{
                   },
                   {
                     "@type": "BreadcrumbList",
-                    "@id": "https://www.angigio.com/ai-goi-y-mon-an#breadcrumb",
+                    "@id": "https://angigio.com/ai-goi-y-mon-an#breadcrumb",
                     "itemListElement": [
                       {
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Trang Chủ",
-                        "item": "https://www.angigio.com/"
+                        "item": "https://angigio.com/"
                       },
                       {
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Trợ Lý Gợi Ý Món Ăn",
-                        "item": "https://www.angigio.com/ai-goi-y-mon-an"
+                        "item": "https://angigio.com/ai-goi-y-mon-an"
                       }
                     ]
                   },
                   {
                     "@type": "FAQPage",
-                    "@id": "https://www.angigio.com/ai-goi-y-mon-an#faq",
+                    "@id": "https://angigio.com/ai-goi-y-mon-an#faq",
                     "mainEntity": [
                       {
                         "@type": "Question",
@@ -3148,39 +3148,39 @@ export const SeoContentFaq: React.FC<{
                 "@graph": [
                   {
                     "@type": "WebPage",
-                    "@id": "https://www.angigio.com/mon-ngon#webpage",
-                    "url": "https://www.angigio.com/mon-ngon",
+                    "@id": "https://angigio.com/mon-ngon#webpage",
+                    "url": "https://angigio.com/mon-ngon",
                     "name": "Thực Đơn 160+ Món Ngon Việt Nam - Món Ngon 3 Miền Chuẩn Vị | Hôm Nay Ăn Gì",
                     "description": "Bách khoa toàn thư ẩm thực với hơn 160 món ngon đặc sản 3 miền Bắc - Trung - Nam, minh bạch calo, nguyên liệu, tầm giá và đặt ship ShopeeFood, GrabFood.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
-                      "@id": "https://www.angigio.com/#website",
+                      "@id": "https://angigio.com/#website",
                       "name": "Hôm Nay Ăn Gì",
-                      "url": "https://www.angigio.com/"
+                      "url": "https://angigio.com/"
                     }
                   },
                   {
                     "@type": "BreadcrumbList",
-                    "@id": "https://www.angigio.com/mon-ngon#breadcrumb",
+                    "@id": "https://angigio.com/mon-ngon#breadcrumb",
                     "itemListElement": [
                       {
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Trang Chủ",
-                        "item": "https://www.angigio.com/"
+                        "item": "https://angigio.com/"
                       },
                       {
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Thực Đơn Món Ngon",
-                        "item": "https://www.angigio.com/mon-ngon"
+                        "item": "https://angigio.com/mon-ngon"
                       }
                     ]
                   },
                   {
                     "@type": "FAQPage",
-                    "@id": "https://www.angigio.com/mon-ngon#faq",
+                    "@id": "https://angigio.com/mon-ngon#faq",
                     "mainEntity": [
                       {
                         "@type": "Question",
@@ -3466,39 +3466,39 @@ export const SeoContentFaq: React.FC<{
                 "@graph": [
                   {
                     "@type": "WebPage",
-                    "@id": "https://www.angigio.com/do-uong-an-vat#webpage",
-                    "url": "https://www.angigio.com/do-uong-an-vat",
+                    "@id": "https://angigio.com/do-uong-an-vat#webpage",
+                    "url": "https://angigio.com/do-uong-an-vat",
                     "name": "Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê, Sinh Tố & Món Ăn Vặt Xế Chiều Hot Trend | Hôm Nay Ăn Gì",
                     "description": "Thưởng thức thế giới trà sữa trân châu, cà phê muối, trà trái cây tươi mát cùng bánh tráng trộn, nem chua rán, bánh tráng nướng giòn rụm kèm liên kết đặt ship hỏa tốc gần bạn.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
-                      "@id": "https://www.angigio.com/#website",
+                      "@id": "https://angigio.com/#website",
                       "name": "Hôm Nay Ăn Gì",
-                      "url": "https://www.angigio.com/"
+                      "url": "https://angigio.com/"
                     }
                   },
                   {
                     "@type": "BreadcrumbList",
-                    "@id": "https://www.angigio.com/do-uong-an-vat#breadcrumb",
+                    "@id": "https://angigio.com/do-uong-an-vat#breadcrumb",
                     "itemListElement": [
                       {
                         "@type": "ListItem",
                         "position": 1,
                         "name": "Trang Chủ",
-                        "item": "https://www.angigio.com/"
+                        "item": "https://angigio.com/"
                       },
                       {
                         "@type": "ListItem",
                         "position": 2,
                         "name": "Đồ Uống & Ăn Vặt",
-                        "item": "https://www.angigio.com/do-uong-an-vat"
+                        "item": "https://angigio.com/do-uong-an-vat"
                       }
                     ]
                   },
                   {
                     "@type": "FAQPage",
-                    "@id": "https://www.angigio.com/do-uong-an-vat#faq",
+                    "@id": "https://angigio.com/do-uong-an-vat#faq",
                     "mainEntity": snacksFaqs.map((faq) => ({
                       "@type": "Question",
                       "name": faq.question,

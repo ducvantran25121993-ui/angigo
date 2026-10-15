@@ -136,6 +136,7 @@ export interface DishRecipe {
   dishId: string;
   dishName: string;
   seoTitle?: string;
+  description?: string;
   prepTime: string;
   cookTime: string;
   totalTime?: string;

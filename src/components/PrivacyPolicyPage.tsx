@@ -140,12 +140,12 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Chính Sách Bảo Mật - Hôm Nay Ăn Gì",
-            "url": "https://www.angigio.com/chinh-sach-bao-mat",
+            "url": "https://angigio.com/chinh-sach-bao-mat",
             "description": "Chính sách bảo mật minh bạch của Hôm Nay Ăn Gì: Tối giản thu thập dữ liệu, tôn trọng quyền riêng tư, an toàn khi trải nghiệm gợi ý ẩm thực và liên kết đặt món.",
             "isPartOf": {
               "@type": "WebSite",
               "name": "Hôm Nay Ăn Gì",
-              "url": "https://www.angigio.com/"
+              "url": "https://angigio.com/"
             },
             "inLanguage": "vi-VN"
           })

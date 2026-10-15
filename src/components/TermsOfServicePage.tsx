@@ -178,12 +178,12 @@ export const TermsOfServicePage: React.FC<TermsOfServicePageProps> = ({ onNaviga
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Điều Khoản Sử Dụng - Hôm Nay Ăn Gì",
-            "url": "https://www.angigio.com/dieu-khoan-su-dung",
+            "url": "https://angigio.com/dieu-khoan-su-dung",
             "description": "Điều khoản sử dụng dịch vụ Hôm Nay Ăn Gì: Quy định về trải nghiệm gợi ý món ăn, bách khoa ẩm thực, tính năng liên kết đối tác và quyền sở hữu trí tuệ.",
             "isPartOf": {
               "@type": "WebSite",
               "name": "Hôm Nay Ăn Gì",
-              "url": "https://www.angigio.com/"
+              "url": "https://angigio.com/"
             },
             "inLanguage": "vi-VN"
           })

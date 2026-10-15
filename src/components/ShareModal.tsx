@@ -145,7 +145,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
     setMounted(true);
   }, []);
 
-  const shareUrl = url || (typeof window !== 'undefined' ? window.location.origin : 'https://www.angigio.com');
+  const shareUrl = url || (typeof window !== 'undefined' ? window.location.origin : 'https://angigio.com');
 
   const handleCopyLink = () => {
     navigator.clipboard.writeText(shareUrl);

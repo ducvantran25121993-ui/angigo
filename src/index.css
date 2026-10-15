@@ -139,17 +139,40 @@
   margin-top: 0.35rem;
   margin-bottom: 0.35rem;
 }
-.blog-rich-content blockquote {
-  border-left: 4px solid #f97316;
-  padding-left: 1rem;
-  font-style: italic;
-  color: #4b5563;
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
-  background-color: #fff7ed;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-radius: 0 0.5rem 0.5rem 0;
+blockquote,
+.blog-rich-content blockquote,
+.prose blockquote,
+article blockquote {
+  border-left: 4px solid #ea580c !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  padding: 0.625rem 1.25rem !important;
+  margin: 1.25rem 0 !important;
+  font-style: italic !important;
+  color: #44403c !important;
+  background-color: #fff7ed !important;
+  border-radius: 0 0.5rem 0.5rem 0 !important;
+  display: block !important;
+  box-sizing: border-box !important;
+}
+
+blockquote p,
+.blog-rich-content blockquote p,
+.prose blockquote p,
+article blockquote p {
+  margin: 0 !important;
+  font-style: italic !important;
+  color: #44403c !important;
+}
+
+blockquote a,
+.blog-rich-content blockquote a,
+.prose blockquote a,
+article blockquote a {
+  color: #ea580c !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
 }
 .blog-rich-content img {
   max-width: 100%;

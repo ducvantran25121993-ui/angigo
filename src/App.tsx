@@ -153,6 +153,10 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-trang-tron');
       } else if (pathname === '/cach-lam-bun-mam-mien-tay' || pathname === '/cach-lam-bun-mam' || pathname === '/cach-nau-bun-mam') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-mam-mien-tay');
+      } else if (pathname === '/cach-nau-bun-nuoc-leo' || pathname === '/cach-lam-bun-nuoc-leo' || pathname === '/cach-lam-bun-nuoc-leo-soc-trang') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-nuoc-leo-soc-trang');
+      } else if (pathname === '/canh-chua-ca-loc' || pathname === '/cach-lam-canh-chua-ca-loc' || pathname === '/cach-nau-canh-chua-ca-loc-nam-bo') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-canh-chua-ca-loc');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

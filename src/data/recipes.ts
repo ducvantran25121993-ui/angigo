@@ -8872,6 +8872,137 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chén muối ớt xanh sữa đặc chua cay béo ngậy chấm ngập khoanh mực giòn, ăn kèm rau cần tàu và hẹ lá xanh mướt.',
   },
+  'lau-mam-mien-tay': {
+    dishId: 'lau-mam-mien-tay',
+    dishName: 'Lẩu Mắm Miền Tây Chua Cay Đậm Đà',
+    seoTitle: 'Cách Nấu Lẩu Mắm Miền Tây Chua Cay Đậm Đà Chuẩn Vị Gia Đình',
+    description:
+      'Hướng dẫn cách nấu lẩu mắm miền Tây nước dùng béo thơm ngậy từ mắm cá linh & mắm cá sặc đồng, ninh nước dừa tươi, khử mùi hôi mắm tuyệt đối, ăn kèm cá hú, tôm, mực, thịt ba rọi và đĩa rau đồng hoa súng chuẩn vị Cửu Long.',
+    prepTime: '35 phút',
+    cookTime: '30 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 6 người',
+    ingredients: [
+      {
+        category: 'Nước cốt mắm & Nước dùng lẩu',
+        items: [
+          '150g mắm cá linh tươi ngon (tạo độ béo ngọt tự nhiên)',
+          '150g mắm cá sặc đồng ngon (tạo hương thơm đặc trưng nồng nàn)',
+          '1.5 - 2 lít nước dừa tươi xiêm ngọt thanh',
+          '2 - 3 nhánh sả tươi đập dập cắt khúc',
+        ],
+      },
+      {
+        category: 'Đồ nhúng lẩu chính (Hải sản, Cá & Thịt)',
+        items: [
+          '500g cá hú tươi (hoặc cá lóc/cá ngát/cá chẽm) cắt khứa dày 2.5 - 3cm',
+          '300g tôm sú / tôm càng tươi sống',
+          '300g mực ống tươi khía vảy mồng gà cắt miếng vừa ăn',
+          '300g thịt ba chỉ (ba rọi) thái lát mỏng vừa ăn',
+          '2 quả cà tím dài cắt miếng xéo ngâm nước muối chanh',
+        ],
+      },
+      {
+        category: 'Gia vị sả ớt phi & Nêm nếm',
+        items: [
+          '5 - 6 nhánh sả băm nhuyễn',
+          '2 thìa canh tỏi băm nhuyễn',
+          '2 thìa canh hành tím băm nhuyễn',
+          '2 - 3 quả ớt hiểm dầm dập',
+          '1.5 thìa canh đường phèn (tạo hậu ngọt thanh dịu)',
+          '1 thìa cà phê hạt nêm, 1 thìa canh nước mắm ngon',
+          '3 thìa canh dầu ăn',
+        ],
+      },
+      {
+        category: 'Đĩa rau đồng ăn kèm chuẩn vị Miền Tây',
+        items: [
+          'Bông điên điển vàng tươi, bông súng chẻ đôi / tước vỏ',
+          'Rau đắng đất, kèo lèo (cù lần), ngó sen tươi',
+          'Rau muống chẻ, giá đỗ, bắp chuối bào mỏng ngâm chanh',
+          'Rau nhút, rau ngò ôm (ngổ), ngò gai thái nhỏ',
+          '1kg bún tươi sợi nhỏ ăn kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế hải sản, thịt ba rọi & cà tím',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Khử sạch nhớt tanh của cá, giữ thịt hải sản tươi giòn và cà tím không thâm',
+        actionPoints: [
+          'Chà sát cá hú với muối hạt và nước cốt chanh tươi để sạch nhớt tanh, rửa lại nước gừng đập dập rồi cắt khứa tròn dày 3cm, để ráo.',
+          'Thịt ba chỉ rửa sạch, thái lát mỏng. Tôm sú rửa sạch cắt bớt râu. Mực ống mổ bỏ túi mực, rửa rượu gừng rồi khía vảy mực cắt miếng vừa ăn.',
+          'Cà tím rửa sạch, cắt khúc vừa ăn rồi bổ làm tư. Ngâm ngay cà tím vào thau nước lạnh có pha 1 thìa cà phê muối và chút nước cốt chanh để cà không bị đen thâm và giữ độ giòn.',
+        ],
+        description:
+          'Sơ chế cá hú với muối chanh khử nhớt tanh. Thái mỏng thịt ba chỉ, làm sạch tôm mực. Cà tím bổ miếng ngâm thau nước muối chanh chống thâm.',
+      },
+      {
+        step: 2,
+        title: 'Nấu mắm cá linh, mắm cá sặc & lọc sạch xương dăm',
+        time: '15 phút',
+        heat: 'Lửa vừa',
+        goal: 'Trích xuất trọn vẹn vị béo ngậy ngọt thơm của mắm cốt, loại bỏ hoàn toàn xương dăm cá',
+        actionPoints: [
+          'Cho 150g mắm cá linh và 150g mắm cá sặc vào nồi nhỏ cùng 800ml nước dừa tươi (hoặc nước lọc).',
+          'Đun sôi trên lửa vừa khoảng 10 - 15 phút, dùng đũa khuấy đều nhẹ tay cho đến khi thịt cá mắm rã hoàn toàn khỏi xương.',
+          'Trút toàn bộ nước mắm qua rây lọc cẩn thận, dùng thìa dầm kỹ phần xác mắm để lấy hết vị ngọt đậm đà béo ngậy. Bỏ phần xương dăm cá mắm.',
+        ],
+        description:
+          'Đun mắm cá linh và mắm cá sặc với 800ml nước dừa tươi cho rã thịt cá. Đổ qua rây lọc kỹ lấy nước cốt đậm đà, bỏ xương dăm.',
+      },
+      {
+        step: 3,
+        title: 'Xào thơm thịt ba rọi, sả ớt phi & cà tím',
+        time: '8 phút',
+        heat: 'Lửa lớn',
+        goal: 'Sả ớt dậy mùi thơm lừng áp chế mùi hôi mắm, thịt ba rọi cháy cạnh ngấm vị',
+        actionPoints: [
+          'Bắc nồi lẩu lớn lên bếp, cho 3 thìa canh dầu ăn vào đun nóng. Cho hành tím băm, tỏi băm và sả băm nhuyễn vào phi vàng ruộm dậy mùi thơm nức.',
+          'Múc ra 1 thìa sả tỏi phi để riêng làm nước chấm. Cho thịt ba chỉ thái mỏng vào nồi xào săn cháy nhẹ cạnh cho ra bớt mỡ thơm.',
+          'Tiếp theo trút cà tím đã vớt ráo vào nồi đảo nhẹ tay khoảng 2 phút cho cà thấm dầu sả ớt thơm lừng.',
+        ],
+        description:
+          'Phi thơm hành, tỏi, sả băm vọt mùi thơm. Cho thịt ba chỉ vào xào săn cháy cạnh cho béo ngậy rồi cho cà tím vào đảo ngấm gia vị.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nước lẩu mắm đậm đà béo thơm',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước lẩu chuẩn vị béo bùi đậm đà, thơm lừng sả dừa ngọt thanh',
+        actionPoints: [
+          'Đổ phần nước cốt mắm đã lọc cẩn thận ở Bước 2 vào nồi sả ớt ba rọi. Thêm lượng nước dừa tươi còn lại (khoảng 800ml - 1 lít) cùng 2 nhánh sả đập dập.',
+          'Đun sôi bùng lên rồi hạ lửa vừa. Liên tục vớt sạch bọt trắng nổi lên để nước lẩu trong và thơm dịu.',
+          'Nêm nếm gia vị: 1.5 thìa canh đường phèn (để làm dịu độ mặn tự nhiên của mắm) và 1 thìa cà phê hạt nêm. Không nêm muối hay nước mắm lúc này kẻo bị mặn chát. Nước lẩu đạt chuẩn có sắc nâu sóng sánh nhẹ, vị béo ngậy đậm đà, thơm nức mùi sả ớt mà không cay nồng xốc mũi.',
+        ],
+        description:
+          'Trút nước cốt mắm lọc và nước dừa tươi vào nồi, thả sả đập dập. Đun sôi vớt bọt, nêm đường phèn & hạt nêm cho vị đậm đà ngọt thanh dịu.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày nồi lẩu, nhúng hải sản & thưởng thức',
+        time: '5 phút',
+        heat: 'Nhiệt độ nồi lẩu',
+        goal: 'Nồi lẩu mắm sôi sục rực rỡ đĩa rau đồng hoa súng tươi ngon',
+        actionPoints: [
+          'Trút nước lẩu mắm ra nồi lẩu điện hoặc bếp gas du lịch đặt giữa bàn ăn.',
+          'Bày các đĩa đồ nhúng xung quanh: Khứa cá hú, tôm sú tươi, mực ống khía hoa, thịt ba rọi.',
+          'Bày đĩa rau đồng sắc màu: Bông điên điển vàng rực, bông súng chẻ, rau đắng, kèo lèo, ngó sen, bắp chuối bào, giá đỗ và rau muống chẻ.',
+          'Khi nước lẩu mắm sôi sục, thả khứa cá hú vào nấu chín ngọt thịt trước, tiếp đó nhúng tôm, mực và từng nhúm rau đồng nhúng tái giòn sần sật. Múc ra bát bún tươi chan nước lẩu mắm thơm lừng. Cá hú và hải sản chấm chén nước mắm mặn dầm ớt hiểm tươi.',
+        ],
+        description:
+          'Bày nồi lẩu mắm ra bếp, thả cá hú nấu chín ngọt, nhúng tôm mực tươi cùng đĩa rau đồng bông điên điển bông súng giòn sần sật. Ăn kèm bún tươi.',
+      },
+    ],
+    chefSecret:
+      '4 bí quyết vàng nấu lẩu mắm miền Tây đậm đà không bị hôi mắm: 1. Phải kết hợp cả mắm cá linh (tạo vị béo bùi ngọt thịt) và mắm cá sặc (tạo hương thơm đặc trưng) theo tỉ lệ 1:1; 2. Dùng nước dừa tươi đun lẩu giúp làm dịu hoàn toàn độ mặn chát của mắm mặn, tạo vị hậu ngọt thanh tao dịu mát; 3. Phi thật nhiều sả băm nhuyễn với hành tỏi ớt trước khi xào thịt ba chỉ và trút nước mắm vào – sả ớt chính là đòn bẩy triệt tiêu mùi hôi mắm; 4. Rau đồng miền Tây (bông điên điển, bông súng, rau đắng) chỉ nhúng tái giòn sần sật 30 giây rồi ăn ngay để giữ nguyên vị ngọt tươi đắng dịu mát.',
+    recommendedSauce:
+      'Chén nước mắm nhĩ mặn nguyên chất dầm ớt hiểm đỏ rực vắt tí chanh tươi, chấm ngập khúc cá hú béo ngậy và tôm mực giòn ngọt.',
+  },
 };
 
 /**
@@ -9666,6 +9797,7 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'bun-mam-mien-tay': 'cach-nau-bun-mam-mien-tay',
   'bun-nuoc-leo-soc-trang': 'cach-nau-bun-nuoc-leo-soc-trang',
   'canh-chua-ca-loc': 'cach-nau-canh-chua-ca-loc',
+  'lau-mam-mien-tay': 'cach-nau-lau-mam-mien-tay',
 };
 
 /**
@@ -9691,6 +9823,12 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'lau-mam-mien-tay': 'lau-mam-mien-tay',
+  'cach-nau-lau-mam-mien-tay': 'lau-mam-mien-tay',
+  'cach-lam-lau-mam-mien-tay': 'lau-mam-mien-tay',
+  'lau-mam': 'lau-mam-mien-tay',
+  'cach-nau-lau-mam': 'lau-mam-mien-tay',
+  'cach-lam-lau-mam': 'lau-mam-mien-tay',
   'canh-chua-ca-loc': 'canh-chua-ca-loc',
   'cach-nau-canh-chua-ca-loc': 'canh-chua-ca-loc',
   'cach-lam-canh-chua-ca-loc': 'canh-chua-ca-loc',

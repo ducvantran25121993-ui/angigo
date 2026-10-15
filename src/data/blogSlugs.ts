@@ -99,10 +99,6 @@ export const KNOWN_BLOG_SLUGS_LIST: string[] = [
   "an-gi-voi-thit-heo",
   "mon-ngon-noi-chien-khong-dau",
   "mon-ngon-bang-noi-chien-khong-dau",
-  "lau-mam-mien-tay",
-  "cach-nau-lau-mam-mien-tay",
-  "cach-lam-lau-mam-mien-tay",
-  "lau-mam",
 ];
 
 export const KNOWN_BLOG_SLUGS = new Set<string>(KNOWN_BLOG_SLUGS_LIST);

@@ -65,5 +65,8 @@
   "cach-nau-ca-vien-chien": "cach-lam-ca-vien-chien-nuoc-mam",
   "cach-nau-banh-trang-tron-sa-te": "cach-lam-banh-trang-tron",
   "cach-lam-banh-trang-tron-sa-te": "cach-lam-banh-trang-tron",
-  "cach-nau-banh-trang-tron": "cach-lam-banh-trang-tron"
+  "cach-nau-banh-trang-tron": "cach-lam-banh-trang-tron",
+  "cach-lam-bun-mam-mien-tay": "cach-nau-bun-mam-mien-tay",
+  "cach-lam-bun-mam": "cach-nau-bun-mam-mien-tay",
+  "cach-nau-bun-mam": "cach-nau-bun-mam-mien-tay"
 }

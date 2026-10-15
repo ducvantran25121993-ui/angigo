@@ -612,6 +612,36 @@
       "permanent": true
     },
     {
+      "source": "/cach-lam-bun-mam-mien-tay",
+      "destination": "/cach-nau-bun-mam-mien-tay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-mam-mien-tay/",
+      "destination": "/cach-nau-bun-mam-mien-tay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-mam",
+      "destination": "/cach-nau-bun-mam-mien-tay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-mam/",
+      "destination": "/cach-nau-bun-mam-mien-tay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-mam",
+      "destination": "/cach-nau-bun-mam-mien-tay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-mam/",
+      "destination": "/cach-nau-bun-mam-mien-tay",
+      "permanent": true
+    },
+    {
       "source": "/an-gi-cho-do-ngan",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true

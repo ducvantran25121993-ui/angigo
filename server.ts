@@ -2054,6 +2054,18 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-banh-trang-tron");
   });
 
+  // 301 Permanent Redirect for bun mam mien tay
+  app.get([
+    "/cach-lam-bun-mam-mien-tay",
+    "/cach-lam-bun-mam-mien-tay/",
+    "/cach-lam-bun-mam",
+    "/cach-lam-bun-mam/",
+    "/cach-nau-bun-mam",
+    "/cach-nau-bun-mam/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-bun-mam-mien-tay");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

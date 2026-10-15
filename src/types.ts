@@ -138,6 +138,8 @@ export interface DishRecipe {
   seoTitle?: string;
   prepTime: string;
   cookTime: string;
+  totalTime?: string;
+  calories?: string;
   difficulty: 'Dễ' | 'Trung bình' | 'Cầu kỳ';
   servings: string;
   ingredients: {

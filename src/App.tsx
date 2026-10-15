@@ -151,6 +151,8 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-ca-vien-chien-nuoc-mam');
       } else if (pathname === '/cach-nau-banh-trang-tron-sa-te' || pathname === '/cach-lam-banh-trang-tron-sa-te' || pathname === '/cach-nau-banh-trang-tron') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-trang-tron');
+      } else if (pathname === '/cach-lam-bun-mam-mien-tay' || pathname === '/cach-lam-bun-mam' || pathname === '/cach-nau-bun-mam') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-mam-mien-tay');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
       }

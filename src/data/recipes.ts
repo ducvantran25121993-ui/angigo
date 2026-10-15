@@ -1537,20 +1537,35 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     difficulty: 'Dễ',
     calories: '550 - 680 kcal/phần',
     ingredients: [
-      { name: 'Thịt bò thăn ngoại (fillet / thăn bò mềm)', amount: '400', unit: 'g' },
-      { name: 'Trứng gà tươi', amount: '4', unit: 'quả' },
-      { name: 'Pate gan heo/bò béo ngậy', amount: '100', unit: 'g' },
-      { name: 'Bơ lạt (hoặc bơ Tường An thơm)', amount: '50', unit: 'g' },
-      { name: 'Xíu mại sốt cà chua (hoặc xúc xích xông khói)', amount: '150', unit: 'g' },
-      { name: 'Hành tây', amount: '1', unit: 'củ' },
-      { name: 'Nước tương (xì dầu)', amount: '1', unit: 'muỗng canh' },
-      { name: 'Dầu hàu', amount: '1', unit: 'muỗng cà phê' },
-      { name: 'Mật ong', amount: '1', unit: 'muỗng cà phê' },
-      { name: 'Bột năng (giúp thịt mềm mọng)', amount: '1/2', unit: 'muỗng cà phê' },
-      { name: 'Tỏi băm & Hành tím băm', amount: '1', unit: 'muỗng canh' },
-      { name: 'Dầu ăn, tiêu xay, chút muối', amount: 'Vừa đủ', unit: '' },
-      { name: 'Bánh mì đặc ruột giòn rụm', amount: '4', unit: 'ổ' },
-      { name: 'Rau ăn kèm: Xà lách, dưa leo, cà chua, ngò rí', amount: '1', unit: 'dĩa' },
+      {
+        category: 'Thịt bò & Topping chảo gang',
+        items: [
+          '400g thịt bò thăn ngoại (fillet / thăn bò mềm mọng)',
+          '4 quả trứng gà tươi',
+          '100g pate gan heo/bò béo ngậy',
+          '50g bơ lạt (hoặc bơ Tường An thơm)',
+          '150g xíu mại sốt cà chua (hoặc xúc xích xông khói)',
+          '1 củ hành tây thái múi cau mỏng',
+        ],
+      },
+      {
+        category: 'Gia vị ướp bò mềm mọng',
+        items: [
+          '1 muỗng canh nước tương (xì dầu)',
+          '1 muỗng cà phê dầu hào',
+          '1 muỗng cà phê mật ong',
+          '1/2 muỗng cà phê bột năng (giúp thịt mềm mọng khóa nước)',
+          '1 muỗng canh tỏi băm & hành tím băm',
+          'Dầu ăn, tiêu xay, chút muối vừa đủ',
+        ],
+      },
+      {
+        category: 'Bánh mì & Rau ăn kèm',
+        items: [
+          '4 ổ bánh mì đặc ruột nướng giòn rụm',
+          '1 đĩa rau ăn kèm: Xà lách, dưa leo, cà chua, ngò rí tươi mát',
+        ],
+      },
     ],
     steps: [
       {
@@ -1957,6 +1972,147 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       '3 bí quyết vàng nấu Bún Măng Vịt nước dùng thanh ngọt chuẩn vị gia đình: 1. Khử hôi vịt kỹ bằng rượu gừng và muối hạt, luộc vịt vừa chín tới ngâm ngay vào âu nước đá lạnh cho da giòn thịt mọng nước; 2. Măng tươi luộc 2 lần xả đắng rồi xào săn với màu dầu điều và nước mắm cho ngấm vị trước khi cho vào nồi nước lèo; 3. Nước mắm gừng sệt pha chuẩn tỷ lệ mắm - đường - gừng giã nhuyễn sánh kẹo chua cay nồng nàn là linh hồn không thể thiếu làm nên thương hiệu món Bún Măng Vịt Việt Nam!',
     recommendedSauce:
       'Chén nước mắm gừng sệt kẹo chua cay nồng nàn chấm ngập thịt vịt luộc, ăn kèm đĩa gỏi bắp cải trộn chua ngọt giòn sần sật.',
+  },
+  'bun-mam-mien-tay': {
+    dishId: 'bun-mam-mien-tay',
+    dishName: 'Bún Mắm Miền Tây Đậm Đà Sắc Màu',
+    seoTitle: 'Cách Nấu Bún Mắm Miền Tây Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    prepTime: '30 phút',
+    cookTime: '45 phút',
+    totalTime: '75 phút',
+    servings: '4 - 6 người',
+    difficulty: 'Trung bình',
+    calories: '600 - 720 kcal/tô',
+    ingredients: [
+      {
+        category: 'Mắm cốt & Nước dùng thanh ngọt',
+        items: [
+          '150g mắm cá linh ngon (cho vị béo bùi, ngọt đậm đà)',
+          '150g mắm cá sặc thơm (cho hương thơm đượm nồng đặc trưng)',
+          '1.5 - 2 lít nước dừa xiêm tươi (tạo vị ngọt thanh tự nhiên)',
+          '500g xương ống heo hoặc sườn heo chặt khúc',
+          '1 củ cải trắng (gọt vỏ, cắt khúc vừa ăn)',
+          '4 - 5 cây sả tươi đập dập, cắt khúc',
+          '3 thìa canh sả băm nhuyễn + 1 thìa canh ớt băm',
+          '1 thìa canh hành tỏi băm nhuyễn',
+          '2 thìa canh dầu màu điều (tạo màu sắc sóng sánh)',
+        ],
+      },
+      {
+        category: 'Thịt & Hải sản topping phong phú',
+        items: [
+          '300g cá lóc đồng tươi (lọc phi lê cắt miếng dày 2cm)',
+          '300g tôm sú tươi sống (rửa sạch, chừa đuôi)',
+          '250g mực ống tươi (khía vẩy rồng, cắt khoanh)',
+          '300g thịt heo quay giòn bì (cắt miếng vừa ăn)',
+          '150g chả cá thác lác quết nhồi ớt sừng (hoặc viên tròn)',
+          '2 quả cà tím dài (cắt múi cau ngâm nước muối chanh)',
+        ],
+      },
+      {
+        category: 'Gia vị nêm nếm nước lèo chuẩn vị',
+        items: [
+          '2 - 3 thìa canh đường phèn giã nhỏ (chỉ dùng đường phèn để ngọt thanh dịu)',
+          '1 thìa canh hạt nêm',
+          '1/2 thìa cà phê bột ngọt (tùy chọn)',
+          'Lưu ý: Không nêm thêm nước mắm hay muối vì mắm cá đã đủ độ mặn đượm',
+        ],
+      },
+      {
+        category: 'Bún tươi, Rau sống miền Tây & Nước chấm',
+        items: [
+          '1.2 kg bún tươi sợi to hoặc sợi trung',
+          'Rau đồng miền Tây: Rau đắng, bông súng chẻ, bắp chuối bào, giá đỗ, rau muống chẻ, hẹ lá, rau nhút, kèo nèo',
+          'Chén chấm me: 50g me chín dầm cốt me + 2 thìa canh đường + 1.5 thìa canh nước mắm nhĩ + ớt hiểm băm nhuyễn sệt kẹo',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ninh nước dùng xương heo & Sơ chế các nguyên liệu topping',
+        time: '25 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước hầm xương ngọt trong không váng bọt, topping hải sản sạch sẽ thơm tho',
+        actionPoints: [
+          'Chần xương heo qua nồi nước sôi có gừng và muối hạt 3 - 5 phút cho nhả sạch bọt bẩn, rửa lại bằng nước ấm. Cho xương vào nồi cùng 2 lít nước và củ cải trắng, ninh lửa nhỏ hé vung khoảng 30 phút, thường xuyên hớt bọt cho nước dùng thật trong.',
+          'Cá lóc đánh vảy, chà xát chanh muối khử sạch nhớt tanh, lọc lấy phi lê cắt miếng dày 2cm.',
+          'Tôm cắt râu rửa sạch. Mực làm sạch túi mực và màng da, khía vảy rồng cắt khoanh vừa ăn.',
+          'Cà tím cắt múi cau ngâm ngay vào âu nước muối loãng pha chút giấm hoặc chanh 10 phút để không bị thâm đen, sau đó vớt ra để ráo.',
+          'Ớt sừng rạch bụng bỏ hạt, nhồi chả cá thác lác đã quết dẻo vào thân ớt.',
+        ],
+        description:
+          'Chần xương heo ninh cùng củ cải trắng lấy nước ngọt trong. Sơ chế sạch phi lê cá lóc, tôm sú, mực khía hoa. Cà tím cắt múi cau ngâm nước muối chanh chống thâm. Nhồi chả cá thác lác vào ớt sừng.',
+        tip: 'Ninh xương heo hé vung và hớt bọt liên tục giúp nước dùng trong vắt, củ cải trắng tiết vị ngọt thanh làm dịu độ nồng của mắm cá.',
+      },
+      {
+        step: 2,
+        title: 'Nấu rã mắm cá linh, cá sặc & Lọc lấy nước cốt tinh túy',
+        time: '15 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Thịt mắm rã hoàn toàn, thu được nước cốt mắm thơm nức trong veo không dính xương vụn',
+        actionPoints: [
+          'Cho 150g mắm cá linh và 150g mắm cá sặc vào một nồi nhỏ cùng 600ml nước dừa tươi (hoặc nước lọc).',
+          'Đun sôi trên lửa vừa rồi hạ lửa nhỏ liu riu, dùng muôi khuấy nhẹ dầm cho thịt cá chín mềm và rã vụn hoàn toàn ra khỏi xương cá (khoảng 8 - 10 phút).',
+          'Chuẩn bị rây lọc khít lỗ, trút toàn bộ nồi mắm qua rây, dùng muôi chà mạnh phần thịt cá để ép kiệt lấy hết nước cốt tinh túy thơm ngọt. Lọc lại thêm một lần nữa để đảm bảo loại bỏ 100% xương cá dăm vụn.',
+        ],
+        description:
+          'Nấu 150g mắm cá linh cùng 150g mắm cá sặc với 600ml nước dừa tươi trên lửa nhỏ đến khi thịt cá rã hết. Lọc kỹ qua rây 2 lần để thu nước cốt mắm thơm béo trong trẻo và loại sạch xương cá.',
+        tip: 'Phải kết hợp cả mắm cá linh (vị béo ngọt) và mắm cá sặc (mùi thơm đượm nồng) theo tỉ lệ 1:1, lọc rây thật kỹ 2 lần để nước lèo trong veo không vướng xương vụn.',
+      },
+      {
+        step: 3,
+        title: 'Xào thơm sả ớt, cà tím & Hòa quyện nồi nước lèo bún mắm thanh ngọt',
+        time: '20 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước lèo dậy mùi thơm quyến rũ nức mũi của sả và mắm, màu sắc sóng sánh ánh dầu điều, vị ngọt thanh dịu',
+        actionPoints: [
+          'Bắc chảo lên bếp, cho 2 thìa canh dầu màu điều vào đun nóng. Phi thơm sả băm nhuyễn, tỏi băm, hành tím băm và ớt băm đến khi dậy mùi thơm ngào ngạt và chuyển màu vàng óng.',
+          'Cho cà tím vào xào đảo nhanh tay cùng 1/2 lượng sả ớt phi trong 2 - 3 phút cho miếng cà bóng đẹp, săn lại (chưa nấu chín nhũn) rồi trút ra đĩa riêng.',
+          'Trút toàn bộ phần sả ớt phi còn lại, sả cây đập dập và toàn bộ nước cốt mắm cá đã lọc vào nồi nước hầm xương heo. Đổ thêm 1 lít nước dừa tươi vào nồi.',
+          'Đun sôi bùng lên rồi hạ lửa vừa, nêm đường phèn và hạt nêm cho vừa miệng. Tuyệt đối không cho thêm nước mắm hay muối vì mắm cá đã có độ mặn đậm đà. Nếm thấy vị nước dùng ngọt thanh tao nơi đầu lưỡi và hậu vị bùi béo đượm mùi mắm là đạt chuẩn.',
+        ],
+        description:
+          'Phi thơm sả băm ớt băm với dầu màu điều, xào sơ cà tím cho săn bóng. Đổ nước cốt mắm, sả phi, sả cây đập dập và nước dừa tươi vào nồi nước hầm xương. Nêm đường phèn và hạt nêm tạo vị ngọt thanh dịu.',
+        tip: 'Dùng hoàn toàn nước dừa tươi kết hợp đường phèn giúp nước lèo bún mắm ngọt thanh tao tự nhiên, không gắt họng. Tuyệt đối không nêm thêm nước mắm hay muối.',
+      },
+      {
+        step: 4,
+        title: 'Nấu chín hải sản topping & Cà tím trong nước lèo',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Tôm mực cá lóc chín mọng giòn ngọt ngấm vị mắm, cà tím vừa chín tới không bị nát',
+        actionPoints: [
+          'Thả ớt sừng nhồi chả cá thác lác vào nồi nước lèo nấu trước khoảng 5 - 7 phút cho chả chín phồng thơm.',
+          'Tiếp tục thả phi lê cá lóc, tôm và mực vào chần chín tới trong nồi nước lèo đang sôi nhẹ khoảng 3 - 4 phút. Vớt ngay ra đĩa riêng để hải sản giữ nguyên độ giòn ngọt mọng nước, không bị dai teo hoặc vỡ nát.',
+          'Thả cà tím đã xào sơ vào nồi nước lèo, đun sôi nhẹ thêm 3 - 5 phút cho cà chín mềm vừa tới, bóng bẩy hấp dẫn thì giữ nồi nước lèo ở chế độ sôi liu riu nóng hổi.',
+        ],
+        description:
+          'Nấu chín ớt nhồi chả cá thác lác. Chần chín tới phi lê cá lóc, tôm sú, mực ống rồi vớt ra đĩa riêng để giữ độ giòn ngọt. Thả cà tím vào đun sôi nhẹ 3 phút cho chín mềm đậm đà.',
+        tip: 'Hải sản chỉ chần chín tới trong nước lèo rồi vớt ra ngay, không ngâm lâu trong nồi sẽ bị teo ngót và dai nhách. Heo quay để riêng không cho vào nồi lèo để giữ da giòn.',
+      },
+      {
+        step: 5,
+        title: 'Pha nước mắm me & Trình bày tô Bún Mắm Miền Tây chuẩn vị sắc màu',
+        time: '10 phút',
+        heat: 'Thưởng thức nóng bốc khói',
+        goal: 'Tô bún mắm đa sắc rực rỡ, nước lèo bốc khói nghi ngút, thơm nức mũi mùi mắm và sả ớt',
+        actionPoints: [
+          'Pha nước mắm me: Dầm 50g me chín với 4 thìa canh nước ấm, lọc lấy nước cốt me chua sánh. Hòa cùng 2 thìa canh đường, 1.5 thìa canh nước mắm nhĩ và ớt băm khuấy tan thành chén sốt mắm me sánh sệt chua ngọt cay nồng.',
+          'Trụng bún tươi qua nước sôi cho sợi bún nóng mềm và ráo nước, cho vào tô lớn.',
+          'Xếp lần lượt lên trên tô bún: Phi lê cá lóc trắng ngần, tôm sú đỏ au, mực khoanh giòn sần sật, miếng heo quay da giòn rụm, ớt nhồi chả cá thác lác, vài miếng cà tím mọng nước và hẹ lá cắt khúc.',
+          'Múc nước lèo bún mắm đang sôi sùng sục chan ngập tô bún.',
+          'Dọn ăn kèm đĩa rau sống ngập tràn hương vị miền Tây (rau đắng, bông súng chẻ, bắp chuối, rau muống chẻ, giá đỗ, kèo nèo) và chén nước mắm me chua ngọt sánh kẹo. Vừa ăn vừa húp thìa nước lèo ngọt thanh đậm đà khó quên!',
+        ],
+        description:
+          'Pha mắm me sánh kẹo chua ngọt cay nồng. Trụng bún ra tô, bày phi lê cá lóc, tôm sú, mực, heo quay giòn bì, ớt nhồi chả cá, cà tím và hẹ lá. Chan nước lèo sôi sùng sục, ăn kèm đĩa rau đồng miền Tây.',
+        tip: 'Heo quay chỉ đặt lên tô ngay trước khi chan nước dùng để giữ lớp da giòn rụm. Chén mắm me chua ngọt cay dịu là chất xúc tác hoàn hảo cân bằng vị giác cho tô bún mắm.',
+      },
+    ],
+    chefSecret:
+      '4 bí quyết vàng nấu Bún Mắm Miền Tây nước dùng thanh ngọt chuẩn vị gia đình: 1. Tuyệt đối phải phối hợp cả mắm cá linh (tạo vị béo bùi, ngọt sâu) và mắm cá sặc (tạo hương thơm đượm nồng nàn) theo tỷ lệ 1:1, nấu rã với nước dừa tươi và lọc kỹ qua rây 2 lần để loại sạch hoàn toàn xương dăm; 2. Nước dùng nấu hoàn toàn từ nước dừa xiêm tươi kết hợp xương ống hầm và sả cây đập dập, nêm duy nhất bằng đường phèn để tạo hậu vị thanh ngọt dịu mát, không dùng nước mắm hay muối; 3. Cà tím ngâm nước muối chanh xào sơ với dầu màu điều trước khi cho vào nước lèo giúp cà không bị thâm nát, giữ trọn màu sắc đẹp mắt; 4. Hải sản luộc vừa chín tới vớt ra riêng, thịt heo quay giòn bì chỉ đặt lên tô ngay trước khi chan nước dùng để giữ lớp da giòn rụm tan trong miệng!',
+    recommendedSauce:
+      'Chén nước mắm me chua ngọt sánh kẹo dầm ớt hiểm cay nồng, ăn kèm đĩa rau đồng nội miền Tây ngập tràn bông súng, rau đắng, kèo nèo, bắp chuối và hẹ tươi.',
   },
   'oc-huong-xao-bo-toi': {
     dishId: 'oc-huong-xao-bo-toi',
@@ -9349,6 +9505,7 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'oc-huong-xao-bo-toi': 'cach-lam-oc-huong-xao-bo-toi',
   'ca-vien-chien-nuoc-mam': 'cach-lam-ca-vien-chien-nuoc-mam',
   'banh-trang-tron-sa-te': 'cach-lam-banh-trang-tron',
+  'bun-mam-mien-tay': 'cach-nau-bun-mam-mien-tay',
 };
 
 /**
@@ -9374,6 +9531,12 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'bun-mam-mien-tay': 'bun-mam-mien-tay',
+  'cach-nau-bun-mam-mien-tay': 'bun-mam-mien-tay',
+  'cach-lam-bun-mam-mien-tay': 'bun-mam-mien-tay',
+  'bun-mam': 'bun-mam-mien-tay',
+  'cach-nau-bun-mam': 'bun-mam-mien-tay',
+  'cach-lam-bun-mam': 'bun-mam-mien-tay',
   'banh-trang-tron-sa-te': 'banh-trang-tron-sa-te',
   'cach-lam-banh-trang-tron-sa-te': 'banh-trang-tron-sa-te',
   'cach-nau-banh-trang-tron-sa-te': 'banh-trang-tron-sa-te',
@@ -9423,13 +9586,11 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-banh-canh-cua': 'banh-canh-cua-gio-heo',
   'cach-lam-banh-canh-cua': 'banh-canh-cua-gio-heo',
   'bun-thit-nuong-cha-gio': 'bun-thit-nuong-cha-gio',
-  'bun-thit-nuong-cha-gio': 'bun-thit-nuong-cha-gio',
   'bun-thit-nuong': 'bun-thit-nuong-cha-gio',
   'cach-nau-bun-thit-nuong-cha-gio': 'bun-thit-nuong-cha-gio',
   'cach-lam-bun-thit-nuong-cha-gio': 'bun-thit-nuong-cha-gio',
   'cach-nau-bun-thit-nuong': 'bun-thit-nuong-cha-gio',
   'cach-lam-bun-thit-nuong': 'bun-thit-nuong-cha-gio',
-  'goi-cuon-tom-thit': 'goi-cuon-tom-thit',
   'goi-cuon-tom-thit': 'goi-cuon-tom-thit',
   'goi-cuon': 'goi-cuon-tom-thit',
   'cach-nau-goi-cuon-tom-thit': 'goi-cuon-tom-thit',

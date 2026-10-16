@@ -2503,6 +2503,22 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-banh-xeo-chay");
   });
 
+  // 301 Permanent Redirect for com nieu bo sot tieu den
+  app.get([
+    "/com-nieu-singapore",
+    "/com-nieu-singapore/",
+    "/com-nieu-bo-sot-tieu-den",
+    "/com-nieu-bo-sot-tieu-den/",
+    "/com-nieu-bo-tieu-den",
+    "/com-nieu-bo-tieu-den/",
+    "/cach-nau-com-nieu-bo-sot-tieu-den",
+    "/cach-nau-com-nieu-bo-sot-tieu-den/",
+    "/cach-lam-com-nieu-bo-tieu-den",
+    "/cach-lam-com-nieu-bo-tieu-den/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-com-nieu-bo-sot-tieu-den");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

@@ -10885,6 +10885,131 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Mẹt bánh xèo chay vàng ươm giòn rụm cuốn rau cải xanh, lá cóc, đọt xoài, chấm ngập chén nước mắm chay chua ngọt tỏi ớt dầm đồ chua củ cải cà rốt giòn tan.',
   },
+
+  'com-nieu-singapore': {
+    dishId: 'com-nieu-singapore',
+    dishName: 'Cơm Niêu Bò Sốt Tiêu Đen',
+    seoTitle: 'Cách Làm Cơm Niêu Bò Sốt Tiêu Đen Thơm Ngon Đậm Đà Chuẩn Quán',
+    description:
+      'Hướng dẫn chi tiết bí quyết làm cơm niêu bò sốt tiêu đen xèo xèo giòn rụm cháy vàng đáy niêu chuẩn vị nhà hàng: Mẹo ướp thịt bò thăn mềm mọng không bị dai, công thức sốt tiêu đen sánh đặc cay nồng quyện bơ tỏi, bắp ngọt, ớt chuông và cơm niêu giòn tan.',
+    ratingValue: '4.9',
+    reviewCount: 258,
+    prepTime: '20 phút',
+    cookTime: '25 phút',
+    difficulty: 'Trung bình',
+    servings: '2 - 3 người',
+    ingredients: [
+      {
+        category: 'Thành phần Thịt Bò mềm mọng & Ướp gia vị thơm lừng',
+        items: [
+          '350g thịt bò thăn ngoại (hoặc thăn nội / bò lõi rùa tươi) thái mỏng bản to vừa ăn',
+          '1 thìa canh dầu hàu, 1 thìa cà phê nước tương (xì dầu), 1/2 thìa cà phê dầu mè thơm',
+          '1 thìa cà phê bột năng (giúp thịt bò khóa nước, khi xào mềm mọng tan trong miệng)',
+          '1 thìa tỏi băm + 1/2 thìa tiêu đen xay',
+        ],
+      },
+      {
+        category: 'Thành phần Sốt Tiêu Đen cay nồng sền sệt chuẩn quán',
+        items: [
+          '2 thìa canh tiêu đen hạt (1/2 giã vỡ hạt, 1/2 xay mịn)',
+          '2 thìa canh dầu hàu, 2 thìa canh nước tương, 1 thìa canh tương ớt',
+          '1 thìa canh đường thốt nốt (hoặc đường cát), 1/2 thìa cà phê hạt nêm',
+          '150ml nước hầm xương (hoặc nước lọc) + 1 thìa canh bột năng pha loãng',
+          '20g bơ lạt (bơ Tường An/Anchor - tạo độ béo ngậy bóng mượt cho sốt)',
+        ],
+      },
+      {
+        category: 'Thành phần Cơm Niêu Cháy Giòn & Rau củ xào kèm',
+        items: [
+          '2 bát cơm dẻo đã nấu chín (hoặc gạo nếp dẻo thơm nấu niêu đất)',
+          '1/2 củ hành tây thái hạt lựu, 1/2 quả ớt chuông xanh/đỏ thái hạt lựu',
+          '50g hạt bắp ngọt (ngô ngọt) luộc chín',
+          '1 thìa canh mỡ heo hoặc bơ lạt quết niêu đất',
+          'Hành lá cắt nhỏ, ớt tươi thái lát và tiêu sọ rắc mặt',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt bò mềm mọng & Pha nước sốt tiêu đen sền sệt',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Thịt bò thấm vị mềm mọng không dai, nước sốt tiêu đen cay nồng đậm đà',
+        actionPoints: [
+          'Thịt bò thăn rửa sạch, thấm khô, thái lát mỏng ngang thớ. Ướp bò với 1 thìa dầu hàu, 1 thìa nước tương, 1/2 thìa dầu mè, 1/2 thìa tiêu đen xay và 1 thìa bột năng trong 15 phút (bột năng giúp thịt bò khóa mọng nước).',
+          'Pha nước sốt tiêu đen: Trong chén nhỏ, hòa tan 2 thìa dầu hàu, 2 thìa nước tương, 1 thìa tương ớt, 1 thìa đường, 1/2 thìa hạt nêm, 2 thìa tiêu đen đập vỡ và 150ml nước lọc.',
+        ],
+        description:
+          'Ướp thịt bò với chút bột năng và dầu mè là bí quyết vàng giúp bò xào lửa lớn luôn mềm mọng tan trong miệng.',
+        tip: 'Thái thịt bò ngang thớ để miếng bò không bị dẻo dai khi xào.',
+      },
+      {
+        step: 2,
+        title: 'Nấu nước sốt tiêu đen bơ tỏi sóng sánh',
+        time: '8 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước sốt tiêu đen sánh đặc, bóng mượt, thơm lừng vị bơ tỏi',
+        actionPoints: [
+          'Đun chảy 10g bơ lạt trên chảo, cho tỏi băm và hành tây thái hạt lựu vào phi vàng thơm lừng.',
+          'Trút toàn bộ chén nước sốt tiêu đen đã pha vào chảo đun sôi bùng. Hạ lửa nhỏ, rưới từ từ 1 thìa bột năng pha loãng vào khuấy đều tay đến khi sốt cô đặc sền sệt, bóng mượt ngào ngạt hương tiêu cay nồng.',
+          'Trút sốt ra chén riêng giữ nóng.',
+        ],
+        description:
+          'Bơ lạt kết hợp tiêu đen hạt đập vỡ tạo nên mùi thơm cay nồng ấm áp vô cùng quyến rũ.',
+        tip: 'Khuấy đều tay lửa nhỏ không đun quá lâu làm tiêu bị đắng.',
+      },
+      {
+        step: 3,
+        title: 'Tạo lớp cơm cháy vàng giòn rụm đáy niêu đất',
+        time: '12 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Lớp cơm cháy dưới đáy niêu vàng ươm, giòn rụm sần sật xèo xèo',
+        actionPoints: [
+          'Quết 1 lớp bơ lạt hoặc mỡ heo mỏng quanh lòng niêu đất.',
+          'Cho cơm dẻo vào niêu đất, dùng thìa nén nhẹ cơm áp sát vào thành và đáy niêu.',
+          'Đặt niêu đất lên bếp gas/bếp hồng ngoại, đun lửa nhỏ. Xoay nghiêng niêu đất liên tục trong 10 - 12 phút để nhiệt tỏa đều khắp các mặt niêu cho đến khi lớp cơm đáy niêu chuyển màu vàng ươm giòn rụm và phát ra tiếng kêu xèo xèo.',
+        ],
+        description:
+          'Quết bơ lạt lòng niêu đất và xoay nghiêng niêu giúp cơm cháy chín vàng giòn rụm và ngạt ngào mùi thơm bơ dẻo.',
+        tip: 'Đun lửa nhỏ để cơm cháy vàng ruộm mà không bị cháy đen.',
+      },
+      {
+        step: 4,
+        title: 'Xào bò chín tới & Bày bò tiêu đen lên mặt cơm niêu',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thịt bò xào tái chín tới mềm ngọt mọng nước, rau củ giữ độ giòn ngọt',
+        actionPoints: [
+          'Đun nóng chảo với 1 thìa bơ lạt, trút thịt bò đã ướp vào đảo nhanh tay trên lửa lớn 2 phút cho thịt bò săn lại tái chín tới.',
+          'Thả ớt chuông thái hạt lựu và bắp ngọt vào đảo nhanh 30 giây rồi tắt bếp.',
+          'Trút toàn bộ thịt bò xào, bắp ngọt và ớt chuông lên mặt niêu cơm cháy đang nóng xèo xèo.',
+        ],
+        description:
+          'Xào bò lửa lớn trong 2 phút giữ trọn vị ngọt mọng mướt tự nhiên của thịt bò thăn tươi.',
+        tip: 'Không xào thịt bò quá lâu trên bếp sẽ khiến bò bị dai khô.',
+      },
+      {
+        step: 5,
+        title: 'Rưới sốt tiêu đen nóng hổi & Thưởng thức niêu cơm xèo xèo',
+        time: '2 phút',
+        heat: 'Niêu đất nóng hổi',
+        goal: 'Niêu cơm bò sốt tiêu đen bốc khói nghi ngút, thơm lừng ngạt ngào',
+        actionPoints: [
+          'Rưới ngập chén sốt tiêu đen sền sệt nóng hổi lên trên mặt thịt bò và cơm niêu. Tiêu đen gặp niêu đất nóng phát ra tiếng xèo xèo dậy mùi thơm ngạt ngào.',
+          'Rắc hành lá cắt nhỏ, tiêu sọ xay và vài lát ớt đỏ lên trên trang trí.',
+          'Thưởng thức: Dùng thìa trộn đều thịt bò mềm ngọt ngấm đượm sốt tiêu đen cay nồng với lớp cơm cháy giòn rụm dưới đáy niêu. Vị giòn rụm bùi béo của cơm cháy quyện vị ngọt mọng thịt bò và sốt tiêu đen cay ấm bùng nổ vị giác.',
+        ],
+        description:
+          'Cơm niêu bò sốt tiêu đen xèo xèo bốc khói là món ăn trứ danh gây thương nhớ.',
+        tip: 'Trộn đều cơm và sốt ngay khi niêu còn nóng hổi để cơm cháy ngấm trọn vị sốt đậm đà.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm cơm niêu bò sốt tiêu đen xèo xèo giòn rụm chuẩn nhà hàng: 1. Ướp thịt bò với 1 thìa bột năng + dầu mè và xào lửa lớn nhanh 2 phút giữ thịt bò mềm mọng tan trong miệng; 2. Dùng tiêu đen hạt đập vỡ kết hợp bơ lạt nấu sốt đậm đà bóng mượt; 3. Quết bơ lạt lòng niêu đất và xoay nghiêng niêu đun lửa nhỏ 10-12 phút để có lớp cơm cháy vàng ươm giòn rụm nổ xèo xèo ngạt ngào mùi thơm.',
+    recommendedSauce:
+      'Niêu cơm bò sốt tiêu đen xèo xèo bốc khói ngạt ngào hương bơ tỏi tiêu nồng, rưới ngập sốt tiêu đen sánh mịn, trộn đều lớp cơm cháy giòn rụm ăn kèm đĩa dưa leo kim chi chua ngọt.',
+  },
 };
 
 /**
@@ -11709,6 +11834,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'banh-chuoi-nuong': 'cach-lam-banh-chuoi-nuong',
   'canh-chua-chay': 'cach-lam-canh-chua-chay',
   'banh-xeo-chay': 'cach-lam-banh-xeo-chay',
+  'com-nieu-singapore': 'cach-lam-com-nieu-bo-sot-tieu-den',
+  'com-nieu-bo-sot-tieu-den': 'cach-lam-com-nieu-bo-sot-tieu-den',
 };
 
 /**
@@ -11734,6 +11861,12 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'com-nieu-singapore': 'com-nieu-singapore',
+  'com-nieu-bo-sot-tieu-den': 'com-nieu-singapore',
+  'cach-lam-com-nieu-bo-sot-tieu-den': 'com-nieu-singapore',
+  'cach-nau-com-nieu-bo-sot-tieu-den': 'com-nieu-singapore',
+  'com-nieu-bo-tieu-den': 'com-nieu-singapore',
+  'cach-lam-com-nieu-bo-tieu-den': 'com-nieu-singapore',
   'banh-xeo-chay': 'banh-xeo-chay',
   'cach-lam-banh-xeo-chay': 'banh-xeo-chay',
   'cach-nau-banh-xeo-chay': 'banh-xeo-chay',

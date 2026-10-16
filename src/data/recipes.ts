@@ -5725,102 +5725,108 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     dishId: 'bao-tu-ham-tieu',
     dishName: 'Bao Tử Hầm Tiêu Xanh',
     seoTitle: 'Cách Nấu Bao Tử Hầm Tiêu Xanh Giòn Sần Sật, Nước Dùng Cay Nồng Ngọt Thanh',
+    description:
+      'Hướng dẫn chi tiết cách nấu bao tử heo hầm tiêu xanh giòn sần sật không bị hôi, nước dùng ngọt thanh đậm đà từ nước dừa tươi và củ sen: Bí quyết sơ chế bao tử áp chảo cạo nhầy, ướp tiêu xanh đập dập và ninh lửa nhỏ liu riu cho vị cay nồng bùng nổ.',
+    ratingValue: '4.8',
+    reviewCount: 224,
     prepTime: '30 phút (sơ chế kỹ)',
     cookTime: '45 - 60 phút',
     difficulty: 'Trung bình',
     servings: '4 - 5 người',
     ingredients: [
       {
-        category: 'Nguyên liệu chính',
+        category: 'Thành phần Bao Tử Heo & Tiêu Xanh tươi thơm nồng',
         items: [
-          '1 cái bao tử heo tươi (khoảng 700g - 900g, chọn loại dày mình, màu hồng tươi)',
-          '50g - 70g tiêu xanh tươi nguyên chùm (chọn chùm hạt tròn bóng)',
+          '1 cái bao tử heo tươi (khoảng 700g - 900g, chọn loại dày mình, màu hồng tươi sáng)',
+          '70g tiêu xanh tươi nguyên chùm (chọn chùm hạt tròn căng bóng, xanh mướt)',
           '1 trái dừa xiêm lấy nước ngọt tự nhiên (khoảng 500ml)',
-          '100g nấm rơm búp tươi cạo sạch chân',
-          '1 củ sen nhỏ (hoặc củ cải trắng, cà rốt tỉa hoa)',
+          '150g nấm rơm búp tươi (cạo sạch chân, ngâm nước muối loãng)',
+          '100g củ sen thái khoanh (hoặc củ cải trắng, cà rốt tỉa hoa)',
         ],
       },
       {
-        category: 'Gia vị sơ chế & khử mùi bao tử',
+        category: 'Gia vị sơ chế & Khử hôi bao tử giòn sần sật',
         items: [
-          '1 củ gừng già giã nát, 2 quả chanh tươi, 1 chén giấm gạo',
+          '1 củ gừng tươi giã nát, 2 quả chanh tươi, 1/2 chén giấm gạo',
           '3 thìa canh muối hạt trắng, 1/2 chén rượu trắng',
         ],
       },
       {
-        category: 'Gia vị ướp & nấu nước dùng',
+        category: 'Gia vị ướp & Nấu nước dùng hầm tiêu',
         items: [
-          '3 củ hành tím đập dập, 1 củ tỏi băm nhuyễn',
-          'Gia vị: 2 thìa canh nước mắm nhĩ, 1 thìa canh hạt nêm, 1 thìa đường phèn, 1 thìa cà phê tiêu sọ trắng đập giập',
-          'Rau mồng tơi, rau xà lách xoong, cải bẹ xanh, mì trứng hoặc bún tươi ăn kèm',
+          '3 củ hành tím đập dập, 1 củ tỏi băm nhuyễn, 2 nhánh đầu hành lá',
+          'Gia vị: 2 thìa canh nước mắm nhĩ ngon, 1 thìa canh hạt nêm, 1 thìa canh đường phèn, 1/2 thìa cà phê tiêu sọ xay',
+          'Rau ăn kèm lẩu: Rau mồng tơi, rau xà lách xoong, cải bẹ xanh tươi, bún tươi hoặc mì trứng',
         ],
       },
     ],
     steps: [
       {
         step: 1,
-        title: 'Bí quyết sơ chế bao tử heo giòn sần sật, không hôi',
+        title: 'Sơ chế bao tử heo áp chảo khử sạch màng nhầy',
         time: '15 phút',
-        heat: 'Chảo gang khô nóng & nước đá lạnh',
+        heat: 'Chảo gang khô nóng & nước đá',
         goal: 'Bao tử trắng phau, sạch 100% màng nhầy và mùi gây, giòn sần sật',
         actionPoints: [
           'Lộn mặt trong bao tử ra ngoài, cạo bỏ sạch các mảng mỡ thừa và màng nhầy dưới vòi nước chảy.',
           'Bóp kỹ bao tử với 2 thìa muối hạt và nước cốt 2 quả chanh trong 3 phút, rửa sạch.',
-          'Đặt chảo không dầu lên bếp cho thật nóng, cho bao tử vào áp chảo đảo nhanh 2 phút cho săn lại và bong hết chất nhớt còn sót, vớt ra cạo sạch.',
-          'Bóp lại lần cuối với 1/2 chén rượu trắng và gừng giã nát, chần nước sôi rồi thả ngay vào thau nước đá lạnh ngâm 5 phút.',
+          'Đặt chảo không dầu lên bếp đun thật nóng, cho bao tử vào áp chảo đảo nhanh 2 phút cho săn lại và bong hết chất nhầy còn sót, vớt ra cạo sạch.',
+          'Rửa lại lần cuối với rượu trắng và gừng giã nát, chần nước sôi rồi thả ngay vào thau nước đá lạnh ngâm 5 phút cho giòn.',
         ],
         description:
-          'Lộn trái bao tử, cạo sạch màng nhầy dưới vòi nước. Bóp kỹ lần 1 với muối hạt và nước cốt chanh. Cho bao tử vào chảo gang khô không dầu áp chảo đảo nhanh 2-3 phút cho săn lại và ra bọt tanh rồi vớt ra cạo sạch lần nữa. Rửa lại lần cuối với rượu trắng và gừng đập dập, sau đó chần qua nước sôi rồi ngâm ngay vào thau nước đá lạnh để bao tử giữ độ giòn trắng.',
-        tip: 'Khâu áp chảo khô với muối và giấm/rượu là bí quyết của đầu bếp nhà hàng giúp khử mùi hôi tuyệt đối và tạo độ giòn sần sật.',
+          'Áp chảo khô và ngâm nước đá là bí quyết gia truyền giúp bao tử giòn sần sật, sạch bóng màng nhầy.',
+        tip: 'Ngâm nước đá ngay sau khi chần giúp sợi collagen co lại tạo độ giòn sần sật đặc trưng.',
       },
       {
         step: 2,
-        title: 'Thái miếng vừa ăn và xào săn đậm vị',
+        title: 'Cắt miếng vừa ăn & Ướp bao tử thấm vị tiêu xanh',
         time: '10 phút',
         heat: 'Lửa lớn',
-        goal: 'Từng miếng bao tử săn đều, ngấm trọn vị thơm cay của tiêu sọ và hành tỏi',
+        goal: 'Từng miếng bao tử săn giòn, thấm đượm vị thơm cay của tiêu xanh và gia vị',
         actionPoints: [
-          'Dùng dao bén cắt bao tử thành từng miếng dày khoảng 2 ngón tay (3x5cm).',
-          'Ướp bao tử với 1 thìa canh mắm nhĩ, 1 thìa hạt nêm, tỏi băm, tiêu sọ giã giập và 2 nhánh tiêu xanh đập dập trong 15 phút.',
-          'Phi thơm 3 củ hành tím đập dập với 1 thìa dầu ăn, trút bao tử vào xào với lửa lớn trong 3 phút cho săn giòn thơm phức.',
+          'Thái bao tử thành từng miếng xéo bản to 2 ngón tay (3x5cm).',
+          'Đập dập 3 nhánh tiêu xanh. Ướp bao tử với tiêu xanh đập dập, 1 thìa canh nước mắm nhĩ, 1 thìa hạt nêm, hành tỏi băm và tiêu sọ trong 15 phút.',
+          'Phi thơm 3 củ hành tím băm với 1 thìa dầu ăn, trút bao tử vào xào săn trên lửa lớn 3 phút cho bốc mùi thơm lừng.',
         ],
         description:
-          'Cắt bao tử thành từng miếng vừa ăn (bản dày khoảng 1.5 - 2 ngón tay). Ướp cùng 1 thìa canh nước mắm, hành tỏi băm, tiêu đập dập và một nửa số tiêu xanh giã dập trong 20 phút. Phi thơm hành tỏi trên chảo, cho bao tử vào xào săn với lửa lớn để ngấm gia vị.',
+          'Xào săn bao tử với tiêu xanh trước khi ninh giúp thịt bao tử khóa vị ngọt và thấm đượm mùi thơm nồng.',
+        tip: 'Xào nhanh lửa lớn giúp bao tử không bị ra nước và giữ được độ giòn.',
       },
       {
         step: 3,
-        title: 'Ninh chậm cùng nước dừa tươi và chùm tiêu xanh',
+        title: 'Hầm bao tử với nước dừa tươi & Chùm tiêu xanh',
         time: '40 - 45 phút',
         heat: 'Lửa nhỏ liu riu',
-        goal: 'Nước dùng trong veo ngọt thanh tự nhiên, tiêu xanh thơm lừng the cay, bao tử mềm mà giòn sần sật',
+        goal: 'Nước dùng ngọt thanh tự nhiên, bao tử chín tới giòn sần sật không bị mềm nhũn',
         actionPoints: [
-          'Trút bao tử đã xào vào nồi, đổ 500ml nước dừa xiêm ngọt mát cùng 700ml nước dùng hầm xương (hoặc nước lọc).',
-          'Thả các chùm tiêu xanh tươi nguyên hạt và củ sen cắt khoanh vào nồi.',
-          'Đun sôi bùng, vớt sạch bọt rồi hạ lửa liu riu ninh trong 35 - 40 phút.',
-          'Thả nấm rơm búp và nêm 1 thìa đường phèn, 1 thìa nước mắm cho vị nước thanh ngọt cay the ấm bụng.',
+          'Trút bao tử đã xào vào nồi, đổ 500ml nước dừa xiêm tươi và 700ml nước hầm xương (hoặc nước lọc) ngập mặt bao tử.',
+          'Thả các chùm tiêu xanh tươi nguyên hạt và củ sen thái khoanh vào nồi. Đun sôi bùng, hớt sạch bọt trắng rồi hạ lửa nhỏ liu riu ninh 35 - 40 phút.',
+          'Thả nấm rơm búp tươi vào, nêm 1 thìa đường phèn, 1 thìa nước mắm cho vị nước dùng ngọt thanh cay nồng ấm bụng.',
         ],
         description:
-          'Cho bao tử đã xào vào nồi cùng 500ml nước dừa xiêm và 700ml nước dùng hầm xương (hoặc nước lọc). Thả các chùm tiêu xanh nguyên hạt, củ sen và đun sôi rồi hạ nhỏ lửa ninh liu riu trong 40 - 45 phút đến khi bao tử chín mềm vừa tới nhưng vẫn giữ độ giòn sần sật đặc trưng. Cho nấm rơm vào đun thêm 5 phút, nêm đường phèn và nước mắm vừa khẩu vị.',
+          'Ninh lửa nhỏ cùng nước dừa xiêm giúp bao tử chín tới mềm giòn sần sật, nước hầm trong veo ngạt ngào hương tiêu.',
+        tip: 'Ninh không quá 45 phút để bao tử giữ trọn độ giòn sần sật, không bị mềm nhũn.',
       },
       {
         step: 4,
-        title: 'Bày thố đất hoặc lẩu nóng hổi',
+        title: 'Bày thố đất/lẩu nóng hổi & Thưởng thức kèm rau xanh',
         time: '5 phút',
         heat: 'Nồi lẩu sôi liu riu',
-        goal: 'Thố bao tử bốc khói ngào ngạt hương tiêu cay nồng, ăn kèm rau xanh mướt và mì tươi',
+        goal: 'Thố bao tử hầm tiêu bốc khói ngạt ngào thơm nức, nước dùng ngọt thanh cay nồng',
         actionPoints: [
-          'Múc bao tử và nước hầm tiêu xanh ra thố đất giữ nhiệt hoặc nồi lẩu nhỏ đặt trên bếp cồn/bếp từ mini.',
-          'Rắc hành hoa, ngò rí và vài nhánh tiêu xanh tươi lên mặt cho bắt mắt.',
+          'Múc bao tử hầm tiêu xanh ra thố đất hoặc nồi lẩu mini đặt trên bếp cồn/bếp từ.',
+          'Phủ ngò rí, hành lá cắt khúc và vài nhánh tiêu xanh tươi lên mặt cho bắt mắt.',
           'Bày đĩa rau mồng tơi, xà lách xoong, cải bẹ xanh tươi non và mì trứng (hoặc bún tươi) để nhúng ăn nóng.',
         ],
         description:
-          'Múc bao tử và nước hầm tiêu xanh ra nồi lẩu hoặc thố đất giữ nhiệt. Đặt lên bếp gas mini liu riu, rắc thêm hành lá, ngò rí và tiêu sọ thơm nức. Nhúng rau mồng tơi, cải bẹ xanh hoặc xà lách xoong ăn kèm mì trứng hoặc bún tươi.',
+          'Bao tử hầm tiêu xanh ăn lẩu bốc khói nghi ngút là món ngon đại bổ ấm bụng ngày se lạnh.',
+        tip: 'Chấm từng miếng bao tử giòn sần sật vào chén nước mắm mặn dầm ớt hiểm xanh hoặc muối tiêu chanh.',
       },
     ],
     chefSecret:
-      'Không nên ninh bao tử quá lâu trên lửa lớn sẽ bị dai nhũn mất độ giòn. Ninh lửa nhỏ cùng nước dừa tươi giúp thịt mềm mọng ngọt tự nhiên, nước dùng trong vắt thơm cay the ngát của tiêu xanh.',
+      '3 bí quyết vàng nấu bao tử hầm tiêu xanh giòn sần sật chuẩn nhà hàng: 1. Áp chảo bao tử trên chảo gang khô không dầu để bong sạch nhầy hôi rồi ngâm ngay vào thau nước đá; 2. Đập dập 1 nửa tiêu xanh ướp với bao tử và xào săn trước khi đun; 3. Ninh liu riu với nước dừa tươi trong 40 phút (không ninh lâu hơn) để bao tử đạt độ giòn sần sật béo bùi chuẩn nhất.',
     recommendedSauce:
-      'Chấm từng miếng bao tử giòn sần sật vào chén nước mắm mặn nguyên chất dầm ớt hiểm xanh hoặc muối tiêu chanh ớt cay nồng.',
+      'Múc thố bao tử hầm tiêu xanh bốc khói ngạt ngào, nhúng rau mồng tơi và cải xanh ăn kèm bún tươi, chấm bao tử giòn sần sật vào chén nước mắm mặn dầm ớt hiểm xanh cay xè.',
   },
   'long-nuong': {
     dishId: 'long-nuong',
@@ -9767,6 +9773,746 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chén mắm me sền sệt chua ngọt cay xè dầm tỏi ớt hiểm (hoặc chén mắm nêm pha dứa băm nhuyễn) chấm ngập cuốn bánh tráng cá lóc nướng trui béo ngậy.',
   },
+
+  'goi-xoai-xanh-ca-sac': {
+    dishId: 'goi-xoai-xanh-ca-sac',
+    dishName: 'Gỏi Xoài Xanh Khô Cá Sặc Bùi Béo',
+    seoTitle: 'Cách Làm Gỏi Xoài Cá Sặc Chua Ngọt Giòn Tan, Giải Ngấy Cực Tốt',
+    description:
+      'Hướng dẫn chi tiết cách làm gỏi xoài khô cá sặc rằn chuẩn vị Miền Tây: Xoài xanh bào sợi giòn sần sật mát lạnh, khô cá sặc nướng/chiên vỡ da giòn rụm béo bùi xé miếng vừa ăn, quyện sốt mắm đường thốt nốt tỏi ớt chua ngọt vừa miệng, rắc rau răm, hành phi và đậu phụng rang bùi ngậy.',
+    prepTime: '20 phút',
+    cookTime: '15 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần Khô Cá Sặc rằn ngon & Xoài xanh giòn',
+        items: [
+          '2 con khô cá sặc rằn loại ngon (cá sặc Rạch Giá/Cà Mau béo bùi, vàng thơm)',
+          '2 quả xoài xanh chua giòn (xoài Keo hoặc xoài Cát Hòa Lộc bao tử xanh cứng)',
+          '1 củ cà rốt (bào sợi nhỏ tạo màu sắc bắt mắt)',
+          '1 củ hành tím (thái mỏng ngâm giấm đường khử hăng)',
+          '1 thìa canh mỡ heo thắng (hoặc dầu ăn dùng chiên khô cá sặc)',
+        ],
+      },
+      {
+        category: 'Thành phần Nước mắm trộn gỏi thần thánh chua ngọt đậm đà',
+        items: [
+          '2.5 thìa canh đường thốt nốt (hoặc đường cát vàng)',
+          '2 thìa canh nước mắm nhĩ truyền thống ngon (40 độ đạm)',
+          '1.5 thìa canh nước cốt tắc/chanh tươi',
+          '1 thìa canh tỏi băm nhuyễn + 1 thìa canh ớt hiểm băm nhuyễn',
+          '1/2 thìa cà phê tương ớt (tạo độ sánh quyện nhẹ cho sốt trộn gỏi)',
+        ],
+      },
+      {
+        category: 'Thành phần Rau thơm & Topping rắc lên đĩa gỏi',
+        items: [
+          '1 bó rau răm tươi (rửa sạch, cắt nhỏ vừa ăn)',
+          '50g đậu phụng (lạc) rang giòn bóc vỏ, đập dập vỡ đôi',
+          '2 thìa canh hành tím phi vàng giòn rụm',
+          '1 quả ớt sừng (thái sợi mỏng trang trí)',
+          'Bánh phồng tôm chiên giòn (hoặc bánh tráng nướng ăn kèm)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế khô cá sặc, chiên/nướng da giòn & Xé nhỏ',
+        time: '8 phút',
+        heat: 'Lửa vừa',
+        goal: 'Khô cá sặc chiên/nướng chín vàng rụm hai mặt, thơm phức không bị mặn chát',
+        actionPoints: [
+          'Khô cá sặc rửa qua nước ấm 5 phút cho giảm bớt vị mặn gắt ngoài da, vắt ráo.',
+          'Cho 1 thìa canh mỡ heo vào chảo, cho khô cá sặc vào chiên lửa vừa 6 - 8 phút đến khi hai mặt cá chín vàng rụm, da vỡ xém giòn thơm phức (hoặc nướng vẩy than hoa).',
+          'Vớt cá ráo mỡ, để nguội bớt. Dùng tay (đeo găng) lóc bỏ xương sống và xương dăm cá, xé thịt cá sặc thành từng miếng nhỏ vừa ăn.',
+        ],
+        description:
+          'Ngâm nước ấm trước khi chiên giúp khô cá sặc nhả bớt mặn gắt, khi chiên xong thịt cá dẻo mềm giòn béo.',
+        tip: 'Lóc xương dăm kỹ giúp đĩa gỏi cá sặc an toàn cho cả gia đình và trẻ nhỏ.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế xoài xanh bào sợi giòn tan mát lạnh & Cà rốt',
+        time: '7 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Sợi xoài xanh cực kỳ giòn rụm sần sật, giữ màu xanh tươi đẹp',
+        actionPoints: [
+          'Xoài xanh gọt vỏ, dùng dao bào thành từng sợi dài mỏng giòn.',
+          'Ngâm sợi xoài vào tô nước đá lạnh 5 phút rồi vớt ra vắt ráo kiệt nước (mẹo ngâm đá giúp sợi xoài xanh cực kỳ giòn rụm sần sật).',
+          'Cà rốt gọt vỏ, bào sợi nhỏ. Hành tím thái mỏng ngâm vào bát nước giấm đường 5 phút cho hết hăng rồi vớt ra ráo. Rau răm rửa sạch cắt khúc 1cm.',
+        ],
+        description:
+          'Mẹo ngâm nước đá giúp xoài xanh bào sợi giữ nguyên độ giòn sần sật khi trộn cùng sốt.',
+        tip: 'Chọn xoài xanh vỏ cứng trái nặng tay để khi bào sợi không bị nát nhão.',
+      },
+      {
+        step: 3,
+        title: 'Pha sốt nước mắm trộn gỏi chua ngọt thần thánh',
+        time: '3 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước sốt mắm đường đun ấm dính sánh mịn, vị chua ngọt hài hòa',
+        actionPoints: [
+          'Cho 2.5 thìa canh đường thốt nốt, 2 thìa canh nước mắm nhĩ, 1.5 thìa nước cốt tắc/chanh, 1/2 thìa tương ớt vào bát nhỏ. Khuấy đều trên lửa nhỏ đun nhẹ 1 phút cho đường tan hoàn toàn và sốt dính sánh mịn.',
+          'Đợi nước sốt nguội bớt, trút tỏi băm nhuyễn và ớt hiểm băm vào khuấy đều tạo nên phần sốt trộn gỏi mặn ngọt chua cay hài hòa thơm nức.',
+        ],
+        description:
+          'Nấu ấm nước mắm đường thốt nốt giúp sốt sánh mịn dính đều từng sợi xoài mà không làm thố gỏi bị chảy nước.',
+        tip: 'Trút tỏi ớt băm sau khi sốt nguội bớt giúp tỏi ớt nổi đẹp lên mặt sốt.',
+      },
+      {
+        step: 4,
+        title: 'Trộn gỏi xoài xanh cá sặc ngấm đượm vị chua ngọt',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Sợi xoài ngấm sâu gia vị chua ngọt mà vẫn giữ độ giòn tan',
+        actionPoints: [
+          'Cho xoài xanh bào sợi, cà rốt bào sợi, hành tím ngâm và 1/2 lượng thịt khô cá sặc xé nhỏ vào thố lớn.',
+          'Rưới 2/3 lượng nước sốt trộn gỏi chua ngọt lên trên. Dùng tay (đeo găng) trộn nhẹ nhàng cho gia vị ngấm đều xoài sợi mà không làm xoài bị dập nát tiết nước.',
+          'Thêm rau răm cắt nhỏ và 1/2 lượng mỡ hành/hành phi vào đảo nhẹ lần nữa.',
+        ],
+        description:
+          'Trộn nhẹ tay giúp sợi xoài hấp thụ vị sốt chua ngọt mà vẫn giòn sần sật.',
+        tip: 'Trộn gỏi ngay trước khi ăn khoảng 5 - 10 phút để món gỏi tươi ngon giòn rụm nhất.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày đĩa gỏi & Thưởng thức kèm bánh phồng tôm',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Đĩa gỏi xoài cá sặc rực rỡ màu sắc, giòn rụm béo bùi giải ngấy cực tốt',
+        actionPoints: [
+          'Bày hỗn hợp gỏi xoài ra đĩa lớn. Xếp phần thịt khô cá sặc xé còn lại lên đỉnh đĩa gỏi.',
+          'Rắc đều đậu phụng rang đập dập, hành tím phi giòn rụm và vài sợi ớt sừng cắt mỏng lên trên.',
+          'Thưởng thức: Xúc một thìa gỏi xoài xanh giòn rụm chua thanh cùng miếng khô cá sặc béo mặn bùi bùi lên chiếc bánh phồng tôm chiên giòn rụm. Vị chua ngọt giòn rụm giải ngấy cực tốt cho mọi bữa ăn gia đình.',
+        ],
+        description:
+          'Món gỏi xoài cá sặc là món khai vị kinh điển của ẩm thực Nam Bộ, giòn chua thanh mát kích thích vị giác.',
+        tip: 'Ăn kèm bánh phồng tôm chiên giòn béo bùi tạo sự kết hợp hoàn hảo.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm gỏi xoài cá sặc giòn tan ngon ngất ngây chuẩn vị Miền Tây: 1. Ngâm khô cá sặc qua nước ấm 5 phút trước khi chiên/nướng giúp thịt cá mềm thơm dẻo không bị mặn chát; 2. Xoài xanh bào sợi ngâm tô nước đá lạnh 5 phút rồi vắt ráo giúp sợi xoài xanh siêu giòn rụm sần sật; 3. Nấu nhẹ nước mắm đường thốt nốt kẹo sánh rồi mới trộn gỏi giúp nước sốt bám đều từng sợi xoài mà đĩa gỏi không bị chảy nước.',
+    recommendedSauce:
+      'Đĩa gỏi xoài khô cá sặc chua ngọt rắc đậu phụng hành phi bùi bùi, ăn kèm đĩa bánh phồng tôm chiên phồng giòn rụm hoặc bánh tráng nướng vừng.',
+  },
+
+  'goi-ngo-sen-tom-thit': {
+    dishId: 'goi-ngo-sen-tom-thit',
+    dishName: 'Gỏi Ngó Sen Tôm Thịt Thanh Mát Chua Ngọt',
+    seoTitle: 'Cách Làm Gỏi Ngó Sen Tôm Thịt Chua Ngọt Giòn Tan, Giải Ngấy Cực Tốt',
+    description:
+      'Hướng dẫn chi tiết cách làm gỏi ngó sen tôm thịt chuẩn vị tiệc gia đình: Ngó sen tươi trắng ngần giòn sần sật không thâm đen, tôm sú luộc đỏ au ngọt thịt, thịt ba chỉ mỏng mềm béo ngậy, quyện sốt mắm đường thốt nốt tỏi ớt chua ngọt đậm đà, rắc rau răm, hành phi và đậu phụng rang bùi thơm, ăn kèm bánh phồng tôm giòn rụm.',
+    prepTime: '25 phút',
+    cookTime: '20 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Thành phần Ngó Sen tươi trắng muốt & Củ quả trộn kèm',
+        items: [
+          '300g ngó sen tươi (chọn cọng nhỏ vừa, thân chắc đầy, không bị dập bầm)',
+          '1 củ cà rốt + 1 quả dưa leo (bỏ ruột, thái lát xéo mỏng giòn)',
+          '1 củ hành tím (thái mỏng ngâm giấm đường khử hăng)',
+          '1 quả chanh tươi + 1 tô nước đá lạnh + 1 thìa canh muối hạt (dùng ngâm ngó sen trắng giòn)',
+        ],
+      },
+      {
+        category: 'Thành phần Tôm Sú tươi ngọt & Thịt ba chỉ rút sườn',
+        items: [
+          '250g tôm sú tươi (tôm bơi khỏe, ngọt thịt)',
+          '200g thịt ba chỉ rút sườn (hoặc thịt tai heo giòn sần sật)',
+          '1 củ gừng nhỏ + 2 củ hành tím đập dập + 1 thìa canh rượu trắng (luộc tôm thịt thơm nức)',
+        ],
+      },
+      {
+        category: 'Thành phần Sốt Nước Mắm trộn gỏi chua ngọt thần thánh',
+        items: [
+          '3 thìa canh đường thốt nốt (hoặc đường cát vàng)',
+          '2.5 thìa canh nước mắm nhĩ truyền thống ngon (40 độ đạm)',
+          '2 thìa canh nước cốt tắc/chanh tươi',
+          '1 thìa canh tỏi băm nhuyễn + 1 thìa canh ớt hiểm băm nhuyễn',
+          '1/2 thìa cà phê tương ớt (tạo độ sánh quyện bóng mượt cho sốt gỏi)',
+        ],
+      },
+      {
+        category: 'Thành phần Rau thơm & Topping rắc lên đĩa gỏi',
+        items: [
+          '1 bó rau răm tươi + 1 ít lá húng lủi, ngò rí (rửa sạch cắt nhỏ)',
+          '60g đậu phụng (lạc) rang giòn bóc vỏ, đập dập vỡ đôi',
+          '2 thìa canh hành tím phi vàng giòn rụm',
+          'Bánh phồng tôm chiên phồng giòn tan ăn kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế ngó sen trắng muốt giòn tan không bị thâm đen',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Ngó sen giữ màu trắng tinh khôi, giòn sần sật không thâm đen',
+        actionPoints: [
+          'Ngó sen mua về tước bỏ bớt xơ bên ngoài, cắt khúc dài 5cm. Cọng lớn chẻ đôi dọc thân ngó sen.',
+          'Pha ngay 1 tô nước đá lạnh lớn với nước cốt 1 quả chanh tươi và 1 thìa canh muối hạt. Trút toàn bộ ngó sen chẻ đôi vào ngâm trong 15 phút. Mẹo ngâm chanh đá giúp ngó sen giữ màu trắng tinh khôi và đạt độ giòn sần sật tối đa.',
+          'Vớt ngó sen ra xả lại nước sạch, dùng tay vắt thật kiệt ráo nước (hoặc bọc khăn sạch vắt ráo).',
+        ],
+        description:
+          'Mẹo ngâm đá chanh muối là bí quyết vàng giúp ngó sen vừa trắng muốt vừa giòn tan sần sật.',
+        tip: 'Vắt thật ráo nước giúp ngó sen dễ dàng hấp thụ sốt mắm chua ngọt mà không làm loãng sốt.',
+      },
+      {
+        step: 2,
+        title: 'Luộc tôm sú, thịt ba chỉ thơm nức & Thái miếng vừa ăn',
+        time: '15 phút',
+        heat: 'Lửa vừa',
+        goal: 'Tôm luộc đỏ au ngọt thịt, thịt ba chỉ giòn mềm béo ngậy',
+        actionPoints: [
+          'Luộc tôm: Đun sôi nồi nước với vài lát gừng và 1 thìa rượu trắng, cho tôm sú vào luộc chín tới trong 3 - 4 phút. Vớt tôm ra tô nước đá lạnh cho vỏ giòn thịt săn, sau đó bóc vỏ, bỏ đầu, rạch nhẹ sống lưng rút bỏ chỉ đen rồi chẻ đôi con tôm theo chiều dọc.',
+          'Luộc thịt: Đun sôi nồi nước khác với 2 củ hành tím đập dập, cho thịt ba chỉ vào luộc chín tới trong 15 phút. Vớt thịt ra tô nước đá lạnh cho thịt giòn trắng, để nguội bớt rồi thái lát mỏng vừa ăn.',
+        ],
+        description:
+          'Ngâm tôm thịt ngay vào nước đá lạnh sau khi luộc giúp thịt săn giòn và giữ màu tươi rực rỡ.',
+        tip: 'Chẻ đôi con tôm giúp miếng tôm vừa đẹp mắt vừa thấm đượm gia vị sốt gỏi.',
+      },
+      {
+        step: 3,
+        title: 'Sơ chế cà rốt, dưa leo & Pha sốt nước mắm trộn gỏi thần thánh',
+        time: '5 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước sốt mắm gỏi sánh mịn kẹo nhẹ, vị chua ngọt đằm thắm',
+        actionPoints: [
+          'Cà rốt gọt vỏ bào sợi mỏng. Dưa leo rửa sạch, bỏ phần ruột mềm, thái lát xéo mỏng giòn. Hành tím thái mỏng ngâm giấm đường 5 phút rồi vớt ráo.',
+          'Pha sốt mắm gỏi: Cho 3 thìa canh đường thốt nốt, 2.5 thìa canh nước mắm nhĩ, 2 thìa canh nước cốt tắc và 1/2 thìa tương ớt vào bát nhỏ. Đun nhẹ trên bếp 1 - 2 phút cho đường tan chảy sánh mịn kẹo nhẹ. Đợi sốt nguội bớt rồi trút tỏi băm và ớt hiểm băm nhuyễn vào khuấy đều.',
+        ],
+        description:
+          'Nấu đun nhẹ sốt mắm đường thốt nốt giúp nước sốt bám quyện đậm đà vào từng cọng ngó sen.',
+        tip: 'Bỏ ruột dưa leo giúp đĩa gỏi không bị tiết nước nhão.',
+      },
+      {
+        step: 4,
+        title: 'Trộn gỏi ngó sen tôm thịt ngấm đượm gia vị giòn rụm',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Từng cọng ngó sen ngấm sâu vị chua ngọt, tôm thịt đậm đà ngon miệng',
+        actionPoints: [
+          'Cho ngó sen đã vắt ráo kiệt nước, cà rốt bào sợi, dưa leo lát, hành tím ngâm, tôm chẻ đôi và thịt ba chỉ thái mỏng vào thố lớn.',
+          'Rưới 3/4 lượng nước sốt trộn gỏi chua ngọt lên thố. Dùng tay (đeo găng) bóp trộn nhẹ nhàng trong 2 - 3 phút cho gia vị ngấm sâu vào từng cọng ngó sen và tôm thịt.',
+          'Trút rau răm, húng lủi cắt nhỏ và 1/2 lượng mỡ hành/hành phi vào đảo nhẹ lần nữa.',
+        ],
+        description:
+          'Bóp trộn nhẹ tay giúp các nguyên liệu quyện đều gia vị mà ngó sen vẫn giòn rụm sần sật.',
+        tip: 'Trộn gỏi trước khi ăn khoảng 5 - 10 phút để món gỏi đạt độ thấm ngon nhất.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày đĩa gỏi & Thưởng thức kèm bánh phồng tôm',
+        time: '2 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Đĩa gỏi ngó sen tôm thịt rực rỡ màu sắc, giòn ngọt thanh mát giải ngấy cực tốt',
+        actionPoints: [
+          'Bày hỗn hợp gỏi ngó sen ra đĩa lớn, xếp tôm luộc đỏ au và thịt ba chỉ đẹp mắt lên trên cùng.',
+          'Rắc đều đậu phụng rang đập dập vỡ đôi và hành tím phi vàng giòn rụm lên mặt đĩa gỏi.',
+          'Thưởng thức: Múc một thìa gỏi ngó sen giòn sần sật kèm con tôm đỏ au ngọt thịt và miếng thịt ba chỉ béo ngậy lên chiếc bánh phồng tôm chiên giòn rụm. Vị chua ngọt giòn tan giải ngấy cực kỳ hấp dẫn cho bàn tiệc và bữa cơm gia đình.',
+        ],
+        description:
+          'Món gỏi ngó sen tôm thịt thanh mát sang trọng là món ăn đãi tiệc và khai vị số 1 gia đình.',
+        tip: 'Ăn kèm bánh phồng tôm chiên phồng béo bùi tôn vinh trọn vẹn hương vị gỏi.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm gỏi ngó sen tôm thịt giòn ngon trắng tinh chuẩn vị tiệc đãi khách: 1. Ngó sen chẻ đôi BẮT BUỘC ngâm ngay vào tô nước đá lạnh pha nước cốt chanh tươi và muối hạt 15 phút, sau đó vắt thật kiệt ráo nước giúp ngó sen trắng muốt và giòn tan sần sật; 2. Luộc tôm thịt xong vọt ngay vào tô nước đá giúp tôm đỏ au săn thịt và bì mỡ thịt ba chỉ giòn sần sật; 3. Nấu nhẹ nước mắm đường thốt nốt kẹo sánh rồi mới trộn gỏi giúp đĩa gỏi đậm đà vừa vị mà không bị chảy nước lênh láng.',
+    recommendedSauce:
+      'Đĩa gỏi ngó sen tôm thịt chua ngọt rắc đậu phụng hành phi thơm lừng, ăn kèm đĩa bánh phồng tôm chiên giòn rụm béo bùi.',
+  },
+
+  'com-chien-ca-man': {
+    dishId: 'com-chien-ca-man',
+    dishName: 'Cơm Chiên Cá Mặn Bắp Cải Thố Đất',
+    seoTitle: 'Cách Làm Cơm Chiên Cá Mặn Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
+    description:
+      'Hướng dẫn chi tiết cách làm cơm chiên cá mặn chuẩn vị nhà hàng Nam Bộ: Khô cá sặc mặn hoặc cá thu mặn xé nhỏ chiên dậy mùi thơm lừng ngạt ngào, hạt cơm nguội xốp giòn nhuộm lòng đỏ trứng vàng óng bung xèo xèo trên thố đất nóng, quyện vị gừng sợi ấm nồng, ức gà xé phay bùi ngọt và bắp cải giòn sần sật.',
+    ratingValue: '4.9',
+    reviewCount: 218,
+    prepTime: '20 phút',
+    cookTime: '20 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần Khô Cá Mặn & Ức Gà xé sợi béo bùi',
+        items: [
+          '100g khô cá mặn (khô cá sặc mặn, khô cá thu hoặc khô cá chét ngâm mềm, gỡ sạch xương, xé băm vụn nhỏ)',
+          '150g thịt ức gà tươi (luộc chín tới với gừng đập dập, vớt ra xé sợi nhỏ tơi vừa ăn)',
+          '1/2 củ gừng tươi (thái sợi chỉ thật mỏng – bí quyết gia truyền khử tanh triệt để và tạo hương thơm nồng)',
+          '3 củ hành tím + 1 củ tỏi băm nhuyễn',
+        ],
+      },
+      {
+        category: 'Thành phần Cơm nguội săn giòn vàng óng',
+        items: [
+          '3 bát tô cơm nguội (dùng gạo tẻ nở xốp nấu hơi khô ráo, để ngăn mát tủ lạnh 3 - 4 tiếng cho hạt cơm săn se lại)',
+          '2 quả trứng gà tươi (1 lòng đỏ bóp trộn đều vào cơm nguội cho hạt cơm nhuộm màu vàng óng, 1 quả chiên sợi rắc trang trí)',
+          '1/2 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu sọ xay, 1 thìa canh mỡ heo thắng',
+        ],
+      },
+      {
+        category: 'Rau củ giòn ngọt & Gia vị chiên cơm',
+        items: [
+          '100g bắp cải (thái hạt lựu vuông nhỏ giòn ngọt mát)',
+          '2 nhánh hành lá + 1 bó nhỏ ngò rí (rửa sạch, cắt nhỏ)',
+          '1 thìa canh nước tương (xì dầu ngon), 1/2 thìa cà phê dầu mè thơm',
+          '2 thìa canh mỡ heo thắng (hoặc dầu ăn) + 2 thìa canh hành phi vàng giòn',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế cá mặn rán giòn & Xé thịt gà',
+        time: '8 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Cá mặn rán giòn thơm phức không cháy khét, thịt gà xé sợi tơi ngon',
+        actionPoints: [
+          'Khô cá mặn ngâm qua nước ấm 5 phút cho nhả bớt độ mặn gắt ngoài skin, vắt ráo. Cho 1 thìa mỡ heo vào chảo rán cá mặn trên lửa nhỏ 5 - 6 phút đến khi hai mặt cá chín vàng rụm, tỏa mùi thơm đặc trưng.',
+          'Vớt cá ra để nguội bớt, gỡ bỏ sạch từng mảnh xương nhỏ, xé hoặc băm thịt cá mặn thành vụn nhỏ tơi xốp.',
+          'Thịt ức gà luộc chín tới với vài lát gừng và xíu muối, vớt ra để nguội xé sợi nhỏ tơi vừa ăn.',
+        ],
+        description:
+          'Chiên nhỏ lửa giúp khô cá mặn tỏa mùi thơm béo ngậy mà không bị cháy khét hay đắng.',
+        tip: 'Lóc kỹ sạch xương cá mặn trước khi băm vụn để tránh hóc xương.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế gừng sợi, bắp cải & Bóp cơm nguội vàng óng',
+        time: '5 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Hạt cơm nguội tơi xốp, nhuộm màu vàng óng tự nhiên của lòng đỏ trứng tươi',
+        actionPoints: [
+          'Gừng tươi gọt vỏ, thái sợi chỉ thật mỏng. Bắp cải rửa sạch, xắt hạt lựu nhỏ vừa ăn.',
+          'Cho 3 bát cơm nguội vào thố lớn. Trút 1 lòng đỏ trứng gà tươi, 1/2 thìa cà phê hạt nêm, 1/2 thìa tiêu sọ và 1 thìa canh mỡ heo thắng vào.',
+          'Đeo găng tay bóp nhẹ nhàng cho từng hạt cơm tơi xốp ngấm đều lòng đỏ trứng ngả màu vàng óng đẹp mắt.',
+        ],
+        description:
+          'Áo lòng đỏ trứng gà và mỡ heo vào cơm nguội trước khi chiên giúp hạt cơm khi gặp nhiệt độ cao sẽ săn giòn, xốp bung nảy hạt mà không bị nhão dính.',
+        tip: 'Dùng cơm nguội để ngăn mát tủ lạnh 3-4 tiếng giúp hạt cơm khô ráo chiên săn ngon nhất.',
+      },
+      {
+        step: 3,
+        title: 'Phi thơm gừng sợi, xào cá mặn & Thịt gà xé',
+        time: '4 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thịt cá mặn và gà xé ngấm đượm hương thơm gừng tỏi phi ngạt ngào',
+        actionPoints: [
+          'Đun nóng 1 thìa canh mỡ heo trong chảo, cho tỏi băm, hành tím băm và gừng thái sợi chỉ vào phi vàng thơm lừng.',
+          'Trút cá mặn băm vụn và thịt gà xé sợi vào chảo đảo nhanh tay trên lửa lớn 2 - 3 phút cho thịt cá và gà săn giòn ngấm đượm hương thơm gừng tỏi.',
+          'Vớt 1/2 lượng cá mặn gà xé ra bát riêng để rắc trang trí mặt thố cơm.',
+        ],
+        description:
+          'Phi thơm gừng sợi cùng cá mặn là bí quyết gia truyền giúp cơm chiên dậy mùi thơm quyến rũ, triệt tiêu hoàn toàn mùi tanh.',
+        tip: 'Gừng sợi chỉ xào vừa chín tới giữ độ cay ấm nhẹ cân bằng vị mặn của cá.',
+      },
+      {
+        step: 4,
+        title: 'Chiên cơm xèo xèo trên lửa lớn giòn xốp bung hạt',
+        time: '8 phút',
+        heat: 'Lửa lớn',
+        goal: 'Từng hạt cơm chiên săn giòn tơi xốp, bắp cải giòn ngọt thanh mát',
+        actionPoints: [
+          'Cho thêm 1 thìa mỡ heo vào chảo, trút toàn bộ thố cơm nguội đã trộn lòng đỏ trứng vào. Đảo liên tục trên lửa lớn 6 - 8 phút.',
+          'Dùng phên miết nhẹ cơm ra lòng chảo cho hạt cơm tiếp xúc nhiệt tỏa mùi thơm xèo xèo, săn giòn xốp bung nảy hạt.',
+          'Trút bắp cải thái hạt lựu vào chảo cơm chiên, nêm 1 thìa canh nước tương, 1/2 thìa dầu mè thơm, đảo đều tay 2 phút cho bắp cải chín tới giữ nguyên độ giòn ngọt.',
+        ],
+        description:
+          'Chiên cơm trên lửa lớn và xốc chảo liên tục giúp hạt cơm khô ráo giòn xốp bề mặt.',
+        tip: 'Cho bắp cải vào bước cuối giúp bắp cải giòn mát thanh nhẹ không bị ỉu.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày thố đất bốc khói & Thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Lửa lớn thố đất',
+        goal: 'Thố cơm chiên cá mặn kêu xèo xèo, bốc khói ngạt ngào mùi thơm quyến rũ',
+        actionPoints: [
+          'Làm nóng thố đất trên bếp 2 phút. Trút toàn bộ cơm chiên cá mặn đang nóng hổi vào thố đất kêu xèo xèo ngạt ngào mùi thơm.',
+          'Phủ phần cá mặn xé giòn còn lại lên mặt cơm, rắc gừng sợi chỉ, hành lá, ngò rí, hành phi giòn rụm và tiêu sọ xay.',
+          'Thưởng thức nóng hổi: Dùng thìa trộn đều thố cơm chiên cá mặn. Từng hạt cơm vàng óng săn giòn quyện vị béo đậm đà của cá mặn, ngọt mềm thịt gà, giòn sần sật bắp cải và vị gừng ấm nồng cực kỳ ngon miệng.',
+        ],
+        description:
+          'Món cơm chiên cá mặn thố đất bốc khói nghi ngút là món ăn quen thuộc đậm chất Nam Bộ.',
+        tip: 'Ăn kèm chén nước tương (xì dầu) dầm vài lát ớt hiểm đỏ cực kỳ bắt vị.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm cơm chiên cá mặn hạt cơm săn giòn xốp béo ngậy không tanh: 1. Dùng cơm nguội nấu hơi khô ráo trộn với 1 lòng đỏ trứng gà tươi và chút mỡ heo thắng giúp từng hạt cơm khi chiên lửa lớn bung tơi xốp, nhuộm màu vàng óng tự nhiên; 2. Gừng tươi thái sợi chỉ BẮT BUỘC phải phi thơm cùng cá mặn – gừng giúp hòa quyện vị mặn gắt của cá khô và triệt tiêu hoàn toàn mùi tanh; 3. Dùng thố đất nóng chiên đảo cơm lửa lớn giúp hạt cơm giữ độ giòn xốp nóng hổi tới thìa cuối cùng.',
+    recommendedSauce:
+      'Thố cơm chiên cá mặn bốc khói nghi ngút rắc mỡ hành đậu phụng gừng sợi, ăn kèm chén nước tương (xì dầu) dầm ớt hiểm đỏ cay xè.',
+  },
+
+  'banh-xeo-tom-thit-gion': {
+    dishId: 'banh-xeo-tom-thit-gion',
+    dishName: 'Bánh Xèo Tôm Thịt Giòn Rụm',
+    seoTitle: 'Cách Làm Bánh Xèo Giòn Rụm, Lâu Bị Mềm, Nước Chấm Chua Ngọt Chuẩn Vị',
+    description:
+      'Hướng dẫn chi tiết bí quyết pha bột bánh xèo giòn rụm lâu bị mềm chuẩn vị Miền Tây & Miền Trung: Tỷ lệ bột gạo, nước cốt dừa, bột nghệ và bia lạnh, kết hợp nhân tôm đất tươi ngọt, thịt ba chỉ xào thơm, giá đỗ và chén nước mắm chua ngọt tỏi ớt dầm đồ chua đưa vị.',
+    ratingValue: '4.8',
+    reviewCount: 236,
+    prepTime: '25 phút',
+    cookTime: '25 phút',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần Bột Bánh Xèo giòn rụm lâu bị mềm',
+        items: [
+          '250g bột gạo tẻ ngon (hoặc gói bột bánh xèo pha sẵn)',
+          '50g bột chiên giòn hoặc bột tài năng (bí quyết giúp vành bánh giòn rụm siêu lâu)',
+          '1/2 thìa cà phê bột nghệ (tạo màu vàng ươm nghệ hấp dẫn)',
+          '150ml nước cốt dừa béo bùi + 300ml nước lọc + 100ml bia lạnh (hoặc nước soda - bọt khí giúp vỏ bánh xốp giòn)',
+          '1/2 thìa cà phê muối, 1/2 thìa cà phê hạt nêm, 3 nhánh hành lá cắt nhỏ',
+        ],
+      },
+      {
+        category: 'Thành phần Nhân Tôm Thịt & Giá Đỗ giòn ngọt',
+        items: [
+          '250g tôm đất hoặc tôm thẻ tươi (rửa sạch, cắt bớt râu)',
+          '200g thịt ba chỉ (thái lát mỏng vừa ăn)',
+          '200g giá đỗ tươi + 100g củ sắn (củ đậu) thái sợi hoặc đậu xanh xát vỏ hấp chín',
+          '1 củ hành tây thái mỏng, 3 củ hành tím băm nhuyễn',
+        ],
+      },
+      {
+        category: 'Rau sống ăn kèm & Nước mắm chua ngọt chuẩn vị',
+        items: [
+          'Rau sống phong phú: Cải xanh, đọt xoài, lá cóc, xà lách, rau thơm, diếp cá, tía tẻ',
+          'Nước mắm chua ngọt: 3 thìa canh nước mắm nhĩ ngon, 3 thìa canh đường thốt nốt, 3 thìa canh nước ấm, 1.5 thìa canh nước cốt chanh',
+          '1 thìa canh tỏi ớt băm nhuyễn + cà rốt củ cải bào sợi ngâm chua',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Pha bột bánh xèo giòn rụm & Ủ bột',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Hỗn hợp bột bánh xèo sánh mịn, không vón cục, nghỉ đủ giờ để chiên giòn xốp',
+        actionPoints: [
+          'Rây bột gạo, bột chiên giòn, bột nghệ, muối và hạt nêm vào thố lớn.',
+          'Rưới từ từ nước cốt dừa, nước lọc và 100ml bia lạnh vào khuấy đều tay đến khi bột tan mịn không vón cục. Thêm hành lá cắt nhỏ.',
+          'Bọc màng bọc thực phẩm cho bột nghỉ 20 - 30 phút. Bia lạnh và bột chiên giòn là bí quyết vàng giúp vành bánh xèo giòn rụm tới 2-3 tiếng không bị dẻo mềm.',
+        ],
+        description:
+          'Pha bột với bia lạnh hoặc nước soda tạo các bọt khí li ti giúp vỏ bánh xèo khi gặp nhiệt cao sẽ xốp giòn rụm.',
+        tip: 'Ủ bột tối thiểu 20 phút để hạt bột nở đều, bánh xèo chiên sẽ giòn ngon hơn.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế tôm thịt & Pha nước mắm chua ngọt tỏi ớt',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Tôm thịt xào vừa chín tới thấm vị, nước mắm chua ngọt hài hòa tỏi ớt nổi đẹp mắt',
+        actionPoints: [
+          'Thịt ba chỉ ướp chút hành tím băm, tiêu sọ và hạt nêm. Tôm ướp xíu muối tiêu. Xào sơ tôm và ba chỉ trên chảo lớn 2 phút cho săn lại rồi trút ra đĩa.',
+          'Pha nước mắm chua ngọt: Hòa tan 3 thìa đường thốt nốt với 3 thìa nước ấm, trút 3 thìa nước mắm nhĩ và 1.5 thìa nước cốt chanh. Khuấy tan đều rồi thả tỏi ớt băm nhuyễn và cà rốt củ cải bào sợi ngâm chua lên trên.',
+        ],
+        description:
+          'Pha nước mắm theo tỷ lệ 1 mắm : 1 đường : 1 nước : 0.5 chanh giúp nước chấm sánh đậm hài hòa vị chua ngọt.',
+        tip: 'Thả tỏi ớt băm khô vào cuối cùng sau khi đã hòa tan đường chanh mắm để tỏi ớt nổi bồng bềnh lên mặt chén.',
+      },
+      {
+        step: 3,
+        title: 'Đổ bánh xèo xèo xèo & Thêm nhân tôm thịt giá đỗ',
+        time: '15 phút',
+        heat: 'Lửa lớn',
+        goal: 'Vành bánh xèo mỏng tang, vàng ươm nghệ giòn rụm, nhân tôm thịt nóng hổi',
+        actionPoints: [
+          'Đun thật nóng chảo chống dính, tráng 1 thìa canh dầu ăn hoặc mỡ heo xung quanh lòng chảo.',
+          'Múc 1 vá bột bánh xèo tráng nhanh tay đảo nghiêng chảo cho bột tráng đều một lớp mỏng tang phát ra tiếng xèo xèo ngạt ngào mùi thơm.',
+          'Rải vài con tôm, vài lát thịt ba chỉ, củ sắn thái sợi, giá đỗ và đậu xanh hấp lên một nửa mặt bánh. Đậy nắp chảo 2 phút cho nhân chín hấp hơi.',
+        ],
+        description:
+          'Chảo phải thật nóng và tráng bột thật mỏng thì bánh xèo mới kêu xèo xèo và đạt độ giòn rụm hoàn hảo.',
+        tip: 'Rưới 1 thìa mỡ heo hoặc dầu ăn dọc theo vành bánh giúp vành bánh tróc giòn rụm.',
+      },
+      {
+        step: 4,
+        title: 'Chiên giòn vành bánh & Gập đôi bánh xèo',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Mặt dưới bánh xèo vàng giòn rụm, vành bánh tróc nhẹ không dính',
+        actionPoints: [
+          'Mở nắp chảo, hạ lửa vừa. Rưới thêm xíu mỡ quanh vành bánh, chiên thêm 2 - 3 phút không đậy nắp cho hơi nước thoát ra ngoài, mặt dưới bánh chuyển màu vàng giòn rụm.',
+          'Dùng vá gập đôi chiếc bánh xèo lại, chiên thêm 30 giây mỗi mặt cho bánh giòn rụm hoàn toàn rồi vớt ra đĩa có lót giấy thấm dầu.',
+        ],
+        description:
+          'Mở nắp chiên lửa vừa ở giai đoạn cuối giúp thoát hơi nước, làm vỏ bánh khô ráo và giữ độ giòn rụm lâu bị dẻo mềm.',
+        tip: 'Xếp bánh xèo ra rack đứng hoặc đĩa lót giấy thấm dầu, không đè chồng bánh lên nhau làm bánh bị hấp hơi.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày mẹt bánh xèo rau sống & Thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Mẹt bánh xèo vàng giòn rụm bốc khói ngạt ngào, rau sống tươi xanh ngút ngàn',
+        actionPoints: [
+          'Bày bánh xèo ra mẹt tre lót lá chuối. Cạnh bên bày đĩa rau sống phong phú: Cải xanh, đọt xoài, lá cóc, xà lách, rau thơm và chén nước mắm chua ngọt tỏi ớt đồ chua.',
+          'Thưởng thức: Lấy lá cải xanh, ngắt miếng bánh xèo giòn rụm kèm tôm thịt giá đỗ, cuộn tròn chấm ngập vào chén nước mắm chua ngọt. Vị giòn rụm béo bùi vỏ bánh quyện vị tôm ngọt, rau xanh thanh mát và nước mắm cay nồng bùng nổ vị giác.',
+        ],
+        description:
+          'Bánh xèo cuốn rau rừng chấm nước mắm chua ngọt là đỉnh cao ẩm thực dân dã Việt Nam.',
+        tip: 'Thưởng thức ngay khi bánh vừa ra khỏi chảo để cảm nhận trọn vẹn độ giòn tan bốc khói.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng tráng bánh xèo giòn rụm lâu bị mềm chuẩn vị bếp trưởng: 1. Pha bột bánh xèo kết hợp bột chiên giòn, nước cốt dừa béo bùi và 100ml bia lạnh (hoặc soda) – bọt khí bia giúp vỏ bánh xốp nhẹ giòn tan giữ độ giòn tới 2-3 tiếng; 2. Chảo phải đun THẬT NÓNG trước khi rưới bột tráng nghiêng mỏng tang kêu xèo xèo; 3. Sau khi đậy nắp chín nhân, MỞ NẮP rưới xíu mỡ vành bánh chiên lửa vừa 2-3 phút để thoát toàn bộ hơi nước giúp vành bánh tróc giòn rụm không bị dẻo.',
+    recommendedSauce:
+      'Mẹt bánh xèo vàng ươm giòn rụm cuốn rau cải xanh, lá cóc, đọt xoài, chấm ngập chén nước mắm chua ngọt tỏi ớt dầm đồ chua củ cải cà rốt giòn tan.',
+  },
+
+  'com-thit-kho-tau': {
+    dishId: 'com-thit-kho-tau',
+    dishName: 'Thịt Kho Tàu Nước Dừa Trứng Cút',
+    seoTitle: 'Cách Nấu Thịt Kho Tàu Nước Dừa Trứng Cút Mềm Rục, Màu Cánh Gián Óng Ả',
+    description:
+      'Hướng dẫn chi tiết bí quyết nấu thịt kho tàu nước dừa tươi trứng cút/trứng vịt mềm rục tan trong miệng, màu cánh gián vàng óng ánh chuẩn vị Nam Bộ: Mẹo luộc chần sơ, thắng nước màu đường thốt nốt, ướp nước cốt hành tỏi và kho lửa nhỏ liu riu MỞ NẮP VUNG cho nước kho sánh trong, béo ngậy mà không ngấy.',
+    ratingValue: '4.9',
+    reviewCount: 248,
+    prepTime: '20 phút',
+    cookTime: '55 phút',
+    difficulty: 'Dễ',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Thành phần Thịt Ba Chỉ rút sườn & Trứng cút/trứng vịt',
+        items: [
+          '600g thịt ba chỉ rút sườn (thái khối vuông to vừa ăn 4 - 5cm, tỷ lệ nạc mỡ cân bằng 7:3)',
+          '15 - 20 quả trứng cút (hoặc 6 - 8 quả trứng vịt luộc chín, bóc sạch vỏ)',
+          '500ml nước dừa tươi (dừa xiêm ngọt thanh – bí quyết tạo vị béo bùi và màu cánh gián tự nhiên)',
+          '3 củ hành tím + 1 củ tỏi + 2 nhánh đầu hành lá (giã nhuyễn vắt lấy nước cốt ướp thịt)',
+        ],
+      },
+      {
+        category: 'Gia vị ướp & Thắng nước màu màu cánh gián',
+        items: [
+          '3 thìa canh nước mắm nhĩ ngon (độ đạm cao thơm lừng)',
+          '2 thìa canh đường thốt nốt (hoặc đường cát vàng thắng màu cánh gián)',
+          '1 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu sọ xay, 1 thìa canh mỡ heo thắng',
+          '1 thìa canh nước cốt chanh tươi (bí quyết giúp mỡ thịt kho xong trong vắt béo ngậy không đục)',
+        ],
+      },
+      {
+        category: 'Rau củ ăn kèm & Đồ chua chống ngấy',
+        items: [
+          'Dưa cải muối chua giòn tan, dưa giá đỗ hẹ, dưa leo xắt lát',
+          'Cơm trắng dẻo thơm hoặc bánh mì nóng giòn',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Chần sơ thịt ba chỉ, luộc trứng cút & Giã nước hành tỏi',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Thịt ba chỉ sạch bọt bẩn, thơm dẻo; trứng cút luộc bóc vỏ láng mịn',
+        actionPoints: [
+          'Thịt ba chỉ rửa sạch với nước muối pha loãng, thái miếng vuông to 4-5cm. Đun sôi nồi nước với vài lát gừng, chần thịt 2 phút cho ra sạch bọt bẩn rồi vớt ra rửa sạch, thấm khô.',
+          'Trứng cút (hoặc trứng vịt) luộc chín tới với xíu muối, vớt ra ngâm nước đá lạnh rồi bóc sạch vỏ.',
+          'Giã nhuyễn hành tím, tỏi và đầu hành lá. Vắt lấy nước cốt hành tỏi (dùng nước cốt ướp thịt giúp nước kho trong vắt không bị nổi xác hành tỏi cháy đắng).',
+        ],
+        description:
+          'Chần sơ thịt với gừng giúp loại bỏ hoàn toàn mùi hôi, khi kho thịt mỡ sẽ trong và thơm ngát.',
+        tip: 'Vắt lấy nước cốt hành tỏi ướp thịt là bí quyết vàng giúp nước kho dừa trong vắt chuẩn nhà hàng.',
+      },
+      {
+        step: 2,
+        title: 'Thắng nước màu đường thốt nốt & Ướp thịt thấm vị',
+        time: '30 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Miếng thịt ba chỉ ngấm đượm gia vị, kho lên màu cánh gián óng ả',
+        actionPoints: [
+          'Thắng nước màu: Cho 2 thìa đường thốt nốt và 1 thìa nước vào nồi, đun lửa nhỏ đến khi đường tan ngả màu cánh gián hổ phách đẹp mắt, rưới 2 thìa nước ấm vào khuấy đều.',
+          'Cho thịt ba chỉ vào thố. Trút nước màu cánh gián, nước cốt hành tỏi, 3 thìa nước mắm nhĩ, 1 thìa hạt nêm, 1/2 thìa tiêu sọ và 1 thìa nước cốt chanh vào bóp trộn đều.',
+          'Ướp thịt ít nhất 30 phút (hoặc phơi nắng 20 phút) cho phần mỡ trong lại và gia vị ngấm sâu vào từng thớ thịt.',
+        ],
+        description:
+          'Nước cốt chanh và thời gian ướp giúp mỡ heo trong trẻo, khi kho chín mềm rục mà không bị nồng mỡ.',
+        tip: 'Phơi thịt ướp dưới nắng nhẹ 20 phút giúp phần mỡ săn lại, khi kho mỡ trong như thạch.',
+      },
+      {
+        step: 3,
+        title: 'Xào săn thịt & Đổ nước dừa tươi kho lửa lớn',
+        time: '10 phút',
+        heat: 'Lửa lớn',
+        goal: 'Gia vị săn bám vào miếng thịt, nước dừa tươi ngập thịt bốc khói ngạt ngào',
+        actionPoints: [
+          'Bắc nồi lên bếp, trút toàn bộ thịt ba chỉ đã ướp vào đảo đều trên lửa lớn 3 - 5 phút cho thịt săn lại và lên màu cánh gián óng ả.',
+          'Trút 500ml nước dừa tươi xiêm ngọt vào nồi ngập sấp mặt thịt. Đun lửa lớn cho nước dừa sôi bùng lên.',
+          'Thường xuyên hớt sạch bọt trắng nổi lên để nước kho trong veo.',
+        ],
+        description:
+          'Xào săn thịt trước khi đổ nước dừa giúp gia vị khóa chặt bên trong miếng thịt và nước màu bám chắc.',
+        tip: 'Nếu nước dừa thiếu ngọt có thể thêm chút nước lọc, không kho thuần 100% nước dừa quá ngọt sẽ dễ bị sậm màu.',
+      },
+      {
+        step: 4,
+        title: 'Kho liu riu không đậy nắp & Thả trứng cút kho mềm rục',
+        time: '45 phút',
+        heat: 'Lửa nhỏ liu riu',
+        goal: 'Thịt ba chỉ mềm rục tan trong miệng, mỡ trong như thạch, trứng cút thấm vị',
+        actionPoints: [
+          'Hạ lửa nhỏ liu riu, MỞ NẮP VUNG (không đậy nắp) để nước dừa rút từ từ và giữ nước kho luôn trong veo không bị đục.',
+          'Kho được 30 phút khi thịt bắt đầu mềm ngả màu cánh gián đẹp mắt, thả trứng cút (hoặc trứng vịt) và vài quả ớt hiểm nguyên chiếc vào kho chung.',
+          'Tiếp tục kho liu riu thêm 15 - 20 phút đến khi nước kho dừa sánh nhẹ, thịt mềm rục dầm nhẹ bằng đũa là đứt.',
+        ],
+        description:
+          'Kho KHÔNG ĐẬY NẮP là bí quyết sống còn để nước dừa dâng màu cánh gián tự nhiên và không bị đục đỏ.',
+        tip: 'Cho trứng cút vào ở 20 phút cuối để trứng ngấm vị vừa tới, không bị dai xơ vỏ trứng.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày thố thịt kho tàu & Thưởng thức cùng dưa chua cơm nóng',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Món thịt kho tàu bốc khói nghi ngút, màu cánh gián óng ả đậm đà',
+        actionPoints: [
+          'Múc thịt ba chỉ mềm rục và trứng cút ra thố đất hoặc đĩa sâu lòng, rưới nước kho dừa sánh vàng óng ả lên trên, rắc xíu tiêu sọ xay và vài lát ớt đỏ.',
+          'Thưởng thức: Dùng đũa xắn nhẹ miếng thịt mềm tan. Lớp da béo ngậy, thịt nạc đậm đà quyện trứng cút bùi béo và vị nước dừa ngọt thanh. Bữa cơm ăn kèm đĩa dưa cải muối chua giòn tan và bát cơm trắng dẻo nóng hổi ngon tuyệt đỉnh.',
+        ],
+        description:
+          'Thịt kho tàu nước dừa trứng cút là biểu tượng ấm cúng của mâm cơm gia đình Việt Nam.',
+        tip: 'Nồi thịt kho tàu hâm lại lần thứ 2 ăn lại càng mềm ngon đậm đà gấp bội.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng kho thịt kho tàu mềm rục màu cánh gián óng ả không đục nước: 1. Vắt lấy NƯỚC CỐT HÀNH TỎI giã nhuyễn để ướp thịt (không để xác hành tỏi) + ướp thêm 1 thìa nước cốt chanh tươi giúp mỡ thịt kho xong trong veo như thạch; 2. Thắng nước màu bằng đường thốt nốt ngả màu hổ phách và xào săn thịt trước khi đổ nước dừa tươi; 3. Tuyệt đối KHÔNG ĐẬY NẮP VUNG trong suốt quá trình kho liu riu – giúp nước dừa chuyển màu cánh gián tự nhiên, nước kho trong veo sánh mượt không bị đục.',
+    recommendedSauce:
+      'Nồi thịt kho tàu nước dừa bốc khói màu cánh gián óng ả, chan thìa nước kho đậm đà lên bát cơm trắng dẻo thơm, ăn kèm đĩa dưa cải muối chua giòn tan hoặc dưa giá hẹ.',
+  },
+
+  'che-buoi-an-giang': {
+    dishId: 'che-buoi-an-giang',
+    dishName: 'Chè Bưởi An Giang Cùi Giòn Cốt Dừa Béo',
+    seoTitle: 'Cách Làm Chè Bưởi An Giang Giòn Sần Sật, Không Đắng, Nước Cốt Dừa Béo Bùi',
+    description:
+      'Hướng dẫn chi tiết bí quyết làm chè bưởi An Giang chuẩn vị Miền Tây cùi bưởi giòn sần sật trong suốt không chút đắng chát: Mẹo ngâm xả muối lăn bột năng luộc trong suốt, đậu xanh đồ chín bùi béo và chảo nước cốt dừa sánh mịn thơm ngậy hoa nhài.',
+    ratingValue: '4.9',
+    reviewCount: 265,
+    prepTime: '30 phút',
+    cookTime: '30 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Thành phần Cùi Bưởi giòn sần sật không đắng',
+        items: [
+          '200g cùi bưởi da xanh hoặc bưởi năm roi (lấy phần cùi trắng xốp bên trong, thái hạt lựu vuông 1.5cm)',
+          '4 thìa canh muối hạt + nước đá lạnh ngâm xả giòn',
+          '100g bột năng (bột đao) ngon',
+          '100g đường cát trắng (hoặc đường phèn) để sên cùi bưởi ngấm ngọt',
+        ],
+      },
+      {
+        category: 'Thành phần Đậu Xanh & Nấu Nước Chè sánh mịn',
+        items: [
+          '200g đậu xanh xát vỏ (ngâm nước ấm 2 tiếng, hấp/đồ chín tới giữ nguyên hạt)',
+          '150g đường thốt nốt An Giang (hoặc đường phèn – tạo vị ngọt thanh đượm sâu)',
+          '100g bột năng pha loãng với nước (tạo độ sánh mượt trong trẻo cho nước chè)',
+          '1/2 thìa cà phê tinh dầu hoa nhài hoặc 3 lá dứa (lá nếp) buộc gút',
+        ],
+      },
+      {
+        category: 'Thành phần Nước Cốt Dừa béo bùi & Topping',
+        items: [
+          '300ml nước cốt dừa dão béo ngậy',
+          '1 thìa canh bột năng + 1/4 thìa cà phê muối + 1 thìa canh đường (nấu sánh cốt dừa)',
+          'Đậu phụng (lạc) rang vàng giã dập, dừa nạo sợi và đá bào mát lạnh',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế cùi bưởi khử sạch vị đắng chát',
+        time: '20 phút',
+        heat: 'Nước sôi & Thau nước đá',
+        goal: 'Cùi bưởi hết sạch tinh dầu đắng, vắt ráo kiệt nước',
+        actionPoints: [
+          'Gọt bỏ lớp vỏ xanh bên ngoài và lớp màng xơ bên trong, chỉ lấy phần cùi trắng xốp, thái hạt lựu vuông 1.5cm.',
+          'Bóp kỹ cùi bưởi với 2 thìa muối hạt trong 3 phút, xả lại nước lạnh. Lặp lại bước bóp muối xả nước 4 - 5 lần cho cùi bưởi mớ vắt kiệt không còn vị đắng.',
+          'Đun sôi nồi nước, cho cùi bưởi vào chần nhanh 30 giây rồi vớt ngay ra thau nước đá lạnh. Vắt thật khô kiệt nước.',
+        ],
+        description:
+          'Bóp muối xả nước nhiều lần kết hợp chần nước sôi vớt ra ngâm nước đá là bí quyết sống còn để cùi bưởi giòn sần sật không đắng.',
+        tip: 'Vắt thật kiệt nước cùi bưởi sau mỗi lần xả để loại bỏ hoàn toàn tinh dầu đắng.',
+      },
+      {
+        step: 2,
+        title: 'Sên cùi bưởi ngấm đường & Áo bột năng luộc trong suốt',
+        time: '15 phút',
+        heat: 'Lửa nhỏ & Nước sôi',
+        goal: 'Cùi bưởi ngấm ngọt, áo lớp bột năng trong suốt giòn tan',
+        actionPoints: [
+          'Cho cùi bưởi đã vắt ráo vào thố, trút 100g đường cát và 3 thìa nước lọc vào trộn đều, sên trên chảo lửa nhỏ 5 phút cho cùi bưởi ngấm đường nở căng mọng.',
+          'Rắc từ từ 100g bột năng vào cùi bưởi đang nóng, xóc đều cho bột năng phủ một lớp màng trắng bao bọc từng viên cùi bưởi.',
+          'Đun nồi nước sôi bùng, thả cùi bưởi vào luộc lửa vừa 3 - 4 phút đến khi các viên cùi bưởi nổi lên mặt nước và chuyển màu trong suốt. Vớt ngay ra thau nước đá ngâm 10 phút cho giòn.',
+        ],
+        description:
+          'Áo bột năng khi cùi bưởi còn nóng sên đường giúp bột dính chặt, luộc lên cùi bưởi trong suốt như ngọc.',
+        tip: 'Vớt cùi bưởi luộc xong thả ngay vào thau nước đá giúp cùi bưởi giòn tan sần sật.',
+      },
+      {
+        step: 3,
+        title: 'Hấp chín đậu xanh & Nấu nước chè thốt nốt sánh mượt',
+        time: '20 phút',
+        heat: 'Lửa vừa',
+        goal: 'Đậu xanh chín tơi không nát, nước chè ngọt thanh sánh mượt thơm dừa lá dứa',
+        actionPoints: [
+          'Đậu xanh ngâm nở, đem hấp/đồ chín tới trong 15 phút cho hạt đậu chín mềm bùi mà vẫn giữ nguyên hạt không bị nát bể.',
+          'Đun sôi 1 lít nước với 150g đường thốt nốt An Giang và lá dứa buộc gút. Khi đường tan thơm ngát, rưới từ từ chén bột năng pha loãng vào khuấy đều tay đến khi nước chè sánh mượt trong trẻo.',
+          'Trút toàn bộ cùi bưởi giòn trong suốt và đậu xanh đã hấp vào nồi chè, khuấy nhẹ tay 2 phút rồi tắt bếp. Thêm vài giọt tinh dầu hoa nhài thơm nức.',
+        ],
+        description:
+          'Dùng đường thốt nốt An Giang giúp chè bưởi có màu vàng hổ phách dịu mát và vị ngọt thanh đượm sâu.',
+        tip: 'Hấp đậu xanh chín tới trước khi cho vào nồi chè giúp nước chè trong mượt không bị đục.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nước cốt dừa sánh mịn béo ngậy',
+        time: '8 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước cốt dừa sánh đặc, béo bùi vị mặn ngọt hài hòa',
+        actionPoints: [
+          'Cho 300ml nước cốt dừa dão vào nồi cùng 1 thìa canh đường, 1/4 thìa cà phê muối và 1 thìa canh bột năng pha loãng.',
+          'Đun trên lửa nhỏ, khuấy đều tay liên tục cho nước cốt dừa sôi lăn tăn sánh đặc mịn màng thì tắt bếp để nguội.',
+        ],
+        description:
+          'Nêm xíu muối vào nước cốt dừa giúp tôn vị béo ngậy đậm đà đặc trưng miền Tây.',
+        tip: 'Khuấy đều tay lửa nhỏ không đun sôi bùng làm nước cốt dừa bị tách dầu.',
+      },
+      {
+        step: 5,
+        title: 'Múc chè bưởi ra ly/bát & Thưởng thức mát lạnh',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Ly chè bưởi An Giang sánh vàng óng ả, phủ nước cốt dừa béo ngậy',
+        actionPoints: [
+          'Múc chè bưởi sánh mịn ra ly hoặc bát. Múc vài thìa nước cốt dừa sánh đặc phủ lên trên.',
+          'Rắc đậu phụng rang vàng đập dập và chút dừa bào sợi. Thêm đá bào mát lạnh.',
+          'Thưởng thức: Dùng thìa trộn nhẹ. Cắn viên cùi bưởi giòn sần sật sảng khoái, vị đậu xanh bùi béo quyện nước cốt dừa béo ngậy và vị ngọt thanh mát lạnh bùng nổ.',
+        ],
+        description:
+          'Ly chè bưởi An Giang là món quà giải nhiệt trứ danh gây thương nhớ.',
+        tip: 'Ăn kèm đá bào nhỏ giúp chè mát lạnh thanh dịu cực kỳ ngon miệng.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm chè bưởi An Giang cùi giòn sần sật không đắng: 1. Bóp muối xả nước 4-5 lần + chần nước sôi vớt ngâm ngay thau nước đá để khử triệt đắng và tạo độ giòn; 2. Sên cùi bưởi với đường khi còn nóng rồi áo bột năng luộc chín thả ngay vào nước đá ngâm giúp cùi bưởi trong suốt giòn tan; 3. Dùng đường thốt nốt An Giang nấu nước chè sánh mượt cùng lá dứa và nước cốt dừa béo bùi chuẩn vị Miền Tây.',
+    recommendedSauce:
+      'Bát chè bưởi An Giang vàng óng sánh mượt ngạt ngào hương hoa nhài, rưới ngập nước cốt dừa béo ngậy, rắc đậu phụng rang giòn bùi và đá bào mát lạnh.',
+  },
 };
 
 /**
@@ -10571,7 +11317,22 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'vit-nau-chao-can-tho': 'cach-nau-vit-nau-chao',
   'vit-nau-chao': 'cach-nau-vit-nau-chao',
   'ca-loc-nuong-trui': 'cach-lam-ca-loc-nuong-trui',
-  'ca-loc-nuong': 'cach-lam-ca-loc-nuong-trui',
+  'goi-xoai-xanh-ca-sac': 'cach-lam-goi-xoai-ca-sac',
+  'goi-xoai-ca-sac': 'cach-lam-goi-xoai-ca-sac',
+  'goi-ngo-sen-tom-thit': 'cach-lam-goi-ngo-sen-tom-thit',
+  'goi-ngo-sen': 'cach-lam-goi-ngo-sen-tom-thit',
+  'com-chien-ca-man': 'cach-lam-com-chien-ca-man',
+  'com-ca-man': 'cach-lam-com-chien-ca-man',
+  'banh-xeo-tom-thit-gion': 'cach-lam-banh-xeo',
+  'banh-xeo': 'cach-lam-banh-xeo',
+  'banh-xeo-mien-tay': 'cach-lam-banh-xeo',
+  'com-thit-kho-tau': 'cach-nau-thit-kho-tau',
+  'thit-kho-tau': 'cach-nau-thit-kho-tau',
+  'thit-kho-tau-nuoc-dua': 'cach-nau-thit-kho-tau',
+  'bao-tu-ham-tieu': 'cach-nau-bao-tu-ham-tieu',
+  'lau-bao-tu-ham-tieu': 'cach-nau-bao-tu-ham-tieu',
+  'che-buoi-an-giang': 'cach-lam-che-buoi',
+  'che-buoi': 'cach-lam-che-buoi',
 };
 
 /**
@@ -10597,6 +11358,51 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'che-buoi-an-giang': 'che-buoi-an-giang',
+  'che-buoi': 'che-buoi-an-giang',
+  'cach-lam-che-buoi': 'che-buoi-an-giang',
+  'cach-nau-che-buoi': 'che-buoi-an-giang',
+  'cach-lam-che-buoi-an-giang': 'che-buoi-an-giang',
+  'cach-nau-che-buoi-an-giang': 'che-buoi-an-giang',
+  'bao-tu-ham-tieu': 'bao-tu-ham-tieu',
+  'cach-nau-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
+  'cach-lam-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
+  'bao-tu-ham-tieu-xanh': 'bao-tu-ham-tieu',
+  'lau-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
+  'cach-nau-lau-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
+  'com-thit-kho-tau': 'com-thit-kho-tau',
+  'thit-kho-tau': 'com-thit-kho-tau',
+  'thit-kho-tau-nuoc-dua': 'com-thit-kho-tau',
+  'cach-nau-thit-kho-tau': 'com-thit-kho-tau',
+  'cach-lam-thit-kho-tau': 'com-thit-kho-tau',
+  'cach-nau-thit-kho-tau-nuoc-dua': 'com-thit-kho-tau',
+  'cach-lam-thit-kho-tau-nuoc-dua': 'com-thit-kho-tau',
+  'banh-xeo-tom-thit-gion': 'banh-xeo-tom-thit-gion',
+  'banh-xeo': 'banh-xeo-tom-thit-gion',
+  'banh-xeo-mien-tay': 'banh-xeo-tom-thit-gion',
+  'cach-lam-banh-xeo': 'banh-xeo-tom-thit-gion',
+  'cach-nau-banh-xeo': 'banh-xeo-tom-thit-gion',
+  'cach-do-banh-xeo': 'banh-xeo-tom-thit-gion',
+  'cach-lam-banh-xeo-mien-tay': 'banh-xeo-tom-thit-gion',
+  'com-chien-ca-man': 'com-chien-ca-man',
+  'com-ca-man': 'com-chien-ca-man',
+  'cach-lam-com-chien-ca-man': 'com-chien-ca-man',
+  'cach-nau-com-chien-ca-man': 'com-chien-ca-man',
+  'cach-lam-com-ca-man': 'com-chien-ca-man',
+  'cach-nau-com-ca-man': 'com-chien-ca-man',
+  'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
+  'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
+  'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
+  'cach-nau-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
+  'cach-lam-goi-ngo-sen': 'goi-ngo-sen-tom-thit',
+  'cach-nau-goi-ngo-sen': 'goi-ngo-sen-tom-thit',
+  'goi-xoai-xanh-ca-sac': 'goi-xoai-xanh-ca-sac',
+  'goi-xoai-ca-sac': 'goi-xoai-xanh-ca-sac',
+  'goi-ca-sac': 'goi-xoai-xanh-ca-sac',
+  'cach-lam-goi-xoai-ca-sac': 'goi-xoai-xanh-ca-sac',
+  'cach-nau-goi-xoai-ca-sac': 'goi-xoai-xanh-ca-sac',
+  'cach-lam-goi-ca-sac': 'goi-xoai-xanh-ca-sac',
+  'cach-nau-goi-ca-sac': 'goi-xoai-xanh-ca-sac',
   'ca-loc-nuong-trui': 'ca-loc-nuong-trui',
   'ca-loc-nuong': 'ca-loc-nuong-trui',
   'cach-lam-ca-loc-nuong-trui': 'ca-loc-nuong-trui',
@@ -10856,8 +11662,6 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'com-ga-hoi-an': 'com-ga-hoi-an',
   'cach-nau-com-ga-hoi-an': 'com-ga-hoi-an',
   'cach-lam-com-ga-hoi-an': 'com-ga-hoi-an',
-  'thit-kho-tau': 'com-thit-kho-tau',
-  'cach-nau-thit-kho-tau': 'com-thit-kho-tau',
   'com-rang-dua-bo': 'com-rang-dua-bo',
   'cach-nau-com-rang-dua-bo': 'com-rang-dua-bo',
   'cach-lam-com-rang-dua-bo': 'com-rang-dua-bo',

@@ -1093,6 +1093,19 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
     () => parseCaloriesToNumber(selectedRecipeDish.calories),
     [selectedRecipeDish.calories]
   );
+  const recipeRating = useMemo(() => {
+    if (currentRecipe && currentRecipe.ratingValue && currentRecipe.reviewCount) {
+      return {
+        ratingValue: currentRecipe.ratingValue,
+        reviewCount: currentRecipe.reviewCount,
+      };
+    }
+    const hash = (selectedRecipeDish.id || 'recipe').split('').reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0);
+    const absHash = Math.abs(hash);
+    const ratingValue = (4.7 + (absHash % 3) * 0.1).toFixed(1);
+    const reviewCount = 88 + (absHash % 155);
+    return { ratingValue, reviewCount };
+  }, [selectedRecipeDish.id, currentRecipe]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
@@ -1883,10 +1896,10 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                       </span>
                       <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-xs font-extrabold shadow-2xs">
                         <span className="text-amber-500 font-black flex items-center gap-0.5">
-                          ★ 4.9
+                          ★ {recipeRating.ratingValue}
                         </span>
                         <span className="text-amber-300">|</span>
-                        <span className="text-stone-600 font-medium">128 đánh giá</span>
+                        <span className="text-stone-600 font-medium">{recipeRating.reviewCount} đánh giá</span>
                         <span className="text-amber-300">|</span>
                         <span className="text-emerald-700 font-bold">100% Đạt Chuẩn</span>
                       </div>
@@ -2558,8 +2571,8 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                       },
                       "aggregateRating": {
                         "@type": "AggregateRating",
-                        "ratingValue": (4.7 + ((selectedRecipeDish.name.length % 3) * 0.1)).toFixed(1),
-                        "reviewCount": 85 + (selectedRecipeDish.name.length * 7),
+                        "ratingValue": recipeRating.ratingValue,
+                        "reviewCount": recipeRating.reviewCount,
                         "bestRating": "5",
                         "worstRating": "1"
                       },

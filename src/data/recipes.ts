@@ -9127,6 +9127,143 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Đĩa cơm trắng dẻo thơm nóng hổi nghi ngút khói, rưới thìa nước cá kho tộ kẹo quánh béo ngậy đậm đà, chấm ngập đọt rau muống luộc và dưa leo giòn rụm.',
   },
+
+  'com-chay-kho-quet': {
+    dishId: 'com-chay-kho-quet',
+    dishName: 'Cơm Cháy Kho Quẹt Tôm Khô Thịt Ba Chỉ',
+    seoTitle: 'Cách Nấu Cơm Cháy Kho Quẹt Đậm Đà, Mềm Mọng Chuẩn Vị Mẹ Nấu',
+    description:
+      'Hướng dẫn chi tiết cách làm cơm cháy kho quẹt Nam Bộ giòn rụm vàng ươm không bị cứng, niêu kho quẹt kẹo quánh béo ngậy từ tóp mỡ ba chỉ, tôm khô dẻo ngọt, tiêu xanh tươi thơm nồng và rau củ luộc ngũ sắc.',
+    prepTime: '20 phút',
+    cookTime: '25 phút',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần Cơm Cháy ép chảo vàng giòn dẻo mịn',
+        items: [
+          '2 bát tô cơm nguội (hoặc cơm gạo dẻo nấu vừa tới)',
+          '1 thìa canh mỡ heo thắng (giúp cơm cháy giòn thơm không khô cứng)',
+          '1/2 thìa cà phê hạt nêm',
+          '1 thìa canh hành lá cắt nhỏ (dùng rắc tráng chảo tạo màu xanh mướt)',
+        ],
+      },
+      {
+        category: 'Thành phần Kho Quẹt chuẩn vị Mẹ nấu',
+        items: [
+          '250g thịt ba chỉ rút sườn (thái hạt lựu vuông nhỏ 0.8cm, lọc bỏ da tránh nổ mỡ)',
+          '50g tôm khô loại ngon (tôm đất ngâm nước ấm 15 phút cho dẻo mềm)',
+          '3 nhánh tiêu xanh tươi (đập dập nhẹ)',
+          '3 - 4 quả ớt hiểm đỏ nguyên quả',
+          '3 củ hành tím + 1 củ tỏi băm nhuyễn',
+          '2 nhánh hành lá cắt nhỏ',
+          '1 thìa cà phê tiêu đen xay vỡ hạt',
+        ],
+      },
+      {
+        category: 'Hỗn hợp nước sốt Kho Quẹt kẹo quánh đậm đà',
+        items: [
+          '5 thìa canh nước mắm truyền thống ngon (40 độ đạm)',
+          '4 thìa canh đường thốt nốt (hoặc đường cát vàng)',
+          '3 thìa canh nước lọc (dùng nước ngâm tôm khô đã lọc sạch)',
+          '1/2 thìa cà phê hạt nêm',
+          '1/2 thìa cà phê ớt bột (tạo màu đỏ cam bóng mượt)',
+        ],
+      },
+      {
+        category: 'Rau củ luộc ngũ sắc ăn kèm chống ngấy',
+        items: [
+          '1/2 quả bầu ngọt (thái thanh dài vừa ăn)',
+          '1/2 củ cà rốt, 100g đậu que',
+          '1/2 bắp cải hoặc bông cải xanh (súp lơ)',
+          '1/2 củ củ cải trắng',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt ba chỉ, tôm khô & Chuẩn bị nước sốt kho quẹt',
+        time: '10 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Thịt ba chỉ thái hạt lựu đều, tôm khô dẻo mềm không tanh, nước sốt hòa tan hoàn toàn',
+        actionPoints: [
+          'Thịt ba chỉ rửa sạch với nước muối pha loãng và chút rượu trắng khử mùi, dùng dao lọc bỏ phần da (bì) để khi chiên không bị bắn mỡ. Thái thịt thành từng hạt lựu nhỏ khoảng 0.8cm.',
+          'Tôm khô rửa qua nước lạnh cho sạch bụi bẩn, ngâm trong 150ml nước ấm 15 phút cho tôm nở dẻo mềm. Vớt tôm ra ráo, giữ lại 3 thìa canh nước ngâm tôm khô.',
+          'Pha hỗn hợp nước sốt kho quẹt: Cho 5 thìa canh nước mắm, 4 thìa canh đường thốt nốt, 3 thìa canh nước ngâm tôm, 1/2 thìa hạt nêm và 1/2 thìa ớt bột vào bát, khuấy đều cho đường tan hoàn toàn.',
+        ],
+        description:
+          'Lựa chọn thịt ba chỉ có tỷ lệ 7 nạc 3 mỡ giúp tóp mỡ sau khi rán vừa béo ngậy vừa giòn rụm mà không bị khô cứng.',
+        tip: 'Dùng nước ngâm tôm khô để pha sốt giúp kho quẹt có vị ngọt thanh tự nhiên đậm đà từ hải sản.',
+      },
+      {
+        step: 2,
+        title: 'Rán tóp mỡ ba chỉ giòn rụm & Phi thơm hành tỏi',
+        time: '8 phút',
+        heat: 'Lửa vừa',
+        goal: 'Tóp mỡ ba chỉ vàng giòn, tiết ra mỡ thơm lừng',
+        actionPoints: [
+          'Cho thịt ba chỉ thái hạt lựu vào niêu đất hoặc chảo lòng sâu, đun lửa vừa. Đảo đều tay để thịt tự tiết ra mỡ và chuyển sang màu vàng giòn béo ngậy.',
+          'Khi tóp mỡ đã teo lại vàng giòn, vớt toàn bộ tóp mỡ ra bát riêng để giữ độ giòn.',
+          'Múc bớt mỡ heo ra bát (chỉ giữ lại khoảng 2 thìa canh mỡ trong niêu). Cho hành tím băm và tỏi băm vào phi thơm lừng trên lửa vừa.',
+        ],
+        description:
+          'Chiên tóp mỡ bằng niêu đất giữ nhiệt rất tốt, giúp tóp mỡ chín đều từ trong ra ngoài.',
+        tip: 'Không rán tóp mỡ quá cháy đen sẽ làm kho quẹt bị đắng.',
+      },
+      {
+        step: 3,
+        title: 'Kho quẹt tôm khô quánh kẹo đậm đà chuẩn vị Mẹ nấu',
+        time: '10 phút',
+        heat: 'Lửa nhỏ (Riêu riêu)',
+        goal: 'Kho quẹt kẹo quánh sền sệt, màu nâu cánh gián óng ả, đậm đà béo ngậy',
+        actionPoints: [
+          'Cho tôm khô đã dẻo mềm vào niêu mỡ hành tỏi, đảo nhanh tay 1 - 2 phút cho tôm săn lại và dậy mùi thơm.',
+          'Đổ bát nước sốt đã pha vào niêu. Đun sôi rồi hạ lửa nhỏ riêu riêu, đun sôi lăn tăn trong 7 - 8 phút cho nước sốt cô đặc kẹo quánh lại.',
+          'Trút toàn bộ tóp mỡ giòn vào niêu, thêm 3 nhánh tiêu xanh đập dập, ớt hiểm nguyên quả. Đun thêm 2 - 3 phút cho các nguyên liệu hòa quyện ngấm vị.',
+          'Tắt bếp, rắc hành lá cắt nhỏ và 1 thìa cà phê tiêu đen xay lên trên.',
+        ],
+        description:
+          'Sốt kho quẹt khi hoàn thành có màu nâu cánh gián bóng mượt, vị mặn ngọt hài hòa, thơm nồng tiêu xanh và cay nhẹ từ ớt hiểm.',
+        tip: 'Khi đun nhỏ lửa trong niêu đất, nước sốt sẽ tự quánh lại sền sệt mà không cần cho bột năng.',
+      },
+      {
+        step: 4,
+        title: 'Làm cơm cháy giòn rụm bên ngoài, dẻo mềm bên trong bằng chảo chống dính',
+        time: '12 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Miếng cơm cháy vàng ươm, giòn rụm hạt cơm kết dính mà không bị cứng',
+        actionPoints: [
+          'Cho 2 bát cơm nguội vào tô, thêm 1/2 thìa cà phê hạt nêm và 1 thìa canh mỡ heo, dùng tay (đeo găng) bóp nhẹ cho hạt cơm tơi dẻo và ngấm gia vị.',
+          'Quết 1 lớp mỡ mỏng lên chảo chống dính lòng rộng. Cho cơm vào chảo, dùng thìa hoặc phên phẳng miết nhẹ ép cơm dàn mỏng đều khắp mặt chảo.',
+          'Bật lửa nhỏ, xoay nghiêng chảo liên tục để nhiệt tỏa đều các mép cơm. Ép chảo trong 10 - 12 phút đến khi mặt dưới cơm chuyển màu vàng ươm, giòn rụm.',
+          'Gấp đôi ổ cơm cháy hoặc dùng kéo cắt thành từng miếng hình tam giác vừa ăn.',
+        ],
+        description:
+          'Trộn chút mỡ heo và hạt nêm vào cơm nguội trước khi ép chảo giúp hạt cơm chiên lên giòn xốp thơm lừng mà không bị khô cứng.',
+        tip: 'Xoay đều chảo trên bếp lửa nhỏ giúp cơm cháy chín vàng giòn đều từ tâm ra rìa chảo.',
+      },
+      {
+        step: 5,
+        title: 'Luộc rau củ ngũ sắc & Trình bày thưởng thức',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Rau củ luộc giữ màu xanh mướt, độ giòn ngọt tự nhiên',
+        actionPoints: [
+          'Đun sôi nồi nước với 1/2 thìa cà phê muối. Cho cà rốt, đậu que, bắp cải, bầu vào luộc chín tới trong 3 - 4 phút. Vớt ra ngâm ngay vào tô nước đá lạnh 2 phút rồi vớt ra ráo nước.',
+          'Bày đĩa cơm cháy vàng rụm bên cạnh niêu kho quẹt bốc khói nghi ngút và đĩa rau củ luộc xanh mướt.',
+          'Thưởng thức: Bẻ miếng cơm cháy giòn rụm chấm ngập vào niêu kho quẹt kẹo quánh, quệt thêm miếng rau củ luộc ngọt mát.',
+        ],
+        description:
+          'Sự kết hợp hoàn hảo giữa vị giòn rụm của cơm cháy, vị mặn ngọt béo thơm ngậy của kho quẹt tôm khô tóp mỡ và vị thanh mát của rau củ luộc.',
+        tip: 'Rau củ luộc xong ngâm nước đá giúp giữ được màu xanh tươi rực rỡ và độ giòn ngọt.',
+      },
+    ],
+    chefSecret:
+      'Bí quyết để kho quẹt quánh ngon là dùng nước mắm nhĩ độ đạm cao kết hợp đường thốt nốt và đun lửa nhỏ riêu riêu trong niêu đất. Cơm cháy ép bằng cơm nguội trộn chút mỡ heo giúp cơm vừa giòn xốp bên ngoài mà vẫn dẻo ngọt bên trong.',
+    recommendedSauce:
+      'Chấm kèm cơm cháy giòn rụm, rau củ luộc ngũ sắc (bầu, cà rốt, đậu que, bắp cải), thêm vài lát dưa leo tươi.',
+  },
 };
 
 /**
@@ -9949,6 +10086,14 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'com-chay-kho-quet': 'com-chay-kho-quet',
+  'cach-nau-com-chay-kho-quet': 'com-chay-kho-quet',
+  'cach-lam-com-chay-kho-quet': 'com-chay-kho-quet',
+  'kho-quet': 'com-chay-kho-quet',
+  'cach-nau-kho-quet': 'com-chay-kho-quet',
+  'cach-lam-kho-quet': 'com-chay-kho-quet',
+  'bau-luoc-kho-quet': 'com-chay-kho-quet',
+  'com-nieu-kho-quet-chay': 'com-chay-kho-quet',
   'com-ca-kho-to': 'com-ca-kho-to',
   'cach-nau-com-ca-kho-to': 'com-ca-kho-to',
   'cach-lam-com-ca-kho-to': 'com-ca-kho-to',

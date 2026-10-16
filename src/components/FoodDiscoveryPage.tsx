@@ -1881,6 +1881,15 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                       <span className="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">
                         {getCategoryDisplayName(selectedRecipeDish.category)}
                       </span>
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-xs font-extrabold shadow-2xs">
+                        <span className="text-amber-500 font-black flex items-center gap-0.5">
+                          ★ 4.9
+                        </span>
+                        <span className="text-amber-300">|</span>
+                        <span className="text-stone-600 font-medium">128 đánh giá</span>
+                        <span className="text-amber-300">|</span>
+                        <span className="text-emerald-700 font-bold">100% Đạt Chuẩn</span>
+                      </div>
                     </div>
 
                     <h1 className="text-2xl sm:text-3xl font-black text-stone-900 tracking-tight">

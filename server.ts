@@ -2257,6 +2257,24 @@ async function startServer() {
     return res.redirect(301, "/cach-nau-com-ca-kho-to");
   });
 
+  // 301 Permanent Redirect for com chay kho quet
+  app.get([
+    "/com-chay-kho-quet",
+    "/com-chay-kho-quet/",
+    "/cach-lam-com-chay-kho-quet",
+    "/cach-lam-com-chay-kho-quet/",
+    "/kho-quet",
+    "/kho-quet/",
+    "/cach-lam-kho-quet",
+    "/cach-lam-kho-quet/",
+    "/cach-nau-kho-quet",
+    "/cach-nau-kho-quet/",
+    "/bau-luoc-kho-quet",
+    "/bau-luoc-kho-quet/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-com-chay-kho-quet");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

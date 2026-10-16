@@ -2275,6 +2275,70 @@ async function startServer() {
     return res.redirect(301, "/cach-nau-com-chay-kho-quet");
   });
 
+  // 301 Permanent Redirect for chao ca loc
+  app.get([
+    "/chao-ca-loc",
+    "/chao-ca-loc/",
+    "/cach-lam-chao-ca-loc",
+    "/cach-lam-chao-ca-loc/",
+    "/chao-ca-loc-rau-dang",
+    "/chao-ca-loc-rau-dang/",
+    "/cach-nau-chao-ca-loc-rau-dang",
+    "/cach-nau-chao-ca-loc-rau-dang/",
+    "/cach-lam-chao-ca-loc-rau-dang",
+    "/cach-lam-chao-ca-loc-rau-dang/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-chao-ca-loc");
+  });
+
+  // 301 Permanent Redirect for lau ca keo la giang
+  app.get([
+    "/lau-ca-keo",
+    "/lau-ca-keo/",
+    "/cach-lam-lau-ca-keo",
+    "/cach-lam-lau-ca-keo/",
+    "/cach-nau-lau-ca-keo",
+    "/cach-nau-lau-ca-keo/",
+    "/lau-ca-keo-la-giang",
+    "/lau-ca-keo-la-giang/",
+    "/cach-lam-lau-ca-keo-la-giang",
+    "/cach-lam-lau-ca-keo-la-giang/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-lau-ca-keo-la-giang");
+  });
+
+  // 301 Permanent Redirect for vit nau chao
+  app.get([
+    "/vit-nau-chao",
+    "/vit-nau-chao/",
+    "/cach-lam-vit-nau-chao",
+    "/cach-lam-vit-nau-chao/",
+    "/vit-nau-chao-can-tho",
+    "/vit-nau-chao-can-tho/",
+    "/cach-nau-vit-nau-chao-can-tho",
+    "/cach-nau-vit-nau-chao-can-tho/",
+    "/cach-lam-vit-nau-chao-can-tho",
+    "/cach-lam-vit-nau-chao-can-tho/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-vit-nau-chao");
+  });
+
+  // 301 Permanent Redirect for ca loc nuong trui
+  app.get([
+    "/ca-loc-nuong",
+    "/ca-loc-nuong/",
+    "/cach-nau-ca-loc-nuong",
+    "/cach-nau-ca-loc-nuong/",
+    "/ca-loc-nuong-trui",
+    "/ca-loc-nuong-trui/",
+    "/cach-nau-ca-loc-nuong-trui",
+    "/cach-nau-ca-loc-nuong-trui/",
+    "/cach-lam-ca-loc-nuong",
+    "/cach-lam-ca-loc-nuong/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-ca-loc-nuong-trui");
+  });
+
   // 301 Permanent Redirect for blog slug aliases to canonical post URL
   // Ensures any active post saved in Admin is ALWAYS served directly and never hijacked
   app.use((req, res, next) => {

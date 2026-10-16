@@ -9264,6 +9264,509 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chấm kèm cơm cháy giòn rụm, rau củ luộc ngũ sắc (bầu, cà rốt, đậu que, bắp cải), thêm vài lát dưa leo tươi.',
   },
+
+  'chao-ca-loc-rau-dang': {
+    dishId: 'chao-ca-loc-rau-dang',
+    dishName: 'Cháo Cá Lóc Miền Tây Rau Đắng Nóng Hổi',
+    seoTitle: 'Cách Nấu Cháo Cá Lóc Bổ Dưỡng, Thơm Ngon Cho Cả Nhà',
+    description:
+      'Hướng dẫn chi tiết cách nấu cháo cá lóc đồng bổ dưỡng thanh mát chuẩn vị Miền Tây: Hạt gạo rang thơm búp hoa cúc sánh mịn không vữa, phi lê cá lóc xào xắn đượm vị thơm lừng không tanh, ăn kèm rau đắng đất, nấm rơm và gừng thái chỉ ấm bụng.',
+    prepTime: '25 phút',
+    cookTime: '35 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Thành phần Cá Lóc đồng tươi ngon & Gia vị ướp',
+        items: [
+          '1 con cá lóc đồng tươi (khoảng 800g - 1kg, cá còn sống bơi khỏe)',
+          '1 củ gừng tươi (1 nửa thái lát luộc cá, 1 nửa thái sợi chỉ ăn kèm)',
+          '3 củ hành tím + 1 củ tỏi băm nhuyễn',
+          '1 thìa canh nước mắm nhĩ truyền thống ngon (40 độ đạm)',
+          '1 thìa cà phê hạt nêm, 1/2 thìa cà phê đường thốt nốt',
+          '1 thìa cà phê tiêu sọ xay vỡ hạt',
+          '1 thìa canh rượu trắng + 1 quả chanh + muối hạt (dùng khử tanh cá)',
+        ],
+      },
+      {
+        category: 'Thành phần Gạo rang nấu cháo sánh mịn & Nấm rơm',
+        items: [
+          '1/2 bát gạo tẻ thơm (gạo ST25 hoặc Tám Thái dẻo thơm)',
+          '1/4 bát gạo nếp thơm (tạo độ sánh dẻo mịn tự nhiên cho cháo)',
+          '150g nấm rơm tươi (búp tròn, ngâm nước muối pha loãng, bổ đôi)',
+          '2 thìa canh mỡ heo thắng (giúp cháo bóng mượt ngậy thơm)',
+          '2 thìa canh hành tím phi vàng giòn',
+        ],
+      },
+      {
+        category: 'Rau ăn kèm & Gia vị nêm nếm tô cháo chuẩn vị',
+        items: [
+          '100g rau đắng đất tươi (rửa sạch ráo nước)',
+          '100g giá đỗ tươi, 1 bó hẹ cắt khúc',
+          'Hành lá cắt nhỏ, rau ngò rí, ớt hiểm cắt khoanh',
+          'Tiêu sọ xay vỡ, chén nước mắm nhĩ tỏi ớt hiểm dầm chấm cá',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế cá lóc triệt tiêu mùi tanh & Ngâm nấm rơm',
+        time: '12 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Cá lóc sạch vảy, không hôi tanh, nấm rơm sạch bụi bẩn',
+        actionPoints: [
+          'Cá lóc đánh sạch vảy, mổ bụng bỏ nội tạng, đặc biệt cạo sạch lớp màng đen bám trong khoang bụng (đây là nguyên nhân chính gây mùi hôi tanh). Dùng chanh tươi, muối hạt và rượu trắng chà xát kỹ khắp thân cá trong 3 phút rồi rửa lại bằng nước sạch, để ráo.',
+          'Dùng dao sắc lóc lấy 2 miếng phi lê thịt cá hai bên lườn. Phần đầu cá, xương sống và đuôi cá giữ lại để ninh lấy nước dùng ngọt thanh.',
+          'Nấm rơm gọt sạch gốc bẩn, ngâm trong nước muối pha loãng 10 phút, vớt ra rửa sạch rồi bổ đôi.',
+        ],
+        description:
+          'Lựa chọn cá lóc đồng tươi sống giúp thịt cá săn chắc, ngọt đậm tự nhiên và không bị bở.',
+        tip: 'Cạo kiệt lớp màng đen bên trong khoang bụng cá và chà rượu chanh giúp triệt tiêu hoàn toàn mùi tanh của cá sông/cá đồng.',
+      },
+      {
+        step: 2,
+        title: 'Ninh xương cá lấy nước ngọt thanh & Ướp phi lê cá lóc',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước dùng cá ngọt thanh tự nhiên, phi lê cá ngấm sâu gia vị',
+        actionPoints: [
+          'Đun sôi 1.8 lít nước với 1 củ hành tím đập dập và vài lát gừng tươi. Cho xương cá, đầu cá và đuôi cá vào luộc chín tới trong 10 phút.',
+          'Vớt đầu cá và xương cá ra bát riêng, lọc nước luộc cá qua rây mịn để loại bỏ hoàn toàn xương dăm nhỏ.',
+          'Thái phi lê thịt cá lóc thành từng miếng vừa ăn (dày khoảng 0.8cm). Ướp cá với 1 thìa canh nước mắm nhĩ, 1 thìa cà phê hạt nêm, 1/2 thìa đường, 1/2 thìa tiêu sọ và 1 thìa hành tím băm trong 15 phút.',
+        ],
+        description:
+          'Nước ninh từ xương cá lóc ngọt đậm đà tự nhiên mà không cần dùng nhiều hạt nêm hay mì chính.',
+        tip: 'Luộc xương cá cùng gừng tươi và hành tím đập dập giúp nước dùng thơm phức mùi thảo mộc.',
+      },
+      {
+        step: 3,
+        title: 'Rang gạo búp hoa cúc & Ninh cháo sánh dẻo mịn',
+        time: '25 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Hạt gạo rang nở bung búp hoa cúc, cháo sánh mịn không bị vữa',
+        actionPoints: [
+          'Vo sạch hỗn hợp gạo tẻ và gạo nếp, để ráo nước. Cho gạo vào chảo rang khô trên lửa nhỏ 5 - 7 phút đến khi hạt gạo chuyển màu trắng đục và hơi ngả vàng nhẹ, ngậy mùi thơm đặc trưng.',
+          'Trút toàn bộ gạo rang vào nồi nước ninh xương cá đang sôi. Bật lửa lớn đun sôi bùng, hớt sạch bọt mịn.',
+          'Hạ lửa nhỏ riêu riêu đậy vung ninh trong 20 - 25 phút đến khi hạt gạo nở bung búp hình hoa cúc, cháo sánh dẻo tự nhiên.',
+        ],
+        description:
+          'Rang gạo trước khi nấu cháo là bí quyết truyền thống giúp hạt gạo nở búp đẹp mắt, cháo thơm lừng ngậy vị và không bao giờ bị vữa nát.',
+        tip: 'Kết hợp 2 phần gạo tẻ dẻo và 1 phần gạo nếp giúp nồi cháo cá có độ sánh quánh hoàn hảo.',
+      },
+      {
+        step: 4,
+        title: 'Xào phi lê cá lóc & Nấm rơm đượm vị thơm lừng',
+        time: '6 phút',
+        heat: 'Lửa lớn',
+        goal: 'Miếng cá lóc xào săn chắc, vàng ươm thơm lừng, nấm rơm giòn ngọt',
+        actionPoints: [
+          'Đun nóng 2 thìa canh mỡ heo trong chảo, cho hành tím và tỏi băm vào phi vàng thơm rực.',
+          'Cho phi lê cá lóc đã ướp vào đảo nhẹ tay trên lửa lớn 3 - 4 phút cho thịt cá săn lại, chín tới mà không bị vỡ nát.',
+          'Trút nấm rơm vào đảo cùng cá 2 phút cho nấm ngấm vị béo bùi rồi tắt bếp.',
+          'Trút toàn bộ chảo cá lóc xào nấm rơm vào nồi cháo ninh, nêm lại 1 thìa canh nước mắm, 1 thìa hạt nêm cho vừa khẩu vị gia đình.',
+        ],
+        description:
+          'Xào săn cá lóc với mỡ heo và hành tỏi phi giúp miếng cá ngấm đượm gia vị, béo thơm giòn ngọt mà không bị tanh.',
+        tip: 'Đảo cá nhẹ tay trên lửa lớn giúp thịt cá chín săn bề mặt và giữ nguyên miếng đẹp mắt.',
+      },
+      {
+        step: 5,
+        title: 'Múc cháo ra tô & Thưởng thức nóng hổi kèm rau đắng đất',
+        time: '5 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Tô cháo cá lóc bốc khói nghi ngút, thơm nồng gừng tiêu, béo ngọt đậm đà',
+        actionPoints: [
+          'Xếp một nhúm rau đắng đất tươi (hoặc giá đỗ, hẹ cắt khúc) ở đáy tô.',
+          'Múc cháo cá lóc đang sôi bốc khói nghi ngút rưới lên trên làm tái chín rau đắng dịu ngọt.',
+          'Xếp thịt cá lóc xào béo ngọt, nấm rơm giòn sần sật lên mặt tô, rắc nhiều hành phi giòn rụm, gừng thái sợi chỉ, hành lá, ngò rí và tiêu sọ xay.',
+          'Thưởng thức nóng hổi: Chấm phi lê cá lóc vào chén nước mắm nhĩ tỏi ớt dầm. Vị ngọt thanh béo ngậy của cháo cá hòa quyện vị đắng dịu mát của rau đắng đất và vị cay nồng của gừng tươi cực kỳ bổ dưỡng.',
+        ],
+        description:
+          'Món cháo cá lóc bổ dưỡng thích hợp cho cả gia đình, người già, trẻ em hay người vừa mới ốm dậy giúp giải cảm và phục hồi sức khỏe nhanh chóng.',
+        tip: 'Rau đắng đất tái chín trong tô cháo nóng giữ nguyên độ giòn ngọt dịu, ăn rất mát gan giải nhiệt.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu cháo cá lóc ngon ngọt không tanh chuẩn vị miền Tây: 1. Cạo sạch màng đen trong bụng cá và rửa với chanh rượu gừng để triệt tiêu hoàn toàn vị tanh; 2. Rang gạo vàng nhẹ trước khi ninh giúp hạt gạo nở búp hoa cúc, cháo sánh thơm dẻo mịn mà không bị vữa; 3. Lọc lấy nước ninh xương đầu cá đun cháo và xào phi lê cá riêng rồi mới thả vào cháo giúp miếng cá săn chắc đậm đà không vỡ.',
+    recommendedSauce:
+      'Tô cháo cá lóc nóng hổi ăn kèm đĩa rau đắng đất tươi xanh, giá đỗ, hẹ cắt khúc, gừng thái sợi chỉ và chén nước mắm nhĩ ớt hiểm dầm cay nồng.',
+  },
+
+  'lau-ca-keo-la-giang': {
+    dishId: 'lau-ca-keo-la-giang',
+    dishName: 'Lẩu Cá Kèo Lá Giang Chua Thanh Cay Ấm',
+    seoTitle: 'Cách Nấu Lẩu Cá Kèo Lá Giang Chua Cay Đậm Đà Chuẩn Vị Gia Đình',
+    description:
+      'Hướng dẫn chi tiết cách nấu lẩu cá kèo lá giang chuẩn vị Nam Bộ: Nước lẩu nấu bằng nước dừa tươi ngọt mát thanh tao, lá giang vò dập chua dịu tự nhiên không bị chát, cá kèo tươi sống ngọt béo bùi bùi nhúng lẩu ăn kèm rau đắng, rau nhút, bắp chuối bào và sốt mắm me sền sệt.',
+    prepTime: '25 phút',
+    cookTime: '30 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 6 người',
+    ingredients: [
+      {
+        category: 'Thành phần Cá Kèo tươi & Sơ chế làm sạch nhớt',
+        items: [
+          '500g - 700g cá kèo tươi sống (con bơi khỏe, kích thước bằng ngón tay cái)',
+          '2 thìa canh muối hạt + 3 thìa canh giấm ăn (hoặc chanh tươi/rượu trắng dùng chà sạch nhớt)',
+          '1 tô nước đá lạnh (dùng ngâm cá kèo ngất tạm thời trước khi nhúng lẩu, tránh cá giãy bắn nước)',
+        ],
+      },
+      {
+        category: 'Thành phần Nước dùng Lẩu Lá Giang chua thanh đậm đà',
+        items: [
+          '150g lá giang tươi (chọn lá non vừa tới, nhặt sạch rửa ráo)',
+          '1.5 lít nước dùng (kết hợp 1 lít nước dừa tươi xiêm + 500ml nước hầm xương)',
+          '3 nhánh sả tươi (1 nửa băm nhuyễn, 1 nửa đập dập cắt khúc 5cm)',
+          '3 củ hành tím + 1 củ tỏi băm nhuyễn',
+          '2 quả ớt hiểm dầm dập + 1 thìa canh sa tế tôm',
+          '2 quả cà chua chín mọng (thái múi cau)',
+          '3 thìa canh nước mắm nhĩ truyền thống ngon (40 độ đạm)',
+          '2 thìa canh đường thốt nốt (hoặc đường cát vàng)',
+          '1.5 thìa canh cốt me chín (tạo vị chua dịu nhẹ cân bằng vị lá giang)',
+          '1 thìa cà phê hạt nêm, 1 thìa canh mỡ heo thắng (hoặc dầu ăn)',
+        ],
+      },
+      {
+        category: 'Rau nhúng lẩu & Nước chấm mắm me sền sệt chuẩn vị',
+        items: [
+          'Rau ăn kèm: 150g rau đắng đất, 150g rau nhút (rau rút làm sạch), 150g bắp chuối bào, 100g ngò gai & rau om cắt nhỏ',
+          '500g bún tươi (hoặc mì gói, bánh đa)',
+          'Nước chấm mắm me sền sệt: 2 thìa canh cốt me chín + 2 thìa canh nước mắm nhĩ + 2 thìa canh đường thốt nốt + 1 thìa tỏi ớt băm nhuyễn',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế cá kèo sạch nhớt & Ngâm ngất xỉu bằng tô nước đá',
+        time: '10 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Cá kèo sạch bong nhớt đen, nằm yên ngất xỉu không giãy bắn nước lẩu',
+        actionPoints: [
+          'Cho cá kèo tươi sống vào thau lớn, trút 2 thìa canh muối hạt và 3 thìa canh giấm ăn (hoặc chanh/rượu trắng) vào đậy nắp trong 5 phút. Dùng tay chà xát nhẹ nhàng khắp thân cá cho bong hết lớp màng nhớt đen. Rửa lại cá nhiều lần bằng nước sạch cho thật sạch nhớt và ráo nước.',
+          'Cho cá kèo vào tô chứa nước đá lạnh đậy kín trong 10 phút. Đá lạnh giúp cá kèo ngất tạm thời, khi dọn ra bàn trút cá vào nồi lẩu đang sôi sẽ không bị nhảy giãy bắn nước lẩu nóng nguy hiểm.',
+        ],
+        description:
+          'Mẹo ngâm đá lạnh là bí quyết vàng của các nhà hàng lẩu cá kèo Miền Tây giúp thực khách thao tác an toàn sạch sẽ.',
+        tip: 'Chà muối giấm thật kỹ giúp loại bỏ hoàn toàn mùi tanh nhớt dế của cá kèo.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế lá giang vò dập & Chuẩn bị rau nhúng lẩu',
+        time: '10 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Lá giang vò dập tiết vị chua thanh dịu, rau củ rửa sạch ráo nước',
+        actionPoints: [
+          'Lá giang tuốt lấy lá, rửa sạch nhiều lần với nước cho ráo. Dùng tay vò dập nhẹ từng nắm lá giang trước khi nấu (đây là bước BẮT BUỘC giúp lá giang tiết ra vị chua thanh dịu ngọt tự nhiên mà không bị chát).',
+          'Cà chua thái múi cau. Sả tươi 1 nửa băm nhỏ, 1 nửa đập dập cắt khúc 5cm. Ngò gai và rau om rửa sạch thái nhỏ.',
+          'Rau đắng đất, rau nhút, bắp chuối bào rửa sạch ngâm nước muối loãng 10 phút, vớt ra ráo nước xếp ra đĩa.',
+        ],
+        description:
+          'Lá giang vò dập dập nhẹ giúp nước lẩu thanh dịu mượt mà, không bị vị nồng hay chát.',
+        tip: 'Không vò nát lá giang quá nát vụn làm đục nước lẩu, chỉ vò gãy nhẹ gân lá.',
+      },
+      {
+        step: 3,
+        title: 'Phi thơm gia vị & Nấu nước lẩu lá giang đậm đà chua thanh',
+        time: '12 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước lẩu lá giang màu nâu đỏ cam óng ả, vị chua thanh dịu nhẹ hậu ngọt nước dừa',
+        actionPoints: [
+          'Đun nóng 1 thìa canh mỡ heo trong nồi lẩu, cho tỏi băm, hành tím băm, sả băm và sả khúc vào phi vàng thơm lừng. Cho cà chua thái múi cau và 1 thìa sa tế tôm vào đảo đều 2 phút tạo màu bắt mắt.',
+          'Đổ 1 lít nước dừa tươi xiêm và 500ml nước hầm xương vào nồi đun sôi bùng.',
+          'Trút toàn bộ lá giang đã vò dập vào nồi nước lẩu. Nêm 3 thìa canh nước mắm nhĩ, 2 thìa canh đường thốt nốt, 1.5 thìa cốt me chín và 1 thìa hạt nêm. Đun sôi liu riêu 5 - 7 phút cho lá giang tiết vị chua thanh hòa quyện vị ngọt nước dừa.',
+        ],
+        description:
+          'Sự kết hợp giữa lá giang chua dịu, cốt me nhẹ và nước dừa tươi xiêm tạo nên hương vị lẩu ngọt thanh tròn vị khó cưỡng.',
+        tip: 'Nêm đường thốt nốt giúp vị chua của lá giang trở nên đằm thắm dịu mát.',
+      },
+      {
+        step: 4,
+        title: 'Pha sốt chấm mắm me sền sệt chuẩn vị Miền Tây',
+        time: '5 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Chén mắm me sền sệt, vị chua ngọt đậm đà cay xè tỏi ớt',
+        actionPoints: [
+          'Ngâm 30g me chín trong 50ml nước ấm 5 phút, dầm nát lọc lấy cốt me.',
+          'Cho cốt me vào chén, thêm 2 thìa canh nước mắm nhĩ, 2 thìa canh đường thốt nốt, khuấy đều trên lửa nhỏ 2 phút cho sốt sánh kẹo lại.',
+          'Trút tỏi băm, ớt hiểm băm nhuyễn vào khuấy đều tạo nên bát mắm me chua ngọt cay xè sền sệt đậm đà.',
+        ],
+        description:
+          'Sốt mắm me là linh hồn của món lẩu cá kèo, vị mặn ngọt cay chua ôm trọn thớ thịt cá béo ngậy.',
+        tip: 'Đun ấm hỗn hợp mắm me giúp mắm dính quyện sền sệt cực kỳ hấp dẫn.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày & Thưởng thức lẩu cá kèo lá giang nóng hổi',
+        time: '5 phút',
+        heat: 'Lửa lớn trên bếp mini',
+        goal: 'Nồi lẩu bốc khói nghi ngút, cá kèo luộc chín tới béo bùi, rau nhúng giòn mát',
+        actionPoints: [
+          'Đặt nồi nước lẩu lá giang lên bếp cồn/bếp từ mini giữa bàn ăn đun sôi sủi bọt lăn tăn, rắc ngò gai, rau om và ớt sừng cắt khoanh lên trên. Bày đĩa cá kèo tươi ngâm đá lạnh bên cạnh đĩa rau sông (rau đắng, rau nhút, bắp chuối) và đĩa bún tươi.',
+          'Thưởng thức: Khi nước lẩu sôi bùng, trút cá kèo tươi vào luộc chín trong 2 - 3 phút (cá kèo rất mau chín, cá chín tới da bóng mượt thịt ngọt béo bùi, xương mềm). Nhúng rau đắng, rau nhút vào nước lẩu vớt ra ngay.',
+          'Chấm con cá kèo béo ngậy vào chén sốt mắm me sền sệt, ăn kèm bún tươi và húp thìa nước lẩu lá giang chua thanh nồng nàn.',
+        ],
+        description:
+          'Bữa ăn gia đình ấm cúng xum vầy bên nồi lẩu cá kèo lá giang chua cay nghi ngút khói đậm đà tình thân.',
+        tip: 'Cá kèo nhúng đến đâu ăn đến đó để thịt cá luôn nóng hổi béo ngọt nhất.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu lẩu cá kèo lá giang chuẩn vị Nam Bộ: 1. Chà xát cá kèo với muối hạt và giấm/rượu trắng để làm sạch hoàn toàn nhớt cá, sau đó ngâm tô nước đá lạnh cho cá ngất tạm thời – vừa giữ độ tươi ngọt tối đa vừa tránh cá giãy bắn nước lẩu nguy hiểm; 2. Lá giang BẮT BUỘC phải dùng tay vò dập nhẹ trước khi nấu để chiết xuất trọn vẹn vị chua thanh dịu ngọt, nếu để nguyên lá nước sẽ bị chát; 3. Dùng nước dừa tươi xiêm làm nước lẩu cân bằng hoàn hảo vị chua của lá giang và vị đậm đà của nước mắm nhĩ.',
+    recommendedSauce:
+      'Chén sốt mắm me sền sệt chua ngọt cay xè dầm tỏi ớt hiểm, chấm ngập từng con cá kèo béo ngậy ngọt bùi và rau đắng nhúng lẩu.',
+  },
+
+  'vit-nau-chao-can-tho': {
+    dishId: 'vit-nau-chao-can-tho',
+    dishName: 'Vịt Nấu Chao Cần Thơ Béo Bùi Khoai Môn',
+    seoTitle: 'Cách Nấu Vịt Nấu Chao Cần Thơ Thơm Ngon Chuẩn Vị Gia Đình',
+    description:
+      'Hướng dẫn chi tiết cách nấu vịt nấu chao Cần Thơ béo ngậy thơm lừng chuẩn vị Miền Tây: Thịt vịt xiêm săn chắc đượm sốt chao đỏ chao trắng béo bùi, hầm cùng nước dừa tươi xiêm thanh ngọt, khoai môn sáp chiên sơ dẻo bở không vữa, nhúng rau muống đồng và chấm sốt chao pha tỏi ớt đường chanh sền sệt.',
+    prepTime: '30 phút',
+    cookTime: '40 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 6 người',
+    ingredients: [
+      {
+        category: 'Thành phần Thịt Vịt xiêm & Khử mùi hôi',
+        items: [
+          '1/2 con vịt xiêm hoặc vịt cỏ tươi (khoảng 1.2kg - 1.5kg, thịt săn ít mỡ)',
+          '1 củ gừng tươi đập dập + 100ml rượu trắng + 1 quả chanh + 1 thìa canh muối hạt (dùng khử hoàn toàn mùi hôi lông vịt)',
+        ],
+      },
+      {
+        category: 'Thành phần Hỗn hợp Sốt Ướp Chao chuẩn vị Cần Thơ',
+        items: [
+          '4 khối chao đỏ (tạo màu đỏ cam óng ả & vị béo bùi thơm nức)',
+          '4 khối chao trắng (tạo vị mặn béo đặc trưng)',
+          '2 thìa canh nước chao (lấy trong hũ chao)',
+          '3 củ hành tím + 1 củ tỏi + 2 nhánh sả + 1 củ gừng băm nhuyễn',
+          '1.5 thìa canh đường thốt nốt (hoặc đường cát vàng)',
+          '1 thìa canh nước mắm nhĩ truyền thống (40 độ đạm)',
+          '1 thìa cà phê hạt nêm, 1 thìa canh sa tế tôm',
+          '1 thìa canh mỡ heo thắng (giúp sốt quết vịt thơm béo)',
+        ],
+      },
+      {
+        category: 'Thành phần Khoai Môn Sáp & Nước dùng Lẩu Vịt Nấu Chao',
+        items: [
+          '400g khoai môn sáp (hoặc khoai môn ngọt, gọt vỏ cắt khối vuông 3cm)',
+          '1.2 lít nước dừa tươi xiêm (nước dừa ngọt giúp thịt vịt mềm mọng và dịu vị chao)',
+          '3 nhánh sả tươi đập dập cắt khúc 5cm',
+          '2 thìa canh mỡ heo thắng (dùng chiên sơ khoai môn & xào thịt vịt)',
+        ],
+      },
+      {
+        category: 'Thành phần Sốt Chấm Chao pha chuẩn vị & Rau nhúng kèm',
+        items: [
+          'Sốt chấm chao: 3 viên chao trắng + 1 viên chao đỏ + 1.5 thìa canh đường thốt nốt + 1 thìa canh nước cốt chanh + 1 thìa tỏi ớt băm nhuyễn + 1/2 thìa sa tế',
+          'Rau ăn kèm: 200g rau muống đồng (bỏ bớt lá), 150g rau cải cúc (tần ô), 1 bó hẹ cắt khúc, 150g nấm rơm',
+          '500g bún tươi (hoặc mì gói, bánh phở)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt vịt triệt tiêu mùi hôi & Chặt miếng vừa ăn',
+        time: '12 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Thịt vịt sạch sẽ, không mùi hôi lông, chặt miếng vuông vức',
+        actionPoints: [
+          'Vịt nhổ sạch lông măng, rửa sạch. Dùng hỗn hợp gừng tươi đập dập, rượu trắng, chanh tươi và muối hạt chà xát kỹ toàn bộ da và khoang bụng vịt trong 5 phút. Rửa lại nhiều lần bằng nước sạch, lau khô bằng khăn sạch.',
+          'Chặt thịt vịt thành từng miếng vuông vừa ăn (khoảng 3 - 4cm). Chặt dứt khoát để xương vịt không bị nát vụn.',
+        ],
+        description:
+          'Khử hôi kỹ bằng gừng và rượu trắng là bước tiên quyết giúp món vịt nấu chao thơm nức mà không bị tanh hôi.',
+        tip: 'Vịt xiêm thịt săn chắc, dầy thịt và ít mỡ hơn vịt siêu thịt, rất thích hợp làm món nấu chao.',
+      },
+      {
+        step: 2,
+        title: 'Pha hỗn hợp Sốt Ướp Chao & Ướp thịt vịt ngấm đượm vị',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Thịt vịt ngấm sâu vị béo ngậy của chao đỏ, chao trắng và gia vị',
+        actionPoints: [
+          'Cho 4 khối chao đỏ, 4 khối chao trắng và 2 thìa canh nước chao vào tô lớn, dùng thìa dầm nhuyễn mịn.',
+          'Cho tỏi băm, hành tím băm, gừng băm, sả băm, 1.5 thìa đường thốt nốt, 1 thìa mắm nhĩ, 1 thìa hạt nêm, 1 thìa sa tế tôm và 1 thìa mỡ heo vào tô chao, khuấy đều thành hỗn hợp sốt ướp chao sánh mịn thơm lừng.',
+          'Trút thịt vịt vào tô sốt chao, trộn đều dùng tay bóp nhẹ cho thịt vịt ngấm sâu gia vị. Ướp ít nhất 30 - 40 phút.',
+        ],
+        description:
+          'Sự kết hợp hoàn hảo giữa chao đỏ (tạo màu đẹp & vị béo bùi) và chao trắng (tạo vị mặn đậm đà) giúp món ăn tròn vị.',
+        tip: 'Ướp thịt vịt ngấm chao đủ 30 phút giúp khi hầm từng thớ thịt béo ngậy từ trong ra ngoài.',
+      },
+      {
+        step: 3,
+        title: 'Chiên sơ khoai môn sáp & Phi thơm sả tỏi',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Khoai môn sáp xém nhẹ vàng giòn vỏ bên ngoài, dẻo bở bên trong',
+        actionPoints: [
+          'Khoai môn sáp gọt vỏ, rửa sạch, cắt khối vuông nhỏ vừa ăn (khoảng 3cm). Ngâm nước muối 5 phút rồi vớt ra ráo.',
+          'Đun nóng 2 thìa canh mỡ heo trong chảo, cho khoai môn vào chiên sơ lửa vừa 5 phút cho xém nhẹ vàng giòn lớp vỏ bên ngoài rồi vớt ra ráo mỡ.',
+        ],
+        description:
+          'Chiên sơ khoai môn giúp tạo lớp vỏ giòn nhẹ bảo vệ khối khoai, khi ninh lẩu khoai không bị vữa nát đục nước lẩu.',
+        tip: 'Khoai môn sáp dẻo bở ngon hơn khoai lệ phố trong món lẩu vịt nấu chao.',
+      },
+      {
+        step: 4,
+        title: 'Xào thịt vịt đượm sốt chao & Hầm vịt nấu chao dừa tươi',
+        time: '30 phút',
+        heat: 'Lửa vừa',
+        goal: 'Thịt vịt chín mềm mọng, nước lẩu béo bùi sánh nhẹ màu đỏ cam óng ả',
+        actionPoints: [
+          'Đun nóng mỡ heo trong nồi lẩu, cho sả khúc đập dập, tỏi băm, hành tím băm vào phi vàng thơm lừng.',
+          'Trút toàn bộ thịt vịt đã ướp ngấm sốt chao vào nồi, đảo đều liên tục trên lửa lớn 5 - 7 phút cho thịt vịt săn chắc lại và dậy mùi thơm nức.',
+          'Đổ 1.2 lít nước dừa tươi xiêm vào nồi ngập sâm sấp thịt vịt. Đun sôi bùng, vớt sạch bọt mịn rồi hạ lửa nhỏ liu riêu đậy vung hầm trong 20 phút cho thịt vịt chín mềm mọng.',
+          'Trút toàn bộ khoai môn đã chiên sơ vào nồi vịt, đun tiếp lửa nhỏ 10 phút đến khi khoai môn dẻo bở béo ngậy. Nêm lại 1 thìa canh nước mắm nhĩ cho vừa vị.',
+        ],
+        description:
+          'Nước dừa tươi xiêm hòa quyện với vị béo bùi của chao tạo nên nước lẩu ngọt thanh dịu mát béo ngậy.',
+        tip: 'Đun hầm lửa liu riêu giúp khoai môn dẻo mềm từ từ mà nước lẩu vẫn giữ được độ trong sóng sánh.',
+      },
+      {
+        step: 5,
+        title: 'Pha sốt chấm chao Cần Thơ & Trình bày thưởng thức',
+        time: '5 phút',
+        heat: 'Lửa nhỏ trên bếp mini',
+        goal: 'Bữa lẩu vịt nấu chao bốc khói nghi ngút béo ngậy thơm lừng',
+        actionPoints: [
+          'Pha sốt chấm chao: Cho 3 viên chao trắng, 1 viên chao đỏ vào bát dầm nhuyễn mịn, thêm 1.5 thìa đường thốt nốt, 1 thìa nước cốt chanh, 1 thìa tỏi ớt băm nhuyễn và chút sa tế, khuấy đều sền sệt đậm đà.',
+          'Bày nồi vịt nấu chao lên bếp cồn/bếp từ mini giữa bàn ăn đun sôi lăn tăn, rắc ngò rí, hẹ cắt khúc và vài lát ớt sừng. Bày đĩa rau muống đồng, rau cải cúc, nấm rơm và bún tươi bên cạnh.',
+          'Thưởng thức: Nhúng rau muống và cải cúc vào nồi vịt nấu chao sôi bùng. Múc miếng thịt vịt mềm mọng béo ngậy, miếng khoai môn dẻo bở chấm ngập vào chén sốt chao pha tỏi ớt, ăn kèm bún tươi và húp thìa nước lẩu béo bùi thơm lừng.',
+        ],
+        description:
+          'Món vịt nấu chao Cần Thơ đặc sản nổi tiếng Miền Tây đem lại hương vị đậm đà ấm cúng cho cả gia đình.',
+        tip: 'Sốt chao pha tỏi ớt đường chanh chua ngọt béo bùi là chất xúc tác tôn vinh hương vị thịt vịt hầm.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu vịt nấu chao Cần Thơ béo ngậy chuẩn vị Miền Tây: 1. Khử hôi thịt vịt bằng gừng tươi giã dập pha rượu trắng và chanh muối chà xát kỹ; 2. Kết hợp cả chao đỏ (tạo màu đẹp & vị ngậy) và chao trắng (tạo vị mặn béo đậm đà) theo tỷ lệ 1:1, ướp thịt vịt ít nhất 30 phút trước khi xào; 3. Khoai môn sáp BẮT BUỘC chiên sơ lớp vỏ cho xém vàng giúp khi ninh khoai dẻo bở bùi bùi mà không bị vữa nát làm đục nồi lẩu.',
+    recommendedSauce:
+      'Chén sốt chao pha Cần Thơ sền sệt tỏi ớt chanh đường béo bùi cay xè, chấm ngập miếng thịt vịt xiêm mềm mọng và khoai môn dẻo bở.',
+  },
+
+  'ca-loc-nuong-trui': {
+    dishId: 'ca-loc-nuong-trui',
+    dishName: 'Cá Lóc Nướng Trui Rơm Miền Tây Cuốn Bánh Tráng',
+    seoTitle: 'Cách Làm Cá Lóc Nướng Trui Da Giòn Thịt Mềm, Thơm Lừng Khói Than',
+    description:
+      'Hướng dẫn chi tiết cách làm cá lóc nướng trui rơm chuẩn vị Miền Tây: Cá lóc đồng nguyên con giữ nguyên vảy không mổ bụng nướng vùi rơm khô thơm nồng mùi khói đồng quê, cạo sạch vỏ cháy xém lộ lớp da vàng ươm thịt mọng ngọt béo ngậy, rưới mỡ hành đậu phụng rang, cuốn bánh tráng rau rừng chấm mắm me hoặc mắm nêm sền sệt.',
+    prepTime: '20 phút',
+    cookTime: '25 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần Cá Lóc đồng tươi ngon & Dụng cụ nướng trui',
+        items: [
+          '1 con cá lóc đồng tươi sống (khoảng 800g - 1.2kg, cá còn bơi khỏe)',
+          '1 que tre tươi/que trúc dài 80cm (vót nhọn 1 đầu dùng xiên cá)',
+          '1 ôm rơm khô sạch (hoặc 1kg than hoa nướng bếp nướng)',
+          'Rượu trắng + chanh tươi + muối hạt (dùng rửa sạch lớp nhớt ngoài thân cá)',
+        ],
+      },
+      {
+        category: 'Thành phần Mỡ hành ngậy thơm & Đậu phụng rắc lên cá',
+        items: [
+          '1 bó hành lá (rửa sạch, cắt nhỏ)',
+          '3 thìa canh mỡ heo thắng (hoặc dầu ăn, đun nóng xối trực tiếp vào tô hành lá)',
+          '1/2 thìa cà phê hạt nêm + 1/2 thìa cà phê đường thốt nốt',
+          '50g đậu phụng (lạc) rang chín giòn, bóc vỏ, đập dập vỡ đôi',
+        ],
+      },
+      {
+        category: 'Bánh tráng, Rau sống cuốn kèm & Mắm me sền sệt chuẩn Miền Tây',
+        items: [
+          '1 xấp bánh tráng dẻo Trảng Bàng (dùng cuốn cá)',
+          '500g bún tươi (hoặc mì câu)',
+          'Rau sống ăn kèm: Rau đắng đất, xà lách, dưa leo, chuối chát thái mỏng ngâm nước chanh, khế chua thái mỏng, đọt xoài, đọt vừng, rau húng lủi, ngò rí',
+          'Chén mắm me sền sệt: 30g cốt me chín + 2 thìa canh nước mắm nhĩ + 2 thìa canh đường thốt nốt + 1 thìa tỏi ớt băm nhuyễn',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế cá lóc giữ nguyên vảy & Xiên que tre tươi',
+        time: '8 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Cá lóc sạch bẩn nhớt ngoài da, nguyên con không mổ bụng, xiên que thẳng đứng',
+        actionPoints: [
+          'Cá lóc đồng mua về rửa sạch với muối hạt, chanh và rượu trắng cho hết bẩn và nhớt ngoài da. LƯU Ý ĐẶC BIỆT: Nướng trui truyền thống KHÔNG ĐÁNH VẢY, KHÔNG MỔ BỤNG CÁ. Lớp vảy cá bên ngoài bảo vệ thịt cá không bị cháy khét, giữ trọn vẹn nước ngọt và mỡ cá ngậy béo bên trong.',
+          'Dùng que tre tươi vót nhọn xiên dọc từ miệng cá xuyên qua chiều dài thân cá xuống tận đuôi cá.',
+        ],
+        description:
+          'Giữ nguyên vảy cá là bí quyết nguyên bản dân dã Miền Tây giúp thịt cá bên trong mọng nước ngọt ngào.',
+        tip: 'Que tre tươi giúp xiên cá cứng cáp không bị gãy khi nướng trong ngọn lửa rơm cháy bùng.',
+      },
+      {
+        step: 2,
+        title: 'Nướng trui rơm khô bùng cháy (hoặc nướng than hồng)',
+        time: '15 phút',
+        heat: 'Lửa lớn cháy bùng',
+        goal: 'Thịt cá chín tới mọng nước, da vảy xém đen giòn thơm lừng khói rơm rạ',
+        actionPoints: [
+          'Cách nướng rơm chuẩn Miền Tây: Cắm ngược đầu que tre xiên cá xuống đất. Phủ toàn bộ rơm khô trùm kín con cá lóc thành ngọn rơm cao. Châm lửa đốt rơm cháy bùng bùng. Khi rơm tàn, liên tục dặm thêm rơm khô đun lửa cháy bùng trong 12 - 15 phút.',
+          'Cách nướng than hoa gia đình: Quết lớp mỡ heo mỏng lên da cá, nướng trên bếp than hồng rực xoay liên tục 15 - 20 phút cho da cá vảy xém đen giòn thơm lừng.',
+        ],
+        description:
+          'Khói rơm rạ đồng quê ám vào từng thớ thịt cá lóc tạo nên mùi thơm mộc mạc quyến rũ không món nào so sánh được.',
+        tip: 'Rơm đun cháy bùng liên tục giúp nhiệt độ cao làm chín đều cá từ trong ra ngoài.',
+      },
+      {
+        step: 3,
+        title: 'Cạo lớp vảy đen xém & Lột da lộ thịt cá trắng phúng phính',
+        time: '5 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Cạo sạch vỏ cháy xém, thịt cá trắng mọng bốc khói ngạt ngào mùi thơm',
+        actionPoints: [
+          'Vớt cá lóc nướng ra đĩa lớn. Dùng dao sắc cạo nhẹ nhàng lớp vảy đen xém thui bên ngoài.',
+          'Dùng dao rạch nhẹ dọc theo đường sống lưng cá, gạt mở hai bên da cá ra. Thịt cá lóc chín tới phả ra hơi khói ngạt ngào mùi thơm rơm rạ khói than, thịt cá trắng tinh, mọng nước và ngọt đậm đà.',
+          'Rạch lấy phần ruột cá lóc ở bụng ra đĩa riêng (ruột cá lóc nướng trui đắng nhẹ béo bùi dầm mắm me là đặc sản vô giá của dân sành ăn).',
+        ],
+        description:
+          'Lớp thịt cá lóc trắng ngần bốc khói nghi ngút béo ngậy ngọt đượm vị đồng quê.',
+        tip: 'Cạo vảy nhẹ tay để không làm nát lớp thịt cá chín mềm ngạt ngào bên trong.',
+      },
+      {
+        step: 4,
+        title: 'Làm mỡ hành ngậy thơm & Rưới đều lên thân cá lóc',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Mỡ hành xanh mướt óng ả, rưới ngập lên thịt cá lóc béo thơm',
+        actionPoints: [
+          'Đun nóng 3 thìa canh mỡ heo trên chảo cho sôi bùng. Trút mỡ heo đang sôi xèo xèo vào bát hành lá cắt nhỏ có sẵn chút hạt nêm và đường, khuấy đều cho hành lá chín tái giữ nguyên màu xanh tươi.',
+          'Rưới đều mỡ hành bóng mượt lên khắp thân thịt cá lóc nướng, rắc đậu phụng rang đập dập lên trên.',
+        ],
+        description:
+          'Mỡ hành lá xanh mướt hòa quyện đậu phụng rang giòn bùi tôn vinh vẻ đẹp ngọt béo của thịt cá lóc nướng.',
+        tip: 'Xối mỡ heo đang sôi vào hành lá giúp hành chín tái giòn tươi không bị hăng.',
+      },
+      {
+        step: 5,
+        title: 'Pha mắm me sền sệt & Trình bày cuốn bánh tráng',
+        time: '5 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Bàn tiệc cá lóc nướng trui đầy đặn rau đồng, bánh tráng dẻo và mắm me sền sệt',
+        actionPoints: [
+          'Pha mắm me: Dầm 30g me chín với 50ml nước ấm, lọc lấy cốt me. Đun cốt me với 2 thìa mắm nhĩ, 2 thìa đường thốt nốt trên lửa nhỏ cho sánh quánh, thêm tỏi ớt băm nhuyễn khuấy đều.',
+          'Trình bày: Bày con cá lóc nướng trui mỡ hành đậu phụng giữa đĩa, bên cạnh là đĩa rau sống đồng đủ vị (dưa leo, chuối chát, khế chua, rau đắng), xấp bánh tráng dẻo và đĩa bún tươi.',
+          'Thưởng thức: Trải miếng bánh tráng dẻo, xếp rau sống, dưa leo, chuối chát, gắp miếng thịt cá lóc nướng ngọt lịm nóng hổi, cuốn chặt lại và chấm ngập vào chén mắm me sền sệt chua ngọt cay xè.',
+        ],
+        description:
+          'Món cá lóc nướng trui cuốn bánh tráng rau rừng đặc sản dân dã đượm đà vị quê hương Nam Bộ.',
+        tip: 'Cuốn cá cùng lát chuối chát và khế chua giúp cân bằng vị béo ngậy của cá lóc mỡ hành.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nướng cá lóc trui da giòn thịt mềm ngọt béo chuẩn vị Miền Tây: 1. Tuyệt đối KHÔNG đánh vảy và KHÔNG mổ bụng cá – lớp vảy cứng bên ngoài hoạt động như một lớp áo giáp cách nhiệt giữ lại toàn bộ nước ngọt tự nhiên và mỡ cá béo ngậy bên trong; 2. Nướng lửa rơm cháy bùng bùng liên tục 12-15 phút để nhiệt tỏa đều từ ngoài vào trong thịt cá chín mọng không bị khô; 3. Cạo sạch vảy đen xém rồi rưới mỡ hành nóng xèo xèo và đậu phụng rang lên thịt cá bốc khói ngạt ngào mùi thơm khói rơm đồng quê.',
+    recommendedSauce:
+      'Chén mắm me sền sệt chua ngọt cay xè dầm tỏi ớt hiểm (hoặc chén mắm nêm pha dứa băm nhuyễn) chấm ngập cuốn bánh tráng cá lóc nướng trui béo ngậy.',
+  },
 };
 
 /**
@@ -10061,6 +10564,14 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'lau-mam-mien-tay': 'cach-nau-lau-mam-mien-tay',
   'com-ca-kho-to': 'cach-nau-com-ca-kho-to',
   'ca-kho-to': 'cach-nau-com-ca-kho-to',
+  'chao-ca-loc-rau-dang': 'cach-nau-chao-ca-loc',
+  'chao-ca-loc': 'cach-nau-chao-ca-loc',
+  'lau-ca-keo-la-giang': 'cach-nau-lau-ca-keo-la-giang',
+  'lau-ca-keo': 'cach-nau-lau-ca-keo-la-giang',
+  'vit-nau-chao-can-tho': 'cach-nau-vit-nau-chao',
+  'vit-nau-chao': 'cach-nau-vit-nau-chao',
+  'ca-loc-nuong-trui': 'cach-lam-ca-loc-nuong-trui',
+  'ca-loc-nuong': 'cach-lam-ca-loc-nuong-trui',
 };
 
 /**
@@ -10086,6 +10597,30 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'ca-loc-nuong-trui': 'ca-loc-nuong-trui',
+  'ca-loc-nuong': 'ca-loc-nuong-trui',
+  'cach-lam-ca-loc-nuong-trui': 'ca-loc-nuong-trui',
+  'cach-nau-ca-loc-nuong-trui': 'ca-loc-nuong-trui',
+  'cach-lam-ca-loc-nuong': 'ca-loc-nuong-trui',
+  'cach-nau-ca-loc-nuong': 'ca-loc-nuong-trui',
+  'vit-nau-chao-can-tho': 'vit-nau-chao-can-tho',
+  'vit-nau-chao': 'vit-nau-chao-can-tho',
+  'cach-nau-vit-nau-chao-can-tho': 'vit-nau-chao-can-tho',
+  'cach-lam-vit-nau-chao-can-tho': 'vit-nau-chao-can-tho',
+  'cach-nau-vit-nau-chao': 'vit-nau-chao-can-tho',
+  'cach-lam-vit-nau-chao': 'vit-nau-chao-can-tho',
+  'lau-ca-keo-la-giang': 'lau-ca-keo-la-giang',
+  'lau-ca-keo': 'lau-ca-keo-la-giang',
+  'cach-nau-lau-ca-keo-la-giang': 'lau-ca-keo-la-giang',
+  'cach-lam-lau-ca-keo-la-giang': 'lau-ca-keo-la-giang',
+  'cach-nau-lau-ca-keo': 'lau-ca-keo-la-giang',
+  'cach-lam-lau-ca-keo': 'lau-ca-keo-la-giang',
+  'chao-ca-loc-rau-dang': 'chao-ca-loc-rau-dang',
+  'chao-ca-loc': 'chao-ca-loc-rau-dang',
+  'cach-nau-chao-ca-loc': 'chao-ca-loc-rau-dang',
+  'cach-lam-chao-ca-loc': 'chao-ca-loc-rau-dang',
+  'cach-nau-chao-ca-loc-rau-dang': 'chao-ca-loc-rau-dang',
+  'cach-lam-chao-ca-loc-rau-dang': 'chao-ca-loc-rau-dang',
   'com-chay-kho-quet': 'com-chay-kho-quet',
   'cach-nau-com-chay-kho-quet': 'com-chay-kho-quet',
   'cach-lam-com-chay-kho-quet': 'com-chay-kho-quet',

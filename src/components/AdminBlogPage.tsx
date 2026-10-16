@@ -227,6 +227,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   const [linkModalText, setLinkModalText] = useState('');
   const [linkSearchQuery, setLinkSearchQuery] = useState('');
   const savedSelectionRange = useRef<Range | null>(null);
+  const isRestoringSelection = useRef(false);
+  const isImagePickerOpenRef = useRef(false);
+  const isLinkModalOpenRef = useRef(false);
+  const isTableModalOpenRef = useRef(false);
 
   // Delete Post Confirmation State
   const [postToDelete, setPostToDelete] = useState<BlogPost | null>(null);
@@ -1324,21 +1328,315 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setTimeout(detectCurrentBlockFormat, 30);
   };
 
+  // Sync modal state refs to protect selection during modal interactions
+  useEffect(() => {
+    isImagePickerOpenRef.current = isImagePickerOpen;
+  }, [isImagePickerOpen]);
+
+  useEffect(() => {
+    isLinkModalOpenRef.current = isLinkModalOpen;
+  }, [isLinkModalOpen]);
+
+  useEffect(() => {
+    isTableModalOpenRef.current = isTableModalOpen;
+  }, [isTableModalOpen]);
+
+  const INSERT_MARKER_ID = 'blog-editor-insert-marker';
+
+  // Safely remove any existing insertion markers from editor DOM
+  const removeInsertMarker = useCallback(() => {
+    if (!editorRef.current) return;
+    try {
+      const markers = editorRef.current.querySelectorAll(`#${INSERT_MARKER_ID}, .blog-editor-marker`);
+      markers.forEach((m) => {
+        if (m.parentNode) {
+          m.parentNode.removeChild(m);
+        }
+      });
+    } catch (e) {
+      console.warn('removeInsertMarker error:', e);
+    }
+  }, []);
+
+  // Position caret directly into a target element (e.g. following paragraph)
+  const setCursorToElement = useCallback((el: HTMLElement, atStart = true) => {
+    if (!el || typeof window === 'undefined') return;
+    try {
+      const sel = window.getSelection();
+      if (!sel) return;
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(atStart);
+      sel.removeAllRanges();
+      sel.addRange(range);
+      savedSelectionRange.current = range.cloneRange();
+      if (editorRef.current) {
+        editorRef.current.focus({ preventScroll: true });
+      }
+    } catch (e) {
+      console.warn('setCursorToElement failed:', e);
+    }
+  }, []);
+
+  // Place a hidden DOM marker at the EXACT current cursor position before opening modal
+  const placeInsertMarker = useCallback((): boolean => {
+    if (!editorRef.current) return false;
+    removeInsertMarker();
+
+    let range: Range | null = null;
+    const sel = window.getSelection();
+
+    if (sel && sel.rangeCount > 0 && editorRef.current.contains(sel.getRangeAt(0).commonAncestorContainer)) {
+      range = sel.getRangeAt(0).cloneRange();
+    } else if (savedSelectionRange.current && editorRef.current.contains(savedSelectionRange.current.commonAncestorContainer)) {
+      range = savedSelectionRange.current.cloneRange();
+    }
+
+    const marker = document.createElement('span');
+    marker.id = INSERT_MARKER_ID;
+    marker.className = 'blog-editor-marker hidden';
+    marker.style.display = 'none';
+    marker.setAttribute('data-insert-marker', 'true');
+
+    if (range) {
+      try {
+        range.deleteContents();
+        range.insertNode(marker);
+
+        const afterRange = document.createRange();
+        afterRange.setStartAfter(marker);
+        afterRange.collapse(true);
+        savedSelectionRange.current = afterRange.cloneRange();
+        return true;
+      } catch (e) {
+        console.warn('Could not insert marker into range:', e);
+      }
+    }
+
+    // Fallback: If no valid selection range, place marker at the end of the last block so it never jumps to the top
+    try {
+      const lastChild = editorRef.current.lastElementChild;
+      if (lastChild && lastChild.nodeName.toLowerCase() === 'p') {
+        lastChild.appendChild(marker);
+      } else {
+        editorRef.current.appendChild(marker);
+      }
+      return true;
+    } catch (e) {
+      console.warn('Fallback marker placement failed:', e);
+      return false;
+    }
+  }, [removeInsertMarker]);
+
+  // Insert a block element (image figure, table, callout) exactly at the marker or cursor
+  const insertBlockAtMarkerOrSelection = useCallback(
+    (blockHtml: string): HTMLElement | null => {
+      if (!editorRef.current) return null;
+
+      isRestoringSelection.current = true;
+
+      try {
+        // 1. Look for existing marker in editorRef
+        let marker = editorRef.current.querySelector(`#${INSERT_MARKER_ID}`) as HTMLElement | null;
+
+        // 2. If marker not found, attempt to place one now
+        if (!marker) {
+          placeInsertMarker();
+          marker = editorRef.current.querySelector(`#${INSERT_MARKER_ID}`) as HTMLElement | null;
+        }
+
+        // 3. Create DOM nodes from HTML
+        const template = document.createElement('template');
+        template.innerHTML = blockHtml.trim();
+        const fragment = template.content;
+        const insertedRoot = fragment.firstElementChild as HTMLElement;
+
+        if (!insertedRoot) {
+          removeInsertMarker();
+          return null;
+        }
+
+        // Paragraph to follow the inserted block so user can continue writing
+        const nextParagraph = document.createElement('p');
+        nextParagraph.innerHTML = '<br/>';
+
+        if (marker && marker.parentNode && editorRef.current.contains(marker)) {
+          // Find the direct child block of editorRef that contains this marker
+          let blockNode: Node = marker;
+          while (blockNode.parentNode && blockNode.parentNode !== editorRef.current) {
+            blockNode = blockNode.parentNode;
+          }
+
+          if (blockNode.parentNode === editorRef.current) {
+            const textContent = blockNode.textContent?.trim() || '';
+            const isBlockP = blockNode.nodeName.toLowerCase() === 'p';
+            const isEmptyP = isBlockP && (textContent === '' || textContent.length === 0);
+
+            if (isEmptyP) {
+              // Replace empty paragraph with our block + nextParagraph
+              editorRef.current.insertBefore(fragment, blockNode);
+              editorRef.current.insertBefore(nextParagraph, blockNode);
+              blockNode.parentNode.removeChild(blockNode);
+              setCursorToElement(nextParagraph, true);
+            } else if (isBlockP) {
+              // Check if there is text before and after the marker inside the paragraph
+              const rangeBefore = document.createRange();
+              rangeBefore.setStart(blockNode, 0);
+              rangeBefore.setEndBefore(marker);
+
+              const rangeAfter = document.createRange();
+              rangeAfter.setStartAfter(marker);
+              rangeAfter.setEnd(blockNode, blockNode.childNodes.length);
+
+              const afterContent = rangeAfter.cloneContents();
+              const hasAfterText = (afterContent.textContent?.trim().length || 0) > 0;
+              const hasAfterElements = Boolean(afterContent.querySelector('img, a, b, strong, span, em'));
+
+              if (hasAfterText || hasAfterElements) {
+                // Split the paragraph at the cursor position
+                const afterP = document.createElement('p');
+                afterP.appendChild(afterContent);
+                rangeAfter.deleteContents();
+
+                if (blockNode.nextSibling) {
+                  editorRef.current.insertBefore(fragment, blockNode.nextSibling);
+                  editorRef.current.insertBefore(afterP, blockNode.nextSibling);
+                } else {
+                  editorRef.current.appendChild(fragment);
+                  editorRef.current.appendChild(afterP);
+                }
+                setCursorToElement(afterP, true);
+              } else {
+                // Marker is at end of paragraph: insert right after it
+                if (blockNode.nextSibling) {
+                  editorRef.current.insertBefore(fragment, blockNode.nextSibling);
+                  editorRef.current.insertBefore(nextParagraph, blockNode.nextSibling);
+                } else {
+                  editorRef.current.appendChild(fragment);
+                  editorRef.current.appendChild(nextParagraph);
+                }
+                setCursorToElement(nextParagraph, true);
+              }
+            } else {
+              // If inside a heading (h1-h6), blockquote, table, etc.: insert right after
+              if (blockNode.nextSibling) {
+                editorRef.current.insertBefore(fragment, blockNode.nextSibling);
+                editorRef.current.insertBefore(nextParagraph, blockNode.nextSibling);
+              } else {
+                editorRef.current.appendChild(fragment);
+                editorRef.current.appendChild(nextParagraph);
+              }
+              setCursorToElement(nextParagraph, true);
+            }
+          } else {
+            // Fallback: directly adjacent to marker
+            if (marker.nextSibling) {
+              editorRef.current.insertBefore(fragment, marker.nextSibling);
+              editorRef.current.insertBefore(nextParagraph, marker.nextSibling);
+            } else {
+              editorRef.current.appendChild(fragment);
+              editorRef.current.appendChild(nextParagraph);
+            }
+            setCursorToElement(nextParagraph, true);
+          }
+        } else {
+          // Fallback: append at the end of the editor
+          editorRef.current.appendChild(fragment);
+          editorRef.current.appendChild(nextParagraph);
+          setCursorToElement(nextParagraph, true);
+        }
+
+        removeInsertMarker();
+
+        // Smoothly ensure inserted element is in comfortable view without jumping to top
+        try {
+          insertedRoot.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } catch {}
+
+        updateCounts();
+        return insertedRoot;
+      } finally {
+        setTimeout(() => {
+          isRestoringSelection.current = false;
+        }, 150);
+      }
+    },
+    [placeInsertMarker, removeInsertMarker, setCursorToElement, updateCounts]
+  );
+
+  // Close image picker and ensure any temporary marker is removed
+  const closeImagePicker = useCallback(() => {
+    setIsImagePickerOpen(false);
+    removeInsertMarker();
+  }, [removeInsertMarker]);
+
+  // Save current cursor / selection range inside the editor
+  const saveCurrentSelection = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    if (isRestoringSelection.current) return;
+    if (isImagePickerOpenRef.current || isLinkModalOpenRef.current || isTableModalOpenRef.current) return;
+
+    const sel = window.getSelection();
+    if (sel && sel.rangeCount > 0 && editorRef.current) {
+      const range = sel.getRangeAt(0);
+      if (editorRef.current.contains(range.commonAncestorContainer)) {
+        savedSelectionRange.current = range.cloneRange();
+      }
+    }
+  }, []);
+
+  // Restore selection back to editorRef at the exact saved range (preventing jumping to top)
+  const restoreSelectionToEditor = useCallback((): Range | null => {
+    if (!editorRef.current) return null;
+    isRestoringSelection.current = true;
+    try {
+      const sel = window.getSelection();
+      let targetRange = savedSelectionRange.current;
+
+      // Ensure targetRange is valid and within editor
+      if (!targetRange || !editorRef.current.contains(targetRange.commonAncestorContainer)) {
+        if (sel && sel.rangeCount > 0 && editorRef.current.contains(sel.getRangeAt(0).commonAncestorContainer)) {
+          targetRange = sel.getRangeAt(0).cloneRange();
+        } else {
+          // Fallback: place caret at the END of editor instead of top (offset 0)
+          targetRange = document.createRange();
+          targetRange.selectNodeContents(editorRef.current);
+          targetRange.collapse(false);
+        }
+      }
+
+      if (sel && targetRange) {
+        sel.removeAllRanges();
+        sel.addRange(targetRange);
+      }
+      editorRef.current.focus({ preventScroll: true });
+      return targetRange;
+    } finally {
+      setTimeout(() => {
+        isRestoringSelection.current = false;
+      }, 100);
+    }
+  }, []);
+
   // Sync toolbar with cursor position whenever user clicks, types, or moves cursor
   useEffect(() => {
     if (viewMode !== 'editor' || editorSubTab !== 'visual') return;
     const handleSelectionChange = () => {
+      if (isRestoringSelection.current) return;
+      if (isImagePickerOpenRef.current || isLinkModalOpenRef.current || isTableModalOpenRef.current) return;
+
       const selection = window.getSelection();
       if (!selection || !editorRef.current) return;
       if (editorRef.current.contains(selection.anchorNode)) {
         detectCurrentBlockFormat();
+        saveCurrentSelection();
       }
     };
     document.addEventListener('selectionchange', handleSelectionChange);
     return () => {
       document.removeEventListener('selectionchange', handleSelectionChange);
     };
-  }, [viewMode, editorSubTab, detectCurrentBlockFormat]);
+  }, [viewMode, editorSubTab, detectCurrentBlockFormat, saveCurrentSelection]);
 
   // Execute formatting command in document
   const execCmd = (cmd: string, val: string | undefined = undefined) => {
@@ -1600,21 +1898,25 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   // Insert Image from Library / URL
   const handleInsertImage = (imgUrl: string, captionText: string = '') => {
     if (!imgUrl.trim()) return;
+
     if (editorRef.current) {
-      editorRef.current.focus();
+      const altText = captionText || title || 'Hình ảnh món ăn';
+      const finalCaption = (captionText || imageCaption || '').trim();
       const figureHtml = `
         <figure class="my-6 text-center">
-          <img src="${imgUrl}" alt="${captionText || title}" class="max-w-md w-full mx-auto rounded-xl shadow-xs border border-stone-200" />
-          ${captionText ? `<figcaption class="text-xs text-stone-500 mt-2 italic font-medium">${captionText}</figcaption>` : ''}
+          <img src="${imgUrl}" alt="${altText}" class="max-w-md w-full mx-auto rounded-xl shadow-xs border border-stone-200" />
+          ${finalCaption ? `<figcaption class="text-xs text-stone-500 mt-2 italic font-medium">${finalCaption}</figcaption>` : ''}
         </figure>
-        <p><br/></p>
       `;
-      document.execCommand('insertHTML', false, figureHtml);
+
+      insertBlockAtMarkerOrSelection(figureHtml);
     }
-    setIsImagePickerOpen(false);
+
+    closeImagePicker();
     setCustomImageUrl('');
     setImageCaption('');
-    showToast('Đã chèn ảnh vào bài viết!');
+
+    showToast('Đã chèn ảnh vào đúng vị trí trong bài viết!', 'success');
   };
 
   // Upload image handler with automatic sharp SEO compression (50-60KB)
@@ -1834,6 +2136,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   // Insert Table
   const handleInsertTable = () => {
     if (!editorRef.current) return;
+
     let tableHtml = '<table class="w-full border-collapse my-6 border border-stone-300"><tbody>';
     for (let r = 0; r < tableRows; r++) {
       tableHtml += '<tr>';
@@ -1846,26 +2149,26 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       }
       tableHtml += '</tr>';
     }
-    tableHtml += '</tbody></table><p><br/></p>';
-    editorRef.current.focus();
-    document.execCommand('insertHTML', false, tableHtml);
+    tableHtml += '</tbody></table>';
+
+    insertBlockAtMarkerOrSelection(tableHtml);
     setIsTableModalOpen(false);
-    showToast('Đã chèn bảng vào bài viết!');
+    showToast('Đã chèn bảng vào đúng vị trí trong bài viết!');
   };
 
   // Insert Callout Box (Mẹo hay / Chú thích)
   const handleInsertCallout = () => {
     if (!editorRef.current) return;
+
     const calloutHtml = `
       <div class="blog-callout-box my-6 p-4 sm:p-5 rounded-2xl bg-amber-50/90 border-l-4 border-orange-500 text-stone-800 shadow-2xs space-y-1.5 border border-orange-100/60">
         <strong class="text-orange-950 font-black flex items-center gap-2 text-base"><span>💡</span><span>Mẹo Nấu Ngon Từ Bếp Trưởng:</span></strong>
         <p class="text-sm sm:text-base leading-relaxed text-stone-700">Nhập bí quyết nhà bếp hoặc lời khuyên bổ ích cho bạn đọc tại đây...</p>
       </div>
-      <p><br/></p>
     `;
-    editorRef.current.focus({ preventScroll: true });
-    document.execCommand('insertHTML', false, calloutHtml);
-    showToast('Đã thêm hộp mẹo nấu ngon!');
+
+    insertBlockAtMarkerOrSelection(calloutHtml);
+    showToast('Đã thêm hộp mẹo nấu ngon vào đúng vị trí!');
   };
 
   // Save Post to Server & Local Storage
@@ -1890,6 +2193,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setSaving(true);
 
     let currentHtml = editorRef.current?.innerHTML || '';
+    // Strip temporary markers if any exist
+    currentHtml = currentHtml.replace(/<span[^>]*id="blog-editor-insert-marker"[^>]*><\/span>/gi, '');
+    currentHtml = currentHtml.replace(/<span[^>]*class="[^"]*blog-editor-marker[^"]*"[^>]*><\/span>/gi, '');
+
     // Clean browser execCommand blockquote inline artifacts (border: none, margin: 0 0 0 40px)
     currentHtml = currentHtml.replace(
       /<blockquote(?:\s+style="[^"]*")?(?:\s+class="[^"]*")?[^>]*>/gi,
@@ -2926,6 +3233,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                     {/* Links */}
                     <button
                       type="button"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        saveCurrentSelection();
+                      }}
                       onClick={handleOpenLinkModal}
                       className="p-1.5 rounded-md hover:bg-orange-100 text-orange-700 flex items-center gap-1 font-bold transition-colors cursor-pointer"
                       title="Chèn liên kết (Bôi đen chữ hoặc chèn mới)"
@@ -2947,32 +3258,54 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                     {/* Media & Inserts */}
                     <button
                       type="button"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        saveCurrentSelection();
+                      }}
                       onClick={() => {
+                        saveCurrentSelection();
+                        placeInsertMarker();
                         setImagePickerMode('editor');
                         setImagePickerCategory('Tất Cả');
                         setImageSearchQuery('');
                         setIsImagePickerOpen(true);
                       }}
-                      className="p-1.5 rounded-md hover:bg-stone-200 text-stone-800 flex items-center gap-1 font-medium transition-colors"
-                      title="Chèn hình ảnh từ thư viện"
+                      className="p-1.5 rounded-md hover:bg-stone-200 text-stone-800 flex items-center gap-1 font-medium transition-colors cursor-pointer"
+                      title="Chèn hình ảnh từ thư viện vào vị trí con trỏ"
                     >
                       <ImageIcon className="w-3.5 h-3.5 text-stone-600" />
                       <span className="hidden sm:inline">Ảnh</span>
                     </button>
                     <button
                       type="button"
-                      onClick={() => setIsTableModalOpen(true)}
-                      className="p-1.5 rounded-md hover:bg-stone-200 text-stone-800 flex items-center gap-1 font-medium transition-colors"
-                      title="Chèn bảng dữ liệu"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        saveCurrentSelection();
+                      }}
+                      onClick={() => {
+                        saveCurrentSelection();
+                        placeInsertMarker();
+                        setIsTableModalOpen(true);
+                      }}
+                      className="p-1.5 rounded-md hover:bg-stone-200 text-stone-800 flex items-center gap-1 font-medium transition-colors cursor-pointer"
+                      title="Chèn bảng dữ liệu vào vị trí con trỏ"
                     >
                       <TableIcon className="w-3.5 h-3.5 text-stone-600" />
                       <span className="hidden sm:inline">Bảng</span>
                     </button>
                     <button
                       type="button"
-                      onClick={handleInsertCallout}
-                      className="p-1.5 rounded-md hover:bg-stone-200 text-stone-800 flex items-center gap-1 font-medium transition-colors"
-                      title="Thêm hộp mẹo hay"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        saveCurrentSelection();
+                      }}
+                      onClick={() => {
+                        saveCurrentSelection();
+                        placeInsertMarker();
+                        handleInsertCallout();
+                      }}
+                      className="p-1.5 rounded-md hover:bg-stone-200 text-stone-800 flex items-center gap-1 font-medium transition-colors cursor-pointer"
+                      title="Thêm hộp mẹo hay vào vị trí con trỏ"
                     >
                       <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                       <span className="hidden sm:inline">Mẹo</span>
@@ -3043,16 +3376,27 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                       <div
                         ref={editorRef}
                         contentEditable
-                        onClick={handleEditorClick}
+                        onClick={(e) => {
+                          handleEditorClick(e);
+                          saveCurrentSelection();
+                        }}
                         onInput={() => {
                           updateCounts();
                           detectCurrentBlockFormat();
+                          saveCurrentSelection();
                         }}
                         onKeyUp={() => {
                           updateCounts();
                           detectCurrentBlockFormat();
+                          saveCurrentSelection();
                         }}
-                        onMouseUp={detectCurrentBlockFormat}
+                        onMouseUp={() => {
+                          detectCurrentBlockFormat();
+                          saveCurrentSelection();
+                        }}
+                        onFocus={() => {
+                          saveCurrentSelection();
+                        }}
                         className="prose prose-stone max-w-none focus:outline-none min-h-[500px] text-stone-800 leading-relaxed text-[16px] blog-editor-canvas"
                         style={{
                           wordBreak: 'break-word',
@@ -3717,8 +4061,14 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
       {/* ================= MODAL: CHỌN / ĐỔI / TẢI ẢNH ================= */}
       {isImagePickerOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
-          <div className="bg-white rounded-2xl max-w-4xl w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[92vh] flex flex-col">
+        <div
+          onClick={closeImagePicker}
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white rounded-2xl max-w-4xl w-full p-5 sm:p-6 shadow-2xl space-y-4 max-h-[92vh] flex flex-col"
+          >
             {/* Modal Header */}
             <div className="flex items-center justify-between border-b border-stone-100 pb-3">
               <div className="flex items-center gap-2.5">
@@ -3740,7 +4090,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
               </div>
               <button
                 type="button"
-                onClick={() => setIsImagePickerOpen(false)}
+                onClick={closeImagePicker}
                 className="text-stone-400 hover:text-stone-700 p-1.5 rounded-lg hover:bg-stone-100 transition-colors"
                 title="Đóng cửa sổ"
               >
@@ -3876,7 +4226,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                             onClick={() => {
                               if (imagePickerMode === 'cover') {
                                 setCoverImage(img.url);
-                                setIsImagePickerOpen(false);
+                                closeImagePicker();
                                 showToast(`Đã đổi ảnh đại diện: "${img.name}"!`, 'success');
                               } else {
                                 handleInsertImage(img.url, img.name);
@@ -4065,7 +4415,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                               onClick={() => {
                                 if (imagePickerMode === 'cover') {
                                   setCoverImage(uploadedResult.url);
-                                  setIsImagePickerOpen(false);
+                                  closeImagePicker();
                                   showToast('Đã đặt làm ảnh đại diện bài viết!', 'success');
                                 } else {
                                   handleInsertImage(uploadedResult.url, imageCaption);
@@ -4105,7 +4455,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                           onClick={() => {
                             if (imagePickerMode === 'cover') {
                               setCoverImage(img.url);
-                              setIsImagePickerOpen(false);
+                              closeImagePicker();
                               showToast(`Đã đổi ảnh đại diện: "${img.name}"!`, 'success');
                             } else {
                               handleInsertImage(img.url, img.name);
@@ -4214,7 +4564,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
             <div className="flex items-center justify-end gap-2 pt-3 border-t border-stone-100">
               <button
                 type="button"
-                onClick={() => setIsImagePickerOpen(false)}
+                onClick={closeImagePicker}
                 className="text-xs px-4 py-2 rounded-xl text-stone-600 hover:bg-stone-100 transition-colors font-medium"
               >
                 Đóng
@@ -4225,7 +4575,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                   onClick={() => {
                     if (imagePickerMode === 'cover') {
                       setCoverImage(customImageUrl.trim());
-                      setIsImagePickerOpen(false);
+                      closeImagePicker();
                       showToast('Đã đặt ảnh đại diện từ liên kết tùy chỉnh!', 'success');
                     } else {
                       handleInsertImage(customImageUrl, imageCaption);

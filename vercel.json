@@ -714,7 +714,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!api/|_next/|_static/|[\\w-]+\\.\\w+).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]

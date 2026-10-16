@@ -58,6 +58,8 @@ import {
   Inbox,
   Mail,
   LogOut,
+  Monitor,
+  Smartphone,
 } from 'lucide-react';
 import {
   BlogPost,
@@ -231,6 +233,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   const isImagePickerOpenRef = useRef(false);
   const isLinkModalOpenRef = useRef(false);
   const isTableModalOpenRef = useRef(false);
+
+  // Instant Post Preview Modal State
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+  const [previewDevice, setPreviewDevice] = useState<'desktop' | 'mobile'>('desktop');
+  const [previewData, setPreviewData] = useState<BlogPost | null>(null);
 
   // Delete Post Confirmation State
   const [postToDelete, setPostToDelete] = useState<BlogPost | null>(null);
@@ -559,6 +566,18 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         importedPosts.forEach((p) => mergedMap.set(p.slug || p.id, p));
         const mergedList = Array.from(mergedMap.values());
         localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(mergedList));
+        if (typeof window !== 'undefined') {
+          (window as any).__INITIAL_CUSTOM_POSTS__ = mergedList;
+        }
+
+        // Register into KNOWN_BLOG_SLUGS so routes are immediately recognized
+        try {
+          const { KNOWN_BLOG_SLUGS } = await import('../data/blogSlugs');
+          mergedList.forEach((p) => {
+            if (p.slug) KNOWN_BLOG_SLUGS.add(p.slug.toLowerCase().trim());
+            if (p.id) KNOWN_BLOG_SLUGS.add(p.id.toLowerCase().trim());
+          });
+        } catch {}
 
         // Sync to server API
         try {
@@ -570,6 +589,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         } catch (apiErr) {
           console.warn('Server sync warning during import:', apiErr);
         }
+
+        window.dispatchEvent(new Event('custom-posts-updated'));
+        window.dispatchEvent(new Event('locationchange'));
 
         await loadPosts();
         showToast(`Đã khôi phục thành công ${importedPosts.length} bài viết vào hệ thống!`);
@@ -2432,6 +2454,99 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     }
   };
 
+  // Save current draft to localStorage and memory immediately
+  const persistDraftToStorage = useCallback((): BlogPost => {
+    const cleanSlug = slug.trim() ? generateSlug(slug) : (title.trim() ? generateSlug(title) : (editingPostId || 'bai-viet-moi'));
+    let currentHtml = editorRef.current?.innerHTML || '';
+    currentHtml = currentHtml.replace(/<span[^>]*id="blog-editor-insert-marker"[^>]*><\/span>/gi, '');
+    currentHtml = currentHtml.replace(/<span[^>]*class="[^"]*blog-editor-marker[^"]*"[^>]*><\/span>/gi, '');
+
+    const draftPayload: BlogPost = {
+      id: cleanSlug,
+      slug: cleanSlug,
+      title: title.trim() || 'Bài viết chưa đặt tiêu đề',
+      excerpt: excerpt.trim() || title.trim(),
+      coverImage: coverImage.trim() || '/images/an-gi-cho-do-ngan.jpg',
+      category: category || 'Gợi Ý Thực Đơn',
+      tags: (typeof tags === 'string' ? tags : '')
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean),
+      author: {
+        name: authorName.trim() || 'Bếp Trưởng Hôm Nay Ăn Gì',
+        role: authorRole.trim() || 'Chuyên gia Ẩm thực & Dinh dưỡng',
+        avatar: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80',
+      },
+      publishDate: publishDate.trim() || new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+      readTime: readTime.trim() || '6 phút đọc',
+      featured: !!featured,
+      content: htmlToMarkdown(currentHtml),
+      htmlContent: currentHtml,
+      updatedAt: new Date().toISOString(),
+    };
+
+    try {
+      const existingCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+      let customList: BlogPost[] = existingCustomStr ? JSON.parse(existingCustomStr) : [];
+      customList = customList.filter((p) => {
+        const s = (p.slug || '').toLowerCase().trim();
+        const id = (p.id || '').toLowerCase().trim();
+        return s !== cleanSlug && id !== cleanSlug;
+      });
+      customList.unshift(draftPayload);
+      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(customList));
+      if (typeof window !== 'undefined') {
+        (window as any).__INITIAL_CUSTOM_POSTS__ = customList;
+      }
+      import('../data/blogSlugs').then(({ KNOWN_BLOG_SLUGS }) => {
+        KNOWN_BLOG_SLUGS.add(cleanSlug);
+      });
+      window.dispatchEvent(new Event('custom-posts-updated'));
+    } catch (e) {
+      console.warn('Draft persist error:', e);
+    }
+
+    return draftPayload;
+  }, [slug, title, excerpt, coverImage, category, tags, authorName, authorRole, publishDate, readTime, featured, editingPostId]);
+
+  // Open Preview Modal directly from Editor
+  const handleOpenPreview = useCallback(() => {
+    const draft = persistDraftToStorage();
+    setPreviewData(draft);
+    setIsPreviewModalOpen(true);
+  }, [persistDraftToStorage]);
+
+  // Preview an existing post from table
+  const handlePreviewExistingPost = useCallback((post: BlogPost) => {
+    setPreviewData(post);
+    setIsPreviewModalOpen(true);
+  }, []);
+
+  // View post live on the web SPA without broken target="_blank"
+  const handleViewPostOnWeb = useCallback((postSlugOrTarget?: string) => {
+    let target = (postSlugOrTarget || slug.trim() || (title.trim() ? generateSlug(title) : editingPostId || '')).replace(/^\//, '').trim();
+    if (!target) {
+      target = 'blog';
+    }
+
+    // If currently in editor, persist draft first so viewing on web has latest edits
+    if (viewMode === 'editor' && title.trim()) {
+      persistDraftToStorage();
+    }
+
+    setIsPreviewModalOpen(false);
+
+    if (onNavigate) {
+      onNavigate('blog');
+    }
+    const targetPath = target === 'blog' ? '/blog' : `/${target}`;
+    window.history.pushState({ tab: 'blog', slug: target }, '', targetPath);
+    window.dispatchEvent(new Event('popstate'));
+    window.dispatchEvent(new Event('locationchange'));
+    window.dispatchEvent(new Event('custom-posts-updated'));
+    showToast(`Đang mở bài viết "${target}" trên web!`, 'success');
+  }, [slug, title, editingPostId, viewMode, persistDraftToStorage, onNavigate]);
+
   // Filter posts
   const filteredPosts = posts.filter((p) => {
     const q = (searchQuery || '').toLowerCase().trim();
@@ -2608,21 +2723,27 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                   <Database className="w-4 h-4 text-emerald-400" />
                   <span className="hidden sm:inline">Mục Lưu Data</span>
                 </button>
-                {(() => {
-                  const targetSlug = (slug.trim() ? generateSlug(slug) : (title.trim() ? generateSlug(title) : editingPostId || '')).replace(/^\//, '');
-                  return (
-                    <a
-                      href={targetSlug ? `/${targetSlug}` : '/blog'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-200 hover:text-white bg-stone-800 hover:bg-stone-700 py-2 px-3 rounded-lg border border-stone-700 transition-colors"
-                      title={targetSlug ? `Xem bài viết tại /${targetSlug}` : 'Xem danh sách blog trên web'}
-                    >
-                      <Eye className="w-3.5 h-3.5 text-amber-400" />
-                      <span>Xem Trên Web</span>
-                    </a>
-                  );
-                })()}
+                {/* 1. Nút Xem Trước Bài Viết Ngay Trong Admin (Không cần mở tab mới) */}
+                <button
+                  type="button"
+                  onClick={handleOpenPreview}
+                  className="flex items-center gap-1.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 text-xs sm:text-sm font-bold py-2 px-3 rounded-lg border border-amber-500/40 shadow-xs transition-colors cursor-pointer"
+                  title="Xem trước bài viết giao diện chuẩn độc giả ngay tại đây"
+                >
+                  <Eye className="w-4 h-4 text-amber-400" />
+                  <span>Xem Trước</span>
+                </button>
+
+                {/* 2. Nút Xem Trực Tiếp Trên Web (SPA Navigation) */}
+                <button
+                  type="button"
+                  onClick={() => handleViewPostOnWeb()}
+                  className="flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-200 hover:text-white bg-stone-800 hover:bg-stone-700 py-2 px-3 rounded-lg border border-stone-700 transition-colors cursor-pointer"
+                  title="Mở bài viết trực tiếp trên giao diện web độc giả"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-sky-400" />
+                  <span className="hidden sm:inline">Xem Trên Web</span>
+                </button>
                 {editingPostId && (
                   <button
                     type="button"
@@ -2912,15 +3033,23 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
                       {/* Actions */}
                       <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
-                        <a
-                          href={`/${post.slug}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 rounded-lg text-stone-500 hover:text-stone-900 hover:bg-stone-200/60 transition-colors"
+                        <button
+                          type="button"
+                          onClick={() => handlePreviewExistingPost(post)}
+                          className="p-2 rounded-lg text-amber-600 hover:text-amber-700 hover:bg-amber-50 transition-colors cursor-pointer"
+                          title="Xem trước bài viết (Giao diện độc giả)"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleViewPostOnWeb(post.slug)}
+                          className="p-2 rounded-lg text-stone-500 hover:text-stone-900 hover:bg-stone-200/60 transition-colors cursor-pointer"
                           title="Xem trên web"
                         >
                           <ExternalLink className="w-4 h-4" />
-                        </a>
+                        </button>
 
                         <button
                           onClick={() => handleEditPost(post)}
@@ -4835,6 +4964,203 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
               >
                 Đóng
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ================= MODAL: XEM TRƯỚC BÀI VIẾT (PREVIEW) ================= */}
+      {isPreviewModalOpen && previewData && (
+        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex flex-col p-2 sm:p-4 md:p-6 animate-fade-in">
+          <div className="bg-white rounded-3xl w-full max-w-6xl mx-auto flex flex-col flex-1 shadow-2xl border border-stone-200 overflow-hidden">
+            {/* Top Toolbar */}
+            <div className="flex flex-wrap items-center justify-between gap-3 px-4 sm:px-6 py-3.5 bg-stone-900 text-white shrink-0 border-b border-stone-800">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                  <Eye className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-black text-white text-sm sm:text-base flex items-center gap-2">
+                    <span>Xem Trước Bài Viết</span>
+                    <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold">
+                      /{previewData.slug}
+                    </span>
+                  </h3>
+                  <p className="text-[11px] text-stone-400">
+                    Giao diện chuẩn 100% như độc giả nhìn thấy trên website
+                  </p>
+                </div>
+              </div>
+
+              {/* Center Device Switcher */}
+              <div className="flex items-center bg-stone-800 p-1 rounded-xl border border-stone-700">
+                <button
+                  type="button"
+                  onClick={() => setPreviewDevice('desktop')}
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    previewDevice === 'desktop'
+                      ? 'bg-orange-600 text-white shadow-xs'
+                      : 'text-stone-400 hover:text-white'
+                  }`}
+                  title="Xem giao diện máy tính"
+                >
+                  <Monitor className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Máy Tính</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPreviewDevice('mobile')}
+                  className={`flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    previewDevice === 'mobile'
+                      ? 'bg-orange-600 text-white shadow-xs'
+                      : 'text-stone-400 hover:text-white'
+                  }`}
+                  title="Xem giao diện điện thoại"
+                >
+                  <Smartphone className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">Điện Thoại</span>
+                </button>
+              </div>
+
+              {/* Right Action Buttons */}
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleViewPostOnWeb(previewData.slug)}
+                  className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-2 px-3.5 rounded-xl shadow-xs transition-colors cursor-pointer"
+                  title="Mở bài viết trực tiếp trên trang web"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Xem Trên Web</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsPreviewModalOpen(false)}
+                  className="p-1.5 rounded-xl text-stone-400 hover:text-white hover:bg-stone-800 transition-colors cursor-pointer"
+                  title="Đóng xem trước"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Preview Frame Body */}
+            <div className="flex-1 overflow-y-auto bg-stone-100 p-3 sm:p-6 lg:p-8">
+              <div
+                className={`transition-all duration-300 mx-auto ${
+                  previewDevice === 'mobile'
+                    ? 'max-w-md bg-stone-50 rounded-[32px] p-4 sm:p-6 shadow-2xl ring-8 ring-stone-900 border border-stone-300'
+                    : 'max-w-4xl bg-stone-50 rounded-3xl p-6 sm:p-10 shadow-sm border border-stone-200/80'
+                }`}
+              >
+                {/* Header Card */}
+                <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-xs mb-6">
+                  <div className="flex flex-wrap items-center gap-2.5 mb-4">
+                    <span className="px-3 py-1 bg-orange-100 text-orange-800 text-xs font-black uppercase tracking-wider rounded-lg">
+                      {previewData.category}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-xs text-stone-500">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {previewData.publishDate}
+                    </span>
+                    <span className="text-stone-300">•</span>
+                    <span className="inline-flex items-center gap-1 text-xs text-stone-500">
+                      <Clock className="w-3.5 h-3.5" />
+                      {previewData.readTime}
+                    </span>
+                  </div>
+
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-stone-900 leading-tight mb-4 tracking-tight">
+                    {previewData.title}
+                  </h1>
+
+                  <p className="text-sm sm:text-base text-stone-600 leading-relaxed font-medium mb-6">
+                    {previewData.excerpt}
+                  </p>
+
+                  {/* Author Bar */}
+                  <div className="flex items-center gap-3.5 pt-4 border-t border-stone-100">
+                    <img
+                      src={previewData.author?.avatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80'}
+                      alt={previewData.author?.name || 'Tác giả'}
+                      className="w-10 h-10 rounded-full object-cover ring-2 ring-orange-500/20"
+                    />
+                    <div>
+                      <div className="font-extrabold text-stone-900 text-sm">
+                        {previewData.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì'}
+                      </div>
+                      <div className="text-xs text-stone-500">
+                        {previewData.author?.role || 'Chuyên gia Ẩm thực & Dinh dưỡng'}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Cover Image */}
+                {previewData.coverImage && (
+                  <div className="mb-6 rounded-3xl overflow-hidden border border-stone-200/80 shadow-xs aspect-16/9 bg-stone-100">
+                    <img
+                      src={previewData.coverImage}
+                      alt={previewData.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+
+                {/* Main Rendered Content */}
+                <div className="bg-white rounded-3xl p-6 sm:p-10 border border-stone-200/80 shadow-xs mb-6">
+                  <div
+                    className="blog-rich-content leading-relaxed text-stone-700 font-normal space-y-4"
+                    dangerouslySetInnerHTML={{
+                      __html: previewData.htmlContent || (previewData.content ? markdownToHtml(previewData.content) : '<p class="text-stone-400 italic">Chưa có nội dung bài viết...</p>')
+                    }}
+                  />
+
+                  {/* Tags */}
+                  {Array.isArray(previewData.tags) && previewData.tags.length > 0 && (
+                    <div className="mt-8 pt-6 border-t border-stone-100">
+                      <div className="flex items-center gap-2 text-xs font-bold text-stone-500 uppercase tracking-wider mb-3">
+                        <Tag className="w-3.5 h-3.5" />
+                        Thẻ chủ đề:
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {previewData.tags.map((tag, tIdx) => (
+                          <span
+                            key={tIdx}
+                            className="px-3 py-1 bg-stone-100 text-stone-700 text-xs font-semibold rounded-lg"
+                          >
+                            #{tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between px-6 py-3 bg-white border-t border-stone-200 shrink-0">
+              <span className="text-xs text-stone-500">
+                Đang xem trước phiên bản: <span className="font-semibold text-stone-700">{previewDevice === 'mobile' ? 'Màn hình di động' : 'Màn hình máy tính'}</span>
+              </span>
+              <div className="flex items-center gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setIsPreviewModalOpen(false)}
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-stone-600 hover:bg-stone-100 transition-colors cursor-pointer"
+                >
+                  Đóng & Tiếp Tục Sửa
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleViewPostOnWeb(previewData.slug)}
+                  className="flex items-center gap-1.5 px-5 py-2 bg-orange-600 hover:bg-orange-500 text-white rounded-xl text-xs font-bold shadow-xs transition-colors cursor-pointer"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Mở Trực Tiếp Trên Web</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

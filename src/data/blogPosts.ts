@@ -904,7 +904,12 @@ export function getAllBlogPosts(): BlogPost[] {
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   if (!slug) return undefined;
-  const cleanSlug = slug.replace(/^\/?blog\//, "").replace(/^\//, "").replace(/\/$/, "").toLowerCase();
+  let cleanSlug = slug.replace(/^\/?blog\//, "").replace(/^\//, "").replace(/\/$/, "").toLowerCase();
+  try {
+    cleanSlug = decodeURIComponent(cleanSlug);
+  } catch {}
+  cleanSlug = cleanSlug.trim();
+
   const deleted = getDeletedPostSlugs();
   if (deleted.has(cleanSlug)) {
     return undefined;
@@ -947,7 +952,11 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
 
 export function isBlogPostSlug(slug: string): boolean {
   if (!slug) return false;
-  const clean = slug.replace(/^\/?blog\//, "").replace(/^\//, "").replace(/\/$/, "").toLowerCase();
+  let clean = slug.replace(/^\/?blog\//, "").replace(/^\//, "").replace(/\/$/, "").toLowerCase();
+  try {
+    clean = decodeURIComponent(clean);
+  } catch {}
+  clean = clean.trim();
   const deleted = getDeletedPostSlugs();
   if (deleted.has(clean)) {
     return false;

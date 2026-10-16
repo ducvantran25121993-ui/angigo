@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import {
   BookOpen,
   Search,
@@ -119,6 +119,67 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     return Array.from(postMap.values());
   }, [customPosts, deletedSlugs]);
 
+  // Helper to reliably resolve post across all data sources
+  const resolvePostFromPath = useCallback((rawPathname?: string): BlogPost | null => {
+    if (typeof window === 'undefined') return null;
+    const pathname = (rawPathname ?? window.location.pathname).replace(/\/$/, '') || '';
+    if (pathname === '/blog' || pathname === '') return null;
+    let clean = pathname.startsWith('/blog/') ? pathname.replace('/blog/', '') : pathname.replace(/^\//, '');
+    try {
+      clean = decodeURIComponent(clean);
+    } catch {}
+    clean = clean.toLowerCase().trim();
+    if (!clean) return null;
+
+    // 1. Try getBlogPostBySlug
+    const bySlug = getBlogPostBySlug(clean);
+    if (bySlug) return normalizeBlogPost(bySlug);
+
+    // 2. Try in customPosts
+    const inCustom = customPosts.find((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      return s === clean || id === clean;
+    });
+    if (inCustom) return normalizeBlogPost(inCustom);
+
+    // 3. Try in allPosts
+    const inAll = allPosts.find((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      return s === clean || id === clean;
+    });
+    if (inAll) return normalizeBlogPost(inAll);
+
+    // 4. Try in localStorage directly for zero-delay response
+    try {
+      const raw = localStorage.getItem('angigio_custom_blog_posts');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          const inLocal = parsed.find((p: any) => {
+            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+            const id = (p.id || '').toLowerCase().trim();
+            return s === clean || id === clean;
+          });
+          if (inLocal) return normalizeBlogPost(inLocal);
+        }
+      }
+    } catch {}
+
+    // 5. Try in window.__INITIAL_CUSTOM_POSTS__
+    if (Array.isArray((window as any).__INITIAL_CUSTOM_POSTS__)) {
+      const inInit = (window as any).__INITIAL_CUSTOM_POSTS__.find((p: any) => {
+        const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+        const id = (p.id || '').toLowerCase().trim();
+        return s === clean || id === clean;
+      });
+      if (inInit) return normalizeBlogPost(inInit);
+    }
+
+    return null;
+  }, [customPosts, allPosts]);
+
   // Load latest posts and deleted posts from server API / Firestore on mount
   useEffect(() => {
     const fetchLatestPosts = async () => {
@@ -129,18 +190,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         setCustomPosts(synced);
       }
       setDeletedSlugs(getDeletedPostSlugs());
-      const pathname = window.location.pathname.replace(/\/$/, '') || '';
-      if (pathname !== '/blog' && pathname !== '') {
-        const currentSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
-        const currentDel = getDeletedPostSlugs();
-        if (currentDel.has(currentSlug.toLowerCase())) {
-          setActivePost(null);
-        } else {
-          const updated = getBlogPostBySlug(currentSlug);
-          if (updated) {
-            setActivePost(normalizeBlogPost(updated));
-          }
-        }
+      const resolved = resolvePostFromPath();
+      if (resolved) {
+        setActivePost(resolved);
       }
     };
     fetchLatestPosts();
@@ -149,20 +201,16 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       setDeletedSlugs(getDeletedPostSlugs());
       const latest = getCustomBlogPosts().map(normalizeBlogPost);
       setCustomPosts(latest);
-      const pathname = window.location.pathname.replace(/\/$/, '') || '';
-      if (pathname !== '/blog' && pathname !== '') {
-        const currentSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
-        const updated = getBlogPostBySlug(currentSlug);
-        if (updated) {
-          setActivePost(normalizeBlogPost(updated));
-        }
+      const resolved = resolvePostFromPath();
+      if (resolved) {
+        setActivePost(resolved);
       }
     };
     window.addEventListener('custom-posts-updated', handleCustomPostsUpdated);
     return () => {
       window.removeEventListener('custom-posts-updated', handleCustomPostsUpdated);
     };
-  }, []);
+  }, [resolvePostFromPath]);
 
   // Sync browser back/forward and URL change
   useEffect(() => {
@@ -170,14 +218,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       const pathname = window.location.pathname.replace(/\/$/, '') || '';
       if (pathname === '/blog' || pathname === '') {
         setActivePost(null);
-      } else if (pathname.startsWith('/blog/')) {
-        const slug = pathname.replace('/blog/', '');
-        const post = getBlogPostBySlug(slug) || allPosts.find((p) => p.slug === slug || p.id === slug) || null;
-        setActivePost(post ? normalizeBlogPost(post) : null);
       } else {
-        const slug = pathname.replace(/^\//, '');
-        const post = getBlogPostBySlug(slug) || allPosts.find((p) => p.slug === slug || p.id === slug) || null;
-        setActivePost(post ? normalizeBlogPost(post) : null);
+        const resolved = resolvePostFromPath(pathname);
+        setActivePost(resolved);
       }
     };
     window.addEventListener('popstate', handleUrlChange);
@@ -187,30 +230,29 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       window.removeEventListener('popstate', handleUrlChange);
       window.removeEventListener('locationchange', handleUrlChange);
     };
-  }, [allPosts]);
+  }, [resolvePostFromPath]);
 
   // Auto-resolve active post if allPosts updates (e.g. after API fetch finishes)
   useEffect(() => {
     const pathname = window.location.pathname.replace(/\/$/, '') || '';
     if (pathname !== '/blog' && pathname !== '') {
-      const slug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
-      const found = getBlogPostBySlug(slug) || allPosts.find((p) => p.slug === slug || p.id === slug);
+      const resolved = resolvePostFromPath(pathname);
       if (
-        found &&
+        resolved &&
         (!activePost ||
-          activePost.id !== found.id ||
-          activePost.slug !== found.slug ||
-          activePost.title !== found.title ||
-          activePost.content !== found.content ||
-          activePost.coverImage !== found.coverImage ||
-          activePost.excerpt !== found.excerpt ||
-          activePost.publishDate !== found.publishDate ||
-          activePost.updatedAt !== found.updatedAt)
+          activePost.id !== resolved.id ||
+          activePost.slug !== resolved.slug ||
+          activePost.title !== resolved.title ||
+          activePost.content !== resolved.content ||
+          activePost.coverImage !== resolved.coverImage ||
+          activePost.excerpt !== resolved.excerpt ||
+          activePost.publishDate !== resolved.publishDate ||
+          activePost.updatedAt !== resolved.updatedAt)
       ) {
-        setActivePost(normalizeBlogPost(found));
+        setActivePost(resolved);
       }
     }
-  }, [allPosts]);
+  }, [allPosts, resolvePostFromPath]);
 
   // Update document title, meta tags, and structured JSON-LD schema when activePost changes
   useEffect(() => {

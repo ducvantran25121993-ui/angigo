@@ -5,7 +5,11 @@ import { getDeletedPostSlugs } from '../data/blogPosts';
 
 export function isBlogPostSlug(slug: string): boolean {
   if (!slug) return false;
-  const clean = slug.replace(/^\/?blog\//, '').replace(/^\//, '').replace(/\/$/, '').toLowerCase();
+  let clean = slug.replace(/^\/?blog\//, '').replace(/^\//, '').replace(/\/$/, '').toLowerCase();
+  try {
+    clean = decodeURIComponent(clean);
+  } catch {}
+  clean = clean.trim();
   const deleted = getDeletedPostSlugs();
   if (deleted.has(clean)) return false;
   if (KNOWN_BLOG_SLUGS.has(clean)) return true;

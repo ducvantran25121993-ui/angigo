@@ -9140,6 +9140,8 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     seoTitle: 'Cách Nấu Cơm Cháy Kho Quẹt Đậm Đà, Mềm Mọng Chuẩn Vị Mẹ Nấu',
     description:
       'Hướng dẫn chi tiết cách làm cơm cháy kho quẹt Nam Bộ giòn rụm vàng ươm không bị cứng, niêu kho quẹt kẹo quánh béo ngậy từ tóp mỡ ba chỉ, tôm khô dẻo ngọt, tiêu xanh tươi thơm nồng và rau củ luộc ngũ sắc.',
+    ratingValue: '4.9',
+    reviewCount: 252,
     prepTime: '20 phút',
     cookTime: '25 phút',
     difficulty: 'Trung bình',
@@ -10513,6 +10515,376 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Bát chè bưởi An Giang vàng óng sánh mượt ngạt ngào hương hoa nhài, rưới ngập nước cốt dừa béo ngậy, rắc đậu phụng rang giòn bùi và đá bào mát lạnh.',
   },
+
+  'banh-chuoi-nuong-nuoc-cot-dua': {
+    dishId: 'banh-chuoi-nuong-nuoc-cot-dua',
+    dishName: 'Bánh Chuối Nướng Cốt Dừa',
+    seoTitle: 'Cách Làm Bánh Chuối Nướng Cốt Dừa Thơm Ngon, Đỏ Đẹp, Dẻo Mềm Dễ Làm',
+    description:
+      'Hướng dẫn chi tiết bí quyết làm bánh chuối nướng cốt dừa dẻo mềm béo bùi, đỏ đẹp chuẩn vị miền Tây: Tỷ lệ chuối xiêm (chuối sứ) chín mọng ngâm rượu rum/rượu mai quế lộ, bánh mì ngâm sữa tươi cốt dừa bơ thơm lừng và mẹo nướng lò/nồi chiên không dầu thơm nức mũi.',
+    ratingValue: '4.8',
+    reviewCount: 215,
+    prepTime: '25 phút',
+    cookTime: '60 - 70 phút',
+    difficulty: 'Dễ',
+    servings: '5 - 6 người',
+    ingredients: [
+      {
+        category: 'Thành phần Chuối Xiêm chín ngâm đường rượu thơm lừng',
+        items: [
+          '8 - 10 quả chuối xiêm (chuối sứ) chín bồi có chấm đồi mồi (khoảng 800g - 1kg chuối dẻo ngọt đậm đà)',
+          '100g đường cát vàng (hoặc đường thốt nốt – giúp bánh nướng có màu đỏ cánh gián tự nhiên)',
+          '2 thìa canh rượu rum (hoặc rượu mai quế lộ / rượu nếp – bí quyết giúp chuối khoác màu đỏ mọng quyến rũ)',
+          '1/4 thìa cà phê muối hạt',
+        ],
+      },
+      {
+        category: 'Thành phần Cốt Bánh Dẻo Mềm & Béo Ngậy',
+        items: [
+          '150g bánh mì sandwich hoặc bánh mì ổ cũ (xé nhỏ vừa ăn)',
+          '200ml nước cốt dừa béo đặc',
+          '150ml sữa tươi không đường + 50g sữa đặc có đường',
+          '30g bơ lạt đun chảy + 1 quả trứng gà tươi + 1/2 thìa cà phê vani thơm',
+          '50g bột năng + 30g bột mì số 8 (giúp tạo độ dẻo dai kết dính chuẩn vị bánh chuối nướng)',
+        ],
+      },
+      {
+        category: 'Thành phần Trang trí & Phủ vành bánh',
+        items: [
+          '1 quả chuối thái lát mỏng khoanh tròn xếp mặt bánh',
+          '20g mè trắng (vừng) rang vàng thơm',
+          '1 thìa bơ lạt đun chảy phết mặt bánh khi nướng',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế chuối xiêm & Ngâm rượu đường tạo màu đỏ mọng',
+        time: '20 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Miếng chuối xiêm ngấm sâu đường rượu, lên màu đỏ cánh gián mọng nước',
+        actionPoints: [
+          'Chuối lột vỏ, cắt khoanh tròn 0.5cm (dành lại 1 quả cắt dọc thái lát mỏng xếp trang trí mặt bánh).',
+          'Cho chuối vào thố, trút 100g đường cát vàng, 1/4 thìa muối và 2 thìa canh rượu rum vào đảo nhẹ tay.',
+          'Ướp chuối tối thiểu 1 - 2 tiếng (hoặc bọc màng bọc thực phẩm để ngăn mát tủ lạnh qua đêm). Rượu rum kết hợp đường khi gặp nhiệt độ nướng sẽ giúp chuối ngả màu đỏ thắm quyến rũ và thơm phức.',
+        ],
+        description:
+          'Ướp chuối chín với rượu rum và đường vàng là bí quyết gia truyền giúp ổ bánh chuối nướng chín xong có màu đỏ hồng cực kỳ đẹp mắt.',
+        tip: 'Chọn chuối xiêm vỏ có đồi mồi chín mọng thì bánh nướng ra mới ngọt đậm và không bị chát.',
+      },
+      {
+        step: 2,
+        title: 'Pha hỗn hợp sữa cốt dừa & Ngâm bánh mì dẻo mềm',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Bánh mì hút trọn sữa cốt dừa dẻo quánh, không bị vón cục',
+        actionPoints: [
+          'Trong thố lớn, hòa tan 200ml nước cốt dừa, 150ml sữa tươi, 50g sữa đặc, 30g bơ lạt đun chảy, 1 quả trứng gà và 1/2 thìa vani.',
+          'Xé nhỏ 150g bánh mì cho vào thố hỗn hợp sữa cốt dừa. Dùng phên bóp nhẹ cho bánh mì hút no nước sữa và mềm nhão ra.',
+          'Rây 50g bột năng và 30g bột mì vào thố bánh mì, trộn đều tạo thành khối bột dẻo quánh sánh mịn.',
+        ],
+        description:
+          'Pha nước cốt dừa ngâm bánh mì giúp cốt bánh khi nướng chín có độ dẻo mềm béo bùi tơi xốp.',
+        tip: 'Bóp vụn bánh mì vừa phải để cốt bánh giữ cấu trúc dẻo dai nguyên bản.',
+      },
+      {
+        step: 3,
+        title: 'Trộn chuối ngâm vào hỗn hợp bột & Xếp khuôn bánh',
+        time: '10 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Bột và chuối hòa quyện đều, mặt bánh xếp hình hoa chuối đẹp mắt',
+        actionPoints: [
+          'Trút 2/3 lượng chuối đã ngâm đường rượu (cùng phần nước đường rượu đọng lại) vào thố bột bánh mì, đảo nhẹ tay.',
+          'Lót giấy nến chống dính vào khuôn nướng (hoặc phết 1 lớp bơ lạt mỏng quanh lòng khuôn).',
+          'Trút hỗn hợp bột chuối vào khuôn, gạt phẳng mặt. Xếp 1/3 lượng chuối lát mỏng còn lại lên bề mặt thành hình bông hoa tròn xoè đều đẹp mắt.',
+        ],
+        description:
+          'Xếp lát chuối tươi phủ kín bề mặt giúp ổ bánh chuối nướng có diện mạo vàng óng óng ả.',
+        tip: 'Nện nhẹ khuôn bánh xuống bàn 2-3 lần để vỡ các bọt khí lớn bên trong.',
+      },
+      {
+        step: 4,
+        title: 'Nướng bánh chuối chín vàng ruộm & Phết bơ mè rang',
+        time: '60 - 75 phút',
+        heat: '150°C - 160°C (Lò nướng / Nồi chiên không dầu)',
+        goal: 'Ổ bánh chuối nướng chín dậy mùi thơm ngạt ngào, màu đỏ hồng óng ả, vành giòn mặt dẻo',
+        actionPoints: [
+          'Làm nóng lò nướng hoặc nồi chiên không dầu ở 160°C trong 10 phút.',
+          'Đặt khuôn bánh vào nướng ở 150°C - 160°C trong 60 phút. Sau 40 phút nướng, lấy bánh ra phết 1 lớp bơ đun chảy lên mặt và rắc mè rang vàng ruộm.',
+          'Tiếp tục nướng thêm 15 - 20 phút cho mặt chuối xém vàng cánh gián, cắm tăm vào giữa rút ra tăm khô ráo là bánh đã chín hoàn toàn.',
+        ],
+        description:
+          'Nướng ở nhiệt độ vừa 150°C giúp chuối chín ngấu lên màu đỏ thắm tự nhiên và cốt bánh dẻo mịn.',
+        tip: 'Nếu dùng nồi chiên không dầu, hãy bọc giấy bạc mặt bánh 30 phút đầu để tránh làm cháy chuối trên mặt.',
+      },
+      {
+        step: 5,
+        title: 'Để nguội bánh chuối, cắt lát & Thưởng thức béo bùi',
+        time: '10 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Miếng bánh chuối nướng đỏ hồng dẻo quánh, thơm nức cốt dừa bơ mè',
+        actionPoints: [
+          'Lấy khuôn bánh ra khỏi lò, để bánh nguội hoàn toàn (hoặc để ngăn mát tủ lạnh 2 tiếng cho bánh săn lại cắt đẹp không bị dính dao).',
+          'Dùng dao bén cắt bánh chuối nướng thành từng miếng tam giác hoặc hình chữ nhật vừa ăn.',
+          'Thưởng thức: Nhấm nháp miếng bánh chuối nướng dẻo mềm bùi béo. Vị ngọt đậm đà của chuối chín quyện hương cốt dừa ngạt ngào, bơ thơm lừng và mè rang giòn bùi đỉnh cao.',
+        ],
+        description:
+          'Bánh chuối nướng cốt dừa ăn nguội hoặc để mát tủ lạnh lại càng dẻo quánh béo ngậy ngon gấp đôi.',
+        tip: 'Rưới thêm thìa nước cốt dừa sánh đặc lên miếng bánh khi ăn nếu thích vị béo ngậy.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm bánh chuối nướng cốt dừa lên màu đỏ thắm dẻo mềm không bị khô: 1. Ướp chuối sứ chín mọng với đường vàng và 2 thìa rượu rum ít nhất 2 tiếng – rượu rum khi gặp nhiệt độ nướng sẽ giúp chuối chuyển màu đỏ mọng tự nhiên cực đẹp; 2. Ngâm bánh mì vụn trong nước cốt dừa, sữa tươi và bơ lạt giúp cốt bánh dẻo mềm béo bùi không bị bở nát; 3. Nướng nhiệt vừa 150°C trong 60-70 phút để chuối ngấu đỏ từ sâu bên trong cốt bánh.',
+    recommendedSauce:
+      'Ổ bánh chuối nướng nước cốt dừa thơm nức bốc khói màu đỏ hồng óng ả rắc mè rang vàng, cắt miếng dẻo quánh rưới thêm thìa nước cốt dừa béo bùi ăn kèm trà nóng.',
+  },
+
+  'canh-chua-chay': {
+    dishId: 'canh-chua-chay',
+    dishName: 'Canh Chua Chay Nam Bộ',
+    seoTitle: 'Cách Làm Canh Chua Chay Thanh Đạm, Đậm Đà Chuẩn Cơm Chay',
+    description:
+      'Hướng dẫn chi tiết cách nấu canh chua chay Nam Bộ thơm ngon giải nhiệt thanh mát: Sự kết hợp hoàn hảo từ nước me dốt chua thanh, dứa (thơm) xào mỡ hành, nấm rơm ngọt tự nhiên, đậu hũ non bùi béo cùng đĩa rau muống, đậu bắp, giá đỗ và ngò ôm ngò gai ngạt ngào.',
+    ratingValue: '4.8',
+    reviewCount: 238,
+    prepTime: '20 phút',
+    cookTime: '20 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần Đậu Hũ & Nấm ngọt tự nhiên',
+        items: [
+          '2 miếng đậu hũ trắng hoặc đậu hũ chiên vàng (thái khối vuông vừa ăn)',
+          '150g nấm rơm búp tươi (hoặc nấm đùi gà / nấm kim châm – rửa sạch ngâm nước muối loãng)',
+          '1/4 quả dứa (thơm) mật chín ngọt (thái lát mỏng)',
+          '2 quả cà chua chín đỏ (bổ múi cau)',
+        ],
+      },
+      {
+        category: 'Thành phần Rau Củ Canh Chua & Nước Cốt Me',
+        items: [
+          '100g đậu bắp (thái xéo)',
+          '100g bạc hà (dọc mùng) tước vỏ, thái xéo bóp muối rửa sạch',
+          '100g giá đỗ tươi + 100g cọng rau muống bào',
+          '50g vắt me chín (hoặc me dốt – dầm nước ấm lấy 4 thìa canh nước cốt me chua thanh)',
+          'Rau nêm ngạt ngào: Ngò ôm (rau ngổ), ngò gai (mùi tàu), ớt hiểm đỏ thái lát',
+        ],
+      },
+      {
+        category: 'Gia vị nêm Canh Chua Chay chuẩn vị',
+        items: [
+          '2 thìa canh nước mắm chay ngon (từ đậu nành/nấm)',
+          '2 thìa canh đường phèn (tạo vị ngọt thanh dịu mát)',
+          '1 thìa cà phê hạt nêm chay nấm hương + 1/2 thìa cà phê muối',
+          '2 thìa canh hành tỏi baro (tỏi taro / boa-rô) phi vàng thơm lừng',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế rau củ, nấm rơm & Dầm nước cốt me',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Rau củ tươi sạch, bạc hà không ngứa, nước cốt me chua thanh mát',
+        actionPoints: [
+          'Bạc hà (dọc mùng) tước bỏ lớp vỏ lụa bên ngoài, thái xéo. Bóp kỹ bạc hà với 1 thìa muối hạt trong 2 phút rồi xả vắt sạch nước (giúp bạc hà giòn và tuyệt đối không gây ngứa họng).',
+          'Nấm rơm cạo sạch chân, ngâm nước muối pha loãng 10 phút, vớt ra bổ đôi. Cà chua bổ múi cau, dứa thái lát vừa ăn.',
+          'Cho vắt me chín vào chén, trút 100ml nước ấm vào dầm nhuyễn, lọc qua rây lấy 4 thìa canh nước cốt me đặc béo.',
+        ],
+        description:
+          'Bóp muối xả sạch bạc hà và lọc nước cốt me tươi giúp canh chua có vị chua thanh dịu nhẹ, không bị gắt.',
+        tip: 'Vắt kiệt nước bạc hà sau khi bóp muối giúp bạc hà hút trọn nước canh chua giòn sần sật.',
+      },
+      {
+        step: 2,
+        title: 'Xào thơm dứa cà chua & Chiên lướt đậu hũ nấm rơm',
+        time: '8 phút',
+        heat: 'Lửa vừa',
+        goal: 'Dứa và cà chua tiết vị chua ngọt dịu, nấm và đậu hũ xào săn thơm lừng',
+        actionPoints: [
+          'Đun nóng 1 thìa canh dầu ăn trong nồi, cho 1 thìa tỏi boa-rô (baro) băm vào phi vàng thơm lừng.',
+          'Trút 1/2 lượng cà chua và toàn bộ dứa thái lát vào nồi đảo đều 2 phút cho dứa và cà chua chín mềm tiết ra màu đỏ vàng tươi sáng và vị chua ngọt tự nhiên.',
+          'Trút nấm rơm và đậu hũ vào đảo nhẹ tay 2 phút cho ngấm đượm hương baro phi.',
+        ],
+        description:
+          'Xào dứa và cà chua trước khi đổ nước giúp nước canh chua có màu vàng đỏ óng ả và vị ngọt đậm đà.',
+        tip: 'Xào nhẹ tay tránh làm nát đậu hũ non.',
+      },
+      {
+        step: 3,
+        title: 'Nấu nước canh chua me & Nêm gia vị đường phèn',
+        time: '10 phút',
+        heat: 'Lửa lớn & Lửa vừa',
+        goal: 'Nước canh chua chay trong trẻo, cân bằng hoàn hảo vị chua - ngọt - mặn',
+        actionPoints: [
+          'Trút 1.2 lít nước lọc (hoặc nước dùng củ quả) vào nồi. Đun lửa lớn cho nước sôi bùng.',
+          'Rưới 4 thìa canh nước cốt me dốt, 2 thìa canh đường phèn, 2 thìa canh nước mắm chay, 1 thìa hạt nêm chay và 1/2 thìa muối vào nồi.',
+          'Hớt sạch bọt trắng nổi lên. Nếm thử nước canh có vị chua thanh dịu ngọt mát tròn vị đặc trưng canh chua Nam Bộ.',
+        ],
+        description:
+          'Đường phèn là bí quyết vàng tạo hậu vị ngọt mát thanh dịu cân bằng vị chua của me.',
+        tip: 'Thường xuyên vọt bọt để nước canh chua trong vắt ngào ngạt hương dứa.',
+      },
+      {
+        step: 4,
+        title: 'Thả rau củ tươi & Rau nêm ngò ôm ngò gai thơm nức',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Đậu bắp, bạc hà, giá đỗ vừa chín tới giữ độ giòn xanh mát',
+        actionPoints: [
+          'Thả đậu bắp, bạc hà, cọng rau muống và phần cà chua còn lại vào nồi canh đun sôi bùng 2 phút.',
+          'Trút giá đỗ tươi vào đảo nhẹ rồi tắt bếp ngay (giữ cho giá đỗ giòn mát không bị nhũn).',
+          'Rắc ngò ôm (rau ngổ), ngò gai (mùi tàu) thái nhỏ và vài lát ớt hiểm đỏ lên trên nồi canh.',
+        ],
+        description:
+          'Cho giá đỗ và rau nêm ở bước tắt bếp giúp giữ trọn màu xanh tươi và hương thơm ngạt ngào đặc trưng.',
+        tip: 'Rau ngò ôm ngò gai là linh hồn làm nên hương thơm nồng nàn không thể thiếu của canh chua chay.',
+      },
+      {
+        step: 5,
+        title: 'Múc canh chua chay ra thố & Thưởng thức cùng cơm nóng',
+        time: '2 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Bát canh chua chay rực rỡ sắc màu, ngạt ngào hương thơm giải nhiệt',
+        actionPoints: [
+          'Múc canh chua chay ra bát lớn hoặc thố đất. Rưới 1 thìa boa-rô phi vàng thơm lừng lên trên.',
+          'Thưởng thức: Chan nước canh chua thanh ngọt dịu lên bát cơm trắng dẻo. Gắp miếng đậu hũ bùi béo, nấm rơm ngọt lịm, bạc hà giòn sần sật chấm ngập vào chén nước mắm chay dầm ớt hiểm đỏ cay xè.',
+        ],
+        description:
+          'Bát canh chua chay Nam Bộ đầy đặn sắc màu là món ăn giải nhiệt thanh tịnh tuyệt vời.',
+        tip: 'Chấm kèm chén nước mắm chay nguyên chất dầm ớt hiểm đỏ cực kỳ bắt cơm.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu canh chua chay thanh đạm đậm đà: 1. Bóp muối xả vắt kiệt nước bạc hà (dọc mùng) để bạc hà giòn sần sật không gây ngứa; 2. Dùng đường phèn kết hợp nước cốt me tươi dốt – đường phèn mang lại vị ngọt thanh mát dịu hòa quyện hoàn hảo vị chua của me; 3. Phi thơm hành boa-rô (baro) xào dứa cà chua trước khi đổ nước, rắc ngò ôm ngò gai và tỏi boa-rô phi vàng ở phút cuối cho hương thơm bùng nổ.',
+    recommendedSauce:
+      'Tô canh chua chay rực rỡ ngào ngạt hương ngò ôm ngò gai, ăn kèm bát cơm trắng dẻo thơm, chấm đậu hũ nấm rơm và bạc hà giòn sần sật vào chén nước mắm chay dầm ớt hiểm cay xè.',
+  },
+
+  'banh-xeo-chay': {
+    dishId: 'banh-xeo-chay',
+    dishName: 'Bánh Xèo Chay Nấm Đậu Hũ Giòn Rụm',
+    seoTitle: 'Cách Làm Bánh Xèo Chay Thanh Đạm, Đậm Đà Chuẩn Cơm Chay',
+    description:
+      'Hướng dẫn chi tiết bí quyết tráng bánh xèo chay giòn rụm lâu bị mềm chuẩn vị miền Tây: Tỷ lệ pha bột gạo, nước cốt dừa béo bùi, bột nghệ vàng ươm và nước soda/bia chay tạo bọt khí xốp giòn; nhân nấm đùi gà, nấm rơm, đậu hũ chiên xé sợi, giá đỗ và chén nước mắm chay chua ngọt tỏi ớt dầm đồ chua.',
+    ratingValue: '4.9',
+    reviewCount: 242,
+    prepTime: '25 phút',
+    cookTime: '25 phút',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thành phần Bột Bánh Xèo Chay giòn rụm lâu bị mềm',
+        items: [
+          '250g bột gạo tẻ ngon (hoặc gói bột bánh xèo pha sẵn)',
+          '50g bột chiên giòn chay hoặc bột tài năng (bí quyết vành bánh giòn rụm siêu lâu)',
+          '1/2 thìa cà phê bột nghệ vàng (tạo màu vàng ươm nghệ quyến rũ)',
+          '150ml nước cốt dừa béo đặc + 300ml nước lọc + 100ml nước soda lạnh (hoặc bia chay lạnh - tạo bọt khí giúp vỏ bánh xốp giòn)',
+          '1/2 thìa cà phê muối, 1 thìa cà phê hạt nêm chay nấm hương, 3 nhánh hành boa-rô (baro) thái nhỏ',
+        ],
+      },
+      {
+        category: 'Thành phần Nhân Nấm Đậu Hũ & Giá Đỗ ngọt thanh',
+        items: [
+          '150g nấm đùi gà hoặc nấm rơm búp (rửa sạch xé sợi vừa ăn)',
+          '100g nấm kim châm (cắt gốc rửa sạch)',
+          '1 miếng đậu hũ chiên vàng (thái sợi nhỏ)',
+          '200g giá đỗ tươi + 100g củ sắn (củ đậu) thái sợi + 50g đậu xanh xát vỏ hấp chín',
+          '1 củ củ cải trắng/củ cải đỏ thái mỏng, 1 thìa tỏi boa-rô băm',
+        ],
+      },
+      {
+        category: 'Rau sống ăn kèm & Nước mắm chay chua ngọt',
+        items: [
+          'Rau sống phong phú: Cải xanh, đọt xoài, lá cóc, xà lách, rau thơm, diếp cá, tía tẻ',
+          'Nước mắm chay chua ngọt: 3 thìa canh nước mắm chay ngon, 3 thìa canh đường thốt nốt, 3 thìa canh nước ấm, 1.5 thìa canh nước cốt chanh',
+          '1 thìa canh ớt hiểm băm nhuyễn + củ cải cà rốt bào sợi ngâm chua',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Pha bột bánh xèo chay giòn rụm & Ủ bột',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Hỗn hợp bột sánh mịn, bọt khí soda giúp vành bánh giòn xốp',
+        actionPoints: [
+          'Rây bột gạo, bột chiên giòn, bột nghệ, muối và hạt nêm chay nấm hương vào thố lớn.',
+          'Rưới từ từ nước cốt dừa, nước lọc và 100ml nước soda lạnh (hoặc bia chay) vào khuấy đều tay đến khi bột tan mịn không vón cục. Thêm tỏi boa-rô cắt nhỏ.',
+          'Bọc màng bọc thực phẩm cho bột nghỉ 20 - 30 phút. Bột nghỉ giúp hạt bột nở đều và bọt khí soda giúp vành bánh xèo chay giòn rụm tới 2-3 tiếng.',
+        ],
+        description:
+          'Pha bột với nước soda lạnh tạo bọt khí li ti giúp vỏ bánh xèo khi gặp nhiệt cao sẽ xốp giòn rụm.',
+        tip: 'Ủ bột tối thiểu 20 phút để bột nở dẻo ngon hơn.',
+      },
+      {
+        step: 2,
+        title: 'Xào sơ nhân nấm đậu hũ & Pha nước mắm chay chua ngọt',
+        time: '10 phút',
+        heat: 'Lửa lớn',
+        goal: 'Nấm và đậu hũ xào săn thấm vị, nước mắm chay chua ngọt hài hòa',
+        actionPoints: [
+          'Phi thơm 1 thìa tỏi boa-rô băm với 1 thìa dầu ăn. Trút nấm đùi gà xé sợi, nấm kim châm và đậu hũ chiên thái sợi vào xào nhanh lửa lớn 2 phút với 1/2 thìa hạt nêm chay rồi trút ra đĩa.',
+          'Pha nước mắm chay chua ngọt: Hòa tan 3 thìa đường thốt nốt với 3 thìa nước ấm, trút 3 thìa nước mắm chay và 1.5 thìa nước cốt chanh. Khuấy tan đều rồi thả ớt hiểm băm nhuyễn và cà rốt đồ chua lên trên.',
+        ],
+        description:
+          'Nước mắm chay chua ngọt sánh đậm hòa quyện vị mặn thanh của mắm chay đậu nành và ngọt dịu đường thốt nốt.',
+        tip: 'Xào nấm nhanh lửa lớn để nấm không bị ra nước.',
+      },
+      {
+        step: 3,
+        title: 'Đổ bánh xèo chay xèo xèo & Thêm nhân nấm giá đỗ',
+        time: '15 phút',
+        heat: 'Lửa lớn',
+        goal: 'Vành bánh xèo mỏng tang vàng ươm nghệ giòn rụm, nhân nấm thơm lừng',
+        actionPoints: [
+          'Đun thật nóng chảo chống dính, tráng 1 thìa canh dầu ăn xung quanh lòng chảo.',
+          'Múc 1 vá bột bánh xèo chay tráng nhanh tay đảo nghiêng chảo cho bột tráng đều một lớp mỏng tang phát ra tiếng xèo xèo ngạt ngào mùi thơm nước cốt dừa.',
+          'Rải nhân nấm xào, đậu hũ xé sợi, củ sắn thái sợi, giá đỗ và đậu xanh hấp lên một nửa mặt bánh. Đậy nắp chảo 2 phút cho nhân chín hấp hơi.',
+        ],
+        description:
+          'Chảo phải thật nóng và tráng bột thật mỏng thì bánh xèo chay mới kêu xèo xèo giòn rụm.',
+        tip: 'Rưới 1 thìa dầu ăn dọc theo vành bánh giúp vành bánh tróc giòn rụm không dính chảo.',
+      },
+      {
+        step: 4,
+        title: 'Mở nắp chiên giòn vành & Gập đôi bánh xèo chay',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Mặt dưới bánh xèo vàng giòn rụm, vành tróc nhẹ không dính',
+        actionPoints: [
+          'Mở nắp chảo, hạ lửa vừa. Rưới thêm xíu dầu quanh vành bánh, chiên thêm 2 - 3 phút không đậy nắp cho hơi nước thoát ra ngoài, mặt dưới bánh chuyển màu vàng giòn rụm.',
+          'Dùng vá gập đôi chiếc bánh xèo chay lại, chiên thêm 30 giây mỗi mặt cho bánh giòn rụm hoàn toàn rồi vớt ra đĩa lót giấy thấm dầu.',
+        ],
+        description:
+          'Mở nắp chiên lửa vừa giai đoạn cuối giúp thoát toàn bộ hơi nước, giữ vỏ bánh khô ráo giòn lâu.',
+        tip: 'Xếp bánh xèo đứng hoặc lót giấy thấm dầu, không đè chồng bánh lên nhau.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày mẹt bánh xèo chay rau rừng & Thưởng thức',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Mẹt bánh xèo chay vàng giòn bốc khói ngạt ngào, đĩa rau sống thanh mát',
+        actionPoints: [
+          'Bày bánh xèo chay ra mẹt tre lót lá chuối. Cạnh bên bày đĩa rau sống phong phú: Cải xanh, đọt xoài, lá cóc, xà lách, rau thơm và chén nước mắm chay chua ngọt đồ chua.',
+          'Thưởng thức: Ngắt miếng bánh xèo chay giòn rụm kèm nhân nấm béo ngọt, cuốn trong lá cải xanh, chấm ngập vào chén nước mắm chay chua ngọt. Vị giòn rụm vỏ bánh quyện vị nấm ngọt, rau rừng chát nhẹ và nước mắm cay nồng bùng nổ vị giác.',
+        ],
+        description:
+          'Bánh xèo chay cuốn rau rừng chấm nước mắm chay chua ngọt là món chay giòn rụm tuyệt vời.',
+        tip: 'Thưởng thức ngay khi bánh vừa ra khỏi chảo để cảm nhận trọn vẹn độ giòn tan.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng tráng bánh xèo chay giòn rụm lâu bị mềm: 1. Pha bột gạo kết hợp bột chiên giòn chay, nước cốt dừa béo bùi và nước soda lạnh (hoặc bia chay) – bọt khí soda giúp vỏ bánh xốp nhẹ giòn tan 2-3 tiếng; 2. Chảo đun THẬT NÓNG trước khi tráng bột mỏng tang kêu xèo xèo; 3. Sau khi đậy nắp chín nhân, MỞ NẮP rưới xíu dầu quanh vành bánh chiên lửa vừa 2-3 phút để thoát toàn bộ hơi nước giúp vành bánh tróc giòn rụm không dẻo.',
+    recommendedSauce:
+      'Mẹt bánh xèo chay vàng ươm giòn rụm cuốn rau cải xanh, lá cóc, đọt xoài, chấm ngập chén nước mắm chay chua ngọt tỏi ớt dầm đồ chua củ cải cà rốt giòn tan.',
+  },
 };
 
 /**
@@ -11333,6 +11705,10 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'lau-bao-tu-ham-tieu': 'cach-nau-bao-tu-ham-tieu',
   'che-buoi-an-giang': 'cach-lam-che-buoi',
   'che-buoi': 'cach-lam-che-buoi',
+  'banh-chuoi-nuong-nuoc-cot-dua': 'cach-lam-banh-chuoi-nuong',
+  'banh-chuoi-nuong': 'cach-lam-banh-chuoi-nuong',
+  'canh-chua-chay': 'cach-lam-canh-chua-chay',
+  'banh-xeo-chay': 'cach-lam-banh-xeo-chay',
 };
 
 /**
@@ -11358,6 +11734,21 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'banh-xeo-chay': 'banh-xeo-chay',
+  'cach-lam-banh-xeo-chay': 'banh-xeo-chay',
+  'cach-nau-banh-xeo-chay': 'banh-xeo-chay',
+  'banh-xeo-nam-chay': 'banh-xeo-chay',
+  'canh-chua-chay': 'canh-chua-chay',
+  'cach-lam-canh-chua-chay': 'canh-chua-chay',
+  'cach-nau-canh-chua-chay': 'canh-chua-chay',
+  'canh-chua-nam-chay': 'canh-chua-chay',
+  'canh-chua-dau-hu': 'canh-chua-chay',
+  'banh-chuoi-nuong-nuoc-cot-dua': 'banh-chuoi-nuong-nuoc-cot-dua',
+  'banh-chuoi-nuong': 'banh-chuoi-nuong-nuoc-cot-dua',
+  'cach-lam-banh-chuoi-nuong': 'banh-chuoi-nuong-nuoc-cot-dua',
+  'cach-nau-banh-chuoi-nuong': 'banh-chuoi-nuong-nuoc-cot-dua',
+  'cach-lam-banh-chuoi-nuong-cot-dua': 'banh-chuoi-nuong-nuoc-cot-dua',
+  'cach-nau-banh-chuoi-nuong-cot-dua': 'banh-chuoi-nuong-nuoc-cot-dua',
   'che-buoi-an-giang': 'che-buoi-an-giang',
   'che-buoi': 'che-buoi-an-giang',
   'cach-lam-che-buoi': 'che-buoi-an-giang',

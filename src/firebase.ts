@@ -9,6 +9,8 @@ import {
 } from 'firebase/auth';
 import {
   getFirestore,
+  initializeFirestore,
+  setLogLevel,
   collection,
   doc,
   setDoc,
@@ -16,6 +18,8 @@ import {
   deleteDoc,
   getDocFromServer,
 } from 'firebase/firestore';
+
+setLogLevel('silent');
 import firebaseConfig from '../firebase-applet-config.json';
 import { BlogPost } from './data/blogPosts';
 
@@ -23,7 +27,19 @@ import { BlogPost } from './data/blogPosts';
 export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 /* CRITICAL: The app will break without firebaseConfig.firestoreDatabaseId */
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+export const db = (() => {
+  try {
+    return initializeFirestore(
+      app,
+      {
+        experimentalForceLongPolling: true,
+      },
+      firebaseConfig.firestoreDatabaseId
+    );
+  } catch (_e) {
+    return getFirestore(app, firebaseConfig.firestoreDatabaseId);
+  }
+})();
 export const auth = getAuth(app);
 
 export enum OperationType {

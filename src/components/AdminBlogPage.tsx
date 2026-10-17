@@ -558,13 +558,25 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           throw new Error('File không chứa bài viết nào để khôi phục.');
         }
 
-        // Save to localStorage
+        // Normalize all imported posts
+        const { normalizeBlogPost } = await import('../data/blogPosts');
+        const normalizedImported = importedPosts.map(normalizeBlogPost);
+
+        // Save to localStorage & merge
         const existingCustomRaw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-        const existingCustom: BlogPost[] = existingCustomRaw ? JSON.parse(existingCustomRaw) : [];
+        const existingCustom: BlogPost[] = existingCustomRaw ? JSON.parse(existingCustomRaw).map(normalizeBlogPost) : [];
         const mergedMap = new Map<string, BlogPost>();
-        existingCustom.forEach((p) => mergedMap.set(p.slug || p.id, p));
-        importedPosts.forEach((p) => mergedMap.set(p.slug || p.id, p));
+        
+        existingCustom.forEach((p) => {
+          const key = (p.slug || p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          if (key) mergedMap.set(key, p);
+        });
+        normalizedImported.forEach((p) => {
+          const key = (p.slug || p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          if (key) mergedMap.set(key, p);
+        });
         const mergedList = Array.from(mergedMap.values());
+        
         localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(mergedList));
         if (typeof window !== 'undefined') {
           (window as any).__INITIAL_CUSTOM_POSTS__ = mergedList;
@@ -574,10 +586,24 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         try {
           const { KNOWN_BLOG_SLUGS } = await import('../data/blogSlugs');
           mergedList.forEach((p) => {
-            if (p.slug) KNOWN_BLOG_SLUGS.add(p.slug.toLowerCase().trim());
-            if (p.id) KNOWN_BLOG_SLUGS.add(p.id.toLowerCase().trim());
+            if (p.slug) KNOWN_BLOG_SLUGS.add(p.slug.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, ''));
+            if (p.id) KNOWN_BLOG_SLUGS.add(p.id.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, ''));
           });
         } catch {}
+
+        // Sync to Firestore for multi-device sync
+        try {
+          const { savePostToFirestore, removeDeletedPostFromFirestore } = await import('../firebase');
+          for (const post of normalizedImported) {
+            if (post.slug) {
+              removeDeletedPostSlugLocal(post.slug);
+              await removeDeletedPostFromFirestore(post.slug).catch(() => {});
+            }
+            await savePostToFirestore(post).catch(() => {});
+          }
+        } catch (fbErr) {
+          console.warn('Firestore import sync warning:', fbErr);
+        }
 
         // Sync to server API
         try {
@@ -591,10 +617,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         }
 
         window.dispatchEvent(new Event('custom-posts-updated'));
+        window.dispatchEvent(new Event('popstate'));
         window.dispatchEvent(new Event('locationchange'));
 
         await loadPosts();
-        showToast(`Đã khôi phục thành công ${importedPosts.length} bài viết vào hệ thống!`);
+        showToast(`Đã khôi phục & đồng bộ thành công ${normalizedImported.length} bài viết vào hệ thống!`, 'success');
         setIsDataModalOpen(false);
       } catch (err: any) {
         console.error('Import error:', err);
@@ -2524,7 +2551,12 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
   // View post live on the web SPA without broken target="_blank"
   const handleViewPostOnWeb = useCallback((postSlugOrTarget?: string) => {
-    let target = (postSlugOrTarget || slug.trim() || (title.trim() ? generateSlug(title) : editingPostId || '')).replace(/^\//, '').trim();
+    let target = (postSlugOrTarget || slug.trim() || (title.trim() ? generateSlug(title) : editingPostId || ''))
+      .toLowerCase()
+      .trim()
+      .replace(/^\/?blog\//i, '')
+      .replace(/^\/+/, '')
+      .replace(/\/+$/, '');
     if (!target) {
       target = 'blog';
     }
@@ -2536,14 +2568,23 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
     setIsPreviewModalOpen(false);
 
+    const targetPath = target === 'blog' ? '/blog' : `/${target}`;
+    window.history.pushState({ tab: 'blog', slug: target }, '', targetPath);
+
     if (onNavigate) {
       onNavigate('blog');
     }
-    const targetPath = target === 'blog' ? '/blog' : `/${target}`;
-    window.history.pushState({ tab: 'blog', slug: target }, '', targetPath);
-    window.dispatchEvent(new Event('popstate'));
-    window.dispatchEvent(new Event('locationchange'));
-    window.dispatchEvent(new Event('custom-posts-updated'));
+
+    // Register into KNOWN_BLOG_SLUGS dynamically
+    import('../data/blogSlugs').then(({ KNOWN_BLOG_SLUGS }) => {
+      if (target !== 'blog') {
+        KNOWN_BLOG_SLUGS.add(target);
+      }
+      window.dispatchEvent(new Event('popstate'));
+      window.dispatchEvent(new Event('locationchange'));
+      window.dispatchEvent(new Event('custom-posts-updated'));
+    });
+
     showToast(`Đang mở bài viết "${target}" trên web!`, 'success');
   }, [slug, title, editingPostId, viewMode, persistDraftToStorage, onNavigate]);
 

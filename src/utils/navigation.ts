@@ -18,14 +18,22 @@ export function isBlogPostSlug(slug: string): boolean {
   if (typeof window !== 'undefined') {
     if (window.history.state?.tab === 'blog') return true;
     try {
+      const matchPost = (p: any) => {
+        if (!p) return false;
+        const cleanP = String(p.slug || p.id || '').toLowerCase().trim().replace(/^\/?blog\//i, '').replace(/^\/+/, '').replace(/\/+$/, '');
+        const cleanId = String(p.id || '').toLowerCase().trim().replace(/^\/?blog\//i, '').replace(/^\/+/, '').replace(/\/+$/, '');
+        const cleanOld = String(p.oldSlug || p.previousSlug || '').toLowerCase().trim().replace(/^\/?blog\//i, '').replace(/^\/+/, '').replace(/\/+$/, '');
+        return cleanP === clean || cleanId === clean || cleanOld === clean;
+      };
+
       const initialCustom = (window as any).__INITIAL_CUSTOM_POSTS__;
-      if (Array.isArray(initialCustom) && initialCustom.some((p: any) => p.slug === clean || p.id === clean)) {
+      if (Array.isArray(initialCustom) && initialCustom.some(matchPost)) {
         return true;
       }
       const raw = localStorage.getItem('angigio_custom_blog_posts');
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed) && parsed.some((p: any) => p.slug === clean || p.id === clean)) {
+        if (Array.isArray(parsed) && parsed.some(matchPost)) {
           return true;
         }
       }

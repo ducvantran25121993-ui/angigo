@@ -19,6 +19,7 @@ import {
   Edit3,
   Home,
   Database,
+  AlertCircle,
 } from 'lucide-react';
 import {
   BlogPost,
@@ -64,6 +65,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     const slug = pathname.replace(/^\//, '');
     const found = getBlogPostBySlug(slug);
     return found ? normalizeBlogPost(found) : null;
+  });
+  const [isSyncingPost, setIsSyncingPost] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const pathname = window.location.pathname.replace(/\/$/, '') || '';
+    return pathname !== '/blog' && pathname !== '' && pathname !== '/';
   });
 
   // Modal create post state
@@ -182,10 +188,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
 
   // Load latest posts and deleted posts from server API / Firestore on mount
   useEffect(() => {
+    let isMounted = true;
     const fetchLatestPosts = async () => {
       await syncDeletedPosts();
+      if (!isMounted) return;
       setDeletedSlugs(getDeletedPostSlugs());
       const synced = await fetchAndSyncCustomPosts();
+      if (!isMounted) return;
       if (synced && synced.length > 0) {
         setCustomPosts(synced);
       }
@@ -194,6 +203,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       if (resolved) {
         setActivePost(resolved);
       }
+      setIsSyncingPost(false);
     };
     fetchLatestPosts();
 
@@ -204,10 +214,12 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       const resolved = resolvePostFromPath();
       if (resolved) {
         setActivePost(resolved);
+        setIsSyncingPost(false);
       }
     };
     window.addEventListener('custom-posts-updated', handleCustomPostsUpdated);
     return () => {
+      isMounted = false;
       window.removeEventListener('custom-posts-updated', handleCustomPostsUpdated);
     };
   }, [resolvePostFromPath]);
@@ -218,9 +230,24 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       const pathname = window.location.pathname.replace(/\/$/, '') || '';
       if (pathname === '/blog' || pathname === '') {
         setActivePost(null);
+        setIsSyncingPost(false);
       } else {
         const resolved = resolvePostFromPath(pathname);
-        setActivePost(resolved);
+        if (resolved) {
+          setActivePost(resolved);
+          setIsSyncingPost(false);
+        } else {
+          // Attempt rapid re-sync
+          setIsSyncingPost(true);
+          fetchAndSyncCustomPosts().then((posts) => {
+            if (posts && posts.length > 0) setCustomPosts(posts);
+            const secondResolved = resolvePostFromPath(pathname);
+            if (secondResolved) {
+              setActivePost(secondResolved);
+            }
+            setIsSyncingPost(false);
+          });
+        }
       }
     };
     window.addEventListener('popstate', handleUrlChange);
@@ -1482,6 +1509,80 @@ ${newContent}
             </div>
           </div>
         </article>
+      ) : typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') !== '' && window.location.pathname.replace(/\/$/, '') !== '/blog' ? (
+        /* 1.5 POST NOT FOUND OR LOADING VIEW */
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+          {isSyncingPost ? (
+            <div className="bg-white rounded-3xl p-8 sm:p-12 text-center border border-stone-200/80 shadow-sm space-y-4">
+              <div className="w-12 h-12 mx-auto border-4 border-orange-500 border-t-transparent rounded-full animate-spin" />
+              <h2 className="text-xl font-black text-stone-900">Đang tải bài viết...</h2>
+              <p className="text-sm text-stone-500">Hệ thống đang đồng bộ dữ liệu bài viết mới nhất từ máy chủ.</p>
+            </div>
+          ) : (
+            <div className="bg-white rounded-3xl p-6 sm:p-10 text-center border border-stone-200/80 shadow-sm space-y-6">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center border border-amber-200">
+                <AlertCircle className="w-8 h-8" />
+              </div>
+              <div className="space-y-2 max-w-lg mx-auto">
+                <h2 className="text-xl sm:text-2xl font-black text-stone-900">
+                  Không tìm thấy bài viết này
+                </h2>
+                <p className="text-xs sm:text-sm text-stone-600 leading-relaxed">
+                  Đường dẫn bài viết có thể chưa được lưu, chưa được nhập từ file dữ liệu sao lưu hoặc đã đổi đường dẫn (slug).
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    window.history.pushState({}, '', '/blog');
+                    window.dispatchEvent(new Event('popstate'));
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition-colors cursor-pointer"
+                >
+                  <BookOpen className="w-4 h-4" />
+                  <span>Về trang Blog tổng hợp</span>
+                </button>
+
+                {onNavigate && (
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('admin')}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs sm:text-sm rounded-xl border border-stone-300 transition-colors cursor-pointer"
+                  >
+                    <Edit3 className="w-4 h-4 text-orange-600" />
+                    <span>Vào Quản Trị / Nhập Data</span>
+                  </button>
+                )}
+              </div>
+
+              {/* Suggested popular articles */}
+              <div className="pt-8 border-t border-stone-100 text-left">
+                <h3 className="text-sm font-black text-stone-900 mb-4 flex items-center gap-2">
+                  <ChefHat className="w-4 h-4 text-orange-600" />
+                  <span>Bài viết gợi ý dành cho bạn:</span>
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {allPosts.slice(0, 3).map((post) => (
+                    <div
+                      key={post.id}
+                      onClick={() => handleOpenPost(post)}
+                      className="p-3 bg-stone-50 hover:bg-orange-50/50 rounded-xl border border-stone-200/80 hover:border-orange-200 transition-colors cursor-pointer group flex flex-col justify-between"
+                    >
+                      <h4 className="text-xs font-bold text-stone-900 group-hover:text-orange-600 line-clamp-2 mb-2">
+                        {post.title}
+                      </h4>
+                      <span className="text-[10px] text-stone-400 font-medium">
+                        {post.publishDate}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       ) : (
         /* 2. BLOG LIST & DISCOVERY VIEW */
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-6">

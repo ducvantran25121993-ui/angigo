@@ -639,8 +639,31 @@ export function normalizeBlogPost(raw: any): BlogPost {
   if (!raw || typeof raw !== 'object') {
     return INITIAL_BLOG_POSTS[0];
   }
-  const id = String(raw.id || raw.slug || 'bai-viet-am-thuc');
-  const slug = String(raw.slug || raw.id || 'bai-viet-am-thuc');
+
+  let cleanSlug = String(raw.slug || raw.id || 'bai-viet-am-thuc')
+    .toLowerCase()
+    .trim()
+    .replace(/^\/?blog\//i, '')
+    .replace(/^\/+/, '')
+    .replace(/\/+$/, '');
+  try {
+    cleanSlug = decodeURIComponent(cleanSlug);
+  } catch {}
+  cleanSlug = cleanSlug.trim().replace(/^\/+/, '').replace(/\/+$/, '');
+
+  let cleanId = String(raw.id || raw.slug || cleanSlug)
+    .toLowerCase()
+    .trim()
+    .replace(/^\/?blog\//i, '')
+    .replace(/^\/+/, '')
+    .replace(/\/+$/, '');
+  try {
+    cleanId = decodeURIComponent(cleanId);
+  } catch {}
+  cleanId = cleanId.trim().replace(/^\/+/, '').replace(/\/+$/, '');
+
+  const id = cleanId || cleanSlug || 'bai-viet-am-thuc';
+  const slug = cleanSlug || cleanId || 'bai-viet-am-thuc';
   const title = String(raw.title || 'Bài viết ẩm thực');
   const content = String(raw.content || '');
   const excerpt = String(
@@ -670,6 +693,17 @@ export function normalizeBlogPost(raw: any): BlogPost {
     ),
   };
 
+  const oldSlugRaw = raw.oldSlug || raw.previousSlug;
+  let cleanOldSlug: string | undefined;
+  if (oldSlugRaw) {
+    cleanOldSlug = String(oldSlugRaw)
+      .toLowerCase()
+      .trim()
+      .replace(/^\/?blog\//i, '')
+      .replace(/^\/+/, '')
+      .replace(/\/+$/, '');
+  }
+
   return {
     id,
     slug,
@@ -685,7 +719,7 @@ export function normalizeBlogPost(raw: any): BlogPost {
     relatedDishIds: Array.isArray(raw.relatedDishIds) ? raw.relatedDishIds : [],
     content,
     htmlContent: raw.htmlContent ? String(raw.htmlContent) : (content && /<[a-z][\s\S]*>/i.test(content) && !content.trim().startsWith('#') ? String(content) : undefined),
-    oldSlug: raw.oldSlug ? String(raw.oldSlug) : undefined,
+    oldSlug: cleanOldSlug,
     updatedAt: raw.updatedAt ? String(raw.updatedAt) : undefined,
   };
 }

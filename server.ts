@@ -635,7 +635,30 @@ function removeDeletedPostSlug(slugOrId: string) {
   }
 }
 
+// In-memory caching and quota circuit breaker for Firestore
+let cachedFirestoreDeleted: string[] | null = null;
+let lastFirestoreDeletedSyncTime = 0;
+let cachedFirestorePosts: any[] | null = null;
+let lastFirestorePostsSyncTime = 0;
+let firestoreQuotaExceededUntil = 0;
+const FIRESTORE_CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
+const FIRESTORE_QUOTA_COOLDOWN = 60 * 60 * 1000; // 1 hour cooldown when quota is exceeded
+
+function invalidateFirestoreServerCache() {
+  cachedFirestorePosts = null;
+  lastFirestorePostsSyncTime = 0;
+  cachedFirestoreDeleted = null;
+  lastFirestoreDeletedSyncTime = 0;
+}
+
 async function syncFirestoreDeletedPosts(): Promise<string[]> {
+  const now = Date.now();
+  if (cachedFirestoreDeleted && now - lastFirestoreDeletedSyncTime < FIRESTORE_CACHE_TTL) {
+    return cachedFirestoreDeleted;
+  }
+  if (now < firestoreQuotaExceededUntil) {
+    return loadDeletedPostSlugs();
+  }
   try {
     const configPath = path.join(process.cwd(), "firebase-applet-config.json");
     if (!fs.existsSync(configPath)) return loadDeletedPostSlugs();
@@ -661,9 +684,17 @@ async function syncFirestoreDeletedPosts(): Promise<string[]> {
     if (fs.existsSync(distTargetDir)) {
       fs.writeFileSync(DIST_DELETED_POSTS_FILE, JSON.stringify(merged, null, 2), "utf-8");
     }
+    cachedFirestoreDeleted = merged;
+    lastFirestoreDeletedSyncTime = now;
     return merged;
-  } catch (err) {
-    console.warn("syncFirestoreDeletedPosts warning:", err);
+  } catch (err: any) {
+    const isQuota = err?.message?.includes("Quota") || err?.code === "resource-exhausted";
+    if (isQuota) {
+      firestoreQuotaExceededUntil = Date.now() + FIRESTORE_QUOTA_COOLDOWN;
+      console.info("[Firestore] Read quota limit reached. Using local file cache seamlessly.");
+    } else {
+      console.warn("syncFirestoreDeletedPosts warning:", err?.message || err);
+    }
     return loadDeletedPostSlugs();
   }
 }
@@ -755,12 +786,21 @@ function saveCustomBlogPosts(posts: any[]) {
     if (fs.existsSync(path.dirname(distTarget))) {
       fs.writeFileSync(distTarget, JSON.stringify(posts, null, 2), "utf-8");
     }
+    cachedFirestorePosts = posts;
+    lastFirestorePostsSyncTime = Date.now();
   } catch (err) {
     console.error("Error saving custom blog posts:", err);
   }
 }
 
 async function syncFirestorePostsToServer(): Promise<any[]> {
+  const now = Date.now();
+  if (cachedFirestorePosts && now - lastFirestorePostsSyncTime < FIRESTORE_CACHE_TTL) {
+    return cachedFirestorePosts;
+  }
+  if (now < firestoreQuotaExceededUntil) {
+    return loadCustomBlogPosts();
+  }
   try {
     const configPath = path.join(process.cwd(), "firebase-applet-config.json");
     if (!fs.existsSync(configPath)) return loadCustomBlogPosts();
@@ -770,7 +810,12 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     const app = getApps().length === 0 ? initializeApp(config) : getApp();
     const db = getFirestore(app, config.firestoreDatabaseId);
     const snap = await getDocs(collection(db, "posts"));
-    if (snap.empty) return loadCustomBlogPosts();
+    if (snap.empty) {
+      const current = loadCustomBlogPosts();
+      cachedFirestorePosts = current;
+      lastFirestorePostsSyncTime = now;
+      return current;
+    }
 
     const cloudPosts: any[] = [];
     snap.forEach((d) => {
@@ -829,15 +874,26 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
       htmlContent: p.htmlContent || undefined,
     }));
     saveCustomBlogPosts(merged);
+    cachedFirestorePosts = merged;
+    lastFirestorePostsSyncTime = now;
     return merged;
-  } catch (err) {
-    console.warn("syncFirestorePostsToServer warning:", err);
+  } catch (err: any) {
+    const isQuota = err?.message?.includes("Quota") || err?.code === "resource-exhausted";
+    if (isQuota) {
+      firestoreQuotaExceededUntil = Date.now() + FIRESTORE_QUOTA_COOLDOWN;
+      console.info("[Firestore] Read quota limit reached. Using local file storage.");
+    } else {
+      console.warn("syncFirestorePostsToServer warning:", err?.message || err);
+    }
     const deletedSlugs = new Set(loadDeletedPostSlugs());
-    return loadCustomBlogPosts().filter((p) => {
+    const fallback = loadCustomBlogPosts().filter((p) => {
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
       return !deletedSlugs.has(s) && !deletedSlugs.has(id);
     });
+    cachedFirestorePosts = fallback;
+    lastFirestorePostsSyncTime = now;
+    return fallback;
   }
 }
 
@@ -1035,7 +1091,22 @@ function injectSeoMeta(html: string, requestedPath: string): string {
   }
 
   if (!meta) {
-    meta = SEO_ROUTES_CONFIG["/"];
+    const slugTitle = cleanPath
+      .replace(/^\//, "")
+      .replace(/^\/?blog\//, "")
+      .split("-")
+      .map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : ""))
+      .join(" ");
+    meta = {
+      path: cleanPath,
+      title: slugTitle ? `${slugTitle} | Blog Ẩm Thực Hôm Nay Ăn Gì` : `Blog Ẩm Thực Hôm Nay Ăn Gì`,
+      description: "Khám phá cẩm nang nấu ăn chuẩn vị, bí quyết làm bếp và mẹo vặt ẩm thực gia đình trên Hôm Nay Ăn Gì.",
+      keywords: "hôm nay ăn gì, blog ẩm thực, cẩm nang nấu ăn, mẹo nhà bếp, công thức món ngon",
+      image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80",
+      imageAlt: slugTitle || "Blog Ẩm Thực Hôm Nay Ăn Gì",
+      isArticle: true,
+      canonicalPath: cleanPath,
+    };
   }
   const fullUrl = `https://angigio.com${meta.path === "/" ? "/" : meta.path}`;
   const canonicalUrl = meta.canonicalPath
@@ -1057,15 +1128,6 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${meta.description}" />`)
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${fullUrl}" />`)
     .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${meta.image}" />`);
-
-  if (meta.canonicalPath && meta.canonicalPath !== meta.path) {
-    const targetPath = meta.canonicalPath;
-    const targetFullUrl = `https://angigio.com${targetPath === "/" ? "/" : targetPath}`;
-    updatedHtml = updatedHtml.replace(
-      '</head>',
-      `    <meta http-equiv="refresh" content="0; url=${targetFullUrl}" />\n    <script>if (typeof window !== 'undefined' && window.location.pathname !== '${targetPath}') { window.location.replace('${targetPath}'); }</script>\n  </head>`
-    );
-  }
 
   if (isRecipeRoute || meta.isArticle) {
     const publishedTime = '2026-09-28T08:00:00+07:00';

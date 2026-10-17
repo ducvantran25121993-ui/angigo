@@ -3,17 +3,17 @@ import { Dish } from '../../types';
 export const COM_XOI_DISHES: Dish[] = [
   {
     id: 'com-tam-suon-bi-cha',
-    name: 'Cơm Tấm Sườn Bì Chả',
-    vietnameseName: 'Cơm Tấm Sườn Bì Chả',
+    name: 'Cơm Sườn Nướng Mật Ong Thơm Ngon Đậm Đà Chuẩn Quán',
+    vietnameseName: 'Cơm Sườn Nướng Mật Ong Thơm Ngon Đậm Đà Chuẩn Quán',
     category: 'com_xoi',
     mealTime: ['sang', 'trua', 'toi'],
     priceRange: '45.000đ - 65.000đ',
     estimatedPrice: 55000,
     calories: '680 - 780 kcal',
-    description: 'Sườn nướng than hoa mật ong xém cạnh, chả trứng hấp béo bùi, bì heo thái chỉ giòn rụm và mắm chua ngọt đặc sánh.',
+    description: 'Sườn cốt lết nướng mật ong sữa đặc xém cạnh thơm lừng, chả trứng hấp béo bùi, bì heo thính và nước mắm kẹo tỏi ớt bồng bềnh.',
     image: '/images/com_tam_suon_bi_cha.jpg',
-    popularTags: ['Đặc sản Sài Gòn', 'Best seller', 'No lâu'],
-    searchKeyword: 'Cơm tấm sườn bì chả',
+    popularTags: ['Đặc sản Sài Gòn', 'Best seller', 'Cách làm cơm sườn nướng mật ong'],
+    searchKeyword: 'Cách làm cơm sườn nướng mật ong thơm ngon đậm đà chuẩn quán Cơm tấm sườn bì chả',
     bestPairedWith: 'Canh rong biển & Trà đá lài',
   },
   {

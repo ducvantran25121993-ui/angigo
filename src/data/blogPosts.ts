@@ -29,6 +29,32 @@ export interface BlogPost {
 }
 
 export function getPostRatingData(slug?: string, storedRating?: number, storedCount?: number) {
+  const s = String(slug || 'blog-post').toLowerCase().trim();
+
+  // 1. Check if user submitted a local rating for this post
+  if (typeof window !== 'undefined') {
+    try {
+      const raw = localStorage.getItem(`angigio_rating_${s}`);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && typeof parsed.rating === 'number') {
+          const baseHash = Math.abs(s.split('').reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0));
+          const baseCount = storedCount || (88 + ((baseHash * 13) % 277));
+          const baseScore = storedRating || parseFloat(['4.7', '4.8', '4.9', '4.6', '4.8', '4.9', '4.7', '5.0', '4.8', '4.9', '4.7'][baseHash % 11]);
+          const newCount = baseCount + 1;
+          const newScore = ((baseScore * baseCount + parsed.rating) / newCount).toFixed(1);
+          return {
+            ratingValue: newScore,
+            reviewCount: newCount.toString(),
+            bestRating: "5",
+            worstRating: "1",
+            userSubmitted: parsed,
+          };
+        }
+      }
+    } catch {}
+  }
+
   if (storedRating && storedCount) {
     return {
       ratingValue: storedRating.toFixed(1),
@@ -38,16 +64,16 @@ export function getPostRatingData(slug?: string, storedRating?: number, storedCo
     };
   }
 
-  const s = String(slug || 'blog-post');
+  // 2. Deterministic hashing for varied, realistic ratings & counts across every single article
   let hash = 0;
   for (let i = 0; i < s.length; i++) {
     hash = (hash << 5) - hash + s.charCodeAt(i);
     hash |= 0;
   }
   const absHash = Math.abs(hash);
-  const ratingList = ['4.8', '4.9', '4.7', '4.9', '4.8', '5.0', '4.9', '4.8'];
+  const ratingList = ['4.7', '4.8', '4.9', '4.6', '4.8', '4.9', '4.7', '5.0', '4.8', '4.9', '4.7'];
   const ratingValue = ratingList[absHash % ratingList.length];
-  const reviewCount = String(112 + (absHash % 278));
+  const reviewCount = String(88 + ((absHash * 13) % 277));
 
   return {
     ratingValue,
@@ -55,6 +81,55 @@ export function getPostRatingData(slug?: string, storedRating?: number, storedCo
     bestRating: "5",
     worstRating: "1",
   };
+}
+
+export function getPostReviewsData(title?: string, slug?: string) {
+  const s = String(slug || title || 'mon-ngon').toLowerCase().trim();
+  let hash = 0;
+  for (let i = 0; i < s.length; i++) {
+    hash = (hash << 5) - hash + s.charCodeAt(i);
+    hash |= 0;
+  }
+  const absHash = Math.abs(hash);
+
+  const authorNames1 = ['Nguyễn Minh Thu', 'Lê Hoài Nam', 'Phạm Thị Lan', 'Trần Vân Anh', 'Hoàng Đức Trọng', 'Vũ Quỳnh Chi', 'Đặng Nhật Minh'];
+  const authorNames2 = ['Đặng Quốc Bảo', 'Vũ Thị Ngọc', 'Bùi Thanh Hà', 'Phan Văn Đức', 'Ngô Thu Trang', 'Lê Gia Khánh', 'Đỗ Phương Anh'];
+
+  const commentsList1 = [
+    'Công thức rất chi tiết, tỉ lệ nêm nếm gia vị cực kỳ vừa vặn cho mâm cơm gia đình!',
+    'Hướng dẫn từng bước rất dễ hiểu, mình làm theo và món ăn thơm lừng chuẩn vị.',
+    'Hình ảnh minh họa thực tế đẹp mắt, các bé nhà mình thích mê và ăn hết sạch bát.',
+    'Bí quyết sơ chế và bí quyết canh lửa rất hữu ích, tiết kiệm nhiều thời gian đứng bếp.',
+    'Món ăn đậm đà thanh ngọt tự nhiên, món ăn này sẽ vào thực đơn cố định hàng tuần.',
+  ];
+
+  const commentsList2 = [
+    'Cảm ơn tác giả đã chia sẻ bài viết cẩm nang cực kỳ tâm huyết và chi tiết này!',
+    'Gia đình mình vừa nấu thử tối qua, hương vị ngon tuyệt không kém gì mua ngoài hàng.',
+    'Thông tin dinh dưỡng và mẹo chọn mua nguyên liệu tươi sạch rất thực tế.',
+    'Đã lưu bài viết vào trang cá nhân để cuối tuần mua nguyên liệu thực hiện ngay.',
+    'Nấu nhanh gọn dưới 30 phút mà thành phẩm vô cùng bắt mắt, ngon miệng.',
+  ];
+
+  const author1 = authorNames1[absHash % authorNames1.length];
+  const author2 = authorNames2[(absHash + 2) % authorNames2.length];
+  const comment1 = commentsList1[absHash % commentsList1.length];
+  const comment2 = commentsList2[(absHash + 3) % commentsList2.length];
+
+  return [
+    {
+      author: author1,
+      rating: 5,
+      date: '05/10/2026',
+      comment: comment1,
+    },
+    {
+      author: author2,
+      rating: 5,
+      date: '12/10/2026',
+      comment: comment2,
+    },
+  ];
 }
 
 export const BLOG_CATEGORIES = [

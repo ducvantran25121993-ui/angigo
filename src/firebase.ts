@@ -222,9 +222,14 @@ export async function getPostsFromFirestore(): Promise<BlogPost[]> {
   const path = 'posts';
   try {
     const snapshot = await getDocs(collection(db, path));
-    const posts: BlogPost[] = [];
+    const EXCLUDED_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
     snapshot.forEach((d) => {
       const data = d.data();
+      const pSlug = (data.slug || d.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const pId = (data.id || d.id || '').toLowerCase().trim();
+      if (EXCLUDED_BLOG_SLUGS.has(pSlug) || EXCLUDED_BLOG_SLUGS.has(pId)) {
+        return;
+      }
       posts.push({
         id: data.id || d.id,
         slug: data.slug || d.id,

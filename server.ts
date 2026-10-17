@@ -760,12 +760,13 @@ function loadCustomBlogPosts(): any[] {
         return p;
       });
     }
+    const EXCLUDED_SERVER_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
     const deletedSlugs = new Set(loadDeletedPostSlugs());
-    if (deletedSlugs.size > 0 && Array.isArray(list)) {
+    if (Array.isArray(list)) {
       return list.filter((p) => {
         const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
         const id = (p.id || '').toLowerCase().trim();
-        return !deletedSlugs.has(s) && !deletedSlugs.has(id);
+        return !deletedSlugs.has(s) && !deletedSlugs.has(id) && !EXCLUDED_SERVER_BLOG_SLUGS.has(s) && !EXCLUDED_SERVER_BLOG_SLUGS.has(id);
       });
     }
     return list;
@@ -818,10 +819,14 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     }
 
     const cloudPosts: any[] = [];
+    const EXCLUDED_SERVER_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
     snap.forEach((d) => {
       const data = d.data();
       const pSlug = (data.slug || d.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const pId = (data.id || d.id || '').toLowerCase().trim();
+      if (EXCLUDED_SERVER_BLOG_SLUGS.has(pSlug) || EXCLUDED_SERVER_BLOG_SLUGS.has(pId)) {
+        return;
+      }
       // An active post in Firestore must never be blocked by a stale deleted record
       if (pSlug) removeDeletedPostSlug(pSlug);
       if (pId) removeDeletedPostSlug(pId);

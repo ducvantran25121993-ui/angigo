@@ -214,13 +214,27 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
   useEffect(() => {
     let isMounted = true;
     const fetchLatestPosts = async () => {
+      try {
+        const raw = localStorage.getItem('angigio_custom_blog_posts');
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            const cleaned = parsed.filter((p: any) => {
+              const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+              const id = (p.id || '').toLowerCase().trim();
+              return s !== 'cach-lam-com-suon-nuong-mat-ong' && id !== 'cach-lam-com-suon-nuong-mat-ong' && s !== 'com-tam-suon-bi-cha' && id !== 'com-tam-suon-bi-cha';
+            });
+            localStorage.setItem('angigio_custom_blog_posts', JSON.stringify(cleaned));
+          }
+        }
+      } catch {}
       await syncDeletedPosts();
       if (!isMounted) return;
       setDeletedSlugs(getDeletedPostSlugs());
       const synced = await fetchAndSyncCustomPosts();
       if (!isMounted) return;
       if (synced && synced.length > 0) {
-        setCustomPosts(synced);
+        setCustomPosts(synced.filter((p) => p.slug !== 'cach-lam-com-suon-nuong-mat-ong' && p.id !== 'cach-lam-com-suon-nuong-mat-ong'));
       }
       setDeletedSlugs(getDeletedPostSlugs());
       let resolved = resolvePostFromPath();

@@ -858,6 +858,8 @@ export async function syncDeletedPosts(): Promise<Set<string>> {
   return set;
 }
 
+const EXCLUDED_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
+
 export function getCustomBlogPosts(): BlogPost[] {
   if (typeof window === 'undefined') return [];
   const deleted = getDeletedPostSlugs();
@@ -865,7 +867,7 @@ export function getCustomBlogPosts(): BlogPost[] {
     posts.filter((p) => {
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
-      return !deleted.has(s) && !deleted.has(id);
+      return !deleted.has(s) && !deleted.has(id) && !EXCLUDED_BLOG_SLUGS.has(s) && !EXCLUDED_BLOG_SLUGS.has(id);
     });
 
   // 1. Read from localStorage first (local client always has the latest edits made in Admin)
@@ -915,16 +917,12 @@ export function getCustomBlogPosts(): BlogPost[] {
     }
   });
 
-  const merged = Array.from(postMap.values());
-  if (merged.length > 0) {
-    try {
-      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
-      (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
-    } catch {}
-    return merged;
-  }
-
-  return [];
+  const merged = filterDeleted(Array.from(postMap.values()));
+  try {
+    localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
+    (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
+  } catch {}
+  return merged;
 }
 
 export function getAllBlogPosts(): BlogPost[] {

@@ -1,4 +1,5 @@
 import { KNOWN_BLOG_SLUGS } from './blogSlugs';
+import customPostsFallback from '../../public/custom_blog_posts.json';
 
 export interface BlogAuthor {
   name: string;
@@ -27,7 +28,7 @@ export interface BlogPost {
   reviewCount?: number;
 }
 
-export function getPostRatingData(slug: string, storedRating?: number, storedCount?: number) {
+export function getPostRatingData(slug?: string, storedRating?: number, storedCount?: number) {
   if (storedRating && storedCount) {
     return {
       ratingValue: storedRating.toFixed(1),
@@ -37,9 +38,10 @@ export function getPostRatingData(slug: string, storedRating?: number, storedCou
     };
   }
 
+  const s = String(slug || 'blog-post');
   let hash = 0;
-  for (let i = 0; i < slug.length; i++) {
-    hash = (hash << 5) - hash + slug.charCodeAt(i);
+  for (let i = 0; i < s.length; i++) {
+    hash = (hash << 5) - hash + s.charCodeAt(i);
     hash |= 0;
   }
   const absHash = Math.abs(hash);
@@ -869,7 +871,6 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
 const EXCLUDED_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
 
 export function getCustomBlogPosts(): BlogPost[] {
-  if (typeof window === 'undefined') return [];
   const deleted = getDeletedPostSlugs();
   const filterDeleted = (posts: BlogPost[]) =>
     posts.filter((p) => {
@@ -880,20 +881,24 @@ export function getCustomBlogPosts(): BlogPost[] {
 
   // 1. Read from localStorage first (local client always has the latest edits made in Admin)
   let localList: BlogPost[] = [];
-  try {
-    const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        localList = filterDeleted(parsed.map(normalizeBlogPost));
+  if (typeof window !== 'undefined') {
+    try {
+      const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          localList = filterDeleted(parsed.map(normalizeBlogPost));
+        }
       }
-    }
-  } catch {}
+    } catch {}
+  }
 
-  // 2. Read from window.__INITIAL_CUSTOM_POSTS__ (injected by server on page load)
+  // 2. Read from window.__INITIAL_CUSTOM_POSTS__ or fallback to bundled custom_blog_posts.json
   let initialList: BlogPost[] = [];
   if (typeof window !== 'undefined' && Array.isArray((window as any).__INITIAL_CUSTOM_POSTS__) && (window as any).__INITIAL_CUSTOM_POSTS__.length > 0) {
     initialList = filterDeleted((window as any).__INITIAL_CUSTOM_POSTS__.map(normalizeBlogPost));
+  } else if (Array.isArray(customPostsFallback) && customPostsFallback.length > 0) {
+    initialList = filterDeleted((customPostsFallback as any[]).map(normalizeBlogPost));
   }
 
   // 3. Merge: Compare updatedAt between localList and initialList so newest edits always win
@@ -901,8 +906,6 @@ export function getCustomBlogPosts(): BlogPost[] {
   initialList.forEach((p) => {
     const key = (p.slug || p.id || '').toLowerCase().trim();
     if (key) {
-      const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
-      if (oldSlug && oldSlug !== key) postMap.delete(oldSlug);
       postMap.set(key, p);
     }
   });
@@ -926,10 +929,12 @@ export function getCustomBlogPosts(): BlogPost[] {
   });
 
   const merged = filterDeleted(Array.from(postMap.values()));
-  try {
-    localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
-    (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
-  } catch {}
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
+      (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
+    } catch {}
+  }
   return merged;
 }
 
@@ -1200,7 +1205,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
  * Fetch a single blog post directly by slug or ID with fallback to Firestore
  */
 export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null> {
-  if (!slugOrId || typeof window === 'undefined') return null;
+  if (!slugOrId) return null;
   const clean = slugOrId.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
   const deleted = getDeletedPostSlugs();
   if (deleted.has(clean)) return null;
@@ -1209,7 +1214,40 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
   const found = getBlogPostBySlug(clean);
   if (found) return found;
 
-  // 2. Try fetching from server API /api/posts/:slugOrId
+  // 2. Check in customPostsFallback directly
+  if (Array.isArray(customPostsFallback)) {
+    const inFallback = (customPostsFallback as any[]).find((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      return s === clean || id === clean;
+    });
+    if (inFallback) {
+      return normalizeBlogPost(inFallback);
+    }
+  }
+
+  // 3. Try fetching from static /custom_blog_posts.json
+  if (typeof window !== 'undefined') {
+    try {
+      const res = await fetch(`/custom_blog_posts.json?_t=${Date.now()}`);
+      if (res.ok) {
+        const list = await res.json();
+        if (Array.isArray(list)) {
+          const matched = list.find((p: any) => {
+            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+            const id = (p.id || '').toLowerCase().trim();
+            return s === clean || id === clean;
+          });
+          if (matched) {
+            const normalized = normalizeBlogPost(matched);
+            return normalized;
+          }
+        }
+      }
+    } catch {}
+  }
+
+  // 4. Try fetching from server API /api/posts/:slugOrId
   try {
     const res = await fetch(`/api/posts/${encodeURIComponent(clean)}?_t=${Date.now()}`, { cache: 'no-store' });
     if (res.ok) {

@@ -163,7 +163,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       clean = decodeURIComponent(clean);
     } catch {}
     clean = clean.toLowerCase().trim();
-    if (!clean) return null;
+    // 0. If activePost already matches, return activePost directly!
+    if (activePost && ((activePost.slug || '').toLowerCase().trim() === clean || (activePost.id || '').toLowerCase().trim() === clean)) {
+      return activePost;
+    }
 
     // 1. Try getBlogPostBySlug
     const bySlug = getBlogPostBySlug(clean);
@@ -212,7 +215,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     }
 
     return null;
-  }, [customPosts, allPosts]);
+  }, [customPosts, allPosts, activePost]);
 
   // Load latest posts and deleted posts from server API / Firestore on mount
   useEffect(() => {
@@ -284,6 +287,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         setActivePost(null);
         setIsSyncingPost(false);
       } else {
+        const clean = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
+        if (activePost && ((activePost.slug || '').toLowerCase().trim() === clean || (activePost.id || '').toLowerCase().trim() === clean)) {
+          setIsSyncingPost(false);
+          return;
+        }
         const resolved = resolvePostFromPath(pathname);
         if (resolved) {
           setActivePost(resolved);
@@ -316,7 +324,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       window.removeEventListener('popstate', handleUrlChange);
       window.removeEventListener('locationchange', handleUrlChange);
     };
-  }, [resolvePostFromPath]);
+  }, [resolvePostFromPath, activePost]);
 
   // Auto-resolve active post if allPosts updates (e.g. after API fetch finishes)
   useEffect(() => {
@@ -1828,7 +1836,7 @@ ${newContent}
             <a
               href={`/${featuredPost.slug}`}
               onClick={(e) => {
-                if (!e.ctrlKey && !e.metaKey && e.button === 0) {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey && (e.button === 0 || e.button === undefined)) {
                   e.preventDefault();
                   handleOpenPost(featuredPost);
                 }
@@ -1970,7 +1978,7 @@ ${newContent}
                   key={post.slug || post.id}
                   href={`/${post.slug}`}
                   onClick={(e) => {
-                    if (!e.ctrlKey && !e.metaKey && e.button === 0) {
+                    if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey && (e.button === 0 || e.button === undefined)) {
                       e.preventDefault();
                       handleOpenPost(post);
                     }

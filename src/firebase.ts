@@ -15,6 +15,7 @@ import {
   doc,
   setDoc,
   getDocs,
+  getDoc,
   deleteDoc,
   getDocFromServer,
 } from 'firebase/firestore';
@@ -246,10 +247,58 @@ export async function getPostsFromFirestore(): Promise<BlogPost[]> {
       });
     });
     return posts;
-  } catch (error) {
-    handleFirestoreError(error, OperationType.LIST, path);
+  } catch (error: any) {
+    const isQuota = error?.message?.includes('Quota') || error?.code === 'resource-exhausted';
+    if (isQuota) {
+      console.warn('Firestore read quota reached. Falling back gracefully to server/cached posts.');
+    } else {
+      console.warn('Firestore getPosts error:', error?.message || error);
+    }
     return [];
   }
+}
+
+/**
+ * Get a single post from Cloud Firestore by slug or ID (efficient: uses only 1 read unit)
+ */
+export async function getSinglePostFromFirestore(slugOrId: string): Promise<BlogPost | null> {
+  const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+  if (!clean) return null;
+  const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+
+  try {
+    let snap = await getDoc(doc(db, 'posts', docId));
+    if (!snap.exists() && clean !== docId) {
+      snap = await getDoc(doc(db, 'posts', clean));
+    }
+
+    if (snap.exists()) {
+      const data = snap.data();
+      return {
+        id: data.id || snap.id,
+        slug: data.slug || snap.id,
+        title: data.title || '',
+        excerpt: data.excerpt || '',
+        content: data.content || '',
+        htmlContent: data.htmlContent || data.contentHtml || '',
+        coverImage: data.coverImage || 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
+        category: (data.category as BlogPost['category']) || 'Gợi Ý Thực Đơn',
+        tags: typeof data.tags === 'string' ? data.tags.split(',').map((t: string) => t.trim()) : (data.tags || []),
+        author: {
+          name: data.authorName || 'Bếp Trưởng Hôm Nay Ăn Gì',
+          role: data.authorRole || 'Bếp Trưởng & Chuyên Gia Ẩm Thực',
+          avatar: data.authorAvatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=160&auto=format&fit=crop&q=80',
+        },
+        publishDate: data.publishDate || '',
+        readTime: data.readTime || '5 phút đọc',
+        featured: Boolean(data.featured),
+        updatedAt: data.updatedAt || new Date().toISOString(),
+      };
+    }
+  } catch (error: any) {
+    console.warn('Firestore single post fetch warning:', error?.message || error);
+  }
+  return null;
 }
 
 /**

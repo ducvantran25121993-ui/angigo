@@ -2213,6 +2213,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://angigio.com/100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
+      <image:title>100 Nghìn Nấu Được Món Gì? Gợi Ý Bữa Ăn Tiết Kiệm</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://angigio.com/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -2220,6 +2230,16 @@
     <image:image>
       <image:loc>https://angigio.com/images/an-gi-cho-do-ngan.jpg</image:loc>
       <image:title>Ăn Gì Cho Đỡ Ngán? Gợi Ý Món Ngon Đổi Vị, Dễ Ăn Cho Cả Nhà</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://angigio.com/an-gi-hom-nay-goi-y-mon-ngon-de-lam-cho-bua-com-moi-ngay</loc>
+    <lastmod>2026-10-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
+      <image:title>Ăn Gì Hôm Nay? Gợi Ý Món Ngon Dễ Làm Cho Bữa Cơm Mỗi Ngày</image:title>
     </image:image>
   </url>
   <url>
@@ -2233,6 +2253,26 @@
     </image:image>
   </url>
   <url>
+    <loc>https://angigio.com/cuoi-tuan-an-gi-nhung-bua-an-tan-huong-ngay-nghi</loc>
+    <lastmod>2026-10-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/lau_ca_keo.jpg</image:loc>
+      <image:title>Cuối Tuần Ăn Gì? Những Bữa Ăn Tận Hưởng Ngày Nghỉ</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://angigio.com/mon-ngon-de-lam-goi-y-cac-mon-de-nau-cho-nguoi-moi-bat-dau</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/thit-bam-lam-mon-gi-ngon.jpg</image:loc>
+      <image:title>Món Ngon Dễ Làm: Gợi Ý Các Món Dễ Nấu Cho Người Mới Bắt Đầu</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://angigio.com/thit-bo-lam-mon-gi-ngon-goi-y-mon-bo-de-lam-dam-da-cho-bua-com-gia-dinh</loc>
     <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
@@ -2240,26 +2280,6 @@
     <image:image>
       <image:loc>https://angigio.com/images/thit-bo-lam-mon-gi-ngon.jpg</image:loc>
       <image:title>Thịt Bò Làm Món Gì Ngon? Gợi Ý Món Bò Dễ Làm, Đậm Đà Cho Bữa Cơm Gia Đình</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/thit-heo-lam-mon-gi-ngon</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/thit-heo-lam-mon-gi-ngon.jpg</image:loc>
-      <image:title>Thịt Heo Làm Món Gì Ngon? Gợi Ý Món Ngon Đổi Vị Dễ Làm Tại Nhà</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/trung-lam-mon-gi-ngon-goi-y-cac-mon-trung-de-lam-hao-com-cho-ca-nha</loc>
-    <lastmod>2026-10-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/trung-lam-mon-gi-ngon.jpg</image:loc>
-      <image:title>Trứng Làm Món Gì Ngon? Gợi Ý Các Món Trứng Dễ Làm, Hao Cơm Cho Cả Nhà</image:title>
     </image:image>
   </url>
   <url>
@@ -2273,13 +2293,13 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/an-gi-hom-nay-goi-y-mon-ngon-de-lam-cho-bua-com-moi-ngay</loc>
-    <lastmod>2026-10-10</lastmod>
+    <loc>https://angigio.com/thit-heo-lam-mon-gi-ngon</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
-      <image:title>Ăn Gì Hôm Nay? Gợi Ý Món Ngon Dễ Làm Cho Bữa Cơm Mỗi Ngày</image:title>
+      <image:loc>https://angigio.com/images/thit-heo-lam-mon-gi-ngon.jpg</image:loc>
+      <image:title>Thịt Heo Làm Món Gì Ngon? Gợi Ý Món Ngon Đổi Vị Dễ Làm Tại Nhà</image:title>
     </image:image>
   </url>
   <url>
@@ -2303,23 +2323,13 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem</loc>
-    <lastmod>2026-10-12</lastmod>
+    <loc>https://angigio.com/trung-lam-mon-gi-ngon-goi-y-cac-mon-trung-de-lam-hao-com-cho-ca-nha</loc>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
-      <image:title>100 Nghìn Nấu Được Món Gì? Gợi Ý Bữa Ăn Tiết Kiệm</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/cuoi-tuan-an-gi-nhung-bua-an-tan-huong-ngay-nghi</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/lau_ca_keo.jpg</image:loc>
-      <image:title>Cuối Tuần Ăn Gì? Những Bữa Ăn Tận Hưởng Ngày Nghỉ</image:title>
+      <image:loc>https://angigio.com/images/trung-lam-mon-gi-ngon.jpg</image:loc>
+      <image:title>Trứng Làm Món Gì Ngon? Gợi Ý Các Món Trứng Dễ Làm, Hao Cơm Cho Cả Nhà</image:title>
     </image:image>
   </url>
   <url>

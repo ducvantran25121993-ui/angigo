@@ -641,8 +641,8 @@ let lastFirestoreDeletedSyncTime = 0;
 let cachedFirestorePosts: any[] | null = null;
 let lastFirestorePostsSyncTime = 0;
 let firestoreQuotaExceededUntil = 0;
-const FIRESTORE_CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache
-const FIRESTORE_QUOTA_COOLDOWN = 60 * 60 * 1000; // 1 hour cooldown when quota is exceeded
+const FIRESTORE_CACHE_TTL = 3 * 60 * 1000; // 3 minutes cache
+const FIRESTORE_QUOTA_COOLDOWN = 2 * 60 * 1000; // 2 minutes cooldown when quota is exceeded
 
 function invalidateFirestoreServerCache() {
   cachedFirestorePosts = null;
@@ -1028,6 +1028,102 @@ app.get("/api/admin/posts", async (_req, res) => {
     posts: Array.from(postMap.values()),
     customPosts: customPosts,
   });
+});
+
+// API: Get a single blog post by slug or ID with targeted Firestore lookup
+app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res) => {
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  const { slugOrId } = req.params;
+  const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+  const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+
+  // 1. Check deleted list
+  const deletedSlugs = new Set(await syncFirestoreDeletedPosts());
+  if (deletedSlugs.has(clean) || deletedSlugs.has(canonical)) {
+    return res.status(404).json({ success: false, message: "Bài viết đã bị xóa" });
+  }
+
+  // 2. Check local posts & in-memory cache
+  const localPosts = loadCustomBlogPosts();
+  let found = localPosts.find((p) => {
+    const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const id = (p.id || '').toLowerCase().trim();
+    return s === clean || id === clean || s === canonical || id === canonical;
+  });
+
+  if (found) {
+    return res.json({ success: true, post: found });
+  }
+
+  // 3. Check INITIAL_BLOG_POSTS
+  const initFound = INITIAL_BLOG_POSTS.find((p) => {
+    const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const id = (p.id || '').toLowerCase().trim();
+    return s === clean || id === clean || s === canonical || id === canonical;
+  });
+
+  if (initFound) {
+    return res.json({ success: true, post: initFound });
+  }
+
+  // 4. Targeted Firestore lookup for this specific document (costs only 1 read unit)
+  try {
+    const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+    if (fs.existsSync(configPath)) {
+      const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+      const { initializeApp, getApps, getApp } = await import("firebase/app");
+      const { getFirestore, doc, getDoc } = await import("firebase/firestore");
+      const app = getApps().length === 0 ? initializeApp(config) : getApp();
+      const db = getFirestore(app, config.firestoreDatabaseId);
+
+      const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+      let snap = await getDoc(doc(db, "posts", docId));
+      if (!snap.exists() && canonical !== clean) {
+        const canDocId = canonical.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+        snap = await getDoc(doc(db, "posts", canDocId));
+      }
+
+      if (snap.exists()) {
+        const data = snap.data();
+        const post = {
+          id: data.id || snap.id,
+          slug: data.slug || snap.id,
+          title: data.title || "",
+          excerpt: data.excerpt || "",
+          content: data.content || "",
+          htmlContent: data.htmlContent || undefined,
+          coverImage: data.coverImage || "/images/an-gi-cho-do-ngan.jpg",
+          category: data.category || "Gợi Ý Thực Đơn",
+          tags: typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()).filter(Boolean) : (data.tags || []),
+          author: {
+            name: data.authorName || "Bếp Trưởng Hôm Nay Ăn Gì",
+            role: data.authorRole || "Chuyên gia Ẩm thực & Dinh dưỡng",
+            avatar: data.authorAvatar || "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80",
+          },
+          publishDate: data.publishDate || "",
+          readTime: data.readTime || "5 phút đọc",
+          featured: Boolean(data.featured),
+          updatedAt: data.updatedAt || new Date().toISOString(),
+        };
+
+        // Cache into local file storage so all future requests serve instantly
+        const currentCustom = loadCustomBlogPosts();
+        const existingIdx = currentCustom.findIndex((p) => p.slug === post.slug || p.id === post.id);
+        if (existingIdx >= 0) {
+          currentCustom[existingIdx] = post;
+        } else {
+          currentCustom.unshift(post);
+        }
+        saveCustomBlogPosts(currentCustom);
+
+        return res.json({ success: true, post });
+      }
+    }
+  } catch (err) {
+    console.warn("Single post Firestore fetch error:", err);
+  }
+
+  return res.status(404).json({ success: false, message: "Không tìm thấy bài viết" });
 });
 
 // Comprehensive dynamic SEO routes config for server-rendered HTML meta tags
@@ -1487,6 +1583,9 @@ app.post("/api/admin/posts", async (req, res) => {
     } catch (fbErr) {
       console.warn("Backend Firestore save warning:", fbErr);
     }
+
+    firestoreQuotaExceededUntil = 0;
+    invalidateFirestoreServerCache();
 
     return res.json({
       success: true,

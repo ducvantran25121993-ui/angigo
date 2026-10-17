@@ -1094,6 +1094,11 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
       if (Array.isArray(data.customPosts)) {
         data.customPosts.forEach(mergeItem);
       }
+      if (Array.isArray(data.posts)) {
+        data.posts.forEach((p) => {
+          if (p.isCustom || p.htmlContent) mergeItem(p);
+        });
+      }
     }
   } catch {
     // ignore
@@ -1133,5 +1138,57 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
     window.dispatchEvent(new Event('custom-posts-updated'));
   } catch {}
   return merged;
+}
+
+/**
+ * Fetch a single blog post directly by slug or ID with fallback to Firestore
+ */
+export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null> {
+  if (!slugOrId || typeof window === 'undefined') return null;
+  const clean = slugOrId.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+  const deleted = getDeletedPostSlugs();
+  if (deleted.has(clean)) return null;
+
+  // 1. Check in local memory first
+  const found = getBlogPostBySlug(clean);
+  if (found) return found;
+
+  // 2. Try fetching from server API /api/posts/:slugOrId
+  try {
+    const res = await fetch(`/api/posts/${encodeURIComponent(clean)}?_t=${Date.now()}`, { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (data?.post) {
+        const normalized = normalizeBlogPost(data.post);
+        const custom = getCustomBlogPosts();
+        if (!custom.some((p) => p.slug === normalized.slug || p.id === normalized.id)) {
+          custom.unshift(normalized);
+          localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(custom));
+        }
+        const { KNOWN_BLOG_SLUGS } = await import('./blogSlugs');
+        KNOWN_BLOG_SLUGS.add(normalized.slug);
+        return normalized;
+      }
+    }
+  } catch {}
+
+  // 3. Try fetching single post directly from Firestore
+  try {
+    const { getSinglePostFromFirestore } = await import('../firebase');
+    const cloudPost = await getSinglePostFromFirestore(clean);
+    if (cloudPost) {
+      const normalized = normalizeBlogPost(cloudPost);
+      const custom = getCustomBlogPosts();
+      if (!custom.some((p) => p.slug === normalized.slug || p.id === normalized.id)) {
+        custom.unshift(normalized);
+        localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(custom));
+      }
+      const { KNOWN_BLOG_SLUGS } = await import('./blogSlugs');
+      KNOWN_BLOG_SLUGS.add(normalized.slug);
+      return normalized;
+    }
+  } catch {}
+
+  return null;
 }
 

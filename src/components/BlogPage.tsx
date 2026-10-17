@@ -221,7 +221,17 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         setCustomPosts(synced);
       }
       setDeletedSlugs(getDeletedPostSlugs());
-      const resolved = resolvePostFromPath();
+      let resolved = resolvePostFromPath();
+      if (!resolved) {
+        const pathname = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '';
+        if (pathname && pathname !== '/blog' && pathname !== '/') {
+          const targetSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
+          if (targetSlug) {
+            const { fetchSinglePost } = await import('../data/blogPosts');
+            resolved = await fetchSinglePost(targetSlug);
+          }
+        }
+      }
       if (resolved) {
         setActivePost(resolved);
       }
@@ -261,9 +271,16 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         } else {
           // Attempt rapid re-sync
           setIsSyncingPost(true);
-          fetchAndSyncCustomPosts().then((posts) => {
+          fetchAndSyncCustomPosts().then(async (posts) => {
             if (posts && posts.length > 0) setCustomPosts(posts);
-            const secondResolved = resolvePostFromPath(pathname);
+            let secondResolved = resolvePostFromPath(pathname);
+            if (!secondResolved) {
+              const targetSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
+              if (targetSlug) {
+                const { fetchSinglePost } = await import('../data/blogPosts');
+                secondResolved = await fetchSinglePost(targetSlug);
+              }
+            }
             if (secondResolved) {
               setActivePost(secondResolved);
             }

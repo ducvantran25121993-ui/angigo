@@ -336,7 +336,11 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
         const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
         const cpId = (cp.id || '').toLowerCase().trim();
         const cpOldSlug = ((cp as any).oldSlug || (cp as any).previousSlug || '').toLowerCase().trim();
-        return cpSlug === clean || cpId === cleanId || cpId === clean || cpOldSlug === clean || cpOldSlug === cleanId;
+        return Boolean(
+          (cpSlug && (cpSlug === clean || cpSlug === cleanId)) ||
+          (cpId && (cpId === cleanId || cpId === clean)) ||
+          (cpOldSlug && (cpOldSlug === clean || cpOldSlug === cleanId))
+        );
       });
       if (!isOverridden && !blogPostMap.has(p.slug)) {
         blogPostMap.set(p.slug, p);

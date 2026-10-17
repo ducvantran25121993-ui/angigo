@@ -979,6 +979,9 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
     cleanSlug = decodeURIComponent(cleanSlug);
   } catch {}
   cleanSlug = cleanSlug.trim();
+  if (!cleanSlug || cleanSlug === '/' || cleanSlug === 'index' || cleanSlug === 'index.html') {
+    return undefined;
+  }
 
   const deleted = getDeletedPostSlugs();
   if (deleted.has(cleanSlug)) {
@@ -997,8 +1000,9 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
     const pId = (p.id || '').toLowerCase().trim();
     const pOld = ((p as any).oldSlug || '').toLowerCase().trim();
     return (
-      pSlug === cleanSlug || pId === cleanSlug || pOld === cleanSlug ||
-      pSlug === canonicalSlug || pId === canonicalSlug || pOld === canonicalSlug
+      (pSlug && (pSlug === cleanSlug || pSlug === canonicalSlug)) ||
+      (pId && (pId === cleanSlug || pId === canonicalSlug)) ||
+      (pOld && (pOld === cleanSlug || pOld === canonicalSlug))
     );
   });
   if (customMatch) return normalizeBlogPost(customMatch);
@@ -1009,14 +1013,14 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   const directMatch = all.find((p) => {
     const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    return pSlug === cleanSlug || pId === cleanSlug;
+    return (pSlug && pSlug === cleanSlug) || (pId && pId === cleanSlug);
   });
   if (directMatch) return directMatch;
 
   return all.find((p) => {
     const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    return pSlug === canonicalSlug || pId === canonicalSlug;
+    return (pSlug && pSlug === canonicalSlug) || (pId && pId === canonicalSlug);
   });
 }
 
@@ -1027,6 +1031,9 @@ export function isBlogPostSlug(slug: string): boolean {
     clean = decodeURIComponent(clean);
   } catch {}
   clean = clean.trim();
+  if (!clean || clean === '/' || clean === 'index' || clean === 'index.html') {
+    return false;
+  }
   const deleted = getDeletedPostSlugs();
   if (deleted.has(clean)) {
     return false;
@@ -1045,14 +1052,14 @@ export function isBlogPostSlug(slug: string): boolean {
   const directMatch = all.some((p) => {
     const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    return pSlug === clean || pId === clean;
+    return (pSlug && pSlug === clean) || (pId && pId === clean);
   });
   if (directMatch) return true;
 
   return all.some((p) => {
     const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const pId = (p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    return pSlug === canonical || pId === canonical;
+    return (pSlug && pSlug === canonical) || (pId && pId === canonical);
   });
 }
 

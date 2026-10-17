@@ -222,6 +222,7 @@ export async function getPostsFromFirestore(): Promise<BlogPost[]> {
   const path = 'posts';
   try {
     const snapshot = await getDocs(collection(db, path));
+    const posts: BlogPost[] = [];
     const EXCLUDED_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
     snapshot.forEach((d) => {
       const data = d.data();

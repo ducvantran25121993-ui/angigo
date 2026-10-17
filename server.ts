@@ -1044,9 +1044,11 @@ app.get("/api/admin/posts", async (_req, res) => {
         const cpOldSlug = ((cp.oldSlug || cp.previousSlug || '')).toLowerCase().trim();
         const sCanonical = (BLOG_SLUG_ALIASES[s] || s).toLowerCase();
         const cpCanonical = (BLOG_SLUG_ALIASES[cpSlug] || cpSlug).toLowerCase();
-        return (
-          cpSlug === s || cpId === id || cpId === s || cpOldSlug === s || cpOldSlug === id ||
-          cpSlug === sCanonical || cpCanonical === s || cpCanonical === sCanonical
+        return Boolean(
+          (cpSlug && (cpSlug === s || cpSlug === sCanonical)) ||
+          (cpId && (cpId === id || cpId === s)) ||
+          (cpOldSlug && (cpOldSlug === s || cpOldSlug === id)) ||
+          (cpCanonical && (cpCanonical === s || cpCanonical === sCanonical))
         );
       });
       if (!isOverridden && !postMap.has(s)) {
@@ -1162,20 +1164,26 @@ let SEO_ROUTES_CONFIG = getAllSeoRoutes();
 
 function injectSeoMeta(html: string, requestedPath: string): string {
   const cleanPath = requestedPath.replace(/\/$/, "") || "/";
-  const slug = cleanPath.replace(/^\//, "").replace(/^\/?blog\//, "").toLowerCase();
+  const slug = cleanPath.replace(/^\//, "").replace(/^\/?blog\//, "").toLowerCase().trim();
 
-  // 1. Check custom posts first so any newly published or edited admin posts take immediate effect
   const customPosts = loadCustomBlogPosts();
-  const canonicalSlug = (BLOG_SLUG_ALIASES[slug] || slug).toLowerCase();
-  const customMatch = customPosts.find((p) => {
-    const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    const pId = (p.id || '').toLowerCase().trim();
-    const pOld = ((p.oldSlug || p.previousSlug || '')).toLowerCase().trim();
-    return (
-      pSlug === slug || pId === slug || pOld === slug ||
-      pSlug === canonicalSlug || pId === canonicalSlug || pOld === canonicalSlug
-    );
-  });
+
+  // 1. Check custom posts first so any newly published or edited admin posts take immediate effect (only for non-root paths)
+  let customMatch = undefined;
+  if (slug && cleanPath !== "/" && cleanPath !== "/blog") {
+    const canonicalSlug = (BLOG_SLUG_ALIASES[slug] || slug).toLowerCase();
+    customMatch = customPosts.find((p) => {
+      const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const pId = (p.id || '').toLowerCase().trim();
+      const pOld = ((p.oldSlug || p.previousSlug || '')).toLowerCase().trim();
+      return (
+        (pSlug && (pSlug === slug || pSlug === canonicalSlug)) ||
+        (pId && (pId === slug || pId === canonicalSlug)) ||
+        (pOld && (pOld === slug || pOld === canonicalSlug))
+      );
+    });
+  }
+
   let meta = customMatch
     ? {
         path: `/${customMatch.slug}`,

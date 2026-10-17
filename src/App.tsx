@@ -272,12 +272,14 @@ export default function App() {
 
       syncBlog().then((syncedPosts) => {
         if (syncedPosts && syncedPosts.length > 0) {
-          const cleanSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '');
-          const isCustomPost = syncedPosts.some(
-            (p) => p.slug === cleanSlug || p.id === cleanSlug || (p as any).oldSlug === cleanSlug
-          );
-          if (isCustomPost && activeTab !== 'blog') {
-            setActiveTab('blog');
+          const cleanSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').trim();
+          if (cleanSlug && cleanSlug !== '/') {
+            const isCustomPost = syncedPosts.some(
+              (p) => (p.slug && p.slug === cleanSlug) || (p.id && p.id === cleanSlug) || ((p as any).oldSlug && (p as any).oldSlug === cleanSlug)
+            );
+            if (isCustomPost && activeTab !== 'blog') {
+              setActiveTab('blog');
+            }
           }
         }
       });

@@ -10,20 +10,25 @@ export function isBlogPostSlug(slug: string): boolean {
     clean = decodeURIComponent(clean);
   } catch {}
   clean = clean.trim();
+  if (!clean || clean === '/' || clean === 'index' || clean === 'index.html') return false;
+
   const deleted = getDeletedPostSlugs();
   if (deleted.has(clean)) return false;
   if (KNOWN_BLOG_SLUGS.has(clean)) return true;
 
   // Check window.__INITIAL_CUSTOM_POSTS__ or localStorage for custom admin posts
   if (typeof window !== 'undefined') {
-    if (window.history.state?.tab === 'blog') return true;
     try {
       const matchPost = (p: any) => {
         if (!p) return false;
         const cleanP = String(p.slug || p.id || '').toLowerCase().trim().replace(/^\/?blog\//i, '').replace(/^\/+/, '').replace(/\/+$/, '');
         const cleanId = String(p.id || '').toLowerCase().trim().replace(/^\/?blog\//i, '').replace(/^\/+/, '').replace(/\/+$/, '');
         const cleanOld = String(p.oldSlug || p.previousSlug || '').toLowerCase().trim().replace(/^\/?blog\//i, '').replace(/^\/+/, '').replace(/\/+$/, '');
-        return cleanP === clean || cleanId === clean || cleanOld === clean;
+        return Boolean(
+          (cleanP && cleanP === clean) ||
+          (cleanId && cleanId === clean) ||
+          (cleanOld && cleanOld === clean)
+        );
       };
 
       const initialCustom = (window as any).__INITIAL_CUSTOM_POSTS__;
@@ -260,6 +265,27 @@ export function getTabFromUrl(): TabType {
 
   const pathname = window.location.pathname.replace(/\/$/, '') || '/';
   
+  // 1. Root / homepage MUST always take priority over blog catch-all
+  if (pathname === '/') {
+    // Check fallback query param ?tab=
+    const params = new URLSearchParams(window.location.search);
+    const tabParam = params.get('tab');
+    if (tabParam === 'admin' || tabParam === 'quan-tri') return 'admin';
+    if (tabParam === 'vong-quay' || tabParam === 'wheel') return 'wheel';
+    if (tabParam === 'lich-an-theo-tuan' || tabParam === 'mon-ngon/lich-an-theo-tuan' || tabParam === 'len-lich-an' || tabParam === 'planner' || tabParam === 'lich-an' || tabParam === 'thuc-don-tuan') return 'planner';
+    if (tabParam === 'ai-goi-y-mon-an' || tabParam === 'ai' || tabParam === 'tro-ly-ai' || tabParam === 'goi-y-mon') return 'ai';
+    if (tabParam === 'quan-ngon' || tabParam === 'restaurants' || tabParam === 'dia-diem') return 'restaurants';
+    if (tabParam === 'mon-ngon' || tabParam === 'catalog') return 'catalog';
+    if (tabParam === 'do-uong-an-vat' || tabParam === 'tra-sua-an-vat' || tabParam === 'snacks' || tabParam === 'do-uong' || tabParam === 'tra-sua' || tabParam === 'an-vat') return 'snacks';
+    if (tabParam === 'am-thuc-vung-mien' || tabParam === 'thuc-don-moi-ngay' || tabParam === 'cach-nau-mon-ngon' || tabParam === 'kham-pha-am-thuc' || tabParam === 'kham-pha' || tabParam === 'discover' || tabParam === 'cam-nang') return 'discover';
+    if (tabParam === 'gioi-thieu' || tabParam === 'about') return 'about';
+    if (tabParam === 'lien-he' || tabParam === 'contact') return 'contact';
+    if (tabParam === 'chinh-sach-bao-mat' || tabParam === 'privacy' || tabParam === 'bao-mat') return 'privacy';
+    if (tabParam === 'dieu-khoan-su-dung' || tabParam === 'terms' || tabParam === 'dieu-khoan') return 'terms';
+    if (tabParam === 'blog') return 'blog';
+    return 'tarot';
+  }
+
   if (pathname === '/vong-quay') return 'wheel';
   if (pathname === '/lich-an-theo-tuan' || pathname === '/mon-ngon/lich-an-theo-tuan' || pathname === '/len-lich-an' || pathname === '/lich-an' || pathname === '/thuc-don-tuan' || pathname === '/meal-planner') return 'planner';
   if (pathname === '/ai-goi-y-mon-an') return 'ai';
@@ -268,8 +294,7 @@ export function getTabFromUrl(): TabType {
   if (
     pathname === '/blog' ||
     pathname.startsWith('/blog/') ||
-    isBlogPostSlug(pathname) ||
-    (typeof window !== 'undefined' && window.history.state?.tab === 'blog' && pathname !== '/')
+    isBlogPostSlug(pathname)
   ) return 'blog';
   if (
     pathname === '/am-thuc-vung-mien' ||
@@ -290,25 +315,6 @@ export function getTabFromUrl(): TabType {
   if (pathname === '/dieu-khoan-su-dung' || pathname === '/terms' || pathname === '/dieu-khoan') return 'terms';
   if (pathname === '/admin' || pathname === '/quan-tri' || pathname.startsWith('/admin/')) return 'admin';
   if (pathname === '/quan-ngon' || pathname === '/quan-ngon-gan-ban' || pathname === '/dia-diem-an-uong' || pathname === '/nha-hang-quan-an') return 'restaurants';
-  if (pathname === '/') {
-    // Check fallback query param ?tab=
-    const params = new URLSearchParams(window.location.search);
-    const tabParam = params.get('tab');
-    if (tabParam === 'admin' || tabParam === 'quan-tri') return 'admin';
-    if (tabParam === 'vong-quay' || tabParam === 'wheel') return 'wheel';
-    if (tabParam === 'lich-an-theo-tuan' || tabParam === 'mon-ngon/lich-an-theo-tuan' || tabParam === 'len-lich-an' || tabParam === 'planner' || tabParam === 'lich-an' || tabParam === 'thuc-don-tuan') return 'planner';
-    if (tabParam === 'ai-goi-y-mon-an' || tabParam === 'ai' || tabParam === 'tro-ly-ai' || tabParam === 'goi-y-mon') return 'ai';
-    if (tabParam === 'quan-ngon' || tabParam === 'restaurants' || tabParam === 'dia-diem') return 'restaurants';
-    if (tabParam === 'mon-ngon' || tabParam === 'catalog') return 'catalog';
-    if (tabParam === 'do-uong-an-vat' || tabParam === 'tra-sua-an-vat' || tabParam === 'snacks' || tabParam === 'do-uong' || tabParam === 'tra-sua' || tabParam === 'an-vat') return 'snacks';
-    if (tabParam === 'am-thuc-vung-mien' || tabParam === 'thuc-don-moi-ngay' || tabParam === 'cach-nau-mon-ngon' || tabParam === 'kham-pha-am-thuc' || tabParam === 'kham-pha' || tabParam === 'discover' || tabParam === 'cam-nang') return 'discover';
-    if (tabParam === 'gioi-thieu' || tabParam === 'about') return 'about';
-    if (tabParam === 'lien-he' || tabParam === 'contact') return 'contact';
-    if (tabParam === 'chinh-sach-bao-mat' || tabParam === 'privacy' || tabParam === 'bao-mat') return 'privacy';
-    if (tabParam === 'dieu-khoan-su-dung' || tabParam === 'terms' || tabParam === 'dieu-khoan') return 'terms';
-    if (tabParam === 'blog') return 'blog';
-    return 'tarot';
-  }
 
   // Any non-root path that isn't a known system route is a blog post (including newly created admin posts)
   return 'blog';

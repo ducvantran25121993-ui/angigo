@@ -139,7 +139,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
           const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
           const cpId = (cp.id || '').toLowerCase().trim();
           const cpOldSlug = ((cp as any).oldSlug || (cp as any).previousSlug || '').toLowerCase().trim();
-          return cpSlug === s || cpId === id || cpId === s || cpOldSlug === s || cpOldSlug === id;
+          return Boolean(
+            (cpSlug && (cpSlug === s || cpSlug === id)) ||
+            (cpId && (cpId === id || cpId === s)) ||
+            (cpOldSlug && (cpOldSlug === s || cpOldSlug === id))
+          );
         });
         if (!isOverridden && !postMap.has(p.slug)) {
           postMap.set(p.slug, normalizeBlogPost(p));

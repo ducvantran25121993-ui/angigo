@@ -237,6 +237,21 @@ export default defineConfig(() => {
             if (id.includes('node_modules/firebase/')) {
               return 'vendor-firebase';
             }
+            if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+              return 'vendor-react';
+            }
+            if (id.includes('node_modules/lucide-react/')) {
+              return 'vendor-lucide';
+            }
+            if (id.includes('src/data/recipes.ts')) {
+              return 'recipes-data';
+            }
+            if (id.includes('src/data/dishes/')) {
+              return 'dishes-data';
+            }
+            if (id.includes('src/data/SeoContentFaqData.ts') || id.includes('src/components/SeoContentFaq.tsx')) {
+              return 'seo-faq-data';
+            }
           },
         },
       },

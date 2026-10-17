@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import {
   BookOpen,
   Search,
@@ -90,6 +90,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     const found = getBlogPostBySlug(slug);
     return found ? normalizeBlogPost(found) : null;
   });
+  const activePostRef = useRef<BlogPost | null>(activePost);
+  useEffect(() => {
+    activePostRef.current = activePost;
+  }, [activePost]);
   const [isSyncingPost, setIsSyncingPost] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     const pathname = window.location.pathname.replace(/\/$/, '') || '';
@@ -163,9 +167,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       clean = decodeURIComponent(clean);
     } catch {}
     clean = clean.toLowerCase().trim();
-    // 0. If activePost already matches, return activePost directly!
-    if (activePost && ((activePost.slug || '').toLowerCase().trim() === clean || (activePost.id || '').toLowerCase().trim() === clean)) {
-      return activePost;
+    // 0. If activePostRef matches clean, return activePostRef directly
+    if (activePostRef.current && ((activePostRef.current.slug || '').toLowerCase().trim() === clean || (activePostRef.current.id || '').toLowerCase().trim() === clean)) {
+      return activePostRef.current;
     }
 
     // 1. Try getBlogPostBySlug
@@ -215,7 +219,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     }
 
     return null;
-  }, [customPosts, allPosts, activePost]);
+  }, [customPosts, allPosts]);
 
   // Load latest posts and deleted posts from server API / Firestore on mount
   useEffect(() => {
@@ -257,6 +261,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       }
       if (resolved) {
         setActivePost(resolved);
+        activePostRef.current = resolved;
       }
       setIsSyncingPost(false);
     };
@@ -269,6 +274,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       const resolved = resolvePostFromPath();
       if (resolved) {
         setActivePost(resolved);
+        activePostRef.current = resolved;
         setIsSyncingPost(false);
       }
     };
@@ -277,7 +283,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       isMounted = false;
       window.removeEventListener('custom-posts-updated', handleCustomPostsUpdated);
     };
-  }, [resolvePostFromPath]);
+  }, []);
 
   // Sync browser back/forward and URL change
   useEffect(() => {
@@ -285,16 +291,19 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       const pathname = window.location.pathname.replace(/\/$/, '') || '';
       if (pathname === '/blog' || pathname === '') {
         setActivePost(null);
+        activePostRef.current = null;
         setIsSyncingPost(false);
       } else {
         const clean = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
-        if (activePost && ((activePost.slug || '').toLowerCase().trim() === clean || (activePost.id || '').toLowerCase().trim() === clean)) {
+        const cur = activePostRef.current;
+        if (cur && ((cur.slug || '').toLowerCase().trim() === clean || (cur.id || '').toLowerCase().trim() === clean)) {
           setIsSyncingPost(false);
           return;
         }
         const resolved = resolvePostFromPath(pathname);
         if (resolved) {
           setActivePost(resolved);
+          activePostRef.current = resolved;
           setIsSyncingPost(false);
         } else {
           // Attempt rapid re-sync
@@ -311,6 +320,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
             }
             if (secondResolved) {
               setActivePost(secondResolved);
+              activePostRef.current = secondResolved;
             }
             setIsSyncingPost(false);
           });
@@ -324,26 +334,29 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       window.removeEventListener('popstate', handleUrlChange);
       window.removeEventListener('locationchange', handleUrlChange);
     };
-  }, [resolvePostFromPath, activePost]);
+  }, [resolvePostFromPath]);
 
   // Auto-resolve active post if allPosts updates (e.g. after API fetch finishes)
   useEffect(() => {
     const pathname = window.location.pathname.replace(/\/$/, '') || '';
     if (pathname !== '/blog' && pathname !== '') {
       const resolved = resolvePostFromPath(pathname);
-      if (
-        resolved &&
-        (!activePost ||
-          activePost.id !== resolved.id ||
-          activePost.slug !== resolved.slug ||
-          activePost.title !== resolved.title ||
-          activePost.content !== resolved.content ||
-          activePost.coverImage !== resolved.coverImage ||
-          activePost.excerpt !== resolved.excerpt ||
-          activePost.publishDate !== resolved.publishDate ||
-          activePost.updatedAt !== resolved.updatedAt)
-      ) {
-        setActivePost(resolved);
+      if (resolved) {
+        const cur = activePostRef.current;
+        if (
+          !cur ||
+          cur.id !== resolved.id ||
+          cur.slug !== resolved.slug ||
+          cur.title !== resolved.title ||
+          cur.content !== resolved.content ||
+          cur.coverImage !== resolved.coverImage ||
+          cur.excerpt !== resolved.excerpt ||
+          cur.publishDate !== resolved.publishDate ||
+          cur.updatedAt !== resolved.updatedAt
+        ) {
+          setActivePost(resolved);
+          activePostRef.current = resolved;
+        }
       }
     }
   }, [allPosts, resolvePostFromPath]);
@@ -540,7 +553,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
   // Open an article detail (Concise root URL without blog/)
   const handleOpenPost = (post: BlogPost) => {
     setActivePost(post);
-    window.history.pushState({ tab: 'blog', slug: post.slug }, '', `/${post.slug}`);
+    activePostRef.current = post;
+    const targetUrl = `/${post.slug}`;
+    if (window.location.pathname !== targetUrl) {
+      window.history.pushState({ tab: 'blog', slug: post.slug }, '', targetUrl);
+    }
     window.dispatchEvent(new Event('locationchange'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -548,7 +565,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
   // Back to blog list
   const handleBackToList = () => {
     setActivePost(null);
-    window.history.pushState({ tab: 'blog' }, '', '/blog');
+    activePostRef.current = null;
+    if (window.location.pathname !== '/blog') {
+      window.history.pushState({ tab: 'blog' }, '', '/blog');
+    }
     window.dispatchEvent(new Event('locationchange'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

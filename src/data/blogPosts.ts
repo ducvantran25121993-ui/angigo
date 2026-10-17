@@ -821,6 +821,7 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
   if (!forceRefresh && (now - _lastSyncDeletedTime < 120000)) {
     return set;
   }
+  _lastSyncDeletedTime = now;
 
   // 1. Fetch from backend API first (Fastest & direct connection)
   try {
@@ -1095,6 +1096,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
   if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 120000)) {
     return _cachedFetchSyncPosts;
   }
+  _lastFetchSyncTime = now;
 
   // 0. Synchronize deleted posts from Firestore & server first!
   const deleted = await syncDeletedPosts(forceRefresh);

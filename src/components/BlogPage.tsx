@@ -20,6 +20,7 @@ import {
   Home,
   Database,
   AlertCircle,
+  Star,
 } from 'lucide-react';
 import {
   BlogPost,
@@ -31,6 +32,7 @@ import {
   syncDeletedPosts,
   fetchAndSyncCustomPosts,
   normalizeBlogPost,
+  getPostRatingData,
 } from '../data/blogPosts';
 import { INITIAL_DISHES } from '../data/dishes';
 import { findDishByRecipeSlug, getRecipePath } from '../data/recipes';
@@ -353,7 +355,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       let ogImage = document.querySelector('meta[property="og:image"]');
       if (ogImage) ogImage.setAttribute('content', activePost.coverImage);
 
-      // JSON-LD Schema for Article & Breadcrumbs
+      // JSON-LD Schema for Article, Recipe & Breadcrumbs
       const scriptId = 'blog-post-jsonld';
       let script = document.getElementById(scriptId) as HTMLScriptElement | null;
       if (!script) {
@@ -362,67 +364,127 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         script.type = 'application/ld+json';
         document.head.appendChild(script);
       }
+
+      const ratingInfo = getPostRatingData(
+        activePost.slug,
+        activePost.ratingValue,
+        activePost.reviewCount
+      );
+
+      const isRecipePost = activePost.category === 'Công Thức Món Ngon' ||
+        /cách|bí quyết|công thức|nấu|nướng|xào|kho|luộc|hấp|món/i.test(activePost.title);
+
+      const graphNodes: any[] = [
+        {
+          '@type': 'BlogPosting',
+          '@id': `https://angigio.com/${activePost.slug}#article`,
+          isPartOf: {
+            '@type': 'WebSite',
+            '@id': 'https://angigio.com/#website',
+            name: 'Hôm Nay Ăn Gì',
+            url: 'https://angigio.com/',
+          },
+          headline: activePost.title,
+          description: activePost.excerpt,
+          image: [activePost.coverImage],
+          datePublished: '2026-09-28T08:00:00+07:00',
+          dateModified: activePost.updatedAt || '2026-10-17T08:00:00+07:00',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: ratingInfo.ratingValue,
+            reviewCount: ratingInfo.reviewCount,
+            bestRating: ratingInfo.bestRating,
+            worstRating: ratingInfo.worstRating,
+          },
+          author: {
+            '@type': 'Person',
+            name: activePost.author.name,
+            jobTitle: activePost.author.role,
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Hôm Nay Ăn Gì',
+            url: 'https://angigio.com',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://angigio.com/logo.png',
+            },
+          },
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://angigio.com/${activePost.slug}`,
+          },
+        },
+        {
+          '@type': 'BreadcrumbList',
+          '@id': `https://angigio.com/${activePost.slug}#breadcrumb`,
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Trang chủ',
+              item: 'https://angigio.com/',
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Blog Ẩm Thực',
+              item: 'https://angigio.com/blog',
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: activePost.title,
+              item: `https://angigio.com/${activePost.slug}`,
+            },
+          ],
+        },
+      ];
+
+      if (isRecipePost) {
+        graphNodes.push({
+          '@type': 'Recipe',
+          '@id': `https://angigio.com/${activePost.slug}#recipe`,
+          url: `https://angigio.com/${activePost.slug}`,
+          name: activePost.title,
+          headline: activePost.title,
+          image: [activePost.coverImage],
+          description: activePost.excerpt,
+          recipeCategory: activePost.category || 'Công Thức Món Ngon',
+          recipeCuisine: 'Vietnamese',
+          recipeYield: '4 - 5 người',
+          prepTime: 'PT20M',
+          cookTime: 'PT30M',
+          totalTime: 'PT50M',
+          datePublished: '2026-09-28T08:00:00+07:00',
+          dateModified: activePost.updatedAt || '2026-10-17T08:00:00+07:00',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: ratingInfo.ratingValue,
+            reviewCount: ratingInfo.reviewCount,
+            bestRating: ratingInfo.bestRating,
+            worstRating: ratingInfo.worstRating,
+          },
+          author: {
+            '@type': 'Organization',
+            name: 'Hôm Nay Ăn Gì',
+            url: 'https://angigio.com/',
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'Hôm Nay Ăn Gì',
+            url: 'https://angigio.com/',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://angigio.com/logo.png',
+            },
+          },
+        });
+      }
+
       script.text = JSON.stringify({
         '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'BlogPosting',
-            '@id': `https://angigio.com/${activePost.slug}#article`,
-            isPartOf: {
-              '@type': 'WebSite',
-              '@id': 'https://angigio.com/#website',
-              name: 'Hôm Nay Ăn Gì',
-              url: 'https://angigio.com/',
-            },
-            headline: activePost.title,
-            description: activePost.excerpt,
-            image: [activePost.coverImage],
-            datePublished: '2026-09-28T08:00:00+07:00',
-            dateModified: '2026-09-29T00:00:00+07:00',
-            author: {
-              '@type': 'Person',
-              name: activePost.author.name,
-              jobTitle: activePost.author.role,
-            },
-            publisher: {
-              '@type': 'Organization',
-              name: 'Hôm Nay Ăn Gì',
-              url: 'https://angigio.com',
-              logo: {
-                '@type': 'ImageObject',
-                url: 'https://angigio.com/logo.png',
-              },
-            },
-            mainEntityOfPage: {
-              '@type': 'WebPage',
-              '@id': `https://angigio.com/${activePost.slug}`,
-            },
-          },
-          {
-            '@type': 'BreadcrumbList',
-            '@id': `https://angigio.com/${activePost.slug}#breadcrumb`,
-            itemListElement: [
-              {
-                '@type': 'ListItem',
-                position: 1,
-                name: 'Trang chủ',
-                item: 'https://angigio.com/',
-              },
-              {
-                '@type': 'ListItem',
-                position: 2,
-                name: 'Blog Ẩm Thực',
-                item: 'https://angigio.com/blog',
-              },
-              {
-                '@type': 'ListItem',
-                position: 3,
-                name: activePost.title,
-                item: `https://angigio.com/${activePost.slug}`,
-              },
-            ],
-          },
-        ],
+        '@graph': graphNodes,
       });
     } else {
       document.title = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Hôm Nay Ăn Gì';
@@ -1376,20 +1438,46 @@ ${newContent}
               {activePost.excerpt}
             </p>
 
-            {/* Author info */}
-            <div className="flex items-center gap-3.5 pt-4 border-t border-stone-100">
-              <img
-                src={activePost.author?.avatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80'}
-                alt={activePost.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì'}
-                className="w-11 h-11 rounded-full object-cover ring-2 ring-orange-500/20 shadow-2xs"
-              />
-              <div>
-                <div className="font-extrabold text-stone-900 text-sm">
-                  {activePost.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì'}
+            {/* Author & Star Rating Info */}
+            {(() => {
+              const ratingData = getPostRatingData(
+                activePost.slug,
+                activePost.ratingValue,
+                activePost.reviewCount
+              );
+              return (
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-stone-100">
+                  <div className="flex items-center gap-3.5">
+                    <img
+                      src={activePost.author?.avatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80'}
+                      alt={activePost.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì'}
+                      className="w-11 h-11 rounded-full object-cover ring-2 ring-orange-500/20 shadow-2xs"
+                    />
+                    <div>
+                      <div className="font-extrabold text-stone-900 text-sm">
+                        {activePost.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì'}
+                      </div>
+                      <div className="text-xs text-stone-500">{activePost.author?.role || 'Chuyên gia ẩm thực'}</div>
+                    </div>
+                  </div>
+
+                  {/* Google Star Rating snippet badge */}
+                  <div className="flex items-center gap-2.5 bg-amber-50/90 border border-amber-200/90 px-4 py-2 rounded-2xl shadow-2xs">
+                    <div className="flex items-center text-amber-500 gap-0.5">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} className="w-4 h-4 fill-amber-400 text-amber-500" />
+                      ))}
+                    </div>
+                    <span className="text-xs font-black text-amber-950">
+                      {ratingData.ratingValue} / 5.0
+                    </span>
+                    <span className="text-[11px] text-amber-800/80 font-semibold">
+                      ({ratingData.reviewCount} đánh giá từ độc giả)
+                    </span>
+                  </div>
                 </div>
-                <div className="text-xs text-stone-500">{activePost.author?.role || 'Chuyên gia ẩm thực'}</div>
-              </div>
-            </div>
+              );
+            })()}
           </div>
 
           {/* Cover Image */}

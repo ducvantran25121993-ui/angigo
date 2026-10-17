@@ -39,6 +39,7 @@ export const KNOWN_BLOG_SLUGS_LIST: string[] = [
   "thit-bo-lam-mon-gi-ngon-goi-y-mon-bo-de-lam-dam-da-cho-bua-com-gia-dinh",
   "trung-lam-mon-gi-ngon-goi-y-cac-mon-trung-de-lam-hao-com-cho-ca-nha",
   "mon-ngon-de-lam-goi-y-cac-mon-de-nau-cho-nguoi-moi-bat-dau",
+  "cach-lam-com-suon-nuong-mat-ong",
   "an-gi-hom-nay-goi-y-mon-ngon-de-lam-cho-bua-com-moi-ngay",
   "toi-nay-an-gi-goi-y-bua-toi-ngon-de-lam-cho-ca-nha",
   "trua-nay-an-gi-goi-y-bua-trua-ngon-de-an-cho-moi-ngay",

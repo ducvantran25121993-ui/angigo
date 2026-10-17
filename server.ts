@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import path from "path";
 import fs from "fs";
+import crypto from "crypto";
 import sharp from "sharp";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
@@ -905,25 +906,50 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
 // Trigger initial sync on startup in background
 syncFirestorePostsToServer().catch(() => {});
 
-// Direct static JSON endpoint with no-cache headers for cross-server & CDN consumers
-app.get("/custom_blog_posts.json", async (_req, res) => {
-  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+// Direct static JSON endpoint with ETag and smart Cache-Control
+app.get("/custom_blog_posts.json", async (req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   const posts = await syncFirestorePostsToServer();
-  return res.json(posts);
+  const body = JSON.stringify(posts);
+  const hash = crypto.createHash("md5").update(body).digest("hex");
+  const etag = `"${hash}"`;
+  res.setHeader("ETag", etag);
+  res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
+
+  if (req.headers["if-none-match"] === etag) {
+    return res.status(304).end();
+  }
+  return res.send(body);
 });
 
 // Endpoint for deleted post slugs (synced from Cloud Firestore)
-app.get("/api/admin/deleted-posts", async (_req, res) => {
+app.get("/api/admin/deleted-posts", async (req, res) => {
   const deleted = await syncFirestoreDeletedPosts();
-  return res.json({ success: true, deleted });
+  const body = JSON.stringify({ success: true, deleted });
+  const hash = crypto.createHash("md5").update(body).digest("hex");
+  const etag = `"${hash}"`;
+  res.setHeader("ETag", etag);
+  res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
+
+  if (req.headers["if-none-match"] === etag) {
+    return res.status(304).end();
+  }
+  return res.setHeader("Content-Type", "application/json; charset=utf-8").send(body);
 });
 
-app.get("/deleted_posts.json", async (_req, res) => {
-  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+app.get("/deleted_posts.json", async (req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   const deleted = await syncFirestoreDeletedPosts();
-  return res.json(deleted);
+  const body = JSON.stringify(deleted);
+  const hash = crypto.createHash("md5").update(body).digest("hex");
+  const etag = `"${hash}"`;
+  res.setHeader("ETag", etag);
+  res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
+
+  if (req.headers["if-none-match"] === etag) {
+    return res.status(304).end();
+  }
+  return res.send(body);
 });
 
 function escapeXml(str: string): string {
@@ -2839,18 +2865,37 @@ async function startServer() {
       ? __dirname
       : path.resolve(process.cwd(), "dist");
 
-    app.use(express.static(distPath, { index: false }));
+    app.use(
+      express.static(distPath, {
+        index: false,
+        maxAge: "1y",
+        immutable: true,
+        etag: true,
+        setHeaders: (res, filePath) => {
+          if (filePath.endsWith(".html") || filePath.endsWith(".json")) {
+            res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
+          } else if (filePath.includes("/assets/") || /\.(png|jpe?g|webp|svg|ico|woff2?|ttf|eot)$/i.test(filePath)) {
+            res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+          }
+        },
+      })
+    );
+
     app.get("*", (req, res) => {
       const indexPath = path.join(distPath, "index.html");
       if (fs.existsSync(indexPath)) {
         const rawHtml = fs.readFileSync(indexPath, "utf-8");
         const seoHtml = injectSeoMeta(rawHtml, req.path);
-        res.status(200).set({
-          "Content-Type": "text/html; charset=utf-8",
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          "Pragma": "no-cache",
-          "Expires": "0",
-        }).send(seoHtml);
+        const hash = crypto.createHash("md5").update(seoHtml).digest("hex");
+        const etag = `"${hash}"`;
+        res.setHeader("ETag", etag);
+        res.setHeader("Content-Type", "text/html; charset=utf-8");
+        res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
+
+        if (req.headers["if-none-match"] === etag) {
+          return res.status(304).end();
+        }
+        return res.send(seoHtml);
       } else {
         res.status(404).send("Application dist index.html not found");
       }

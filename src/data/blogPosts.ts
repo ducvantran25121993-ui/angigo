@@ -809,13 +809,20 @@ export function removeDeletedPostSlugLocal(slugOrId: string): void {
  * Global synchronization of deleted posts from Cloud Firestore & Backend API
  * Ensures any article deleted on one device is instantly hidden across all devices and visitors
  */
-export async function syncDeletedPosts(): Promise<Set<string>> {
+let _lastSyncDeletedTime = 0;
+
+export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string>> {
   const set = getDeletedPostSlugs();
   if (typeof window === 'undefined') return set;
 
+  const now = Date.now();
+  if (!forceRefresh && (now - _lastSyncDeletedTime < 120000)) {
+    return set;
+  }
+
   // 1. Fetch from backend API first (Fastest & direct connection)
   try {
-    const res = await fetch(`/api/admin/deleted-posts?_t=${Date.now()}`);
+    const res = await fetch('/api/admin/deleted-posts');
     if (res.ok) {
       const data = await res.json();
       if (data.deleted && Array.isArray(data.deleted)) {
@@ -855,6 +862,7 @@ export async function syncDeletedPosts(): Promise<Set<string>> {
     window.dispatchEvent(new Event('custom-posts-updated'));
   } catch {}
 
+  _lastSyncDeletedTime = Date.now();
   return set;
 }
 
@@ -1063,11 +1071,21 @@ export function getFeaturedBlogPosts(): BlogPost[] {
  * 2. Dynamic Express server API (/api/admin/posts)
  * 3. Static fallback (/custom_blog_posts.json)
  */
-export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
+let _lastFetchSyncTime = 0;
+let _cachedFetchSyncPosts: BlogPost[] | null = null;
+
+/**
+ * Fetch and synchronize custom blog posts from server and Firestore
+ */
+export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<BlogPost[]> {
   if (typeof window === 'undefined') return [];
+  const now = Date.now();
+  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 120000)) {
+    return _cachedFetchSyncPosts;
+  }
+
   // 0. Synchronize deleted posts from Firestore & server first!
-  const deleted = await syncDeletedPosts();
-  const cacheBust = Date.now();
+  const deleted = await syncDeletedPosts(forceRefresh);
   const postMap = new Map<string, BlogPost>();
 
   // 1. Read existing localStorage first so newly saved local edits are NEVER lost!
@@ -1079,7 +1097,7 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
         parsed.forEach((p) => {
           if (p && (p.slug || p.id)) {
             const key = (p.slug || p.id || '').toLowerCase().trim();
-            if (!deleted.has(key)) postMap.set(key, normalizeBlogPost(p));
+            if (!deleted.has(key) && !EXCLUDED_BLOG_SLUGS.has(key)) postMap.set(key, normalizeBlogPost(p));
           }
         });
       }
@@ -1090,7 +1108,7 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
     if (!p || (!p.slug && !p.id)) return;
     const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const id = (p.id || '').toLowerCase().trim();
-    if (deleted.has(s) || deleted.has(id)) return;
+    if (deleted.has(s) || deleted.has(id) || EXCLUDED_BLOG_SLUGS.has(s) || EXCLUDED_BLOG_SLUGS.has(id)) return;
     const key = s || id;
     const existing = postMap.get(key);
     if (existing) {
@@ -1101,9 +1119,9 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
     postMap.set(key, normalizeBlogPost(p));
   };
 
-  // 2. Fast static / local custom_blog_posts.json
+  // 2. Fast static / local custom_blog_posts.json (uses ETag and 304 responses)
   try {
-    const res = await fetch(`/custom_blog_posts.json?_t=${cacheBust}`, { cache: 'no-store' });
+    const res = await fetch('/custom_blog_posts.json');
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
@@ -1116,7 +1134,7 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
 
   // 3. Try dynamic Express server API
   try {
-    const res = await fetch(`/api/admin/posts?_t=${cacheBust}`, { cache: 'no-store' });
+    const res = await fetch('/api/admin/posts');
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data.customPosts)) {
@@ -1165,6 +1183,9 @@ export async function fetchAndSyncCustomPosts(): Promise<BlogPost[]> {
     });
     window.dispatchEvent(new Event('custom-posts-updated'));
   } catch {}
+
+  _cachedFetchSyncPosts = merged;
+  _lastFetchSyncTime = Date.now();
   return merged;
 }
 

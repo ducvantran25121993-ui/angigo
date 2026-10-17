@@ -1646,7 +1646,7 @@ ${newContent}
                 activePost.reviewCount
               );
               return (
-                <div className="mt-8 bg-gradient-to-br from-amber-50/90 via-orange-50/30 to-white rounded-3xl p-6 sm:p-8 border border-amber-200/90 shadow-sm">
+                <div className="mt-8 mb-12 sm:mb-16 bg-gradient-to-br from-amber-50/90 via-orange-50/30 to-white rounded-3xl p-6 sm:p-8 border border-amber-200/90 shadow-sm">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-amber-200/60">
                     <div>
                       <div className="flex items-center gap-2 text-xs font-black uppercase text-amber-800 tracking-wider mb-1">
@@ -1789,7 +1789,7 @@ ${newContent}
 
           {/* Related Dishes / Recipes section */}
           {relatedDishes.length > 0 && (
-            <div className="bg-gradient-to-br from-orange-50/80 via-white to-amber-50/50 rounded-3xl p-6 sm:p-8 border border-orange-200/60 shadow-xs mb-8">
+            <div className="bg-gradient-to-br from-orange-50/80 via-white to-amber-50/50 rounded-3xl p-6 sm:p-8 border border-orange-200/60 shadow-xs mb-12 sm:mb-16">
               <div className="flex items-center gap-2.5 mb-2">
                 <div className="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center shadow-xs">
                   <ChefHat className="w-4 h-4" />

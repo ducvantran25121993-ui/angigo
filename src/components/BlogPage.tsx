@@ -55,6 +55,28 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
   // Current active post when viewing detail
   const [activePost, setActivePost] = useState<BlogPost | null>(() => {
     if (typeof window === 'undefined') return null;
+    try {
+      const hash = window.location.hash;
+      if (hash && hash.includes('post_data=')) {
+        const match = hash.match(/post_data=([^&]+)/);
+        if (match && match[1]) {
+          const jsonStr = decodeURIComponent(match[1]);
+          const postObj = JSON.parse(jsonStr);
+          if (postObj && postObj.slug) {
+            const normalized = normalizeBlogPost(postObj);
+            const existingRaw = localStorage.getItem('angigio_custom_blog_posts');
+            const list = existingRaw ? JSON.parse(existingRaw) : [];
+            if (!list.some((p: any) => p.slug === normalized.slug)) {
+              list.unshift(normalized);
+              localStorage.setItem('angigio_custom_blog_posts', JSON.stringify(list));
+              (window as any).__INITIAL_CUSTOM_POSTS__ = list;
+            }
+            return normalized;
+          }
+        }
+      }
+    } catch {}
+
     const pathname = window.location.pathname.replace(/\/$/, '') || '';
     if (pathname === '/blog' || pathname === '') return null;
     if (pathname.startsWith('/blog/')) {
@@ -428,10 +450,18 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
 
   // Copy share link
   const handleCopyShareLink = () => {
-    if (typeof window !== 'undefined') {
-      navigator.clipboard.writeText(window.location.href);
-      setCopiedShareLink(true);
-      setTimeout(() => setCopiedShareLink(false), 2500);
+    if (typeof window !== 'undefined' && activePost) {
+      try {
+        const payload = encodeURIComponent(JSON.stringify(activePost));
+        const shareUrl = `${window.location.origin}/${activePost.slug}#post_data=${payload}`;
+        navigator.clipboard.writeText(shareUrl);
+        setCopiedShareLink(true);
+        setTimeout(() => setCopiedShareLink(false), 2500);
+      } catch {
+        navigator.clipboard.writeText(window.location.href);
+        setCopiedShareLink(true);
+        setTimeout(() => setCopiedShareLink(false), 2500);
+      }
     }
   };
 

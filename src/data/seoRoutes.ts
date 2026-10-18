@@ -180,7 +180,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
     title: 'Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực & Nhà Hàng Chuẩn Vị 3 Miền | Hôm Nay Ăn Gì',
     description: 'Khám phá top quán ngon nổi tiếng, quán ăn lâu đời và địa chỉ ẩm thực uy tín gần bạn nhất. Kết nối đặt món qua ShopeeFood, GrabFood, BeFood và chỉ đường Google Maps.',
     keywords: 'quán ngon, quán ăn ngon, top quán ngon gần đây, địa chỉ ẩm thực, quán ngon hà nội, quán ngon sài gòn, quán ngon đà nẵng, quán ngon việt nam, đặt món shopeefood, grabfood, befood',
-    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
     imageAlt: 'Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực Chuẩn Vị 3 Miền',
     priority: 0.95,
     changefreq: 'daily',
@@ -229,7 +229,7 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
         : region.id === 'trung'
         ? 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&auto=format&fit=crop&q=80'
         : region.id === 'nam'
-        ? 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80'
+        ? 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80'
         : 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1200&auto=format&fit=crop&q=80';
 
     routes[region.path] = {

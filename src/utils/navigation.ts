@@ -92,7 +92,7 @@ export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
     label: 'Cách Nấu Món Ngon',
     shortLabel: 'Cách Nấu',
     keywords: 'cách nấu món ngon, công thức nấu ăn, hướng dẫn nấu ăn, bí quyết nấu ăn ngon, cách nấu phở, cách nấu bún bò huế, món ngon mỗi ngày, công thức chuẩn vị',
-    ogImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80',
+    ogImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
     ogImageAlt: 'Cách Nấu Món Ngon - Công Thức Chuẩn Vị Gia Đình',
   },
 };
@@ -135,7 +135,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
     label: 'Trợ Lý AI',
     shortLabel: 'Trợ Lý AI',
     keywords: 'trợ lý ai món ăn, ai gợi ý món ăn, hôm nay ăn gì ai, gợi ý món ăn thông minh, tìm món theo thời tiết, tìm món theo tâm trạng, đặt món giao tận nơi',
-    ogImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80',
+    ogImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
     ogImageAlt: 'Trợ Lý AI Gợi Ý Món Ăn Chuẩn Vị - Hôm Nay Ăn Gì',
   },
   catalog: {
@@ -225,7 +225,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
     label: 'Quán Ngon',
     shortLabel: 'Quán Ngon',
     keywords: 'quán ngon, quán ăn ngon, top quán ngon gần đây, địa chỉ ẩm thực, quán ngon hà nội, quán ngon sài gòn, quán ngon đà nẵng, quán ngon việt nam, đặt món shopeefood, grabfood, befood',
-    ogImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80',
+    ogImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
     ogImageAlt: 'Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực Chuẩn Vị 3 Miền',
   },
   admin: {
@@ -426,7 +426,7 @@ export function updateRegionSEO(regionId: RegionId): void {
       : regionId === 'trung'
       ? 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&auto=format&fit=crop&q=80'
       : regionId === 'nam'
-      ? 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80'
+      ? 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80'
       : 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1200&auto=format&fit=crop&q=80';
 
   applyMetaToDOM({

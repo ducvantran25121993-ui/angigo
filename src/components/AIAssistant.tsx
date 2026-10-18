@@ -5,7 +5,7 @@ import { trackAndOpenAffiliateLink } from '../utils/affiliate';
 import { formatLocationDisplay } from '../utils/location';
 import { DeliveryLocationBadge } from './DeliveryLocationBadge';
 
-import { getClientSideContextualSuggestions } from '../utils/aiFallback';
+import { getClientSideContextualSuggestions, getDishImageByName } from '../utils/aiFallback';
 
 interface AIAssistantProps {
   affiliateConfig: AffiliateConfig;
@@ -324,22 +324,31 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
             Top Món Ngon AI Đề Xuất Dành Riêng Cho Bạn
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {suggestions.map((item, index) => (
+          {suggestions.map((item, index) => {
+            const dishImage = item.image || getDishImageByName(item.name, item.category);
+            return (
             <div
               key={index}
-              className="bg-white rounded-3xl border border-stone-200/80 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between"
+              className="bg-white rounded-3xl border border-stone-200/80 shadow-xs hover:shadow-md transition-shadow overflow-hidden flex flex-col justify-between group"
             >
-              <div className="p-5 sm:p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-purple-100 text-purple-800">
-                    Lựa chọn #{index + 1} • {item.category}
-                  </span>
-                  <span className="text-xs font-semibold text-stone-500">
-                    {item.calories}
-                  </span>
+              {/* Dish Illustration Image */}
+              <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-stone-100">
+                <img
+                  src={dishImage}
+                  alt={item.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold bg-stone-900/80 backdrop-blur-xs text-white shadow-xs">
+                  Lựa chọn #{index + 1} • {item.category}
                 </div>
+                <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-white/90 backdrop-blur-xs text-orange-600 shadow-xs">
+                  {item.calories}
+                </div>
+              </div>
 
-                <h3 className="text-lg font-extrabold text-stone-900 mb-1">
+              <div className="p-5 sm:p-6">
+                <h3 className="text-lg font-extrabold text-stone-900 mb-1 leading-snug">
                   {item.name}
                 </h3>
                 <p className="text-xs font-medium text-orange-600 mb-3 italic">
@@ -398,7 +407,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                           estimatedPrice: 50000,
                           calories: item.calories || '500 kcal',
                           description: item.reason || item.tagline,
-                          image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=60',
+                          image: dishImage,
                           popularTags: item.tags || ['AI Gợi ý'],
                           searchKeyword: item.searchKeyword || item.name,
                           bestPairedWith: item.pairWith,
@@ -462,7 +471,8 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                 </div>
               </div>
             </div>
-          ))}
+          );
+          })}
           </div>
         </div>
       )}

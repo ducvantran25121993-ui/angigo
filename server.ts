@@ -435,7 +435,18 @@ app.post("/api/affiliate/track-click", (req, res) => {
 });
 
 // AI Food Suggestion Endpoint with Gemini Multi-Model Resilience & Contextual Fallback
+app.options("/api/ai/suggest", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  return res.sendStatus(200);
+});
+
 app.post("/api/ai/suggest", async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Content-Type", "application/json");
+
+  const body = req.body || {};
   const {
     mealTime = "Trưa",
     budget = "35k - 60k",
@@ -445,7 +456,7 @@ app.post("/api/ai/suggest", async (req, res) => {
     location = "TP. Hồ Chí Minh",
     dietary = "Bình thường",
     partySize = 1,
-  } = req.body;
+  } = body;
 
   let suggestions: any[] | null = null;
   let advice = "";

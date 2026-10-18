@@ -5,6 +5,8 @@ import { trackAndOpenAffiliateLink } from '../utils/affiliate';
 import { formatLocationDisplay } from '../utils/location';
 import { DeliveryLocationBadge } from './DeliveryLocationBadge';
 
+import { getClientSideContextualSuggestions } from '../utils/aiFallback';
+
 interface AIAssistantProps {
   affiliateConfig: AffiliateConfig;
   userLocation: UserLocation;
@@ -61,19 +63,32 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
         }),
       });
 
-      const data = await res.json();
-      if (data.success && Array.isArray(data.suggestions)) {
-        setSuggestions(data.suggestions);
-        setAiAdvice(data.advice || '');
-      } else {
-        setErrorMsg(data.error || 'Không thể tạo gợi ý, vui lòng thử lại.');
+      if (res.ok) {
+        const data = await res.json().catch(() => null);
+        if (data && data.success && Array.isArray(data.suggestions) && data.suggestions.length > 0) {
+          setSuggestions(data.suggestions);
+          setAiAdvice(data.advice || '');
+          setLoading(false);
+          return;
+        }
       }
     } catch (err: any) {
-      console.error(err);
-      setErrorMsg('Lỗi kết nối máy chủ gợi ý món ăn.');
-    } finally {
-      setLoading(false);
+      console.warn('API suggestion fallback to smart client engine:', err);
     }
+
+    // Seamless Smart Client-Side Fallback Engine
+    const fallbackData = getClientSideContextualSuggestions({
+      mealTime,
+      budget,
+      mood,
+      weather,
+      location,
+      partySize,
+      cravings,
+    });
+    setSuggestions(fallbackData.suggestions);
+    setAiAdvice(fallbackData.advice);
+    setLoading(false);
   };
 
   return (

@@ -484,8 +484,8 @@ Yêu cầu trả về đúng định dạng JSON:
   "advice": "Lời khuyên vui vẻ hoặc mẹo săn mã giảm giá cho bữa ăn này"
 }`;
 
-      // Resilience: Try primary gemini-3.8-flash, fallback to gemini-flash-latest if 503/load spike occurs
-      const modelsToTry = ["gemini-3.8-flash", "gemini-flash-latest"];
+      // Resilience: Try primary gemini-2.5-flash, fallback to gemini-2.0-flash if 503/load spike occurs
+      const modelsToTry = ["gemini-2.5-flash", "gemini-2.0-flash"];
 
       for (const modelName of modelsToTry) {
         try {

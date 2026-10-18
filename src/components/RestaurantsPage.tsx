@@ -191,7 +191,7 @@ export const RestaurantsPage: React.FC<RestaurantsPageProps> = ({
 
           {/* Category Tabs - Centered & Beautiful Segmented Control */}
           <div className="flex justify-center pt-1 pb-1">
-            <div className="inline-flex p-1.5 sm:p-2 bg-stone-100 rounded-2xl sm:rounded-full border border-stone-200/90 shadow-2xs max-w-full overflow-x-auto scrollbar-none gap-1 sm:gap-2">
+            <div className="w-full sm:w-auto grid grid-cols-2 sm:flex p-1.5 sm:p-2 bg-stone-100 rounded-2xl sm:rounded-full border border-stone-200/90 shadow-2xs gap-1.5 sm:gap-2">
               {CATEGORY_TABS.map((cat) => {
                 const isSelected = selectedCategory === cat.id;
                 const Icon = cat.icon;
@@ -201,16 +201,16 @@ export const RestaurantsPage: React.FC<RestaurantsPageProps> = ({
                     key={cat.id}
                     type="button"
                     onClick={() => setSelectedCategory(cat.id)}
-                    className={`inline-flex items-center gap-2 px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-200 shrink-0 cursor-pointer select-none ${
+                    className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-2.5 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-200 shrink-0 cursor-pointer select-none ${
                       isSelected
                         ? 'bg-linear-to-r from-orange-600 to-amber-600 text-white shadow-md shadow-orange-600/25 scale-[1.02]'
                         : 'text-stone-600 hover:text-stone-900 hover:bg-white/80 active:scale-95'
                     }`}
                   >
                     <Icon className={`w-4 h-4 shrink-0 ${isSelected ? 'text-white' : 'text-stone-500'}`} />
-                    <span>{cat.name}</span>
+                    <span className="truncate">{cat.name}</span>
                     <span
-                      className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold ${
+                      className={`text-[11px] px-2 py-0.5 rounded-full font-extrabold shrink-0 ${
                         isSelected
                           ? 'bg-white/25 text-white'
                           : 'bg-stone-200 text-stone-600'

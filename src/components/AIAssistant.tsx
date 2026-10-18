@@ -396,7 +396,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                     </button>
                   )}
                 </div>
-                <div className="grid grid-cols-3 gap-1.5">
+                <div className="grid grid-cols-3 gap-2">
                   <button
                     onClick={() =>
                       trackAndOpenAffiliateLink(
@@ -407,10 +407,10 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                       )
                     }
                     title={`Chuyển qua ShopeeFood tìm ${item.name} (${userLocation.city})`}
-                    className="flex flex-col items-center justify-center p-2 rounded-xl bg-[#EE4D2D] hover:bg-[#D73211] text-white transition-all active:scale-95 cursor-pointer shadow-xs"
+                    className="flex flex-col items-center justify-center min-h-[46px] py-2 px-1.5 rounded-xl bg-[#EE4D2D] hover:bg-[#D73211] text-white transition-all active:scale-95 cursor-pointer shadow-xs"
                   >
-                    <span className="text-[11px] font-black">ShopeeFood</span>
-                    <span className="text-[9px] opacity-85">Tìm quán gần</span>
+                    <span className="text-xs font-black tracking-tight leading-none">ShopeeFood</span>
+                    <span className="text-[10px] opacity-90 font-medium mt-0.5">Tìm quán gần</span>
                   </button>
 
                   <button
@@ -423,10 +423,10 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                       )
                     }
                     title={`Chuyển qua GrabFood định vị quán ${item.name} gần bạn`}
-                    className="flex flex-col items-center justify-center p-2 rounded-xl bg-[#00B14F] hover:bg-[#009643] text-white transition-all active:scale-95 cursor-pointer shadow-xs"
+                    className="flex flex-col items-center justify-center min-h-[46px] py-2 px-1.5 rounded-xl bg-[#00B14F] hover:bg-[#009643] text-white transition-all active:scale-95 cursor-pointer shadow-xs"
                   >
-                    <span className="text-[11px] font-black">GrabFood</span>
-                    <span className="text-[9px] opacity-85">Tìm quán gần</span>
+                    <span className="text-xs font-black tracking-tight leading-none">GrabFood</span>
+                    <span className="text-[10px] opacity-90 font-medium mt-0.5">Tìm quán gần</span>
                   </button>
 
                   <button
@@ -439,10 +439,10 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                       )
                     }
                     title={`Chuyển qua BeFood tìm ${item.name} (${userLocation.city})`}
-                    className="flex flex-col items-center justify-center p-2 rounded-xl bg-[#FFD100] hover:bg-[#ECC200] text-stone-900 transition-all active:scale-95 cursor-pointer shadow-xs"
+                    className="flex flex-col items-center justify-center min-h-[46px] py-2 px-1.5 rounded-xl bg-[#FFD100] hover:bg-[#ECC200] text-stone-900 transition-all active:scale-95 cursor-pointer shadow-xs"
                   >
-                    <span className="text-[11px] font-black">BeFood</span>
-                    <span className="text-[9px] font-bold">Tìm quán gần</span>
+                    <span className="text-xs font-black tracking-tight leading-none">BeFood</span>
+                    <span className="text-[10px] font-bold mt-0.5">Tìm quán gần</span>
                   </button>
                 </div>
               </div>

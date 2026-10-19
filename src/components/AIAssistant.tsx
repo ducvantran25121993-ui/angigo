@@ -42,11 +42,15 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
   const [suggestions, setSuggestions] = useState<AISuggestion[]>([]);
   const [aiAdvice, setAiAdvice] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [shownDishNames, setShownDishNames] = useState<string[]>([]);
 
   const handleGenerate = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setLoading(true);
     setErrorMsg(null);
+
+    const requestId = `${Date.now()}_${Math.random().toString(36).substring(2)}`;
+    const currentExclude = [...shownDishNames];
 
     try {
       const res = await fetch('/api/ai/suggest', {
@@ -60,14 +64,22 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
           location,
           partySize,
           cravings,
+          requestId,
+          excludeNames: currentExclude,
         }),
       });
 
       if (res.ok) {
         const data = await res.json().catch(() => null);
         if (data && data.success && Array.isArray(data.suggestions) && data.suggestions.length > 0) {
-          setSuggestions(data.suggestions);
+          const suggestionsWithImages = data.suggestions.map((s: AISuggestion) => ({
+            ...s,
+            image: s.image || getDishImageByName(s.name, s.category),
+          }));
+          setSuggestions(suggestionsWithImages);
           setAiAdvice(data.advice || '');
+          const newNames = suggestionsWithImages.map((s: AISuggestion) => s.name);
+          setShownDishNames((prev) => [...prev, ...newNames].slice(-20));
           setLoading(false);
           return;
         }
@@ -76,7 +88,7 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
       console.warn('API suggestion fallback to smart client engine:', err);
     }
 
-    // Seamless Smart Client-Side Fallback Engine
+    // Seamless Smart Client-Side Fallback Engine (Shuffles candidates randomly on every click)
     const fallbackData = getClientSideContextualSuggestions({
       mealTime,
       budget,
@@ -85,9 +97,12 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
       location,
       partySize,
       cravings,
+      excludeNames: currentExclude,
     });
     setSuggestions(fallbackData.suggestions);
     setAiAdvice(fallbackData.advice);
+    const newNames = fallbackData.suggestions.map((s) => s.name);
+    setShownDishNames((prev) => [...prev, ...newNames].slice(-20));
     setLoading(false);
   };
 
@@ -166,7 +181,10 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                 <button
                   key={b}
                   type="button"
-                  onClick={() => setBudget(b)}
+                  onClick={() => {
+                    setBudget(b);
+                    setShownDishNames([]);
+                  }}
                   className={`py-2 px-2 rounded-xl text-xs font-semibold text-center transition-all ${
                     budget === b
                       ? 'bg-purple-600 text-white shadow-xs'

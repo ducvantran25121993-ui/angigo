@@ -53,7 +53,7 @@ export const Footer: React.FC<{
   };
 
   return (
-    <footer className="bg-white border-t border-stone-200 mt-6 sm:mt-8 py-8">
+    <footer className="bg-white border-t border-stone-200 mt-2 sm:mt-4 py-6 sm:py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
           

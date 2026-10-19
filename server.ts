@@ -146,7 +146,6 @@ function getGeminiClient(): GoogleGenAI | null {
   return genAIClient;
 }
 
-// Contextual Vietnamese culinary suggestion generator for resilient fallback
 function getContextualDishes(params: {
   mealTime: string;
   budget: string;
@@ -156,173 +155,518 @@ function getContextualDishes(params: {
   location: string;
   partySize: number;
   dietary?: string;
+  excludeNames?: string[];
 }) {
-  const { mealTime, budget, weather, cravings, location, partySize, dietary } = params;
-  const isColdOrRainy = weather.includes("Mưa") || weather.includes("Lạnh");
-  const isHot = weather.includes("Nắng") || weather.includes("Nóng");
-  const isVegetarian = dietary === "Ăn chay" || (cravings && cravings.toLowerCase().includes("chay"));
+  const { mealTime, budget, mood, location, excludeNames = [] } = params;
+  const b = (budget || "").toLowerCase();
 
-  if (isVegetarian) {
-    return {
-      suggestions: [
-        {
-          name: "Cơm Hạt Sen Nấm Đông Cô Chay",
-          tagline: "Hạt sen bùi thơm, nấm ngọt thanh, thanh tịnh trọn vẹn",
-          category: "Healthy / Món Chay",
-          estimatedPrice: "40.000đ - 60.000đ",
-          reason: `Bữa ${mealTime} thanh đạm, giàu dinh dưỡng tự nhiên, giúp cơ thể nhẹ nhõm và an yên.`,
-          searchKeyword: "Cơm chay hạt sen",
-          tags: ["Thuần chay", "Thanh đạm", "Tốt cho sức khỏe"],
-          calories: "~460 kcal",
-          pairWith: "Canh rong biển đậu hũ & trà hoa cúc",
-        },
-        {
-          name: "Bún Riêu Cua Chay Tàu Hũ Ky",
-          tagline: "Nước dùng chua thanh vị cà chua, chả chay béo ngậy giòn rụm",
-          category: "Bún / Phở Chay",
-          estimatedPrice: "35.000đ - 50.000đ",
-          reason: "Nước dùng cà chua thanh mát hòa quyện cùng đậu hũ mềm mướt, ăn giải nhiệt cực thích.",
-          searchKeyword: "Bún riêu chay",
-          tags: ["Chua ngọt", "Ấm bụng", "Dễ ăn"],
-          calories: "~420 kcal",
-          pairWith: "Rau ghém xà lách & nước mía",
-        },
-        {
-          name: "Gỏi Cuốn Ngũ Sắc Chay Sốt Bơ Đậu Phộng",
-          tagline: "Rau củ tươi giòn thanh mát chấm sốt tương đậu phộng béo bùi",
-          category: "Món Cuốn Chay",
-          estimatedPrice: "30.000đ - 45.000đ",
-          reason: "Nhiều chất xơ, màu sắc hấp dẫn, không sợ ngấy hay nặng bụng.",
-          searchKeyword: "Gỏi cuốn chay",
-          tags: ["Thanh mát", "Nhiều rau", "Ít calo"],
-          calories: "~320 kcal",
-          pairWith: "Nước dừa tươi",
-        },
-      ],
-      advice: `Mẹo nhỏ: Nhóm ${partySize} người tại ${location} có thể đặt thêm lẩu nấm dưỡng sinh nếu ăn cùng nhau!`,
-    };
+  let targetTier: "under35k" | "35k_60k" | "60k_100k" | "over100k" = "35k_60k";
+  if (b.includes("dưới 35k") || b.includes("duoi 35k") || b.includes("< 35k") || b.includes("35k (tiết")) {
+    targetTier = "under35k";
+  } else if (b.includes("> 100k") || b.includes("trên 100k") || b.includes("sang chảnh")) {
+    targetTier = "over100k";
+  } else if (b.includes("60k - 100k") || b.includes("60k-100k") || b.includes("100k (đầy")) {
+    targetTier = "60k_100k";
   }
 
-  if (isColdOrRainy) {
-    return {
-      suggestions: [
-        {
-          name: "Bún Bò Huế Chả Cua Thịt Bắp Nạm",
-          tagline: "Nước dùng sả ruốc cay nồng nghi ngút khói, xì xụp ấm lòng",
-          category: "Bún / Mì / Phở",
-          estimatedPrice: "50.000đ - 70.000đ",
-          reason: `Trời ${weather.toLowerCase()} húp một tô bún bò cay thơm sả ớt là cách tốt nhất để sưởi ấm cơ thể.`,
-          searchKeyword: "Bún bò Huế",
-          tags: ["Cay nồng", "Ấm bụng", "Húp nước xì xụp"],
-          calories: "~590 kcal",
-          pairWith: "Quẩy giòn & trà gừng mật ong",
-        },
-        {
-          name: "Cơm Niêu Bò Xào Sốt Tiêu Đen",
-          tagline: "Cơm cháy giòn rụm đáy niêu, thịt bò xèo xèo sốt tiêu ấm nóng",
-          category: "Cơm Niêu",
-          estimatedPrice: "55.000đ - 80.000đ",
-          reason: `Vị tiêu đen cay tê kích thích tuần hoàn máu, ăn no chắc bụng cho bữa ${mealTime}.`,
-          searchKeyword: "Cơm niêu bò sốt tiêu đen",
-          tags: ["Nóng hổi", "Cơm cháy", "Đậm vị"],
-          calories: "~650 kcal",
-          pairWith: "Canh cải thịt băm nóng",
-        },
-        {
-          name: "Cháo Sườn Sụn Quẩy Giòn Ruốc Thịt",
-          tagline: "Cháo mịn như nhung, sườn sụn giòn sần sật rắc tiêu thơm lừng",
-          category: "Cháo Nóng",
-          estimatedPrice: "35.000đ - 50.000đ",
-          reason: "Dễ tiêu hóa, làm dịu bao tử và tiếp thêm năng lượng nhanh chóng.",
-          searchKeyword: "Cháo sườn sụn",
-          tags: ["Dễ nuốt", "Ấm bao tử", "Vừa túi tiền"],
-          calories: "~440 kcal",
-          pairWith: "Sữa hạt đậu nành nóng",
-        },
-      ],
-      advice: `Trời ${weather.toLowerCase()}, các quán ship thường đông khách. Bạn nên đặt sớm 15 phút để đồ ăn giao tới còn nóng hổi nhé!`,
-    };
-  }
+  const pool = [
+    // --- TIER 1: DƯỚI 35K (TIẾT KIỆM) ---
+    {
+      tier: "under35k",
+      name: "Bánh Mì Pate Thịt Nguội Đầy Đặn Xốt Bơ",
+      tagline: "Vỏ giòn tan, ruột mềm thơm pate gan béo ngậy kèm đồ chua chống ngấy",
+      category: "Bánh Mì / Ăn Nhanh",
+      estimatedPrice: "20.000đ - 30.000đ",
+      reason: `Giá cực mềm dưới 35k, chuẩn tiêu chí tiết kiệm cho bữa ${mealTime}.`,
+      searchKeyword: "Bánh mì pate thịt nguội",
+      tags: ["Tiết kiệm", "Dưới 35k", "Nhanh gọn"],
+      calories: "~420 kcal",
+      pairWith: "Sữa đậu nành đá mát lạnh",
+      image: "/images/banh_mi_pate.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Xôi Xéo Hà Nội Hành Phi Rắc Ruốc Thịt",
+      tagline: "Hạt nếp dẻo thơm nước mỡ gà, đỗ xanh bùi mịn hành phi giòn tan",
+      category: "Xôi / Ăn Sáng & Trưa",
+      estimatedPrice: "20.000đ - 35.000đ",
+      reason: "Chi phí dưới 35k mà cực kỳ chắc bụng suốt buổi.",
+      searchKeyword: "Xôi xéo Hà Nội",
+      tags: ["Tiết kiệm", "Dưới 35k", "Chắc bụng"],
+      calories: "~480 kcal",
+      pairWith: "Trà đá hoa lài",
+      image: "/images/xoi_xeo_ha_noi.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Cháo Sườn Sụn Quẩy Giòn Ruốc Thịt",
+      tagline: "Cháo mịn như nhung, sườn sụn giòn sần sật rắc tiêu thơm lừng",
+      category: "Cháo Nóng / Dễ Ăn",
+      estimatedPrice: "25.000đ - 35.000đ",
+      reason: "Ấm bao tử, dễ tiêu hóa, mức giá dưới 35k vừa túi tiền.",
+      searchKeyword: "Cháo sườn sụn",
+      tags: ["Tiết kiệm", "Dưới 35k", "Ấm bụng"],
+      calories: "~390 kcal",
+      pairWith: "Nước đậu nành nóng",
+      image: "/images/chao_suon_sun.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Bún Riêu Cua Bình Dân Tàu Hũ Ky & Cà Chua",
+      tagline: "Nước dùng chua dịu tự nhiên, gạch cua bùi thơm đậm đà",
+      category: "Bún Bình Dân",
+      estimatedPrice: "25.000đ - 35.000đ",
+      reason: "Món nước thanh mát giá chỉ dưới 35k rất hợp túi tiền.",
+      searchKeyword: "Bún riêu cua đồng",
+      tags: ["Tiết kiệm", "Dưới 35k", "Thanh mát"],
+      calories: "~410 kcal",
+      pairWith: "Trà đá hoặc nước mía",
+      image: "/images/bun_rieu_cua.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Gỏi Cuốn Tôm Thịt Thanh Mát (3 Cuốn)",
+      tagline: "Tôm luộc đỏ au, thịt ba chỉ cuốn bánh tráng rau sống giòn mát",
+      category: "Món Cuốn / Ăn Nhẹ",
+      estimatedPrice: "25.000đ - 35.000đ",
+      reason: "Món ăn nhẹ bụng, tươi ngon giải nhiệt giá vừa vặn dưới 35k.",
+      searchKeyword: "Gỏi cuốn tôm thịt",
+      tags: ["Tiết kiệm", "Dưới 35k", "Healthy"],
+      calories: "~320 kcal",
+      pairWith: "Nước rau má đậu xanh",
+      image: "/images/goi_cuon_tom_thit_chuan.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Bánh Xèo Miền Tây Giòn Rụm Nhân Tôm Thịt Giá",
+      tagline: "Vỏ bánh vàng ươm béo ngậy cốt dừa, cuốn rau rừng chấm nước mắm chua ngọt",
+      category: "Bánh Ăn Vặt / Ăn Trưa",
+      estimatedPrice: "25.000đ - 35.000đ",
+      reason: "Chi phí dưới 35k cho một suất bánh xèo giòn rụm bắt vị.",
+      searchKeyword: "Bánh xèo miền Tây",
+      tags: ["Tiết kiệm", "Dưới 35k", "Giòn rụm"],
+      calories: "~450 kcal",
+      pairWith: "Trà chanh tươi",
+      image: "/images/banh_xeo.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Bánh Mì Ốp La 2 Trứng Xốt Bơ & Dưa Cà",
+      tagline: "Trứng lòng đào béo ngậy, bánh mì giòn xốp nóng hổi xịt tương ớt",
+      category: "Bánh Mì / Sáng Trưa",
+      estimatedPrice: "20.000đ - 30.000đ",
+      reason: "Chưa tới 30k cực ngon chuẩn vị bữa ăn tiết kiệm.",
+      searchKeyword: "Bánh mì ốp la",
+      tags: ["Tiết kiệm", "Dưới 35k", "Nhanh gọn"],
+      calories: "~400 kcal",
+      pairWith: "Cà phê sữa đá",
+      image: "/images/banh_mi_chao.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Bánh Tráng Trộn Sài Gòn Đầy Đủ Trứng Cút Tắc Khô Bò",
+      tagline: "Bánh tráng dẻo thấm sốt quất chua cay, rau rau rắm & đậu phụng giòn",
+      category: "Ăn Vặt / Ăn Nhẹ",
+      estimatedPrice: "20.000đ - 30.000đ",
+      reason: "Bắt vị xế chiều giải stress giá siêu tiết kiệm dưới 35k.",
+      searchKeyword: "Bánh tráng trộn",
+      tags: ["Tiết kiệm", "Dưới 35k", "Ăn vặt"],
+      calories: "~350 kcal",
+      pairWith: "Trà chanh giã tay",
+      image: "/images/banh_trang_tron.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Bột Chiên Trứng Đồ Chua Sài Gòn Giòn Rụm",
+      tagline: "Bột cắt khối chiên giòn xém, đập trứng gà béo ngậy ăn kèm đu đủ bào",
+      category: "Ăn Vặt / Ăn Tối",
+      estimatedPrice: "25.000đ - 35.000đ",
+      reason: "Nóng hổi giòn rụm giá chỉ 25k - 35k vô cùng hấp dẫn.",
+      searchKeyword: "Bột chiên trứng",
+      tags: ["Tiết kiệm", "Dưới 35k", "Giòn rụm"],
+      calories: "~460 kcal",
+      pairWith: "Trà đá đường",
+      image: "/images/bot_chien.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Hủ Tiếu Gõ Nước Lèo Đậm Đà Bò Viên Thịt Heo",
+      tagline: "Sợi hủ tiếu dai dai, nước lèo ngọt thanh thơm hẹ & tỏi phi giòn",
+      category: "Món Nước Bình Dân",
+      estimatedPrice: "25.000đ - 35.000đ",
+      reason: "Ấm lòng ấm bụng bữa tối muộn với giá dưới 35k.",
+      searchKeyword: "Hủ tiếu gõ",
+      tags: ["Tiết kiệm", "Dưới 35k", "Bình dân"],
+      calories: "~410 kcal",
+      pairWith: "Trà đá lạnh",
+      image: "/images/hu_tieu_go.jpg",
+    },
+    {
+      tier: "under35k",
+      name: "Bánh Cuốn Nóng Nhân Thịt Mộc Nhĩ Hành Phi",
+      tagline: "Tráng mỏng mướt mịn, nhân thịt băm mộc nhĩ giòn sần sật chấm mắm ngọt",
+      category: "Món Ăn Sáng & Trưa",
+      estimatedPrice: "25.000đ - 35.000đ",
+      reason: "Nhẹ nhàng dễ ăn, giá hạt dẻ dưới 35k.",
+      searchKeyword: "Bánh cuốn nóng",
+      tags: ["Tiết kiệm", "Dưới 35k", "Thanh nhẹ"],
+      calories: "~380 kcal",
+      pairWith: "Nước chanh dây",
+      image: "/images/banh_cuon.jpg",
+    },
 
-  if (isHot) {
-    return {
-      suggestions: [
-        {
-          name: "Bún Chả Hà Nội Than Hoa Nước Chấm Thanh",
-          tagline: "Chả nướng thơm xém cạnh, nước mắm đu đủ cà rốt chua ngọt mát lành",
-          category: "Bún / Món Nước Thanh",
-          estimatedPrice: "45.000đ - 65.000đ",
-          reason: `Nước mắm chua ngọt dịu mát, nhiều rau sống, ăn không lo ngấy trong ngày ${weather.toLowerCase()}.`,
-          searchKeyword: "Bún chả Hà Nội",
-          tags: ["Chua ngọt", "Thanh mát", "Nhiều rau"],
-          calories: "~540 kcal",
-          pairWith: "Trà tắc nha đam hoặc nước sấu ngâm",
-        },
-        {
-          name: "Gỏi Cuốn Tôm Thịt Chấm Sốt Tương Bơ",
-          tagline: "Tôm luộc đỏ au, thịt ba chỉ tươi ngon cuốn bánh tráng rau sống",
-          category: "Món Cuốn",
-          estimatedPrice: "35.000đ - 50.000đ",
-          reason: "Rất nhẹ bụng, không dùng dầu mỡ chiên rán, giải nhiệt sảng khoái.",
-          searchKeyword: "Gỏi cuốn tôm thịt",
-          tags: ["Healthy", "Ít dầu mỡ", "Ăn nhẹ"],
-          calories: "~380 kcal",
-          pairWith: "Nước chanh tuyết hoặc sinh tố dưa hấu",
-        },
-        {
-          name: "Cơm Gà Xé Phay Hội An Trộn Rau Răm",
-          tagline: "Cơm nấu nước luộc gà vàng ươm, thịt gà ta dai ngọt trộn hành tây chua ngọt",
-          category: "Cơm",
-          estimatedPrice: "45.000đ - 65.000đ",
-          reason: `Cơm thơm dẻo, gà bóp chua ngọt kích thích khẩu vị bữa ${mealTime}.`,
-          searchKeyword: "Cơm gà Hội An",
-          tags: ["Chua ngọt", "Đặc sản", "Dễ ăn"],
-          calories: "~560 kcal",
-          pairWith: "Trà đào chanh sả đá lạnh",
-        },
-      ],
-      advice: `Thời tiết ${weather.toLowerCase()}, hãy chọn kèm nước giải nhiệt mát lạnh và tận dụng voucher freeship trên các app!`,
-    };
-  }
+    // --- TIER 2: 35K - 60K (VĂN PHÒNG) ---
+    {
+      tier: "35k_60k",
+      name: "Cơm Tấm Sườn Bì Chả Mỡ Hành Trứng Ốp La",
+      tagline: "Kinh điển món ngon Sài Gòn, thơm lừng sườn nướng mật ong nức mũi",
+      category: "Cơm Văn Phòng",
+      estimatedPrice: "40.000đ - 55.000đ",
+      reason: "Thuộc khoảng giá 35k - 60k chuẩn văn phòng, no chắc bụng.",
+      searchKeyword: "Cơm tấm sườn bì chả",
+      tags: ["Văn phòng", "35k-60k", "Kinh điển"],
+      calories: "~680 kcal",
+      pairWith: "Canh khổ qua dồn thịt & trà đá",
+      image: "/images/com_tam_suon_bi_cha.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Bún Chả Hà Nội Than Hoa Nước Chấm Thanh",
+      tagline: "Chả nướng thơm xém cạnh, nước mắm đu đủ cà rốt chua ngọt mát lành",
+      category: "Bún / Món Chua Ngọt",
+      estimatedPrice: "40.000đ - 55.000đ",
+      reason: "Chuẩn phân khúc 35k - 60k, chua ngọt mát lành dễ ăn.",
+      searchKeyword: "Bún chả Hà Nội",
+      tags: ["Văn phòng", "35k-60k", "Chua ngọt"],
+      calories: "~540 kcal",
+      pairWith: "Nước sấu ngâm đường",
+      image: "/images/bun_cha_ha_noi.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Cơm Gà Xé Phay Hội An Trộn Rau Răm",
+      tagline: "Cơm nấu nước luộc gà vàng ươm dẻo thơm, thịt gà ta xé phay bóp chua ngọt",
+      category: "Cơm Đặc Sản",
+      estimatedPrice: "40.000đ - 55.000đ",
+      reason: "Giá từ 40k - 55k vừa vặn ngân sách cơm trưa văn phòng.",
+      searchKeyword: "Cơm gà Hội An",
+      tags: ["Văn phòng", "35k-60k", "Đặc sản"],
+      calories: "~550 kcal",
+      pairWith: "Trà đào chanh sả đá",
+      image: "/images/com_ga_hoi_an.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Phở Bò Tái Lăn Áp Chảo Nước Dùng Béo Ngậy",
+      tagline: "Thịt bò gầu tái lăn áp chảo thơm lừng mùi khói, phủ ngập hành hoa",
+      category: "Bún / Phở Gia Truyền",
+      estimatedPrice: "45.000đ - 60.000đ",
+      reason: "Phân khúc 35k - 60k cho tô phở bò nóng hổi thơm nức.",
+      searchKeyword: "Phở bò tái lăn",
+      tags: ["Văn phòng", "35k-60k", "Bổ dưỡng"],
+      calories: "~570 kcal",
+      pairWith: "Quẩy giòn rụm & trứng chần",
+      image: "/images/pho_bo_tai_lan.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Bún Bò Huế Chả Cua Thịt Bắp Nạm",
+      tagline: "Nước dùng sả ruốc cay nồng nghi ngút khói, xì xụp ấm lòng",
+      category: "Bún Đậm Đà",
+      estimatedPrice: "45.000đ - 60.000đ",
+      reason: "Tô bún bò Huế đầy đặn chất lượng trong tầm giá 35k - 60k.",
+      searchKeyword: "Bún bò Huế",
+      tags: ["Văn phòng", "35k-60k", "Cay nồng"],
+      calories: "~590 kcal",
+      pairWith: "Trà gừng mật ong",
+      image: "/images/bun_bo_hue.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Hủ Tiếu Nam Vang Khô Tôm Thịt Trứng Cút",
+      tagline: "Sốt trộn đậm đà tỏi phi thơm nức, súp hầm xí quách ngọt thanh",
+      category: "Hủ Tiếu Khô",
+      estimatedPrice: "40.000đ - 55.000đ",
+      reason: "Sốt trộn béo thơm vừa tầm giá 35k - 60k cho bữa trưa.",
+      searchKeyword: "Hủ tiếu Nam Vang",
+      tags: ["Văn phòng", "35k-60k", "Đậm đà"],
+      calories: "~520 kcal",
+      pairWith: "Chén súp xí quách sườn heo",
+      image: "/images/hu_tieu_nam_vang.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Cơm Chiên Hải Sản Mực Tôm Hạt Nhảy",
+      tagline: "Cơm chiên tơi xốp vàng ươm, tôm mực tươi giòn rụm thơm lừng",
+      category: "Cơm Chiên",
+      estimatedPrice: "40.000đ - 55.000đ",
+      reason: "Giá 40k - 55k no chắc bụng cho dân văn phòng.",
+      searchKeyword: "Cơm chiên hải sản",
+      tags: ["Văn phòng", "35k-60k", "Hải sản"],
+      calories: "~630 kcal",
+      pairWith: "Dưa leo cà chua xắt lát",
+      image: "/images/com_chien_hai_san.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Bún Thịt Nướng Chả Giò Sài Gòn Nước Mắm Chanh Tỏi",
+      tagline: "Thịt nướng xém cạnh thơm phức, chả giòn rụm cuốn bún mát lạnh",
+      category: "Bún Trộn",
+      estimatedPrice: "40.000đ - 55.000đ",
+      reason: "Vừa vặn phân khúc 35k - 60k không lo bị ngấy.",
+      searchKeyword: "Bún thịt nướng chả giò",
+      tags: ["Văn phòng", "35k-60k", "Bắt vị"],
+      calories: "~530 kcal",
+      pairWith: "Trà tắc xí muội",
+      image: "/images/bun_thit_nuong.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Cơm Gà Xối Mỡ Da Giòn Xốt Tương Mật Ong",
+      tagline: "Đùi gà xối mỡ da giòn rụm, thịt bên trong mọng nước thơm nức",
+      category: "Cơm Gà",
+      estimatedPrice: "45.000đ - 60.000đ",
+      reason: "Bữa trưa năng lượng tầm giá 45k - 60k.",
+      searchKeyword: "Cơm gà xối mỡ",
+      tags: ["Văn phòng", "35k-60k", "Da giòn"],
+      calories: "~670 kcal",
+      pairWith: "Canh rong biển thịt băm",
+      image: "/images/com_ga_xoi_mo.jpg",
+    },
+    {
+      tier: "35k_60k",
+      name: "Mì Quảng Tôm Thịt Trứng Cút Bánh Đa Giòn",
+      tagline: "Nước dùng xăm xắp đậm đà, đậu phụng rang thơm bùi bánh đa giòn tan",
+      category: "Mì Đặc Sản Miền Trung",
+      estimatedPrice: "40.000đ - 55.000đ",
+      reason: "Đổi vị đậm đà Miền Trung chỉ 40k - 55k.",
+      searchKeyword: "Mì Quảng tôm thịt",
+      tags: ["Văn phòng", "35k-60k", "Đặc sản"],
+      calories: "~510 kcal",
+      pairWith: "Trà xanh đá mát",
+      image: "/images/mi_quang.jpg",
+    },
 
-  // Default balanced Vietnamese specialties
+    // --- TIER 3: 60K - 100K (ĐẦY ĐẶN / CHẤT LƯỢNG) ---
+    {
+      tier: "60k_100k",
+      name: "Cơm Niêu Bò Xào Tiêu Đen & Canh Cải Thịt Băm",
+      tagline: "Cơm cháy giòn rau rẩu đáy niêu, sốt tiêu đen xèo xèo cay tê",
+      category: "Cơm Niêu Cao Cấp",
+      estimatedPrice: "65.000đ - 90.000đ",
+      reason: "Chuẩn ngân sách 60k - 100k cho bữa ăn đầy đặn chất lượng cao.",
+      searchKeyword: "Cơm niêu bò sốt tiêu đen",
+      tags: ["Chất lượng", "60k-100k", "Cơm cháy"],
+      calories: "~660 kcal",
+      pairWith: "Canh cải cúc thịt băm nóng",
+      image: "/images/com_nieu_bo_tieu_den.jpg",
+    },
+    {
+      tier: "60k_100k",
+      name: "Bún Mắm Sài Gòn Hải Sản Tôm Mực Heo Quay Special",
+      tagline: "Nước dùng mắm cá linh cá sặc đậm đà thơm nức, ngập tràn hải sản",
+      category: "Bún Hải Sản Đậm Đà",
+      estimatedPrice: "65.000đ - 85.000đ",
+      reason: "Hải sản tươi tôm mực heo quay giòn trong tầm giá 60k - 100k.",
+      searchKeyword: "Bún mắm Sài Gòn",
+      tags: ["Chất lượng", "60k-100k", "Đặc sản"],
+      calories: "~610 kcal",
+      pairWith: "Rau đắng & nước sâm bông cúc",
+      image: "/images/bun_mam.jpg",
+    },
+    {
+      tier: "60k_100k",
+      name: "Phở Đặc Biệt Tái Nạm Gầu Bắp Bò Trứng Chần",
+      tagline: "Thịt bò tươi roi rói ngập tô, nước dùng ninh xương bò nguyên chất",
+      category: "Phở Bò Cao Cấp",
+      estimatedPrice: "65.000đ - 95.000đ",
+      reason: "Tô phở đặc biệt ngập tràn thịt thuộc mức giá 60k - 100k.",
+      searchKeyword: "Phở bò đặc biệt",
+      tags: ["Chất lượng", "60k-100k", "Đặc biệt"],
+      calories: "~640 kcal",
+      pairWith: "Quẩy giòn & trứng chần",
+      image: "/images/pho_bo_tai_lan.jpg",
+    },
+    {
+      tier: "60k_100k",
+      name: "Bún Đậu Mắm Tôm Đầy Đủ Heo Quay Chả Cốm Dồi Sụn",
+      tagline: "Mẹt bún đậu đầy đặn ngập tràn mồi ngon chấm mắm tôm Thanh Hóa",
+      category: "Bún Đậu Mẹt",
+      estimatedPrice: "60.000đ - 85.000đ",
+      reason: "Mẹt bún đậu hoành tráng đầy đặn đúng mức 60k - 100k.",
+      searchKeyword: "Bún đậu mắm tôm",
+      tags: ["Chất lượng", "60k-100k", "Mẹt đầy đủ"],
+      calories: "~690 kcal",
+      pairWith: "Nước tắc xí muội đá",
+      image: "/images/bun_dau_mam_tom.jpg",
+    },
+    {
+      tier: "60k_100k",
+      name: "Cơm Bò Lúc Lắc Sốt Tiêu Đen & Salad Bơ",
+      tagline: "Thịt bò mông mọng nước xào lửa lớn sốt tiêu bơ, cơm chiên tỏi thơm",
+      category: "Cơm Bò Cao Cấp",
+      estimatedPrice: "65.000đ - 95.000đ",
+      reason: "Set cơm bò lúc lắc thơm ngon đậm vị thuộc ngân sách 60k - 100k.",
+      searchKeyword: "Cơm bò lúc lắc",
+      tags: ["Chất lượng", "60k-100k", "Bò mọng nước"],
+      calories: "~620 kcal",
+      pairWith: "Nước ép cam tươi",
+      image: "/images/com_bo_luc_lac.jpg",
+    },
+    {
+      tier: "60k_100k",
+      name: "Bánh Canh Cua Nguyên Con Hải Sản Tôm Chả Cá",
+      tagline: "Nước dùng sền sệt béo thơm gạch cua, tôm tươi chắc thịt",
+      category: "Món Nước Bổ Dưỡng",
+      estimatedPrice: "65.000đ - 95.000đ",
+      reason: "Bổ dưỡng chất lượng cao trong tầm giá 60k - 100k.",
+      searchKeyword: "Bánh canh cua nguyên con",
+      tags: ["Chất lượng", "60k-100k", "Cua tươi"],
+      calories: "~580 kcal",
+      pairWith: "Trà hoa cúc lạnh",
+      image: "/images/banh_canh_cua.jpg",
+    },
+    {
+      tier: "60k_100k",
+      name: "Mì Cay Hàn Quốc Hải Sản Bò Mỹ Cấp Độ 2",
+      tagline: "Sợi mì Koreno dai ngon, kim chi chua cay nồng nặc tôm mực tươi",
+      category: "Mì Cay Hàn Quốc",
+      estimatedPrice: "60.000đ - 85.000đ",
+      reason: "Thách thức vị giác cay nồng ngân sách 60k - 100k.",
+      searchKeyword: "Mì cay hải sản",
+      tags: ["Chất lượng", "60k-100k", "Cay nồng"],
+      calories: "~600 kcal",
+      pairWith: "Sữa tươi trân châu đường đen",
+      image: "/images/mi_cay_han_quoc.jpg",
+    },
+    {
+      tier: "60k_100k",
+      name: "Chả Cá Lả Vọng Chảo Nóng Thịt Cá Lăng Thì Là",
+      tagline: "Cá lăng ướp riềng mẻ chảo nóng xèo xèo, ăn kèm bún tươi mắm tôm",
+      category: "Đặc Sản Hà Nội",
+      estimatedPrice: "70.000đ - 95.000đ",
+      reason: "Chất lượng cao đặc sản chuẩn vị tầm 70k - 95k.",
+      searchKeyword: "Chả cá Lả Vọng",
+      tags: ["Chất lượng", "60k-100k", "Đặc sản"],
+      calories: "~560 kcal",
+      pairWith: "Trà sâm đất",
+      image: "/images/cha_ca_la_vong.jpg",
+    },
+
+    // --- TIER 4: > 100K (SANG CHẢNH / TỤ HỌP) ---
+    {
+      tier: "over100k",
+      name: "Lẩu Riêu Cua Bắp Bò Sườn Sụn Mẹt Nhỏ",
+      tagline: "Nước lẩu chua thanh vị dấm bỗng, riêu cua béo thơm bắp bò hoa giòn",
+      category: "Lẩu Món Nóng / Tụ Họp",
+      estimatedPrice: "120.000đ - 180.000đ",
+      reason: "Nồi lẩu nóng hổi thuộc ngân sách trên 100k rất thích hợp ăn nhóm.",
+      searchKeyword: "Lẩu riêu cua bắp bò",
+      tags: ["Sang chảnh", "> 100k", "Lẩu nóng"],
+      calories: "~680 kcal",
+      pairWith: "Rau hoa chuối & bún tươi",
+      image: "/images/lau_rieu_cua_bap_bo.jpg",
+    },
+    {
+      tier: "over100k",
+      name: "Lẩu Bò Nhà Gỗ Ba Toa Nồi Ninh Xương Thảo Mộc",
+      tagline: "Nồi lẩu bò ngập tràn thịt bắp, nạm, gân ninh nhừ chuẩn vị Đà Lạt",
+      category: "Lẩu Bò Cao Cấp",
+      estimatedPrice: "150.000đ - 250.000đ",
+      reason: "Nồi lẩu bò thảo mộc chất lượng sang chảnh giá trên 100k.",
+      searchKeyword: "Lẩu bò nhà gỗ",
+      tags: ["Sang chảnh", "> 100k", "Lẩu bò"],
+      calories: "~720 kcal",
+      pairWith: "Mì trứng & đậu hũ non",
+      image: "/images/bo_nhung_dam.jpg",
+    },
+    {
+      tier: "over100k",
+      name: "Mồi Nhậu Dê Tươi Nướng Mọi & Lẩu Dê Thuốc Bắc",
+      tagline: "Dê núi tươi rói nướng chấm chao cay tê, lẩu dê bổ dưỡng",
+      category: "Quán Nhậu / Đồ Tươi",
+      estimatedPrice: "130.000đ - 220.000đ",
+      reason: "Set mồi nhậu dê tươi hảo hạng trên 100k cho bữa tiệc tụ họp.",
+      searchKeyword: "Dê tươi nướng mọi",
+      tags: ["Sang chảnh", "> 100k", "Dê núi"],
+      calories: "~750 kcal",
+      pairWith: "Bia ướp lạnh & chao cay",
+      image: "/images/de_tai_chanh.jpg",
+    },
+    {
+      tier: "over100k",
+      name: "Lẩu Thái Hải Sản Tôm Hùm Mực Nước Tôm Yum",
+      tagline: "Nước lẩu chua cay béo ngậy nước cốt dừa, ngập tràn hải sản cao cấp",
+      category: "Lẩu Hải Sản",
+      estimatedPrice: "150.000đ - 280.000đ",
+      reason: "Nồi lẩu hải sản hoành tráng sang chảnh chuẩn phân khúc > 100k.",
+      searchKeyword: "Lẩu thái hải sản",
+      tags: ["Sang chảnh", "> 100k", "Hải sản tươi"],
+      calories: "~710 kcal",
+      pairWith: "Nấm tuyết & bún tươi",
+      image: "/images/lau_thai_hai_san.jpg",
+    },
+    {
+      tier: "over100k",
+      name: "Mâm Cơm Niêu Đập Michelin Selected Cá Bống Kho Tộ",
+      tagline: "Cơm niêu đập giòn rụm chấm kho quẹt, cá bống kho tộ nước màu dừa",
+      category: "Nhà Hàng Sang Trọng",
+      estimatedPrice: "150.000đ - 250.000đ",
+      reason: "Trải nghiệm ẩm thực mâm cơm gia đình nhà hàng Michelin trên 100k.",
+      searchKeyword: "Cơm niêu Sài Gòn",
+      tags: ["Sang chảnh", "> 100k", "Michelin"],
+      calories: "~780 kcal",
+      pairWith: "Canh chua cá lóc & trà đá",
+      image: "/images/mam_com_gia_dinh.jpg",
+    },
+    {
+      tier: "over100k",
+      name: "Lẩu Gà Lá É Ớt Hiểm Đà Lạt Nóng Hổi",
+      tagline: "Thịt gà ta thả vườn dai ngọt, lá é thơm nức vị cay nồng ớt hiểm",
+      category: "Lẩu Đặc Sản",
+      estimatedPrice: "130.000đ - 200.000đ",
+      reason: "Nồi lẩu gà lá é tụ họp ấm áp chuẩn giá trên 100k.",
+      searchKeyword: "Lẩu gà lá é",
+      tags: ["Sang chảnh", "> 100k", "Đặc sản Đà Lạt"],
+      calories: "~690 kcal",
+      pairWith: "Bún tươi & bún nấm",
+      image: "/images/lau_ga_la_e.jpg",
+    },
+    {
+      tier: "over100k",
+      name: "Set Ốc Hương Bơ Tỏi & Mực Một Nắng Nướng Than",
+      tagline: "Ốc hương sốt bơ tỏi thơm lừng chấm bánh mì, mực một nắng thơm phức",
+      category: "Hải Sản Quán Nhậu",
+      estimatedPrice: "140.000đ - 220.000đ",
+      reason: "Set hải sản cao cấp bắt mồi sang chảnh trên 100k.",
+      searchKeyword: "Ốc hương bơ tỏi",
+      tags: ["Sang chảnh", "> 100k", "Hải sản"],
+      calories: "~650 kcal",
+      pairWith: "Muối ớt xanh & bia lạnh",
+      image: "/images/oc_huong_bo_toi.jpg",
+    },
+  ];
+
+  let matches = pool.filter((d) => d.tier === targetTier);
+
+  // Filter out excludeNames if passed
+  let available = matches.filter((d) => !excludeNames.includes(d.name));
+  if (available.length < 3) available = matches;
+
+  const shuffled = available.sort(() => Math.random() - 0.5);
+  const selectedDishes = shuffled.slice(0, 3);
+
+  const adviceList = [
+    `Bếp Trưởng AI khuyên: Với ngân sách "${budget}" tại ${location}, các món ăn trên có giá tiền chuẩn xác và cực kỳ vừa túi tiền!`,
+    `Gợi ý từ Bếp Trưởng: Món ngon chuẩn mức giá "${budget}" hợp gu "${mood}" sẽ giúp bạn có bữa ${mealTime} tuyệt vời. Đừng quên áp mã freeship nhé!`,
+    `Chuẩn mức giá "${budget}" cho bữa ${mealTime}! Bạn có thể đặt giao nhanh qua ShopeeFood, GrabFood hoặc BeFood ngay bên dưới.`,
+  ];
+
+  const randomAdvice = adviceList[Math.floor(Math.random() * adviceList.length)];
+
   return {
-    suggestions: [
-      {
-        name: "Cơm Tấm Sườn Bì Chả Mỡ Hành Trứng Ốp La",
-        tagline: "Kinh điển món ngon Sài Gòn, thơm lừng sườn nướng than hoa mật ong",
-        category: "Cơm",
-        estimatedPrice: "45.000đ - 65.000đ",
-        reason: `Món ăn quốc dân phù hợp mọi lúc: no chắc bụng cho bữa ${mealTime}, hương vị đậm đà và giao nhanh.`,
-        searchKeyword: "Cơm tấm sườn bì chả",
-        tags: ["Chắc bụng", "Giao nhanh", "Kinh điển"],
-        calories: "~680 kcal",
-        pairWith: "Canh khổ qua dồn thịt & trà đá hoa lài",
-      },
-      {
-        name: "Phở Bò Tái Lăn Hà Nội Nước Trong",
-        tagline: "Thịt bò xào lăn thơm mùi tỏi gừng, nước dùng ninh xương ngọt tự nhiên",
-        category: "Bún / Mì / Phở",
-        estimatedPrice: "50.000đ - 70.000đ",
-        reason: "Hương vị thanh lịch, thơm nồng thảo mộc quế hồi, đánh thức vị giác tức thì.",
-        searchKeyword: "Phở bò tái lăn",
-        tags: ["Tinh hoa", "Nước dùng ngọt", "Bổ dưỡng"],
-        calories: "~510 kcal",
-        pairWith: "Quẩy giòn & trứng chần",
-      },
-      {
-        name: "Nem Nướng Nha Trang Cuốn Rau Sống Sốt Tương Gan",
-        tagline: "Nem nướng thơm phức xém cạnh, cuốn bánh tráng giòn và sốt chấm độc quyền",
-        category: "Món Cuốn / Ăn Chơi",
-        estimatedPrice: "40.000đ - 60.000đ",
-        reason: `Mức giá ${budget} hợp lý, đổi vị thơm bùi vui miệng, rất hợp cho ${partySize > 1 ? `nhóm ${partySize} người` : "bữa ăn thư thái"}.`,
-        searchKeyword: "Nem nướng Nha Trang",
-        tags: ["Nhiều rau", "Sốt đặc biệt", "Ăn vui"],
-        calories: "~490 kcal",
-        pairWith: "Nước mía cốt tắc tươi mát",
-      },
-    ],
-    advice: `Tại ${location}, bạn có thể dễ dàng tìm thấy các quán ngon này trên ShopeeFood, GrabFood hoặc Google Maps quanh đây!`,
+    suggestions: selectedDishes,
+    advice: randomAdvice,
   };
 }
 
@@ -456,6 +800,8 @@ app.post("/api/ai/suggest", async (req, res) => {
     location = "TP. Hồ Chí Minh",
     dietary = "Bình thường",
     partySize = 1,
+    requestId = "",
+    excludeNames = [],
   } = body;
 
   let suggestions: any[] | null = null;
@@ -477,6 +823,15 @@ Nhiệm vụ: Gợi ý 3 món ăn chuẩn vị, hấp dẫn, dễ đặt trên c
 - Chế độ ăn: ${dietary}
 - Số người: ${partySize}
 
+YÊU CẦU ĐẶC BIỆT CHÚ Ý CHUẨN XÁC:
+1. GIÁ CẢ (estimatedPrice) PHẢI KHỚP 100% VỚI NGÂN SÁCH ĐÃ CHỌN:
+   - Ngân sách 'Dưới 35k (Tiết kiệm)': 'estimatedPrice' PHẢI từ 15.000đ - 35.000đ (KHÔNG ĐƯỢC VƯỢT QUÁ 35.000đ!).
+   - Ngân sách '35k - 60k (Văn phòng)': 'estimatedPrice' PHẢI từ 35.000đ - 60.000đ.
+   - Ngân sách '60k - 100k (Đầy đặn)': 'estimatedPrice' PHẢI từ 60.000đ - 100.000đ.
+   - Ngân sách '> 100k (Sang chảnh)': 'estimatedPrice' PHẢI trên 100.000đ (120.000đ - 250.000đ).
+2. TẠO GỢI Ý MỚI NGẪU NHIÊN TRÁNH LẶP LẠI (Mã requestId: ${requestId || Date.now()}):
+   - ĐẶC BIỆT: Hãy gợi ý 3 món HOÀN TOÀN MỚI, khác biệt và KHÔNG TRÙNG LẶP với danh sách sau: ${Array.isArray(excludeNames) && excludeNames.length > 0 ? excludeNames.join(', ') : 'Chưa có'}.
+
 Yêu cầu trả về đúng định dạng JSON:
 {
   "suggestions": [
@@ -484,7 +839,7 @@ Yêu cầu trả về đúng định dạng JSON:
       "name": "Tên món ăn hấp dẫn chuẩn quán Việt",
       "tagline": "Một câu miêu tả ngắn gọn, kích thích thèm ăn",
       "category": "Cơm | Bún/Phở | Món Cuốn | Đồ Nóng/Lẩu | Đồ Ăn Vặt | Healthy",
-      "estimatedPrice": "Khoảng giá (VD: 40.000đ - 60.000đ)",
+      "estimatedPrice": "Khoảng giá chuẩn ngân sách (VD: 20.000đ - 30.000đ)",
       "reason": "Lý do món này hoàn hảo cho tâm trạng và thời tiết hiện tại",
       "searchKeyword": "Từ khóa chính xác nhất để tìm kiếm quán ngon trên ShopeeFood/GrabFood (VD: Bún chả Hà Nội)",
       "tags": ["Từ khóa 1", "Từ khóa 2", "Từ khóa 3"],
@@ -544,6 +899,7 @@ Yêu cầu trả về đúng định dạng JSON:
       location,
       partySize,
       dietary,
+      excludeNames,
     });
     suggestions = contextualFallback.suggestions;
     advice = advice || contextualFallback.advice;

@@ -133,7 +133,7 @@ export const RestaurantsPage: React.FC<RestaurantsPageProps> = ({
   }, [searchQuery, selectedCategory, selectedCity, onlyPromo, onlyHighRating]);
 
   return (
-    <div className="min-h-screen bg-stone-50/70 pb-20 animate-fade-in">
+    <div className="bg-stone-50/70 pb-4 sm:pb-6 animate-fade-in">
       {/* 1. HERO SECTION */}
       <section className="text-center max-w-5xl xl:max-w-6xl mx-auto pt-6 sm:pt-8 mb-6 px-4">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-100 text-orange-800 text-xs sm:text-sm font-bold uppercase tracking-wider mb-3 border border-orange-200/80 shadow-2xs">
@@ -464,7 +464,7 @@ export const RestaurantsPage: React.FC<RestaurantsPageProps> = ({
       </section>
 
       {/* 4. PARTNER PROMOTION BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 mb-8">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-12 mb-2 sm:mb-3">
         <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-stone-950 via-stone-900 to-orange-950 border border-orange-500/30 shadow-2xl p-6 sm:p-10 lg:p-12">
           
           {/* Ambient Lighting & Glow Effects */}

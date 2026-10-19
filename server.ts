@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import { getAllSeoRoutes } from "./src/data/seoRoutes";
 import { BLOG_SLUG_ALIASES, INITIAL_BLOG_POSTS } from "./src/data/blogPosts";
 import { INITIAL_DISHES } from "./src/data/dishes";
-import { getDishRecipe, getRecipeSlug } from "./src/data/recipes";
+import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema } from "./src/data/recipes";
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';
@@ -23,14 +23,7 @@ function parseMinutesToIso(str?: string): string {
 }
 
 function formatIngredients(groups?: Array<{ category: string; items: string[] }>): string[] {
-  if (!groups || !Array.isArray(groups)) return [];
-  const items: string[] = [];
-  groups.forEach((g) => {
-    if (Array.isArray(g.items)) {
-      items.push(...g.items);
-    }
-  });
-  return items;
+  return formatRecipeIngredientsForSchema(groups);
 }
 
 dotenv.config();
@@ -1692,6 +1685,15 @@ function injectSeoMeta(html: string, requestedPath: string): string {
               "url": `${canonicalUrl}#step-${st.step}`,
               "image": meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`
             })) || [],
+            "video": {
+              "@type": "VideoObject",
+              "name": `Video hướng dẫn nấu ${recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '')}`,
+              "description": `Video các bước sơ chế, định lượng gia vị và hướng dẫn chế biến món ${recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '')} chuẩn vị gia đình tại nhà.`,
+              "thumbnailUrl": [meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`],
+              "uploadDate": publishedTime,
+              "contentUrl": `${canonicalUrl}#video`,
+              "embedUrl": canonicalUrl
+            },
             "author": {
               "@type": "Organization",
               "name": "Hôm Nay Ăn Gì",
@@ -1786,79 +1788,6 @@ function injectSeoMeta(html: string, requestedPath: string): string {
             "mainEntityOfPage": {
               "@type": "WebPage",
               "@id": canonicalUrl
-            }
-          },
-          {
-            "@type": "Recipe",
-            "@id": `${canonicalUrl}#recipe`,
-            "url": canonicalUrl,
-            "mainEntityOfPage": canonicalUrl,
-            "name": meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, ''),
-            "headline": meta.title,
-            "image": [meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`],
-            "description": meta.description,
-            "keywords": meta.keywords,
-            "recipeCategory": "Công Thức Món Ngon",
-            "recipeCuisine": "Vietnamese",
-            "recipeYield": "4 - 5 người",
-            "prepTime": "PT20M",
-            "cookTime": "PT30M",
-            "totalTime": "PT50M",
-            "datePublished": publishedTime,
-            "dateModified": modifiedTime,
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": artRating,
-              "ratingCount": artReviews,
-              "reviewCount": artReviews,
-              "bestRating": "5",
-              "worstRating": "1"
-            },
-            "review": [
-              {
-                "@type": "Review",
-                "reviewRating": {
-                  "@type": "Rating",
-                  "ratingValue": "5",
-                  "bestRating": "5",
-                  "worstRating": "1"
-                },
-                "author": {
-                  "@type": "Person",
-                  "name": "Nguyễn Minh Thu"
-                },
-                "datePublished": "2026-10-05",
-                "reviewBody": "Công thức nấu rất chuẩn vị gia đình, gia vị nêm nếm rất vừa miệng và ngon."
-              },
-              {
-                "@type": "Review",
-                "reviewRating": {
-                  "@type": "Rating",
-                  "ratingValue": "5",
-                  "bestRating": "5",
-                  "worstRating": "1"
-                },
-                "author": {
-                  "@type": "Person",
-                  "name": "Lê Hoài Nam"
-                },
-                "datePublished": "2026-10-12",
-                "reviewBody": "Hướng dẫn chi tiết từng bước, món ăn đậm đà thanh ngọt tự nhiên."
-              }
-            ],
-            "author": {
-              "@type": "Organization",
-              "name": "Hôm Nay Ăn Gì",
-              "url": "https://angigio.com/"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Hôm Nay Ăn Gì",
-              "url": "https://angigio.com/",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://angigio.com/logo.png"
-              }
             }
           },
           {

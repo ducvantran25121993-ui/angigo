@@ -210,41 +210,44 @@ function formatRecipeIngredientsForSchema(
     if (!cat.items || !Array.isArray(cat.items)) continue;
     for (const rawItem of cat.items) {
       if (!rawItem || typeof rawItem !== 'string') continue;
-      const lower = rawItem.toLowerCase().trim();
+      let s = rawItem.trim();
+      const lower = s.toLowerCase();
 
       // Exclude non-food tools, utensils, or instruction-like equipment notes
       if (
         lower.startsWith('dụng cụ') ||
         lower.startsWith('thiết bị') ||
         lower.startsWith('chậu nước đá') ||
-        lower.startsWith('bí quyết')
+        lower.startsWith('bí quyết') ||
+        lower.startsWith('lưu ý') ||
+        lower.startsWith('chú ý') ||
+        (lower.startsWith('(') && lower.endsWith(')'))
       ) {
         continue;
       }
 
       // Remove leading label prefixes (e.g. "Gia vị ướp nhân: ", "Bát tương Bần: ", etc.)
-      let cleaned = rawItem.replace(/^[A-ZÀ-Ỹa-zà-ỹ0-9\s/&,–-]{2,40}:\s*/, '');
+      s = s.replace(/^[A-ZÀ-Ỹa-zà-ỹ0-9\s/&,–-]{2,40}:\s*/, '');
 
       // Split multiple ingredients joined by '+' or ';'
-      const parts = cleaned.includes(' + ')
-        ? cleaned.split(/\s+\+\s+/)
-        : cleaned.includes('; ')
-        ? cleaned.split(/;\s+/)
-        : [cleaned];
+      const parts = s.includes(' + ')
+        ? s.split(/\s+\+\s+/)
+        : s.includes('; ')
+        ? s.split(/;\s+/)
+        : [s];
 
       for (let part of parts) {
         let trimmed = part.trim();
-        // Remove long parenthetical remarks if string is long (> 50 chars)
-        if (trimmed.length > 50 && trimmed.includes('(')) {
-          trimmed = trimmed.replace(/\s*\([^)]*\)/g, '').trim();
-        }
+        // Remove parenthetical descriptions
+        trimmed = trimmed.replace(/\s*\([^)]*\)/g, '').trim();
         // Normalize any internal whitespace
         trimmed = trimmed.replace(/\s+/g, ' ');
-        // Strict cap at 75 chars to guarantee compliance with Google Search Console
-        if (trimmed.length > 75) {
-          trimmed = trimmed.slice(0, 72).trim() + '...';
+
+        // Strict cap at 55 chars to guarantee compliance with Google Search Console
+        if (trimmed.length > 55) {
+          trimmed = trimmed.slice(0, 52).trim() + '...';
         }
-        if (trimmed.length > 0 && !result.includes(trimmed)) {
+        if (trimmed.length >= 2 && !result.includes(trimmed)) {
           result.push(trimmed);
         }
       }
@@ -2587,6 +2590,19 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                           ? selectedRecipeDish.image
                           : `https://angigio.com${selectedRecipeDish.image}`
                       })),
+                      "video": {
+                        "@type": "VideoObject",
+                        "name": `Video hướng dẫn nấu ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe)}`,
+                        "description": `Video các bước sơ chế, định lượng gia vị và hướng dẫn chế biến món ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe)} chuẩn vị gia đình tại nhà.`,
+                        "thumbnailUrl": [
+                          selectedRecipeDish.image.startsWith('http')
+                            ? selectedRecipeDish.image
+                            : `https://angigio.com${selectedRecipeDish.image}`
+                        ],
+                        "uploadDate": "2024-01-15T08:00:00+07:00",
+                        "contentUrl": `https://angigio.com${getRecipePath(selectedRecipeDish)}#video`,
+                        "embedUrl": `https://angigio.com${getRecipePath(selectedRecipeDish)}`
+                      },
                       "author": {
                         "@type": "Organization",
                         "name": "Hôm Nay Ăn Gì",

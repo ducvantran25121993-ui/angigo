@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { getAllSeoRoutes, RouteSeoMeta } from '../src/data/seoRoutes';
 import { INITIAL_DISHES } from '../src/data/dishes';
-import { getDishRecipe, getRecipeSlug } from '../src/data/recipes';
+import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema } from '../src/data/recipes';
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';
@@ -16,14 +16,7 @@ function parseMinutesToIso(str?: string): string {
 }
 
 function formatIngredients(groups?: Array<{ category: string; items: string[] }>): string[] {
-  if (!groups || !Array.isArray(groups)) return [];
-  const items: string[] = [];
-  groups.forEach((g) => {
-    if (Array.isArray(g.items)) {
-      items.push(...g.items);
-    }
-  });
-  return items;
+  return formatRecipeIngredientsForSchema(groups);
 }
 
 function escapeXml(unsafe: string) {
@@ -129,6 +122,15 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
               "url": `${canonicalUrl}#step-${st.step}`,
               "image": meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`
             })) || [],
+            "video": {
+              "@type": "VideoObject",
+              "name": `Video hướng dẫn nấu ${recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '')}`,
+              "description": `Video các bước sơ chế, định lượng gia vị và hướng dẫn chế biến món ${recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '')} chuẩn vị gia đình tại nhà.`,
+              "thumbnailUrl": [meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`],
+              "uploadDate": publishedTime,
+              "contentUrl": `${canonicalUrl}#video`,
+              "embedUrl": canonicalUrl
+            },
             "author": {
               "@type": "Organization",
               "name": "Hôm Nay Ăn Gì",

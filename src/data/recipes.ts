@@ -12353,3 +12353,70 @@ export function formatRecipeSeoTitle(dishNameOrRecipeTitle: string): string {
   return `Cách Nấu ${trimmed} Thơm Ngon Chuẩn Vị Gia Đình | Hôm Nay Ăn Gì`;
 }
 
+/**
+ * Normalizes and formats recipe ingredients specifically for Schema.org JSON-LD.
+ * Prevents Google Search Console "Invalid string length in field 'recipeIngredient'" error:
+ * - Excludes non-food equipment/utensils (e.g. "Dụng cụ:", "Thiết bị:", "Bí quyết:", "Lưu ý:")
+ * - Strips leading label prefixes (e.g. "Gia vị trộn: ", "Nước mắm kẹo: ")
+ * - Splits compound ingredients joined by "+" or ";" into separate atomic ingredients
+ * - Removes parenthetical descriptions completely
+ * - Strictly caps item length under 55 characters
+ */
+export function formatRecipeIngredientsForSchema(
+  ingredients?: Array<{ category: string; items: string[] }>
+): string[] {
+  if (!ingredients || !Array.isArray(ingredients)) return [];
+  const result: string[] = [];
+
+  for (const cat of ingredients) {
+    if (!cat.items || !Array.isArray(cat.items)) continue;
+    for (const rawItem of cat.items) {
+      if (!rawItem || typeof rawItem !== 'string') continue;
+      let s = rawItem.trim();
+      const lower = s.toLowerCase();
+
+      // Exclude non-food tools, notes or instruction sentences
+      if (
+        lower.startsWith('dụng cụ') ||
+        lower.startsWith('thiết bị') ||
+        lower.startsWith('bí quyết') ||
+        lower.startsWith('lưu ý') ||
+        lower.startsWith('chú ý') ||
+        (lower.startsWith('(') && lower.endsWith(')'))
+      ) {
+        continue;
+      }
+
+      // Remove leading labels (e.g. 'Nước mắm kẹo: ', 'Gia vị ướp: ', 'Cốt gia vị tươi: ')
+      s = s.replace(/^[A-ZÀ-Ỹa-zà-ỹ0-9\s/&,–-]{2,40}:\s*/, '');
+
+      // Split compound ingredients joined by '+' or ';'
+      const parts = s.includes(' + ')
+        ? s.split(/\s+\+\s+/)
+        : s.includes('; ')
+        ? s.split(/;\s+/)
+        : [s];
+
+      for (let part of parts) {
+        let item = part.trim();
+        // Remove parenthetical remarks e.g. (bí quyết...) or (nấu hơi ráo nước...)
+        item = item.replace(/\s*\([^)]*\)/g, '').trim();
+        // Remove extra spaces
+        item = item.replace(/\s+/g, ' ');
+
+        // Strict cap at 55 characters to guarantee 100% Google Search Console validity
+        if (item.length > 55) {
+          item = item.slice(0, 52).trim() + '...';
+        }
+
+        if (item.length >= 2 && !result.includes(item)) {
+          result.push(item);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+

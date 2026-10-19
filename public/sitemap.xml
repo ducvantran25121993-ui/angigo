@@ -148,7 +148,7 @@
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&amp;auto=format&amp;fit=crop&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&amp;auto=format&amp;fit=crop&amp;q=80</image:loc>
       <image:title>Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực Chuẩn Vị 3 Miền</image:title>
     </image:image>
   </url>
@@ -198,7 +198,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <image:image>
-      <image:loc>https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&amp;auto=format&amp;fit=crop&amp;q=80</image:loc>
+      <image:loc>https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&amp;auto=format&amp;fit=crop&amp;q=80</image:loc>
       <image:title>Ẩm Thực Miền Nam &amp; Sài Gòn - Hào Sảng Phóng Khoáng &amp; Vị Béo Ngọt Đậm Chất Đường Phố</image:title>
     </image:image>
   </url>
@@ -2330,6 +2330,16 @@
     <image:image>
       <image:loc>https://angigio.com/images/trung-lam-mon-gi-ngon.jpg</image:loc>
       <image:title>Trứng Làm Món Gì Ngon? Gợi Ý Các Món Trứng Dễ Làm, Hao Cơm Cho Cả Nhà</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://angigio.com/mon-ngon-moi-ngay-goi-y-30-mon-an-cho-bua-com-gia-dinh</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/ga_luoc_la_chanh.jpg</image:loc>
+      <image:title>Món Ngon Mỗi Ngày: Gợi Ý 30 Món Ăn Cho Bữa Cơm Gia Đình</image:title>
     </image:image>
   </url>
   <url>

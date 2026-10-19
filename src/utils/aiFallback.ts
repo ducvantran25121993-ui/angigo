@@ -406,7 +406,7 @@ const BUDGET_TIERED_DISHES: TieredDish[] = [
     tags: ['Chất lượng', '60k-100k', 'Bò mọng nước'],
     calories: '~620 kcal',
     pairWith: 'Nước ép cam tươi',
-    image: '/images/com_bo_luc_lac.jpg',
+    image: '/images/com_bo_luc_lac.jpg?v=3',
   },
   {
     budgetTier: '60k_100k',

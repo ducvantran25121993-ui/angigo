@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 // Curated and verified Vietnamese Dish Image Catalog
 export interface DishImageItem {
   name: string;
@@ -577,7 +579,7 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
   },
   {
     "image": "/images/com_bo_luc_lac.jpg",
-    "name": "Cơm Bò Xào Cần Tỏi Nấm Tươi Giòn Rụm",
+    "name": "Cơm Bò Lúc Lắc Sốt Tiêu Đen & Cơm Chiên Đỏ",
     "category": "com_xoi"
   },
   {
@@ -1541,4 +1543,94 @@ export function searchDishImages(query: string = ""): DishImageItem[] {
     const imgNorm = removeVietnameseAccents(item.image.replace("/images/", "").replace(/\.jpg$/, "").replace(/[_-]/g, " "));
     return words.every((w) => nameNorm.includes(w) || imgNorm.includes(w));
   }).slice(0, 48);
+}
+
+const CUSTOM_IMAGES_STORAGE_KEY = 'user_custom_dish_images';
+
+export function getCustomDishImage(dishKey: string): string | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem(CUSTOM_IMAGES_STORAGE_KEY);
+    if (!raw) return null;
+    const map = JSON.parse(raw);
+    return map[dishKey] || null;
+  } catch {
+    return null;
+  }
+}
+
+export function setCustomDishImage(dishKey: string, imageUrl: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const raw = localStorage.getItem(CUSTOM_IMAGES_STORAGE_KEY);
+    const map = raw ? JSON.parse(raw) : {};
+    map[dishKey] = imageUrl;
+    localStorage.setItem(CUSTOM_IMAGES_STORAGE_KEY, JSON.stringify(map));
+    window.dispatchEvent(new CustomEvent('dish-image-updated', { detail: { dishKey, imageUrl } }));
+  } catch (e) {
+    console.error('Failed to set custom dish image:', e);
+  }
+}
+
+export function resetCustomDishImage(dishKey: string): void {
+  if (typeof window === 'undefined') return;
+  try {
+    const raw = localStorage.getItem(CUSTOM_IMAGES_STORAGE_KEY);
+    if (!raw) return;
+    const map = JSON.parse(raw);
+    delete map[dishKey];
+    localStorage.setItem(CUSTOM_IMAGES_STORAGE_KEY, JSON.stringify(map));
+    window.dispatchEvent(new CustomEvent('dish-image-updated', { detail: { dishKey, imageUrl: null } }));
+  } catch (e) {
+    console.error('Failed to reset custom dish image:', e);
+  }
+}
+
+/**
+ * Resolves the effective dish image, taking custom override into account
+ */
+export function resolveDishImage(dishId?: string, dishName?: string, defaultImage?: string): string {
+  if (dishId) {
+    const customById = getCustomDishImage(dishId);
+    if (customById) return customById;
+  }
+  if (dishName) {
+    const customByName = getCustomDishImage(dishName);
+    if (customByName) return customByName;
+  }
+  return defaultImage || '/images/mam_com_gia_dinh.jpg';
+}
+
+/**
+ * React hook to listen for real-time dish image updates across components
+ */
+export function useCustomDishImages(): Record<string, string> {
+  const [images, setImages] = useState<Record<string, string>>(() => {
+    if (typeof window === 'undefined') return {};
+    try {
+      const raw = localStorage.getItem(CUSTOM_IMAGES_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  useEffect(() => {
+    const handleUpdate = () => {
+      try {
+        const raw = localStorage.getItem(CUSTOM_IMAGES_STORAGE_KEY);
+        setImages(raw ? JSON.parse(raw) : {});
+      } catch {
+        // ignore
+      }
+    };
+    window.addEventListener('dish-image-updated', handleUpdate);
+    window.addEventListener('storage', handleUpdate);
+    return () => {
+      window.removeEventListener('dish-image-updated', handleUpdate);
+      window.removeEventListener('storage', handleUpdate);
+    };
+  }, []);
+
+  return images;
 }

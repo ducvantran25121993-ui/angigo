@@ -39,7 +39,7 @@ export const DO_CHAY_DISHES: Dish[] = [
     estimatedPrice: 45000,
     calories: '380 - 480 kcal',
     description: 'Bánh phở mềm mướt hòa cùng nước dùng hầm từ mía lau, củ cải đường ngọt tự nhiên, nấm đùi gà xào thơm cùng hồi quế dậy mùi.',
-    image: 'https://images.unsplash.com/photo-1594998893017-36147cbcae05?w=800&auto=format&fit=crop&q=80',
+    image: '/images/pho_chay_nam.jpg',
     popularTags: ['Nấm đùi gà', 'Nước dùng thanh ngọt', 'Rau thơm'],
     searchKeyword: 'Phở chay nấm',
   },

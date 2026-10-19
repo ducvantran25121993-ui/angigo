@@ -123,7 +123,7 @@ export const DO_AN_VAT_DISHES: Dish[] = [
     estimatedPrice: 30000,
     calories: '290 - 380 kcal',
     description: 'Từng quả cút lộn thấm đẫm sốt me sánh sệt chua chua ngọt ngọt cay the, rắc ngập rau răm thơm nồng và hành phi, đậu phộng giòn bùi.',
-    image: '/images/cut_lon_xao_me.jpg',
+    image: '/images/trung_cut_lon_xao_me.jpg',
     popularTags: ['Sốt me chua ngọt', 'Rau răm cay thơm', 'Bổ dưỡng'],
     searchKeyword: 'Cút lộn xào me',
   },

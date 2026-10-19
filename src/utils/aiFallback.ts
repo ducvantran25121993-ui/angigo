@@ -27,70 +27,23 @@ export function parseBudgetTier(budgetStr: string = ''): BudgetTier {
   return '35k_60k';
 }
 
+import {
+  getDishImageByName as catalogGetDishImageByName,
+  getAlternativeImagesForDish,
+  searchDishImages,
+  ALL_AUTHENTIC_DISH_IMAGES,
+  DishImageItem,
+} from './dishImageCatalog';
+
+export {
+  getAlternativeImagesForDish,
+  searchDishImages,
+  ALL_AUTHENTIC_DISH_IMAGES,
+};
+export type { DishImageItem };
+
 export function getDishImageByName(name: string = '', category: string = ''): string {
-  const n = name.toLowerCase();
-
-  if (n.includes('bánh mì chảo') || n.includes('ốp la')) return '/images/banh_mi_chao.jpg';
-  if (n.includes('bánh mì que')) return '/images/banh_mi_que.jpg';
-  if (n.includes('bánh mì pate') || n.includes('bánh mì')) return '/images/banh_mi_pate.jpg';
-  if (n.includes('xôi xéo')) return '/images/xoi_xeo_ha_noi.jpg';
-  if (n.includes('xôi gà')) return '/images/xoi_ga.jpg';
-  if (n.includes('xôi')) return '/images/xoi_pate_lap_xuong.jpg';
-  if (n.includes('cháo sườn')) return '/images/chao_suon_sun.jpg';
-  if (n.includes('cháo ếch')) return '/images/chao_ech.jpg';
-  if (n.includes('cháo lòng')) return '/images/chao_long.jpg';
-  if (n.includes('cháo vịt')) return '/images/chao_vit.jpg';
-  if (n.includes('cháo')) return '/images/chao_suon_sun.jpg';
-  if (n.includes('bún riêu')) return '/images/bun_rieu_cua.jpg';
-  if (n.includes('gỏi cuốn')) return '/images/goi_cuon_tom_thit_chuan.jpg';
-  if (n.includes('bánh xèo chay')) return '/images/banh_xeo_chay.jpg';
-  if (n.includes('bánh xèo')) return '/images/banh_xeo.jpg';
-  if (n.includes('bánh khọt')) return '/images/banh_khot.jpg';
-  if (n.includes('bánh tráng trộn')) return '/images/banh_trang_tron.jpg';
-  if (n.includes('bột chiên')) return '/images/bot_chien.jpg';
-  if (n.includes('bánh cuốn')) return '/images/banh_cuon.jpg';
-  if (n.includes('chè bưởi') || n.includes('chè')) return '/images/che_buoi.jpg';
-  if (n.includes('cơm tấm')) return '/images/com_tam_suon_bi_cha.jpg';
-  if (n.includes('cơm gà hội an') || n.includes('cơm gà xé')) return '/images/com_ga_hoi_an.jpg';
-  if (n.includes('cơm gà xối mỡ') || n.includes('cơm gà quay')) return '/images/com_ga_xoi_mo.jpg';
-  if (n.includes('cơm gà')) return '/images/com_ga_hoi_an.jpg';
-  if (n.includes('cơm bò') || n.includes('bò lúc lắc')) return '/images/com_bo_luc_lac.jpg';
-  if (n.includes('cơm niêu')) return '/images/com_nieu_bo_tieu_den.jpg';
-  if (n.includes('cơm chiên hải sản')) return '/images/com_chien_hai_san.jpg';
-  if (n.includes('cơm chiên dương châu')) return '/images/com_chien_duong_chau.jpg';
-  if (n.includes('cơm chiên') || n.includes('cơm rang')) return '/images/com_rang_dua_bo.jpg';
-  if (n.includes('bún chả')) return '/images/bun_cha_ha_noi.jpg';
-  if (n.includes('phở bò') || n.includes('phở tái')) return '/images/pho_bo_tai_lan.jpg';
-  if (n.includes('phở gà')) return '/images/pho_ga_ta.jpg';
-  if (n.includes('phở cuốn')) return '/images/pho_cuon_ha_noi.jpg';
-  if (n.includes('phở')) return '/images/pho_bo_tai_lan.jpg';
-  if (n.includes('bún bò')) return '/images/bun_bo_hue.jpg';
-  if (n.includes('hủ tiếu nam vang')) return '/images/hu_tieu_nam_vang.jpg';
-  if (n.includes('hủ tiếu gõ') || n.includes('hủ tiếu')) return '/images/hu_tieu_go.jpg';
-  if (n.includes('bún mắm')) return '/images/bun_mam.jpg';
-  if (n.includes('bún đậu')) return '/images/bun_dau_mam_tom.jpg';
-  if (n.includes('bún thịt nướng')) return '/images/bun_thit_nuong.jpg';
-  if (n.includes('bún cá')) return '/images/bun_ca.jpg';
-  if (n.includes('bún ốc')) return '/images/bun_oc.jpg';
-  if (n.includes('bún thái')) return '/images/bun_thai.jpg';
-  if (n.includes('mì quảng')) return '/images/mi_quang.jpg';
-  if (n.includes('mì cay')) return '/images/mi_cay_han_quoc.jpg';
-  if (n.includes('mì xào')) return '/images/mi_xao_bo.jpg';
-  if (n.includes('bánh canh cua')) return '/images/banh_canh_cua.jpg';
-  if (n.includes('chả cá lả vọng') || n.includes('chả cá lá vọng')) return '/images/cha_ca_la_vong.jpg';
-  if (n.includes('bò né')) return '/images/bo_ne.jpg';
-  if (n.includes('lẩu riêu')) return '/images/lau_rieu_cua_bap_bo.jpg';
-  if (n.includes('lẩu thái') || n.includes('lẩu hải sản')) return '/images/lau_thai_hai_san.jpg';
-  if (n.includes('lẩu gà')) return '/images/lau_ga_la_e.jpg';
-  if (n.includes('lẩu bò') || n.includes('bò nhúng')) return '/images/bo_nhung_dam.jpg';
-  if (n.includes('dê') || n.includes('dê nướng')) return '/images/de_tai_chanh.jpg';
-  if (n.includes('ốc hương') || n.includes('ốc')) return '/images/oc_huong_bo_toi.jpg';
-  if (n.includes('trà sữa') || n.includes('trân châu')) return '/images/tra_sua_tran_chau_duong_den.jpg';
-  if (n.includes('trà đào') || n.includes('trà chanh')) return '/images/tra_dao_cam_sa.jpg';
-  if (n.includes('salad') || n.includes('healthy')) return '/images/salad_ca_ngu.jpg';
-  if (n.includes('mâm cơm') || n.includes('cơm gia đình')) return '/images/mam_com_gia_dinh.jpg';
-
-  return '/images/mam_com_gia_dinh.jpg';
+  return catalogGetDishImageByName(name, category);
 }
 
 interface TieredDish extends AISuggestion {

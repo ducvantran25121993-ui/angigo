@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Send, ShoppingBag, ExternalLink, RefreshCw, AlertCircle, ChefHat, Check, Heart, MapPin, Disc } from 'lucide-react';
+import { Sparkles, Send, ShoppingBag, ExternalLink, RefreshCw, AlertCircle, ChefHat, Check, Heart, MapPin, Disc, Camera, Shuffle, Search, X } from 'lucide-react';
 import { AISuggestion, AffiliateConfig, UserLocation, Dish } from '../types';
 import { trackAndOpenAffiliateLink } from '../utils/affiliate';
 import { formatLocationDisplay } from '../utils/location';
 import { DeliveryLocationBadge } from './DeliveryLocationBadge';
 
-import { getClientSideContextualSuggestions, getDishImageByName } from '../utils/aiFallback';
+import {
+  getClientSideContextualSuggestions,
+  getDishImageByName,
+  getAlternativeImagesForDish,
+  searchDishImages,
+  ALL_AUTHENTIC_DISH_IMAGES,
+} from '../utils/aiFallback';
 
 interface AIAssistantProps {
   affiliateConfig: AffiliateConfig;
@@ -43,6 +49,29 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
   const [aiAdvice, setAiAdvice] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [shownDishNames, setShownDishNames] = useState<string[]>([]);
+  const [selectingImageIndex, setSelectingImageIndex] = useState<number | null>(null);
+  const [searchImageQuery, setSearchImageQuery] = useState('');
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
+
+  const handleSelectNewImage = (targetIndex: number, newImageUrl: string) => {
+    setSuggestions((prev) =>
+      prev.map((item, idx) => (idx === targetIndex ? { ...item, image: newImageUrl } : item))
+    );
+    setSelectingImageIndex(null);
+    setToastMsg(`Đã đổi ảnh minh hoạ thành công!`);
+    setTimeout(() => setToastMsg(null), 3000);
+  };
+
+  const handleShuffleImage = (targetIndex: number) => {
+    const currentDish = suggestions[targetIndex];
+    if (!currentDish) return;
+    const currentImg = currentDish.image || getDishImageByName(currentDish.name, currentDish.category);
+    const alternatives = getAlternativeImagesForDish(currentDish.name, currentDish.category, currentImg);
+    if (alternatives.length > 0) {
+      const randomPick = alternatives[Math.floor(Math.random() * alternatives.length)];
+      handleSelectNewImage(targetIndex, randomPick.image);
+    }
+  };
 
   const handleGenerate = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -360,6 +389,18 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
                 <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[11px] font-bold bg-stone-900/80 backdrop-blur-xs text-white shadow-xs">
                   Lựa chọn #{index + 1} • {item.category}
                 </div>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSearchImageQuery('');
+                    setSelectingImageIndex(index);
+                  }}
+                  className="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/95 hover:bg-white text-stone-700 hover:text-orange-600 shadow-md flex items-center gap-1 cursor-pointer z-10 transition-all border border-stone-200/80"
+                  title="Đổi ảnh minh hoạ món ăn này"
+                >
+                  <Camera className="w-3.5 h-3.5 text-orange-500" />
+                  <span>Đổi ảnh</span>
+                </button>
                 <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-white/90 backdrop-blur-xs text-orange-600 shadow-xs">
                   {item.calories}
                 </div>
@@ -512,6 +553,185 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({
             <Sparkles className="w-4 h-4 text-purple-400" />
             Tạo gợi ý mẫu ngay
           </button>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      {toastMsg && (
+        <div className="fixed bottom-6 right-6 z-50 bg-stone-900 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-2xl shadow-xl flex items-center gap-2 animate-fade-in border border-stone-800">
+          <Check className="w-4 h-4 text-emerald-400" />
+          <span>{toastMsg}</span>
+        </div>
+      )}
+
+      {/* Modal Đổi Ảnh Minh Hoạ */}
+      {selectingImageIndex !== null && suggestions[selectingImageIndex] && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fade-in"
+          onClick={() => setSelectingImageIndex(null)}
+        >
+          <div
+            className="bg-white rounded-[24px] sm:rounded-[28px] max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-stone-200 flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-4 sm:p-5 border-b border-stone-200 flex items-center justify-between bg-stone-50/80">
+              <div>
+                <div className="flex items-center gap-2">
+                  <div className="w-7 h-7 rounded-lg bg-orange-500 text-white flex items-center justify-center">
+                    <Camera className="w-4 h-4" />
+                  </div>
+                  <h3 className="font-extrabold text-stone-900 text-base sm:text-lg">
+                    Đổi Ảnh Minh Hoạ Món Ăn
+                  </h3>
+                </div>
+                <p className="text-xs text-stone-500 mt-1 line-clamp-1">
+                  Món: <strong className="text-orange-600 font-bold">{suggestions[selectingImageIndex]?.name}</strong>
+                </p>
+              </div>
+              <button
+                onClick={() => setSelectingImageIndex(null)}
+                className="w-8 h-8 rounded-full bg-stone-200/80 hover:bg-stone-300 text-stone-700 flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Toolbar: Search & Shuffle */}
+            <div className="p-3 sm:p-4 border-b border-stone-100 flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between bg-white">
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <input
+                  type="text"
+                  placeholder="Tìm món (VD: bún, phở, cơm tấm, lẩu, cháo, bánh mì...)"
+                  value={searchImageQuery}
+                  onChange={(e) => setSearchImageQuery(e.target.value)}
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-stone-200 focus:outline-hidden focus:border-orange-500 bg-stone-50 focus:bg-white"
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => handleShuffleImage(selectingImageIndex)}
+                className="px-3.5 py-2 rounded-xl text-xs font-bold bg-orange-100 hover:bg-orange-200 text-orange-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap"
+                title="Chọn ngẫu nhiên một ảnh phù hợp khác"
+              >
+                <Shuffle className="w-3.5 h-3.5 text-orange-600" />
+                <span>Xáo ảnh ngẫu nhiên</span>
+              </button>
+            </div>
+
+            {/* Modal Body: Image Grid */}
+            <div className="p-4 sm:p-5 overflow-y-auto max-h-[58vh]">
+              {!searchImageQuery ? (
+                <div>
+                  <div className="text-xs font-bold text-stone-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+                    <span>Ảnh Đề Xuất Phù Hợp Nhất Cho Món Này</span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                    {getAlternativeImagesForDish(
+                      suggestions[selectingImageIndex].name,
+                      suggestions[selectingImageIndex].category,
+                      suggestions[selectingImageIndex].image
+                    ).map((item, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleSelectNewImage(selectingImageIndex, item.image)}
+                        className="group relative rounded-2xl overflow-hidden border border-stone-200 hover:border-orange-500 transition-all text-left bg-stone-50 hover:shadow-md cursor-pointer flex flex-col"
+                      >
+                        <div className="aspect-[4/3] w-full overflow-hidden bg-stone-100">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="p-2 bg-white flex-1 flex flex-col justify-between">
+                          <div className="text-[11px] font-bold text-stone-900 line-clamp-1 group-hover:text-orange-600">
+                            {item.name}
+                          </div>
+                          <span className="text-[10px] text-stone-400 font-medium">Bấm để chọn</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="text-xs font-bold text-stone-700 uppercase tracking-wider mb-3">
+                    Toàn Bộ Thư Viện Món Ngon (Bấm để chọn)
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                    {ALL_AUTHENTIC_DISH_IMAGES.slice(0, 24).map((item, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleSelectNewImage(selectingImageIndex, item.image)}
+                        className="group rounded-xl overflow-hidden border border-stone-200 hover:border-orange-500 transition-all text-left bg-white hover:shadow-sm cursor-pointer"
+                      >
+                        <div className="aspect-square w-full overflow-hidden bg-stone-100">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="p-1.5">
+                          <div className="text-[10px] font-bold text-stone-800 line-clamp-1 group-hover:text-orange-600">
+                            {item.name}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="text-xs font-bold text-stone-700 uppercase tracking-wider mb-3">
+                    Kết Quả Tìm Kiếm: "{searchImageQuery}"
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    {searchDishImages(searchImageQuery).map((item, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => handleSelectNewImage(selectingImageIndex, item.image)}
+                        className="group rounded-2xl overflow-hidden border border-stone-200 hover:border-orange-500 transition-all text-left bg-white hover:shadow-md cursor-pointer flex flex-col"
+                      >
+                        <div className="aspect-[4/3] w-full overflow-hidden bg-stone-100">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="p-2 bg-white flex-1">
+                          <div className="text-[11px] font-bold text-stone-900 line-clamp-1 group-hover:text-orange-600">
+                            {item.name}
+                          </div>
+                          <span className="text-[10px] text-stone-400 font-medium">Bấm để chọn</span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-3 sm:p-4 border-t border-stone-200 bg-stone-50 flex items-center justify-between text-xs text-stone-500">
+              <span>Hơn 260+ hình ảnh minh hoạ món ăn chuẩn SEO</span>
+              <button
+                type="button"
+                onClick={() => setSelectingImageIndex(null)}
+                className="px-4 py-1.5 rounded-xl bg-stone-200 hover:bg-stone-300 text-stone-800 font-bold transition-colors cursor-pointer"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

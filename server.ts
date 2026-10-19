@@ -10,6 +10,7 @@ import { getAllSeoRoutes } from "./src/data/seoRoutes";
 import { BLOG_SLUG_ALIASES, INITIAL_BLOG_POSTS } from "./src/data/blogPosts";
 import { INITIAL_DISHES } from "./src/data/dishes";
 import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema } from "./src/data/recipes";
+import { getDishImageByName } from "./src/utils/dishImageCatalog";
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';
@@ -866,7 +867,10 @@ Yêu cầu trả về đúng định dạng JSON:
           if (response && response.text) {
             const parsed = JSON.parse(response.text);
             if (Array.isArray(parsed.suggestions) && parsed.suggestions.length > 0) {
-              suggestions = parsed.suggestions;
+              suggestions = parsed.suggestions.map((item: any) => ({
+                ...item,
+                image: item.image || getDishImageByName(item.name, item.category),
+              }));
               advice = parsed.advice || "Chúc bạn có một bữa ăn ngon miệng và nhiều niềm vui!";
               source = modelName;
               break;

@@ -264,6 +264,22 @@ const SEO_ROUTES_CONFIG = {
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Điều Khoản Sử Dụng - Hôm Nay Ăn Gì",
   },
+  "/cach-lam-com-chien-duong-chau": {
+    path: "/cach-lam-com-chien-duong-chau",
+    title: "Cách Làm Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị | Hôm Nay Ăn Gì",
+    description: "Bí quyết làm cơm chiên Dương Châu chuẩn vị nhà hàng Hoa: Kỹ thuật áo lòng đỏ 'Kim Bọc Bạc' giúp hạt cơm tơi xốp săn giòn, xào riêng topping tôm, lạp xưởng Mai Quế Lộ, xá xíu không nhão.",
+    keywords: "cách làm cơm chiên dương châu, cách nấu cơm chiên dương châu, cơm chiên dương châu, com chien duong chau, bí quyết cơm chiên dương châu giòn, món ngon mỗi ngày",
+    image: "/images/com_chien_duong_chau.jpg",
+    imageAlt: "Cách Làm Cơm Chiên Dương Châu Hạt Cơm Săn Giòn Chuẩn Vị",
+  },
+  "/cach-nau-com-chien-duong-chau": {
+    path: "/cach-nau-com-chien-duong-chau",
+    title: "Cách Nấu Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị | Hôm Nay Ăn Gì",
+    description: "Bí quyết làm cơm chiên Dương Châu chuẩn vị nhà hàng Hoa: Kỹ thuật áo lòng đỏ 'Kim Bọc Bạc' giúp hạt cơm tơi xốp săn giòn, xào riêng topping tôm, lạp xưởng Mai Quế Lộ, xá xíu không nhão.",
+    keywords: "cách nấu cơm chiên dương châu, cách làm cơm chiên dương châu, cơm chiên dương châu, bí quyết cơm chiên giòn, món ngon mỗi ngày",
+    image: "/images/com_chien_duong_chau.jpg",
+    imageAlt: "Cách Nấu Cơm Chiên Dương Châu Hạt Cơm Săn Giòn Chuẩn Vị",
+  },
 };
 
 function injectMeta(html, meta) {
@@ -304,7 +320,7 @@ function extractAllSitemapPaths() {
   const paths = new Set();
   if (fs.existsSync(sitemapPath)) {
     const sitemapContent = fs.readFileSync(sitemapPath, 'utf-8');
-    const matches = sitemapContent.matchAll(/<loc>https:\/\/www\.angigio\.com([^<]*)<\/loc>/g);
+    const matches = sitemapContent.matchAll(/<loc>https:\/\/(?:www\.)?angigio\.com([^<]*)<\/loc>/g);
     for (const match of matches) {
       const p = match[1] || '/';
       paths.add(p.replace(/\/$/, '') || '/');

@@ -11023,6 +11023,157 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Niêu cơm bò sốt tiêu đen xèo xèo bốc khói ngạt ngào hương bơ tỏi tiêu nồng, rưới ngập sốt tiêu đen sánh mịn, trộn đều lớp cơm cháy giòn rụm ăn kèm đĩa dưa leo kim chi chua ngọt.',
   },
+
+  'com-chien-duong-chau': {
+    dishId: 'com-chien-duong-chau',
+    dishName: 'Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
+    seoTitle: 'Cách Làm Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
+    ratingValue: '4.9',
+    reviewCount: 368,
+    prepTime: '20 phút',
+    cookTime: '15 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Cơm nguội & Kỹ thuật "Kim Bọc Bạc" (Áo lòng đỏ vàng kim)',
+        items: [
+          '4 bát cơm nguội hạt dài (nấu ráo tỷ lệ 1:0.85, để ngăn mát tủ lạnh 4 tiếng)',
+          '2 lòng đỏ trứng gà tươi (bóp đều vào cơm tạo màng vàng óng ả)',
+          '1 quả trứng gà tươi (đánh tan dùng tạo vân trứng vàng trắng ngũ sắc)',
+          '1 thìa canh mỡ heo hoặc dầu ăn ngon (giúp từng hạt cơm tơi xốp tuyệt đối)',
+        ],
+      },
+      {
+        category: 'Topping đạm thập cẩm cắt hạt lựu (Linh hồn món ăn)',
+        items: [
+          '2 cây lạp xưởng Mai Quế Lộ (luộc sơ 3 phút, áp chảo thơm rồi cắt hạt lựu 0.6cm)',
+          '150g tôm sú tươi bóc vỏ, rút chỉ, thấm thật khô ráo rồi cắt hạt lựu',
+          '100g thịt xá xíu hoặc giò lụa ngon (cắt hạt lựu vuông vức đồng đều)',
+        ],
+      },
+      {
+        category: 'Rau củ ngũ sắc tươi ngọt (Thanh mát giải ngấy)',
+        items: [
+          '1/2 củ cà rốt (gọt vỏ, cắt hạt lựu nhỏ đồng cỡ hạt bắp)',
+          '80g đậu Hà Lan tươi hoặc đông lạnh (chần nhanh nước sôi pha muối, ngâm nước đá)',
+          '1/2 bắp ngô ngọt tách hạt (chần sơ ráo nước, tăng độ ngọt bùi giòn)',
+        ],
+      },
+      {
+        category: 'Gia vị xào thơm & Nước sốt Wok Hei (Tỷ lệ vàng nhà hàng Hoa)',
+        items: [
+          '3 tép tỏi ta băm nhuyễn',
+          '2 củ hành tím khô băm nhỏ',
+          '3 nhánh hành lá tươi (phần đầu hành trắng băm phi thơm, lá hành xắt nhỏ)',
+          '1.5 thìa canh nước tương xì dầu thượng hạng (rưới quanh thành chảo nóng)',
+          '1 thìa cà phê dầu hào',
+          '1/2 thìa cà phê đường cát trắng',
+          '1 thìa cà phê hạt nêm',
+          '1/2 thìa cà phê tiêu sọ trắng giã dập',
+          '1 thìa cà phê dầu mè thơm nguyên chất (rưới lúc tắt bếp)',
+        ],
+      },
+      {
+        category: 'Đồ ăn kèm & Nước tương tỏi ớt',
+        items: [
+          '1 đĩa dưa leo tươi giòn cắt lát xéo, vài cọng ngò rí',
+          '1 chén nước tương xì dầu dầm ớt hiểm xắt lát cay nồng',
+          '1 bát canh súp sườn hầm rau củ hoặc canh trứng cà chua thanh mát ăn kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Chuẩn bị cơm nguội & Kỹ thuật "Kim Bọc Bạc" (Áo lòng đỏ trứng)',
+        time: '10 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Hạt cơm tơi xốp, khô se mặt, từng hạt cơm được áo đều lớp lòng đỏ vàng óng ánh không vón cục',
+        actionPoints: [
+          'Lấy 4 bát cơm nguội từ ngăn mát tủ lạnh ra. Đeo găng tay hoặc dùng muôi bóp nhẹ nhàng cho từng hạt cơm tơi rời nhau hoàn toàn, không còn khối vón.',
+          'Cho 2 lòng đỏ trứng gà tươi vào âu cơm, thêm 1 thìa canh mỡ heo (hoặc dầu ăn) và 1 thìa cà phê hạt nêm.',
+          'Dùng tay trộn và xoa bóp đều nhẹ nhàng để màng lòng đỏ trứng và mỡ heo bao phủ trọn vẹn bề mặt từng hạt cơm. Lớp áo này giúp hạt cơm vàng ruộm màu mỡ gà, khi chiên với nhiệt lớn lòng đỏ lập tức đông lại tạo độ giòn săn bên ngoài mà bên trong vẫn mềm ngọt dẻo thơm, đặc biệt không bị dính chảo.',
+          'Để cơm nghỉ 5 - 10 phút cho trứng và gia vị ngấm đều vào màng tinh bột.',
+        ],
+        description:
+          'Bóp tơi cơm nguội từ tủ lạnh. Trộn đều 2 lòng đỏ trứng gà cùng 1 thìa mỡ heo và hạt nêm vào cơm cho từng hạt cơm áo đều lớp màng vàng kim óng ả.',
+        tip: 'Quy chuẩn vàng: Tuyệt đối không dùng cơm nóng mới nấu đem chiên vì nhiều hơi ẩm sẽ làm cơm nhão nhoét. Cơm nấu hơi khô ráo (tỷ lệ 1 gạo:0.85 nước) và để lạnh qua đêm là hoàn hảo nhất.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế lạp xưởng Mai Quế Lộ, tôm nõn, xá xíu & Chần rau củ ngũ sắc ráo nước',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Topping cắt hạt lựu đồng đều 0.6 - 0.8cm, tôm và rau củ thấm khô ráo tuyệt đối để không làm nhão cơm',
+        actionPoints: [
+          'Cho lạp xưởng Mai Quế Lộ vào chảo cùng 3 thìa canh nước, đun sôi lăn tăn 3 phút cho lạp xưởng chín mềm và tiết bớt lớp mỡ ngấy bên ngoài. Khi cạn nước, lăn đều cho xém vàng thơm, vớt ra cắt hạt lựu 0.6cm.',
+          'Tôm tươi bóc vỏ, rút chỉ lưng, rửa nước muối loãng rồi dùng khăn giấy THẤM THẬT KHÔ RÁO (bước tối quan trọng tránh tôm ra nước khi xào), cắt hạt lựu bằng cỡ lạp xưởng. Ướp với 1/3 thìa cà phê tiêu sọ và chút đầu hành băm.',
+          'Thịt xá xíu (hoặc giò lụa) cắt hạt lựu vuông vức đồng cỡ.',
+          'Đun sôi nồi nước nhỏ pha chút muối và vài giọt dầu ăn, thả cà rốt, ngô ngọt và đậu Hà Lan vào chần nhanh trong 1 phút. Vớt ra thả ngay vào thau nước đá lạnh 3 phút để giữ màu xanh đỏ tươi giòn, sau đó vớt ra để THẬT RÁO NƯỚC.',
+        ],
+        description:
+          'Luộc sơ lạp xưởng rồi cắt hạt lựu. Tôm tươi thấm thật khô ráo cắt hạt lựu ướp tiêu. Xá xíu cắt hạt lựu. Cà rốt và đậu Hà Lan chần nước sôi ngâm đá lạnh giữ màu tươi giòn.',
+        tip: 'Quy chuẩn cắt hạt lựu đồng đều các nguyên liệu giúp từng muỗng cơm khi múc lên đều có đủ ngũ sắc rực rỡ và hòa quyện tròn vị.',
+      },
+      {
+        step: 3,
+        title: 'Xào riêng nhân thập cẩm trên lửa lớn (Bí quyết cốt tử cơm không bị nhão)',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Topping tôm, lạp xưởng, xá xíu và rau củ chín tới, săn giòn thơm lừng và ráo nước hoàn toàn',
+        actionPoints: [
+          'Đặt chảo lên bếp, cho 1 thìa canh mỡ heo vào đun nóng già. Phi thơm 1/2 phần tỏi băm và đầu hành trắng.',
+          'Trút tôm vào đảo nhanh tay trên lửa lớn trong 1 phút cho thịt tôm săn lại chuyển màu đỏ hồng ngọt lịm.',
+          'Tiếp tục cho lạp xưởng, xá xíu, cà rốt, bắp ngô và đậu Hà Lan vào đảo thật nhanh tay trong 1.5 phút.',
+          'Nêm 1 thìa cà phê dầu hào, 1/3 thìa cà phê hạt nêm, đảo đều cho ngấm gia vị rồi TRÚT NGAY TOÀN BỘ RA ĐĨA RIÊNG ĐỂ RÁO NƯỚC.',
+          'Bí quyết bất bại: Bắt buộc xào riêng phần nhân này và giữ thật ráo. Tuyệt đối không cho nhân xào chung với cơm từ đầu vì nước ngọt từ tôm và rau củ tiết ra sẽ làm hạt cơm bị ướt, mềm ỉu và mất độ săn giòn.',
+        ],
+        description:
+          'Phi thơm hành tỏi, xào nhanh tôm cùng lạp xưởng, xá xíu, cà rốt, đậu Hà Lan trên lửa lớn trong 2 phút cho dậy mùi thơm lừng, trút ra đĩa riêng để thật ráo nước.',
+        tip: 'Xào riêng topping đạm và rau củ là bước phân định giữa cơm chiên nghiệp dư tại nhà và cơm chiên chuẩn đầu bếp nhà hàng Hoa.',
+      },
+      {
+        step: 4,
+        title: 'Chiên cơm lửa lớn - Kỹ thuật hạt cơm săn giòn lách tách & Tạo vân trứng ngũ sắc',
+        time: '8 phút',
+        heat: 'Lửa lớn (Wok nhiệt cao)',
+        goal: 'Từng hạt cơm bung tơi, lớp vỏ ngoài săn giòn giòn, bên trong mềm thơm, nhảy múa lách tách trên chảo',
+        actionPoints: [
+          'Dùng chảo gang hoặc chảo thép sâu lòng, đun thật nóng rực trên bếp lửa lớn. Cho 1.5 thìa canh mỡ heo láng đều khắp lòng chảo.',
+          'Phi thơm phần tỏi băm và đầu hành trắng còn lại cho dậy mùi thơm nức.',
+          'Trút toàn bộ âu cơm nguội đã áo lòng đỏ trứng vào chảo. Dùng mặt lưng muôi miết nhẹ hạt cơm sang xung quanh lòng chảo để tiếp xúc nhiệt cao làm săn hạt cơm.',
+          'Đảo xới liên tục tay trên lửa lớn theo hình tròn. Từng hạt cơm sẽ tách rời nhau mượt mà, hạt cơm khô ráo, săn chắc dần và phát ra tiếng nổ lách tách vui tai trong lòng chảo.',
+          'Gạt cơm sang một bên chảo, đổ quả trứng gà đánh tan còn lại vào khoảng trống, dùng đũa khuấy nhanh tay cho trứng chín bông tơi thành các vân trứng nhỏ vụn màu vàng trắng, sau đó xới đảo hòa quyện cùng cơm.',
+        ],
+        description:
+          'Làm nóng chảo mỡ lửa lớn, phi thơm hành tỏi rồi trút cơm áo trứng vào đảo miết đều tay. Hạt cơm khô ráo săn giòn nhảy lách tách thì cho tiếp quả trứng gà đánh tơi tạo vân ngũ sắc.',
+        tip: 'Giữ lửa luôn ở mức to và đảo miết đều tay liên tục. Lửa lớn giúp hơi nước bốc nhanh, tạo lớp vỏ cơm giòn rụm bên ngoài mà hạt cơm không bị khô cứng.',
+      },
+      {
+        step: 5,
+        title: 'Hòa quyện nhân ngũ sắc, rưới xì dầu tạo mùi khói "Wok Hei" & Hoàn thiện',
+        time: '3 phút',
+        heat: 'Lửa cực đại',
+        goal: 'Cơm chiên Dương Châu bốc khói nghi ngút, dậy mùi khói thơm lừng đặc trưng, màu sắc rực rỡ bắt mắt',
+        actionPoints: [
+          'Khi hạt cơm đã đạt độ săn giòn hoàn hảo, trút toàn bộ đĩa nhân thập cẩm (lạp xưởng, tôm, xá xíu, cà rốt, đậu Hà Lan) vào chảo cơm.',
+          'Đảo đều tay liên tục trong 1 phút trên lửa lớn cho các nguyên liệu ngũ sắc hòa quyện rực rỡ.',
+          'Bí quyết tạo mùi khói Wok Hei: Múc 1.5 thìa canh nước tương xì dầu thượng hạng rưới đều men theo vành thành chảo đang nóng đỏ (không đổ trực tiếp lên cơm). Nước tương chảy xuống thành chảo nóng sẽ lập tức bốc khói xèo xèo, tạo nên hương thơm khói caramel đặc trưng của ẩm thực Quảng Đông bao bọc lấy từng hạt cơm.',
+          'Nêm thêm 1/2 thìa cà phê đường, rắc tiêu sọ trắng giã dập và rưới 1 thìa cà phê dầu mè thơm nguyên chất.',
+          'Cuối cùng, thả toàn bộ hành lá xanh cắt nhỏ vào chảo, đảo đều 20 giây rồi tắt bếp.',
+          'Múc cơm chiên Dương Châu nóng hổi ra đĩa, trang trí vài lát dưa leo, cọng ngò rí tươi. Ăn kèm chén nước tương ớt hiểm xắt lát.',
+        ],
+        description:
+          'Trút đĩa nhân thập cẩm vào đảo đều cùng cơm săn giòn. Rưới nước tương men theo thành chảo nóng tạo hương khói Wok Hei trứ danh, rắc tiêu sọ, dầu mè và hành lá rồi múc ra đĩa thưởng thức.',
+        tip: 'Kỹ thuật rưới nước tương ven thành chảo nóng thay vì chan trực tiếp lên cơm giúp cơm không bị ỉu ướt mà lại dậy mùi thơm khói ngạt ngào đặc trưng của cơm chiên nhà hàng.',
+      },
+    ],
+    chefSecret:
+      '4 bí quyết vàng bất bại để cơm chiên Dương Châu hạt cơm săn giòn, vàng óng chuẩn nhà hàng: 1. Tuyệt chiêu "Kim Bọc Bạc": Dùng cơm nguội để lạnh bóp đều cùng 2 lòng đỏ trứng và 1 thìa mỡ heo trước khi chiên giúp từng hạt cơm tơi xốp, vàng ruộm óng ả, không bao giờ dính vón; 2. Xào riêng topping: Tôm, lạp xưởng Mai Quế Lộ, xá xíu và rau củ bắt buộc xào riêng cho ráo nước rồi mới trút vào cơm cuối cùng để cơm không bị nhão; 3. Chiên lửa lớn đảo đều tay: Tạo tiếng nổ lách tách giúp hạt cơm giòn rụm bên ngoài mà dẻo ngọt bên trong; 4. Rưới xì dầu ven thành chảo tạo mùi khói Wok Hei đậm đà chuẩn vị Quảng Đông.',
+    recommendedSauce:
+      'Đĩa cơm chiên Dương Châu nóng hổi hạt cơm vàng óng tơi xốp, lấm tấm đỏ hồng của lạp xưởng tôm tươi, xanh mướt của đậu Hà Lan, rắc tiêu thơm lừng ăn kèm đĩa dưa leo giòn mát, chan nhẹ vài thìa nước tương xì dầu ớt hiểm cay xé lưỡi.',
+  },
 };
 
 /**
@@ -11850,6 +12001,7 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'com-nieu-singapore': 'cach-lam-com-nieu-bo-sot-tieu-den',
   'com-nieu-bo-sot-tieu-den': 'cach-lam-com-nieu-bo-sot-tieu-den',
   'com-tam-suon-bi-cha': 'cach-lam-com-suon-nuong-mat-ong',
+  'com-chien-duong-chau': 'cach-lam-com-chien-duong-chau',
 };
 
 /**
@@ -11935,6 +12087,11 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-com-chien-ca-man': 'com-chien-ca-man',
   'cach-lam-com-ca-man': 'com-chien-ca-man',
   'cach-nau-com-ca-man': 'com-chien-ca-man',
+  'com-chien-duong-chau': 'com-chien-duong-chau',
+  'cach-lam-com-chien-duong-chau': 'com-chien-duong-chau',
+  'cach-nau-com-chien-duong-chau': 'com-chien-duong-chau',
+  'cach-lam-com-chien-duong-chau-hat-com-san-gion': 'com-chien-duong-chau',
+  'cach-nau-com-chien-duong-chau-hat-com-san-gion': 'com-chien-duong-chau',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

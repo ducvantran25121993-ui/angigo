@@ -87,6 +87,11 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "category": "Bánh Mì & Cuốn"
   },
   {
+    "name": "Nem chua rán Hà Nội giòn rụm",
+    "url": "/images/nem_chua_ran.jpg",
+    "category": "Món Nhậu & Lai Rai"
+  },
+  {
     "name": "Ram bắp Quảng Ngãi giòn rụm",
     "url": "/images/ram_bap_quang_ngai.jpg",
     "category": "Bánh Mì & Cuốn"

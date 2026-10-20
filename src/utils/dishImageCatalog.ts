@@ -1003,6 +1003,11 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
     "category": "banhmi_cuon"
   },
   {
+    "image": "/images/nem_chua_ran.jpg",
+    "name": "Nem Chua Rán Giòn Rụm Phố Cổ Hà Nội",
+    "category": "mon_nhau"
+  },
+  {
     "image": "/images/nom_bo_kho.jpg",
     "name": "Nộm Bò Khô Đu Đủ Bờ Hồ Phố Cổ",
     "category": "salad_monnhe"
@@ -1431,6 +1436,7 @@ export function getDishImageByName(name: string = "", category: string = ""): st
   if (norm.includes("muc nuong")) return "/images/muc_nuong.jpg";
   if (norm.includes("hau nuong")) return "/images/hau_nuong.jpg";
   if (norm.includes("chan ga")) return "/images/chan_ga_sa_tac.jpg";
+  if (norm.includes("nem chua ran") || norm.includes("nem chua")) return "/images/nem_chua_ran.jpg";
   if (norm.includes("nem nuong nha trang") || norm.includes("nem nuong")) return "/images/nem_nuong_nha_trang.jpg";
   if (norm.includes("nem lui")) return "/images/nem_lui.jpg";
   if (norm.includes("cut lon xao me") || norm.includes("trung cut lon")) return "/images/trung_cut_lon_xao_me.jpg";

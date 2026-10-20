@@ -263,12 +263,22 @@
     </image:image>
   </url>
   <url>
+    <loc>https://angigio.com/cach-lam-com-chien-duong-chau</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/com_chien_duong_chau.jpg</image:loc>
+      <image:title>Cách Làm Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://angigio.com/cach-nau-com-chien-duong-chau</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://angigio.com/images/com_chien_duong_chau.jpg?v=2</image:loc>
+      <image:loc>https://angigio.com/images/com_chien_duong_chau.jpg</image:loc>
       <image:title>Cách Làm Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị</image:title>
     </image:image>
   </url>

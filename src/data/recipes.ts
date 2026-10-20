@@ -11974,6 +11974,125 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Nước sốt mắm đường kẹo màu cánh gián thơm lừng mùi hành phi tiêu sọ, quyện chặt lấy từng miếng thịt ba chỉ rang cháy cạnh tươm mỡ béo bùi, rưới lên đĩa cơm trắng nóng dẻo ngon tuyệt đỉnh.',
   },
+  'xoi-ga-xe-mo-hanh': {
+    dishId: 'xoi-ga-xe-mo-hanh',
+    dishName: 'Xôi Gà Xé Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống',
+    seoTitle: 'Cách Nấu Xôi Gà Xé Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống',
+    ratingValue: '4.9',
+    reviewCount: 388,
+    prepTime: '20 phút (ngâm nếp, luộc gà ta & làm mỡ hành)',
+    cookTime: '35 phút (đồ xôi bằng nước luộc gà & xé gà trộn gia vị)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Gạo Nếp Ngon & Nước Đồ Xôi Béo Vàng',
+        items: [
+          '500g gạo nếp nương / nếp cái hoa vàng (hạt tròn mẩy, ngâm nước 6 - 8 tiếng)',
+          '1/2 thìa cà phê bột nghệ tươi (hoặc nước cốt nghệ tạo màu vàng óng)',
+          '1/2 thìa cà phê muối hạt, 1 thìa canh mỡ gà thắng (tạo độ bóng mượt cho hạt xôi)',
+        ],
+      },
+      {
+        category: 'Luộc Gà Ta & Gà Xé Phay Thấm Vị',
+        items: [
+          '1/2 con gà ta thả vườn (khoảng 700g, đùi hoặc ức gà tươi, thịt săn chắc)',
+          '1 củ hành tây, 3 củ hành tím, 1 nhánh gừng đập dập (luộc gà)',
+          '1 thìa canh nước mắm ngon, 1/2 thìa cà phê tiêu sọ, 1/2 thìa cà phê hạt nêm',
+        ],
+      },
+      {
+        category: 'Mỡ Hành, Nước Sốt Rưới Xôi & Đồ Ăn Kèm',
+        items: [
+          '1 bó hành lá tươi (xắt nhỏ, dội mỡ gà nóng làm mỡ hành xanh mướt)',
+          '5 củ hành khô tím (thái mỏng, bào phi giòn rụm)',
+          '1 thìa canh nước mắm ngon + 1 thìa canh nước luộc gà + 1/2 thìa cà phê đường (nấu nước sốt chan xôi)',
+          '1 đĩa dưa leo xắt lát, dưa góp củ cải cà rốt chua ngọt, chà bông (ruốc thịt) ăn kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ngâm gạo nếp vàng óng & luộc gà ta mọng nước',
+        time: '20 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Hạt nếp nở mẩy ngấm màu nghệ, gà ta luộc chín tới da giòn thịt mọng nước',
+        actionPoints: [
+          'Gạo nếp vo sạch, ngâm nước ấm pha chút bột nghệ tươi và 1/2 thìa cà phê muối hạt trong 6 - 8 tiếng cho gạo nở tròn mẩy. Vớt gạo ra xả nhẹ nước, để ráo.',
+          'Cho gà ta vào nồi nước lạnh với gừng giã dập, hành tây và hành tím đập dập. Luộc sôi lăn tăn trong 18 - 20 phút.',
+          'Tắt bếp đậy vung om thêm 10 phút cho thịt gà chín tới mọng nước. Vớt gà ra ngâm ngay vào thau nước đá lạnh để da gà giòn dai. Giữ lại nước luộc gà béo thơm.',
+        ],
+        description:
+          'Ngâm gạo nếp với bột nghệ 6 tiếng. Luộc gà ta với gừng hành 20 phút, om vung rồi vớt ngâm nước đá lạnh.',
+        tip: 'Ngâm gà vừa luộc xong vào thau nước đá lạnh giúp da gà săn giòn béo ngậy, thịt không bị thâm hay bị khô.',
+      },
+      {
+        step: 2,
+        title: 'Đồ (hấp) xôi nếp với nước luộc gà & mỡ gà dẻo thơm',
+        time: '35 phút',
+        heat: 'Lửa lớn',
+        goal: 'Hạt xôi dẻo quánh, căng mẩy vàng óng thơm phức hương mỡ gà tự nhiên',
+        actionPoints: [
+          'Đặt chõ hấp lên bếp, đun sôi nước hầm gà dưới đáy chõ.',
+          'Trộn gạo nếp đã ráo với 1 thìa canh mỡ gà thắng. Rải đều gạo nếp vào xửng hấp, dùng đũa chọc vài lỗ không khí thông thoáng.',
+          'Đồ xôi trên lửa lớn trong 25 - 30 phút.',
+          'Rưới 2 thìa canh nước luộc gà béo ngậy lên mặt xôi, xới nhẹ tay, đậy vung đồ tiếp 5 phút cho hạt xôi căng bóng, dẻo tơi không bị khô.',
+        ],
+        description:
+          'Trộn mỡ gà vào nếp, đồ xôi bằng nước luộc gà 30 phút. Rưới nước hầm gà đồ tiếp 5 phút cho hạt xôi căng bóng dẻo quánh.',
+        tip: 'Rưới nước luộc gà và mỡ gà vào xôi lúc gần chín giúp hạt xôi óng ả béo ngậy, giữ độ dẻo mềm suốt cả ngày.',
+      },
+      {
+        step: 3,
+        title: 'Xé gà ta & xào/trộn gà xé đậm đà',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Sợi gà xé phay thấm ngấm nước mắm tiêu sọ thơm lừng, thịt mềm ngọt không bị vụn',
+        actionPoints: [
+          'Thịt gà ta đã nguội dùng tay xé thành các sợi vừa ăn (không xé vụn quá kẻo bị nát).',
+          'Ướp gà xé với 1 thìa canh nước mắm ngon, 1/2 thìa cà phê tiêu sọ, 1/2 thìa cà phê hạt nêm trong 10 phút.',
+          'Phi thơm hành tím băm, cho gà xé vào đảo nhanh tay trên lửa vừa trong 2 phút cho thịt gà săn lại và thấm ngập vị.',
+        ],
+        description:
+          'Xé tay thịt gà thành sợi, ướp nước mắm tiêu sọ rồi xào nhanh trên lửa vừa 2 phút cho săn đậm đà.',
+        tip: 'Xé gà bằng tay thay vì thái dao giúp thớ thịt xé xơ giữ trọn độ mọng nước và ngấm gia vị sâu hơn.',
+      },
+      {
+        step: 4,
+        title: 'Làm mỡ hành xanh mướt & phi hành giòn rụm',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Mỡ hành giữ nguyên màu xanh tươi ngạt ngào mùi thơm, hành phi vàng rơm giòn tan',
+        actionPoints: [
+          'Thái nhỏ hành lá cho vào bát cùng 1/4 thìa cà phê muối. Đun nóng 3 thìa canh mỡ gà rồi dội trực tiếp vào bát hành lá khuấy đều.',
+          'Bào mỏng hành khô tím. Cho vào chảo ngập mỡ gà phi trên lửa vừa nhỏ đến khi hành chuyển màu vàng rơm giòn rụm thì vớt ra giấy thấm mỡ.',
+        ],
+        description:
+          'Dội mỡ gà nóng vào bát hành lá thái nhỏ làm mỡ hành xanh mướt. Phi hành tím thái mỏng giòn rụm màu vàng rơm.',
+        tip: 'Dội mỡ gà sôi trực tiếp vào hành lá giúp mỡ hành chín tới lập tức, giữ trọn màu xanh tươi bắt mắt.',
+      },
+      {
+        step: 5,
+        title: 'Xới xôi, xếp gà xé mỡ hành & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa xôi gà xé vàng óng dẻo quánh, đẫm thịt gà xé mỡ hành hành phi thơm lừng chuẩn vị',
+        actionPoints: [
+          'Xới xôi nếp vàng óng ra đĩa hoặc lá chuối tươi.',
+          'Xếp đẫm thịt gà xé phay đậm đà lên trên. Rưới muỗng mỡ hành xanh mướt và rắc hành phi giòn tan ngập đĩa.',
+          'Chan nhẹ vài thìa nước sốt gà mặn ngọt đậm đà. Ăn kèm dưa góp chua ngọt và chà bông thịt béo bùi.',
+        ],
+        description:
+          'Xới xôi ra đĩa, xếp gà xé phay đậm đà, rưới mỡ hành xanh mướt, rắc hành phi giòn tan và dùng nóng với dưa góp chua ngọt.',
+        tip: 'Ăn kèm dưa góp củ cải cà rốt chua ngọt gài vị giúp cân bằng hoàn hảo độ dẻo ngậy béo bùi của xôi gà xé.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu xôi gà xé dẻo thơm óng ả chuẩn vị truyền thống: 1. Đồ xôi bằng nước luộc gà & rưới mỡ gà thắng: Giúp hạt nếp căng mẩy, màu vàng óng béo ngậy và thơm lừng tự nhiên; 2. Luộc gà ngâm nước đá & xé tay: Thịt gà giòn da, mọng nước ngọt tự nhiên không bị khô; 3. Dội mỡ gà nóng vào hành lá tươi: Giữ mỡ hành xanh mướt rực rỡ, không bị nồng hay sẫm màu.',
+    recommendedSauce:
+      'Nước sốt mắm gà đun kẹo đậm đà rưới nhẹ lên đĩa xôi nếp nương vàng óng dẻo quánh, ăn cùng thịt gà xé phay mọng nước, mỡ hành xanh mướt và hành phi giòn tan nức mũi.',
+  },
 };
 
 /**
@@ -12811,6 +12930,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'com-ga-teriyaki': 'cach-lam-com-ga-teriyaki',
   'com-thit-ba-chi-chay-canh': 'cach-lam-com-ba-chi-chay-canh',
   'com-ba-chi-chay-canh': 'cach-lam-com-ba-chi-chay-canh',
+  'xoi-ga-xe-mo-hanh': 'cach-nau-xoi-ga-xe',
+  'xoi-ga-xe': 'cach-nau-xoi-ga-xe',
 };
 
 /**
@@ -12938,6 +13059,14 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-com-thit-ba-chi-chay-canh': 'com-thit-ba-chi-chay-canh',
   'cach-lam-com-ba-chi-chay-canh-thom-ngon-dam-da-chuan-quan': 'com-thit-ba-chi-chay-canh',
   'cach-nau-com-ba-chi-chay-canh-thom-ngon-dam-da-chuan-quan': 'com-thit-ba-chi-chay-canh',
+  'xoi-ga-xe-mo-hanh': 'xoi-ga-xe-mo-hanh',
+  'xoi-ga-xe': 'xoi-ga-xe-mo-hanh',
+  'cach-nau-xoi-ga-xe': 'xoi-ga-xe-mo-hanh',
+  'cach-lam-xoi-ga-xe': 'xoi-ga-xe-mo-hanh',
+  'cach-nau-xoi-ga-xe-mo-hanh': 'xoi-ga-xe-mo-hanh',
+  'cach-lam-xoi-ga-xe-mo-hanh': 'xoi-ga-xe-mo-hanh',
+  'cach-nau-xoi-ga-xe-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-ga-xe-mo-hanh',
+  'cach-lam-xoi-ga-xe-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-ga-xe-mo-hanh',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

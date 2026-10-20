@@ -12575,6 +12575,495 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chén nước tương (xì dầu) ngon xắt thêm vài lát ớt hiểm cay nồng rưới nhẹ lên đĩa cơm bò xào cần tỏi bốc khói ngạt ngào, múc muỗng cơm quyện thịt bò mềm ngọt và cần tây giòn xanh ngạt ngào hương vị.',
   },
+  'mi-cay-han-quoc': {
+    dishId: 'mi-cay-han-quoc',
+    dishName: 'Mì Cay 7 Cấp Độ Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    seoTitle: 'Cách Nấu Mì Cay 7 Cấp Độ Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    ratingValue: '4.9',
+    reviewCount: 438,
+    prepTime: '20 phút (sơ chế hải sản, thịt bò Mỹ, nấm kim châm & làm sốt ớt 7 cấp độ)',
+    cookTime: '15 phút (hầm nước dùng xương củ quả & nấu thố đất bốc khói)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Mì Koreno Dai Giòn & Nước Dùng Thanh Ngọt',
+        items: [
+          '3 gói mì không vị Koreno Hàn Quốc (sợi dai tròn chắc)',
+          '1kg xương heo / xương gà (hầm lấy 1.5 lít nước dùng thanh ngọt)',
+          '1/2 củ củ cải trắng, 1 củ hành tây, 100g kim chi Hàn Quốc thái nhỏ (nấu nước dùng)',
+          '2 thìa canh tương ớt Gochujang Hàn Quốc, 1 thìa canh ớt bột Hàn Quốc (tạo màu đỏ phong bàng)',
+          '1 thìa canh hạt nêm, 1 thìa canh nước mắm ngon, 1/2 thìa cà phê đường',
+        ],
+      },
+      {
+        category: 'Đồ Nhúng Hải Sản, Bò Mỹ & Rau Nấm',
+        items: [
+          '200g tôm sú tươi (bóc vỏ chừa đuôi), 200g mực ống tươi (làm sạch thái khoanh)',
+          '200g ba chỉ bò Mỹ bào mỏng (cuộn tròn mỏng)',
+          '2 cây xúc xích Đức / xúc xích phô mai thái lát xéo',
+          '1 gói nấm kim châm (cắt gốc rửa sạch), 1/2 cây bông cải xanh / súp lơ',
+          '1/4 bắp bắp cải tím thái sợi mỏng, 3 nhánh hành tỏi băm',
+        ],
+      },
+      {
+        category: 'Sốt Ớt Cấp Độ Cay Tự Điều Chỉnh (Cấp 1 -> Cấp 7)',
+        items: [
+          'Ớt 7 cấp độ: Hỗn hợp ớt bột Gochutgaru + ớt hiểm khô xay mịn (tự nêm từ 1/2 đến 3 thìa cà phê)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Hầm nước dùng thanh ngọt tự nhiên từ xương & củ quả',
+        time: '20 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước dùng trong vắt, thanh ngọt tự nhiên ngấm vị chua thanh nhẹ của kim chi',
+        actionPoints: [
+          'Xương heo/gà chần qua nước sôi rửa sạch. Cho vào nồi hầm với 1.5 lít nước cùng củ cải trắng và hành tây trong 30 phút trên lửa vừa, hớt sạch bọt bẩn.',
+          'Vớt bỏ xương và củ cải. Cho kim chi thái nhỏ, 2 thìa canh tương ớt Gochujang, 1 thìa canh ớt bột Hàn Quốc, hạt nêm và nước mắm vào đun sôi bùng cho nước dùng ngấu màu đỏ cam ngạt ngào.',
+        ],
+        description:
+          'Hầm xương heo với củ cải hành tây 30 phút lấy nước ngọt. Cho kim chi, tương ớt Gochujang và ớt bột vào đun sôi bùng.',
+        tip: 'Hầm củ cải trắng và kim chi Hàn Quốc đem lại vị ngọt thanh tự nhiên dịu mát, cân bằng hoàn hảo độ cay nồng xé lưỡi.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế hải sản, thịt bò Mỹ & nấm rau tươi ngon',
+        time: '10 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Tôm mực tươi rói ráo nước, bò Mỹ mềm mượt, nấm kim châm và rau củ tươi sạch',
+        actionPoints: [
+          'Tôm sú rửa sạch bóc vỏ bỏ chỉ đen. Mực ống làm sạch thái khoanh dầy 1cm.',
+          'Thịt ba chỉ bò Mỹ giã đông tự nhiên.',
+          'Nấm kim châm cắt gốc xé nhỏ. Bông cải xanh xắt miếng vừa ăn, bắp cải tím thái sợi.',
+        ],
+        description:
+          'Sơ chế tôm sú, mực ống thái khoanh, rã đông bò Mỹ, xé nấm kim châm và thái sợi bắp cải tím.',
+        tip: 'Rửa tôm mực qua chút nước gừng pha rượu giúp hải sản giòn ngọt bít kín vị tanh.',
+      },
+      {
+        step: 3,
+        title: 'Chuẩn bị thố đất & nấu nước dùng mì cay bốc khói',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thố đất đun nóng hổi bốc khói lách tách, nước dùng kim chi sôi lăn tăn',
+        actionPoints: [
+          'Đặt thố đất (hoặc nồi lẩu nhỏ) lên bếp đun nóng với 1 thìa dầu ăn, phi thơm hành tỏi băm.',
+          'Múc 400ml nước dùng kim chi thơm lừng đang đun sôi vào thố đất.',
+          'Cho 1 vắt mì Koreno Hàn Quốc vào trung tâm thố đất.',
+        ],
+        description:
+          'Phi thơm hành tỏi trong thố đất nóng, múc nước dùng kim chi sôi bùng vào và thả 1 vắt mì Koreno.',
+        tip: 'Nấu trong thố đất giữ nhiệt cực lâu giúp mì Koreno chín từ từ dai giòn và nước dùng luôn bốc khói sủi bọt.',
+      },
+      {
+        step: 4,
+        title: 'Nhúng hải sản, bò Mỹ, nấm kim châm & cho độ cay (Cấp 1 - 7)',
+        time: '4 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thố đất mì cay đẫm hải sản tươi giòn, bò Mỹ mềm mọng và độ cay vừa chuẩn',
+        actionPoints: [
+          'Xếp đẹp mắt xung quanh mì Koreno: tôm sú, mực ống, ba chỉ bò Mỹ, xúc xích, nấm kim châm, bông cải xanh và bắp cải tím.',
+          'Cho sốt ớt bột cấp độ vào thố đất tùy theo khẩu vị (1/2 thìa = Cấp 1 dịu nhẹ; 1 thìa = Cấp 3 đậm đà; 2 - 3 thìa = Cấp 7 xé lưỡi).',
+          'Đun sôi trên lửa lớn trong 3 - 4 phút cho hải sản, thịt bò Mỹ và mì Koreno chín tới.',
+        ],
+        description:
+          'Xếp tôm mực, bò Mỹ, nấm kim châm quanh vắt mì, nêm sốt ớt bột theo cấp độ yêu thích và đun sôi 4 phút.',
+        tip: 'Nêm ớt bột cấp độ từ từ theo khẩu vị giúp người ăn thưởng thức trọn vẹn độ ngon mà không bị sốc cay.',
+      },
+      {
+        step: 5,
+        title: 'Bưng thố đất mì cay bốc khói & thưởng thức nóng hổi',
+        time: '2 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Thố đất mì cay 7 cấp độ bốc khói nghi ngút, sợi mì dai giòn hải sản ngọt lịm',
+        actionPoints: [
+          'Tắt bếp, rắc hành lá xắt nhỏ và tiêu xay.',
+          'Bưng thố đất mì cay đang sôi lách tách bốc khói ngạt ngào ra bàn (đặt trên đế lót gỗ).',
+          'Thưởng thức ngay khi mì Koreno còn dai giòn sần sật, hải sản giòn ngọt, thịt bò Mỹ mềm tan hòa quyện nước dùng chua cay thanh ngọt đậm đà.',
+        ],
+        description:
+          'Bưng thố đất mì cay bốc khói ra bàn, rắc hành lá tiêu xay và dùng ngay khi còn nóng hổi sủi bọt lách tách.',
+        tip: 'Ăn ngay khi còn nóng hổi trong thố đất để cảm nhận độ dai sần sật tuyệt hảo của sợi mì Koreno Hàn Quốc.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu mì cay 7 cấp độ nước dùng thanh ngọt chuẩn vị gia đình: 1. Hầm nước dùng từ xương củ cải & kim chi Hàn Quốc: Tạo vị ngọt thanh tự nhiên cân bằng vị cay nóng xé lưỡi; 2. Nấu trong thố đất giữ nhiệt nóng hổi: Giúp sợi mì Koreno chín tới dai giòn mà không bị bết nhão; 3. Dùng ớt bột Gochutgaru phối ớt hiểm khô: Tạo màu đỏ thẩm mỹ rực rỡ và độ cay nồng ấm áp đặc trưng Hàn Quốc.',
+    recommendedSauce:
+      'Thố đất mì cay 7 cấp độ bốc khói nghi ngút sủi bọt lách tách, nước dùng kim chi thanh ngọt chua cay ngạt ngào, ngập tràn tôm mực giòn ngọt, ba chỉ bò Mỹ mềm tan và mì Koreno dai sần sật nóng hổi tuyệt đỉnh.',
+  },
+  'mi-tron-top-mo': {
+    dishId: 'mi-tron-top-mo',
+    dishName: 'Mì Trộn Tóp Mỡ Trứng Lòng Đào Sốt Chua Ngọt',
+    seoTitle: 'Cách Làm Mì Trộn Tóp Mỡ Sốt Chua Ngọt Đậm Đà Chuẩn Vị',
+    ratingValue: '4.9',
+    reviewCount: 412,
+    prepTime: '15 phút (thái mỡ heo chiên giòn, luộc trứng lòng đào & trụng mì)',
+    cookTime: '15 phút (thắng tóp mỡ giòn rụm & nấu sốt trộn kẹo chua ngọt)',
+    difficulty: 'Dễ',
+    servings: '2 - 3 người',
+    ingredients: [
+      {
+        category: 'Mì Trụng & Tóp Mỡ Giòn Rụm Béo Bùi',
+        items: [
+          '3 vắt mì trứng / mì gói Hảo Hảo (trụng nước sôi chín tới 80% còn dai giòn)',
+          '300g mỡ sa / mỡ gáy heo tươi (thái hạt lựu vuông 1.5cm, thắng giòn rụm)',
+          '1/2 thìa cà phê muối hạt, 1 thìa canh rượu trắng (ngâm rửa mỡ heo)',
+          '3 củ hành tím thái mỏng (phi thơm cùng tóp mỡ)',
+        ],
+      },
+      {
+        category: 'Nước Sốt Trộn Mì Chua Ngọt Kẹo Đậm Đà',
+        items: [
+          '2 thìa canh tương ớt xí muội / tương ớt Chinsu',
+          '1 thìa canh tương cà, 1.5 thìa canh nước mắm ngon',
+          '1 thìa canh đường thốt nốt / đường cát, 1 thìa canh nước quất (tắc) tươi / dấm gạo',
+          '1 thìa cà phê sa tế tỏi ớt, 1/2 thìa cà phê tiêu sọ xay',
+          '3 tép tỏi băm nhuyễn, 2 củ hành tím băm',
+        ],
+      },
+      {
+        category: 'Topping Ăn Kèm & Bát Canh Xương Thanh Ngọt',
+        items: [
+          '2 quả trứng gà luộc lòng đào (hoặc trứng ốp la lòng đỏ chảy tràn)',
+          '100g thịt heo băm / xá xíu thái mỏng, 4 con tôm sú luộc',
+          '1 đĩa cải ngọt / cải cúc trụng sơ giòn mát, 2 nhánh hành lá tươi',
+          '2 bát nước dùng xương heo củ cải thanh ngọt (dùng kèm mì trộn)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế mỡ heo & thắng tóp mỡ giòn rụm rộn rã',
+        time: '15 phút',
+        heat: 'Lửa vừa',
+        goal: 'Những viên tóp mỡ vàng rơm giòn rụm thơm nức, không bị gắt dầu',
+        actionPoints: [
+          'Mỡ heo rửa sạch với nước muối pha rượu trắng, thấm khô rồi thái hạt lựu vuông 1.5cm.',
+          'Cho mỡ heo vào chảo đun trên lửa vừa cùng 2 thìa canh nước lọc và 1/2 thìa cà phê muối. Đun đến khi mỡ heo tiết sạch mỡ, teo lại thành những viên tóp mỡ vàng rơm giòn rụm.',
+          'Cho hành tím thái mỏng vào chảo tóp mỡ phi thơm giòn rụm trong 30 giây cuối rồi vớt tóp mỡ ra bát ráo mỡ.',
+        ],
+        description:
+          'Thái mỡ heo hạt lựu, đun với chút nước và muối cho mỡ tiết hết thành tóp mỡ vàng rơm giòn rụm. Phi hành tím thơm vớt ra ráo mỡ.',
+        tip: 'Thắng mỡ heo cùng chút nước lọc và muối hạt giúp tóp mỡ vàng ươm giòn rụm cực lâu mà mỡ heo không bị bắn hay khét.',
+      },
+      {
+        step: 2,
+        title: 'Nấu nước sốt trộn mì kẹo chua ngọt đậm đà',
+        time: '5 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước sốt kẹo sánh mịn chua ngọt cay nồng, đằm vị mặn ngọt vừa vặn',
+        actionPoints: [
+          'Cho 1 thìa canh mỡ heo vừa thắng vào chảo, phi thơm tỏi băm và hành tím băm.',
+          'Trút vào chảo: 2 thìa canh tương ớt, 1 thìa canh tương cà, 1.5 thìa canh nước mắm ngon, 1 thìa canh đường, 1 thìa canh nước quất tươi và 1 thìa cà phê sa tế tỏi.',
+          'Đun sôi trên lửa nhỏ trong 2 - 3 phút cho hỗn hợp sốt kẹo lại sánh mịn, dậy mùi thơm nức.',
+        ],
+        description:
+          'Phi thơm tỏi hành, đun kẹo tương ớt, tương cà, nước mắm, đường, nước quất tươi và sa tế tỏi 3 phút cho sốt sánh kẹo đằm vị.',
+        tip: 'Dùng nước quất (tắc) tươi thay cho giấm đem lại vị chua thanh ngào ngạt hương thơm tự nhiên.',
+      },
+      {
+        step: 3,
+        title: 'Trụng mì trứng dai giòn & luộc trứng lòng đào',
+        time: '10 phút',
+        heat: 'Lửa lớn',
+        goal: 'Sợi mì trứng dai giòn tơi xốp, trứng gà lòng đào quánh dẻo đỏ au',
+        actionPoints: [
+          'Trụng mì trứng/mì gói trong nước sôi 1 phút cho chín tới 80%. Vớt xả ngay nước lạnh rồi trộn với 1 thìa mỡ heo cho tơi bóng.',
+          'Luộc trứng gà trong nước sôi đúng 6 phút, vớt ngâm thau nước đá 5 phút rồi bóc vỏ cắt đôi lộ lòng đào quánh dẻo.',
+          'Trụng cải ngọt, luộc tôm sú và xào đằm vị thịt heo băm.',
+        ],
+        description:
+          'Trụng mì 1 phút xả nước lạnh trộn mỡ heo. Luộc trứng gà 6 phút ngâm nước đá cắt đôi lòng đào quánh dẻo.',
+        tip: 'Trụng mì tới 80% rồi trộn mỡ heo giúp sợi mì săn dai giòn sần sật, không bị nở bở nhão khi trộn sốt.',
+      },
+      {
+        step: 4,
+        title: 'Trộn mì đẫm sốt kẹo chua ngọt ngào ngạt',
+        time: '2 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Từng sợi mì vàng ươm bóng mượt, thấm đẫm lớp áo sốt kẹo chua ngọt đậm đà',
+        actionPoints: [
+          'Trút mì đã trụng vào tô lớn.',
+          'Rưới 3 - 4 thìa nước sốt kẹo chua ngọt còn ấm nóng vào tô mì.',
+          'Dùng đũa trộn đều tay cho nước sốt kẹo bóng mượt bám chặt bao bọc quanh từng sợi mì.',
+        ],
+        description:
+          'Rưới sốt kẹo chua ngọt ấm nóng vào tô mì, dùng đũa trộn đều tay cho nước sốt ngấm ngáp từng sợi mì.',
+        tip: 'Trộn sốt lúc sốt còn ấm nóng giúp sốt kẹo quánh bám chặt hoàn hảo vào thớ sợi mì.',
+      },
+      {
+        step: 5,
+        title: 'Bày tóp mỡ giòn rụm, trứng lòng đào & thưởng thức',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa mì trộn tóp mỡ rực rỡ, tóp mỡ giòn tan rộn rã, trứng lòng đào ngậy béo và sốt chua ngọt bùng nổ',
+        actionPoints: [
+          'Gắp mì trộn sốt ra đĩa lớn hoặc tô ô tô.',
+          'Xếp ngập các loại topping lên mặt mì: bát tóp mỡ giòn rụm béo ngậy, trứng gà lòng đào quánh dẻo, tôm sú luộc, thịt băm xào, cải ngọt trụng và mỡ hành xanh mướt.',
+          'Trộn đều thưởng thức ngay khi sợi mì dai giòn, tóp mỡ giòn tan rộn rã quyện lòng đỏ trứng béo ngậy.',
+        ],
+        description:
+          'Gắp mì ra đĩa, bày ngập tóp mỡ giòn rụm, trứng lòng đào, tôm luộc, mỡ hành và rưới sốt thưởng thức nóng hổi.',
+        tip: 'Trộn tan lòng đỏ trứng lòng đào quyện cùng tóp mỡ giòn rụm đem lại trải nghiệm béo bùi ngậy ngon tuyệt đỉnh.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm mì trộn tóp mỡ sốt chua ngọt đậm đà chuẩn vị: 1. Thắng mỡ heo với chút nước lọc & muối: Giúp tóp mỡ vàng rơm giòn rụm lâu không bị gắt dầu; 2. Nấu sốt tương ớt quất (tắc) đun kẹo: Tạo độ sánh mịn bám chặt quanh sợi mì, vị chua thanh mặn ngọt cân bằng vị béo; 3. Trụng mì 80% & trộn mỡ nóng: Giúp sợi mì giữ độ dai giòn sần sật không bị bở nhão.',
+    recommendedSauce:
+      'Nước sốt chua ngọt kẹo quánh bám chặt từng sợi mì trứng dai giòn, quyện ngập tóp mỡ giòn rụm béo ngậy, lòng đỏ trứng gà lòng đào quánh dẻo và sa tế tỏi cay nồng ngạt ngào.',
+  },
+  'mi-xao-gion': {
+    dishId: 'mi-xao-gion',
+    dishName: 'Mì Xào Giòn Hải Sản Thập Cẩm Chuẩn Vị Bếp Trưởng',
+    seoTitle: 'Cách Làm Mì Xào Giòn Thơm Lừng, Đậm Đà Chuẩn Bếp Trưởng',
+    ratingValue: '4.9',
+    reviewCount: 428,
+    prepTime: '20 phút (sơ chế tôm, mực, cật/xá xíu & nhặt rau cải ngọt nấm đùi gà)',
+    cookTime: '20 phút (chiên tổ mì phồng giòn vàng rươm & xào nước sốt sệt kẹo)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Mì Trứng Chiên Phồng Vàng Ơm Giòn Rụm',
+        items: [
+          '4 vắt mì trứng tươi (hoặc mì tươi chuyên làm mì xào giòn)',
+          'Dầu ăn ngập chảo để chiên tổ mì phồng vàng giòn rụm',
+        ],
+      },
+      {
+        category: 'Nhân Hải Sản Thập Cẩm & Thịt Xá Xíu',
+        items: [
+          '200g tôm sú tươi (bóc vỏ chừa đuôi, chẻ lưng rút chỉ)',
+          '200g mực ống tươi (khía vảy rồng, thái miếng vừa ăn)',
+          '100g thịt xá xíu / thịt heo thăn (thái lát mỏng)',
+          '100g gan heo / chả lụa thái lát mỏng (tùy thích)',
+        ],
+      },
+      {
+        category: 'Rau Củ Tươi Giòn & Nước Dùng Nấu Sốt',
+        items: [
+          '150g cải ngọt / cải ngồng (rửa sạch xắt khúc 5cm)',
+          '1 củ cà rốt (tỉa hoa thái lát mỏng), 100g nấm đùi gà / nấm rơm (thái lát)',
+          '1/2 củ hành tây thái múi cau, 3 củ hành tím băm, 3 tép tỏi băm',
+          '400ml nước dùng xương heo / nước hầm gà thanh ngọt',
+        ],
+      },
+      {
+        category: 'Nước Sốt Sệt Kẹo Đậm Đà Vị Hoa',
+        items: [
+          '2 thìa canh dầu hàu thượng hạng, 2 thìa canh nước tương (xì dầu)',
+          '1 thìa canh dầu mè thơm, 1 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu sọ xay',
+          '2 thìa canh bột năng / bột sắn dây (hoà tan với 4 thìa nước lọc tạo độ sánh kẹo)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế hải sản, thịt & rau củ thập cẩm',
+        time: '20 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Tôm mực tươi giòn ráo nước, rau cải ngọt nấm cà rốt cắt miếng tươi mướt',
+        actionPoints: [
+          'Tôm bóc vỏ chừa đuôi rút chỉ đen. Mực ống rửa sạch với nước muối gừng, khía vảy rồng thái miếng vừa ăn. Ướp tôm mực với 1/2 thìa cà phê hạt nêm và tiêu xay.',
+          'Cải ngọt rửa sạch xắt khúc 5cm. Cà rốt tỉa hoa thái lát. Nấm đùi gà thái lát mỏng. Hành tây thái múi cau.',
+        ],
+        description:
+          'Sơ chế tôm rút chỉ, khía vảy rồng mực ống. Xắt khúc cải ngọt, tỉa hoa cà rốt và thái lát nấm đùi gà.',
+        tip: 'Khía vảy rồng trên thân mực giúp mực chín xoăn nảy đẹp mắt và ngấm sâu nước sốt.',
+      },
+      {
+        step: 2,
+        title: 'Chiên tổ mì trứng phồng vàng ươm giòn rụm',
+        time: '5 phút',
+        heat: 'Lửa lớn (170°C)',
+        goal: 'Tổ mì phồng xốp giòn rụm, vàng ươm đẹp mắt không bị ngấm mỡ',
+        actionPoints: [
+          'Tách tơi các vắt mì trứng. Đun nóng chảo ngập dầu ăn trên lửa lớn (dầu nóng khoảng 170°C).',
+          'Cho tơi mì trứng vào chảo chiên. Mì sẽ lập tức phồng rộp xốp giòn. Dùng vá ấn nhẹ ép mì thành khối tổ mì tròn phồng.',
+          'Chiên trong 2 - 3 phút cho hai mặt tổ mì ngả màu vàng ươm giòn rụm thì vớt ra giấy thấm mỡ, đặt lên đĩa lớn sâu lòng.',
+        ],
+        description:
+          'Thả tơi mì trứng vào chảo ngập dầu nóng rực chiên phồng xốp 3 phút cho hai mặt vàng ươm giòn rụm rồi vớt ra ráo dầu.',
+        tip: 'Chiên mì ở nhiệt độ dầu nóng rực (170°C) giúp sợi mì phồng xốp giòn tan ngay lập tức mà không bị đọng mỡ.',
+      },
+      {
+        step: 3,
+        title: 'Trụng sơ rau củ & chần hải sản mọng ngọt',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Rau cải ngọt xanh mướt giòn ngọt, tôm mực chín tới 80% mọng nước',
+        actionPoints: [
+          'Đun sôi nồi nước nhỏ với vài giọt dầu ăn và chút muối hạt.',
+          'Cho cà rốt, nấm đùi gà và cải ngọt vào trụng nhanh trong 45 giây rồi vớt ngay ra thau nước đá lạnh.',
+          'Chần sơ tôm mực trong nước sôi 1 phút chín tới 80% rồi vớt ráo nước.',
+        ],
+        description:
+          'Trụng cà rốt, nấm và cải ngọt 45 giây ngâm ngay nước đá. Chần sơ tôm mực trong nước sôi 1 phút.',
+        tip: 'Vớt rau củ trụng ra ngâm thau nước đá lạnh lập tức giúp giữ trọn màu xanh tươi rực rỡ và độ giòn ngọt.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nước sốt sệt kẹo béo ngậy vị dầu hàu thơm lừng',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Nước sốt hải sản dầu hàu sánh kẹo bóng mượt, thơm nức mùi dầu mè tiêu sọ',
+        actionPoints: [
+          'Phi thơm tỏi băm và hành tím băm. Trút tôm sú, mực ống và thịt xá xíu vào xào săn trên lửa lớn trong 1 phút.',
+          'Đổ 400ml nước dùng xương heo vào chảo, nêm 2 thìa canh dầu hàu, 2 thìa canh nước tương, hạt nêm, đường và tiêu sọ xay. Đun sôi bùng.',
+          'Trút rau cải ngọt, cà rốt, nấm và hành tây vào chảo. Từ từ rưới bát nước bột năng đã hòa tan vào khuấy nhẹ tay đến khi nước sốt sánh kẹo bọc quanh hải sản rau củ. Rưới 1 thìa canh dầu mè thơm rồi tắt bếp.',
+        ],
+        description:
+          'Xào săn tôm mực xá xíu, cho nước dùng xương heo đun sôi với dầu hàu xì dầu. Thả rau củ vào rưới bột năng khuấy sánh kẹo béo ngậy.',
+        tip: 'Rưới bột năng từ từ khuấy đều tay giúp nước sốt có độ sánh kẹo bóng mượt hoàn hảo bọc chặt lấy hải sản.',
+      },
+      {
+        step: 5,
+        title: 'Rưới nước sốt sánh kẹo lên tổ mì giòn rụm & thưởng thức',
+        time: '2 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa mì xào giòn thơm lừng bốc khói, mì giòn tan rộn rã ngấm ngáp nước sốt hải sản đậm đà',
+        actionPoints: [
+          'Múc ngập tôm mực, xá xíu và rau củ cùng nước sốt sệt nóng hổi rưới trực tiếp lên tổ mì chiên giòn rụm trên đĩa.',
+          'Rắc tiêu sọ xay thơm lừng. Dọn kèm chén xì dầu tỏi ớt xắt cay nồng.',
+          'Thưởng thức ngay khi tiếng mì chiên kêu "xèo xèo" sỉn sịn, từng sợi mì giòn tan mềm dần ngấm đẫm nước sốt hải sản đậm đà béo ngậy.',
+        ],
+        description:
+          'Múc hải sản rau củ và rưới ngập nước sốt sánh kẹo lên tổ mì chiên giòn, rắc tiêu xay và thưởng thức nóng hổi.',
+        tip: 'Rưới sốt nóng trực tiếp lúc ăn để cảm nhận trọn vẹn độ giòn rụm phồng xốp rộn rã kêu "xèo xèo" đặc trưng.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm mì xào giòn hải sản đậm đà chuẩn bếp trưởng: 1. Chiên mì dầu nóng rực (170°C): Giúp sợi mì phồng xốp giòn tan ngay lập tức không bị ngấm mỡ hay bị cứng sượng; 2. Trụng rau củ qua nước đá & chần sơ hải sản: Giữ cải ngọt xanh mướt giòn ngọt, tôm mực mọng nước không bị dai; 3. Tạo độ sánh kẹo bằng bột năng & dầu mè thơm: Nước sốt sánh mượt bao bọc thớt mì, giữ độ giòn rụm rộn rã kéo dài khi ăn.',
+    recommendedSauce:
+      'Nước sốt hải sản dầu hàu sánh kẹo thơm ngạt ngào mùi dầu mè tiêu sọ, rưới ngập lên tổ mì chiên phồng vàng rụm kêu "xèo xèo", quyện cùng tôm mực giòn ngọt và rau cải xanh mướt ngon tuyệt đỉnh.',
+  },
+  'bun-rieu-cua-bap-bo': {
+    dishId: 'bun-rieu-cua-bap-bo',
+    dishName: 'Bún Riêu Cua Đồng Nước Dùng Thanh Ngọt Chuẩn Vị',
+    seoTitle: 'Cách Nấu Bún Riêu Cua Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    ratingValue: '4.9',
+    reviewCount: 452,
+    prepTime: '25 phút (giã lọc cua đồng, thái cà chua mắm tôm & nhặt rau sống)',
+    cookTime: '35 phút (đun nổi tảng riêu cua, chưng gạch & nấu nước dùng giấm bỗng)',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Cua Đồng Tươi & Nước Dùng Thanh Ngọt',
+        items: [
+          '500g cua đồng tươi (giã nhuyễn, lọc kỹ lấy 1.8 lít nước cốt cua)',
+          '1 thìa cà phê muối hạt (cho vào nước cua trước khi đun đóng tảng riêu)',
+          '3 quả cà chua chín mọng (thái múi cau), 2 thìa canh giấm bỗng thơm nhẹ',
+          '1 thìa canh mắm tôm ngon thượng hạng, 1 thìa canh nước mắm, 1/2 thìa cà phê hạt nêm',
+          '2 thìa canh dầu màu điều (chưng gạch cua cho màu đỏ óng mượt)',
+        ],
+      },
+      {
+        category: 'Chả Riêu Cua, Đậu Hũ & Đồ Nhúng',
+        items: [
+          '200g thịt heo băm + 1 quả trứng gà + 1 thìa gạch cua (trộn hấp thành chả riêu xốp bùi)',
+          '3 bìa đậu hũ (đậu phụ chiên vàng giòn mọng nước)',
+          '200g bắp bò hoa thái mỏng (hoặc giò lụa/chả cây)',
+          '100g huyết heo (tiết heo) luộc chín thái khối vừa ăn',
+        ],
+      },
+      {
+        category: 'Bún Tươi & Rau Sống Ăn Kèm Chuẩn Vị',
+        items: [
+          '1kg bún tươi cọng nhỏ',
+          'Rau ăn kèm: Bắp chuối bào mỏng, rau muống chẻ, giá đỗ, kinh giới, tía tơi, hoa chuối',
+          '1 chén mắm tôm đánh bông với chanh ớt, ớt chưng xào cay',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Giã lọc cua đồng & đun đóng tảng riêu cua xốp bùi',
+        time: '25 phút',
+        heat: 'Lửa vừa',
+        goal: 'Tảng riêu cua đồng kết dính nổi cuồn cuộn trên mặt nước, không bị vỡ tan',
+        actionPoints: [
+          'Cua đồng gỡ mai khều gạch để riêng. Thân cua giã nhuyễn (hoặc xay mịn) cùng 1/2 thìa cà phê muối hạt.',
+          'Hòa 1.8 lít nước sạch với cua giã, lọc qua rây nhiều lần bỏ hoàn toàn bã cua.',
+          'Trút nước cốt cua vào nồi đun lửa vừa, khuấy nhẹ theo một chiều đến khi nước cua ấm nóng.',
+          'Khi nước bắt đầu sôi nhẹ, tảng riêu cua tự động kết dính nổi cuồn cuộn lên mặt nước. Vớt tảng riêu cua ra bát riêng.',
+        ],
+        description:
+          'Giã nhuyễn cua đồng lọc lấy 1.8 lít nước cốt cua. Đun lửa vừa khuấy nhẹ tay cho tảng riêu cua kết dính nổi cuồn cuộn rồi vớt ra bát.',
+        tip: 'Cho chút muối hạt khi giã cua và khuấy nhẹ tay lúc bắt đầu đun giúp thịt cua đóng khối tảng riêu béo bùi cuồn cuộn.',
+      },
+      {
+        step: 2,
+        title: 'Chưng gạch cua màu đỏ điều ngạt ngào hương thơm',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Gạch cua chưng dậy mùi thơm phức, nước sốt gạch màu đỏ điều óng mượt bắt mắt',
+        actionPoints: [
+          'Đun nóng 2 thìa canh dầu màu điều trong chảo, phi thơm hành tím băm.',
+          'Cho chén gạch cua vào chưng nhanh tay trên lửa vừa trong 1 - 2 phút đến khi gạch cua chuyển màu vàng đỏ óng mượt, thơm nức ngào ngạt.',
+          'Rưới 1/2 lượng gạch cua chưng lên bát tảng riêu cua để tạo lớp áo bóng rực.',
+        ],
+        description:
+          'Phi thơm hành tím với dầu màu điều, chưng gạch cua 2 phút cho thơm phức màu đỏ điều óng mượt. Rưới lên bát riêu cua.',
+        tip: 'Dùng dầu màu điều chưng gạch cua giúp nước dùng bún riêu lên màu đỏ quyến rũ tự nhiên không cần màu thực phẩm.',
+      },
+      {
+        step: 3,
+        title: 'Xào cà chua & nấu nước dùng bún riêu giấm bỗng thanh ngọt',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước dùng bún riêu thanh ngọt đậm đà, chua dịu nhẹ vị giấm bỗng ngát hương mắm tôm',
+        actionPoints: [
+          'Trút cà chua thái múi cau vào chảo vừa chưng gạch xào chín tới trên lửa lớn 2 phút.',
+          'Trút cà chua xào và phần gạch cua chưng còn lại vào nồi nước dùng cua.',
+          'Nêm 1 thìa canh mắm tôm ngon, 1 thìa canh nước mắm, 1/2 thìa cà phê hạt nêm và 2 thìa canh giấm bỗng thơm dịu. Đun sôi lăn tăn trên lửa nhỏ.',
+        ],
+        description:
+          'Xào cà chua chín tới trút vào nồi nước dùng. Nêm mắm tôm ngon, nước mắm và giấm bỗng nếp đun sôi lăn tăn.',
+        tip: 'Nêm mắm tôm ngon và giấm bỗng nếp thơm dịu là linh hồn tạo nên vị ngọt thanh chua dịu chuẩn vị bún riêu truyền thống.',
+      },
+      {
+        step: 4,
+        title: 'Rán đậu hũ giòn, chần bắp bò & luộc huyết heo',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Đậu hũ thấm đẫm nước dùng mọng nước, bắp bò tái mềm ngọt thanh',
+        actionPoints: [
+          'Đậu phụ thái khối chiên vàng ươm các mặt mọng nước rồi thả vào nồi nước dùng đun rim 5 phút cho thấm vị.',
+          'Trụng bắp bò hoa thái mỏng trong nồi nước dùng sôi bùng chín tái mọng nước.',
+        ],
+        description:
+          'Chiên đậu hũ vàng giòn thả vào nồi nước dùng đun rim 5 phút. Trụng bắp bò hoa tái mọng nước.',
+        tip: 'Thả đậu hũ chiên vào nồi nước dùng rim 5 phút giúp miếng đậu ngấm ngáp vị ngọt thanh béo ngậy của riêu cua.',
+      },
+      {
+        step: 5,
+        title: 'Múc bún, xếp riêu cua đậu hũ & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Tô bún riêu cua rực rỡ sắc màu, tảng riêu cua béo bùi, nước dùng chua thanh ngát hương mắm tôm',
+        actionPoints: [
+          'Trụng bún tươi qua nước sôi, xếp vào tô ô tô lớn.',
+          'Xếp lên mặt bún: tảng riêu cua đồng, đậu hũ chiên, bắp bò tái mềm, huyết heo luộc và cà chua đỏ mọng.',
+          'Múc nước dùng bún riêu chua thanh bốc khói ngập tô. Rắc hành lá và ngò gai xắt nhỏ.',
+          'Thưởng thức ngay khi còn nóng hổi ăn kèm rau sống bắp chuối rau muống chẻ, chấm mắm tôm đánh bông chanh ớt.',
+        ],
+        description:
+          'Xếp bún vào tô, bày tảng riêu cua, đậu hũ, bắp bò tái, huyết heo, múc nước dùng chua thanh bốc khói ăn kèm rau sống.',
+        tip: 'Ăn kèm mắm tôm đánh bông chanh ớt và rau muống chẻ giòn mát đem lại vị bùng nổ đậm đà không thể cưỡng lại.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu bún riêu cua đồng thanh ngọt chua dịu chuẩn vị gia đình: 1. Thêm chút muối hạt khi giã cua & khuấy nhẹ tay lúc bắt đầu đun: Giúp đóng tảng riêu cua kết dính cuồn cuộn không bị vỡ tan; 2. Nêm mắm tôm ngon & giấm bỗng nếp: Tạo vị ngọt thanh chua dịu đặc trưng bùng tỏa aroma tinh tế; 3. Chưng gạch cua với dầu màu điều: Giúp bát bún riêu có sắc đỏ óng mượt quyến rũ tự nhiên.',
+    recommendedSauce:
+      'Nước dùng bún riêu cua chua thanh giấm bỗng ngạt ngào mùi mắm tôm thơm phức, chan ngập tô bún tảng riêu cua đồng béo bùi, đậu hũ mọng nước, bắp bò tái mềm ăn kèm rau muống chẻ giòn mát ngon ngút ngàn.',
+  },
 };
 
 /**
@@ -13421,6 +13910,13 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'xoi-chien': 'cach-nau-xoi-chien',
   'com-ga-hai-nam': 'cach-lam-com-ga-hai-nam',
   'com-bo-xao-can-toi': 'cach-lam-com-bo-xao-can-toi',
+  'mi-cay-han-quoc': 'cach-nau-mi-cay',
+  'mi-cay': 'cach-nau-mi-cay',
+  'mi-tron-top-mo': 'cach-lam-mi-tron-top-mo',
+  'mi-xao-gion': 'cach-lam-mi-xao-gion',
+  'bun-rieu-cua-bap-bo': 'cach-nau-bun-rieu-cua',
+  'bun-rieu-cua': 'cach-nau-bun-rieu-cua',
+  'bun-rieu': 'cach-nau-bun-rieu-cua',
 };
 
 /**
@@ -13587,6 +14083,36 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-com-bo-xao-can-toi': 'com-bo-xao-can-toi',
   'cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': 'com-bo-xao-can-toi',
   'cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': 'com-bo-xao-can-toi',
+  'mi-cay-han-quoc': 'mi-cay-han-quoc',
+  'mi-cay': 'mi-cay-han-quoc',
+  'mi-cay-7-cap-do': 'mi-cay-han-quoc',
+  'cach-nau-mi-cay': 'mi-cay-han-quoc',
+  'cach-lam-mi-cay': 'mi-cay-han-quoc',
+  'cach-nau-mi-cay-7-cap-do': 'mi-cay-han-quoc',
+  'cach-lam-mi-cay-7-cap-do': 'mi-cay-han-quoc',
+  'cach-nau-mi-cay-7-cap-do-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-cay-han-quoc',
+  'cach-lam-mi-cay-7-cap-do-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-cay-han-quoc',
+  'mi-tron-top-mo': 'mi-tron-top-mo',
+  'mi-tron': 'mi-tron-top-mo',
+  'mi-tron-top-mo-trung-long-dao': 'mi-tron-top-mo',
+  'cach-lam-mi-tron-top-mo': 'mi-tron-top-mo',
+  'cach-nau-mi-tron-top-mo': 'mi-tron-top-mo',
+  'cach-lam-mi-tron-top-mo-sot-chua-ngot-dam-da-chuan-vi': 'mi-tron-top-mo',
+  'cach-nau-mi-tron-top-mo-sot-chua-ngot-dam-da-chuan-vi': 'mi-tron-top-mo',
+  'mi-xao-gion': 'mi-xao-gion',
+  'cach-lam-mi-xao-gion': 'mi-xao-gion',
+  'cach-nau-mi-xao-gion': 'mi-xao-gion',
+  'cach-lam-mi-xao-gion-thom-lung-dam-da-chuan-bep-truong': 'mi-xao-gion',
+  'cach-nau-mi-xao-gion-thom-lung-dam-da-chuan-bep-truong': 'mi-xao-gion',
+  'bun-rieu-cua-bap-bo': 'bun-rieu-cua-bap-bo',
+  'bun-rieu-cua': 'bun-rieu-cua-bap-bo',
+  'bun-rieu': 'bun-rieu-cua-bap-bo',
+  'cach-nau-bun-rieu-cua': 'bun-rieu-cua-bap-bo',
+  'cach-lam-bun-rieu-cua': 'bun-rieu-cua-bap-bo',
+  'cach-nau-bun-rieu': 'bun-rieu-cua-bap-bo',
+  'cach-lam-bun-rieu': 'bun-rieu-cua-bap-bo',
+  'cach-nau-bun-rieu-cua-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-rieu-cua-bap-bo',
+  'cach-lam-bun-rieu-cua-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-rieu-cua-bap-bo',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

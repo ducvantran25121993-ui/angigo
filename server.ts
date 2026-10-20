@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import { getAllSeoRoutes } from "./src/data/seoRoutes";
 import { BLOG_SLUG_ALIASES, INITIAL_BLOG_POSTS } from "./src/data/blogPosts";
 import { INITIAL_DISHES } from "./src/data/dishes";
-import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema } from "./src/data/recipes";
+import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema, RECIPE_SLUG_ALIASES, CUSTOM_RECIPE_SLUGS } from "./src/data/recipes";
 import { getDishImageByName } from "./src/utils/dishImageCatalog";
 
 function parseMinutesToIso(str?: string): string {
@@ -2442,6 +2442,27 @@ async function startServer() {
     } else {
       res.type("application/xml").send(`<?xml version="1.0"?>\n<users>\n\t<user>149C7981B16C035B95D859D5F31A28BC</user>\n</users>`);
     }
+  });
+
+  // Universal 301 Permanent Redirect middleware for recipe aliases and non-canonical recipe URLs
+  app.use((req, res, next) => {
+    if (req.method !== "GET" && req.method !== "HEAD") return next();
+    const rawPath = req.path.replace(/\/$/, ""); // strip trailing slash
+    const cleanPath = rawPath.replace(/^\//, "");
+    if (!cleanPath || cleanPath.includes(".") || cleanPath.startsWith("api/") || cleanPath.startsWith("assets/")) {
+      return next();
+    }
+    
+    // Check if cleanPath is an alias or uncanonical slug
+    const targetDishId = RECIPE_SLUG_ALIASES[cleanPath];
+    if (targetDishId) {
+      const canonicalSlug = CUSTOM_RECIPE_SLUGS[targetDishId] || `cach-nau-${targetDishId}`;
+      const canonicalPath = `/${canonicalSlug}`;
+      if (rawPath !== canonicalPath) {
+        return res.redirect(301, canonicalPath);
+      }
+    }
+    next();
   });
 
   // 301 Permanent Redirect for legacy nested recipe URLs to international clean root URLs (/cach-nau-mon-ngon/:slug -> /:slug)

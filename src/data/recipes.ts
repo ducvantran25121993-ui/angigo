@@ -13056,6 +13056,7 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'xoi-ga-xe': 'cach-nau-xoi-ga-xe',
   'xoi-man-thap-cam': 'cach-nau-xoi-man-thap-cam',
   'xoi-man': 'cach-nau-xoi-man-thap-cam',
+  'xoi-pate-lap-xuong': 'cach-nau-xoi-man-thap-cam',
 };
 
 /**
@@ -13199,6 +13200,11 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-xoi-man': 'xoi-man-thap-cam',
   'cach-nau-xoi-man-thap-cam-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-man-thap-cam',
   'cach-lam-xoi-man-thap-cam-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-man-thap-cam',
+  'xoi-pate-lap-xuong': 'xoi-man-thap-cam',
+  'cach-nau-xoi-pate-lap-xuong': 'xoi-man-thap-cam',
+  'cach-lam-xoi-pate-lap-xuong': 'xoi-man-thap-cam',
+  'xoi-pate': 'xoi-man-thap-cam',
+  'xoi-lap-xuong': 'xoi-man-thap-cam',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

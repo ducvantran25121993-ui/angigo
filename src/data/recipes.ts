@@ -12093,6 +12093,128 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Nước sốt mắm gà đun kẹo đậm đà rưới nhẹ lên đĩa xôi nếp nương vàng óng dẻo quánh, ăn cùng thịt gà xé phay mọng nước, mỡ hành xanh mướt và hành phi giòn tan nức mũi.',
   },
+  'xoi-man-thap-cam': {
+    dishId: 'xoi-man-thap-cam',
+    dishName: 'Xôi Mặn Thập Cẩm Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống',
+    seoTitle: 'Cách Nấu Xôi Mặn Thập Cẩm Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống',
+    ratingValue: '4.9',
+    reviewCount: 418,
+    prepTime: '20 phút (ngâm nếp, thái lạp xưởng & xào tôm khô)',
+    cookTime: '35 phút (đồ xôi dẻo 2 lửa & chiên topping)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Gạo Nếp Ngon & Nước Đồ Xôi Óng Mượt',
+        items: [
+          '500g gạo nếp cái hoa vàng (hạt tròn mẩy, ngâm nước ấm 6 - 8 tiếng)',
+          '1/2 thìa cà phê muối hạt, 1 thìa canh mỡ heo / mỡ gà thắng (giúp hạt xôi căng bóng)',
+          '2 lá nếp (lá dứa) rửa sạch, bó tròn (lót đáy chõ đun thơm)',
+        ],
+      },
+      {
+        category: 'Topping Thập Cẩm Đậm Đà Đa Dạng',
+        items: [
+          '2 cây lạp xưởng mai quế lộ (thái lát mỏng xém vàng)',
+          '100g chả lụa / giò lụa (thái sợi mỏng vừa ăn)',
+          '50g tôm khô loại ngon (ngâm nước ấm cho mềm, xào hành tím)',
+          '50g chà bông thịt heo (ruốc thịt xù tơ bùi ngậy)',
+          '6 quả trứng cút (luộc chín bóc vỏ, chiên sơ sơ vỏ ngoài)',
+          '100g thịt xá xíu hoặc ba chỉ xào nấm mèo (thái sợi đậm đà)',
+        ],
+      },
+      {
+        category: 'Mỡ Hành, Sốt Chan & Đồ Ăn Kèm',
+        items: [
+          '1 bó hành lá tươi (xắt nhỏ, dội mỡ heo nóng làm mỡ hành)',
+          '5 củ hành khô tím (thái mỏng phi vàng rơm giòn tan), 30g đậu phụng (lạc) rang giã dập',
+          '2 thìa canh nước tương (xì dầu) + 1 thìa canh nước hầm + 1/2 thìa cà phê đường + ớt hiểm xắt lát (sốt chan xôi)',
+          '1 đĩa dưa góp củ cải cà rốt chua ngọt, dưa leo xắt lát ăn kèm giải ngấy',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế gạo nếp & chuẩn bị các topping thập cẩm',
+        time: '20 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Gạo nếp nở tròn mẩy, lạp xưởng, chả lụa, tôm khô và trứng cút sẵn sàng',
+        actionPoints: [
+          'Gạo nếp vo sạch, ngâm nước ấm với 1/2 thìa cà phê muối hạt trong 6 - 8 tiếng cho gạo nở tròn mẩy. Vớt ra xả nhẹ nước, để thật ráo.',
+          'Lạp xưởng lăn qua chút nước trên chảo cho chín mọng rồi chiên xém vàng hai mặt, thái lát mỏng xéo.',
+          'Tôm khô ngâm nước ấm 15 phút cho mềm ráo nước, phi thơm hành tím trút tôm khô vào xào với 1/2 thìa cà phê nước mắm và đường cho ngấm vị.',
+          'Chả lụa thái sợi mỏng. Trứng cút luộc chín bóc vỏ chiên sơ.',
+        ],
+        description:
+          'Ngâm gạo nếp 6 tiếng. Chiên xém lạp xưởng thái lát, xào tôm khô thấm vị, thái sợi chả lụa và chiên sơ trứng cút.',
+        tip: 'Lăn lạp xưởng qua chút nước trước khi chiên giúp lạp xưởng mọng mềm chín đều không bị teo khô bết mỡ.',
+      },
+      {
+        step: 2,
+        title: 'Đồ (hấp) xôi nếp dẻo thơm 2 lửa bóng mượt',
+        time: '35 phút',
+        heat: 'Lửa lớn',
+        goal: 'Hạt xôi dẻo quánh, căng mẩy bóng mượt không bị nhão hay khô cứng',
+        actionPoints: [
+          'Cho nước vào chõ hấp cùng bó lá nếp đun sôi bùng.',
+          'Trộn gạo nếp đã ráo với 1 thìa canh mỡ heo/mỡ gà thắng. Rải đều gạo nếp vào xửng hấp, dùng đũa chọc vài lỗ không khí thông thoáng.',
+          'Đồ xôi trên lửa lớn trong 25 - 30 phút.',
+          'Rưới 2 thìa canh nước ấm hoặc nước cốt dừa/nước hầm lên mặt xôi, xới nhẹ tay, đậy vung đồ tiếp 5 phút cho hạt xôi căng mẩy óng ả, dẻo mềm không bị khô cứng.',
+        ],
+        description:
+          'Trộn mỡ heo vào gạo nếp, đồ xôi lá nếp 30 phút. Rưới thêm nước ấm đồ tiếp 5 phút cho hạt xôi dẻo mượt căng mẩy.',
+        tip: 'Kỹ thuật đồ xôi 2 lửa và trộn mỡ heo thắng giúp hạt xôi giữ trọn độ dẻo mềm óng ả suốt cả ngày.',
+      },
+      {
+        step: 3,
+        title: 'Làm mỡ hành xanh mướt & phi hành rộn rã',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Mỡ hành rực rỡ xanh tươi, hành tím phi màu vàng rơm giòn rụm thơm nức',
+        actionPoints: [
+          'Cho hành lá xắt nhỏ vào bát cùng 1/4 thìa cà phê muối. Đun sôi 3 thìa canh mỡ heo/dầu ăn rồi dội trực tiếp vào bát hành khuấy đều.',
+          'Hành khô tím thái mỏng bào phi trên lửa vừa nhỏ đến khi vàng rơm giòn rụm thì vớt ra ráo dầu.',
+        ],
+        description:
+          'Dội mỡ heo sôi vào bát hành lá xắt nhỏ làm mỡ hành xanh mướt. Phi hành tím thái mỏng giòn rụm.',
+        tip: 'Dội mỡ nóng trực tiếp giúp mỡ hành giữ màu xanh tươi ngạt ngào mùi thơm không bị hăng.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nước sốt tương đậm đà rưới xôi mặn',
+        time: '5 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước sốt tương sánh kẹo mặn ngọt hài hòa, thơm ngạt ngào vị xì dầu tiêu sọ',
+        actionPoints: [
+          'Hòa 2 thìa canh nước tương thượng hạng, 1 thìa canh nước hầm/nước lọc, 1/2 thìa cà phê đường, 1/2 thìa cà phê tiêu xay.',
+          'Đun sôi nhẹ cho hỗn hợp sốt tương sánh kẹo mặn ngọt hài hòa, tắt bếp cho thêm vài lát ớt hiểm.',
+        ],
+        description:
+          'Hòa nước tương, nước hầm, đường và tiêu xay đun sôi nhẹ thành sốt tương sánh kẹo đậm đà.',
+        tip: 'Sốt tương đun kẹo giúp xôi mặn đậm đà chuẩn vị Sài Gòn truyền thống.',
+      },
+      {
+        step: 5,
+        title: 'Múc xôi, bày topping thập cẩm & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa xôi mặn thập cẩm đẫm topping lạp xưởng, chả lụa, tôm khô, mỡ hành xanh mướt thơm nức',
+        actionPoints: [
+          'Xới xôi nếp dẻo thơm óng ả ra đĩa lớn hoặc lá chuối tươi.',
+          'Lần lượt xếp đều các loại topping thập cẩm: lạp xưởng chiên xém, chả lụa thái sợi, tôm khô xào, trứng cút chiên và chà bông bùi ngậy lên mặt xôi.',
+          'Rưới mỡ hành xanh mướt, rắc hành phi giòn tan và rưới vài thìa nước sốt tương mặn ngọt. Ăn kèm dưa góp củ cải chua ngọt ngon tuyệt đỉnh.',
+        ],
+        description:
+          'Xới xôi ra đĩa, xếp ngập lạp xưởng, chả lụa, tôm khô, trứng cút, mỡ hành, rưới sốt tương và ăn kèm dưa góp.',
+        tip: 'Ăn kèm dưa góp củ cải cà rốt chua ngọt giúp cân bằng hoàn hảo vị bùi béo đậm đà của đĩa xôi mặn thập cẩm.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu xôi mặn thập cẩm dẻo thơm óng ả chuẩn vị truyền thống: 1. Đồ xôi 2 lửa & trộn mỡ heo thắng: Giúp hạt nếp căng mẩy béo ngậy, giữ độ dẻo mềm suốt cả ngày không bị bết dính; 2. Chiên xém lạp xưởng & xào đậm đà tôm khô: Giúp topping dậy mùi thơm nức, không bị tanh hay khô ngấy; 3. Dội mỡ nóng làm mỡ hành & chan sốt tương kẹo: Tạo màu xanh tươi rực rỡ và hương vị mặn ngọt hài hòa hòa quyện vào từng hạt xôi nếp.',
+    recommendedSauce:
+      'Nước sốt tương (xì dầu) đun kẹo mặn ngọt cay nồng ớt hiểm rưới ngập lên đĩa xôi nếp dẻo thơm óng ả, quyện chặt cùng lạp xưởng, tôm khô xào, chả lụa và mỡ hành thơm nức mũi.',
+  },
 };
 
 /**
@@ -12932,6 +13054,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'com-ba-chi-chay-canh': 'cach-lam-com-ba-chi-chay-canh',
   'xoi-ga-xe-mo-hanh': 'cach-nau-xoi-ga-xe',
   'xoi-ga-xe': 'cach-nau-xoi-ga-xe',
+  'xoi-man-thap-cam': 'cach-nau-xoi-man-thap-cam',
+  'xoi-man': 'cach-nau-xoi-man-thap-cam',
 };
 
 /**
@@ -13067,6 +13191,14 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-xoi-ga-xe-mo-hanh': 'xoi-ga-xe-mo-hanh',
   'cach-nau-xoi-ga-xe-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-ga-xe-mo-hanh',
   'cach-lam-xoi-ga-xe-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-ga-xe-mo-hanh',
+  'xoi-man-thap-cam': 'xoi-man-thap-cam',
+  'xoi-man': 'xoi-man-thap-cam',
+  'cach-nau-xoi-man-thap-cam': 'xoi-man-thap-cam',
+  'cach-lam-xoi-man-thap-cam': 'xoi-man-thap-cam',
+  'cach-nau-xoi-man': 'xoi-man-thap-cam',
+  'cach-lam-xoi-man': 'xoi-man-thap-cam',
+  'cach-nau-xoi-man-thap-cam-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-man-thap-cam',
+  'cach-lam-xoi-man-thap-cam-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-man-thap-cam',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

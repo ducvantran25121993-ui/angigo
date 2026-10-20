@@ -351,5 +351,20 @@ export const COM_XOI_DISHES: Dish[] = [
     popularTags: ['Làm Xào Bò', 'Cơm bò xào', 'Bò xào cần tỏi', 'Đậm đà'],
     searchKeyword: 'Cơm bò xào',
     bestPairedWith: 'Canh chua thịt bằm & Trà đá',
-  }
+  },
+  {
+    id: 'xoi-man-thap-cam',
+    name: 'Xôi Mặn Thập Cẩm Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống',
+    vietnameseName: 'Xôi Mặn Thập Cẩm',
+    category: 'com_xoi',
+    mealTime: ['sang', 'trua', 'toi', 'an_dem'],
+    priceRange: '30.000đ - 50.000đ',
+    estimatedPrice: 40000,
+    calories: '580 - 700 kcal',
+    description: 'Bí quyết nấu xôi mặn thập cẩm dẻo thơm óng ả chuẩn vị Sài Gòn truyền thống: Hạt nếp cái hoa vàng đồ mỡ heo bóng mượt, ngập tràn topping lạp xưởng chiên xém, chả lụa thái sợi, tôm khô xào hành tím, trứng cút chiên giòn, ruốc thịt và mỡ hành xanh mướt ngạt ngào.',
+    image: '/images/xoi_ga.jpg',
+    popularTags: ['Xôi mặn thập cẩm', 'Xôi Sài Gòn', 'Lạp xưởng mỡ hành', 'Chuẩn vị truyền thống', 'Món ăn sáng ngon'],
+    searchKeyword: 'Cách nấu xôi mặn thập cẩm dẻo thơm óng ả chuẩn vị truyền thống',
+    bestPairedWith: 'Xôi mặn ngập tràn lạp xưởng, chả lụa, tôm khô xào, trứng cút, mỡ hành & nước tương xì dầu ớt hiểm',
+  },
 ];

@@ -11028,7 +11028,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     dishId: 'com-chien-duong-chau',
     dishName: 'Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
     seoTitle: 'Cách Làm Cơm Chiên Dương Châu Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
-    ratingValue: '4.9',
+    ratingValue: '4.8',
     reviewCount: 368,
     prepTime: '20 phút',
     cookTime: '15 phút',
@@ -11180,7 +11180,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     dishName: 'Cơm Chiên Hải Sản Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
     seoTitle: 'Cách Làm Cơm Chiên Hải Sản Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
     ratingValue: '4.9',
-    reviewCount: 382,
+    reviewCount: 412,
     prepTime: '20 phút',
     cookTime: '15 phút',
     difficulty: 'Dễ',
@@ -11330,7 +11330,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     dishId: 'com-ga-quay-xe-phay',
     dishName: 'Cơm Gà Quay Sốt Mật Thơm Ngon Đậm Đà Chuẩn Quán',
     seoTitle: 'Cách Làm Cơm Gà Quay Sốt Mật Thơm Ngon Đậm Đà Chuẩn Quán',
-    ratingValue: '4.9',
+    ratingValue: '4.7',
     reviewCount: 356,
     prepTime: '30 phút (khử tanh, xăm thịt & ướp sốt)',
     cookTime: '35 phút (quay gà 2 lửa & nấu cơm mỡ gà)',
@@ -11482,7 +11482,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     dishName: 'Cơm Sườn Cay Thơm Ngon Đậm Đà Chuẩn Quán',
     seoTitle: 'Cách Làm Cơm Sườn Cay Thơm Ngon Đậm Đà Chuẩn Quán',
     ratingValue: '4.9',
-    reviewCount: 374,
+    reviewCount: 428,
     prepTime: '25 phút (khử tanh, chần sườn & giã ớt)',
     cookTime: '50 phút (ninh sườn mềm rục & pha sốt cay)',
     difficulty: 'Trung bình',
@@ -11616,8 +11616,8 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     dishId: 'com-canh-kim-chi',
     dishName: 'Cơm Canh Kim Chi Thịt Heo Đậu Phụ Thanh Mát',
     seoTitle: 'Cách Nấu Cơm Canh Kim Chi Thanh Mát, Đậm Đà Chuẩn Cơm Nhà',
-    ratingValue: '4.9',
-    reviewCount: 382,
+    ratingValue: '4.8',
+    reviewCount: 315,
     prepTime: '15 phút (thái thịt, xắt kim chi & sơ chế đậu hũ)',
     cookTime: '25 phút (xào thịt, hầm canh kim chi bốc khói)',
     difficulty: 'Dễ',
@@ -11731,6 +11731,248 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       '3 bí quyết vàng nấu canh kim chi chua cay đậm đà chuẩn cơm nhà: 1. Chọn kim chi muối chua kỹ: Kim chi muối đủ độ chua xào kỹ với thịt ba chỉ giúp nước canh có vị chua sâu thanh nhẹ, không bị gắt; 2. Thêm nước kim chi & đường thốt nốt/đường cát: Cân bằng vị chua gắt giúp nước dùng êm dịu ngọt hậu; 3. Dùng nước dùng dashi hoặc nước hầm xương: Tạo độ ngọt thanh sâu lắng cho bát canh kim chi ấm nóng ngọt lành.',
     recommendedSauce:
       'Nước canh kim chi chua cay đậm đà bốc khói nghi ngút, chan ngập bát cơm trắng nóng hổi ăn cùng thịt ba chỉ béo bùi và đậu hũ non mềm mịn tan trong miệng.',
+  },
+  'com-ga-teriyaki': {
+    dishId: 'com-ga-teriyaki',
+    dishName: 'Cơm Gà Sốt Teriyaki Nhật Bản',
+    seoTitle: 'Cách Làm Cơm Gà Teriyaki Thơm Ngon Đậm Đà Chuẩn Quán',
+    ratingValue: '4.9',
+    reviewCount: 289,
+    prepTime: '15 phút (lọc xương má đùi, khứa da & ướp gia vị)',
+    cookTime: '20 phút (áp chảo vàng giòn & nấu sốt Teriyaki sánh mịn)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Má Đùi Gà Rút Xương & Khử Mùi Hôi',
+        items: [
+          '600g má đùi gà tươi rút xương còn da (chọn thịt tươi hồng, đàn hồi tốt)',
+          '1 củ gừng tươi giã lấy nước cốt, 2 thìa canh rượu nấu ăn Mirin (hoặc rượu trắng)',
+          '1/2 thìa cà phê tiêu xay, 1/2 thìa cà phê muối hạt',
+        ],
+      },
+      {
+        category: 'Công Thức Nước Sốt Teriyaki Chuẩn Bếp Trưởng Nhật',
+        items: [
+          '4 thìa canh nước tương Nhật Bản Kikkoman (hoặc Shoyu)',
+          '3 thìa canh rượu Mirin (tạo độ bóng mượt ngọt thanh đặc trưng)',
+          '2 thìa canh rượu Sake nấu ăn (khử tanh & tăng hương vị)',
+          '2 thìa canh đường thốt nốt (hoặc đường cát), 1 thìa canh mạch nha (hoặc mật ong)',
+          '2 tép tỏi băm nhuyễn, 1/2 củ gừng mài nhuyễn',
+        ],
+      },
+      {
+        category: 'Cơm Trắng Dẻo & Đồ Ăn Kèm',
+        items: [
+          '3 bát cơm trắng dẻo hạt (gạo Nhật Koshihikari hoặc gạo ST25)',
+          '1 thìa canh mè trắng rang thơm (vừng trắng), 2 nhánh hành lá xắt nhỏ',
+          '1 đĩa bắp cải bào sợi mịn, dưa leo xắt lát, súp lơ luộc ăn kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế má đùi gà rút xương & ướp thấm gia vị',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Má đùi gà sạch thơm, lớp da khứa nhẹ không co rút và thấm ngấm rượu gừng',
+        actionPoints: [
+          'Má đùi gà rửa sạch với nước muối pha chút rượu trắng và gừng giã dập để khử hoàn toàn mùi hôi.',
+          'Dùng mũi dao khứa nhẹ vài đường mỏng trên lớp da gà (giúp miếng gà phẳng và da không bị co rút khi áp chảo).',
+          'Ướp gà với 1 thìa canh rượu Mirin, 1 thìa cà phê nước cốt gừng, 1/2 thìa cà phê tiêu xay trong 15 phút.',
+        ],
+        description:
+          'Khử hôi má đùi gà bằng rượu gừng, khứa nhẹ lớp da. Ướp gà với rượu Mirin, nước cốt gừng và tiêu xay 15 phút.',
+        tip: 'Khứa nhẹ vài đường trên da gà giúp gia vị ngấm sâu và khi áp chảo lớp da gà giòn rụm không bị co vặn.',
+      },
+      {
+        step: 2,
+        title: 'Pha nước sốt Teriyaki Nhật Bản chuẩn tỷ lệ vàng',
+        time: '5 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Hỗn hợp sốt Teriyaki sẫm màu, bóng mượt, vị mặn ngọt thanh ngạt ngào hương Mirin Sake',
+        actionPoints: [
+          'Trong bát lớn, hòa tan: 4 thìa canh nước tương Kikkoman, 3 thìa canh rượu Mirin, 2 thìa canh rượu Sake, 2 thìa canh đường, 1 thìa canh mạch nha, tỏi băm và gừng mài.',
+          'Khuấy đều cho đường và mạch nha tan hoàn toàn.',
+          'Nếm thử sốt đạt vị mặn ngọt đậm đà, thơm dịu mùi rượu gạo Nhật Bản đặc trưng.',
+        ],
+        description:
+          'Pha nước tương Kikkoman, rượu Mirin, rượu Sake, đường thốt nốt, mạch nha, tỏi băm và gừng mài tạo sốt Teriyaki sánh bóng.',
+        tip: 'Tỷ lệ vàng 4 Nước tương : 3 Mirin : 2 Sake : 2 Đường tạo nên hương vị Teriyaki chuẩn nhà hàng Nhật Bản.',
+      },
+      {
+        step: 3,
+        title: 'Áp chảo má đùi gà da giòn vàng óng',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Miếng gà có lớp da vàng giòn rụm kiệt mỡ, phần thịt bên trong mềm mọng nước',
+        actionPoints: [
+          'Đun nóng chảo chống dính trên lửa vừa (chỉ quết 1 lớp dầu ăn thật mỏng).',
+          'Đặt mặt da gà xuống áp chảo trước. Dùng xẻng đè nhẹ miếng gà trong 5 - 7 phút cho da tiết mỡ và giòn vàng.',
+          'Lật mặt thịt áp chảo tiếp trong 3 - 4 phút cho thịt chín tới 80%. Trút bớt phần mỡ thừa đọng dưới chảo ra ngoài.',
+        ],
+        description:
+          'Áp chảo mặt da gà trước 7 phút cho vàng giòn kiệt mỡ, lật mặt thịt áp tiếp 4 phút rồi gắt bỏ mỡ thừa.',
+        tip: 'Chắt bỏ bớt mỡ gà tiết ra trước khi đổ sốt vào giúp nước sốt Teriyaki bám dính tốt hơn và không bị ngấy dầu.',
+      },
+      {
+        step: 4,
+        title: 'Rưới sốt Teriyaki & đun rim sánh kẹo bọc quanh miếng gà',
+        time: '5 phút',
+        heat: 'Lửa vừa nhỏ',
+        goal: 'Lớp sốt Teriyaki cô đặc nâu óng như mật bọc kín mít quanh miếng gà áp chảo bốc khói',
+        actionPoints: [
+          'Rưới toàn bộ bát nước sốt Teriyaki đã pha vào chảo gà đang áp chảo nóng hổi.',
+          'Hạ lửa vừa nhỏ, đun rim riu riu. Dùng muôi múc rưới nước sốt liên tục lên mặt da và thịt gà.',
+          'Đun đến khi nước sốt Teriyaki cô đặc lại, sánh mịn nâu óng kẹo bám chặt quanh miếng gà ngạt ngào mùi thơm thì tắt bếp.',
+        ],
+        description:
+          'Đổ sốt Teriyaki vào chảo gà, đun rim lửa nhỏ và rưới sốt liên tục cho đến khi sốt cô đặc nâu óng kẹo bám quanh miếng gà.',
+        tip: 'Đun rim lửa nhỏ giúp sốt Teriyaki không bị cháy đường mà cô đặc lại thành lớp áo bóng mượt hoàn hảo.',
+      },
+      {
+        step: 5,
+        title: 'Thái gà, xếp cơm trắng & thưởng thức chuẩn vị Nhật',
+        time: '5 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Bát cơm gà Teriyaki đẫm sốt nâu óng, rắc mè rang thơm phức ăn kèm bắp cải bào giòn mát',
+        actionPoints: [
+          'Gắp má đùi gà ra thớt, dùng dao sắc thái thành các lát miếng vừa ăn.',
+          'Xới cơm trắng dẻo (gạo Nhật/ST25) ra bát lớn. Xếp các lát gà Teriyaki lên mặt cơm.',
+          'Rưới nước sốt Teriyaki sánh mịn đọng trong chảo lên đẫm miếng gà và cơm.',
+          'Rắc mè trắng rang thơm và hành lá xắt nhỏ. Thưởng thức nóng cùng bắp cải bào sợi mịn và súp lơ luộc.',
+        ],
+        description:
+          'Thái má đùi gà thành miếng, xếp lên đĩa cơm dẻo, rưới sốt Teriyaki sánh mịn, rắc mè rang thơm và ăn kèm bắp cải bào sợi.',
+        tip: 'Thưởng thức khi gà Teriyaki còn nóng hổi cùng bắp cải bào sợi giúp cân bằng vị mặn ngọt đậm đà tuyệt hảo.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm cơm gà Teriyaki ngon chuẩn nhà hàng Nhật: 1. Khứa nhẹ lớp da & áp chảo mặt da trước: Giúp da gà giòn rụm không bị co rút và ép tiết mỡ tự nhiên; 2. Tỷ lệ vàng sốt Teriyaki (4 Nước tương : 3 Mirin : 2 Sake : 2 Đường): Tạo vị mặn ngọt mượt mà bóng đẫm đặc trưng Nhật Bản; 3. Rim sốt trên lửa nhỏ: Giúp sốt sánh mịn bám đều thành lớp áo nâu óng quanh từng miếng thịt gà mọng nước.',
+    recommendedSauce:
+      'Nước sốt Teriyaki mặn ngọt mượt mà nâu óng như mật sánh quyện bọc chặt miếng má đùi gà da giòn thịt mềm mọng nước, rưới lên đĩa cơm trắng dẻo thơm rắc mè rang nức mũi.',
+  },
+  'com-thit-ba-chi-chay-canh': {
+    dishId: 'com-thit-ba-chi-chay-canh',
+    dishName: 'Cơm Thịt Ba Chỉ Rang Cháy Cạnh Thơm Ngon',
+    seoTitle: 'Cách Làm Cơm Ba Chỉ Cháy Cạnh Thơm Ngon Đậm Đà Chuẩn Quán',
+    ratingValue: '4.8',
+    reviewCount: 348,
+    prepTime: '15 phút (thái ba chỉ, chần qua & thái hành tỏi)',
+    cookTime: '20 phút (rang kiệt mỡ cháy cạnh & kho kẹo mắm đường)',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thịt Ba Chỉ Rút Sườn & Khử Tanh',
+        items: [
+          '500g thịt ba chỉ heo tươi (chọn miếng nạc mỡ đồng đều, da mỏng tươi hồng)',
+          '1 thìa canh muối hạt, 1 củ gừng tươi giã dập, 2 thìa canh giấm gạo (chần sơ)',
+        ],
+      },
+      {
+        category: 'Sốt Mắm Đường Đậm Đà Kho Cháy Cạnh',
+        items: [
+          '3 thìa canh nước mắm ngon truyền thống thượng hạng',
+          '2 thìa canh đường thốt nốt (hoặc đường cát vàng tạo màu cánh gián)',
+          '1 thìa cà phê nước màu kho thịt (hoặc thắng đường màu dừa)',
+          '1 thìa cà phê tiêu sọ xay thơm, 1/2 thìa cà phê hạt nêm',
+          '3 củ hành khô tím xắt lát mỏng, 3 tép tỏi băm nhuyễn',
+        ],
+      },
+      {
+        category: 'Rau Thơm & Đồ Ăn Kèm Cơm Trắng',
+        items: [
+          '3 nhánh hành lá xắt khúc 2cm, 1 quả ớt hiểm xắt lát',
+          '3 bát cơm trắng dẻo nóng hổi (gạo ST25 hoặc Jasmine)',
+          '1 đĩa dưa leo xắt lát, dưa cải muối chua ăn kèm giải ngấy',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt ba chỉ & chần sơ khử mùi hôi',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt ba chỉ sạch thơm hoàn toàn, thái miếng con chì vừa ăn vàng mượt',
+        actionPoints: [
+          'Thịt ba chỉ heo rửa sạch với nước muối pha chút giấm gạo và gừng giã dập để khử tanh.',
+          'Đun sôi nồi nước lớn, thả ba chỉ vào chần sơ trong 2 phút cho nổi hết bọt bẩn ra ngoài.',
+          'Vớt thịt ra xả rửa sạch dưới vòi nước lạnh. Thái ba chỉ thành các miếng con chì vừa ăn (dày khoảng 0.6cm, không thái quá mỏng kẻo teo khô khi rang).',
+        ],
+        description:
+          'Khử hôi ba chỉ bằng giấm gừng, chần sơ 2 phút xả sạch bọt bẩn. Thái miếng con chì dày 0.6cm vừa ăn.',
+        tip: 'Thái thịt dày vừa phải (0.6cm) giúp miếng thịt khi rang cháy cạnh vừa xém giòn bên ngoài vừa giữ trọn độ mềm ngậy bên trong.',
+      },
+      {
+        step: 2,
+        title: 'Rang ba chỉ xém vàng kiệt mỡ (Tạo hiệu ứng cháy cạnh)',
+        time: '10 phút',
+        heat: 'Lửa vừa nhỏ',
+        goal: 'Hai mặt miếng thịt ba chỉ xém vàng ươm tươm mỡ tự nhiên ngạt ngào mùi thơm',
+        actionPoints: [
+          'Đặt chảo khô lên bếp trên lửa vừa (không cần thêm dầu ăn). Trút toàn bộ ba chỉ đã thái vào chảo.',
+          'Khi thịt bắt đầu tiết mỡ tự nhiên, hạ lửa vừa nhỏ. Dùng xẻng lật đảo thịt liên tục trong 8 - 10 phút.',
+          'Rang đến khi hai mặt miếng ba chỉ ngả màu vàng ươm xém cạnh rực rỡ.',
+          'Chắt bớt 2/3 lượng mỡ heo tiết ra trong chảo ra bát riêng (chỉ giữ lại 1 thìa canh mỡ trong chảo).',
+        ],
+        description:
+          'Trút ba chỉ vào chảo khô rang lửa nhỏ 10 phút cho xém vàng kiệt mỡ. Chắt bớt 2/3 lượng mỡ tiết ra ra bát riêng.',
+        tip: 'Chắt bớt mỡ heo giúp miếng thịt rang cháy cạnh không bị ngấy mỡ và sốt mắm đường quánh bám chặt hơn.',
+      },
+      {
+        step: 3,
+        title: 'Phi thơm hành tỏi & đảo ngấm sốt mắm đường kẹo cánh gián',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Lớp sốt mắm đường màu cánh gián quánh kẹo bọc chặt từng miếng ba chỉ cháy cạnh',
+        actionPoints: [
+          'Gạt thịt ba chỉ sang góc chảo, trút hành khô xắt lát và tỏi băm vào phần mỡ nóng phi vàng thơm.',
+          'Cho 3 thìa canh nước mắm ngon, 2 thìa canh đường thốt nốt, 1 thìa cà phê nước màu và 1/2 thìa cà phê hạt nêm vào.',
+          'Đảo nhanh tay trên lửa lớn cho sốt mắm đường đun sôi bùng, kẹo lại phủ đều một lớp áo màu nâu cánh gián bóng mượt quanh thịt.',
+        ],
+        description:
+          'Phi thơm hành tỏi, trút nước mắm, đường thốt nốt, nước màu vào đảo lửa lớn cho sốt kẹo lại bọc chặt quanh miếng thịt.',
+        tip: 'Sử dụng đường thốt nốt và nước mắm truyền thống giúp sốt kẹo dẻo mượt mà, vị ngọt đằm không bị gắt.',
+      },
+      {
+        step: 4,
+        title: 'Rắc tiêu sọ, hành lá & ớt hiểm bốc khói ngạt ngào',
+        time: '2 phút',
+        heat: 'Lửa vừa',
+        goal: 'Chảo thịt ba chỉ rang cháy cạnh màu nâu bóng rực rỡ, thơm phức mùi tiêu sọ hành lá',
+        actionPoints: [
+          'Khi nước sốt mắm đường đã kẹo dẻo bám chặt lên thịt ba chỉ, trút hành lá xắt khúc và ớt hiểm xắt lát vào.',
+          'Rắc 1 thìa cà phê tiêu sọ xay thơm lừng lên trên.',
+          'Đảo đều nhanh tay trên bếp trong 1 phút rồi tắt bếp khi chảo thịt bốc khói ngạt ngào.',
+        ],
+        description:
+          'Trút hành lá, ớt hiểm xắt lát và tiêu sọ xay vào chảo thịt đảo đều 1 phút cho dậy mùi thơm nức mũi.',
+        tip: 'Rắc tiêu sọ cuối cùng khi tắt bếp giữ trọn hương thơm cay nồng ấm áp đặc trưng.',
+      },
+      {
+        step: 5,
+        title: 'Múc cơm trắng nóng hổi & thưởng thức chuẩn vị cơm nhà',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa cơm ba chỉ cháy cạnh đậm đà béo bùi, chan ngập nước sốt kẹo ăn cùng dưa chua giòn tan',
+        actionPoints: [
+          'Múc cơm trắng dẻo nóng hổi ra đĩa lớn hoặc bát tô.',
+          'Gắp từng miếng thịt ba chỉ rang cháy cạnh vàng ươm kẹo sốt cánh gián lên mặt cơm.',
+          'Chan muỗng nước sốt kẹo béo ngậy mặn ngọt lên thịt và cơm trắng.',
+          'Ăn kèm dưa leo xắt lát tươi giòn và dưa cải muối chua giải ngấy cực kỳ bắt cơm.',
+        ],
+        description:
+          'Xới cơm trắng dẻo ra đĩa, xếp thịt ba chỉ rang cháy cạnh kẹo sốt cánh gián lên trên, dùng nóng với dưa cải muối chua.',
+        tip: 'Ăn kèm dưa cải muối chua gài vị chua dịu giúp cân bằng hoàn hảo độ béo bùi đậm đà của ba chỉ cháy cạnh.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm cơm ba chỉ rang cháy cạnh ngon đậm đà chuẩn quán: 1. Chần sơ & thái miếng vừa ăn (0.6cm): Tránh thái mỏng làm thịt teo khô; 2. Rang lửa vừa nhỏ kiệt mỡ xém cạnh rồi chắt mỡ thừa: Giúp miếng thịt giòn ngoài mềm trong, không bị ngấy mỡ; 3. Nước mắm ngon & đường thốt nốt đun kẹo cánh gián: Tạo lớp áo bóng mượt bọc chặt từng miếng thịt dậy mùi thơm nức.',
+    recommendedSauce:
+      'Nước sốt mắm đường kẹo màu cánh gián thơm lừng mùi hành phi tiêu sọ, quyện chặt lấy từng miếng thịt ba chỉ rang cháy cạnh tươm mỡ béo bùi, rưới lên đĩa cơm trắng nóng dẻo ngon tuyệt đỉnh.',
   },
 };
 
@@ -12566,6 +12808,9 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'com-suon-cay-thai-lan': 'cach-lam-com-suon-cay',
   'com-suon-cay': 'cach-lam-com-suon-cay',
   'com-canh-kim-chi': 'cach-nau-com-canh-kim-chi',
+  'com-ga-teriyaki': 'cach-lam-com-ga-teriyaki',
+  'com-thit-ba-chi-chay-canh': 'cach-lam-com-ba-chi-chay-canh',
+  'com-ba-chi-chay-canh': 'cach-lam-com-ba-chi-chay-canh',
 };
 
 /**
@@ -12678,6 +12923,21 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-com-canh-kim-chi': 'com-canh-kim-chi',
   'cach-nau-com-canh-kim-chi-thanh-mat-dam-da-chuan-com-nha': 'com-canh-kim-chi',
   'cach-lam-com-canh-kim-chi-thanh-mat-dam-da-chuan-com-nha': 'com-canh-kim-chi',
+  'com-ga-teriyaki': 'com-ga-teriyaki',
+  'cach-lam-com-ga-teriyaki': 'com-ga-teriyaki',
+  'cach-nau-com-ga-teriyaki': 'com-ga-teriyaki',
+  'cach-lam-com-ga-sot-teriyaki': 'com-ga-teriyaki',
+  'cach-nau-com-ga-sot-teriyaki': 'com-ga-teriyaki',
+  'cach-lam-com-ga-teriyaki-thom-ngon-dam-da-chuan-quan': 'com-ga-teriyaki',
+  'cach-nau-com-ga-teriyaki-thom-ngon-dam-da-chuan-quan': 'com-ga-teriyaki',
+  'com-thit-ba-chi-chay-canh': 'com-thit-ba-chi-chay-canh',
+  'com-ba-chi-chay-canh': 'com-thit-ba-chi-chay-canh',
+  'cach-lam-com-ba-chi-chay-canh': 'com-thit-ba-chi-chay-canh',
+  'cach-nau-com-ba-chi-chay-canh': 'com-thit-ba-chi-chay-canh',
+  'cach-lam-com-thit-ba-chi-chay-canh': 'com-thit-ba-chi-chay-canh',
+  'cach-nau-com-thit-ba-chi-chay-canh': 'com-thit-ba-chi-chay-canh',
+  'cach-lam-com-ba-chi-chay-canh-thom-ngon-dam-da-chuan-quan': 'com-thit-ba-chi-chay-canh',
+  'cach-nau-com-ba-chi-chay-canh-thom-ngon-dam-da-chuan-quan': 'com-thit-ba-chi-chay-canh',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

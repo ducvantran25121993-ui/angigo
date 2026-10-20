@@ -1689,15 +1689,6 @@ function injectSeoMeta(html: string, requestedPath: string): string {
               "url": `${canonicalUrl}#step-${st.step}`,
               "image": meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`
             })) || [],
-            "video": {
-              "@type": "VideoObject",
-              "name": `Video hướng dẫn nấu ${recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '')}`,
-              "description": `Video các bước sơ chế, định lượng gia vị và hướng dẫn chế biến món ${recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '')} chuẩn vị gia đình tại nhà.`,
-              "thumbnailUrl": [meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`],
-              "uploadDate": publishedTime,
-              "contentUrl": `${canonicalUrl}#video`,
-              "embedUrl": canonicalUrl
-            },
             "author": {
               "@type": "Organization",
               "name": "Hôm Nay Ăn Gì",

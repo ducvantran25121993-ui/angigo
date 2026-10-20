@@ -13064,6 +13064,126 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Nước dùng bún riêu cua chua thanh giấm bỗng ngạt ngào mùi mắm tôm thơm phức, chan ngập tô bún tảng riêu cua đồng béo bùi, đậu hũ mọng nước, bắp bò tái mềm ăn kèm rau muống chẻ giòn mát ngon ngút ngàn.',
   },
+  'bun-ca-ngu-phu-yen': {
+    dishId: 'bun-ca-ngu-phu-yen',
+    dishName: 'Bún Cá Ngừ Đại Dương Nước Dùng Thanh Ngọt Chuẩn Vị',
+    seoTitle: 'Cách Nấu Bún Cá Ngừ Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    ratingValue: '4.9',
+    reviewCount: 416,
+    prepTime: '20 phút (sơ chế lát cá ngừ tươi, ngâm nước muối gừng, gọt dứa chín & cà chua)',
+    cookTime: '30 phút (chiên sơ cá ngừ, kho mật mía nhẹ & hầm nước dùng thanh ngọt)',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Cá Ngừ Tươi & Gia Vị Ướp Đậm Đà',
+        items: [
+          '600g cá ngừ đại dương tươi (cắt khoanh dày 2 - 2.5cm)',
+          '1 thìa canh muối hạt, 2 thìa canh rượu trắng (ngâm rửa sạch khử tanh cá)',
+          '1.5 thìa canh nước mắm ngon, 1/2 thìa cà phê tiêu sọ xay, 1 thìa cà phê hạt nêm',
+          '2 củ hành tím băm, 3 tép tỏi băm, 2 quả ớt xiêm xanh đập dập',
+        ],
+      },
+      {
+        category: 'Dứa Chín, Cà Chua & Nước Dùng Thanh Ngọt',
+        items: [
+          '1/2 quả dứa (thơm) chín vừa (gọt vỏ bỏ mắt, thái rẻ quạt mỏng)',
+          '3 quả cà chua chín mọng (thái múi cau)',
+          '1.5 lít nước dừa tươi (hoặc nước dùng hầm xương heo / nước sôi)',
+          '2 thìa canh dầu màu điều (chưng cà chua dứa tạo sắc vàng cam óng mượt)',
+          '1 thìa canh đường thốt nốt / đường phèn (tạo vị ngọt thanh dịu)',
+        ],
+      },
+      {
+        category: 'Bún Tươi, Mỡ Hành & Rau Sống Ăn Kèm',
+        items: [
+          '1kg bún tươi cọng vừa',
+          'Rau sống ăn kèm: Bắp cải thái sợi mỏng, xà lách, giá đỗ, bắp chuối bào, tía tơi, hành lá, ngò rí',
+          '1 chén nước mắm ớt hiểm xiêm xanh cay xé lưỡi chấm lát cá ngừ',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế cá ngừ ngâm rượu gừng & ướp thấm vị',
+        time: '20 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Lát cá ngừ tươi sạch hoàn toàn vị tanh, thấm ngấm gia vị nước mắm tiêu sọ',
+        actionPoints: [
+          'Lát cá ngừ đại dương rửa qua nước muối hạt pha rượu trắng và gừng đập dập trong 5 phút để khử sạch vị tanh. Rửa lại nước lạnh, thấm khô.',
+          'Ướp lát cá ngừ với 1.5 thìa canh nước mắm ngon, 1/2 thìa cà phê tiêu sọ, 1 thìa cà phê hạt nêm, tỏi băm, hành tím băm và ớt xiêm xanh đập dập trong 15 - 20 phút.',
+        ],
+        description:
+          'Khử tanh cá ngừ bằng nước muối rượu gừng 5 phút. Ướp nước mắm ngon, tiêu sọ, tỏi hành và ớt xiêm xanh đập dập 20 phút.',
+        tip: 'Khử tanh bằng muối hạt pha rượu trắng và gừng giúp thịt cá ngừ giữ trọn độ mọng ngọt mà hoàn toàn không bị tanh.',
+      },
+      {
+        step: 2,
+        title: 'Chiên sơ hai mặt lát cá ngừ săn chắc',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Thịt cá ngừ săn chắc xém vàng nhẹ, không bị rã nát khi kho nấu nước dùng',
+        actionPoints: [
+          'Đun nóng 2 thìa canh dầu ăn trong chảo chống dính trên lửa vừa.',
+          'Cho từng khoanh cá ngừ đã ướp vào chiên sơ hai mặt trong 2 - 3 phút cho bề mặt thịt cá săn lại, ngả màu xém vàng nhạt.',
+          'Vớt cá ra đĩa riêng.',
+        ],
+        description:
+          'Chiên sơ hai mặt khoanh cá ngừ trong chảo ngập dầu 3 phút cho thịt cá săn lại xém vàng nhạt rồi vớt ra đĩa.',
+        tip: 'Chiên sơ giúp bề mặt thịt cá ngừ bít kín nước ngọt bên trong, khi nấu nước dùng thịt cá săn đĩa không bị bở rã.',
+      },
+      {
+        step: 3,
+        title: 'Xào dứa chín, cà chua & chưng dầu màu điều óng mượt',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Dứa chín tiết vị chua ngọt thanh dịu, nước dùng lên màu vàng cam óng mượt',
+        actionPoints: [
+          'Đun nóng 2 thìa canh dầu màu điều trong nồi, phi thơm tỏi băm và hành tím băm.',
+          'Trút dứa thái rẻ quạt và 1/2 lượng cà chua múi cau vào xào trên lửa vừa trong 3 phút cho dứa tiết vị chua ngọt thanh dịu ngạt ngào.',
+        ],
+        description:
+          'Phi thơm tỏi hành với dầu màu điều, xào dứa chín và cà chua 3 phút cho dứa tiết ra vị chua ngọt thơm lừng.',
+        tip: 'Xào dứa với dầu màu điều trước giúp bùng tỏa vị chua ngọt đặc trưng và tạo màu nước dùng rực rỡ tự nhiên.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nước dùng bún cá ngừ ngọt thanh thơm dịu',
+        time: '20 phút',
+        heat: 'Lửa vừa nhỏ',
+        goal: 'Nước dùng bún cá ngừ trong vắt thanh ngọt chua dịu, lát cá ngừ mềm mọng đậm đà',
+        actionPoints: [
+          'Trút 1.5 lít nước dừa tươi (hoặc nước lọc) vào nồi dứa cà chua xào, đun sôi bùng.',
+          'Nhẹ tay xếp từng lát cá ngừ đã chiên sơ vào nồi nước dùng. Nêm 1 thìa canh nước mắm ngon, 1 thìa canh đường phèn và 1/2 thìa cà phê hạt nêm.',
+          'Đun sôi trên lửa vừa nhỏ trong 15 - 20 phút cho cá ngừ chín mềm mọng. Thả phần cà chua còn lại vào đun 2 phút rồi tắt bếp.',
+        ],
+        description:
+          'Đổ nước dừa tươi vào nồi đun sôi, thả lát cá ngừ đã chiên vào nêm nước mắm đường phèn đun rim 20 phút chua ngọt thanh dịu.',
+        tip: 'Sử dụng nước dừa tươi kết hợp đường phèn đem lại vị ngọt thanh tự nhiên dịu mát chuẩn phong cách ẩm thực miền Trung.',
+      },
+      {
+        step: 5,
+        title: 'Múc bún, xếp lát cá ngừ mọng ngọt & thưởng thức',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Tô bún cá ngừ rực rỡ, khoanh cá ngừ ngọt mềm, nước dùng chua thanh bốc khói nghi ngút',
+        actionPoints: [
+          'Trụng bún tươi qua nước sôi, xếp vào tô lớn.',
+          'Đặt khoanh cá ngừ chắc ngọt mọng nước vào trung tâm tô bún, múc dứa chín, cà chua múi cau và rưới nước dùng thanh ngọt chua dịu bốc khói ngập tô.',
+          'Rắc hành lá, ngò rí xắt nhỏ và vài lát ớt xiêm xanh.',
+          'Thưởng thức ngay khi còn nóng hổi ăn kèm đĩa bắp cải thái sợi, xà lách giòn mát và chấm lát cá ngừ vào chén nước mắm ớt hiểm cay nồng.',
+        ],
+        description:
+          'Xếp bún ra tô, đặt khoanh cá ngừ mọng ngọt, múc dứa cà chua và rưới nước dùng chua thanh bốc khói ăn kèm bắp cải thái sợi.',
+        tip: 'Ăn kèm đĩa bắp cải thái sợi mỏng giòn mát và chấm lát cá ngừ vào mắm ớt xiêm xanh giúp vị ngon bùng nổ ngất ngây.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu bún cá ngừ đại dương nước dùng thanh ngọt chuẩn vị gia đình: 1. Ngâm cá ngừ với rượu gừng & chiên sơ hai mặt: Giúp thịt cá săn chắc, giữ trọn độ mọng ngọt mà không hề bị tanh rã; 2. Nấu nước dùng bằng nước dừa tươi & dứa chín: Tạo vị ngọt thanh chua dịu tự nhiên bộc phát hương vị đặc trưng miền Trung; 3. Dùng ớt xiêm xanh đập dập: Đem lại hương vị cay nồng ngào ngạt quyện cùng từng thớ thịt cá ngừ chắc nịch.',
+    recommendedSauce:
+      'Tô bún cá ngừ bốc khói ngạt ngào vị chua ngọt thanh dịu của dứa chín và nước dừa tươi, khoanh cá ngừ da săn chắc thịt ngọt mềm mọng, chấm vào chén nước mắm ngon xắt ớt xiêm xanh cay nồng ăn kèm bắp cải thái sợi giòn mát tuyệt đỉnh.',
+  },
 };
 
 /**
@@ -13917,6 +14037,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'bun-rieu-cua-bap-bo': 'cach-nau-bun-rieu-cua',
   'bun-rieu-cua': 'cach-nau-bun-rieu-cua',
   'bun-rieu': 'cach-nau-bun-rieu-cua',
+  'bun-ca-ngu-phu-yen': 'cach-nau-bun-ca-ngu',
+  'bun-ca-ngu': 'cach-nau-bun-ca-ngu',
 };
 
 /**
@@ -14113,6 +14235,12 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-bun-rieu': 'bun-rieu-cua-bap-bo',
   'cach-nau-bun-rieu-cua-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-rieu-cua-bap-bo',
   'cach-lam-bun-rieu-cua-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-rieu-cua-bap-bo',
+  'bun-ca-ngu-phu-yen': 'bun-ca-ngu-phu-yen',
+  'bun-ca-ngu': 'bun-ca-ngu-phu-yen',
+  'cach-nau-bun-ca-ngu': 'bun-ca-ngu-phu-yen',
+  'cach-lam-bun-ca-ngu': 'bun-ca-ngu-phu-yen',
+  'cach-nau-bun-ca-ngu-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-ca-ngu-phu-yen',
+  'cach-lam-bun-ca-ngu-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-ca-ngu-phu-yen',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

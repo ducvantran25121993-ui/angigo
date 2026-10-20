@@ -12336,6 +12336,245 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Tương ớt cay nồng hòa quyện cùng mayonnaise béo ngậy rưới ngập lên chiếc bánh xôi chiên vỏ phồng vàng giòn rụm dẻo thơm, kẹp đẫm nhân thịt băm nấm mèo đậm đà ăn là mê.',
   },
+  'com-ga-hai-nam': {
+    dishId: 'com-ga-hai-nam',
+    dishName: 'Cơm Gà Hải Nam Mọng Nước Sốt Gừng Tỏi Chuẩn Vị',
+    seoTitle: 'Cách Làm Cơm Gà Hải Nam Thơm Ngon Đậm Đà Chuẩn Quán',
+    ratingValue: '4.9',
+    reviewCount: 425,
+    prepTime: '25 phút (xát muối gừng tẩy da gà, xào gạo & pha 3 loại nước chấm)',
+    cookTime: '35 phút (luộc gà ngâm đá & nấu cơm béo ngậy mỡ gà)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Gà Ta Thả Vườn Luộc Da Giòn Mọng Nước',
+        items: [
+          '1 con gà ta thả vườn (khoảng 1.4 - 1.6kg, thịt săn chắc, da tươm vàng)',
+          '2 củ gừng tươi giã dập, 5 củ hành tím đập dập, 2 nhánh hành lá (luộc gà)',
+          '1 thìa canh muối hạt, 1 thìa canh rượu trắng (chà xát tẩy da gà)',
+          '1 thìa canh dầu mè thơm (quết da gà sau luộc cho vàng óng mượt)',
+        ],
+      },
+      {
+        category: 'Gạo Thơm & Nước Dùng Nấu Cơm Béo Ngậy',
+        items: [
+          '3 bát gạo thơm (gạo ST25 hoặc gạo tẻ dẻo ngon, vo sạch ráo nước)',
+          '50g mỡ gà tươi (thắng lấy mỡ phi tỏi gừng xào gạo)',
+          '3 tép tỏi băm, 1 củ hành tím băm, 1 củ gừng mài nhuyễn',
+          '1/2 thìa cà phê bột nghệ tươi (tạo màu cơm vàng nhạt óng ả)',
+          '700ml nước luộc gà béo ngọt tự nhiên',
+        ],
+      },
+      {
+        category: '3 Bộ Sốt Chấm Cơm Gà Hải Nam Chuẩn Nhà Hàng',
+        items: [
+          'Sốt gừng tỏi ớt: 3 thìa gừng mài + 2 thìa tỏi băm + 1 thìa ớt băm + 2 thìa nước mắm + 1 thìa chanh + 1 thìa đường',
+          'Sốt tương đen ngọt dịu: 3 thìa xì dầu đặc Kikkoman + 1 thìa đường thốt nốt + 1 thìa dầu hàu đun nhẹ',
+          'Sốt hành gừng xanh mướt: Hành lá xắt nhỏ + gừng mài + dội mỡ gà sôi',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Khử mùi tẩy da gà ta & luộc gà mọng nước da giòn',
+        time: '25 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Gà ta sạch thơm, luộc chín tới da giòn béo ngậy không bị thâm hay dai khô',
+        actionPoints: [
+          'Chà xát gà ta với muối hạt, gừng giã dập và rượu trắng trong 5 phút để tẩy hoàn toàn mùi hôi. Rửa sạch lại với nước lạnh, để ráo.',
+          'Cho gà vào nồi lớn, đổ ngập nước lạnh. Thêm 1 củ gừng giã dập, 5 củ hành tím đập dập và 1 thìa cà phê muối hạt.',
+          'Đun sôi trên lửa vừa trong 20 phút, hớt sạch bọt bẩn. Tắt bếp, đậy vung om gà tiếp 15 phút cho thịt chín tới mọng ngọt.',
+          'Vớt gà ra ngâm ngay vào thau nước đá lạnh 10 phút cho da gà giòn dai. Dùng cọ quết một lớp dầu mè thơm lên khắp da gà cho vàng óng mượt.',
+        ],
+        description:
+          'Tẩy mùi gà bằng muối gừng rượu. Luộc gà 20 phút, om vung 15 phút rồi vớt ngâm nước đá lạnh. Quết dầu mè cho da gà bóng mượt.',
+        tip: 'Om vung 15 phút sau khi tắt bếp giúp thịt gà ngấm ngọt chín mọng từ bên trong mà da gà không bị rách.',
+      },
+      {
+        step: 2,
+        title: 'Thắng mỡ gà & xào gạo thơm béo ngậy',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Hạt gạo săn ngấm ngáp mỡ gà thơm phức, thơm nức mùi gừng tỏi phi',
+        actionPoints: [
+          'Cho 50g mỡ gà tươi vào chảo chống dính đun trên lửa vừa cho mỡ gà tiết ra hết. Vớt tóp mỡ ra.',
+          'Cho tỏi băm, hành tím băm và gừng mài vào phần mỡ gà phi thơm ngạt ngào.',
+          'Trút gạo thơm đã ráo nước vào chảo xào đảo đều tay trên lửa vừa nhỏ trong 3 - 5 phút đến khi hạt gạo săn lại, ngấm mỡ gà thơm lừng.',
+        ],
+        description:
+          'Thắng mỡ gà tươi, phi thơm tỏi hành gừng rồi trút gạo thơm vào xào săn 5 phút cho hạt gạo bóng ngậy.',
+        tip: 'Xào gạo với mỡ gà gừng tỏi giúp từng hạt cơm khi nấu chín căng bóng tơi xốp, đậm đà béo thơm ngậy.',
+      },
+      {
+        step: 3,
+        title: 'Nấu cơm gà Hải Nam dẻo thơm hạt bóng',
+        time: '25 phút',
+        heat: 'Nồi cơm điện (Cook)',
+        goal: 'Hạt cơm dẻo tơi, vàng nhạt óng ả béo ngậy hương nước luộc gà tự nhiên',
+        actionPoints: [
+          'Trút toàn bộ gạo đã xào mỡ gà vào nồi cơm điện.',
+          'Cho 1/2 thìa cà phê bột nghệ tươi và rưới 700ml nước luộc gà béo ngọt vào nồi cơm.',
+          'Bật chế độ Cook. Khi cơm chín chuyển sang Warm, dùng đũa xới nhẹ tay cho cơm tơi xốp, đậy vung ủ tiếp 10 phút cho cơm dẻo quánh.',
+        ],
+        description:
+          'Nấu gạo đã xào với nước luộc gà béo và bột nghệ trong nồi cơm điện. Ủ ấm 10 phút cho hạt cơm dẻo quánh óng ả.',
+        tip: 'Nấu cơm bằng nước luộc gà nguyên chất đem lại màu vàng tự nhiên và vị ngọt bùi béo ngậy đậm đà.',
+      },
+      {
+        step: 4,
+        title: 'Pha 3 loại sốt chấm chuẩn vị Hải Nam',
+        time: '5 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: '3 bát sốt chấm gừng tỏi ớt, tương đen Kikkoman kẹo và mỡ hành gừng ngào ngạt',
+        actionPoints: [
+          'Sốt Gừng Tỏi: Trộn gừng mài, tỏi băm, ớt băm, nước mắm ngon, nước cốt chanh, đường và 1 thìa nước luộc gà khuấy tan.',
+          'Sốt Tương Đen: Hòa xì dầu đặc Kikkoman, dầu hàu, đường thốt nốt đun ấm lăn tăn cho sánh kẹo.',
+          'Sốt Mỡ Hành Gừng: Dội mỡ gà đun sôi trực tiếp vào chén hành lá xắt nhỏ và gừng mài.',
+        ],
+        description:
+          'Pha sốt gừng tỏi ớt chua cay, đun kẹo sốt tương đen Kikkoman và dội mỡ gà nóng làm sốt mỡ hành gừng.',
+        tip: 'Sự kết hợp của 3 loại nước chấm giúp thực khách trải nghiệm trọn vẹn hương vị cơm gà Hải Nam chuẩn nhà hàng.',
+      },
+      {
+        step: 5,
+        title: 'Chặt gà, xới cơm & thưởng thức chuẩn nhà hàng',
+        time: '5 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa cơm gà Hải Nam rực rỡ, thịt gà chặt phay da giòn mọng nước, chan ngập sốt gừng tỏi nức mũi',
+        actionPoints: [
+          'Dùng dao sắc chặt gà ta luộc thành các miếng chữ nhật vừa ăn.',
+          'Xới cơm gà thơm béo ngậy ra đĩa lớn. Xếp các miếng gà luộc chặt phay lên đĩa bên cạnh.',
+          'Dọn kèm 3 bát nước chấm cùng chén canh bí đao nấu nước luộc gà thanh mát và dưa leo tươi giòn.',
+        ],
+        description:
+          'Chặt gà luộc thành miếng, xới cơm gà béo ngậy ra đĩa, dọn kèm 3 loại nước chấm và chén canh bí đao thanh mát.',
+        tip: 'Dùng nóng hổi cùng chén canh bí đao nấu nước luộc gà gạt ngấy giúp bữa ăn tròn vị hoàn hảo.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu cơm gà Hải Nam thơm ngon mọng nước chuẩn quán: 1. Om vung sau luộc & ngâm thau nước đá: Giúp da gà săn giòn béo ngậy, thịt mọng nước ngọt dịu không bị thâm khô; 2. Thắng mỡ gà xào gạo trước khi nấu: Giúp hạt cơm nảy bóng, ngấm ngáp béo thơm tự nhiên không bị nát nhão; 3. Bộ 3 sốt chấm thần thánh (Gừng tỏi ớt, Tương đen Kikkoman, Mỡ hành gừng): Tôn trọn vị béo bùi của thịt gà luộc da giòn và đĩa cơm béo ngậy.',
+    recommendedSauce:
+      'Chén sốt gừng tỏi ớt chua cay nồng nàn cùng sốt tương đen kẹo ngọt dịu chấm đẫm miếng gà ta da giòn mọng nước, ăn cùng đĩa cơm vàng óng béo ngậy mỡ gà nức mũi.',
+  },
+  'com-bo-xao-can-toi': {
+    dishId: 'com-bo-xao-can-toi',
+    dishName: 'Cơm Bò Xào Cần Tỏi Mềm Ngọt Giòn Mát Chuẩn Vị',
+    seoTitle: 'Cách Làm Cơm Bò Xào Cần Tỏi Thơm Ngon Đậm Đà Chuẩn Quán',
+    ratingValue: '4.9',
+    reviewCount: 392,
+    prepTime: '15 phút (thái bò mỏng ngâm dầu ăn, nhặt cần tây & thái tỏi củ)',
+    cookTime: '15 phút (xào bò lửa lớn mọng nước & xào cần tỏi giòn xanh)',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thịt Bò Tươi & Gia Vị Ướp Mềm Ngọt',
+        items: [
+          '350g thịt thăn bò tươi / dẻ sườn bò (thái mỏng ngang thớ)',
+          '1 thìa canh dầu hàu thượng hạng, 1 thìa canh nước tương (xì dầu)',
+          '1/2 thìa cà phê tiêu sọ xay, 1/2 thìa cà phê hạt nêm',
+          '1 thìa canh dầu ăn (khóa độ mọng nước cho thịt bò), 1 thìa cà phê bột năng (tạo độ mềm mượt)',
+        ],
+      },
+      {
+        category: 'Rau Cần Tây, Tỏi Ta & Cà Chua Ăn Kèm',
+        items: [
+          '150g cần tây lá to (rửa sạch, đập dập phần gốc xốp, xắt khúc 4cm)',
+          '1 củ tỏi ta đập dập (chia 2 phần phi thơm)',
+          '1 củ hành tây (thái múi cau mỏng), 1 quả cà chua tươi (thái múi cau)',
+          '1 củ cà rốt / nấm đùi gà (thái lát mỏng giòn ngọt)',
+        ],
+      },
+      {
+        category: 'Cơm Trắng Nóng Dẻo & Nước Chấm',
+        items: [
+          '3 bát cơm trắng dẻo nóng hổi (gạo ST25)',
+          '1 chén nước tương xì dầu ớt hiểm xắt lát cay nồng',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Thái thịt bò ngang thớ & ướp kỹ giúp thịt bò mềm ngọt',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt bò thấm ngấm gia vị, mọng nước và không bị dai nhảy khi xào',
+        actionPoints: [
+          'Thịt thăn bò rửa sạch, dùng khăn thấm khô. Dùng dao sắc thái mỏng ngang thớ thịt.',
+          'Ướp thịt bò với 1 thìa canh dầu hàu, 1 thìa canh nước tương, 1/2 thìa cà phê tiêu xay, 1/2 thìa cà phê hạt nêm, 1 thìa cà phê bột năng và 1 thìa canh dầu ăn trong 15 phút.',
+        ],
+        description:
+          'Thái mỏng thịt bò ngang thớ. Ướp dầu hàu, nước tương, tiêu xay, bột năng và dầu ăn 15 phút cho thịt mềm mọng.',
+        tip: 'Trộn 1 thìa dầu ăn và 1 thìa bột năng vào thịt bò ướp giúp khóa chặt độ mọng nước tự nhiên, thịt khi xào không bị dai rách.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế cần tây, hành tây & cà chua giòn xanh',
+        time: '5 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Cần tây đập dập cọng trắng xốp, hành tây cà chua tươi giòn mướt mắt',
+        actionPoints: [
+          'Rau cần tây nhặt rửa sạch, đập dập nhẹ phần cọng trắng xốp (giúp cần tây bùng tỏa mùi thơm), thái khúc 4cm.',
+          'Hành tây thái múi cau mỏng. Cà chua rửa sạch thái múi cau. Tỏi ta bóc vỏ đập dập giã dập.',
+        ],
+        description:
+          'Rửa sạch cần tây, đập dập cọng trắng rồi xắt khúc 4cm. Thái múi cau hành tây cà chua, đập dập tỏi ta.',
+        tip: 'Đập dập nhẹ cọng trắng cần tây trước khi xào giúp tinh dầu cần tây bùng tỏa thơm nức ngạt ngào.',
+      },
+      {
+        step: 3,
+        title: 'Xào bò lửa lớn chín tới mọng nước (1.5 phút)',
+        time: '2 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thịt bò chín tới 80% mọng nước ngọt dịu, không bị khô quắt hay chảy nước',
+        actionPoints: [
+          'Đun nóng chảo chống dính với 1.5 thìa canh dầu ăn trên lửa lớn rực, cho 1/2 lượng tỏi đập dập vào phi thơm giòn rụm.',
+          'Trút toàn bộ thịt bò đã ướp vào đảo nhanh tay trên lửa lớn trong 1 - 1.5 phút.',
+          'Khi thịt bò vừa chuyển màu hồng nhạt chín tới 80% thì trút ngay thịt bò ra đĩa riêng.',
+        ],
+        description:
+          'Phi thơm tỏi, xào thịt bò trên lửa lớn đảo nhanh tay trong 1.5 phút cho chín tới mọng nước rồi trút ra đĩa.',
+        tip: 'Xào thịt bò trên lửa lớn nhanh tay 90 giây rồi trút ra đĩa riêng giữ trọn độ mềm tan ngọt mọng.',
+      },
+      {
+        step: 4,
+        title: 'Xào cần tây, hành tây giòn xanh mượt đằm vị',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Cần tây, hành tây chín tới giòn xanh mướt, hòa quyện đĩa thịt bò xào bốc khói',
+        actionPoints: [
+          'Giữ nguyên chảo, cho thêm 1 thìa cà phê dầu ăn, phi phần tỏi đập dập còn lại cho thơm.',
+          'Trút cọng cần tây, hành tây và cà chua vào xào đảo nhanh tay trên lửa lớn trong 2 phút.',
+          'Nêm 1/2 thìa cà phê hạt nêm và 1/2 thìa canh dầu hàu. Khi cần tây vừa chín tới giòn xanh mướt thì trút đĩa thịt bò xào vào chảo đảo đều nhanh tay 30 giây rồi tắt bếp.',
+        ],
+        description:
+          'Phi thơm tỏi, xào cần tây, hành tây và cà chua lửa lớn 2 phút. Trút thịt bò vào đảo nhanh 30 giây rồi tắt bếp.',
+        tip: 'Xào cần tây vừa chín tới giữ trọn màu xanh tươi giòn rụm và độ mọng ngọt đặc trưng.',
+      },
+      {
+        step: 5,
+        title: 'Xới cơm dẻo, múc thịt bò xào cần tỏi & thưởng thức',
+        time: '2 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa cơm bò xào cần tỏi thơm nức mũi, thịt bò mềm mọng ngọt ngào ăn cùng cơm dẻo',
+        actionPoints: [
+          'Xới cơm trắng dẻo nóng hổi ra đĩa lớn.',
+          'Múc ngập thịt bò xào cần tây hành tây giòn ngọt bốc khói ngào ngạt lên mặt cơm, rưới muỗng nước xào thịt bò ngọt bùi lên cơm trắng.',
+          'Rắc tiêu sọ xay thơm lừng. Thưởng thức ngay khi còn nóng hổi chấm kèm chén nước tương ớt hiểm cay nồng.',
+        ],
+        description:
+          'Xới cơm ra đĩa, múc ngập thịt bò xào cần tỏi lên mặt cơm, rắc tiêu sọ và dùng nóng với chén nước tương ớt hiểm.',
+        tip: 'Rưới muỗng nước xào ngọt thơm ngập lên đĩa cơm dẻo giúp từng hạt cơm thấm vị bò xào đậm đà tuyệt đỉnh.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm cơm bò xào cần tỏi mềm ngọt giòn mượt chuẩn quán: 1. Thái thịt bò mỏng ngang thớ & ướp bột năng + dầu ăn: Khóa trọn nước ngọt bên trong giúp thịt bò mềm mượt không bị khô dai; 2. Xào bò lửa lớn trong 90 giây rồi trút ra đĩa: Tránh xào chung từ đầu làm thịt bò mất nước và dai; 3. Đập dập phần cọng cần tây trước khi xào: Giúp cọng cần tây bùng tỏa hương thơm ngạt ngào đặc trưng.',
+    recommendedSauce:
+      'Chén nước tương (xì dầu) ngon xắt thêm vài lát ớt hiểm cay nồng rưới nhẹ lên đĩa cơm bò xào cần tỏi bốc khói ngạt ngào, múc muỗng cơm quyện thịt bò mềm ngọt và cần tây giòn xanh ngạt ngào hương vị.',
+  },
 };
 
 /**
@@ -13180,6 +13419,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'xoi-pate-lap-xuong': 'cach-nau-xoi-man-thap-cam',
   'xoi-chien-gion-nhan-thit': 'cach-nau-xoi-chien',
   'xoi-chien': 'cach-nau-xoi-chien',
+  'com-ga-hai-nam': 'cach-lam-com-ga-hai-nam',
+  'com-bo-xao-can-toi': 'cach-lam-com-bo-xao-can-toi',
 };
 
 /**
@@ -13336,6 +13577,16 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-xoi-chien-nhan-thit': 'xoi-chien-gion-nhan-thit',
   'cach-nau-xoi-chien-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-chien-gion-nhan-thit',
   'cach-lam-xoi-chien-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-chien-gion-nhan-thit',
+  'com-ga-hai-nam': 'com-ga-hai-nam',
+  'cach-lam-com-ga-hai-nam': 'com-ga-hai-nam',
+  'cach-nau-com-ga-hai-nam': 'com-ga-hai-nam',
+  'cach-lam-com-ga-hai-nam-thom-ngon-dam-da-chuan-quan': 'com-ga-hai-nam',
+  'cach-nau-com-ga-hai-nam-thom-ngon-dam-da-chuan-quan': 'com-ga-hai-nam',
+  'com-bo-xao-can-toi': 'com-bo-xao-can-toi',
+  'cach-lam-com-bo-xao-can-toi': 'com-bo-xao-can-toi',
+  'cach-nau-com-bo-xao-can-toi': 'com-bo-xao-can-toi',
+  'cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': 'com-bo-xao-can-toi',
+  'cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': 'com-bo-xao-can-toi',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

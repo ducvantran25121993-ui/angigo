@@ -11174,6 +11174,564 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Đĩa cơm chiên Dương Châu nóng hổi hạt cơm vàng óng tơi xốp, lấm tấm đỏ hồng của lạp xưởng tôm tươi, xanh mướt của đậu Hà Lan, rắc tiêu thơm lừng ăn kèm đĩa dưa leo giòn mát, chan nhẹ vài thìa nước tương xì dầu ớt hiểm cay xé lưỡi.',
   },
+
+  'com-chien-hai-san': {
+    dishId: 'com-chien-hai-san',
+    dishName: 'Cơm Chiên Hải Sản Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
+    seoTitle: 'Cách Làm Cơm Chiên Hải Sản Hạt Cơm Săn Giòn, Thơm Ngon Chuẩn Vị',
+    ratingValue: '4.9',
+    reviewCount: 382,
+    prepTime: '20 phút',
+    cookTime: '15 phút',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Cơm nguội & Kỹ thuật "Kim Bọc Bạc" (Áo lòng đỏ vàng kim)',
+        items: [
+          '4 bát cơm nguội hạt dài (nấu ráo tỷ lệ 1:0.85, để ngăn mát tủ lạnh 4 tiếng)',
+          '2 lòng đỏ trứng gà tươi (bóp đều vào cơm tạo màng vàng óng ả)',
+          '1 quả trứng gà tươi (đánh tan dùng tạo vân trứng vàng trắng ngũ sắc)',
+          '1 thìa canh mỡ heo hoặc dầu ăn ngon (giúp từng hạt cơm tơi xốp tuyệt đối)',
+        ],
+      },
+      {
+        category: 'Hải sản tươi ngọt giòn sần sật (Linh hồn món ăn)',
+        items: [
+          '150g tôm sú tươi (bóc vỏ, rút chỉ đen, thấm thật khô ráo, cắt hạt lựu 1cm)',
+          '150g mực ống tươi (làm sạch khử tanh, khía vảy rồng, thấm khô, cắt hạt lựu)',
+          '50g cồi sò điệp tươi hoặc chả cá thái hạt lựu (tùy chọn tăng vị ngọt biển)',
+        ],
+      },
+      {
+        category: 'Rau củ ngũ sắc tươi ngọt (Thanh mát giải ngấy)',
+        items: [
+          '1/2 củ cà rốt (gọt vỏ, cắt hạt lựu nhỏ đồng cỡ hạt bắp)',
+          '80g đậu Hà Lan tươi hoặc đông lạnh (chần nhanh nước sôi pha muối, ngâm nước đá)',
+          '1/2 bắp ngô ngọt tách hạt (chần sơ ráo nước, tăng độ ngọt bùi giòn)',
+        ],
+      },
+      {
+        category: 'Gia vị xào thơm & Nước sốt Wok Hei (Tỷ lệ vàng nhà hàng Hoa)',
+        items: [
+          '3 tép tỏi ta băm nhuyễn',
+          '2 củ hành tím khô băm nhỏ',
+          '3 nhánh hành lá tươi (phần đầu hành trắng băm phi thơm, lá hành xắt nhỏ)',
+          '1.5 thìa canh nước tương xì dầu thượng hạng (rưới quanh thành chảo nóng)',
+          '1 thìa cà phê dầu hào',
+          '1/2 thìa cà phê đường cát trắng',
+          '1 thìa cà phê hạt nêm',
+          '1/2 thìa cà phê tiêu sọ trắng giã dập',
+          '1 thìa cà phê dầu mè thơm nguyên chất (rưới lúc tắt bếp)',
+        ],
+      },
+      {
+        category: 'Đồ ăn kèm & Nước tương tỏi ớt',
+        items: [
+          '1 đĩa dưa leo tươi giòn cắt lát xéo, cà chua bi, vài cọng ngò rí',
+          '1 chén nước tương xì dầu dầm ớt hiểm xắt lát cay nồng',
+          '1 bát canh rong biển thịt băm hoặc canh cải ngọt thanh mát ăn kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Chuẩn bị cơm nguội & Kỹ thuật "Kim Bọc Bạc" (Áo lòng đỏ trứng)',
+        time: '10 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Hạt cơm tơi xốp, khô se mặt, từng hạt cơm được áo đều lớp lòng đỏ vàng óng ánh không vón cục',
+        actionPoints: [
+          'Lấy 4 bát cơm nguội từ ngăn mát tủ lạnh ra. Đeo găng tay hoặc dùng muôi bóp nhẹ nhàng cho từng hạt cơm tơi rời nhau hoàn toàn, không còn khối vón cục.',
+          'Cho 2 lòng đỏ trứng gà tươi vào âu cơm, thêm 1 thìa canh mỡ heo (hoặc dầu ăn) và 1 thìa cà phê hạt nêm.',
+          'Dùng tay trộn và xoa bóp nhẹ nhàng đều tay để màng lòng đỏ trứng bao phủ trọn vẹn bề mặt từng hạt cơm. Lớp áo này giúp hạt cơm vàng ruộm màu mỡ gà, khi chiên với nhiệt lớn lòng đỏ lập tức đông lại tạo độ giòn săn bên ngoài mà bên trong vẫn mềm ngọt dẻo thơm, đặc biệt không bị dính chảo.',
+          'Để cơm nghỉ 5 - 10 phút cho trứng và gia vị ngấm đều vào màng tinh bột.',
+        ],
+        description:
+          'Bóp tơi cơm nguội từ tủ lạnh. Trộn đều 2 lòng đỏ trứng gà cùng 1 thìa mỡ heo và hạt nêm vào cơm cho từng hạt cơm áo đều lớp màng vàng kim óng ả.',
+        tip: 'Quy chuẩn vàng: Tuyệt đối không dùng cơm nóng mới nấu đem chiên vì nhiều hơi ẩm sẽ làm cơm nhão nhoét. Cơm nấu hơi khô ráo (tỷ lệ 1 gạo:0.85 nước) và để lạnh qua đêm là hoàn hảo nhất.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế hải sản tôm mực khử tanh, thấm thật khô ráo & Chần rau củ ngũ sắc',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Hải sản tôm mực khử sạch mùi tanh, thấm khô ráo tuyệt đối để không ra nước khi xào, rau củ giòn ngọt',
+        actionPoints: [
+          'Tôm sú tươi lột vỏ, bỏ đầu, rạch lưng rút sạch chỉ đen, rửa nước muối loãng pha chút gừng đập dập. Dùng khăn giấy chuyên dụng THẤM THẬT KHÔ RÁO TUYỆT ĐỐI (bước sống còn tránh hải sản ra nước làm nhão cơm), cắt hạt lựu vuông vức ~1cm.',
+          'Mực ống làm sạch ruột và túi mực, lột màng ngoài, bóp qua chút rượu trắng và gừng để khử tanh, rửa sạch rồi dùng khăn giấy THẤM THẬT KHÔ RÁO. Khía nhẹ vảy rồng trên thân mực rồi cắt hạt lựu đồng cỡ với tôm.',
+          'Ướp tôm và mực với 1/3 thìa cà phê tiêu sọ trắng, 1/2 thìa cà phê hạt nêm và 1 thìa cà phê đầu hành trắng băm nhuyễn trong 10 phút.',
+          'Đun sôi nồi nước nhỏ pha chút muối và vài giọt dầu ăn, thả cà rốt, bắp ngô và đậu Hà Lan vào chần nhanh trong 1 phút. Vớt ra thả ngay vào thau nước đá lạnh 3 phút để giữ màu xanh đỏ tươi giòn, sau đó vớt ra để THẬT RÁO NƯỚC.',
+        ],
+        description:
+          'Tôm mực làm sạch khử tanh, dùng khăn giấy thấm thật khô ráo rồi cắt hạt lựu ướp tiêu. Cà rốt, ngô ngọt và đậu Hà Lan chần nước sôi ngâm đá lạnh giữ màu tươi giòn.',
+        tip: 'Thấm thật khô ráo tôm mực trước khi xào là bí quyết sống còn giúp hải sản săn giòn, ngọt thịt mà không làm chảy nước ướt nhão đĩa cơm chiên.',
+      },
+      {
+        step: 3,
+        title: 'Xào riêng hải sản trên lửa cực đại (Bí quyết cốt tử cơm không bị nhão)',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Tôm mực chín tới, săn giòn thơm phức, ửng hồng mọng nước và ráo nước hoàn toàn',
+        actionPoints: [
+          'Đặt chảo lên bếp, cho 1 thìa canh mỡ heo hoặc dầu ăn vào đun nóng già. Phi thơm 1/2 phần tỏi băm và đầu hành trắng.',
+          'Trút tôm và mực vào đảo thật nhanh tay trên lửa lớn trong 1.5 phút cho hải sản săn lại chuyển màu đỏ hồng ngọt lịm và dậy mùi thơm nức.',
+          'Tiếp tục cho cà rốt, bắp ngô và đậu Hà Lan vào đảo nhanh tay thêm 1 phút.',
+          'Nêm 1 thìa cà phê dầu hào, 1/3 thìa cà phê hạt nêm, đảo đều cho ngấm gia vị rồi TRÚT NGAY TOÀN BỘ RA ĐĨA RIÊNG ĐỂ RÁO NƯỚC.',
+          'Bí quyết bất bại: Bắt buộc xào riêng phần hải sản này và giữ thật ráo nước. Tuyệt đối không xào chung hải sản với cơm từ đầu vì nước ngọt từ tôm mực và rau củ tiết ra sẽ làm hạt cơm bị ướt, mềm ỉu và mất hoàn toàn độ săn giòn.',
+        ],
+        description:
+          'Phi thơm hành tỏi, xào nhanh tôm mực cùng rau củ trên lửa lớn trong 2 phút cho vừa chín tới săn giòn, trút ra đĩa riêng để thật ráo nước.',
+        tip: 'Xào riêng topping hải sản và rau củ là bước phân định giữa cơm chiên nghiệp dư tại nhà và cơm chiên chuẩn đầu bếp nhà hàng.',
+      },
+      {
+        step: 4,
+        title: 'Chiên cơm lửa lớn - Kỹ thuật hạt cơm săn giòn lách tách & Tạo vân trứng ngũ sắc',
+        time: '8 phút',
+        heat: 'Lửa lớn (Wok nhiệt cao)',
+        goal: 'Từng hạt cơm bung tơi, lớp vỏ ngoài săn giòn giòn, bên trong mềm thơm, nhảy múa lách tách trên chảo',
+        actionPoints: [
+          'Dùng chảo gang hoặc chảo thép sâu lòng, đun thật nóng rực trên bếp lửa lớn. Cho 1.5 thìa canh mỡ heo láng đều khắp lòng chảo.',
+          'Phi thơm phần tỏi băm và đầu hành trắng còn lại cho dậy mùi thơm nức.',
+          'Trút toàn bộ âu cơm nguội đã áo lòng đỏ trứng vào chảo. Dùng mặt lưng muôi miết nhẹ hạt cơm sang xung quanh lòng chảo để tiếp xúc nhiệt cao làm săn hạt cơm.',
+          'Đảo xới liên tục tay trên lửa lớn theo hình tròn. Từng hạt cơm sẽ tách rời nhau mượt mà, hạt cơm khô ráo, săn chắc dần và phát ra tiếng nổ lách tách vui tai trong lòng chảo.',
+          'Gạt cơm sang một bên chảo, đổ quả trứng gà đánh tan còn lại vào khoảng trống, dùng đũa khuấy nhanh tay cho trứng chín bông tơi thành các vân trứng nhỏ vụn màu vàng trắng, sau đó xới đảo hòa quyện cùng cơm.',
+        ],
+        description:
+          'Làm nóng chảo mỡ lửa lớn, phi thơm hành tỏi rồi trút cơm áo trứng vào đảo miết đều tay. Hạt cơm khô ráo săn giòn nhảy lách tách thì cho tiếp quả trứng gà đánh tơi tạo vân ngũ sắc.',
+        tip: 'Giữ lửa luôn ở mức to và đảo miết đều tay liên tục. Lửa lớn giúp hơi nước bốc nhanh, tạo lớp vỏ cơm giòn rụm bên ngoài mà hạt cơm không bị khô cứng.',
+      },
+      {
+        step: 5,
+        title: 'Hòa quyện hải sản ngũ sắc, rưới xì dầu tạo mùi khói "Wok Hei" & Hoàn thiện',
+        time: '3 phút',
+        heat: 'Lửa cực đại',
+        goal: 'Cơm chiên hải sản bốc khói nghi ngút, dậy mùi khói thơm lừng đặc trưng, hạt cơm săn giòn bóng bẩy',
+        actionPoints: [
+          'Khi hạt cơm đã đạt độ săn giòn hoàn hảo, trút toàn bộ đĩa hải sản tôm mực và rau củ ngũ sắc vào chảo cơm.',
+          'Đảo đều tay liên tục trong 1 phút trên lửa lớn cho các nguyên liệu ngũ sắc hòa quyện rực rỡ.',
+          'Bí quyết tạo mùi khói Wok Hei: Múc 1.5 thìa canh nước tương xì dầu thượng hạng rưới đều men theo vành thành chảo đang nóng đỏ (không đổ trực tiếp lên cơm). Nước tương chảy xuống thành chảo nóng sẽ lập tức bốc khói xèo xèo, tạo nên hương thơm khói caramel đặc trưng bao bọc lấy từng hạt cơm.',
+          'Nêm thêm 1/2 thìa cà phê đường, rắc tiêu sọ trắng giã dập và rưới 1 thìa cà phê dầu mè thơm nguyên chất.',
+          'Cuối cùng, thả toàn bộ hành lá xanh cắt nhỏ vào chảo, đảo đều 20 giây rồi tắt bếp.',
+          'Múc cơm chiên hải sản nóng hổi ra đĩa, trang trí vài con tôm đỏ au lên trên, rắc cọng ngò rí tươi. Ăn kèm chén nước tương ớt hiểm xắt lát.',
+        ],
+        description:
+          'Trút đĩa hải sản rau củ vào đảo đều cùng cơm săn giòn. Rưới nước tương men theo thành chảo nóng tạo hương khói Wok Hei trứ danh, rắc tiêu sọ, dầu mè và hành lá rồi múc ra đĩa thưởng thức.',
+        tip: 'Kỹ thuật rưới nước tương ven thành chảo nóng thay vì chan trực tiếp lên cơm giúp cơm không bị ỉu ướt mà lại dậy mùi thơm khói ngạt ngào đặc trưng của cơm chiên nhà hàng.',
+      },
+    ],
+    chefSecret:
+      '4 bí quyết vàng bất bại để cơm chiên hải sản hạt cơm săn giòn, thơm nức mũi chuẩn nhà hàng: 1. Tuyệt chiêu "Kim Bọc Bạc": Dùng cơm nguội để lạnh bóp đều cùng 2 lòng đỏ trứng và 1 thìa mỡ heo trước khi chiên giúp từng hạt cơm tơi xốp, vàng ruộm óng ả, không bao giờ dính vón; 2. Thấm thật khô và xào riêng hải sản: Tôm và mực bắt buộc thấm ráo nước hoàn toàn và xào riêng lửa lớn trút ra đĩa để ráo nước trước khi cho vào cơm, tránh tiết nước làm nhão cơm; 3. Chiên lửa lớn đảo đều tay: Tạo tiếng nổ lách tách giúp hạt cơm giòn rụm bên ngoài mà dẻo ngọt bên trong; 4. Rưới xì dầu ven thành chảo tạo mùi khói Wok Hei đậm đà chuẩn vị Quảng Đông.',
+    recommendedSauce:
+      'Đĩa cơm chiên hải sản nóng hổi hạt cơm vàng óng tơi xốp, điểm xuyết màu đỏ hồng của tôm tươi, trắng ngần của mực giòn sần sật, xanh mướt của đậu Hà Lan, rắc tiêu sọ thơm lừng ăn kèm đĩa dưa leo giòn mát, chan nhẹ vài thìa nước tương xì dầu ớt hiểm cay xé lưỡi.',
+  },
+
+  'com-ga-quay-xe-phay': {
+    dishId: 'com-ga-quay-xe-phay',
+    dishName: 'Cơm Gà Quay Sốt Mật Thơm Ngon Đậm Đà Chuẩn Quán',
+    seoTitle: 'Cách Làm Cơm Gà Quay Sốt Mật Thơm Ngon Đậm Đà Chuẩn Quán',
+    ratingValue: '4.9',
+    reviewCount: 356,
+    prepTime: '30 phút (khử tanh, xăm thịt & ướp sốt)',
+    cookTime: '35 phút (quay gà 2 lửa & nấu cơm mỡ gà)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Đùi gà góc tư tươi ngon & Khử tanh da gà',
+        items: [
+          '3 - 4 góc đùi gà tươi (~1kg - 1.2kg, chọn phần thịt dày, da gà căng bóng)',
+          '1 củ gừng tươi giã dập, 2 thìa canh rượu trắng, 1 thìa canh muối hạt',
+          '1 thìa canh giấm gạo pha 1 thìa mật ong (quét sơ giúp da gà căng bóng giòn)',
+        ],
+      },
+      {
+        category: 'Nước sốt ướp gà quay mật ong đậm đà chuẩn quán (Tỷ lệ vàng)',
+        items: [
+          '2.5 thìa canh mật ong hoa cà phê nguyên chất',
+          '2 thìa canh dầu hào Maggi thượng hạng',
+          '2 thìa canh nước tương xì dầu nhất phẩm',
+          '1 thìa cà phê bột ngũ vị hương thơm lừng (không cho quá nhiều làm đắng)',
+          '1 thìa canh dầu màu điều (tạo sắc nâu cánh gián vàng óng ả)',
+          '1 thìa cà phê tiêu sọ trắng xay nhuyễn',
+          '3 củ hành tím khô & 4 tép tỏi ta băm vắt lấy nước cốt (tránh cháy xém khi quay)',
+          '1 thìa cà phê hạt nêm, 1/2 thìa cà phê bột tỏi',
+        ],
+      },
+      {
+        category: 'Gạo thơm nấu cơm dẻo bằng nước luộc mỡ gà',
+        items: [
+          '2.5 bát gạo thơm hạt dài (gạo ST25 hoặc Nàng Thơm Chợ Đào)',
+          'Nước luộc xương gà hoặc nước dùng gà thanh ngọt',
+          '1 thìa canh mỡ gà phi thơm cùng tỏi và hành tím đập dập',
+          '1/3 thìa cà phê bột nghệ vàng (hoặc nước cốt nghệ tươi tạo màu mỡ gà tự nhiên)',
+          '1/2 thìa cà phê muối tinh',
+        ],
+      },
+      {
+        category: 'Nước sốt gà quay sánh kẹo rưới cơm',
+        items: [
+          'Phần nước sốt ướp gà tiết ra khi quay trong lò hoặc nồi chiên',
+          '1 thìa canh nước tương, 1 thìa canh mật ong, 1/2 thìa dầu hào',
+          '1 thìa cà phê bột năng hòa tan cùng 2 thìa canh nước lọc (tạo độ sánh gương)',
+        ],
+      },
+      {
+        category: 'Đồ ăn kèm tươi mát & Nước chấm',
+        items: [
+          '1 đĩa đồ chua cà rốt củ cải trắng ngâm chua ngọt',
+          '1 đĩa dưa leo cắt lát, cà chua bi tươi giòn, rau răm thơm nồng',
+          '1 chén tương ớt rim cay ngọt hoặc nước tương xì dầu tỏi ớt xắt',
+          '1 bát canh súp nước luộc gà rắc hành hoa thanh mát',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế đùi gà, khử mùi tanh & Kỹ thuật giữ da căng bóng giòn',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Gà sạch hoàn toàn mùi hôi, da gà căng bóng ráo nước, thịt đùi được xăm nhẹ để ngấm sâu gia vị',
+        actionPoints: [
+          'Đùi gà góc tư mua về nhặt sạch lông tơ còn sót lại, bóp kỹ với muối hạt, gừng tươi giã dập và 2 thìa canh rượu trắng trong 5 phút để khử sạch hoàn toàn mùi tanh hôi đặc trưng của gà công nghiệp.',
+          'Rửa lại gà thật sạch với nước lạnh. Dùng dao nhọn xăm nhẹ nhiều lỗ nhỏ ở mặt trong thớ thịt (mặt có xương) để gia vị dễ dàng thẩm thấu sâu vào tận lõi xương. Lưu ý: Tuyệt đối không xăm vào mặt da ngoài để khi quay da gà không bị rách hay co dúm.',
+          'Bí quyết da căng bóng: Đun sôi một nồi nước nhỏ với 1 thìa giấm gạo và 1 thìa mật ong. Cầm đầu đùi gà dội đều nước sôi lên bề mặt da gà trong 10 - 15 giây cho lớp da co lại, căng bóng mượt mà. Vớt ra dùng khăn giấy bếp THẤM THẬT KHÔ RÁO bề mặt da gà.',
+        ],
+        description:
+          'Khử tanh đùi gà với muối gừng và rượu trắng. Xăm nhẹ mặt dưới thớ thịt, dội nước sôi pha giấm mật ong lên bề mặt da gà rồi thấm thật khô ráo.',
+        tip: 'Lớp da gà càng khô ráo trước khi quay thì khi nướng xong da gà càng căng bóng, nổ giòn và màu cánh gián lên càng rực rỡ.',
+      },
+      {
+        step: 2,
+        title: 'Pha sốt mật ong ngũ vị & Kỹ thuật ướp gà không bị cháy sém',
+        time: '30 phút',
+        heat: 'Ướp ngăn mát tủ lạnh',
+        goal: 'Thịt gà ngấm đượm sốt mật ong thơm lừng ngũ vị, bề mặt da khô se mặt',
+        actionPoints: [
+          'Chuẩn bị âu sốt ướp: Cho 2.5 thìa mật ong, 2 thìa dầu hào, 2 thìa nước tương, 1 thìa cà phê bột ngũ vị hương, 1 thìa canh dầu màu điều, tiêu sọ trắng, hạt nêm, bột tỏi và nước cốt hành tỏi băm (vắt bỏ bã xác hành tỏi để khi nướng không bị cháy khét đắng). Khuấy thật đều cho sốt sánh mịn.',
+          'Thoa đều 2/3 lượng nước sốt vào mặt trong thớ thịt của từng miếng đùi gà, mát-xa nhẹ nhàng cho gia vị len lỏi vào các vết xăm.',
+          'Chừa mặt da phía trên: Chỉ xoa nhẹ một lớp dầu màu điều rất mỏng lên da, tránh bôi nhiều mật ong lên da ngay từ đầu vì đường trong mật ong sẽ làm cháy đen da trước khi thịt gà bên trong kịp chín.',
+          'Đặt đùi gà lên khay (úp phần thịt xuống, ngửa phần da lên), để hở trong ngăn mát tủ lạnh từ 30 - 45 phút cho thịt ngấm sâu và quạt gió tủ lạnh làm khô se mặt da.',
+        ],
+        description:
+          'Pha hỗn hợp sốt mật ong dầu hào ngũ vị hương cùng nước cốt hành tỏi. Ướp đều mặt trong thịt gà, giữ mặt da khô ráo rồi để ngăn mát 30 phút.',
+        tip: 'Chỉ ướp nước cốt hành tỏi, không để bã hành tỏi dính trên da vì khi nướng ở nhiệt cao bã hành tỏi sẽ cháy khét thành đốm đen làm đắng món ăn.',
+      },
+      {
+        step: 3,
+        title: 'Nấu cơm gà nước dùng mỡ gà hạt dẻo vàng óng ánh',
+        time: '25 phút',
+        heat: 'Nồi cơm điện hoặc nấu chảo',
+        goal: 'Hạt cơm nở đều, tơi xốp, thơm béo ngậy mỡ gà và có màu vàng ươm mỡ gà tự nhiên',
+        actionPoints: [
+          'Vo sạch gạo thơm để ráo nước 10 phút.',
+          'Đặt chảo nhỏ lên bếp, cho 1 thìa canh mỡ gà vào đun chảy, phi thơm hành tím và tỏi đập dập. Trút gạo đã ráo vào chảo đảo xào nhẹ tay trên lửa nhỏ khoảng 3 phút cho từng hạt gạo se lại và bao phủ một lớp màng mỡ gà bóng bẩy.',
+          'Hòa tan 1/3 thìa cà phê bột nghệ vào nước luộc xương gà (hoặc nước hầm gà thanh ngọt).',
+          'Trút gạo đã xào vào nồi cơm điện, đổ nước dùng gà pha nghệ vào xăm xắp mặt gạo (tỷ lệ 1 gạo : 1.1 nước), thêm 1/2 thìa cà phê muối. Bật nút nấu chín tự nhiên.',
+          'Khi cơm chín bật nút giữ ấm, dùng đũa xới tơi hạt cơm. Hạt cơm chín tới dẻo ngọt, thơm lừng hương mỡ gà và vàng ươm óng ả bắt mắt.',
+        ],
+        description:
+          'Xào gạo ráo cùng mỡ gà phi hành tỏi cho se hạt. Nấu cơm bằng nước luộc gà pha chút nghệ cho hạt cơm vàng óng ả, dẻo thơm béo ngậy chuẩn quán.',
+        tip: 'Xào gạo với mỡ gà trước khi nấu giúp hạt cơm chín không bị nát, giữ trọn phom hạt cơm căng bóng và dẻo bùi chuẩn phong vị cơm gà Hải Nam / Quảng Đông.',
+      },
+      {
+        step: 4,
+        title: 'Quay gà 2 lửa chuẩn nhiệt - Da nổ giòn bóng bẩy & Nấu sốt mật ong rưới cơm',
+        time: '35 phút',
+        heat: 'Lần 1: 180°C - Lần 2: 215°C',
+        goal: 'Thịt gà chín mềm mọng nước không khô, da gà giòn rụm bóng bẩy màu cánh gián, sốt mật sánh kẹo óng ả',
+        actionPoints: [
+          'Làm nóng lò nướng hoặc nồi chiên không dầu ở nhiệt độ 180°C trong 5 phút.',
+          'Quay lần 1 (Chín thấu thịt): Đặt đùi gà lên vỉ nướng, quay ở nhiệt độ 180°C trong 22 - 25 phút để phần thịt bên trong chín mềm từ từ, mỡ thừa dưới da gà nhỏ giọt xuống khay hứng bên dưới.',
+          'Pha hỗn hợp quét da: Lấy phần nước sốt mật ong còn lại trộn cùng 1 thìa mật ong tươi và 1 thìa dầu màu điều.',
+          'Quay lần 2 (Lên màu giòn da): Lấy gà ra, dùng chổi quét đều một lớp sốt mật ong óng ánh lên toàn bộ mặt da gà. Tăng nhiệt độ lò lên 215°C - 220°C, nướng tiếp trong 8 - 10 phút. Quan sát thấy lớp da gà phồng rộp nhẹ, nổ li ti màu nâu đỏ cánh gián óng ánh thì lấy ra ngay.',
+          'Nấu nước sốt gà quay: Thu lại phần nước cốt gà và gia vị chảy xuống khay nướng cho vào nồi nhỏ, thêm 1 thìa nước tương, 1 thìa mật ong, đun sôi lăn tăn rồi xuống chút bột năng pha loãng đảo đều đến khi nước sốt sánh kẹo, bóng loáng.',
+        ],
+        description:
+          'Nướng gà lần 1 ở 180°C trong 25 phút cho chín thấu. Quét sốt mật ong dầu điều lên da, nướng lần 2 ở 215°C trong 10 phút cho da nổ giòn bóng bẩy. Nấu nước sốt sánh kẹo đậm đà.',
+        tip: 'Quy tắc nướng 2 lửa là bí mật của các quán cơm gà quay trứ danh: Lửa vừa làm thịt chín ngọt mềm, lửa lớn quét mật ong làm da nổ giòn rụm màu cánh gián mà không bị khô thịt.',
+      },
+      {
+        step: 5,
+        title: 'Chặt gà quay, xới cơm dẻo, rưới sốt mật & Thưởng thức trọn vị',
+        time: '5 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa cơm gà quay sốt mật vàng rực rỡ, thịt gà chặt miếng vuông vức da giòn bóng, cơm dẻo thơm nức mũi',
+        actionPoints: [
+          'Để đùi gà quay nghỉ trên thớt 5 phút cho thớ thịt ổn định nước ngọt bên trong, dùng dao bén chặt dứt khoát thành từng miếng vừa ăn (khoảng 4 - 5 miếng/đùi góc tư).',
+          'Nén cơm gà vàng óng vào bát con rồi úp tròn trịa ra giữa đĩa lớn.',
+          'Xếp từng miếng gà quay da giòn bóng bẩy cạnh phần cơm.',
+          'Dùng muôi rưới nước sốt mật ong sánh kẹo óng ả lên bề mặt thịt gà và chan nhẹ một chút lên cơm.',
+          'Bày đồ chua cà rốt củ cải, vài lát dưa leo giòn mát, cà chua bi và vài nhánh rau răm thơm nồng bên cạnh.',
+          'Thưởng thức ngay khi còn nóng hổi cùng bát canh súp luộc gà và chén nước tương ớt hiểm cay xé lưỡi.',
+        ],
+        description:
+          'Chặt đùi gà quay thành từng miếng vừa ăn, xếp cạnh đĩa cơm vàng óng. Rưới đẫm nước sốt mật ong sánh kẹo, trang trí đồ chua, dưa leo, rau răm và thưởng thức kèm chén súp nóng.',
+        tip: 'Để gà nguội bớt 5 phút trước khi chặt giúp lớp da giòn không bị bung tuột khỏi miếng thịt, giữ phom miếng gà đẹp mắt nguyên vẹn.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng tạo nên món cơm gà quay sốt mật chuẩn quán: 1. Dội nước sôi pha giấm mật ong lên da gà và thấm thật khô trước khi ướp giúp lớp da căng bóng, khi nướng da nổ giòn rụm mà không bị dai; 2. Nướng 2 lửa: Lần 1 nướng 180°C cho thịt chín ngọt mềm ráo mỡ, lần 2 tăng nhiệt 215°C quét sốt mật ong giúp da lên màu cánh gián óng ả không bị khét; 3. Nấu cơm bằng gạo xào mỡ gà và nước dùng gà nghệ giúp hạt cơm dẻo thơm béo bùi, vàng ruộm từng hạt chuẩn vị cơm gà nhà hàng.',
+    recommendedSauce:
+      'Nước sốt mật ong ngũ vị sánh kẹo nâu cánh gián rưới đẫm lên từng thớ thịt gà mọng nước, hòa cùng chén nước tương xì dầu tỏi ớt hiểm cay the ấm nồng và bát canh súp gà ngọt thanh đậm vị.',
+  },
+
+  'com-suon-cay-thai-lan': {
+    dishId: 'com-suon-cay-thai-lan',
+    dishName: 'Cơm Sườn Cay Thơm Ngon Đậm Đà Chuẩn Quán',
+    seoTitle: 'Cách Làm Cơm Sườn Cay Thơm Ngon Đậm Đà Chuẩn Quán',
+    ratingValue: '4.9',
+    reviewCount: 374,
+    prepTime: '25 phút (khử tanh, chần sườn & giã ớt)',
+    cookTime: '50 phút (ninh sườn mềm rục & pha sốt cay)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Sườn heo cụm to & Khử sạch mùi hôi',
+        items: [
+          '1kg sườn heo cây / sườn tảng non (chọn phần nhiều thịt, tươi hồng)',
+          '1 củ gừng tươi giã dập, 2 thìa canh rượu trắng, 1 thìa canh muối hạt',
+          '2 thìa canh giấm gạo (chần sườn giúp sườn sạch bọt bẩn và nhanh mềm)',
+        ],
+      },
+      {
+        category: 'Thảo mộc hầm sườn ngọt thanh nước dùng',
+        items: [
+          '1 củ hành tây bổ đôi nướng xém, 5 củ hành tím khô đập dập',
+          '5 rễ ngò rí (mùi tàu) rửa sạch đất (linh hồn tạo mùi thơm nước hầm)',
+          '1 thìa cà phê tiêu sọ trắng giã dập, 1 thìa canh muối hạt',
+        ],
+      },
+      {
+        category: 'Bí quyết Nước sốt ớt hiểm ngò gai cay nồng ngạt ngào (Sốt Thái)',
+        items: [
+          '60g - 80g ớt hiểm xanh & ớt hiểm đỏ tươi (đập giã nhẹ, không băm nát)',
+          '1 bó ngò gai (mùi tàu) xắt nhỏ, 1/2 bó ngò rí tươi xắt nhỏ',
+          '1.5 bát nước dùng hầm sườn heo trong veo',
+          '3 thìa canh nước mắm ngon thượng hạng, 2 thìa canh nước cốt chanh tươi',
+          '1.5 thìa canh đường thốt nốt (hoặc đường cát), 1 thìa cà phê hạt nêm',
+          '4 tép tỏi ta băm nhuyễn',
+        ],
+      },
+      {
+        category: 'Cơm trắng dẻo thơm & Đồ ăn kèm',
+        items: [
+          '3 bát cơm trắng nấu dẻo hạt (gạo ST25 hoặc Jasmine)',
+          '1 đĩa dưa leo cắt lát, cà chua bi, vài nhánh ngò rí tươi',
+          '1 bát nước dùng ninh sườn nóng hổi rắc ngò gai thanh ngọt',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế sườn heo, khử mùi hôi & Chần sườn sạch tinh',
+        time: '15 phút',
+        heat: 'Lửa lớn',
+        goal: 'Sườn heo sạch hoàn toàn mùi hôi, miếng sườn trắng sạch bọt bẩn để nước hầm trong veo',
+        actionPoints: [
+          'Sườn heo mua về chặt khúc lớn khoảng 8 - 10cm (hoặc để nguyên cụm sườn cây lớn). Bóp kỹ sườn với muối hạt, gừng giã dập và 2 thìa canh rượu trắng trong 5 phút để khử mùi hôi.',
+          'Đun sôi nồi nước lớn với 2 thìa canh giấm gạo và 1/2 thìa muối. Thả sườn vào chần sôi bùng trong 2 - 3 phút cho nổi toàn bộ bọt bẩn và tiết thừa ra ngoài.',
+          'Vớt sườn ra lập tức xả rửa lại thật sạch dưới vòi nước lạnh, cọ rửa kỹ từng kẽ xương cho miếng sườn trắng sạch tinh.',
+        ],
+        description:
+          'Khử tanh sườn heo bằng gừng và rượu trắng. Chần sườn trong nước sôi pha giấm muối 3 phút rồi xả rửa lại dưới vòi nước lạnh cho sạch tinh bọt bẩn.',
+        tip: 'Chần sườn kỹ giúp loại bỏ hoàn toàn bọt bẩn, khi ninh nước hầm sẽ trong veo, ngọt thanh và sườn thơm ngon tuyệt đối.',
+      },
+      {
+        step: 2,
+        title: 'Ninh sườn mềm rục róc xương & Nấu nước hầm ngọt thanh thảo mộc',
+        time: '45 phút',
+        heat: 'Lửa vừa nhỏ',
+        goal: 'Thịt sườn chín mềm rục róc xương nhưng không bị nát, nước hầm thơm lừng rễ ngò rí và hành tây',
+        actionPoints: [
+          'Đun sôi 2.5 lít nước trong nồi lớn. Thả hành tây nướng xém, 5 củ hành tím đập dập, 5 rễ ngò rí và tiêu sọ trắng giã dập vào.',
+          'Khi nước sôi bùng, thả toàn bộ sườn heo đã sạch vào nồi. Nêm 1 thìa canh muối hạt.',
+          'Khi nồi sườn sôi trở lại, hạ lửa vừa nhỏ, hớt sạch bọt trắng nổi lên mặt. Đậy vung hờ ninh trong 40 - 45 phút cho thịt sườn chín mềm nhừ róc xương.',
+          'Thử độ chín: Dùng đũa đâm nhẹ thấy xiên qua thớ thịt dễ dàng, thịt mềm rục nhưng vẫn bám chắc trên thanh xương là đạt.',
+        ],
+        description:
+          'Ninh sườn heo với hành tây nướng, rễ ngò rí và tiêu sọ trên lửa vừa nhỏ trong 45 phút. Hớt bọt liên tục cho nước dùng ngọt thanh trong veo và thịt sườn mềm rục.',
+        tip: 'Nêm rễ ngò rí rửa sạch vào nồi nước hầm sườn là bí quyết tạo nên hương vị thơm dịu đặc trưng chuẩn phong vị sườn cay trứ danh.',
+      },
+      {
+        step: 3,
+        title: 'Pha nước sốt ớt hiểm ngò gai chua cay nồng nàn (Linh hồn món sườn cay)',
+        time: '10 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Hỗn hợp sốt sườn cay đậm đà vị mặn ngọt chua cay đan xen ngạt ngào hương ngò gai và ớt hiểm',
+        actionPoints: [
+          'Cho ớt hiểm xanh và đỏ vào cối đập giã dập nhẹ (không giã nát quá để sốt giữ màu rực rỡ và độ cay nồng vừa phải).',
+          'Trong âu lớn, múc 1.5 bát nước dùng hầm sườn heo nóng hổi.',
+          'Thêm 3 thìa canh nước mắm ngon, 2 thìa canh nước cốt chanh tươi, 1.5 thìa canh đường thốt nốt, 1 thìa cà phê hạt nêm và tỏi băm nhuyễn vào. Khuấy đều cho đường tan hoàn toàn.',
+          'Nếm thử nước sốt: Đạt chuẩn là vị đậm đà mặn ngọt hài hòa, chua thanh dịu nhẹ và cay the bùng nổ vị giác.',
+          'Cho toàn bộ ớt hiểm giã dập, ngò gai thái nhỏ và ngò rí vào âu sốt khuấy đều.',
+        ],
+        description:
+          'Giã dập ớt hiểm xanh đỏ. Pha nước hầm sườn cùng nước mắm, nước cốt chanh, đường thốt nốt, tỏi băm và ngò gai xắt nhỏ tạo hỗn hợp sốt chua cay đậm đà.',
+        tip: 'Luôn cho nước cốt chanh vào cuối cùng khi nước dùng đã nguội bớt để giữ trọn vị chua thanh tươi mát và không bị đắng.',
+      },
+      {
+        step: 4,
+        title: 'Xếp sườn heo mọng nước & Rưới sốt ớt hiểm cay nồng ngạt ngào',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Khối sườn mềm rục ngập tràn nước sốt ớt hiểm xanh đỏ rực rỡ bốc khói ngào ngạt',
+        actionPoints: [
+          'Dùng kẹp gắp từng cụm sườn heo chín mềm nhừ ra đĩa sâu lòng (hoặc xếp đan xen chồng lên nhau thành tháp sườn cay bắt mắt).',
+          'Đun nóng nhẹ âu nước sốt ớt hiểm ngò gai trên bếp khoảng 1 phút cho dậy mùi thơm phức.',
+          'Dùng muôi múc rưới đẫm nước sốt ớt hiểm cùng ngò gai xanh mướt lên khắp các bề mặt cụm sườn heo.',
+          'Chan thêm 2 - 3 muỗng nước sốt xuống lòng đĩa cho sườn ngập đẫm gia vị.',
+        ],
+        description:
+          'Xếp cụm sườn heo mềm rục ra đĩa sâu lòng. Múc rưới đẫm nước sốt ớt hiểm ngò gai nóng hổi lên khắp bề mặt sườn heo.',
+        tip: 'Rưới sốt khi nước sốt đang ấm nóng giúp thịt sườn hút trọn vị chua cay mặn ngọt vào từng thớ thịt mềm ngọt.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày cơm trắng nóng hổi & Thưởng thức trọn vị chuẩn quán',
+        time: '5 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa cơm sườn cay thơm phức, thịt sườn mềm róc xương đậm đà, ăn cùng cơm dẻo và dưa leo mát lạnh',
+        actionPoints: [
+          'Múc cơm trắng nóng hổi ra đĩa lớn.',
+          'Xếp cụm sườn cay đậm đà ngập sốt bên cạnh phần cơm.',
+          'Bày vài lát dưa leo giòn mát, cà chua bi và vài nhánh ngò rí tươi trang trí.',
+          'Chan thêm vài thìa nước sốt ớt hiểm cay nồng lên cơm trắng.',
+          'Thưởng thức ngay khi còn nóng hổi. Dùng tay gỡ từng thớ thịt sườn mềm rục róc xương, chấm đẫm nước sốt chua cay xé lưỡi ăn kèm cơm dẻo và ly trà chanh mát lạnh.',
+        ],
+        description:
+          'Xới cơm trắng nóng hổi ra đĩa, đặt cụm sườn cay mềm rục đẫm sốt bên cạnh. Chan nhẹ nước sốt ớt hiểm, dùng nóng cùng dưa leo giòn mát.',
+        tip: 'Ăn kèm dưa leo tươi giòn xắt lát và ly trà chanh mát lạnh giúp cân bằng hoàn hảo vị cay nồng của sốt ớt hiểm.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng bất bại để làm cơm sườn cay ngon chuẩn quán: 1. Khử hôi & chần sườn kỹ: Bóp gừng rượu và chần sườn với nước sôi giấm muối giúp nước hầm ngọt thanh trong veo, không hôi; 2. Ninh sườn cùng rễ ngò rí và hành tây nướng: Giúp thịt sườn mềm rục róc xương và dậy mùi thơm thảo mộc dịu nhẹ; 3. Nước sốt ớt hiểm ngò gai chuẩn vị: Pha nước hầm sườn với nước mắm ngon, chanh tươi, đường thốt nốt và ớt hiểm giã dập tạo vị chua cay mặn ngọt đậm đà bùng nổ.',
+    recommendedSauce:
+      'Nước sốt ớt hiểm ngò gai chua cay mặn ngọt bùng nổ rưới đẫm lên từng thớ thịt sườn heo hầm mềm rục róc xương, ăn cùng đĩa cơm trắng dẻo thơm và ly trà chanh mát lạnh.',
+  },
+  'com-canh-kim-chi': {
+    dishId: 'com-canh-kim-chi',
+    dishName: 'Cơm Canh Kim Chi Thịt Heo Đậu Phụ Thanh Mát',
+    seoTitle: 'Cách Nấu Cơm Canh Kim Chi Thanh Mát, Đậm Đà Chuẩn Cơm Nhà',
+    ratingValue: '4.9',
+    reviewCount: 382,
+    prepTime: '15 phút (thái thịt, xắt kim chi & sơ chế đậu hũ)',
+    cookTime: '25 phút (xào thịt, hầm canh kim chi bốc khói)',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Kim Chi Cải Cúc & Thịt Ba Chỉ Heo Tươi',
+        items: [
+          '300g kim chi cải thảo muối chua ngon (cắt khúc vừa ăn, giữ 100ml nước kim chi)',
+          '250g thịt ba chỉ heo tươi (thái mỏng vừa ăn)',
+          '1 hộp đậu hũ non (hoặc đậu phụ trắng, cắt khối vuông)',
+        ],
+      },
+      {
+        category: 'Gia Vị & Nước Dùng Thanh Ngọt Chuẩn Vị',
+        items: [
+          '1 thìa canh ớt bột Hàn Quốc Gochugaru (tạo màu đỏ tươi rực rỡ)',
+          '1 thìa canh tương ớt Hàn Quốc Gochujang (tạo độ sánh đậm đà)',
+          '1 thìa canh nước mắm ngon thượng hạng, 1/2 thìa cà phê đường',
+          '1 thìa canh dầu mè thơm, 3 tép tỏi băm nhuyễn, 1 củ hành tím băm',
+          '800ml nước dùng dashi cá bào tảo bẹ (hoặc nước hầm xương thanh ngọt)',
+        ],
+      },
+      {
+        category: 'Rau Thơm & Đồ Ăn Kèm Cơm Trắng',
+        items: [
+          '2 nhánh hành poireau (hành tỏi tây) xắt xéo, 1 quả ớt hiểm xanh đỏ',
+          '3 bát cơm trắng dẻo nóng hổi (gạo ST25 hoặc gạo Nhật)',
+          '1 đĩa dưa leo xắt lát, trứng ốp la lòng đào hoặc rong biển sấy ăn kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế ba chỉ heo, kim chi cải thảo & đậu hũ non',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt ba chỉ thái mỏng ngấm nhẹ gia vị, kim chi giòn chua và đậu hũ non cắt khối đẹp mắt',
+        actionPoints: [
+          'Thịt ba chỉ heo rửa sạch, thái lát mỏng vừa ăn. Bóp nhẹ thịt với 1/2 thìa cà phê hạt nêm và tỏi băm cho ngấm gia vị.',
+          'Kim chi cải thảo cắt khúc 2 - 3cm. Vắt nhẹ lấy khoảng 100ml nước kim chi chua để riêng.',
+          'Đậu hũ non cắt khối vuông vừa ăn. Hành poireau và ớt hiểm xắt lát xéo.',
+        ],
+        description:
+          'Thái mỏng ba chỉ heo, cắt khúc kim chi cải thảo giữ lại nước cốt. Đậu hũ non cắt khối vuông và xắt xéo hành poireau.',
+        tip: 'Vắt giữ lại nước kim chi muối chua là bí quyết cốt lõi giúp nước canh có vị chua thanh êm dịu gài vị ngọt tự nhiên.',
+      },
+      {
+        step: 2,
+        title: 'Xào săn thịt ba chỉ & xào ngấm kim chi đậm đà',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Thịt ba chỉ béo bùi xào săn tiết mỡ thơm ngạt ngào, kim chi thấm ngập ớt bột đỏ tươi',
+        actionPoints: [
+          'Đặt nồi (hoặc niêu đất) lên bếp, cho 1 thìa canh dầu mè. Cho tỏi băm và hành tím vào phi thơm.',
+          'Cho thịt ba chỉ vào xào trên lửa vừa trong 2 - 3 phút cho thịt săn lại và tiết nhẹ mỡ thơm.',
+          'Trút toàn bộ kim chi đã cắt vào xào cùng thịt ba chỉ. Thêm 1 thìa canh ớt bột Gochugaru và 1 thìa canh tương ớt Gochujang vào đảo đều trong 3 phút cho kim chi thấm ngấm vị.',
+        ],
+        description:
+          'Phi thơm tỏi hành với dầu mè, xào săn thịt ba chỉ rồi cho kim chi cùng ớt bột Gochugaru và tương ớt Gochujang vào xào ngấm.',
+        tip: 'Xào kỹ kim chi với thịt ba chỉ và dầu mè giúp kim chi mềm giòn đậm đà và nước canh không bị gắt.',
+      },
+      {
+        step: 3,
+        title: 'Nấu canh kim chi bùng vị chua cay thanh ngọt',
+        time: '15 phút',
+        heat: 'Lửa nhỏ ninh riu riu',
+        goal: 'Nước canh kim chi sóng sánh màu đỏ rực rỡ, vị chua cay đậm đà êm dịu ngọt hậu',
+        actionPoints: [
+          'Trút 800ml nước dùng dashi (hoặc nước hầm xương/nước lọc) cùng 100ml nước kim chi chua đã chắt vào nồi.',
+          'Nêm 1 thìa canh nước mắm ngon, 1/2 thìa cà phê đường để cân bằng vị chua gắt của kim chi.',
+          'Đun sôi bùng, sau đó hạ lửa vừa ninh riu riu trong 12 - 15 phút cho kim chi mềm ngọt và tiết trọn vị ngon vào nước canh.',
+        ],
+        description:
+          'Đổ nước dùng và nước kim chi vào nồi. Nêm nước mắm, đường đun sôi rồi ninh riu riu 15 phút cho canh đậm đà thanh ngọt.',
+        tip: 'Ninh canh lửa riu riu giúp thịt ba chỉ tiết vị ngọt mỡ béo bùi hòa quyện hoàn hảo vào nước canh kim chi.',
+      },
+      {
+        step: 4,
+        title: 'Thả đậu hũ non & hoàn thiện niêu canh bốc khói ngạt ngào',
+        time: '5 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Mỗi khối đậu hũ non trắng mịn ngấm ngáp nước canh chua cay, rực rỡ hành ớt bốc khói',
+        actionPoints: [
+          'Nhẹ nhàng thả từng khối đậu hũ non vào nồi canh (dùng muôi xếp cẩn thận tránh làm vỡ đậu).',
+          'Đun sôi nhẹ thêm 3 - 5 phút cho đậu hũ ngấm vị ấm nóng.',
+          'Rắc hành poireau xắt xéo và vài lát ớt hiểm rực rỡ lên mặt canh, tắt bếp ngay khi canh đang bốc khói nghi ngút.',
+        ],
+        description:
+          'Thả đậu hũ non vào ninh nhẹ 3 phút. Rắc hành poireau và ớt hiểm xắt lát lên mặt niêu canh bốc khói.',
+        tip: 'Thả đậu hũ non vào bước cuối cùng giúp đậu giữ trọn độ mềm mịn tan trong miệng không bị nát.',
+      },
+      {
+        step: 5,
+        title: 'Thưởng thức cơm canh kim chi nóng hổi chuẩn cơm nhà',
+        time: '5 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Bát cơm dẻo chan ngập nước canh kim chi chua cay ấm bụng, thịt béo đậu mềm tròn vị',
+        actionPoints: [
+          'Múc cơm trắng dẻo nóng hổi ra bát.',
+          'Dọn niêu canh kim chi thịt heo đậu phụ bốc khói ngào ngạt ra giữa bàn.',
+          'Chan ngập nước canh chua cay nóng hổi lên bát cơm dẻo, gắp miếng thịt ba chỉ béo bùi cùng khối đậu hũ non tan mềm.',
+        ],
+        description:
+          'Múc cơm trắng dẻo nóng hổi ra bát, chan ngập nước canh kim chi bốc khói béo bùi chua cay, ăn kèm dưa leo và trứng ốp la.',
+        tip: 'Thưởng thức khi canh kim chi còn nóng hổi ngạt ngào khói tỏa giúp ấm bụng và tròn vị nhất.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu canh kim chi chua cay đậm đà chuẩn cơm nhà: 1. Chọn kim chi muối chua kỹ: Kim chi muối đủ độ chua xào kỹ với thịt ba chỉ giúp nước canh có vị chua sâu thanh nhẹ, không bị gắt; 2. Thêm nước kim chi & đường thốt nốt/đường cát: Cân bằng vị chua gắt giúp nước dùng êm dịu ngọt hậu; 3. Dùng nước dùng dashi hoặc nước hầm xương: Tạo độ ngọt thanh sâu lắng cho bát canh kim chi ấm nóng ngọt lành.',
+    recommendedSauce:
+      'Nước canh kim chi chua cay đậm đà bốc khói nghi ngút, chan ngập bát cơm trắng nóng hổi ăn cùng thịt ba chỉ béo bùi và đậu hũ non mềm mịn tan trong miệng.',
+  },
 };
 
 /**
@@ -12002,6 +12560,12 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'com-nieu-bo-sot-tieu-den': 'cach-lam-com-nieu-bo-sot-tieu-den',
   'com-tam-suon-bi-cha': 'cach-lam-com-suon-nuong-mat-ong',
   'com-chien-duong-chau': 'cach-lam-com-chien-duong-chau',
+  'com-chien-hai-san': 'cach-lam-com-chien-hai-san',
+  'com-ga-quay-xe-phay': 'cach-lam-com-ga-quay-sot-mat',
+  'com-ga-quay-sot-mat': 'cach-lam-com-ga-quay-sot-mat',
+  'com-suon-cay-thai-lan': 'cach-lam-com-suon-cay',
+  'com-suon-cay': 'cach-lam-com-suon-cay',
+  'com-canh-kim-chi': 'cach-nau-com-canh-kim-chi',
 };
 
 /**
@@ -12092,6 +12656,28 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-com-chien-duong-chau': 'com-chien-duong-chau',
   'cach-lam-com-chien-duong-chau-hat-com-san-gion': 'com-chien-duong-chau',
   'cach-nau-com-chien-duong-chau-hat-com-san-gion': 'com-chien-duong-chau',
+  'com-chien-hai-san': 'com-chien-hai-san',
+  'cach-lam-com-chien-hai-san': 'com-chien-hai-san',
+  'cach-nau-com-chien-hai-san': 'com-chien-hai-san',
+  'cach-lam-com-chien-hai-san-hat-com-san-gion': 'com-chien-hai-san',
+  'cach-nau-com-chien-hai-san-hat-com-san-gion': 'com-chien-hai-san',
+  'com-ga-quay-xe-phay': 'com-ga-quay-xe-phay',
+  'com-ga-quay-sot-mat': 'com-ga-quay-xe-phay',
+  'cach-lam-com-ga-quay-sot-mat': 'com-ga-quay-xe-phay',
+  'cach-nau-com-ga-quay-sot-mat': 'com-ga-quay-xe-phay',
+  'cach-lam-com-ga-quay-sot-mat-thom-ngon-dam-da-chuan-quan': 'com-ga-quay-xe-phay',
+  'cach-nau-com-ga-quay-sot-mat-thom-ngon-dam-da-chuan-quan': 'com-ga-quay-xe-phay',
+  'com-suon-cay-thai-lan': 'com-suon-cay-thai-lan',
+  'com-suon-cay': 'com-suon-cay-thai-lan',
+  'cach-lam-com-suon-cay': 'com-suon-cay-thai-lan',
+  'cach-nau-com-suon-cay': 'com-suon-cay-thai-lan',
+  'cach-lam-com-suon-cay-thom-ngon-dam-da-chuan-quan': 'com-suon-cay-thai-lan',
+  'cach-nau-com-suon-cay-thom-ngon-dam-da-chuan-quan': 'com-suon-cay-thai-lan',
+  'com-canh-kim-chi': 'com-canh-kim-chi',
+  'cach-nau-com-canh-kim-chi': 'com-canh-kim-chi',
+  'cach-lam-com-canh-kim-chi': 'com-canh-kim-chi',
+  'cach-nau-com-canh-kim-chi-thanh-mat-dam-da-chuan-com-nha': 'com-canh-kim-chi',
+  'cach-lam-com-canh-kim-chi-thanh-mat-dam-da-chuan-com-nha': 'com-canh-kim-chi',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

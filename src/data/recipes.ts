@@ -12215,6 +12215,127 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Nước sốt tương (xì dầu) đun kẹo mặn ngọt cay nồng ớt hiểm rưới ngập lên đĩa xôi nếp dẻo thơm óng ả, quyện chặt cùng lạp xưởng, tôm khô xào, chả lụa và mỡ hành thơm nức mũi.',
   },
+  'xoi-chien-gion-nhan-thit': {
+    dishId: 'xoi-chien-gion-nhan-thit',
+    dishName: 'Xôi Chiên Nhân Thịt Giòn Rụm Dẻo Thơm Chuẩn Vị',
+    seoTitle: 'Cách Nấu Xôi Chiên Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống',
+    ratingValue: '4.9',
+    reviewCount: 376,
+    prepTime: '20 phút (ngâm nếp, xào nhân thịt nấm mèo & ép khuôn bánh xôi)',
+    cookTime: '25 phút (đồ xôi dẻo & chiên phồng vàng rụm 2 mặt)',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Gạo Nếp Ngon & Đồ Xôi Dẻo Thơm',
+        items: [
+          '400g gạo nếp cái hoa vàng (hạt tròn mẩy, ngâm nước ấm 6 - 8 tiếng)',
+          '1/2 thìa cà phê muối hạt, 1 thìa canh dầu ăn / mỡ heo (trộn gạo nếp bóng mượt)',
+        ],
+      },
+      {
+        category: 'Nhân Thịt Băm Nấm Mèo Đậm Đà Kẹp Xôi',
+        items: [
+          '200g thịt heo băm nhỏ (chọn phần thịt vai có chút mỡ cho bùi mềm)',
+          '3 tai nấm mèo (mộc nhĩ) ngâm nở, rửa sạch thái hạt lựu nhỏ',
+          '1/2 củ củ sắn / củ cải bào mỏng vắt ráo nước (tạo độ ngọt giòn cho nhân)',
+          '3 củ hành khô tím băm nhuyễn, 2 tép tỏi băm',
+          '1 thìa canh nước mắm ngon, 1/2 thìa cà phê tiêu sọ xay, 1/2 thìa cà phê đường',
+        ],
+      },
+      {
+        category: 'Rưới Mỡ Hành, Chà Bông & Tương Ớt Ăn Kèm',
+        items: [
+          '1 bó hành lá tươi (xắt nhỏ dội mỡ nóng làm mỡ hành xanh mướt)',
+          '50g chà bông thịt heo (ruốc thịt xù tơ bùi béo)',
+          '1 chai tương ớt cay nồng thượng hạng, mayonnaise ngậy béo',
+          'Dầu ăn ngập chảo để chiên xôi vàng phồng giòn rụm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ngâm nếp & đồ xôi chín dẻo quánh',
+        time: '20 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Hạt nếp nương chín tới dẻo quánh, căng bóng hạt xôi không bị nhão',
+        actionPoints: [
+          'Gạo nếp vo sạch, ngâm nước ấm pha chút muối hạt trong 6 - 8 tiếng cho gạo nở tròn mẩy. Vớt ra xả nhẹ nước, để ráo.',
+          'Trộn gạo nếp với 1 thìa canh dầu ăn. Cho gạo nếp vào xửng hấp, đồ trên lửa lớn trong 25 - 30 phút cho nếp chín dẻo quánh, hạt xôi căng bóng.',
+        ],
+        description:
+          'Ngâm gạo nếp 6 tiếng, trộn ít dầu ăn rồi đồ xôi chín dẻo quánh căng bóng 30 phút.',
+        tip: 'Trộn 1 thìa dầu ăn/mỡ heo vào gạo nếp ráo trước khi đồ giúp hạt xôi bóng mượt và khi cán mỏng bánh không bị dính bết.',
+      },
+      {
+        step: 2,
+        title: 'Xào nhân thịt băm nấm mèo giòn ngọt đậm đà',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nhân thịt băm nấm mèo khô ráo, thơm nức mùi tiêu sọ hành phi mặn ngọt đằm vị',
+        actionPoints: [
+          'Đun nóng 1 thìa canh dầu ăn, phi thơm hành tím băm và tỏi băm.',
+          'Trút thịt heo băm vào xào trên lửa vừa cho thịt săn lại.',
+          'Cho nấm mèo thái hạt lựu và củ sắn vắt ráo vào đảo đều trong 3 - 4 phút.',
+          'Nêm 1 thìa canh nước mắm ngon, 1/2 thìa cà phê tiêu sọ xay và 1/2 thìa cà phê đường. Xào đến khi nhân khô ráo, thơm nức thì tắt bếp.',
+        ],
+        description:
+          'Phi thơm hành tỏi, xào thịt băm với nấm mèo và củ sắn. Nêm nước mắm tiêu sọ đảo khô ráo thơm lừng.',
+        tip: 'Vắt ráo củ sắn và xào nhân thật khô ráo giúp khi kẹp vào lòng bánh xôi không làm mềm vỏ xôi chiên giòn.',
+      },
+      {
+        step: 3,
+        title: 'Ép khuôn bánh xôi tròn mỏng đều đặn',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Các chiếc bánh xôi tròn nhỏ xinh (dày 1cm), se mặt phẳng phiu',
+        actionPoints: [
+          'Khi xôi nếp vừa đồ xong còn nóng hổi, trút ra thớt có lót màng bọc thực phẩm (hoặc quết chút dầu ăn).',
+          'Dùng cây cán mỏng xôi nếp thành dải phẳng rộng khoảng 1cm. Dùng khuôn tròn (hoặc nắp chai/ly) cắt xôi thành các chiếc bánh tròn nhỏ xinh (đường kính 6 - 7cm).',
+          'Để các miếng bánh xôi trong tủ lạnh 30 phút (hoặc quạt mát) cho mặt xôi se lại nhẹ.',
+        ],
+        description:
+          'Cán xôi nếp mỏng 1cm lúc còn nóng, cắt thành các miếng bánh xôi tròn. Để quạt/tủ lạnh 30 phút cho mặt xôi se lại.',
+        tip: 'Ép bánh xôi dày vừa đúng 1cm giúp bánh xôi khi chiên vừa phồng giòn rụm lớp vỏ vừa giữ lòng dẻo thơm dẻo dai.',
+      },
+      {
+        step: 4,
+        title: 'Chiên xôi phồng vàng rụm 2 mặt trên lửa vừa',
+        time: '10 phút',
+        heat: 'Lửa vừa (160°C)',
+        goal: 'Chiếc bánh xôi chiên phồng xốp, vỏ ngoài vàng rụm giòn tan bên trong dẻo mềm',
+        actionPoints: [
+          'Đun nóng chảo ngập dầu ăn trên lửa vừa (dầu nóng vừa khoảng 160°C).',
+          'Thả từng bánh xôi vào chiên. Dùng kẹp lật liên tục trong 6 - 8 phút.',
+          'Chiên đến khi hai mặt bánh xôi phồng rộp, ngả màu vàng ươm giòn rụm bên ngoài thì vớt ra giấy thấm mỡ.',
+        ],
+        description:
+          'Thả bánh xôi vào chảo ngập dầu nóng lật liên tục 8 phút cho vỏ bánh phồng rộp giòn tan vàng ươm rồi vớt ra ráo dầu.',
+        tip: 'Chiên dầu ngập bánh và lật đảo liên tục giúp vỏ bánh xôi phồng rộp vàng ươm đồng đều không bị đọng mỡ.',
+      },
+      {
+        step: 5,
+        title: 'Kẹp nhân thịt, rưới mỡ hành & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Chiếc xôi chiên giòn tan ngập nhân thịt băm nấm mèo, mỡ hành xanh mướt chà bông tương ớt cay nồng',
+        actionPoints: [
+          'Dùng dao xẻ đôi bánh xôi chiên giòn theo chiều ngang (không xẻ đứt rời).',
+          'Múc ngập nhân thịt băm nấm mèo đậm đà kẹp vào lòng bánh xôi.',
+          'Phết muỗng mỡ hành xanh mướt, rắc chà bông xù tơ lên mặt bánh. Rưới tương ớt cay nồng và sốt mayonnaise béo ngậy.',
+          'Thưởng thức ngay khi bánh xôi chiên còn nóng hổi giòn rụm.',
+        ],
+        description:
+          'Xẻ đôi bánh xôi chiên giòn, kẹp ngập nhân thịt băm nấm mèo, phết mỡ hành, chà bông và rưới tương ớt thưởng thức.',
+        tip: 'Thưởng thức ngay khi vừa chiên xong để tận hưởng trọn vẹn độ giòn rụm rộn rã của vỏ xôi chiên kết hợp nhân thịt thơm phức.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm xôi chiên nhân thịt giòn rụm dẻo thơm chuẩn vị truyền thống: 1. Đồ xôi dẻo quánh & ép khuôn mỏng (1cm): Giúp bánh xôi khi chiên chín phồng giòn đều ngoài vỏ mà không bị cứng hay quá dày nếp; 2. Để xôi se mặt trước khi chiên: Tránh cho xôi bị hút dầu hay bị rã nát khi thả vào chảo dầu nóng; 3. Xào nhân thịt nấm mèo thật khô ráo: Tránh nhân chảy nước làm mềm vỏ xôi chiên giòn.',
+    recommendedSauce:
+      'Tương ớt cay nồng hòa quyện cùng mayonnaise béo ngậy rưới ngập lên chiếc bánh xôi chiên vỏ phồng vàng giòn rụm dẻo thơm, kẹp đẫm nhân thịt băm nấm mèo đậm đà ăn là mê.',
+  },
 };
 
 /**
@@ -13057,6 +13178,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'xoi-man-thap-cam': 'cach-nau-xoi-man-thap-cam',
   'xoi-man': 'cach-nau-xoi-man-thap-cam',
   'xoi-pate-lap-xuong': 'cach-nau-xoi-man-thap-cam',
+  'xoi-chien-gion-nhan-thit': 'cach-nau-xoi-chien',
+  'xoi-chien': 'cach-nau-xoi-chien',
 };
 
 /**
@@ -13205,6 +13328,14 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-xoi-pate-lap-xuong': 'xoi-man-thap-cam',
   'xoi-pate': 'xoi-man-thap-cam',
   'xoi-lap-xuong': 'xoi-man-thap-cam',
+  'xoi-chien-gion-nhan-thit': 'xoi-chien-gion-nhan-thit',
+  'xoi-chien': 'xoi-chien-gion-nhan-thit',
+  'cach-nau-xoi-chien': 'xoi-chien-gion-nhan-thit',
+  'cach-lam-xoi-chien': 'xoi-chien-gion-nhan-thit',
+  'cach-nau-xoi-chien-nhan-thit': 'xoi-chien-gion-nhan-thit',
+  'cach-lam-xoi-chien-nhan-thit': 'xoi-chien-gion-nhan-thit',
+  'cach-nau-xoi-chien-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-chien-gion-nhan-thit',
+  'cach-lam-xoi-chien-deo-thom-ong-a-chuan-vi-truyen-thong': 'xoi-chien-gion-nhan-thit',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

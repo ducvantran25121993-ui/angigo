@@ -13770,6 +13770,124 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Tô bánh canh ghẹ bốc khói nghi ngút rực rỡ sắc đỏ cam gạch ghẹ, con ghẹ xanh mẩy căng chắc thịt ngọt đậm đà, sợi bánh canh bột lọc dai giòn sần sật quyện nước dùng sánh béo ngậy thơm lừng tiêu sọ, chấm cùng chén muối ớt chanh tươi cay nồng ngon quên lối về.',
   },
+  'mien-xao-cua': {
+    dishId: 'mien-xao-cua',
+    dishName: 'Miến Xào Cua Mềm Mượt Tơi Săn',
+    seoTitle: 'Cách Làm Miến Xào Cua Mềm Mượt, Tơi Săn',
+    ratingValue: '4.9',
+    reviewCount: 418,
+    prepTime: '20 phút (sơ chế cua biển luộc gỡ thịt, ngâm miến dong, thái bắp cải & cà rốt sợi)',
+    cookTime: '15 phút (xào thịt cua gạch cua thơm lừng & xào miến dong tơi săn không bị vón nát)',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thịt Cua Biển Tươi & Gạch Cua Béo Bùi',
+        items: [
+          '250g thịt cua biển gỡ sẵn (hoặc 1 con cua thịt 700g luộc gỡ thịt)',
+          '1 chén gạch cua biển tươi',
+          '1 thìa canh dầu màu điều (chưng gạch cua đỏ cam)',
+          '1 thìa canh nước mắm ngon, 1/2 thìa cà phê tiêu sọ xay, 1 thìa cà phê hạt nêm',
+        ],
+      },
+      {
+        category: 'Miến Dong Điện Biên Tơi Săn & Rau Củ Tươi',
+        items: [
+          '250g miến dong Điện Biên / miến mộc (sợi xám trong, dai ngon)',
+          '100g cà rốt (thái sợi mỏng)',
+          '100g bắp cải / giá đỗ (rửa sạch xắt sợi)',
+          '5 tai mộc nhĩ (nấm mèo ngâm nở, thái sợi mỏng)',
+          '3 tép tỏi băm, 2 củ hành tím băm nhuyễn, 2 nhánh hành lá, 1 bó rau ngò rí',
+        ],
+      },
+      {
+        category: 'Sốt Xào Miến Cua Đậm Đà Kẹo Nhẹ',
+        items: [
+          '1.5 thìa canh dầu hàu thượng hạng, 1 thìa canh nước tương (xì dầu)',
+          '1 thìa canh dầu mè thơm, 1/2 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu sọ',
+          '1 chén nước tương xì dầu xắt ớt hiểm dùng kèm mì xào',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt cua biển, gạch cua & ướp thấm vị',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt cua biển thấm gia vị thơm nức, không bị tanh hay nát vụn',
+        actionPoints: [
+          'Thịt cua biển gỡ vắt nhẹ ráo nước, ướp với 1 thìa cà phê nước mắm ngon, 1/2 thìa cà phê tiêu sọ xay và 1 thìa cà phê hành tím băm nhuyễn trong 10 phút.',
+          'Cà rốt và bắp cải thái sợi mỏng. Mộc nhĩ ngâm nở rửa sạch thái sợi.',
+        ],
+        description:
+          'Ướp thịt cua biển với nước mắm ngon, tiêu sọ và hành tím băm 10 phút. Thái sợi cà rốt, bắp cải và mộc nhĩ.',
+        tip: 'Ướp thịt cua nhẹ tay với chút nước mắm ngon và tiêu sọ giúp thịt cua săn chắc thơm ngạt ngào khi xào.',
+      },
+      {
+        step: 2,
+        title: 'Ngâm chần miến dong tơi mềm & xả nước lạnh trộn dầu mè',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Sợi miến dong tơi bóng dẻo dai, không bị dính bệt hay vón nát khi xào',
+        actionPoints: [
+          'Miến dong ngâm nước ấm 10 phút cho sợi miến mềm dẻo.',
+          'Thả miến dong vào nồi nước sôi trụng nhanh 30 - 45 giây cho chín tới 80%, vớt ra ngay thau nước lạnh rồi vắt ráo.',
+          'Trộn miến dong với 1 thìa canh dầu mè thơm cho từng sợi miến tơi bóng.',
+        ],
+        description:
+          'Trụng miến dong 30 giây trong nước sôi, xả ngay nước lạnh vắt ráo rồi trộn 1 thìa dầu mè thơm cho tơi bóng.',
+        tip: 'Trụng miến 30 giây rồi xả nước lạnh trộn dầu mè là bí quyết giúp miến xào cua tơi săn từng sợi không bao giờ vón cục.',
+      },
+      {
+        step: 3,
+        title: 'Xào thịt cua & chưng gạch cua thơm lừng rực rỡ',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Gạch cua chưng dầu màu điều đỏ cam béo bùi, thịt cua săn thơm ngạt ngào',
+        actionPoints: [
+          'Đun nóng 1 thìa canh dầu màu điều, phi thơm tỏi băm và hành tím băm. Trút gạch cua vào chưng 1 phút cho béo ngậy.',
+          'Trút thịt cua biển gỡ xé sợi vào đảo nhẹ tay trên lửa lớn trong 2 phút cho thịt cua săn lại thơm phức rồi trút ra đĩa riêng.',
+        ],
+        description:
+          'Chưng gạch cua với dầu màu điều 1 phút, trút thịt cua vào xào lửa lớn 2 phút cho săn thơm rồi trút ra đĩa.',
+        tip: 'Xào thịt cua trên lửa lớn nhanh tay 2 phút rồi trút ra đĩa riêng giúp thịt cua giữ trọn độ mọng ngọt không bị trích nước.',
+      },
+      {
+        step: 4,
+        title: 'Xào rau củ giòn ngọt & đảo miến dong tơi săn ngấm sốt',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Rau củ giòn xanh mượt, sợi miến dong săn tơi ngấm đẫm sốt dầu hàu đậm đà',
+        actionPoints: [
+          'Phi thơm tỏi hành còn lại, trút cà rốt, mộc nhĩ và bắp cải/giá đỗ vào xào lửa lớn 2 phút.',
+          'Trút miến dong đã trụng tơi vào chảo, rưới hỗn hợp sốt xào miến. Đảo tơi nhẹ tay dồn dập trên lửa lớn 2 phút cho sợi miến săn bóng ngấm đẫm gia vị.',
+        ],
+        description:
+          'Xào cà rốt mộc nhĩ bắp cải 2 phút. Trút miến dong vào chảo rưới sốt xào đảo tơi nhẹ tay lửa lớn 2 phút cho miến săn ngấm vị.',
+        tip: 'Dùng đũa xới tơi miến liên tục trên lửa lớn giúp sợi miến hấp thụ hết nước sốt trở nên bóng mượt ngạt ngào.',
+      },
+      {
+        step: 5,
+        title: 'Trút thịt cua vào đảo bốc khói & thưởng thức nóng hổi',
+        time: '2 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa miến xào cua biển bốc khói ngạt ngào, sợi miến tơi săn quyện thịt cua đỏ au béo ngậy',
+        actionPoints: [
+          'Trút đĩa thịt cua xào gạch cua vào chảo miến. Đảo nhẹ tay dồn dập trên lửa lớn trong 1 phút cho nguyên liệu hòa quyện ngạt ngào rồi tắt bếp.',
+          'Múc miến xào cua ra đĩa lớn, rắc hành lá ngò rí, tiêu sọ xay và hành phi giòn rụm.',
+          'Thưởng thức ngay khi còn nóng hổi từng sợi miến tơi săn mềm mượt, thịt cua béo bùi ngọt lịm chấm xì dầu ớt hiểm.',
+        ],
+        description:
+          'Trút thịt cua vào chảo miến đảo nhẹ 1 phút bốc khói ngạt ngào, múc ra đĩa rắc tiêu hành phi và dùng nóng.',
+        tip: 'Rắc hành phi giòn rụm và tiêu sọ xay lúc mì bốc khói nghi ngút giúp aroma thịt cua bùng tỏa tuyệt đỉnh.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm miến xào cua biển mềm mượt tơi săn chuẩn bếp trưởng: 1. Trụng miến 30 giây & xả nước lạnh trộn dầu mè: Giúp từng sợi miến dong tơi bóng dẻo dai, xào lâu không bị bết dính hay vón nát; 2. Chưng gạch cua với dầu màu điều trước khi xào thịt cua: Giúp món miến xào cua bùi béo bốc mùi thơm rực rỡ óng ánh màu đỏ cam; 3. Đảo miến dồn dập trên lửa lớn với sốt dầu hàu: Giúp sợi miến săn lại và bám đẫm nước sốt đậm đà ngọt vị cua tự nhiên.',
+    recommendedSauce:
+      'Đĩa miến xào cua bốc khói ngào ngạt hương dầu mè, từng sợi miến dong tơi săn bóng mượt ngập thịt cua biển đỏ au béo ngậy, quyện mộc nhĩ cà rốt giòn ngọt sần sật, chấm thêm muỗng xì dầu tỏi ớt hiểm cay nồng ngon tuyệt đỉnh.',
+  },
 };
 
 /**
@@ -14636,6 +14754,7 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'mien-ga': 'cach-nau-mien-ga',
   'banh-canh-ghe-nguyen-con': 'cach-nau-banh-canh-ghe',
   'banh-canh-ghe': 'cach-nau-banh-canh-ghe',
+  'mien-xao-cua': 'cach-lam-mien-xao-cua',
 };
 
 /**
@@ -14873,6 +14992,13 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-banh-canh-ghe': 'banh-canh-ghe-nguyen-con',
   'cach-nau-banh-canh-ghe-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'banh-canh-ghe-nguyen-con',
   'cach-lam-banh-canh-ghe-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'banh-canh-ghe-nguyen-con',
+  'mien-xao-cua': 'mien-xao-cua',
+  'cach-lam-mien-xao-cua': 'mien-xao-cua',
+  'cach-nau-mien-xao-cua': 'mien-xao-cua',
+  'cach-lam-mien-xao-cua-mem-muot-toi-san': 'mien-xao-cua',
+  'cach-lam-mien-xao-cua-bien-mem-muot-toi-san-chuan-bep-truong': 'mien-xao-cua',
+  'cach-nau-mien-xao-cua-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mien-xao-cua',
+  'cach-lam-mien-xao-cua-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mien-xao-cua',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

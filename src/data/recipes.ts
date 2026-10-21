@@ -13654,6 +13654,122 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Tô miến gà bốc khói nghi ngút ngạt ngào mùi nấm hương và lá chanh tươi, sợi miến dong dai giòn trong vắt ngấm đẫm nước dùng gà ngọt lịm từ xương, thịt gà ta xé phay giòn da mọng nước chấm muối hạt tiêu chanh ớt hiểm ngon tuyệt đỉnh.',
   },
+  'banh-canh-ghe-nguyen-con': {
+    dishId: 'banh-canh-ghe-nguyen-con',
+    dishName: 'Bánh Canh Ghẹ Nguyên Con Nước Dùng Thanh Ngọt Chuẩn Vị',
+    seoTitle: 'Cách Nấu Bánh Canh Ghẹ Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    ratingValue: '4.9',
+    reviewCount: 462,
+    prepTime: '25 phút (sơ chế ghẹ xanh tươi sống, hấp sơ tách gạch, hầm xương heo & nhào bột bánh canh)',
+    cookTime: '35 phút (hầm nước dùng ghẹ sánh sệt béo ngậy, thả bánh canh bột lọc & chưng gạch ghẹ)',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Ghẹ Biển Tươi Xanh & Nước Dùng Hầm Xương Heo Thanh Ngọt',
+        items: [
+          '3 - 4 con ghẹ xanh tươi sống (khoảng 1.2kg, chắc thịt mẩy gạch)',
+          '500g xương ống heo (chần sạch hầm lấy 2 lít nước dùng trong ngọt)',
+          '2 củ hành tím băm, 1 củ hành tây, 2 thìa canh dầu màu điều (chưng gạch tạo màu đỏ cam sánh mượt)',
+          '1 thìa canh nước mắm ngon, 1/2 thìa cà phê hạt nêm, 1 thìa canh đường phèn',
+        ],
+      },
+      {
+        category: 'Sợi Bánh Canh Bột Lọc / Bột Gạo Mắt Rùa Sần Sật',
+        items: [
+          '500g bánh canh bột lọc / bột gạo tươi (sợi đục dẻo dai sần sật không bở)',
+          '200g chả cá mỏng chiên vàng / chả cua hấp',
+          '200g mết huyết heo (tiết heo) luộc chín xắt khối',
+          '2 thìa canh bột năng (hòa nước tạo độ sánh kẹo nhẹ cho nước dùng)',
+        ],
+      },
+      {
+        category: 'Rau Thơm & Gia Vị Ăn Kèm Chuẩn Vị Vùng Biển',
+        items: [
+          '1 bó hành lá, 1 bó ngò rí, 1/2 thìa cà phê tiêu sọ xay',
+          '1 chén muối ớt xắt chanh tươi / nước mắm ớt hiểm chấm thịt ghẹ ngọt lịm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế ghẹ tươi & hầm nước dùng xương heo thanh ngọt',
+        time: '40 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước dùng xương ống heo trong ngọt đậm đà, ghẹ xanh sơ chế sạch bùn cát',
+        actionPoints: [
+          'Xương ống heo chần nước sôi 3 phút rồi rửa sạch, hầm với 2.2 lít nước và 1 củ hành tây nướng 40 phút hớt bọt lấy 2 lít nước hầm ngọt lịm.',
+          'Ghẹ xanh tươi đâm ức ngắt bặt, rửa sạch. Tách mai ghẹ khều gạch để riêng vào chén nhỏ, gỡ yếm và phổi.',
+        ],
+        description:
+          'Hầm 500g xương ống heo với 2.2 lít nước 40 phút hớt bọt lấy nước dùng ngọt. Ghẹ xanh đâm ức rửa sạch, tách mai khều gạch riêng.',
+        tip: 'Tách mai ghẹ nhẹ tay giữ nguyên khối gạch ghẹ béo bùi không bị nát.',
+      },
+      {
+        step: 2,
+        title: 'Hấp ghẹ xanh chín tới đỏ au & gỡ thịt / giữ nguyên con',
+        time: '12 phút',
+        heat: 'Lửa vừa',
+        goal: 'Ghẹ xanh chín tới đỏ au rực rỡ, thịt ghẹ căng mọng ngọt lịm không bị khô',
+        actionPoints: [
+          'Hấp ghẹ xanh với vài cọng sả đập dập 10 - 12 phút cho ghẹ vừa chuyển màu đỏ cam rực rỡ.',
+          'Vớt ghẹ ra. Tùy thích gỡ phần thịt thân và càng ghẹ để riêng, hoặc giữ nguyên con ghẹ hấp phục vụ cho bắt mắt.',
+        ],
+        description:
+          'Hấp ghẹ xanh với sả đập dập 12 phút cho chín tới đỏ au mọng ngọt. Vớt ra gỡ thịt hoặc giữ nguyên con.',
+        tip: 'Hấp ghẹ với sả tươi giúp thịt ghẹ bít kín vị ngọt mọng tự nhiên và bùng tỏa mùi thơm quyến rũ.',
+      },
+      {
+        step: 3,
+        title: 'Chưng gạch ghẹ màu đỏ điều & nấu nước dùng bánh canh sánh béo',
+        time: '10 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước dùng bánh canh màu đỏ cam óng mượt, sánh kẹo nhẹ béo bùi ngạt ngào hương biển',
+        actionPoints: [
+          'Phi thơm hành tím với dầu màu điều, trút chén gạch ghẹ vào chưng 2 phút cho ngả màu đỏ cam óng mượt.',
+          'Trút gạch ghẹ chưng cùng nước hấp ghẹ vào nồi nước hầm xương heo. Nêm nước mắm ngon, đường phèn, hạt nêm và tiêu sọ.',
+          'Rưới nước bột năng đun sôi khuấy nhẹ tay cho nước dùng đạt độ sánh kẹo nhẹ béo ngậy.',
+        ],
+        description:
+          'Chưng gạch ghẹ với dầu màu điều 2 phút. Trút vào nồi nước hầm xương, nêm mắm ngon, đường phèn và rưới bột năng tạo độ sánh kẹo.',
+        tip: 'Chưng gạch ghẹ với dầu màu điều giúp bát bánh canh ghẹ có sắc đỏ cam rực rỡ béo ngậy chuẩn phong vị vùng biển.',
+      },
+      {
+        step: 4,
+        title: 'Trụng sợi bánh canh bột lọc dẻo dai sần sật',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Sợi bánh canh ngấm đẫm vị béo ngọt của nước dùng, dẻo dai sần sật không bị bở',
+        actionPoints: [
+          'Bánh canh bột lọc chần qua nước sôi 1 phút cho tơi.',
+          'Thả trực tiếp bánh canh vào nồi nước dùng ghẹ đun rim 3 - 5 phút cho sợi bánh canh ngấm ngáp vị béo ngọt bùi.',
+        ],
+        description:
+          'Chần tơi bánh canh bột lọc qua nước sôi rồi thả vào nồi nước dùng đun rim 5 phút cho ngấm đẫm gia vị.',
+        tip: 'Thả bánh canh bột lọc đun rim trực tiếp trong nồi nước dùng giúp sợi bánh canh trong suốt dẻo dai sần sật tuyệt hảo.',
+      },
+      {
+        step: 5,
+        title: 'Múc bánh canh, bày ghẹ đỏ au & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Tô bánh canh ghẹ rực rỡ bốc khói, thịt ghẹ chắc mẩy ngọt lịm, nước dùng sánh sệt béo ngậy',
+        actionPoints: [
+          'Múc sợi bánh canh dẻo dai và nước dùng sánh sệt màu đỏ cam ngạt ngào hương thơm ra tô lớn.',
+          'Xếp nguyên con ghẹ đỏ au (hoặc thịt ghẹ gỡ), chả cá chiên, huyết heo luộc và hành lá ngò rí xắt nhỏ, rắc tiêu sọ xay.',
+          'Thưởng thức ngay khi còn nóng hổi chấm thịt ghẹ vào muối ớt chanh cay nồng.',
+        ],
+        description:
+          'Múc bánh canh và nước dùng sánh đỏ cam ra tô, bày con ghẹ đỏ au, chả cá chiên, rắc hành ngò tiêu sọ và dùng nóng với muối ớt chanh.',
+        tip: 'Ăn kèm muối ớt chanh cay nồng giúp bùng nổ vị ngọt lịm của thịt ghẹ biển mọng nước.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu bánh canh ghẹ nước dùng thanh ngọt chuẩn vị gia đình: 1. Hấp ghẹ với sả tươi trước khi nấu: Giúp thịt ghẹ săn chắc đỏ au ngấm trọn độ ngọt mọng tự nhiên mà không bị tan thịt vào nước dùng; 2. Chưng gạch ghẹ với dầu màu điều: Giúp nước dùng bánh canh có màu đỏ cam óng mượt béo bùi bắt mắt ngạt ngào aroma biển; 3. Tạo độ sánh sệt nhẹ bằng bột năng & nêm đường phèn: Giữ độ béo kẹo nhẹ cho sợi bánh canh bám đẫm gia vị ngọt thanh Umami.',
+    recommendedSauce:
+      'Tô bánh canh ghẹ bốc khói nghi ngút rực rỡ sắc đỏ cam gạch ghẹ, con ghẹ xanh mẩy căng chắc thịt ngọt đậm đà, sợi bánh canh bột lọc dai giòn sần sật quyện nước dùng sánh béo ngậy thơm lừng tiêu sọ, chấm cùng chén muối ớt chanh tươi cay nồng ngon quên lối về.',
+  },
 };
 
 /**
@@ -14518,6 +14634,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'mien-ga-ta-dui-xe': 'cach-nau-mien-ga',
   'mien-ga-ta': 'cach-nau-mien-ga',
   'mien-ga': 'cach-nau-mien-ga',
+  'banh-canh-ghe-nguyen-con': 'cach-nau-banh-canh-ghe',
+  'banh-canh-ghe': 'cach-nau-banh-canh-ghe',
 };
 
 /**
@@ -14749,6 +14867,12 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-mien-ga-ta': 'mien-ga-ta-dui-xe',
   'cach-nau-mien-ga-ta-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mien-ga-ta-dui-xe',
   'cach-lam-mien-ga-ta-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mien-ga-ta-dui-xe',
+  'banh-canh-ghe-nguyen-con': 'banh-canh-ghe-nguyen-con',
+  'banh-canh-ghe': 'banh-canh-ghe-nguyen-con',
+  'cach-nau-banh-canh-ghe': 'banh-canh-ghe-nguyen-con',
+  'cach-lam-banh-canh-ghe': 'banh-canh-ghe-nguyen-con',
+  'cach-nau-banh-canh-ghe-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'banh-canh-ghe-nguyen-con',
+  'cach-lam-banh-canh-ghe-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'banh-canh-ghe-nguyen-con',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

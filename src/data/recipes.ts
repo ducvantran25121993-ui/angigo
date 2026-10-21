@@ -12818,8 +12818,8 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   },
   'mi-xao-gion': {
     dishId: 'mi-xao-gion',
-    dishName: 'Mì Xào Giòn Hải Sản Thập Cẩm Chuẩn Vị Bếp Trưởng',
-    seoTitle: 'Cách Làm Mì Xào Giòn Thơm Lừng, Đậm Đà Chuẩn Bếp Trưởng',
+    dishName: 'Mì Xào Giòn Hải Sản Thập Cẩm',
+    seoTitle: 'Cách Làm Mì Xào Giòn Thơm Lừng, Đậm Đà',
     ratingValue: '4.9',
     reviewCount: 428,
     prepTime: '20 phút (sơ chế tôm, mực, cật/xá xíu & nhặt rau cải ngọt nấm đùi gà)',

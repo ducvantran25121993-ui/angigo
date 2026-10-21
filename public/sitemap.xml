@@ -333,26 +333,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-com-suon-cay</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/com_suon_cay.jpg</image:loc>
-      <image:title>Cách Làm Cơm Sườn Cay Thơm Ngon Đậm Đà Chuẩn Quán</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/cach-nau-com-suon-cay-thai-lan</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/com_suon_cay.jpg</image:loc>
-      <image:title>Cách Làm Cơm Sườn Cay Thơm Ngon Đậm Đà Chuẩn Quán</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://angigio.com/cach-nau-com-canh-kim-chi</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -363,7 +343,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-com-ga-teriyaki</loc>
+    <loc>https://angigio.com/cach-lam-com-ga-teriyaki</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -373,7 +353,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-com-thit-ba-chi-chay-canh</loc>
+    <loc>https://angigio.com/cach-lam-com-ba-chi-chay-canh</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -393,7 +373,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-xoi-ga-xe-mo-hanh</loc>
+    <loc>https://angigio.com/cach-nau-xoi-ga-xe</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -413,16 +393,6 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-xoi-pate-lap-xuong</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/xoi_pate_lap_xuong.jpg</image:loc>
-      <image:title>Cách Nấu Xôi Mặn Thập Cẩm Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống</image:title>
-    </image:image>
-  </url>
-  <url>
     <loc>https://angigio.com/cach-lam-banh-beo</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -433,7 +403,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-xoi-chien-gion-nhan-thit</loc>
+    <loc>https://angigio.com/cach-nau-xoi-chien</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -453,7 +423,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-com-ga-hai-nam</loc>
+    <loc>https://angigio.com/cach-lam-com-ga-hai-nam</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -463,13 +433,23 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-com-bo-xao-can-toi</loc>
+    <loc>https://angigio.com/cach-lam-com-bo-xao-can-toi</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://angigio.com/images/com_bo_luc_lac.jpg</image:loc>
       <image:title>Cách Làm Cơm Bò Xào Cần Tỏi Thơm Ngon Đậm Đà Chuẩn Quán</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://angigio.com/cach-nau-xoi-man-thap-cam</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/xoi_ga.jpg</image:loc>
+      <image:title>Cách Nấu Xôi Mặn Thập Cẩm Dẻo Thơm Óng Ả Chuẩn Vị Truyền Thống</image:title>
     </image:image>
   </url>
   <url>
@@ -543,7 +523,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-bun-rieu-cua-bap-bo</loc>
+    <loc>https://angigio.com/cach-nau-bun-rieu-cua</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -643,7 +623,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-bun-ca-ngu-phu-yen</loc>
+    <loc>https://angigio.com/cach-nau-bun-ca-ngu</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -723,7 +703,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-mi-cay-han-quoc</loc>
+    <loc>https://angigio.com/cach-nau-mi-cay</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -733,7 +713,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-mi-tron-top-mo</loc>
+    <loc>https://angigio.com/cach-lam-mi-tron-top-mo</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -743,7 +723,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-mi-xao-gion</loc>
+    <loc>https://angigio.com/cach-lam-mi-xao-gion</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -753,7 +733,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-mi-xao-bo-rau-cai</loc>
+    <loc>https://angigio.com/cach-lam-mi-xao-bo</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -2300,6 +2280,16 @@
     <image:image>
       <image:loc>https://angigio.com/images/trung-lam-mon-gi-ngon.jpg</image:loc>
       <image:title>Trứng Làm Món Gì Ngon? Gợi Ý Các Món Trứng Dễ Làm, Hao Cơm Cho Cả Nhà</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://angigio.com/mon-ngon-moi-ngay-goi-y-30-mon-an-cho-bua-com-gia-dinh</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/ga_luoc_la_chanh.jpg</image:loc>
+      <image:title>Món Ngon Mỗi Ngày: Gợi Ý 30 Món Ăn Cho Bữa Cơm Gia Đình</image:title>
     </image:image>
   </url>
   <url>

@@ -13421,6 +13421,121 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Đĩa mì Udon bò xào bốc khói ngào ngạt hương dầu mè, sợi mì Udon dẻo dai núng nính bọc lớp sốt Shoyu mặn ngọt, ba chỉ bò Mỹ mềm tan béo ngậy ngập cá ngừ bào Katsuobushi nhảy múa, xì xụp cùng bát nước dùng Dashi thanh ngọt tuyệt hảo.',
   },
+  'mi-soba-lanh': {
+    dishId: 'mi-soba-lanh',
+    dishName: 'Mì Soba Kiều Mạch Lạnh Nước Dùng Dashi Thanh Ngọt Chuẩn Vị',
+    seoTitle: 'Cách Nấu Mì Soba Lạnh Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    ratingValue: '4.9',
+    reviewCount: 408,
+    prepTime: '15 phút (luộc mì soba kiều mạch, vớt ngâm thau nước đá & nấu sốt Dashi Tsuyu)',
+    cookTime: '15 phút (hầm nước dùng Dashi Kombu, ướp lạnh chén nước chấm & chuẩn bị mù tạt Wasabi)',
+    difficulty: 'Dễ',
+    servings: '2 - 3 người',
+    ingredients: [
+      {
+        category: 'Sợi Mì Soba Kiều Mạch Mát Lạnh Thanh Tao',
+        items: [
+          '300g mì Soba kiều mạch khô Nhật Bản (sợi nhỏ màu nâu nhạt, giàu chất xơ & rutin)',
+          '1 thau nước đá lạnh tinh khiết để xả và ướp mát lạnh sợi mì Soba',
+        ],
+      },
+      {
+        category: 'Nước Dùng Dashi & Sốt Chấm Tsuyu Thanh Ngọt Umami',
+        items: [
+          '500ml nước hầm tảo biển Kombu & cá ngừ bào Katsuobushi (Nước dùng Dashi)',
+          '4 thìa canh nước tương Nhật Shoyu thượng hạng',
+          '3 thìa canh rượu nấu ăn Mirin (tạo vị ngọt thanh tự nhiên)',
+          '1 thìa canh đường phèn / đường thốt nốt',
+        ],
+      },
+      {
+        category: 'Gia Vị Ăn Kèm & Topping Mè Rang Rong Biển',
+        items: [
+          '1 chén mù tạt Wasabi tươi (cay nồng sốc họng sảng khoái)',
+          '2 củ củ cải trắng bào mịn (vắt ráo nước)',
+          '3 nhánh hành lá thái siêu mỏng, 1 lá rong biển Nori thái sợi mỏng',
+          '1 thìa canh mè trắng rang vàng thơm lừng',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Nấu nước dùng Dashi & pha sốt chấm Tsuyu ướp lạnh thanh ngọt',
+        time: '15 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước sốt chấm Tsuyu Dashi mặn ngọt Umami thơm dịu, ướp mát lạnh sảng khoái',
+        actionPoints: [
+          'Ngâm 1 lá tảo biển Kombu vào 500ml nước mát 15 phút, đun gần sôi (85°C) thì vớt Kombu ra. Thả 1 chén cá ngừ bào Katsuobushi vào đun 1 phút rồi lọc lấy 400ml nước dùng Dashi.',
+          'Trút nước tương Shoyu, rượu Mirin và đường phèn vào đun sôi 2 phút rồi tắt bếp. Cho sốt Tsuyu vào ngăn mát tủ lạnh ướp lạnh 30 phút.',
+        ],
+        description:
+          'Hầm tảo biển Kombu và cá ngừ bào lấy nước Dashi. Pha nước tương Shoyu, rượu Mirin và đường phèn đun sôi 2 phút rồi ướp lạnh.',
+        tip: 'Vớt tảo biển Kombu ra ngay trước khi nước sôi giúp nước dùng Dashi không bị đắng hay chát.',
+      },
+      {
+        step: 2,
+        title: 'Luộc mì Soba kiều mạch chín tới dai giòn',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Sợi mì Soba kiều mạch chín tới dẻo dai, giữ trọn hương vị lúa mạch mộc mạc',
+        actionPoints: [
+          'Đun sôi 1.5 lít nước trong nồi lớn. Thả 300g mì Soba kiều mạch vào luộc trên lửa vừa trong 4 - 5 phút.',
+          'Khuấy nhẹ tay đũa cho sợi mì Soba rời nhau. Kiểm tra sợi mì chín tới vừa dẻo dai thì tắt bếp.',
+        ],
+        description:
+          'Thả mì Soba kiều mạch vào nồi nước sôi đun 4 - 5 phút cho chín tới dẻo dai rồi vớt ra rây.',
+        tip: 'Luộc mì Soba không đậy nắp và khuấy nhẹ tay giúp sợi mì chín đều dẻo dai không bị gãy vụn.',
+      },
+      {
+        step: 3,
+        title: 'Xả mì Soba qua thau nước đá lạnh rửa sạch tinh bột',
+        time: '5 phút',
+        heat: 'Lạnh tinh khiết',
+        goal: 'Sợi mì Soba mát lạnh giòn sần sật, sạch bóng tinh bột thừa trên bề mặt',
+        actionPoints: [
+          'Vớt mì Soba ra rây, xả dưới vòi nước lạnh vừa xả vừa vò nhẹ tay để rửa sạch tinh bột thừa.',
+          'Thả toàn bộ mì Soba vào thau nước đá lạnh ướp trong 3 - 5 phút cho sợi mì săn giòn mát lạnh. Vớt mì ra rây cuộn thành từng vắt nhỏ.',
+        ],
+        description:
+          'Vò nhẹ mì Soba dưới vòi nước lạnh rửa trôi tinh bột thừa. Ngâm mì vào thau nước đá 5 phút cho sợi mì giòn mát sảng khoái.',
+        tip: 'Vò mì nhẹ tay dưới nước chảy rồi ngâm thau nước đá là bí quyết giúp mì Soba lạnh giữ độ giòn mát sảng khoái.',
+      },
+      {
+        step: 4,
+        title: 'Chuẩn bị gia vị Wasabi, củ cải bào & rong biển Nori',
+        time: '3 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Gia vị củ cải bào mịn, Wasabi xanh mượt thơm nồng ngạt ngào',
+        actionPoints: [
+          'Củ cải trắng gọt vỏ, bào nhuyễn rồi vắt ráo bớt nước đắng.',
+          'Hành lá xắt siêu mỏng. Rong biển Nori cắt sợi mỏng. Nặn 1 viên mù tạt Wasabi tươi xanh mượt.',
+        ],
+        description:
+          'Bào nhuyễn củ cải trắng vắt ráo. Xắt nhỏ hành lá, cắt sợi rong biển Nori và nặn viên mù tạt Wasabi tươi.',
+        tip: 'Vắt ráo nước củ cải bào giúp củ cải giữ vị ngọt mát không làm loãng chén nước chấm Tsuyu Dashi.',
+      },
+      {
+        step: 5,
+        title: 'Xếp mì Soba lên khay tre Lạnh & thưởng thức thanh mát',
+        time: '2 phút',
+        heat: 'Dùng mát lạnh',
+        goal: 'Khay mì Soba kiều mạch rực rỡ, nhúng đẫm sốt Tsuyu Dashi mát lạnh xộc vị Wasabi cay nồng',
+        actionPoints: [
+          'Xếp vắt mì Soba kiều mạch lên khay tre Zaru (hoặc đĩa đá lạnh), rắc rong biển Nori sợi và mè rang vàng.',
+          'Rót nước chấm Tsuyu đã ướp mát lạnh ra chén nhỏ, thả củ cải bào, hành lá và chút Wasabi vào khuấy đều.',
+          'Gắp vắt mì Soba nhúng đẫm vào chén nước chấm Tsuyu mát lạnh. Thưởng thức ngay khi sợi mì Soba dai mát xộc vị Wasabi cay nồng sảng khoái.',
+        ],
+        description:
+          'Bày mì Soba lên khay tre, rắc rong biển mè rang. Rót sốt Tsuyu mát lạnh ra chén khuấy củ cải Wasabi nhúng đẫm thưởng thức.',
+        tip: 'Khuấy đều Wasabi và củ cải bào vào sốt Tsuyu trước khi nhúng mì giúp hương vị cay nồng thanh mát bùng nổ tuyệt hảo.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu mì Soba lạnh nước dùng thanh ngọt chuẩn vị gia đình: 1. Dùng tảo biển Kombu & cá ngừ bào hầm nước dùng Dashi: Tạo vị ngọt thanh tự nhiên Umami tinh tế chuẩn phong vị Nhật; 2. Rửa sạch tinh bột thừa & ngâm mì Soba vào thau nước đá: Giúp sợi mì Soba kiều mạch giòn mát sảng khoái không bị dính bệt; 3. Dùng kèm củ cải trắng bào & Wasabi tươi: Cân bằng vị ngọt thanh dịu của nước dùng Dashi, mang lại cảm giác thanh nhiệt nhẹ bụng tuyệt vời.',
+    recommendedSauce:
+      'Chén nước sốt chấm Tsuyu Dashi ướp mát lạnh chua ngọt Umami dịu mát, quyện mù tạt Wasabi cay nồng xộc mũi, nhúng đẫm vắt mì Soba kiều mạch giòn mát lạnh, rắc rong biển Nori và củ cải bào thanh nhiệt sảng khoái ngày hè.',
+  },
 };
 
 /**
@@ -14280,6 +14395,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'mi-xao-bo': 'cach-lam-mi-xao-bo',
   'mi-udon-bo-xao': 'cach-nau-mi-udon-bo-xao',
   'mi-udon': 'cach-nau-mi-udon-bo-xao',
+  'mi-soba-lanh': 'cach-nau-mi-soba-lanh',
+  'mi-soba': 'cach-nau-mi-soba-lanh',
 };
 
 /**
@@ -14495,6 +14612,13 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-mi-udon-bo-xao': 'mi-udon-bo-xao',
   'cach-nau-mi-udon-bo-xao-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-udon-bo-xao',
   'cach-lam-mi-udon-bo-xao-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-udon-bo-xao',
+  'mi-soba-lanh': 'mi-soba-lanh',
+  'mi-soba': 'mi-soba-lanh',
+  'soba-lanh': 'mi-soba-lanh',
+  'cach-nau-mi-soba-lanh': 'mi-soba-lanh',
+  'cach-lam-mi-soba-lanh': 'mi-soba-lanh',
+  'cach-nau-mi-soba-lanh-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-soba-lanh',
+  'cach-lam-mi-soba-lanh-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-soba-lanh',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

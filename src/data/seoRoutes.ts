@@ -34,7 +34,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/vong-quay': {
     path: '/vong-quay',
-    title: 'Vòng Quay Ăn Gì - Quay Món Ngẫu Nhiên Trong 3 Giây | Hôm Nay Ăn Gì',
+    title: 'Vòng Quay Ăn Gì - Quay Món Ngẫu Nhiên Trong 3 Giây | Ăn Gì Giờ',
     description: 'Quay vòng quay ăn gì ngẫu nhiên giúp bạn chốt món chỉ trong 3 giây. Tùy chỉnh danh sách món ngon, chọn chủ đề cơm trưa, bún phở, lẩu nướng và kết nối đặt ship ngay.',
     keywords: 'vòng quay ăn gì, vòng quay món ăn, bánh xe món ăn, hôm nay ăn gì, trưa nay ăn gì, vòng quay may mắn, chọn món ngẫu nhiên, quyết định món ăn, đặt món shopeefood, grabfood, befood',
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&auto=format&fit=crop&q=80',
@@ -45,7 +45,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/lich-an-theo-tuan': {
     path: '/lich-an-theo-tuan',
-    title: 'Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Chuẩn Vị & Tiết Kiệm | Hôm Nay Ăn Gì',
+    title: 'Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Chuẩn Vị & Tiết Kiệm | Ăn Gì Giờ',
     description: 'Lịch ăn theo tuần thông minh từ Thứ 2 đến Chủ Nhật: Tự động chống trùng món, tính calo & chi phí, đổi món linh hoạt, gợi ý bữa sáng trưa tối chuẩn ngon.',
     keywords: 'lịch ăn theo tuần, lịch ăn tuần, thực đơn theo tuần, thực đơn 7 ngày, lên lịch ăn, thực đơn gia đình theo tuần, thực đơn giảm cân theo tuần, ăn gì hôm nay',
     image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',
@@ -56,7 +56,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/ai-goi-y-mon-an': {
     path: '/ai-goi-y-mon-an',
-    title: 'Trợ Lý AI Gợi Ý Món Ăn - Chọn Món Ngon Theo Gu & Đặt Ship Gần Bạn | Hôm Nay Ăn Gì',
+    title: 'Trợ Lý AI Gợi Ý Món Ăn - Chọn Món Ngon Theo Gu & Đặt Ship Gần Bạn | Ăn Gì Giờ',
     description: 'Gợi ý món ăn thông minh và gần gũi: Chọn món ngon mỗi ngày theo tâm trạng, thời tiết, ngân sách và sở thích ăn uống. Tự động kết nối quán ngon gần bạn.',
     keywords: 'trợ lý ai món ăn, ai gợi ý món ăn, hôm nay ăn gì ai, gợi ý món ăn thông minh, tìm món theo thời tiết, tìm món theo tâm trạng, đặt món giao tận nơi',
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
@@ -67,7 +67,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/mon-ngon': {
     path: '/mon-ngon',
-    title: 'Thực Đơn 160+ Món Ngon Việt Nam - Danh Mục Món Ăn 3 Miền | Hôm Nay Ăn Gì',
+    title: 'Thực Đơn 160+ Món Ngon Việt Nam - Danh Mục Món Ăn 3 Miền | Ăn Gì Giờ',
     description: 'Khám phá danh mục hơn 160 món ngon Việt Nam đặc sắc 3 miền Bắc - Trung - Nam: Cơm, bún, phở, lẩu nướng, đồ chay kèm gợi ý calo, giá cả và đặt ship nhanh.',
     keywords: 'món ngon việt nam, thực đơn món ngon, 160 món ngon, món ngon 3 miền, món ăn bắc trung nam, danh sách món ngon, đặt món online, tra cứu món ăn',
     image: 'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1200&auto=format&fit=crop&q=80',
@@ -78,7 +78,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/do-uong-an-vat': {
     path: '/do-uong-an-vat',
-    title: 'Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê, Sinh Tố & Món Ăn Vặt Xế Chiều Hot Trend | Hôm Nay Ăn Gì',
+    title: 'Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê, Sinh Tố & Món Ăn Vặt Xế Chiều Hot Trend | Ăn Gì Giờ',
     description: 'Thưởng thức thế giới trà sữa trân châu, cà phê muối, trà trái cây tươi mát cùng bánh tráng trộn, nem chua rán, bánh tráng nướng giòn rụm kèm liên kết đặt ship hỏa tốc gần bạn.',
     keywords: 'đồ uống ăn vặt, trà sữa ăn vặt, trà sữa trân châu, đồ ăn vặt, ăn vặt đường phố, trà đào cam sả, cà phê muối, bánh tráng trộn, bánh tráng nướng, ăn xế chiều',
     image: 'https://images.unsplash.com/photo-1558857563-b37cf5429e5a?w=1200&auto=format&fit=crop&q=80',
@@ -89,7 +89,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/am-thuc-vung-mien': {
     path: '/am-thuc-vung-mien',
-    title: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc, Trung, Nam & Miền Tây | Hôm Nay Ăn Gì',
+    title: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc, Trung, Nam & Miền Tây | Ăn Gì Giờ',
     description: 'Bản đồ ẩm thực 3 miền Việt Nam: Khám phá hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và trù phú miền Tây sông nước.',
     keywords: 'ẩm thực vùng miền, ẩm thực 3 miền, ẩm thực việt nam, món ngon miền bắc, món ngon miền trung, món ngon miền nam, ẩm thực miền tây, đặc sản vùng miền việt nam',
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
@@ -100,7 +100,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/thuc-don-moi-ngay': {
     path: '/thuc-don-moi-ngay',
-    title: 'Thực Đơn Mỗi Ngày - Gợi Ý Thực Đơn Gia Đình & Bữa Ăn Đủ Dinh Dưỡng | Hôm Nay Ăn Gì',
+    title: 'Thực Đơn Mỗi Ngày - Gợi Ý Thực Đơn Gia Đình & Bữa Ăn Đủ Dinh Dưỡng | Ăn Gì Giờ',
     description: 'Gợi ý thực đơn mỗi ngày từ Thứ 2 đến Chủ Nhật, thực đơn cơm nhà mẹ nấu, ăn trưa văn phòng, eat clean giảm cân và tiệc lẩu nướng cuối tuần chuẩn vị.',
     keywords: 'thực đơn mỗi ngày, thực đơn hôm nay, gợi ý thực đơn, cơm nhà mẹ nấu, thực đơn trưa văn phòng, eat clean giảm cân, thực đơn gia đình, món ngon mỗi ngày',
     image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',
@@ -111,7 +111,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/cach-nau-mon-ngon': {
     path: '/cach-nau-mon-ngon',
-    title: 'Cách Nấu Món Ngon - Công Thức Nấu Ăn Chuẩn Vị & Bí Quyết Bếp Trưởng | Hôm Nay Ăn Gì',
+    title: 'Cách Nấu Món Ngon - Công Thức Nấu Ăn Chuẩn Vị & Bí Quyết Bếp Trưởng | Ăn Gì Giờ',
     description: 'Hướng dẫn chi tiết cách nấu hơn 210+ món ngon chuẩn vị gia đình Việt Nam: Định lượng nguyên liệu chuẩn xác, các bước thực hiện dễ hiểu và mẹo bí quyết bếp trưởng.',
     keywords: 'cách nấu món ngon, công thức nấu ăn, hướng dẫn nấu ăn, bí quyết nấu ăn ngon, cách nấu phở, cách nấu bún bò huế, món ngon mỗi ngày, công thức chuẩn vị',
     image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&auto=format&fit=crop&q=80',
@@ -144,7 +144,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/chinh-sach-bao-mat': {
     path: '/chinh-sach-bao-mat',
-    title: 'Chính Sách Bảo Mật - Bảo Vệ Quyền Riêng Tư & An Toàn Dữ Liệu | Hôm Nay Ăn Gì',
+    title: 'Chính Sách Bảo Mật - Bảo Vệ Quyền Riêng Tư & An Toàn Dữ Liệu | Ăn Gì Giờ',
     description: 'Chính sách bảo mật minh bạch của Hôm Nay Ăn Gì: Tối giản thu thập dữ liệu, tôn trọng quyền riêng tư, an toàn khi trải nghiệm gợi ý ẩm thực và liên kết đặt món.',
     keywords: 'chính sách bảo mật, bảo mật hôm nay ăn gì, quyền riêng tư, an toàn thông tin angigio',
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
@@ -155,7 +155,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/dieu-khoan-su-dung': {
     path: '/dieu-khoan-su-dung',
-    title: 'Điều Khoản Sử Dụng - Thỏa Thuận Người Dùng & Quy Định Dịch Vụ | Hôm Nay Ăn Gì',
+    title: 'Điều Khoản Sử Dụng - Thỏa Thuận Người Dùng & Quy Định Dịch Vụ | Ăn Gì Giờ',
     description: 'Điều khoản sử dụng dịch vụ Hôm Nay Ăn Gì: Quy định về trải nghiệm gợi ý món ăn, bách khoa ẩm thực, tính năng liên kết đối tác và quyền sở hữu trí tuệ.',
     keywords: 'điều khoản sử dụng, quy định hôm nay ăn gì, thỏa thuận dịch vụ, điều khoản angigio',
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
@@ -166,7 +166,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/blog': {
     path: '/blog',
-    title: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Hôm Nay Ăn Gì',
+    title: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Ăn Gì Giờ',
     description: 'Chuyên trang chia sẻ kiến thức ẩm thực, cẩm nang nấu ăn, mẹo vặt nhà bếp, dinh dưỡng lành mạnh và câu chuyện văn hóa ẩm thực truyền thống Việt Nam.',
     keywords: 'blog ẩm thực, cẩm nang nấu ăn, mẹo nấu ăn ngon, văn hóa ẩm thực việt nam, kiến thức dinh dưỡng, công thức món ngon, hôm nay ăn gì',
     image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',
@@ -177,7 +177,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/quan-ngon': {
     path: '/quan-ngon',
-    title: 'Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực & Nhà Hàng Chuẩn Vị 3 Miền | Hôm Nay Ăn Gì',
+    title: 'Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực & Nhà Hàng Chuẩn Vị 3 Miền | Ăn Gì Giờ',
     description: 'Khám phá top quán ngon nổi tiếng, quán ăn lâu đời và địa chỉ ẩm thực uy tín gần bạn nhất. Kết nối đặt món qua ShopeeFood, GrabFood, BeFood và chỉ đường Google Maps.',
     keywords: 'quán ngon, quán ăn ngon, top quán ngon gần đây, địa chỉ ẩm thực, quán ngon hà nội, quán ngon sài gòn, quán ngon đà nẵng, quán ngon việt nam, đặt món shopeefood, grabfood, befood',
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
@@ -188,7 +188,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   },
   '/admin': {
     path: '/admin',
-    title: 'Trang Quản Trị Bài Viết & Soạn Thảo WordPress | Hôm Nay Ăn Gì',
+    title: 'Trang Quản Trị Bài Viết & Soạn Thảo WordPress | Ăn Gì Giờ',
     description: 'Bảng điều khiển quản trị bài viết ẩm thực, soạn thảo trực quan phong cách WordPress & Word.',
     keywords: 'quản trị bài viết, admin ẩm thực, soạn thảo bài viết, hôm nay ăn gì',
     image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',
@@ -200,7 +200,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
   '/quan-tri': {
     path: '/quan-tri',
     canonicalPath: '/admin',
-    title: 'Trang Quản Trị Bài Viết & Soạn Thảo WordPress | Hôm Nay Ăn Gì',
+    title: 'Trang Quản Trị Bài Viết & Soạn Thảo WordPress | Ăn Gì Giờ',
     description: 'Bảng điều khiển quản trị bài viết ẩm thực, soạn thảo trực quan phong cách WordPress & Word.',
     keywords: 'quản trị bài viết, admin ẩm thực, soạn thảo bài viết, hôm nay ăn gì',
     image: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',

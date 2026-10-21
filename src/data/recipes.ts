@@ -13184,6 +13184,125 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Tô bún cá ngừ bốc khói ngạt ngào vị chua ngọt thanh dịu của dứa chín và nước dừa tươi, khoanh cá ngừ da săn chắc thịt ngọt mềm mọng, chấm vào chén nước mắm ngon xắt ớt xiêm xanh cay nồng ăn kèm bắp cải thái sợi giòn mát tuyệt đỉnh.',
   },
+  'mi-xao-bo-rau-cai': {
+    dishId: 'mi-xao-bo-rau-cai',
+    dishName: 'Mì Xào Bò Rau Cải Thơm Lừng Đậm Đà Chuẩn Bếp Trưởng',
+    seoTitle: 'Cách Làm Mì Xào Bò Thơm Lừng, Đậm Đà Chuẩn Bếp Trưởng',
+    ratingValue: '4.9',
+    reviewCount: 435,
+    prepTime: '15 phút (thái mỏng thịt bò ướp dầu ăn bột năng, nhặt rửa cải ngọt & chần mì)',
+    cookTime: '15 phút (xào bò lửa lớn 90 giây mọng nước & xào mì săn thơm ngạt ngào)',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Thịt Bò Tươi & Gia Vị Ướp Khóa Nước Mềm Mọng',
+        items: [
+          '300g thịt thăn bò tươi / dẻ sườn bò (thái mỏng ngang thớ)',
+          '1 thìa canh dầu hàu thượng hạng, 1 thìa canh nước tương (xì dầu)',
+          '1/2 thìa cà phê tiêu sọ xay, 1/2 thìa cà phê hạt nêm',
+          '1 thìa canh dầu ăn (khóa độ mọng nước), 1 thìa cà phê bột năng (tạo độ mềm mượt)',
+        ],
+      },
+      {
+        category: 'Mì Trứng / Mì Gói Tơi Săn & Rau Củ Tươi',
+        items: [
+          '3 vắt mì trứng tươi (hoặc mì gói Hảo Hảo/mì Koreno trụng chín tới 80%)',
+          '200g cải ngọt / cải ngồng (rửa sạch xắt khúc 5cm)',
+          '1/2 củ hành tây thái múi cau, 1/2 củ cà rốt tỉa hoa thái lát mỏng',
+          '3 tép tỏi băm, 2 củ hành tím băm nhuyễn',
+        ],
+      },
+      {
+        category: 'Sốt Xào Mì Đậm Đà Béo Ngậy',
+        items: [
+          '2 thìa canh dầu hàu thượng hạng, 1.5 thìa canh nước tương (xì dầu)',
+          '1 thìa canh dầu mè thơm, 1/2 thìa canh tương ớt Chinsu',
+          '1/2 thìa cà phê đường cát, 1/2 thìa cà phê tiêu sọ xay',
+          '1 chén nước tương ớt hiểm xắt lát dùng kèm mì xào',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Thái thịt bò mỏng ngang thớ & ướp khóa nước mọng mềm',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt bò thấm ngấm gia vị, mọng nước ngọt dịu và không bị dai khô khi xào',
+        actionPoints: [
+          'Thịt thăn bò rửa sạch, dùng khăn thấm khô. Dùng dao sắc thái mỏng ngang thớ thịt.',
+          'Ướp thịt bò với 1 thìa canh dầu hàu, 1 thìa canh nước tương, 1/2 thìa cà phê tiêu xay, 1/2 thìa cà phê hạt nêm, 1 thìa cà phê bột năng và 1 thìa canh dầu ăn trong 15 phút.',
+        ],
+        description:
+          'Thái mỏng thịt bò ngang thớ. Ướp dầu hàu, nước tương, tiêu xay, bột năng và dầu ăn 15 phút cho thịt mềm mọng.',
+        tip: 'Trộn 1 thìa dầu ăn và 1 thìa bột năng vào thịt bò ướp giúp khóa chặt độ mọng nước tự nhiên, thịt khi xào mềm mượt không bị dai.',
+      },
+      {
+        step: 2,
+        title: 'Trụng mì tơi săn & ngâm nước đá giữ độ dai giòn',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Sợi mì trứng tơi bóng dai giòn sần sật, không bết dính hay bở nhão',
+        actionPoints: [
+          'Đun sôi nồi nước lớn, thả vắt mì trứng/mì gói vào trụng nhanh trong 1 phút cho sợi mì nở dẻo dai tới 80%.',
+          'Vớt mì xả ngay qua nước lạnh rồi vắt ráo. Trộn mì với 1 thìa canh dầu ăn (hoặc mỡ gà) cho tơi bóng.',
+        ],
+        description:
+          'Trụng mì 1 phút chín tới 80%. Vớt xả ngay nước lạnh rồi trộn 1 thìa dầu ăn cho các sợi mì tơi bóng dẻo dai.',
+        tip: 'Trụng mì tới 80% rồi xả nước lạnh trộn dầu giúp sợi mì khi xào giòn săn tơi xốp không bị nát.',
+      },
+      {
+        step: 3,
+        title: 'Xào thịt bò lửa lớn chín tới mọng nước (90 giây)',
+        time: '2 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thịt bò chín tới 80% mềm mọng ngọt dịu, không bị khô quắt hay chảy nước',
+        actionPoints: [
+          'Đun nóng chảo với 1.5 thìa canh dầu ăn trên lửa lớn rực, phi thơm 1/2 lượng tỏi đập dập.',
+          'Trút thịt bò đã ướp vào đảo nhanh tay trên lửa lớn trong 1 - 1.5 phút.',
+          'Khi thịt bò vừa chuyển màu hồng nhạt chín tới 80% thì trút ngay ra đĩa riêng.',
+        ],
+        description:
+          'Phi thơm tỏi, xào thịt bò trên lửa lớn đảo nhanh tay trong 1.5 phút cho chín tới mọng nước rồi trút ra đĩa.',
+        tip: 'Xào thịt bò trên lửa lớn nhanh tay 90 giây rồi trút ra đĩa riêng giữ trọn độ mềm tan ngọt mọng.',
+      },
+      {
+        step: 4,
+        title: 'Xào cải ngọt, hành tây & đảo mì tơi săn ngấm đẫm sốt',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Cải ngọt giòn xanh mướt, sợi mì săn lại bóng mượt ngấm đẫm nước sốt dầu hàu',
+        actionPoints: [
+          'Phi thơm phần tỏi và hành tím còn lại. Trút cà rốt, cải ngọt và hành tây vào xào trên lửa lớn trong 2 phút.',
+          'Nêm 1 thìa canh dầu hàu và 1/2 thìa cà phê hạt nêm.',
+          'Trút mì đã trụng tơi vào chảo, rưới hỗn hợp sốt xào mì. Đảo liên tục nhẹ tay trên lửa lớn 2 phút cho sợi mì săn lại, bóng mượt ngấm đẫm gia vị.',
+        ],
+        description:
+          'Xào cải ngọt cà rốt hành tây 2 phút. Trút mì vào chảo rưới nước sốt dầu hàu đảo lửa lớn 2 phút cho mì tơi săn ngấm đẫm vị.',
+        tip: 'Đảo mì nhẹ tay trên lửa lớn giúp từng sợi mì săn lại và ngấm ngáp lớp áo sốt béo ngậy.',
+      },
+      {
+        step: 5,
+        title: 'Trút thịt bò vào đảo bốc khói & thưởng thức nóng hổi',
+        time: '2 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa mì xào bò thơm lừng bốc khói, thịt bò mềm mọng quyện mì săn tơi và cải ngọt giòn mát',
+        actionPoints: [
+          'Trút đĩa thịt bò xào cùng nước xào thịt bò vào chảo mì. Đảo nhanh tay trong 30 giây cho các nguyên liệu hòa quyện ngạt ngào hương thơm rồi tắt bếp.',
+          'Múc mì xào bò rau cải ra đĩa lớn. Rắc tiêu sọ xay thơm lừng.',
+          'Thưởng thức ngay khi còn nóng hổi từng sợi mì tơi săn dai giòn, thịt bò mềm mọng ngọt ngào quyện cải ngọt xanh mướt, chấm kèm chén xì dầu ớt hiểm cay xé lưỡi.',
+        ],
+        description:
+          'Trút thịt bò vào chảo mì đảo nhanh 30 giây bốc khói ngạt ngào, múc ra đĩa rắc tiêu xay và dùng nóng với nước tương ớt hiểm.',
+        tip: 'Rưới muỗng nước xào thịt bò ngọt thơm ngập lên đĩa mì giúp từng sợi mì thấm vị bò đậm đà tuyệt đỉnh.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm mì xào bò thơm lừng đậm đà chuẩn bếp trưởng: 1. Ướp thịt bò với bột năng & dầu ăn: Khóa chặt nước ngọt tự nhiên giúp thịt bò xào mềm mượt mọng nước; 2. Trụng mì 80% & xả nước lạnh trộn dầu: Giúp sợi mì khi xào giữ độ tơi săn dai giòn sần sật, không bị nở bở nhão; 3. Xào bò lửa lớn 90 giây trút ra riêng: Giúp thịt bò không bị dai cứng hay mất nước.',
+    recommendedSauce:
+      'Đĩa mì xào bò bốc khói ngào ngạt hương dầu mè tiêu sọ, sợi mì tơi săn óng ả, thịt bò mềm mọng ngọt ngào quyện rau cải xanh mướt giòn ngọt, chấm kèm chén xì dầu tỏi ớt hiểm cay nồng ngon tuyệt đỉnh.',
+  },
 };
 
 /**
@@ -14039,6 +14158,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'bun-rieu': 'cach-nau-bun-rieu-cua',
   'bun-ca-ngu-phu-yen': 'cach-nau-bun-ca-ngu',
   'bun-ca-ngu': 'cach-nau-bun-ca-ngu',
+  'mi-xao-bo-rau-cai': 'cach-lam-mi-xao-bo',
+  'mi-xao-bo': 'cach-lam-mi-xao-bo',
 };
 
 /**
@@ -14241,6 +14362,12 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-bun-ca-ngu': 'bun-ca-ngu-phu-yen',
   'cach-nau-bun-ca-ngu-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-ca-ngu-phu-yen',
   'cach-lam-bun-ca-ngu-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-ca-ngu-phu-yen',
+  'mi-xao-bo-rau-cai': 'mi-xao-bo-rau-cai',
+  'mi-xao-bo': 'mi-xao-bo-rau-cai',
+  'cach-lam-mi-xao-bo': 'mi-xao-bo-rau-cai',
+  'cach-nau-mi-xao-bo': 'mi-xao-bo-rau-cai',
+  'cach-lam-mi-xao-bo-thom-lung-dam-da-chuan-bep-truong': 'mi-xao-bo-rau-cai',
+  'cach-nau-mi-xao-bo-thom-lung-dam-da-chuan-bep-truong': 'mi-xao-bo-rau-cai',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
@@ -14654,9 +14781,9 @@ export function findDishByRecipeSlug(slugOrHash: string, dishes: Dish[]): Dish |
 export function formatRecipeSeoTitle(dishNameOrRecipeTitle: string): string {
   const trimmed = dishNameOrRecipeTitle.trim();
   if (trimmed.toLowerCase().startsWith('cách nấu') || trimmed.toLowerCase().startsWith('cách làm')) {
-    return `${trimmed} | Hôm Nay Ăn Gì`;
+    return `${trimmed} | Ăn Gì Giờ`;
   }
-  return `Cách Nấu ${trimmed} Thơm Ngon Chuẩn Vị Gia Đình | Hôm Nay Ăn Gì`;
+  return `Cách Nấu ${trimmed} Thơm Ngon Chuẩn Vị Gia Đình | Ăn Gì Giờ`;
 }
 
 /**

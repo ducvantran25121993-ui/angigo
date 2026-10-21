@@ -67,7 +67,7 @@ const DEFAULT_OG_IMAGE = 'https://images.unsplash.com/photo-1504674900247-0877df
 export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
   region: {
     path: '/am-thuc-vung-mien',
-    title: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc, Trung, Nam & Miền Tây | Hôm Nay Ăn Gì',
+    title: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc, Trung, Nam & Miền Tây | Ăn Gì Giờ',
     description: 'Bản đồ ẩm thực 3 miền Việt Nam: Khám phá hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và trù phú miền Tây sông nước.',
     label: 'Ẩm Thực Vùng Miền',
     shortLabel: 'Vùng Miền',
@@ -77,7 +77,7 @@ export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
   },
   daily: {
     path: '/thuc-don-moi-ngay',
-    title: 'Thực Đơn Mỗi Ngày - Gợi Ý Thực Đơn Gia Đình & Bữa Ăn Đủ Dinh Dưỡng | Hôm Nay Ăn Gì',
+    title: 'Thực Đơn Mỗi Ngày - Gợi Ý Thực Đơn Gia Đình & Bữa Ăn Đủ Dinh Dưỡng | Ăn Gì Giờ',
     description: 'Gợi ý thực đơn mỗi ngày từ Thứ 2 đến Chủ Nhật, thực đơn cơm nhà mẹ nấu, ăn trưa văn phòng, eat clean giảm cân và tiệc lẩu nướng cuối tuần chuẩn vị.',
     label: 'Thực Đơn Mỗi Ngày',
     shortLabel: 'Thực Đơn',
@@ -87,7 +87,7 @@ export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
   },
   recipe: {
     path: '/cach-nau-mon-ngon',
-    title: 'Cách Nấu Món Ngon - Công Thức Nấu Ăn Chuẩn Vị & Bí Quyết Bếp Trưởng | Hôm Nay Ăn Gì',
+    title: 'Cách Nấu Món Ngon - Công Thức Nấu Ăn Chuẩn Vị & Bí Quyết Bếp Trưởng | Ăn Gì Giờ',
     description: 'Hướng dẫn chi tiết cách nấu hơn 100+ món ngon chuẩn vị gia đình Việt Nam: Định lượng nguyên liệu chuẩn xác, các bước thực hiện dễ hiểu và mẹo bí quyết bếp trưởng.',
     label: 'Cách Nấu Món Ngon',
     shortLabel: 'Cách Nấu',
@@ -110,7 +110,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   wheel: {
     path: '/vong-quay',
-    title: 'Vòng Quay Ăn Gì - Quay Món Ngẫu Nhiên Trong 3 Giây | Hôm Nay Ăn Gì',
+    title: 'Vòng Quay Ăn Gì - Quay Món Ngẫu Nhiên Trong 3 Giây | Ăn Gì Giờ',
     description: 'Quay vòng quay ăn gì ngẫu nhiên giúp bạn chốt món chỉ trong 3 giây. Tùy chỉnh danh sách món ngon, chọn chủ đề cơm trưa, bún phở, lẩu nướng và kết nối đặt ship ngay.',
     label: 'Vòng Quay',
     shortLabel: 'Vòng Quay',
@@ -120,7 +120,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   planner: {
     path: '/lich-an-theo-tuan',
-    title: 'Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Chuẩn Vị & Tiết Kiệm | Hôm Nay Ăn Gì',
+    title: 'Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Chuẩn Vị & Tiết Kiệm | Ăn Gì Giờ',
     description: 'Lịch ăn theo tuần thông minh từ Thứ 2 đến Chủ Nhật: Tự động chống trùng món, tính calo & chi phí, đổi món linh hoạt, gợi ý bữa sáng trưa tối chuẩn ngon.',
     label: 'Lịch Ăn Tuần',
     shortLabel: 'Lịch Ăn Tuần',
@@ -130,7 +130,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   ai: {
     path: '/ai-goi-y-mon-an',
-    title: 'Trợ Lý AI Gợi Ý Món Ăn - Chọn Món Ngon Theo Gu & Đặt Ship Gần Bạn | Hôm Nay Ăn Gì',
+    title: 'Trợ Lý AI Gợi Ý Món Ăn - Chọn Món Ngon Theo Gu & Đặt Ship Gần Bạn | Ăn Gì Giờ',
     description: 'Gợi ý món ăn thông minh và gần gũi: Chọn món ngon mỗi ngày theo tâm trạng, thời tiết, ngân sách và sở thích ăn uống. Tự động kết nối quán ngon gần bạn.',
     label: 'Trợ Lý AI',
     shortLabel: 'Trợ Lý AI',
@@ -140,7 +140,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   catalog: {
     path: '/mon-ngon',
-    title: 'Thực Đơn 160+ Món Ngon Việt Nam - Danh Mục Món Ăn 3 Miền | Hôm Nay Ăn Gì',
+    title: 'Thực Đơn 160+ Món Ngon Việt Nam - Danh Mục Món Ăn 3 Miền | Ăn Gì Giờ',
     description: 'Khám phá danh mục hơn 160 món ngon Việt Nam đặc sắc 3 miền Bắc - Trung - Nam: Cơm, bún, phở, lẩu nướng, đồ chay kèm gợi ý calo, giá cả và đặt ship nhanh.',
     label: 'Món Ngon',
     shortLabel: 'Món Ngon',
@@ -150,7 +150,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   snacks: {
     path: '/do-uong-an-vat',
-    title: 'Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê, Sinh Tố & Món Ăn Vặt Xế Chiều Hot Trend | Hôm Nay Ăn Gì',
+    title: 'Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê, Sinh Tố & Món Ăn Vặt Xế Chiều Hot Trend | Ăn Gì Giờ',
     description: 'Thưởng thức thế giới trà sữa trân châu, cà phê muối, trà trái cây tươi mát cùng bánh tráng trộn, nem chua rán, bánh tráng nướng giòn rụm kèm liên kết đặt ship hỏa tốc gần bạn.',
     label: 'Đồ Uống & Ăn Vặt',
     shortLabel: 'Đồ Uống & Ăn Vặt',
@@ -160,7 +160,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   discover: {
     path: '/am-thuc-vung-mien',
-    title: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc, Trung, Nam & Miền Tây | Hôm Nay Ăn Gì',
+    title: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc, Trung, Nam & Miền Tây | Ăn Gì Giờ',
     description: 'Bản đồ ẩm thực 3 miền Việt Nam: Khám phá hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và trù phú miền Tây sông nước.',
     label: 'Ẩm Thực Vùng Miền',
     shortLabel: 'Ẩm Thực',
@@ -190,7 +190,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   privacy: {
     path: '/chinh-sach-bao-mat',
-    title: 'Chính Sách Bảo Mật - Bảo Vệ Quyền Riêng Tư & An Toàn Dữ Liệu | Hôm Nay Ăn Gì',
+    title: 'Chính Sách Bảo Mật - Bảo Vệ Quyền Riêng Tư & An Toàn Dữ Liệu | Ăn Gì Giờ',
     description: 'Chính sách bảo mật minh bạch của Hôm Nay Ăn Gì: Tối giản thu thập dữ liệu, tôn trọng quyền riêng tư, an toàn khi trải nghiệm gợi ý ẩm thực và liên kết đặt món.',
     label: 'Chính Sách Bảo Mật',
     shortLabel: 'Bảo Mật',
@@ -200,7 +200,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   terms: {
     path: '/dieu-khoan-su-dung',
-    title: 'Điều Khoản Sử Dụng - Thỏa Thuận Người Dùng & Quy Định Dịch Vụ | Hôm Nay Ăn Gì',
+    title: 'Điều Khoản Sử Dụng - Thỏa Thuận Người Dùng & Quy Định Dịch Vụ | Ăn Gì Giờ',
     description: 'Điều khoản sử dụng dịch vụ Hôm Nay Ăn Gì: Quy định về trải nghiệm gợi ý món ăn, bách khoa ẩm thực, tính năng liên kết đối tác và quyền sở hữu trí tuệ.',
     label: 'Điều Khoản Sử Dụng',
     shortLabel: 'Điều Khoản',
@@ -210,7 +210,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   blog: {
     path: '/blog',
-    title: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Hôm Nay Ăn Gì',
+    title: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Ăn Gì Giờ',
     description: 'Chuyên trang chia sẻ kiến thức ẩm thực, cẩm nang nấu ăn, mẹo vặt nhà bếp, dinh dưỡng lành mạnh và câu chuyện văn hóa ẩm thực truyền thống Việt Nam.',
     label: 'Blog Ẩm Thực',
     shortLabel: 'Blog',
@@ -220,7 +220,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   restaurants: {
     path: '/quan-ngon',
-    title: 'Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực & Nhà Hàng Chuẩn Vị 3 Miền | Hôm Nay Ăn Gì',
+    title: 'Top Quán Ngon Gần Bạn - Địa Chỉ Ẩm Thực & Nhà Hàng Chuẩn Vị 3 Miền | Ăn Gì Giờ',
     description: 'Khám phá top quán ngon nổi tiếng, quán ăn lâu đời và địa chỉ ẩm thực uy tín gần bạn nhất. Kết nối đặt món qua ShopeeFood, GrabFood, BeFood và chỉ đường Google Maps.',
     label: 'Quán Ngon',
     shortLabel: 'Quán Ngon',
@@ -230,7 +230,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   },
   admin: {
     path: '/admin',
-    title: 'Trang Quản Trị Bài Viết & Soạn Thảo WordPress | Hôm Nay Ăn Gì',
+    title: 'Trang Quản Trị Bài Viết & Soạn Thảo WordPress | Ăn Gì Giờ',
     description: 'Bảng điều khiển quản trị bài viết ẩm thực, soạn thảo trực quan phong cách WordPress & Word.',
     label: 'Quản Trị',
     shortLabel: 'Admin',

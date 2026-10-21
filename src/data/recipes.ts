@@ -13536,6 +13536,124 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chén nước sốt chấm Tsuyu Dashi ướp mát lạnh chua ngọt Umami dịu mát, quyện mù tạt Wasabi cay nồng xộc mũi, nhúng đẫm vắt mì Soba kiều mạch giòn mát lạnh, rắc rong biển Nori và củ cải bào thanh nhiệt sảng khoái ngày hè.',
   },
+  'mien-ga-ta-dui-xe': {
+    dishId: 'mien-ga-ta-dui-xe',
+    dishName: 'Miến Gà Ta Đùi Xé Nước Dùng Thanh Ngọt Chuẩn Vị',
+    seoTitle: 'Cách Nấu Miến Gà Ta Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    ratingValue: '4.9',
+    reviewCount: 448,
+    prepTime: '20 phút (sơ chế gà ta thả vườn với muối gừng, ngâm miến dong & xắt nấm hương mộc nhĩ)',
+    cookTime: '35 phút (luộc gà lấy nước dùng trong vắt thanh ngọt, xé đùi gà & ngâm miến dong)',
+    difficulty: 'Dễ',
+    servings: '4 - 5 người',
+    ingredients: [
+      {
+        category: 'Gà Ta Thả Vườn & Nước Dùng Hầm Trong Vắt',
+        items: [
+          '1 con gà ta thả vườn (khoảng 1.3 - 1.5kg, thịt chắc dai ngọt)',
+          '2 củ hành tím nướng thơm, 1 củ gừng tươi nướng đập dập',
+          '1 thìa canh muối hạt, 2 thìa canh rượu trắng (ngâm rửa sạch khử mùi da gà)',
+          '1 thìa canh nước mắm ngon, 1/2 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu sọ xay',
+        ],
+      },
+      {
+        category: 'Miến Dong Điện Biên, Nấm Hương & Mộc Nhĩ',
+        items: [
+          '300g miến dong Điện Biên / miến mộc (sợi xám trong, dai giòn không bị trương nhão)',
+          '10 tai nấm hương khô (ngâm nở, rửa sạch thái lát mỏng)',
+          '3 tai mộc nhĩ (nấm mèo ngâm nở, rửa sạch thái sợi mỏng)',
+          '1 lòng mề gà (mề gà, gan gà, lòng gà xào thơm)',
+        ],
+      },
+      {
+        category: 'Rau Thơm & Gia Vị Ăn Kèm Chuẩn Vị',
+        items: [
+          '1 bó rau răm, 1 bó hành lá, 1 củ hành tây thái lát mỏng',
+          '5 lá lá chanh tươi thái sợi siêu mỏng',
+          '1 chén muối hạt ớt hiểm xắt chanh tươi chấm thịt gà xé',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Khử tanh gà ta & luộc lấy nước dùng ngọt lịm',
+        time: '25 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước dùng gà trong vắt thanh ngọt đậm đà, da gà giòn sần sật mọng nước',
+        actionPoints: [
+          'Gà ta xát muối hạt pha rượu trắng và gừng đập dập 5 phút rồi rửa sạch hoàn toàn.',
+          'Thả gà vào nồi lớn ngập 2.5 lít nước, thả hành tím nướng và gừng nướng đập dập vào.',
+          'Đun sôi hớt bọt, luộc lửa vừa sôi lăn tăn 20 - 25 phút cho gà chín tới, vớt gà ra ngâm ngay thau nước đá lạnh.',
+        ],
+        description:
+          'Khử mùi gà bằng muối gừng rượu trắng. Luộc gà với hành gừng nướng 25 phút hớt bọt cho nước trong vắt, vớt gà ngâm nước đá.',
+        tip: 'Vớt gà luộc ra ngâm ngay thau nước đá lạnh giúp da gà vàng ươm giòn sần sật, thịt mọng nước không bị thâm khô.',
+      },
+      {
+        step: 2,
+        title: 'Lọc thịt gà xé phay & xào lòng mề nấm hương mộc nhĩ',
+        time: '10 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thịt gà xé miếng mềm mọng, nấm hương mộc nhĩ xào chín thơm nức ngạt ngào',
+        actionPoints: [
+          'Lọc thịt đùi và lườn gà xé hoặc thái miếng vừa ăn. Xương gà thả lại vào nồi đun hầm 15 phút lấy trọn vị ngọt.',
+          'Phi thơm hành tím, cho mề gà thái nhỏ, nấm hương thái lát và mộc nhĩ thái sợi vào xào chín tới trên lửa lớn 3 phút với 1 thìa nước mắm và tiêu xay.',
+        ],
+        description:
+          'Xé thịt đùi gà ta miếng vừa ăn. Xào thơm mề gà, nấm hương và mộc nhĩ thái sợi với nước mắm ngon và tiêu xay trong 3 phút.',
+        tip: 'Xào nấm hương mộc nhĩ với mắm ngon trước giúp bùng tỏa hương thơm ngạt ngào bám chặt vào từng lát nấm.',
+      },
+      {
+        step: 3,
+        title: 'Trút nấm hương xào vào nồi nước dùng & nêm thanh ngọt',
+        time: '10 phút',
+        heat: 'Lửa nhỏ',
+        goal: 'Nước dùng miến gà thanh ngọt béo nhẹ, bùng tỏa hương thơm nấm hương & gia vị truyền thống',
+        actionPoints: [
+          'Trút toàn bộ nấm hương, mộc nhĩ và mề gà xào thơm vào nồi nước dùng gà hầm.',
+          'Nêm 1.5 thìa canh nước mắm ngon, 1 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu sọ xay. Đun sôi lăn tăn trên lửa nhỏ.',
+        ],
+        description:
+          'Trút nấm hương mộc nhĩ xào vào nồi nước dùng gà. Nêm nước mắm ngon và tiêu sọ đun sôi lăn tăn bùng tỏa mùi thơm.',
+        tip: 'Nêm nước mắm ngon nguyên chất lúc nước dùng sôi nhẹ giúp vị ngọt thanh tự nhiên đậm đà không bị chua.',
+      },
+      {
+        step: 4,
+        title: 'Ngâm chần miến dong Điện Biên dai giòn',
+        time: '5 phút',
+        heat: 'Lửa lớn',
+        goal: 'Sợi miến dong ngấm đẫm vị ngọt đậm đà, giữ độ dai giòn sần sật không bị nát',
+        actionPoints: [
+          'Miến dong ngâm nước ấm 10 phút cho mềm rồi cắt khúc vừa ăn (15cm).',
+          'Cho miến dong vào vợt chần qua nồi nước dùng sôi bùng trong 1 phút cho sợi miến ngấm ngáp vị ngọt đậm đà.',
+        ],
+        description:
+          'Ngâm miến dong 10 phút, chần qua nồi nước dùng gà sôi bùng 1 phút rồi vớt ra tô.',
+        tip: 'Chần miến dong đúng 1 phút trong nước dùng đang sôi giúp sợi miến dai giòn sần sật không bị nhão.',
+      },
+      {
+        step: 5,
+        title: 'Múc miến ra tô, xếp thịt gà xé & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Tô miến gà thơm lừng bốc khói, thịt gà ta xé ngọt lịm ngập nấm hương, lá chanh & rau răm',
+        actionPoints: [
+          'Bốc miến dong đã chần ra tô lớn.',
+          'Xếp thịt gà ta xé phay, mề gà nấm hương mộc nhĩ xào thơm, rắc hành lá, rau răm xắt nhỏ và lá chanh thái sợi siêu mỏng.',
+          'Chan ngập nước dùng gà nấm hương nóng hổi bốc khói ngạt ngào.',
+          'Thưởng thức ngay khi còn nóng hổi ăn kèm muối tiêu chanh ớt hiểm chấm thịt gà xé.',
+        ],
+        description:
+          'Xếp miến chần ra tô, bày gà xé phay, mề gà nấm hương, rắc lá chanh răm, chan nước dùng bốc khói ăn kèm muối tiêu chanh.',
+        tip: 'Rắc lá chanh thái sợi siêu mỏng và rau răm lúc vừa chan nước dùng bốc khói để hương thơm lá chanh bùng tỏa ngào ngạt.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu miến gà ta nước dùng thanh ngọt chuẩn vị gia đình: 1. Luộc gà lửa vừa & ngâm ngay thau nước đá: Giúp da gà vàng ươm giòn sần sật, thịt ngọt mềm mọng không bị khô rách; 2. Chọn miến dong Điện Biên mộc: Sợi miến dai giòn sần sật ăn lâu không bị trương nhão hay đục nước; 3. Xào nấm hương mộc nhĩ với mắm ngon trước khi thả vào nước dùng: Bùng tỏa aroma nấm hương ngạt ngào quyện lá chanh răm thơm lừng.',
+    recommendedSauce:
+      'Tô miến gà bốc khói nghi ngút ngạt ngào mùi nấm hương và lá chanh tươi, sợi miến dong dai giòn trong vắt ngấm đẫm nước dùng gà ngọt lịm từ xương, thịt gà ta xé phay giòn da mọng nước chấm muối hạt tiêu chanh ớt hiểm ngon tuyệt đỉnh.',
+  },
 };
 
 /**
@@ -14397,6 +14515,9 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'mi-udon': 'cach-nau-mi-udon-bo-xao',
   'mi-soba-lanh': 'cach-nau-mi-soba-lanh',
   'mi-soba': 'cach-nau-mi-soba-lanh',
+  'mien-ga-ta-dui-xe': 'cach-nau-mien-ga',
+  'mien-ga-ta': 'cach-nau-mien-ga',
+  'mien-ga': 'cach-nau-mien-ga',
 };
 
 /**
@@ -14619,6 +14740,15 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-mi-soba-lanh': 'mi-soba-lanh',
   'cach-nau-mi-soba-lanh-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-soba-lanh',
   'cach-lam-mi-soba-lanh-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-soba-lanh',
+  'mien-ga-ta-dui-xe': 'mien-ga-ta-dui-xe',
+  'mien-ga-ta': 'mien-ga-ta-dui-xe',
+  'mien-ga': 'mien-ga-ta-dui-xe',
+  'cach-nau-mien-ga': 'mien-ga-ta-dui-xe',
+  'cach-lam-mien-ga': 'mien-ga-ta-dui-xe',
+  'cach-nau-mien-ga-ta': 'mien-ga-ta-dui-xe',
+  'cach-lam-mien-ga-ta': 'mien-ga-ta-dui-xe',
+  'cach-nau-mien-ga-ta-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mien-ga-ta-dui-xe',
+  'cach-lam-mien-ga-ta-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mien-ga-ta-dui-xe',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

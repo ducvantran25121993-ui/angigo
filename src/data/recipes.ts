@@ -955,8 +955,8 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   },
   'nui-gio-heo': {
     dishId: 'nui-gio-heo',
-    dishName: 'Nui Giò Heo Hầm Xương',
-    seoTitle: 'Cách Nấu Nui Giò Heo Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    dishName: 'Nui Giò Heo Mềm Mọng, Thanh Ngọt',
+    seoTitle: 'Cách Nấu Nui Giò Heo Mềm Mọng, Thanh Ngọt',
     prepTime: '25 phút',
     cookTime: '60 phút',
     difficulty: 'Trung bình',

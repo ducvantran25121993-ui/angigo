@@ -590,7 +590,7 @@ export const BUN_PHO_MI_DISHES: Dish[] = [
 
   {
     id: 'nui-gio-heo',
-    name: 'Nui Giò Heo Hầm Xương',
+    name: 'Nui Giò Heo Mềm Mọng, Thanh Ngọt',
     vietnameseName: 'Nui Giò Heo',
     category: 'bun_pho_mi',
     mealTime: ['sang', 'trua', 'toi'],

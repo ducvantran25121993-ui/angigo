@@ -1546,13 +1546,16 @@ export const FAMILY_DISH_RECIPES: Record<string, FamilyDishRecipe> = {
  * Universal recipe getter that returns a structured recipe for any family meal dish.
  */
 export function getFamilyMealDishRecipe(dish: FamilyMealDish): FamilyDishRecipe {
+  if (!dish) {
+    return FAMILY_DISH_RECIPES['canh-mang-tuoi-suon'];
+  }
   // Check exact key match
-  if (FAMILY_DISH_RECIPES[dish.dishId]) {
+  if (dish.dishId && FAMILY_DISH_RECIPES[dish.dishId]) {
     return FAMILY_DISH_RECIPES[dish.dishId];
   }
 
   // Check matching by name keyword
-  const name = dish.name.toLowerCase();
+  const name = (dish.name || '').toLowerCase();
 
   if (name.includes('măng tươi') || (name.includes('măng') && name.includes('sườn'))) {
     return FAMILY_DISH_RECIPES['canh-mang-tuoi-suon'];
@@ -1725,9 +1728,10 @@ export function getFamilyMealDishRecipe(dish: FamilyMealDish): FamilyDishRecipe 
   }
 
   // Smart dynamic recipe fallback
-  const isSoup = dish.role.includes('Canh') || name.includes('canh');
-  const isStirFry = dish.role.includes('Xào') || name.includes('xào');
-  const isSide = dish.role.includes('Ăn Kèm') || dish.role.includes('Tráng Miệng');
+  const role = dish.role || '';
+  const isSoup = role.includes('Canh') || name.includes('canh');
+  const isStirFry = role.includes('Xào') || name.includes('xào');
+  const isSide = role.includes('Ăn Kèm') || role.includes('Tráng Miệng');
 
   if (isSoup) {
     return {

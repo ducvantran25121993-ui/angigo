@@ -13186,8 +13186,8 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   },
   'mi-xao-bo-rau-cai': {
     dishId: 'mi-xao-bo-rau-cai',
-    dishName: 'Mì Xào Bò Rau Cải Thơm Lừng Đậm Đà Chuẩn Bếp Trưởng',
-    seoTitle: 'Cách Làm Mì Xào Bò Thơm Lừng, Đậm Đà Chuẩn Bếp Trưởng',
+    dishName: 'Mì Xào Bò Thơm Lừng, Đậm Đà',
+    seoTitle: 'Cách Làm Mì Xào Bò Thơm Lừng, Đậm Đà',
     ratingValue: '4.9',
     reviewCount: 435,
     prepTime: '15 phút (thái mỏng thịt bò ướp dầu ăn bột năng, nhặt rửa cải ngọt & chần mì)',
@@ -13299,7 +13299,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       },
     ],
     chefSecret:
-      '3 bí quyết vàng làm mì xào bò thơm lừng đậm đà chuẩn bếp trưởng: 1. Ướp thịt bò với bột năng & dầu ăn: Khóa chặt nước ngọt tự nhiên giúp thịt bò xào mềm mượt mọng nước; 2. Trụng mì 80% & xả nước lạnh trộn dầu: Giúp sợi mì khi xào giữ độ tơi săn dai giòn sần sật, không bị nở bở nhão; 3. Xào bò lửa lớn 90 giây trút ra riêng: Giúp thịt bò không bị dai cứng hay mất nước.',
+      '3 bí quyết vàng làm mì xào bò thơm lừng đậm đà: 1. Ướp thịt bò với bột năng & dầu ăn: Khóa chặt nước ngọt tự nhiên giúp thịt bò xào mềm mượt mọng nước; 2. Trụng mì 80% & xả nước lạnh trộn dầu: Giúp sợi mì khi xào giữ độ tơi săn dai giòn sần sật, không bị nở bở nhão; 3. Xào bò lửa lớn 90 giây trút ra riêng: Giúp thịt bò không bị dai cứng hay mất nước.',
     recommendedSauce:
       'Đĩa mì xào bò bốc khói ngào ngạt hương dầu mè tiêu sọ, sợi mì tơi săn óng ả, thịt bò mềm mọng ngọt ngào quyện rau cải xanh mướt giòn ngọt, chấm kèm chén xì dầu tỏi ớt hiểm cay nồng ngon tuyệt đỉnh.',
   },

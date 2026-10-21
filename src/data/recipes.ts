@@ -13303,6 +13303,124 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Đĩa mì xào bò bốc khói ngào ngạt hương dầu mè tiêu sọ, sợi mì tơi săn óng ả, thịt bò mềm mọng ngọt ngào quyện rau cải xanh mướt giòn ngọt, chấm kèm chén xì dầu tỏi ớt hiểm cay nồng ngon tuyệt đỉnh.',
   },
+  'mi-udon-bo-xao': {
+    dishId: 'mi-udon-bo-xao',
+    dishName: 'Mì Udon Bò Xào Sốt Nhật Nước Dùng Thanh Ngọt Chuẩn Vị',
+    seoTitle: 'Cách Nấu Mì Udon Bò Xào Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình',
+    ratingValue: '4.9',
+    reviewCount: 422,
+    prepTime: '15 phút (sơ chế ba chỉ bò Mỹ, rã đông sợi udon tươi, thái bắp cải hành tây)',
+    cookTime: '15 phút (trụng mì udon, nấu nước sốt tương Nhật & xào bò mọng nước)',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Sợi Mì Udon Tươi Núng Nính & Ba Chỉ Bò Mỹ',
+        items: [
+          '3 gói mì Udon tươi Nhật Bản (sợi trắng tròn, dẻo dai núng nính)',
+          '300g ba chỉ bò Mỹ bào mỏng (cuộn tròn mỏng)',
+          '150g bắp cải xanh (rửa sạch xắt miếng vuông 3cm)',
+          '1/2 củ hành tây thái múi cau, 1 củ cà rốt thái sợi mỏng',
+          '100g nấm đùi gà / nấm kim châm thái lát',
+        ],
+      },
+      {
+        category: 'Sốt Xào Udon Yaki Đậm Đà Vị Nhật',
+        items: [
+          '2 thìa canh nước tương Nhật (Shoyu) / xì dầu ngon',
+          '1.5 thìa canh dầu hàu thượng hạng, 1 thìa canh rượu Mirin (tạo vị ngọt thanh nhẹ)',
+          '1 thìa canh đường thốt nốt / đường cát, 1 thìa cà phê hạt nêm Dashi',
+          '1 thìa canh dầu mè thơm, 1/2 thìa cà phê tiêu sọ xay',
+        ],
+      },
+      {
+        category: 'Topping Cá Ngừ Bào Katsuobushi & Bát Nước Dùng Dashi Thanh Ngọt',
+        items: [
+          '1 chén cá ngừ bào Katsuobushi (rắc lên mì xào nhảy múa ngạt ngào)',
+          '2 nhánh hành lá thái nhỏ, 1 thìa hạt mỡ chưng / mè rang vàng',
+          '400ml nước dùng hầm tảo biển Kombu & cá ngừ bào Dashi thanh ngọt dịu mát (dọn kèm tô mì xào)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế ba chỉ bò Mỹ & rau củ thập cẩm',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt bò Mỹ thấm ngấm gia vị Shoyu dầu mè, rau củ bắp cải cà rốt cắt miếng tươi mướt',
+        actionPoints: [
+          'Ba chỉ bò Mỹ rã đông tự nhiên. Ướp bò với 1 thìa canh nước tương Shoyu, 1/2 thìa cà phê tiêu sọ, 1 thìa cà phê hạt nêm Dashi và 1 thìa canh dầu mè thơm trong 10 phút.',
+          'Bắp cải xắt miếng vuông 3cm. Hành tây thái múi cau. Cà rốt tỉa hoa thái lát hoặc thái sợi. Nấm đùi gà thái lát mỏng.',
+        ],
+        description:
+          'Rã đông ba chỉ bò Mỹ, ướp nước tương Shoyu, tiêu sọ và dầu mè thơm 10 phút. Bắp cải xắt miếng vuông, hành tây thái múi cau.',
+        tip: 'Ướp ba chỉ bò Mỹ với nước tương Shoyu và dầu mè thơm giúp thớt bò bùng tỏa aroma Nhật Bản đậm đà béo ngậy.',
+      },
+      {
+        step: 2,
+        title: 'Trụng sợi mì Udon tươi tơi bóng dẻo dai',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Sợi mì Udon trắng tròn dẻo dai núng nính, không dính bệt hay bở nhão',
+        actionPoints: [
+          'Đun sôi nồi nước lớn. Thả 3 gói mì Udon tươi vào trụng nhanh trong 1 - 1.5 phút cho sợi mì rời tơi và đạt độ dẻo dai núng nính tới 80%.',
+          'Vớt mì Udon xả ngay qua nước lạnh rồi vắt ráo. Trộn mì với 1 thìa canh dầu mè thơm cho sợi mì tơi bóng.',
+        ],
+        description:
+          'Trụng mì Udon tươi trong nước sôi 90 giây. Vớt xả nước lạnh vắt ráo rồi trộn 1 thìa dầu mè cho tơi bóng.',
+        tip: 'Trụng mì Udon đúng 90 giây rồi xả nước lạnh trộn dầu mè giúp sợi mì Udon dẻo dai núng nính sần sật tuyệt đỉnh.',
+      },
+      {
+        step: 3,
+        title: 'Pha nước sốt xào Udon Yaki & hầm nước dùng Dashi thanh ngọt',
+        time: '5 phút',
+        heat: 'Lửa vừa',
+        goal: 'Hỗn hợp sốt Yaki Udon mặn ngọt sánh mịn, bát nước dùng Dashi thanh ngọt dịu mát',
+        actionPoints: [
+          'Hòa tan chén sốt xào: 2 thìa canh nước tương Shoyu, 1.5 thìa canh dầu hàu, 1 thìa canh rượu Mirin, 1 thìa canh đường, hạt nêm Dashi và tiêu sọ.',
+          'Đun sôi 400ml nước lọc cùng 1 miếng tảo biển Kombu và 1 thìa cá ngừ bào trong 5 phút, nêm chút hạt nêm Dashi để thu được nước dùng canh Dashi thanh ngọt dịu mát dọn kèm.',
+        ],
+        description:
+          'Pha sốt Shoyu, dầu hàu, rượu Mirin, đường và hạt nêm Dashi. Hầm 400ml nước dùng tảo biển Kombu lấy canh Dashi thanh ngọt.',
+        tip: 'Hầm nước dùng Dashi từ tảo biển Kombu đem lại vị ngọt Umami tự nhiên dịu mát dọn kèm đĩa mì xào béo ngậy.',
+      },
+      {
+        step: 4,
+        title: 'Xào bò lửa lớn mọng nước & xào mì Udon ngấm sốt',
+        time: '3 phút',
+        heat: 'Lửa lớn',
+        goal: 'Ba chỉ bò Mỹ chín mọng mềm tan, sợi mì Udon bọc đẫm lớp sốt tương Shoyu bóng mượt',
+        actionPoints: [
+          'Đun nóng chảo với 1.5 thìa canh dầu ăn trên lửa lớn, phi thơm tỏi băm. Trút ba chỉ bò Mỹ vào đảo nhanh tay trong 90 giây chín tới 80% rồi trút ra đĩa riêng.',
+          'Giữ nguyên chảo, trút bắp cải, cà rốt, nấm và hành tây vào xào lửa lớn 2 phút.',
+          'Trút mì Udon đã trụng tơi vào chảo, rưới chén sốt xào Yaki Udon. Đảo nhẹ tay trên lửa lớn 2 phút cho sợi mì Udon ngấm ngáp nước sốt sánh mịn bóng mượt.',
+        ],
+        description:
+          'Xào bò Mỹ lửa lớn 90 giây trút ra đĩa. Xào bắp cải cà rốt 2 phút, cho mì Udon vào rưới sốt Yaki đảo nhẹ tay 2 phút.',
+        tip: 'Xào mì Udon trên lửa lớn rực giúp sợi mì săn bóng ngấm đẫm vị sốt mà không bị đứt gãy.',
+      },
+      {
+        step: 5,
+        title: 'Trút thịt bò vào đảo bốc khói, rắc cá ngừ bào & thưởng thức',
+        time: '2 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Đĩa mì Udon bò xào bốc khói ngạt ngào, cá ngừ bào Katsuobushi nhảy múa rộn rã trên mặt đĩa',
+        actionPoints: [
+          'Trút đĩa ba chỉ bò Mỹ xào cùng nước thịt bò vào chảo mì Udon. Đảo nhẹ tay trong 30 giây cho nguyên liệu quyện đều ngạt ngào hương thơm rồi tắt bếp.',
+          'Múc mì Udon bò xào ra đĩa rộng sâu lòng. Rắc nhúm cá ngừ bào Katsuobushi, rắc mỡ hành và mè rang vàng.',
+          'Thưởng thức ngay khi còn nóng hổi từng sợi mì Udon dai mềm núng nính, thịt bò Mỹ béo ngậy mọng ngọt quyện sốt tương Nhật thơm phức, xì xụp cùng bát nước dùng Dashi thanh ngọt dịu mát.',
+        ],
+        description:
+          'Trút bò Mỹ vào đảo 30 giây, múc ra đĩa rắc cá ngừ bào Katsuobushi nhảy múa rộn rã và thưởng thức kèm bát nước dùng Dashi thanh ngọt.',
+        tip: 'Rắc cá ngừ bào Katsuobushi lúc mì Udon còn bốc khói nghi ngút để ngắm nhìn vảy cá ngừ nhảy múa sinh động ngạt ngào aroma.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu mì Udon bò xào nước dùng thanh ngọt chuẩn vị gia đình: 1. Trụng mì Udon tươi đúng 90 giây & xả nước lạnh trộn dầu mè: Giúp sợi mì Udon giữ trọn độ núng nính dẻo dai sần sật đặc trưng không bị bở nhão; 2. Nấu sốt xào bằng nước tương Shoyu & rượu Mirin: Tạo vị mặn ngọt chua nhẹ béo ngậy chuẩn phong vị ẩm thực Yaki Udon Nhật Bản; 3. Dọn kèm bát nước dùng Dashi tảo biển Kombu: Giúp cân bằng vị béo của thịt bò, mang lại cảm giác thanh ngọt dịu mát sảng khoái.',
+    recommendedSauce:
+      'Đĩa mì Udon bò xào bốc khói ngào ngạt hương dầu mè, sợi mì Udon dẻo dai núng nính bọc lớp sốt Shoyu mặn ngọt, ba chỉ bò Mỹ mềm tan béo ngậy ngập cá ngừ bào Katsuobushi nhảy múa, xì xụp cùng bát nước dùng Dashi thanh ngọt tuyệt hảo.',
+  },
 };
 
 /**
@@ -14160,6 +14278,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'bun-ca-ngu': 'cach-nau-bun-ca-ngu',
   'mi-xao-bo-rau-cai': 'cach-lam-mi-xao-bo',
   'mi-xao-bo': 'cach-lam-mi-xao-bo',
+  'mi-udon-bo-xao': 'cach-nau-mi-udon-bo-xao',
+  'mi-udon': 'cach-nau-mi-udon-bo-xao',
 };
 
 /**
@@ -14368,6 +14488,13 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-mi-xao-bo': 'mi-xao-bo-rau-cai',
   'cach-lam-mi-xao-bo-thom-lung-dam-da-chuan-bep-truong': 'mi-xao-bo-rau-cai',
   'cach-nau-mi-xao-bo-thom-lung-dam-da-chuan-bep-truong': 'mi-xao-bo-rau-cai',
+  'mi-udon-bo-xao': 'mi-udon-bo-xao',
+  'mi-udon': 'mi-udon-bo-xao',
+  'mi-udon-bo': 'mi-udon-bo-xao',
+  'cach-nau-mi-udon-bo-xao': 'mi-udon-bo-xao',
+  'cach-lam-mi-udon-bo-xao': 'mi-udon-bo-xao',
+  'cach-nau-mi-udon-bo-xao-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-udon-bo-xao',
+  'cach-lam-mi-udon-bo-xao-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'mi-udon-bo-xao',
   'goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',
   'goi-ngo-sen': 'goi-ngo-sen-tom-thit',
   'cach-lam-goi-ngo-sen-tom-thit': 'goi-ngo-sen-tom-thit',

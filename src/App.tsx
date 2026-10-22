@@ -105,8 +105,10 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-dap-mam-nem');
       } else if (pathname === '/cach-nau-banh-beo') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-beo');
-      } else if (pathname === '/cach-nau-nem-lui-nuong-cuon') {
-        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-nem-lui-nuong-cuon');
+      } else if (pathname === '/cach-nau-nem-lui-nuong-cuon' || pathname === '/cach-lam-nem-lui-nuong-cuon' || pathname === '/cach-nau-nem-lui-hue' || pathname === '/cach-nau-nem-lui' || pathname === '/cach-lam-nem-lui' || pathname === '/cach-lam-nem-lui-hue-nuong-than-thom-nuc-nuoc-leo-gan-dau-beo-bui-chuan-vi-co-do') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-nem-lui-hue');
+      } else if (pathname === '/cach-nau-banh-mi-doner-kebab' || pathname === '/cach-lam-banh-mi-kebab' || pathname === '/cach-nau-banh-mi-kebab' || pathname === '/cach-lam-banh-mi-doner-kebab-gion-rum-dam-da-chuan-vi-duong-pho' || pathname === '/cach-nau-banh-mi-doner-kebab-gion-rum-dam-da-chuan-vi-duong-pho') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-mi-doner-kebab');
       } else if (pathname === '/cach-nau-banh-mi-cha-ca-nong') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-mi-cha-ca-nong');
       } else if (pathname === '/cach-nau-de-tai-chanh-tuong-ban' || pathname === '/cach-nau-de-tai-chanh') {
@@ -262,7 +264,7 @@ export default function App() {
 
     // Defer blog custom post sync so it NEVER blocks initial mobile FCP or LCP
     const pathname = window.location.pathname.replace(/\/$/, '') || '/';
-    const isBlogRoute = pathname.startsWith('/blog') || pathname === '/admin' || (pathname !== '/' && !['/vong-quay', '/mon-ngon', '/do-uong-an-vat', '/lich-an-theo-tuan', '/quan-ngon', '/kham-pha-am-thuc'].includes(pathname));
+    const isBlogRoute = !isCurrentPathRecipe && (pathname.startsWith('/blog') || pathname === '/admin' || (pathname !== '/' && !['/vong-quay', '/mon-ngon', '/do-uong-an-vat', '/lich-an-theo-tuan', '/quan-ngon', '/kham-pha-am-thuc', '/am-thuc-vung-mien', '/thuc-don-moi-ngay', '/cach-nau-mon-ngon'].includes(pathname)));
 
     if (isBlogRoute) {
       const syncBlog = async () => {

@@ -306,7 +306,10 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
   }
 
   const pageDesc = meta.description || '';
-  const crawlerHeader = `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p>${extraContent}</header>`;
+  const isRecipeOrArticle = meta.isArticle || meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-');
+  const crawlerHeader = isRecipeOrArticle
+    ? `<header id="prerender-content" style="max-width: 56rem; margin: 2rem auto; padding: 0 1rem; font-family: 'Be Vietnam Pro', system-ui, sans-serif; color: #1c1917;"><h1 style="font-size: 1.75rem; font-weight: 800; line-height: 1.3; margin-bottom: 0.75rem; color: #0c0a09;">${escapeXml(pageH1)}</h1><p style="color: #57534e; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">${escapeXml(pageDesc)}</p>${extraContent}<div style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8a29e;">Đang tải giao diện công thức...</div></header>`
+    : `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p>${extraContent}</header>`;
 
   if (updatedHtml.includes('<div id="root">')) {
     updatedHtml = updatedHtml.replace(

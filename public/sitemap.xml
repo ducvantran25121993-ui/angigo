@@ -729,7 +729,7 @@
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://angigio.com/images/mi_xao_gion.jpg</image:loc>
-      <image:title>Cách Làm Mì Xào Giòn Thơm Lừng, Đậm Đà Chuẩn Bếp Trưởng</image:title>
+      <image:title>Cách Làm Mì Xào Giòn Thơm Lừng, Đậm Đà</image:title>
     </image:image>
   </url>
   <url>
@@ -739,7 +739,7 @@
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://angigio.com/images/mi_xao_bo.jpg?v=2</image:loc>
-      <image:title>Cách Làm Mì Xào Bò Thơm Lừng, Đậm Đà Chuẩn Bếp Trưởng</image:title>
+      <image:title>Cách Làm Mì Xào Bò Thơm Lừng, Đậm Đà</image:title>
     </image:image>
   </url>
   <url>
@@ -773,7 +773,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-mien-ga-ta-dui-xe</loc>
+    <loc>https://angigio.com/cach-nau-mien-ga</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -803,7 +803,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-banh-canh-ghe-nguyen-con</loc>
+    <loc>https://angigio.com/cach-nau-banh-canh-ghe</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -853,23 +853,13 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-mien-xao-cua</loc>
+    <loc>https://angigio.com/cach-lam-mien-xao-cua</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://angigio.com/images/mien_xao_cua.jpg</image:loc>
-      <image:title>Cách Nấu Miến Xào Cua Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/cach-nau-mi-xao-bo-cai-ngot</loc>
-    <lastmod>2026-09-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/mi_xao_gion.jpg</image:loc>
-      <image:title>Cách Làm Mì Xào Bò Thơm Lừng, Đậm Đà Chuẩn Bếp Trưởng</image:title>
+      <image:title>Cách Làm Miến Xào Cua Mềm Mượt, Tơi Săn</image:title>
     </image:image>
   </url>
   <url>
@@ -879,7 +869,7 @@
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://angigio.com/images/nui_gio_heo.jpg?v=2</image:loc>
-      <image:title>Cách Nấu Nui Giò Heo Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình</image:title>
+      <image:title>Cách Nấu Nui Giò Heo Mềm Mọng, Thanh Ngọt</image:title>
     </image:image>
   </url>
   <url>
@@ -889,7 +879,7 @@
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://angigio.com/images/banh_mi_pate.jpg</image:loc>
-      <image:title>Cách Làm Bánh Mì Pate Thập Cẩm Giòn Rụm, Đậm Đà Chuẩn Vị Đường Phố</image:title>
+      <image:title>Cách Làm Bánh Mì Pate Thập Cẩm Giòn Rụm, Đậm Đà</image:title>
     </image:image>
   </url>
   <url>
@@ -943,7 +933,7 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-nau-banh-mi-doner-kebab</loc>
+    <loc>https://angigio.com/cach-lam-banh-mi-doner-kebab</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -973,13 +963,13 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/cach-lam-nem-lui-nuong-cuon</loc>
+    <loc>https://angigio.com/cach-lam-nem-lui-hue</loc>
     <lastmod>2026-09-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
       <image:loc>https://angigio.com/images/nem_lui.jpg</image:loc>
-      <image:title>Cách Làm Nem Lụi Huế Nướng Than Thơm Nức &amp; Nước Lèo Gan Đậu Béo Bùi Chuẩn Vị Cố Đô</image:title>
+      <image:title>Cách Làm Nem Lụi Huế Thơm Lừng, Đậm Đà</image:title>
     </image:image>
   </url>
   <url>
@@ -2163,6 +2153,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://angigio.com/goi-y-thuc-don-hang-ngay-cho-gia-dinh</loc>
+    <lastmod>2026-10-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
+      <image:title>Gợi Ý Thực Đơn Hàng Ngày Cho Gia Đình</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://angigio.com/100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem</loc>
     <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -2198,7 +2198,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://angigio.com/images/ca-lam-mon-gi-ngon.jpg</image:loc>
+      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
       <image:title>Cá Làm Món Gì Ngon? Gợi Ý Các Món Cá Dễ Làm</image:title>
     </image:image>
   </url>
@@ -2280,16 +2280,6 @@
     <image:image>
       <image:loc>https://angigio.com/images/trung-lam-mon-gi-ngon.jpg</image:loc>
       <image:title>Trứng Làm Món Gì Ngon? Gợi Ý Các Món Trứng Dễ Làm, Hao Cơm Cho Cả Nhà</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/mon-ngon-moi-ngay-goi-y-30-mon-an-cho-bua-com-gia-dinh</loc>
-    <lastmod>2026-10-17</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/ga_luoc_la_chanh.jpg</image:loc>
-      <image:title>Món Ngon Mỗi Ngày: Gợi Ý 30 Món Ăn Cho Bữa Cơm Gia Đình</image:title>
     </image:image>
   </url>
   <url>

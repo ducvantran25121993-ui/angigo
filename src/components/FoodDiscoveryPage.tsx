@@ -500,7 +500,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
 
       if (isRecipePath) {
         const slug = pathname.replace('/cach-nau-mon-ngon/', '').replace(/^\//, '');
-        const match = findDishByRecipeSlug(slug, INITIAL_DISHES);
+        const match = findDishByRecipeSlug(slug, INITIAL_DISHES) || findDishByRecipeSlug(pathname, INITIAL_DISHES);
         if (match) return true;
       }
       if (window.location.hash.startsWith('#recipe-')) {
@@ -967,9 +967,47 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
     );
   }, [recipeSearchQuery, selectedRecipeCategory]);
 
-  // Current active recipe
+  // Current active recipe with safe fallback to guarantee zero runtime crashes
   const currentRecipe = useMemo(() => {
-    return getDishRecipe(selectedRecipeDish);
+    const rec = getDishRecipe(selectedRecipeDish);
+    if (rec) return rec;
+    return {
+      dishId: selectedRecipeDish?.id || 'mon-ngon',
+      dishName: selectedRecipeDish?.name || 'Món Ngon',
+      seoTitle: formatRecipeSeoTitle(selectedRecipeDish?.name || 'Món Ngon'),
+      prepTime: '20 phút',
+      cookTime: '25 phút',
+      difficulty: 'Dễ',
+      servings: '3 - 4 người',
+      ingredients: [
+        {
+          category: 'Nguyên liệu chính',
+          items: [selectedRecipeDish?.name || 'Nguyên liệu tươi sạch', 'Gia vị chuẩn gia đình'],
+        },
+      ],
+      steps: [
+        {
+          step: 1,
+          title: 'Sơ chế nguyên liệu',
+          description: `Sơ chế sạch các nguyên liệu cho món ${selectedRecipeDish?.vietnameseName || selectedRecipeDish?.name}.`,
+          time: '10 phút',
+        },
+        {
+          step: 2,
+          title: 'Chế biến và nêm nếm',
+          description: 'Nấu chín nguyên liệu và nêm nếm gia vị vừa ăn theo khẩu vị gia đình.',
+          time: '15 phút',
+        },
+        {
+          step: 3,
+          title: 'Hoàn thành và thưởng thức',
+          description: 'Bày món ăn ra đĩa/tô và thưởng thức nóng cùng cơm hoặc bún.',
+          time: '5 phút',
+        },
+      ],
+      chefSecret: 'Chọn nguyên liệu tươi ngon và nêm nếm vừa khẩu vị là bí quyết cho món ăn tròn vị.',
+      recommendedSauce: 'Nước chấm gia đình hoặc tương ớt cay nhẹ.',
+    };
   }, [selectedRecipeDish]);
 
   // Current region data

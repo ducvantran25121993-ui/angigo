@@ -3,17 +3,18 @@ import { Dish } from '../../types';
 export const BANHMI_CUON_DISHES: Dish[] = [
   {
     id: 'banh-mi-pate-thap-cam',
-    name: 'Bánh Mì Pate Thập Cẩm Giòn Rụm',
+    name: 'Bánh Mì Pate Thập Cẩm Giòn Rụm, Đậm Đà',
     vietnameseName: 'Bánh Mì Pate Thập Cẩm',
     category: 'banhmi_cuon',
     mealTime: ['sang', 'trua', 'an_vat', 'an_dem'],
     priceRange: '25.000đ - 40.000đ',
     estimatedPrice: 30000,
     calories: '450 - 550 kcal',
-    description: 'Vỏ bánh mì giòn tan, pate gan nhà làm béo ngậy, bơ vàng thơm phức, giò lụa, xá xíu và đồ chua cay giòn giải ngấy.',
+    description: 'Bí quyết làm bánh mì pate thập cẩm giòn rụm đậm đà: Vỏ bánh nướng nóng giòn rôm rốp, bơ trứng gà đánh thủ công béo bùi, pate gan hấp mềm mịn ngậy thơm quyện chả lụa xá xíu đồ chua và sốt chan thịt đậm đà.',
     image: '/images/banh_mi_pate.jpg',
-    popularTags: ['Quốc dân', 'Pate béo ngậy', 'Bữa sáng nhanh'],
-    searchKeyword: 'Bánh mì pate thịt',
+    popularTags: ['Bánh mì pate thập cẩm', 'Pate gan béo ngậy', 'Bơ trứng gà', 'Bánh mì giòn rụm', 'Món ăn gia đình ngon'],
+    searchKeyword: 'Cách làm bánh mì pate thập cẩm giòn rụm đậm đà',
+    bestPairedWith: 'Ổ bánh mì pate giòn rụm ngập đẫm chả lụa xá xíu, chan sốt đậm đà & tương ớt cay nồng',
   },
   {
     id: 'banh-mi-chao-xiu-mai',

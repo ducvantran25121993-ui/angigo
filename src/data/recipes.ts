@@ -377,8 +377,10 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   },
   'banh-mi-pate-thap-cam': {
     dishId: 'banh-mi-pate-thap-cam',
-    dishName: 'Bánh Mì Pate Thập Cẩm Truyền Thống',
-    seoTitle: 'Cách Làm Bánh Mì Pate Thập Cẩm Giòn Rụm, Đậm Đà Chuẩn Vị Đường Phố',
+    dishName: 'Bánh Mì Pate Thập Cẩm Giòn Rụm, Đậm Đà',
+    seoTitle: 'Cách Làm Bánh Mì Pate Thập Cẩm Giòn Rụm, Đậm Đà',
+    ratingValue: '4.9',
+    reviewCount: 456,
     prepTime: '20 phút',
     cookTime: '15 phút',
     difficulty: 'Dễ',
@@ -410,7 +412,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
           '1 thìa canh dầu hào Maggi',
           '1 thìa canh tương cà (ketchup) & 1 thìa canh tương ớt Chin-su',
           '1 thìa canh đường cát',
-          '1/2 thìa cà phê bột ngũ vị hương (tạo hương vị bánh mì phố cổ đặc trưng)',
+          '1/2 thìa cà phê bột ngũ vị hương (tạo hương vị đặc trưng thơm lừng)',
           '1/2 thìa cà phê tiêu đen xay vỡ',
           '2 tép tỏi băm & 2 củ hành tím phi thơm',
           '1 thìa cà phê bơ lạt (hoặc bơ Tường An)',
@@ -431,13 +433,13 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       {
         step: 1,
         title: 'Tự đánh bơ trứng gà thơm béo và làm nóng pate gan heo',
-        time: '12 phút',
+        time: '10 phút',
         heat: 'Nhiệt độ phòng / Hấp ấm',
         goal: 'Bơ trứng gà bông sánh dẻo màu vàng óng, pate gan mềm mịn béo ngậy thơm nức',
         actionPoints: [
           'Cho 2 lòng đỏ trứng gà vào bát sạch cùng 1/4 thìa cà phê muối và vài giọt nước cốt chanh. Dùng phới lồng đánh tan trứng.',
           'Kỹ thuật đánh bơ: Rưới từng thìa cà phê dầu ăn vào bát trứng, vừa rưới vừa dùng phới đánh đều tay một chiều cho dầu ăn quyện hoàn toàn vào trứng rồi mới thêm thìa dầu tiếp theo.',
-          'Đánh liên tục khoảng 10 - 12 phút đến khi bơ trứng gà bông sánh dẻo, có màu vàng óng béo bùi thơm lừng.',
+          'Đánh liên tục khoảng 10 phút đến khi bơ trứng gà bông sánh dẻo, có màu vàng óng béo bùi thơm lừng.',
           'Pate gan heo cho vào đĩa hấp cách thủy 5 phút cho pate mềm ấm, khi phết vào bánh mì sẽ ngậy thơm ngất ngây.',
         ],
         description:
@@ -447,7 +449,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       {
         step: 2,
         title: 'Nấu nước sốt chan thịt bánh mì đượm vị đậm đà',
-        time: '10 phút',
+        time: '8 phút',
         heat: 'Lửa nhỏ',
         goal: 'Nước sốt chan đượm vị mặn ngọt chua cay, dậy mùi thơm lừng của ngũ vị hương và bơ lạt',
         actionPoints: [
@@ -458,29 +460,45 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
         description:
           'Phi thơm hành tỏi, đun nước dùng xương cùng nước tương, dầu hào, tương cà, tương ớt, đường và ngũ vị hương. Thả bơ lạt vào khuấy tan béo ngậy.',
+        tip: 'Thêm 1 thìa bơ lạt vào sốt lúc vừa tắt bếp giúp sốt béo ngậy, sánh bóng và bốc mùi thơm nức mũi.',
       },
       {
         step: 3,
         title: 'Sơ chế chả lụa, thịt nguội & chuẩn bị dưa chua ăn kèm',
-        time: '8 phút',
+        time: '7 phút',
         heat: 'Nhiệt độ phòng',
         goal: 'Topping thái lát mỏng vừa ăn, dưa chua giòn ngọt chống ngấy',
         actionPoints: [
           'Thái chả lụa và thịt nguội xá xíu thành các lát mỏng dài vừa ăn.',
           'Dưa leo rửa sạch thái lát mỏng dài. Cà rốt củ cải bào sợi ngâm giấm đường 15 phút rồi vắt nhẹ ráo nước.',
-          'Nướng lại các ổ bánh mì trong lò hoặc nồi chiên không dầu 1 - 2 phút ở 180°C cho vỏ bánh giòn rụm rôm rốp.',
+          'Ngò rí rửa sạch để ráo, ớt sừng thái lát chéo.',
         ],
         description:
-          'Thái chả lụa thịt nguội mỏng. Chuẩn bị dưa leo, đồ chua cà rốt ngâm chua ngọt và ngò rí tươi. Nướng nóng bánh mì giòn rụm.',
+          'Thái chả lụa thịt nguội mỏng. Chuẩn bị dưa leo, đồ chua cà rốt ngâm chua ngọt và ngò rí tươi.',
+        tip: 'Vắt ráo nước đồ chua trước khi kẹp để bánh mì không bị ỉu ướt.',
       },
       {
         step: 4,
+        title: 'Nướng nóng bánh mì vỏ ngoài giòn rụm rôm rốp',
+        time: '3 phút',
+        heat: '180°C',
+        goal: 'Bánh mì nóng hổi, vỏ ngoài giòn tan rôm rốp, ruột xốp mềm ấm',
+        actionPoints: [
+          'Làm nóng lò nướng hoặc nồi chiên không dầu ở 180°C trước 3 phút.',
+          'Cho các ổ bánh mì vào nướng trong 2 - 3 phút cho vỏ bánh nóng hổi, giòn rụm rôm rốp khi bóp nhẹ.',
+          'Lấy bánh mì ra, dùng dao sắc rạch dọc một bên thân bánh.',
+        ],
+        description:
+          'Nướng nóng bánh mì trong lò hoặc nồi chiên không dầu ở 180°C trong 2 - 3 phút cho vỏ giòn rụm rồi rạch dọc thân bánh.',
+        tip: 'Xịt sương một lớp nước mỏng lên vỏ bánh mì trước khi nướng giúp vỏ bánh giòn tan mà không bị vụn nát.',
+      },
+      {
+        step: 5,
         title: 'Kẹp ổ bánh mì ngập đẫm pate thập cẩm và thưởng thức',
-        time: '5 phút',
+        time: '2 phút',
         heat: 'Thưởng thức nóng giòn',
         goal: 'Ổ bánh mì giòn rụm, bơ pate ngậy béo tan chảy quyện chả lụa thịt nguội và nước sốt đượm vị đậm đà',
         actionPoints: [
-          'Dùng dao sắc rạch dọc thân ổ bánh mì giòn nướng nóng.',
           'Phết một lớp bơ trứng gà vàng óng khắp lòng bánh mì, tiếp theo phết đẫm lớp pate gan heo thơm phức ngậy béo.',
           'Xếp dưa leo thái lát mỏng, đồ chua cà rốt củ cải ngâm chua ngọt và vài cọng ngò rí xanh tươi.',
           'Xếp đẫm các lát chả lụa, thịt nguội xá xíu và rắc một lớp chà bông tơi xốp lên trên.',
@@ -489,10 +507,11 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
         ],
         description:
           'Phết bơ pate vào bánh mì giòn rụm, xếp dưa leo đồ chua, ngập đẫm chả lụa thịt nguội chà bông rồi chan nước sốt chan thịt đậm đà thơm nức thưởng thức.',
+        tip: 'Phết bơ trứng trước rồi phết pate lên trên giúp tạo lớp màng ngăn nước sốt ngấm vào vỏ bánh, giữ bánh mì giòn rụm từ miếng đầu tiên đến miếng cuối cùng.',
       },
     ],
     chefSecret:
-      'Bí quyết tạo nên ổ bánh mì pate thập cẩm chuẩn vị đường phố thơm ngon bất bại nằm ở 3 điểm: Thứ nhất, bơ trứng gà phải tự đánh thủ công bằng lòng đỏ trứng và dầu ăn theo một chiều để bơ bông sánh dẻo vàng óng béo bùi. Thứ hai, pate gan heo trước khi kẹp nên được hấp ấm cho mềm thơm ngậy béo. Thứ ba, nước sốt chan kẹp bánh mì phải nấu từ nước dùng hầm xá xíu kết hợp chút ngũ vị hương và bơ lạt, chan vừa đủ để giữ ổ bánh mì luôn giòn rụm mà ngấm đẫm hương vị đậm đà.',
+      '3 bí quyết vàng làm bánh mì pate thập cẩm giòn rụm đậm đà: 1. Đánh bơ trứng gà thủ công một chiều: Rưới từng thìa dầu ăn giúp bơ trứng bông sánh dẻo vàng óng béo bùi không bị tách dầu; 2. Hấp ấm pate gan heo trước khi phết: Giúp lớp pate mềm mịn tan chảy, bốc mùi thơm ngậy ngào ngạt; 3. Nấu sốt chan thịt từ bơ lạt & ngũ vị hương: Giúp nhân bánh mì ngấm đẫm vị đậm đà béo thơm mà vỏ bánh vẫn giữ độ giòn tan rôm rốp.',
     recommendedSauce:
       'Sốt chan thịt ngũ vị hương bơ lạt mặn ngọt đậm đà, rưới thêm tương ớt Chin-su cay nồng.',
   },

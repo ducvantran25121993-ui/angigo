@@ -1852,6 +1852,25 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     }
   }
 
+  // Inject semantic route-specific H1 header into <div id="root"> for crawlers (Bingbot, Googlebot)
+  let pageH1 = meta.h1 || meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
+  if (isRecipeRoute) {
+    const td = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`);
+    if (td) {
+      const rec = getDishRecipe(td);
+      if (rec?.seoTitle) pageH1 = rec.seoTitle;
+    }
+  }
+  const pageDesc = meta.description || '';
+  const crawlerHeader = `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p></header>`;
+
+  if (updatedHtml.includes('<div id="root">')) {
+    updatedHtml = updatedHtml.replace(
+      /<div id="root">[\s\S]*?<\/div>/,
+      `<div id="root">\n      ${crawlerHeader}\n    </div>`
+    );
+  }
+
   return updatedHtml;
 }
 

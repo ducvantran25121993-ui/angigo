@@ -293,10 +293,26 @@
         display: flex;
         flex-direction: column;
       }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
     </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <header class="sr-only">
+        <h1>Hôm Nay Ăn Gì - Gợi Ý Món Ăn Ngon Mỗi Ngày, Lịch Ăn Tuần &amp; Công Thức Chuẩn Vị</h1>
+        <p>Gợi ý món ăn thông minh hôm nay ăn gì với vòng quay may mắn, bốc bài tarot ẩm thực 12 cung hoàng đạo, thực đơn 21 bữa mỗi tuần và hướng dẫn công thức nấu ăn chuẩn vị gia đình Việt Nam.</p>
+      </header>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

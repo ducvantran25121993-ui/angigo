@@ -1235,7 +1235,17 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
       }
     });
     cloudPosts.forEach((p) => {
-      map.set(p.slug || p.id, p);
+      const key = p.slug || p.id;
+      const existing = map.get(key);
+      if (existing) {
+        const localTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+        const cloudTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
+        // Never overwrite a newer local post with an older cloud post
+        if (localTime > cloudTime) {
+          return;
+        }
+      }
+      map.set(key, p);
     });
     const allList = Array.from(map.values());
     const merged = allList.map((p) => ({
@@ -1270,50 +1280,27 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
 // Trigger initial sync on startup in background
 syncFirestorePostsToServer().catch(() => {});
 
-// Direct static JSON endpoint with ETag and smart Cache-Control
+// Direct static JSON endpoint with no-store Cache-Control so multi-device edits reflect immediately
 app.get("/custom_blog_posts.json", async (req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const posts = await syncFirestorePostsToServer();
-  const body = JSON.stringify(posts);
-  const hash = crypto.createHash("md5").update(body).digest("hex");
-  const etag = `"${hash}"`;
-  res.setHeader("ETag", etag);
-  res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
-
-  if (req.headers["if-none-match"] === etag) {
-    return res.status(304).end();
-  }
-  return res.send(body);
+  return res.send(JSON.stringify(posts));
 });
 
 // Endpoint for deleted post slugs (synced from Cloud Firestore)
 app.get("/api/admin/deleted-posts", async (req, res) => {
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const deleted = await syncFirestoreDeletedPosts();
-  const body = JSON.stringify({ success: true, deleted });
-  const hash = crypto.createHash("md5").update(body).digest("hex");
-  const etag = `"${hash}"`;
-  res.setHeader("ETag", etag);
-  res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
-
-  if (req.headers["if-none-match"] === etag) {
-    return res.status(304).end();
-  }
-  return res.setHeader("Content-Type", "application/json; charset=utf-8").send(body);
+  return res.send(JSON.stringify({ success: true, deleted }));
 });
 
 app.get("/deleted_posts.json", async (req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const deleted = await syncFirestoreDeletedPosts();
-  const body = JSON.stringify(deleted);
-  const hash = crypto.createHash("md5").update(body).digest("hex");
-  const etag = `"${hash}"`;
-  res.setHeader("ETag", etag);
-  res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
-
-  if (req.headers["if-none-match"] === etag) {
-    return res.status(304).end();
-  }
-  return res.send(body);
+  return res.send(JSON.stringify(deleted));
 });
 
 function escapeXml(str: string): string {
@@ -2037,8 +2024,9 @@ app.post("/api/admin/posts", async (req, res) => {
       console.warn("Backend Firestore save warning:", fbErr);
     }
 
-    firestoreQuotaExceededUntil = 0;
-    invalidateFirestoreServerCache();
+    // Keep cachedFirestorePosts populated with the latest customPosts saved by saveCustomBlogPosts(customPosts) above
+    cachedFirestorePosts = customPosts;
+    lastFirestorePostsSyncTime = Date.now();
 
     return res.json({
       success: true,
@@ -3261,7 +3249,7 @@ async function startServer() {
         etag: true,
         setHeaders: (res, filePath) => {
           if (filePath.endsWith(".html") || filePath.endsWith(".json")) {
-            res.setHeader("Cache-Control", "public, max-age=180, stale-while-revalidate=1800");
+            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
           } else if (filePath.includes("/assets/") || /\.(png|jpe?g|webp|svg|ico|woff2?|ttf|eot)$/i.test(filePath)) {
             res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
           }
@@ -3274,15 +3262,8 @@ async function startServer() {
       if (fs.existsSync(indexPath)) {
         const rawHtml = fs.readFileSync(indexPath, "utf-8");
         const seoHtml = injectSeoMeta(rawHtml, req.path);
-        const hash = crypto.createHash("md5").update(seoHtml).digest("hex");
-        const etag = `"${hash}"`;
-        res.setHeader("ETag", etag);
         res.setHeader("Content-Type", "text/html; charset=utf-8");
-        res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
-
-        if (req.headers["if-none-match"] === etag) {
-          return res.status(304).end();
-        }
+        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         return res.send(seoHtml);
       } else {
         res.status(404).send("Application dist index.html not found");

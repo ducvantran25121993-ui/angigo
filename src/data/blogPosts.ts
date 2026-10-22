@@ -893,17 +893,19 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
   if (typeof window === 'undefined') return set;
 
   const now = Date.now();
-  if (!forceRefresh && (now - _lastSyncDeletedTime < 120000)) {
+  if (!forceRefresh && (now - _lastSyncDeletedTime < 3000)) {
     return set;
   }
   _lastSyncDeletedTime = now;
 
-  // 1. Fetch from backend API first (Fastest & direct connection)
+  // 1. Fetch from backend API first (Fastest & direct connection, bypass browser cache)
+  let apiSuccess = false;
   try {
-    const res = await fetch('/api/admin/deleted-posts');
+    const res = await fetch(`/api/admin/deleted-posts?_t=${now}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (data.deleted && Array.isArray(data.deleted)) {
+        apiSuccess = true;
         data.deleted.forEach((s: string) => {
           const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
           if (clean) set.add(clean);
@@ -914,22 +916,24 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
     console.warn('syncDeletedPosts API error:', err);
   }
 
-  // 2. Fetch from Firestore deleted_posts with timeout protection
-  try {
-    const { getDeletedPostsFromFirestore } = await import('../firebase');
-    const cloudPromise = getDeletedPostsFromFirestore();
-    const timeoutPromise = new Promise<string[]>((_, reject) =>
-      setTimeout(() => reject(new Error('Firestore deleted posts timeout')), 2500)
-    );
-    const cloudDeleted = await Promise.race([cloudPromise, timeoutPromise]);
-    if (Array.isArray(cloudDeleted)) {
-      cloudDeleted.forEach((s) => {
-        const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-        if (clean) set.add(clean);
-      });
+  // 2. Fallback to Firestore deleted_posts only if API did not respond
+  if (!apiSuccess) {
+    try {
+      const { getDeletedPostsFromFirestore } = await import('../firebase');
+      const cloudPromise = getDeletedPostsFromFirestore();
+      const timeoutPromise = new Promise<string[]>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore deleted posts timeout')), 2500)
+      );
+      const cloudDeleted = await Promise.race([cloudPromise, timeoutPromise]);
+      if (Array.isArray(cloudDeleted)) {
+        cloudDeleted.forEach((s) => {
+          const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          if (clean) set.add(clean);
+        });
+      }
+    } catch (err) {
+      console.warn('syncDeletedPosts cloud error:', err);
     }
-  } catch (err) {
-    console.warn('syncDeletedPosts cloud error:', err);
   }
 
   // Save merged set to localStorage, window, and memory cache
@@ -1168,7 +1172,7 @@ let _cachedFetchSyncPosts: BlogPost[] | null = null;
 export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<BlogPost[]> {
   if (typeof window === 'undefined') return [];
   const now = Date.now();
-  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 120000)) {
+  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 3000)) {
     return _cachedFetchSyncPosts;
   }
   _lastFetchSyncTime = now;
@@ -1177,7 +1181,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
   const deleted = await syncDeletedPosts(forceRefresh);
   const postMap = new Map<string, BlogPost>();
 
-  // 1. Read existing localStorage first so newly saved local edits are NEVER lost!
+  // 1. Read existing localStorage first as baseline
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
     if (raw) {
@@ -1193,45 +1197,60 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   } catch {}
 
-  const mergeItem = (p: any) => {
+  const mergeItem = (p: any, isAuthoritativeServer = false) => {
     if (!p || (!p.slug && !p.id)) return;
     const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const id = (p.id || '').toLowerCase().trim();
     if (deleted.has(s) || deleted.has(id) || EXCLUDED_BLOG_SLUGS.has(s) || EXCLUDED_BLOG_SLUGS.has(id)) return;
     const key = s || id;
+    const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
+    if (oldSlug && oldSlug !== key) {
+      postMap.delete(oldSlug);
+    }
     const existing = postMap.get(key);
-    if (existing) {
+    if (existing && !isAuthoritativeServer) {
       const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
       const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-      if (existTime > newTime) return; // Keep the newer one
+      if (existTime > newTime && newTime > 0) return; // Keep the newer one
+    } else if (existing && isAuthoritativeServer) {
+      const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+      const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
+      // Only keep existing local item if it was explicitly edited AFTER the server's timestamp on the same admin device
+      if (existTime > newTime && newTime > 0 && window.location.pathname.startsWith('/admin')) {
+        return;
+      }
     }
     postMap.set(key, normalizeBlogPost(p));
   };
 
-  // 2. Fast static / local custom_blog_posts.json (uses ETag and 304 responses)
+  // 2. Fetch fresh /custom_blog_posts.json (bypass browser cache so updates on other devices show immediately)
+  let serverFetched = false;
   try {
-    const res = await fetch('/custom_blog_posts.json');
+    const res = await fetch(`/custom_blog_posts.json?_t=${now}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
-        data.forEach(mergeItem);
+        serverFetched = true;
+        data.forEach((item) => mergeItem(item, true));
       }
     }
   } catch {
     // ignore
   }
 
-  // 3. Try dynamic Express server API
+  // 3. Fetch dynamic Express server API (/api/admin/posts) with cache: 'no-store'
   try {
-    const res = await fetch('/api/admin/posts');
+    const res = await fetch(`/api/admin/posts?_t=${now}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data.customPosts)) {
-        data.customPosts.forEach(mergeItem);
+        serverFetched = true;
+        data.customPosts.forEach((item: any) => mergeItem(item, true));
       }
       if (Array.isArray(data.posts)) {
-        data.posts.forEach((p) => {
-          if (p.isCustom || p.htmlContent) mergeItem(p);
+        serverFetched = true;
+        data.posts.forEach((p: any) => {
+          if (p.isCustom || p.htmlContent) mergeItem(p, true);
         });
       }
     }
@@ -1239,23 +1258,25 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     // ignore
   }
 
-  // 4. Cloud Firestore (source of truth for admin posts across devices)
-  try {
-    const { getPostsFromFirestore } = await import('../firebase');
-    const cloudPromise = getPostsFromFirestore();
-    const timeoutPromise = new Promise<BlogPost[]>((_, reject) =>
-      setTimeout(() => reject(new Error('Firestore timeout')), 3500)
-    );
-    const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
-    if (Array.isArray(cloudPosts)) {
-      cloudPosts.forEach((p) => {
-        if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
-        if (p.id) deleted.delete(p.id.toLowerCase().trim());
-        mergeItem(p);
-      });
+  // 4. Cloud Firestore fallback (only query directly from client if server API didn't respond or on admin page)
+  if (!serverFetched || window.location.pathname.startsWith('/admin')) {
+    try {
+      const { getPostsFromFirestore } = await import('../firebase');
+      const cloudPromise = getPostsFromFirestore();
+      const timeoutPromise = new Promise<BlogPost[]>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore timeout')), 3500)
+      );
+      const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
+      if (Array.isArray(cloudPosts)) {
+        cloudPosts.forEach((p) => {
+          if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
+          if (p.id) deleted.delete(p.id.toLowerCase().trim());
+          mergeItem(p, false);
+        });
+      }
+    } catch {
+      // ignore
     }
-  } catch {
-    // ignore
   }
 
   const merged = Array.from(postMap.values());

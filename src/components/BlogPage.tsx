@@ -181,7 +181,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     return Array.from(postMap.values());
   }, [customPosts, deletedSlugs]);
 
-  // Helper to reliably resolve post across all data sources
+  // Helper to reliably resolve post across all data sources (always prioritize fresh customPosts and getBlogPostBySlug)
   const resolvePostFromPath = useCallback((rawPathname?: string): BlogPost | null => {
     if (typeof window === 'undefined') return null;
     const pathname = (rawPathname ?? window.location.pathname).replace(/\/$/, '') || '';
@@ -191,22 +191,18 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       clean = decodeURIComponent(clean);
     } catch {}
     clean = clean.toLowerCase().trim();
-    // 0. If activePostRef matches clean, return activePostRef directly
-    if (activePostRef.current && ((activePostRef.current.slug || '').toLowerCase().trim() === clean || (activePostRef.current.id || '').toLowerCase().trim() === clean)) {
-      return activePostRef.current;
-    }
 
-    // 1. Try getBlogPostBySlug
-    const bySlug = getBlogPostBySlug(clean);
-    if (bySlug) return normalizeBlogPost(bySlug);
-
-    // 2. Try in customPosts
+    // 1. Try in customPosts state first (contains latest synced server data)
     const inCustom = customPosts.find((p) => {
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
       return s === clean || id === clean;
     });
     if (inCustom) return normalizeBlogPost(inCustom);
+
+    // 2. Try getBlogPostBySlug (reads merged custom + initial posts)
+    const bySlug = getBlogPostBySlug(clean);
+    if (bySlug) return normalizeBlogPost(bySlug);
 
     // 3. Try in allPosts
     const inAll = allPosts.find((p) => {
@@ -242,6 +238,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       if (inInit) return normalizeBlogPost(inInit);
     }
 
+    // 6. Fallback to activePostRef if still matching
+    if (activePostRef.current && ((activePostRef.current.slug || '').toLowerCase().trim() === clean || (activePostRef.current.id || '').toLowerCase().trim() === clean)) {
+      return activePostRef.current;
+    }
+
     return null;
   }, [customPosts, allPosts]);
 
@@ -263,10 +264,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
           }
         }
       } catch {}
-      await syncDeletedPosts();
+      await syncDeletedPosts(true);
       if (!isMounted) return;
       setDeletedSlugs(getDeletedPostSlugs());
-      const synced = await fetchAndSyncCustomPosts();
+      const synced = await fetchAndSyncCustomPosts(true);
       if (!isMounted) return;
       if (synced && synced.length > 0) {
         setCustomPosts(synced.filter((p) => p.slug !== 'cach-lam-com-suon-nuong-mat-ong' && p.id !== 'cach-lam-com-suon-nuong-mat-ong'));

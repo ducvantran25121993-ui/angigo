@@ -1972,6 +1972,102 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     showToast('Đã chèn ảnh vào đúng vị trí trong bài viết!', 'success');
   };
 
+  // Immediately apply and persist coverImage to server & Firestore if editing an existing or titled post
+  const applyAndSaveCoverImage = async (newCoverUrl: string, toastText?: string) => {
+    const cleanUrl = newCoverUrl.trim();
+    if (!cleanUrl) return;
+    setCoverImage(cleanUrl);
+
+    const currentTitle = title.trim();
+    if (!currentTitle && !editingPostId) {
+      if (toastText) showToast(toastText, 'success');
+      return;
+    }
+
+    const cleanSlug = slug.trim()
+      ? generateSlug(slug)
+      : currentTitle
+      ? generateSlug(currentTitle)
+      : editingPostId || '';
+    if (!cleanSlug) {
+      if (toastText) showToast(toastText, 'success');
+      return;
+    }
+
+    const oldSlug = editingPostId && editingPostId !== cleanSlug ? editingPostId : undefined;
+    let currentHtml = editorRef.current?.innerHTML || '';
+    currentHtml = currentHtml.replace(/<span[^>]*id="blog-editor-insert-marker"[^>]*><\/span>/gi, '');
+    currentHtml = currentHtml.replace(/<span[^>]*class="[^"]*blog-editor-marker[^"]*"[^>]*><\/span>/gi, '');
+    const markdownContent = htmlToMarkdown(currentHtml);
+
+    const postPayload: BlogPost = {
+      id: cleanSlug,
+      slug: cleanSlug,
+      title: currentTitle || 'Bài viết ẩm thực',
+      excerpt: excerpt.trim() || currentTitle,
+      coverImage: cleanUrl,
+      category: category || 'Gợi Ý Thực Đơn',
+      tags: (typeof tags === 'string' ? tags : '')
+        .split(',')
+        .map((t) => t.trim())
+        .filter(Boolean),
+      author: {
+        name: authorName.trim() || 'Bếp Trưởng Hôm Nay Ăn Gì',
+        role: authorRole.trim() || 'Chuyên gia Ẩm thực & Dinh dưỡng',
+        avatar: 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80',
+      },
+      publishDate:
+        publishDate.trim() ||
+        new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }),
+      readTime: readTime.trim() || '6 phút đọc',
+      featured: !!featured,
+      content: markdownContent,
+      htmlContent: currentHtml,
+      updatedAt: new Date().toISOString(),
+    };
+
+    // 1. Update localStorage & memory immediately
+    try {
+      const existingCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+      let customList: BlogPost[] = existingCustomStr ? JSON.parse(existingCustomStr) : [];
+      customList = customList.filter((p) => {
+        const s = (p.slug || '').toLowerCase().trim();
+        const id = (p.id || '').toLowerCase().trim();
+        if (oldSlug && (s === oldSlug || id === oldSlug)) return false;
+        if (s === cleanSlug || id === cleanSlug) return false;
+        return true;
+      });
+      customList.unshift(postPayload);
+      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(customList));
+      if (typeof window !== 'undefined') {
+        (window as any).__INITIAL_CUSTOM_POSTS__ = customList;
+      }
+      setPosts((prev) =>
+        prev.map((p) =>
+          p.slug === cleanSlug || p.id === cleanSlug || (oldSlug && (p.slug === oldSlug || p.id === oldSlug))
+            ? postPayload
+            : p
+        )
+      );
+      window.dispatchEvent(new Event('custom-posts-updated'));
+    } catch {}
+
+    // 2. Persist to server API & Firestore in background so all other devices see the new cover image immediately
+    try {
+      await fetch('/api/admin/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...postPayload, oldSlug }),
+      });
+    } catch {}
+    savePostToFirestore(postPayload, oldSlug).catch(() => {});
+
+    showToast(
+      toastText || 'Đã đổi và tự động lưu ảnh đại diện mới lên máy chủ!',
+      'success'
+    );
+  };
+
   // Upload image handler with automatic sharp SEO compression (50-60KB)
   const handleUploadFile = async (file: File, autoSetCover = false) => {
     if (!file) return;
@@ -2087,8 +2183,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           });
 
           if (autoSetCover || imagePickerMode === 'cover') {
-            setCoverImage(data.url);
-            showToast(`Đã tải lên và đổi ảnh đại diện (${data.sizeKb} KB chuẩn SEO)!`, 'success');
+            await applyAndSaveCoverImage(
+              data.url,
+              `Đã tải lên và lưu ảnh đại diện mới (${data.sizeKb} KB chuẩn SEO)!`
+            );
             if (autoSetCover) {
               setIsImagePickerOpen(false);
             }
@@ -2126,8 +2224,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         });
 
         if (autoSetCover || imagePickerMode === 'cover') {
-          setCoverImage(localUrl);
-          showToast(`Đã chọn và tối ưu ảnh đại diện (${approxKb} KB)!`, 'success');
+          await applyAndSaveCoverImage(
+            localUrl,
+            `Đã chọn và lưu ảnh đại diện (${approxKb} KB)!`
+          );
           if (autoSetCover) {
             setIsImagePickerOpen(false);
           }
@@ -3965,8 +4065,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                             key={item.url}
                             type="button"
                             onClick={() => {
-                              setCoverImage(item.url);
-                              showToast(`Đã đổi ảnh đại diện: "${item.name}"!`, 'success');
+                              applyAndSaveCoverImage(
+                                item.url,
+                                `Đã đổi và lưu ảnh đại diện: "${item.name}"!`
+                              );
                             }}
                             className={`group relative aspect-video rounded-lg overflow-hidden border transition-all cursor-pointer ${
                               isCurrent
@@ -4399,9 +4501,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                             key={img.url}
                             onClick={() => {
                               if (imagePickerMode === 'cover') {
-                                setCoverImage(img.url);
                                 closeImagePicker();
-                                showToast(`Đã đổi ảnh đại diện: "${img.name}"!`, 'success');
+                                applyAndSaveCoverImage(
+                                  img.url,
+                                  `Đã đổi và lưu ảnh đại diện: "${img.name}"!`
+                                );
                               } else {
                                 handleInsertImage(img.url, img.name);
                               }
@@ -4588,9 +4692,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                               type="button"
                               onClick={() => {
                                 if (imagePickerMode === 'cover') {
-                                  setCoverImage(uploadedResult.url);
                                   closeImagePicker();
-                                  showToast('Đã đặt làm ảnh đại diện bài viết!', 'success');
+                                  applyAndSaveCoverImage(
+                                    uploadedResult.url,
+                                    'Đã đặt và lưu làm ảnh đại diện bài viết!'
+                                  );
                                 } else {
                                   handleInsertImage(uploadedResult.url, imageCaption);
                                 }
@@ -4628,9 +4734,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                           key={img.url}
                           onClick={() => {
                             if (imagePickerMode === 'cover') {
-                              setCoverImage(img.url);
                               closeImagePicker();
-                              showToast(`Đã đổi ảnh đại diện: "${img.name}"!`, 'success');
+                              applyAndSaveCoverImage(
+                                img.url,
+                                `Đã đổi và lưu ảnh đại diện: "${img.name}"!`
+                              );
                             } else {
                               handleInsertImage(img.url, img.name);
                             }
@@ -4748,9 +4856,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                   type="button"
                   onClick={() => {
                     if (imagePickerMode === 'cover') {
-                      setCoverImage(customImageUrl.trim());
                       closeImagePicker();
-                      showToast('Đã đặt ảnh đại diện từ liên kết tùy chỉnh!', 'success');
+                      applyAndSaveCoverImage(
+                        customImageUrl.trim(),
+                        'Đã đặt và lưu ảnh đại diện từ liên kết tùy chỉnh!'
+                      );
                     } else {
                       handleInsertImage(customImageUrl, imageCaption);
                     }

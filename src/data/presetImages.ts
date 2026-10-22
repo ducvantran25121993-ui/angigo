@@ -22,6 +22,11 @@ export const PRESET_FOOD_CATEGORIES = [
 
 export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
   {
+    "name": "Mâm cơm gia đình hàng ngày đủ món",
+    "url": "/images/mam_com_gia_dinh_moi.jpg",
+    "category": "Cơm & Xôi"
+  },
+  {
     "name": "Sườn xào chua ngọt óng ánh",
     "url": "/images/suon_xao_chua_ngot.jpg",
     "category": "Thịt Heo"

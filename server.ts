@@ -1852,17 +1852,32 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     }
   }
 
-  // Inject semantic route-specific H1 header into <div id="root"> for crawlers (Bingbot, Googlebot)
+  // Inject rich semantic route-specific content into <div id="root"> for crawlers (Googlebot, Bingbot)
   let pageH1 = meta.h1 || meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
+  let extraContent = '';
+
   if (isRecipeRoute) {
     const td = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`);
     if (td) {
       const rec = getDishRecipe(td);
       if (rec?.seoTitle) pageH1 = rec.seoTitle;
+      if (rec?.ingredients) {
+        extraContent += `<ul>${rec.ingredients.flatMap(g => g.items).slice(0, 8).map(i => `<li>${escapeXml(i)}</li>`).join('')}</ul>`;
+      }
+    }
+  } else if (cleanPath === '/quan-ngon') {
+    extraContent = `<div><h3>Địa chỉ ẩm thực và top nhà hàng chuẩn vị 3 miền</h3><p>Khám phá quán ngon nổi tiếng tại TP.HCM (Quận 1, Quận 3, Bình Thạnh), Hà Nội (Hoàn Kiếm, Cầu Giấy, Đống Đa), Đà Nẵng. Đặt món giao tận nơi qua ShopeeFood, GrabFood, BeFood và chỉ đường chi tiết.</p></div>`;
+  } else {
+    const bp = customMatch || INITIAL_BLOG_POSTS.find(p => p.slug === slug || (p.id && p.id === slug));
+    if (bp) {
+      if (bp.title) pageH1 = bp.title;
+      const snippet = bp.content ? bp.content.replace(/<[^>]+>/g, ' ').slice(0, 600) : (bp.excerpt || '');
+      extraContent = `<article><p>${escapeXml(bp.excerpt || '')}</p><div>${escapeXml(snippet)}</div></article>`;
     }
   }
+
   const pageDesc = meta.description || '';
-  const crawlerHeader = `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p></header>`;
+  const crawlerHeader = `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p>${extraContent}</header>`;
 
   if (updatedHtml.includes('<div id="root">')) {
     updatedHtml = updatedHtml.replace(

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { getAllSeoRoutes, RouteSeoMeta } from '../src/data/seoRoutes';
 import { INITIAL_DISHES } from '../src/data/dishes';
+import { INITIAL_BLOG_POSTS } from '../src/data/blogPosts';
 import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema } from '../src/data/recipes';
 
 function parseMinutesToIso(str?: string): string {
@@ -276,6 +277,43 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
       );
     }
   } catch {}
+
+  // Inject rich semantic route-specific content into <div id="root"> for crawlers (Googlebot, Bingbot)
+  let pageH1 = meta.h1 || meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
+  let extraContent = '';
+
+  const cleanPath = meta.path.replace(/\/$/, '') || '/';
+  const slug = cleanPath.replace(/^\//, '').replace(/^\/?blog\//, '').toLowerCase().trim();
+
+  if (meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-')) {
+    const td = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`);
+    if (td) {
+      const rec = getDishRecipe(td);
+      if (rec?.seoTitle) pageH1 = rec.seoTitle;
+      if (rec?.ingredients) {
+        extraContent += `<ul>${rec.ingredients.flatMap(g => g.items).slice(0, 8).map(i => `<li>${escapeXml(i)}</li>`).join('')}</ul>`;
+      }
+    }
+  } else if (cleanPath === '/quan-ngon') {
+    extraContent = `<div><h3>Địa chỉ ẩm thực và top nhà hàng chuẩn vị 3 miền</h3><p>Khám phá quán ngon nổi tiếng tại TP.HCM (Quận 1, Quận 3, Bình Thạnh), Hà Nội (Hoàn Kiếm, Cầu Giấy, Đống Đa), Đà Nẵng. Đặt món giao tận nơi qua ShopeeFood, GrabFood, BeFood và chỉ đường chi tiết.</p></div>`;
+  } else {
+    const bp = INITIAL_BLOG_POSTS.find(p => p.slug === slug || (p.id && p.id === slug));
+    if (bp) {
+      if (bp.title) pageH1 = bp.title;
+      const snippet = bp.content ? bp.content.replace(/<[^>]+>/g, ' ').slice(0, 600) : (bp.excerpt || '');
+      extraContent = `<article><p>${escapeXml(bp.excerpt || '')}</p><div>${escapeXml(snippet)}</div></article>`;
+    }
+  }
+
+  const pageDesc = meta.description || '';
+  const crawlerHeader = `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p>${extraContent}</header>`;
+
+  if (updatedHtml.includes('<div id="root">')) {
+    updatedHtml = updatedHtml.replace(
+      /<div id="root">[\s\S]*?<\/div>/,
+      `<div id="root">\n      ${crawlerHeader}\n    </div>`
+    );
+  }
 
   return updatedHtml;
 }

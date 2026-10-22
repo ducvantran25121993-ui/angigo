@@ -5460,37 +5460,39 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
 
   'nem-lui-nuong-cuon': {
     dishId: 'nem-lui-nuong-cuon',
-    dishName: 'Nem Lụi Huế Nướng Than Cuốn Bánh Tráng',
-    seoTitle: 'Cách Làm Nem Lụi Huế Nướng Than Thơm Nức & Nước Lèo Gan Đậu Béo Bùi Chuẩn Vị Cố Đô',
-    prepTime: '30 phút',
-    cookTime: '25 phút',
+    dishName: 'Nem Lụi Huế Thơm Lừng, Đậm Đà',
+    seoTitle: 'Cách Làm Nem Lụi Huế Thơm Lừng, Đậm Đà',
+    ratingValue: '4.9',
+    reviewCount: 458,
+    prepTime: '25 phút',
+    cookTime: '20 phút',
     difficulty: 'Trung bình',
     servings: '4 - 5 người',
     ingredients: [
       {
-        category: 'Thịt nem quấn sả thơm nức',
+        category: 'Thịt nem quấn sả nướng thơm nức',
         items: [
           '500g giò sống (mọc heo) dẻo quánh loại tươi ngon',
-          '300g thịt nạc vai heo xay nhuyễn (có dắt chút mỡ giúp nem mềm mọng không khô)',
+          '300g thịt nạc vai heo xay nhuyễn (có chút mỡ giúp nem mềm mọng không khô)',
           '100g mỡ phần heo luộc sơ thái hạt lựu nhỏ, trộn 1 thìa đường phơi gió cho trong giòn',
           '15 - 20 cây sả non tươi (rửa sạch, cạo bớt vỏ già, đập dập nhẹ gốc để tiết tinh dầu thơm)',
-          'Gia vị ướp nem: 2 thìa canh nước mắm nhĩ cốt, 1 thìa cà phê tiêu sọ đen giã dập, 1 thìa đường, 1 củ tỏi và 3 củ hành tím băm phi thơm, 1 thìa canh dầu màu điều',
+          'Gia vị ướp nem: 2 thìa canh nước mắm ngon, 1 thìa cà phê tiêu sọ giã dập, 1 thìa đường, hành tỏi băm phi thơm, 1 thìa canh dầu màu điều',
         ],
       },
       {
-        category: 'Nồi Nước Lèo Huế béo bùi trứ danh (Linh hồn món nem lụi)',
+        category: 'Nước chấm tương đậu gan heo béo bùi đặc trưng xứ Huế',
         items: [
           '100g gan heo tươi ngâm sữa tươi không đường 20 phút khử tanh, rửa sạch băm nhuyễn mịn',
           '100g thịt nạc heo xay nhuyễn',
-          '2 thìa canh tương đậu nành (tương hột xay nhuyễn hoặc tương bần Huế)',
+          '2 thìa canh tương đậu nành (tương hột xay nhuyễn hoặc tương bần)',
           '80g đậu phộng rang vàng xát vỏ, giã nhuyễn béo ngậy',
           '30g mè (vừng) trắng rang thơm',
           '1 bát con nước dùng xương heo (hoặc nước lọc)',
-          'Gia vị: 1.5 thìa canh đường cát, 1 thìa canh nước mắm ngon, 1 thìa dầu màu điều, 1 thìa cà phê bột năng hòa chút nước tạo độ sánh sánh',
+          'Gia vị nước chấm: 1.5 thìa canh đường cát, 1 thìa canh nước mắm ngon, 1 thìa dầu màu điều, 1 thìa cà phê bột năng hòa chút nước tạo độ sánh mịn',
         ],
       },
       {
-        category: 'Bánh tráng & Rau sống ăn kèm chuẩn vị Cố Đô',
+        category: 'Bánh tráng & Rau sống cuốn kèm tươi mát',
         items: [
           'Bánh tráng phơi sương mỏng mềm dai nhúng nước nhẹ',
           'Rau thơm Huế: Rau xà lách, rau thơm, húng lủi, tía tô, ngò gai, rau diếp cá, giá đỗ',
@@ -5502,7 +5504,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     steps: [
       {
         step: 1,
-        title: 'Quết thịt nem dẻo dai và quấn đều quanh cây sả non',
+        title: 'Quết thịt nem dẻo dai và bọc đều quanh cây sả non',
         time: '15 phút',
         heat: 'Nhiệt độ phòng mát',
         goal: 'Hỗn hợp thịt kết dính dẻo quánh bọc chặt quanh cây sả, không bị nứt rời khi nướng',
@@ -5518,16 +5520,16 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       },
       {
         step: 2,
-        title: 'Nấu nồi Nước Lèo gan heo đậu phộng béo bùi sánh dẻo',
-        time: '15 phút',
-        heat: 'Lửa nhỏ liu riu khuấy đều',
-        goal: 'Nước lèo màu vàng cam đất óng ả, sánh dẻo mịn màng, vị béo ngậy bùi bùi đượm mùi tương và gan heo',
+        title: 'Nấu nước sốt chấm tương đậu gan heo sánh mịn, béo bùi',
+        time: '12 phút',
+        heat: 'Lửa nhỏ khuấy đều',
+        goal: 'Chén nước chấm màu vàng nâu óng ả, sánh mịn béo bùi đượm vị tương hột và gan heo ngậy thơm',
         actionPoints: [
           'Đun nóng 1 thìa canh dầu màu điều, phi thơm hành tím và tỏi băm nhuyễn.',
           'Cho thịt xay và gan heo băm nhuyễn vào xào chín săn trên lửa vừa.',
           'Trút tương đậu nành xay nhuyễn và 1 bát con nước dùng vào đun sôi lăn tăn.',
           'Hạ lửa nhỏ, trút đậu phộng rang giã nhuyễn và mè rang vào khuấy đều tay.',
-          'Nêm đường, nước mắm cho vừa khẩu vị ngọt bùi mặn nhẹ. Từ từ rót nước bột năng vào khuấy liên tục cho nước lèo sánh dẻo keo lại như sốt thì tắt bếp.',
+          'Nêm đường, nước mắm cho vừa khẩu vị ngọt bùi mặn nhẹ. Từ từ rót nước bột năng vào khuấy liên tục cho nước sốt sánh dẻo mịn màng thì tắt bếp.',
         ],
         description:
           'Phi thơm hành tỏi với dầu điều, xào săn thịt xay và gan heo nhuyễn. Cho tương hột xay và nước dùng vào đun sôi, hạ lửa trút đậu phộng giã nhuyễn, mè rang vào nêm đường mắm. Châm chút nước bột năng khuấy đều tay cho sốt sánh dẻo béo bùi.',
@@ -5535,12 +5537,12 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       },
       {
         step: 3,
-        title: 'Nướng nem lụi vàng ruộm trên than hoa đỏ hồng',
-        time: '12 - 15 phút',
+        title: 'Nướng nem lụi vàng ươm trên bếp than hoa hoặc nồi chiên không dầu',
+        time: '12 phút',
         heat: 'Than hoa đỏ vừa / Nồi chiên không dầu 180°C',
         goal: 'Cây nem lụi chín vàng ươm xém cạnh bóng bẩy mỡ tươm, bốc khói thơm nức mũi mùi sả nướng',
         actionPoints: [
-          'Xếp các cây nem lụi lên vỉ nướng trên bếp than hoa đỏ rực không có ngọn lửa.',
+          'Xếp các cây nem lụi lên vỉ nướng than hoa đỏ hồng (hoặc nồi chiên không dầu ở 180°C trong 10 phút).',
           'Thường xuyên xoay trở que nem cho chín đều các mặt.',
           'Khi nem gần chín, phết nhẹ một lớp dầu màu điều pha chút mật ong lên thân nem để nem bóng mượt, lên màu cánh gián bắt mắt.',
           'Nướng khoảng 10 - 12 phút đến khi nem xém cạnh tươm mỡ thơm lừng thì nhấc ra đĩa.',
@@ -5551,24 +5553,24 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
       },
       {
         step: 4,
-        title: 'Cuốn bánh tráng với rau thơm chuối khế và chấm đẫm nước lèo',
+        title: 'Cuốn bánh tráng với rau sống chuối khế & Chấm đẫm sốt tương đậu',
         time: '5 phút',
-        heat: 'Thưởng thức nóng',
-        goal: 'Cuốn nem đầy đặn, cắn ngập miệng cảm nhận thớ nem ngọt giòn, rau thanh mát quyện nước lèo béo bùi ngất ngây',
+        heat: 'Thưởng thức nóng giòn',
+        goal: 'Cuốn nem đầy đặn, cắn ngập miệng cảm nhận thớ nem ngọt giòn, rau thanh mát quyện sốt béo ngậy',
         actionPoints: [
           'Đặt bánh tráng mỏng lên đĩa, xếp xà lách, rau thơm Huế, dưa leo, lát chuối chát và khế chua.',
           'Đặt cây nem lụi lên giữa, dùng tay nắm chặt bánh tráng rồi rút cây sả ra.',
-          'Cuộn tròn chặt tay, múc nước lèo ra chén rắc thêm đậu phộng đập dập và ớt băm cay cay.',
-          'Chấm ngập cuốn nem vào chén nước lèo ấm nóng và thưởng thức trọn vẹn phong vị cung đình Huế!',
+          'Cuộn tròn chặt tay, múc nước chấm tương đậu ra chén rắc thêm đậu phộng đập dập và ớt băm cay cay.',
+          'Chấm ngập cuốn nem vào chén nước sốt tương đậu gan heo ấm nóng và thưởng thức trọn vẹn phong vị xứ Huế!',
         ],
         description:
-          'Trải bánh tráng, xếp rau sống, dưa leo, chuối chát, khế chua và đặt cây nem lụi lên, kẹp chặt rút cây sả ra rồi cuốn tròn lại. Chấm đẫm cuốn nem vào chén nước lèo gan đậu phộng ấm nóng bùi béo ngập tràn hương vị.',
+          'Trải bánh tráng, xếp rau sống, dưa leo, chuối chát, khế chua và đặt cây nem lụi lên, kẹp chặt rút cây sả ra rồi cuốn tròn lại. Chấm đẫm cuốn nem vào chén nước chấm tương đậu gan heo ấm nóng bùi béo ngập tràn hương vị.',
       },
     ],
     chefSecret:
-      'Tuyệt đối không ăn nem lụi Huế với nước mắm chua ngọt thông thường! Bí quyết sống còn của nem lụi Cố Đô nằm ở: 1. Thịt nem bọc quanh cây sả non tươi để tinh dầu sả thấm đượm vào thịt khi nướng than hoa; 2. Chén NƯỚC LÈO trứ danh nấu từ gan heo ngâm sữa băm nhuyễn, tương đậu nành và đậu phộng rang giã bùi béo sánh dẻo mịn màng, tạo nên sự hòa quyện đỉnh cao khó quên.',
+      '3 bí quyết vàng làm nem lụi Huế thơm lừng đậm đà: 1. Quết giò sống và thịt nạc vai dẻo quánh: Kết hợp mỡ hạt lựu ướp đường phơi gió giúp cây nem lụi khi nướng mọng nước, dai giòn sần sật không bị khô; 2. Nướng trên than hoa bọc sả non: Đập dập nhẹ gốc sả để tinh dầu sả tươi ngấm sâu vào từng thớ thịt bốc mùi thơm lừng nức mũi; 3. Nước chấm tương đậu gan heo: Gan heo ngâm sữa tươi băm nhuyễn xào chín cùng tương hột và đậu phộng rang giã bùi béo sánh mịn, tạo nên chén nước chấm trứ danh của xứ Cố Đô.',
     recommendedSauce:
-      'Bát Nước Lèo gan heo đậu phộng mè rang sánh dẻo ấm nóng đặc trưng của xứ Huế, rắc thêm chút ớt băm cay tê đầu lưỡi.',
+      'Chén nước chấm tương đậu gan heo đậu phộng mè rang sánh mịn béo bùi, rắc thêm chút ớt băm cay nồng.',
   },
 
   'ram-bap-cuon-rau': {
@@ -14804,7 +14806,7 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'be-thui': 'cach-lam-be-thui',
   'banh-dap-mam-nem': 'cach-lam-banh-dap-mam-nem',
   'banh-beo': 'cach-lam-banh-beo',
-  'nem-lui-nuong-cuon': 'cach-lam-nem-lui-nuong-cuon',
+  'nem-lui-nuong-cuon': 'cach-lam-nem-lui-hue',
   'banh-mi-cha-ca-nong': 'cach-lam-banh-mi-cha-ca-nong',
   'de-tai-chanh-tuong-ban': 'cach-lam-de-tai-chanh',
   'banh-mi-chao-xiu-mai': 'cach-lam-banh-mi-chao',
@@ -15357,11 +15359,16 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-banh-mi-cha-ca-nong': 'banh-mi-cha-ca-nong',
 
   'nem-lui-nuong-cuon': 'nem-lui-nuong-cuon',
+  'nem-lui': 'nem-lui-nuong-cuon',
   'cach-nau-nem-lui-nuong-cuon': 'nem-lui-nuong-cuon',
   'cach-lam-nem-lui-nuong-cuon': 'nem-lui-nuong-cuon',
   'nem-lui-hue': 'nem-lui-nuong-cuon',
   'cach-nau-nem-lui-hue': 'nem-lui-nuong-cuon',
   'cach-lam-nem-lui-hue': 'nem-lui-nuong-cuon',
+  'cach-nau-nem-lui': 'nem-lui-nuong-cuon',
+  'cach-lam-nem-lui': 'nem-lui-nuong-cuon',
+  'cach-lam-nem-lui-hue-nuong-than-thom-nuc-nuoc-leo-gan-dau-beo-bui-chuan-vi-co-do': 'nem-lui-nuong-cuon',
+  'cach-lam-nem-lui-hue-thom-lung-dam-da': 'nem-lui-nuong-cuon',
 
   'nem-nuong-nha-trang-cuon': 'nem-nuong-nha-trang',
   'nem-nuong-nha-trang': 'nem-nuong-nha-trang',

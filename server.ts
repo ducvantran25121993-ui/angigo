@@ -1045,7 +1045,7 @@ async function syncFirestoreDeletedPosts(): Promise<string[]> {
     const db = getFirestore(app, config.firestoreDatabaseId);
     const snap = await Promise.race([
       getDocs(collection(db, "deleted_posts")),
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 6000)),
     ]);
     const set = new Set<string>(loadDeletedPostSlugs());
     snap.forEach((d) => {
@@ -1191,7 +1191,7 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     const db = getFirestore(app, config.firestoreDatabaseId);
     const snap = await Promise.race([
       getDocs(collection(db, "posts")),
-      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 6000)),
     ]);
     if (snap.empty) {
       const current = loadCustomBlogPosts();
@@ -1489,13 +1489,13 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
         const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
         let snap = await Promise.race([
           getDoc(doc(db, "posts", docId)),
-          new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 4000)),
         ]);
         if (!snap.exists() && canonical !== clean) {
           const canDocId = canonical.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
           snap = await Promise.race([
             getDoc(doc(db, "posts", canDocId)),
-            new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+            new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 4000)),
           ]);
         }
 
@@ -1878,7 +1878,7 @@ function injectSeoMeta(html: string, requestedPath: string): string {
   }
 
   // Inject rich semantic route-specific content into <div id="root"> for crawlers (Googlebot, Bingbot)
-  let pageH1 = meta.h1 || meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
+  let pageH1 = ('h1' in meta && meta.h1) ? meta.h1 : meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
   let extraContent = '';
 
   if (isRecipeRoute) {

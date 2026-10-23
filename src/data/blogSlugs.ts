@@ -44,6 +44,8 @@ export const KNOWN_BLOG_SLUGS_LIST: string[] = [
   "trua-nay-an-gi-goi-y-bua-trua-ngon-de-an-cho-moi-ngay",
   "cuoi-tuan-an-gi-nhung-bua-an-tan-huong-ngay-nghi",
   "goi-y-thuc-don-hang-ngay-cho-gia-dinh",
+  "mam-com-gia-dinh-ngon-du-mon-cho-ca-nha",
+  "mon-ngon-moi-ngay-goi-y-30-mon-an-cho-bua-com-gia-dinh",
   // Slugs aliases
   "hom-nay-an-gi-nhanh",
   "hom-nay-an-gi-de-lam",

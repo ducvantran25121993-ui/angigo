@@ -18,6 +18,7 @@ export interface RouteSeoMeta {
   isArticle?: boolean;
   canonicalPath?: string;
   isAlias?: boolean;
+  h1?: string;
 }
 
 export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {

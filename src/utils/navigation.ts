@@ -1,5 +1,5 @@
 import { Dish, DishRecipe, RegionId } from '../types';
-import { getRegionById } from '../data/regionalCuisine';
+import { getRegionById, isRegionPath } from '../data/regionalCuisine';
 import { KNOWN_BLOG_SLUGS } from '../data/blogSlugs';
 import { getDeletedPostSlugs } from '../data/blogPosts';
 import { INITIAL_DISHES } from '../data/dishes';
@@ -307,7 +307,7 @@ export function getTabFromUrl(): TabType {
     pathname === '/kham-pha' ||
     pathname === '/cam-nang' ||
     pathname === '/cam-nang-am-thuc' ||
-    (pathname.startsWith('/am-thuc-') && Boolean(getRegionFromUrl(pathname))) ||
+    (pathname.startsWith('/am-thuc-') && isRegionPath(pathname)) ||
     ((pathname.startsWith('/cach-nau-') || pathname.startsWith('/cach-lam-')) &&
       Boolean(findDishByRecipeSlug(pathname, INITIAL_DISHES)))
   ) return 'discover';

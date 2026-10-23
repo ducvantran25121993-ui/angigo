@@ -744,6 +744,26 @@ declare global {
 
 export const LOCAL_STORAGE_CUSTOM_POSTS = 'angigio_custom_blog_posts';
 
+const BASELINE_CUSTOM_SLUGS = new Set([
+  'goi-y-thuc-don-hang-ngay-cho-gia-dinh',
+  '100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem',
+  'an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha',
+  'an-gi-hom-nay-goi-y-mon-ngon-de-lam-cho-bua-com-moi-ngay',
+  'ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam',
+  'cuoi-tuan-an-gi-nhung-bua-an-tan-huong-ngay-nghi',
+  'mon-ngon-de-lam-goi-y-cac-mon-de-nau-cho-nguoi-moi-bat-dau',
+  'thit-bo-lam-mon-gi-ngon-goi-y-mon-bo-de-lam-dam-da-cho-bua-com-gia-dinh',
+  'thit-ga-nau-mon-gi-ngon',
+  'thit-heo-lam-mon-gi-ngon',
+  'toi-nay-an-gi-goi-y-bua-toi-ngon-de-lam-cho-ca-nha',
+  'trua-nay-an-gi-goi-y-bua-trua-ngon-de-an-cho-moi-ngay',
+  'trung-lam-mon-gi-ngon-goi-y-cac-mon-trung-de-lam-hao-com-cho-ca-nha',
+]);
+
+const INITIAL_STATIC_SLUGS = new Set(
+  INITIAL_BLOG_POSTS.map((p) => (p.slug || p.id || '').toLowerCase().trim())
+);
+
 export function normalizeBlogPost(raw: any): BlogPost {
   if (!raw || typeof raw !== 'object') {
     return INITIAL_BLOG_POSTS[0];
@@ -813,6 +833,27 @@ export function normalizeBlogPost(raw: any): BlogPost {
       .replace(/\/+$/, '');
   }
 
+  const isBrandNewUserSlug = !BASELINE_CUSTOM_SLUGS.has(slug) && !INITIAL_STATIC_SLUGS.has(slug);
+  let normalizedUpdatedAt = raw.updatedAt ? String(raw.updatedAt) : undefined;
+  let isAdminSaved = Boolean(raw.adminSaved) || Number(raw.revision || 0) > 0 || isBrandNewUserSlug;
+
+  if (!isAdminSaved && normalizedUpdatedAt) {
+    const ts = new Date(normalizedUpdatedAt).getTime();
+    const minRealEditTs = new Date('2020-01-02T00:00:00.000Z').getTime();
+    const syntheticContainerTs = new Date('2026-10-20T00:00:00.000Z').getTime();
+    if (ts > minRealEditTs && ts < syntheticContainerTs) {
+      // Real browser wall-clock edit saved before revision/adminSaved fields were introduced
+      isAdminSaved = true;
+    } else if (ts >= syntheticContainerTs && BASELINE_CUSTOM_SLUGS.has(slug)) {
+      // Stale unedited baseline timestamp from old build cache
+      normalizedUpdatedAt = '2020-01-01T00:00:00.000Z';
+    }
+  }
+
+  const normalizedRevision = isAdminSaved
+    ? Math.max(Number(raw.revision || 0), 1)
+    : (raw.revision !== undefined ? Number(raw.revision) : 0);
+
   return {
     id,
     slug,
@@ -829,9 +870,9 @@ export function normalizeBlogPost(raw: any): BlogPost {
     content,
     htmlContent: raw.htmlContent ? String(raw.htmlContent) : (content && /<[a-z][\s\S]*>/i.test(content) && !content.trim().startsWith('#') ? String(content) : undefined),
     oldSlug: cleanOldSlug,
-    updatedAt: raw.updatedAt ? String(raw.updatedAt) : undefined,
-    revision: raw.revision !== undefined ? Number(raw.revision) : undefined,
-    adminSaved: raw.adminSaved ? Boolean(raw.adminSaved) : undefined,
+    updatedAt: normalizedUpdatedAt,
+    revision: normalizedRevision,
+    adminSaved: isAdminSaved,
   };
 }
 
@@ -1226,8 +1267,9 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
   // 0. Synchronize deleted posts from server & Firestore first
   const deleted = await syncDeletedPosts(forceRefresh);
   const postMap = new Map<string, BlogPost>();
+  const serverPostMap = new Map<string, BlogPost>();
 
-  const mergeItem = (p: any, isAuthoritativeServer = false) => {
+  const mergeItem = (p: any, isAuthoritativeServer = false, recordAsServer = false) => {
     if (!p || (!p.slug && !p.id)) return;
     const normalized = normalizeBlogPost(p);
     const s = (normalized.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -1237,6 +1279,9 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     const oldSlug = ((normalized as any).oldSlug || (normalized as any).previousSlug || '').toLowerCase().trim();
     if (oldSlug && oldSlug !== key) {
       postMap.delete(oldSlug);
+    }
+    if (recordAsServer) {
+      serverPostMap.set(key, normalized);
     }
     const existing = postMap.get(key);
     if (shouldReplacePost(existing, normalized, isAuthoritativeServer)) {
@@ -1260,7 +1305,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
         const data = await res.json();
         if (data && data.success && Array.isArray(data.customPosts)) {
           liveApiSuccess = true;
-          data.customPosts.forEach((item: any) => mergeItem(item, true));
+          data.customPosts.forEach((item: any) => mergeItem(item, true, true));
         }
       }
     }
@@ -1280,7 +1325,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
-        data.forEach((item) => mergeItem(item, !liveApiSuccess));
+        data.forEach((item) => mergeItem(item, !liveApiSuccess, !liveApiSuccess));
       }
     }
   } catch {
@@ -1293,33 +1338,53 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) {
-        parsed.forEach((p) => mergeItem(p, false));
+        parsed.forEach((p) => mergeItem(p, false, false));
       }
     }
   } catch {}
 
-  // 4. Cloud Firestore sync (always run if live Express API wasn't reached, e.g. on static host, or on Admin page)
-  if (!liveApiSuccess || window.location.pathname.startsWith('/admin')) {
-    try {
-      const { getPostsFromFirestore } = await import('../firebase');
-      const cloudPromise = getPostsFromFirestore();
-      const timeoutPromise = new Promise<BlogPost[]>((_, reject) =>
-        setTimeout(() => reject(new Error('Firestore timeout')), 2000)
-      );
-      const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
-      if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
-        cloudPosts.forEach((p) => {
-          if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
-          if (p.id) deleted.delete(p.id.toLowerCase().trim());
-          mergeItem(p, true);
-        });
-      }
-    } catch {
-      // ignore
+  // 4. Cloud Firestore sync (always run on all routes with client-side cache + quota protection)
+  try {
+    const { getPostsFromFirestore } = await import('../firebase');
+    const cloudPromise = getPostsFromFirestore(forceRefresh);
+    const timeoutPromise = new Promise<BlogPost[]>((_, reject) =>
+      setTimeout(() => reject(new Error('Firestore timeout')), 2000)
+    );
+    const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
+    if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
+      cloudPosts.forEach((p) => {
+        if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
+        if (p.id) deleted.delete(p.id.toLowerCase().trim());
+        mergeItem(p, true, false);
+      });
     }
+  } catch {
+    // ignore
   }
 
   const merged = sortCustomPosts(Array.from(postMap.values()));
+
+  // 5. Self-Healing Auto-Sync: If this client (via localStorage from yesterday or via Firestore)
+  // has any adminSaved / custom posts that are missing or older on the Express server,
+  // automatically push them back to /api/admin/posts/import so every other device sees them immediately!
+  if (liveApiSuccess && merged.length > 0) {
+    const unsyncedToServer = merged.filter((p) => {
+      if (!p.adminSaved && !(p.revision && p.revision > 0)) return false;
+      const key = (p.slug || p.id || '').toLowerCase().trim();
+      const serverCopy = serverPostMap.get(key);
+      if (!serverCopy) return true;
+      return shouldReplacePost(serverCopy, p, false);
+    });
+
+    if (unsyncedToServer.length > 0) {
+      fetch('/api/admin/posts/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ posts: unsyncedToServer, overwrite: false }),
+      }).catch(() => {});
+    }
+  }
+
   if (merged.length > 0) {
     try {
       (window as any).__INITIAL_CUSTOM_POSTS__ = merged;

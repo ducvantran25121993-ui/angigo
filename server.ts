@@ -2218,7 +2218,7 @@ app.delete("/api/admin/posts/:slugOrId", async (req, res) => {
   }
 });
 
-// API: Batch import & restore posts (Save Data)
+// API: Batch import & restore posts (Save Data & Auto-Heal Sync)
 app.post("/api/admin/posts/import", (req, res) => {
   try {
     const { posts, overwrite } = req.body;
@@ -2226,23 +2226,158 @@ app.post("/api/admin/posts/import", (req, res) => {
       return res.status(400).json({ success: false, message: "Dữ liệu bài viết không hợp lệ" });
     }
 
+    const BASELINE_SLUGS = new Set([
+      "goi-y-thuc-don-hang-ngay-cho-gia-dinh",
+      "100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem",
+      "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
+      "an-gi-hom-nay-goi-y-mon-ngon-de-lam-cho-bua-com-moi-ngay",
+      "ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam",
+      "cuoi-tuan-an-gi-nhung-bua-an-tan-huong-ngay-nghi",
+      "mon-ngon-de-lam-goi-y-cac-mon-de-nau-cho-nguoi-moi-bat-dau",
+      "thit-bo-lam-mon-gi-ngon-goi-y-mon-bo-de-lam-dam-da-cho-bua-com-gia-dinh",
+      "thit-ga-nau-mon-gi-ngon",
+      "thit-heo-lam-mon-gi-ngon",
+      "toi-nay-an-gi-goi-y-bua-toi-ngon-de-lam-cho-ca-nha",
+      "trua-nay-an-gi-goi-y-bua-trua-ngon-de-an-cho-moi-ngay",
+      "trung-lam-mon-gi-ngon-goi-y-cac-mon-trung-de-lam-hao-com-cho-ca-nha",
+    ]);
+
+    const sanitizeImportedPost = (p: any) => {
+      const cleanSlug = String(p.slug || p.id || "").toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "");
+      let finalCoverImage = p.coverImage || "/images/an-gi-cho-do-ngan.jpg";
+      if (typeof finalCoverImage === "string" && finalCoverImage.startsWith("data:image/")) {
+        try {
+          const cleanBase64 = finalCoverImage.replace(/^data:image\/\w+;base64,/, "");
+          const imgBuffer = Buffer.from(cleanBase64, "base64");
+          const safeSlug = cleanSlug.replace(/[^a-z0-9_-]/g, "_").slice(0, 40);
+          const fileName = `blog_${safeSlug}_${Date.now()}.jpg`;
+          const pubImagesDir = path.join(process.cwd(), "public", "images");
+          if (!fs.existsSync(pubImagesDir)) fs.mkdirSync(pubImagesDir, { recursive: true });
+          fs.writeFileSync(path.join(pubImagesDir, fileName), imgBuffer);
+          const distImagesDir = path.join(process.cwd(), "dist", "images");
+          if (fs.existsSync(path.join(process.cwd(), "dist"))) {
+            if (!fs.existsSync(distImagesDir)) fs.mkdirSync(distImagesDir, { recursive: true });
+            fs.writeFileSync(path.join(distImagesDir, fileName), imgBuffer);
+          }
+          finalCoverImage = `/images/${fileName}`;
+        } catch {}
+      }
+      const isCustomEdited = Boolean(p.adminSaved) || Number(p.revision || 0) > 0 || !BASELINE_SLUGS.has(cleanSlug);
+      removeDeletedPostSlug(cleanSlug);
+      return {
+        ...p,
+        id: cleanSlug,
+        slug: cleanSlug,
+        coverImage: finalCoverImage,
+        adminSaved: isCustomEdited ? true : undefined,
+        revision: isCustomEdited ? Math.max(Number(p.revision || 0), 1) : 0,
+        updatedAt: p.updatedAt || new Date().toISOString(),
+      };
+    };
+
     let customPosts = loadCustomBlogPosts();
+    const sanitizedIncoming = posts.filter((p) => p && (p.slug || p.id)).map(sanitizeImportedPost);
+
     if (overwrite) {
-      customPosts = posts;
+      customPosts = sanitizedIncoming;
     } else {
-      // Merge by slug or id
       const existingMap = new Map<string, any>();
-      customPosts.forEach((p) => existingMap.set(p.slug || p.id, p));
-      posts.forEach((p) => {
-        if (p && (p.slug || p.id)) {
-          existingMap.set(p.slug || p.id, p);
-          if (p.slug) addUrlToSitemap(p.slug);
-        }
+      customPosts.forEach((p) => {
+        const key = String(p.slug || p.id || "").toLowerCase().trim();
+        if (key) existingMap.set(key, p);
       });
-      customPosts = Array.from(existingMap.values());
+      sanitizedIncoming.forEach((p) => {
+        const key = p.slug || p.id;
+        if (!key) return;
+        const oldSlug = String(p.oldSlug || p.previousSlug || "").toLowerCase().trim();
+        if (oldSlug && oldSlug !== key) {
+          existingMap.delete(oldSlug);
+          saveDynamicAlias(oldSlug, key);
+        }
+        const existing = existingMap.get(key);
+        if (existing) {
+          const existRev = Number(existing.revision || (existing.adminSaved ? 1 : 0));
+          const incRev = Number(p.revision || (p.adminSaved ? 1 : 0));
+          if (incRev < existRev) return;
+        }
+        existingMap.set(key, p);
+      });
+
+      const allVals = Array.from(existingMap.values());
+      const adminEdited = allVals.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
+      const baseline = allVals.filter((p) => !p.adminSaved && !(p.revision && p.revision > 0));
+      adminEdited.sort((a, b) => {
+        const tA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+        const tB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+        if (tB !== tA) return tB - tA;
+        return Number(b.revision || 0) - Number(a.revision || 0);
+      });
+      customPosts = [...adminEdited, ...baseline];
     }
 
     saveCustomBlogPosts(customPosts);
+    SEO_ROUTES_CONFIG = getAllSeoRoutes();
+    generateFreshSitemapXml();
+
+    // Update static SSR files in dist/ so all devices receive updated HTML & __INITIAL_CUSTOM_POSTS__
+    try {
+      const distIndex = path.join(process.cwd(), "dist", "index.html");
+      if (fs.existsSync(distIndex)) {
+        const baseHtml = fs.readFileSync(distIndex, "utf-8");
+        fs.writeFileSync(distIndex, injectSeoMeta(baseHtml, "/"), "utf-8");
+        const blogFile = path.join(process.cwd(), "dist", "blog.html");
+        if (fs.existsSync(blogFile)) {
+          fs.writeFileSync(blogFile, injectSeoMeta(baseHtml, "/blog"), "utf-8");
+        }
+        for (const p of sanitizedIncoming) {
+          if (p.slug) {
+            const seoHtml = injectSeoMeta(baseHtml, `/${p.slug}`);
+            fs.writeFileSync(path.join(process.cwd(), "dist", `${p.slug}.html`), seoHtml, "utf-8");
+            const subDir = path.join(process.cwd(), "dist", p.slug);
+            if (!fs.existsSync(subDir)) fs.mkdirSync(subDir, { recursive: true });
+            fs.writeFileSync(path.join(subDir, "index.html"), seoHtml, "utf-8");
+          }
+        }
+      }
+    } catch {}
+
+    // Also persist newly imported adminSaved posts to Cloud Firestore in background
+    (async () => {
+      try {
+        const toCloud = sanitizedIncoming.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
+        if (toCloud.length === 0) return;
+        const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+        if (!fs.existsSync(configPath)) return;
+        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+        const { initializeApp, getApps, getApp } = await import("firebase/app");
+        const { getFirestore, doc, setDoc } = await import("firebase/firestore");
+        const fbApp = getApps().length === 0 ? initializeApp(config) : getApp();
+        const db = getFirestore(fbApp, config.firestoreDatabaseId);
+        for (const p of toCloud) {
+          const docId = p.slug.replace(/[^a-zA-Z0-9_\-]/g, "-").slice(0, 120);
+          await setDoc(doc(db, "posts", docId), {
+            id: p.id,
+            slug: p.slug,
+            title: p.title || "",
+            excerpt: p.excerpt || "",
+            content: p.content || "",
+            htmlContent: p.htmlContent || "",
+            coverImage: p.coverImage || "/images/an-gi-cho-do-ngan.jpg",
+            category: p.category || "Gợi Ý Thực Đơn",
+            tags: Array.isArray(p.tags) ? p.tags.join(", ") : (p.tags || ""),
+            authorName: p.author?.name || "Bếp Trưởng Hôm Nay Ăn Gì",
+            authorRole: p.author?.role || "Chuyên gia Ẩm thực & Dinh dưỡng",
+            authorAvatar: p.author?.avatar || "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80",
+            publishDate: p.publishDate || "",
+            readTime: p.readTime || "5 phút đọc",
+            featured: Boolean(p.featured),
+            updatedAt: p.updatedAt,
+            revision: Number(p.revision || 1),
+            adminSaved: true,
+          }).catch(() => {});
+        }
+      } catch {}
+    })();
 
     return res.json({
       success: true,

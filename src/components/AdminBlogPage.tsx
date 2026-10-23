@@ -635,23 +635,30 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     reader.readAsText(file);
   };
 
-  // Sync All Data to Server
+  // Sync All Data to Server & Cloud Firestore
   const handleSyncAllData = async () => {
     setSyncingServer(true);
     try {
-      const customRaw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-      const customParsed = customRaw ? JSON.parse(customRaw) : [];
-
+      const customList = getCustomBlogPosts();
       const res = await fetch('/api/admin/posts/import', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ posts: customParsed, overwrite: false }),
+        body: JSON.stringify({ posts: customList, overwrite: false }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || 'Lỗi đồng bộ server');
 
-      await loadPosts();
-      showToast(`Đã đồng bộ và lưu toàn bộ ${customParsed.length} bài viết tùy chỉnh lên máy chủ!`);
+      // Also push admin-saved posts to Cloud Firestore in background
+      const adminSavedList = customList.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
+      for (const p of adminSavedList) {
+        await Promise.race([
+          savePostToFirestore(p),
+          new Promise((resolve) => setTimeout(resolve, 1500)),
+        ]).catch(() => {});
+      }
+
+      await loadPosts(true);
+      showToast(`Đã đồng bộ toàn bộ ${customList.length} bài viết lên máy chủ & Cloud cho mọi thiết bị!`, 'success');
     } catch (err: any) {
       showToast(err?.message || 'Lỗi khi lưu dữ liệu lên máy chủ', 'error');
     } finally {
@@ -680,9 +687,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     const deleted = getDeletedPostSlugs();
 
     const customOnlyMap = new Map<string, BlogPost>();
+    const serverCustomMap = new Map<string, BlogPost>();
     const postMap = new Map<string, BlogPost>();
 
-    const mergeCustom = (p: BlogPost, isServerAuthoritative = false) => {
+    const mergeCustom = (p: BlogPost, isServerAuthoritative = false, recordAsServer = false) => {
       if (!p || (!p.slug && !p.id)) return;
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
@@ -691,6 +699,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
       if (oldSlug && oldSlug !== key) {
         customOnlyMap.delete(oldSlug);
+      }
+      if (recordAsServer) {
+        serverCustomMap.set(key, p);
       }
       const existing = customOnlyMap.get(key);
       if (shouldReplacePost(existing, p, isServerAuthoritative)) {
@@ -712,7 +723,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         const data = await res.json();
         if (Array.isArray(data.customPosts)) {
           apiLoaded = true;
-          data.customPosts.forEach((p: BlogPost) => mergeCustom(p, true));
+          const { normalizeBlogPost } = await import('../data/blogPosts');
+          data.customPosts.forEach((rawP: BlogPost) => {
+            const p = normalizeBlogPost(rawP);
+            mergeCustom(p, true, true);
+          });
         }
       }
     } catch (apiErr) {
@@ -722,7 +737,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     // 2. Local custom posts from window or localStorage (higher revision / adminSaved always preserved)
     try {
       const localCustom = getCustomBlogPosts();
-      localCustom.forEach((p) => mergeCustom(p, !apiLoaded));
+      localCustom.forEach((p) => mergeCustom(p, !apiLoaded, false));
     } catch {}
 
     // 3. Try Cloud Firestore with a fast 2000ms timeout so Admin never hangs when quota is reached
@@ -732,7 +747,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         new Promise<BlogPost[]>((resolve) => setTimeout(() => resolve([]), 2000)),
       ]);
       if (cloudPosts && cloudPosts.length > 0) {
-        cloudPosts.forEach((p) => {
+        const { normalizeBlogPost } = await import('../data/blogPosts');
+        cloudPosts.forEach((rawP) => {
+          const p = normalizeBlogPost(rawP);
           if (p.slug) {
             deleted.delete(p.slug.toLowerCase().trim());
             removeDeletedPostSlugLocal(p.slug);
@@ -741,7 +758,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
             deleted.delete(p.id.toLowerCase().trim());
             removeDeletedPostSlugLocal(p.id);
           }
-          mergeCustom(p, true);
+          mergeCustom(p, true, false);
         });
       }
     } catch (e) {
@@ -749,6 +766,25 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     }
 
     const customList = sortCustomPosts(Array.from(customOnlyMap.values()));
+
+    // Auto-Heal Server: If this browser has any custom/edited posts from yesterday (or from Firestore)
+    // that are missing or older on the server, automatically push them to /api/admin/posts/import!
+    if (apiLoaded && customList.length > 0) {
+      const unsyncedPosts = customList.filter((p) => {
+        if (!p.adminSaved && !(p.revision && p.revision > 0)) return false;
+        const key = (p.slug || p.id || '').toLowerCase().trim();
+        const srv = serverCustomMap.get(key);
+        if (!srv) return true;
+        return shouldReplacePost(srv, p, false);
+      });
+      if (unsyncedPosts.length > 0) {
+        fetch('/api/admin/posts/import', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ posts: unsyncedPosts, overwrite: false }),
+        }).catch(() => {});
+      }
+    }
 
     // 4. Populate table postMap: sorted custom posts first so newest/edited posts are at the top
     customList.forEach((p) => {

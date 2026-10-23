@@ -91,7 +91,7 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
   throw new Error(JSON.stringify(errInfo));
 }
 
-// Test connection on boot per Firebase skill guidelines
+// Test connection helper (on-demand only to conserve Firestore read quota)
 export async function testConnection() {
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
@@ -101,8 +101,20 @@ export async function testConnection() {
     }
   }
 }
-if (typeof window !== 'undefined') {
-  testConnection();
+
+let _clientPostsCache: BlogPost[] | null = null;
+let _clientPostsCacheTime = 0;
+let _clientDeletedCache: string[] | null = null;
+let _clientDeletedCacheTime = 0;
+let _clientQuotaCooldownUntil = 0;
+const CLIENT_FIRESTORE_CACHE_TTL = 2 * 60 * 1000; // 2 minutes
+const CLIENT_QUOTA_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes cooldown if quota exceeded
+
+export function invalidateClientFirestoreCache() {
+  _clientPostsCache = null;
+  _clientPostsCacheTime = 0;
+  _clientDeletedCache = null;
+  _clientDeletedCacheTime = 0;
 }
 
 /**
@@ -136,6 +148,7 @@ export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Pro
 
   try {
     await setDoc(doc(db, 'posts', docId), payload);
+    invalidateClientFirestoreCache();
 
     // If slug was renamed, delete old document from Firestore so there are no duplicates
     if (oldSlug) {
@@ -164,6 +177,13 @@ export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Pro
  * Get all deleted post slugs/IDs from Cloud Firestore for global multi-device sync
  */
 export async function getDeletedPostsFromFirestore(): Promise<string[]> {
+  const now = Date.now();
+  if (_clientDeletedCache && now - _clientDeletedCacheTime < CLIENT_FIRESTORE_CACHE_TTL) {
+    return _clientDeletedCache;
+  }
+  if (now < _clientQuotaCooldownUntil) {
+    return _clientDeletedCache || [];
+  }
   const path = 'deleted_posts';
   try {
     const snapshot = await getDocs(collection(db, path));
@@ -175,10 +195,17 @@ export async function getDeletedPostsFromFirestore(): Promise<string[]> {
       const docClean = d.id.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       if (docClean && !list.includes(docClean)) list.push(docClean);
     });
+    _clientDeletedCache = list;
+    _clientDeletedCacheTime = now;
     return list;
-  } catch (error) {
-    console.warn('Firestore getDeletedPosts error:', error);
-    return [];
+  } catch (error: any) {
+    const isQuota = error?.message?.includes('Quota') || error?.code === 'resource-exhausted';
+    if (isQuota) {
+      _clientQuotaCooldownUntil = Date.now() + CLIENT_QUOTA_COOLDOWN_MS;
+    } else {
+      console.warn('Firestore getDeletedPosts error:', error);
+    }
+    return _clientDeletedCache || [];
   }
 }
 
@@ -189,7 +216,7 @@ export async function recordDeletedPostInFirestore(slugOrId: string): Promise<vo
   const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
   if (!clean) return;
   const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
-  const path = `deleted_posts/${docId}`;
+  invalidateClientFirestoreCache();
   try {
     await setDoc(doc(db, 'deleted_posts', docId), {
       slugOrId: clean,
@@ -207,6 +234,7 @@ export async function removeDeletedPostFromFirestore(slugOrId: string): Promise<
   const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
   if (!clean) return;
   const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+  invalidateClientFirestoreCache();
   try {
     await deleteDoc(doc(db, 'deleted_posts', docId)).catch(() => {});
     if (clean !== docId) {
@@ -220,7 +248,14 @@ export async function removeDeletedPostFromFirestore(slugOrId: string): Promise<
 /**
  * Get all posts from Cloud Firestore
  */
-export async function getPostsFromFirestore(): Promise<BlogPost[]> {
+export async function getPostsFromFirestore(forceRefresh = false): Promise<BlogPost[]> {
+  const now = Date.now();
+  if (!forceRefresh && _clientPostsCache && now - _clientPostsCacheTime < CLIENT_FIRESTORE_CACHE_TTL) {
+    return _clientPostsCache;
+  }
+  if (now < _clientQuotaCooldownUntil) {
+    return _clientPostsCache || [];
+  }
   const path = 'posts';
   try {
     const snapshot = await getDocs(collection(db, path));
@@ -256,15 +291,18 @@ export async function getPostsFromFirestore(): Promise<BlogPost[]> {
         adminSaved: true,
       });
     });
+    _clientPostsCache = posts;
+    _clientPostsCacheTime = now;
     return posts;
   } catch (error: any) {
     const isQuota = error?.message?.includes('Quota') || error?.code === 'resource-exhausted';
     if (isQuota) {
+      _clientQuotaCooldownUntil = Date.now() + CLIENT_QUOTA_COOLDOWN_MS;
       console.warn('Firestore read quota reached. Falling back gracefully to server/cached posts.');
     } else {
       console.warn('Firestore getPosts error:', error?.message || error);
     }
-    return [];
+    return _clientPostsCache || [];
   }
 }
 

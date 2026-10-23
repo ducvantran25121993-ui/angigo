@@ -255,9 +255,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
 
       const synced = await fetchAndSyncCustomPosts(true);
       if (!isMounted) return;
-      if (synced && synced.length > 0) {
-        setCustomPosts(synced.filter((p) => p.slug !== 'cach-lam-com-suon-nuong-mat-ong' && p.id !== 'cach-lam-com-suon-nuong-mat-ong'));
-      }
+      const latestCustom = (synced && synced.length > 0 ? synced : getCustomBlogPosts()).filter(
+        (p) => p.slug !== 'cach-lam-com-suon-nuong-mat-ong' && p.id !== 'cach-lam-com-suon-nuong-mat-ong'
+      );
+      setCustomPosts(latestCustom);
       setDeletedSlugs(getDeletedPostSlugs());
 
       const pathname = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '';
@@ -1470,9 +1471,9 @@ ${newContent}
     return INITIAL_DISHES.filter((d) => ['com-thit-kho-tau', 'suon-nuong-bbq'].includes(d.id));
   }, [activePost]);
 
-  // Featured post for hero section
+  // Featured post for hero section: prioritize the most recently published/edited post at allPosts[0]
   const featuredPost = useMemo(() => {
-    return allPosts.find((p) => p.featured) || allPosts[0];
+    return allPosts[0] || allPosts.find((p) => p.featured);
   }, [allPosts]);
 
   return (

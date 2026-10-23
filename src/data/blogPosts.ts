@@ -24,6 +24,8 @@ export interface BlogPost {
   htmlContent?: string;
   oldSlug?: string;
   updatedAt?: string;
+  revision?: number;
+  adminSaved?: boolean;
   ratingValue?: number;
   reviewCount?: number;
 }
@@ -828,6 +830,8 @@ export function normalizeBlogPost(raw: any): BlogPost {
     htmlContent: raw.htmlContent ? String(raw.htmlContent) : (content && /<[a-z][\s\S]*>/i.test(content) && !content.trim().startsWith('#') ? String(content) : undefined),
     oldSlug: cleanOldSlug,
     updatedAt: raw.updatedAt ? String(raw.updatedAt) : undefined,
+    revision: raw.revision !== undefined ? Number(raw.revision) : undefined,
+    adminSaved: raw.adminSaved ? Boolean(raw.adminSaved) : undefined,
   };
 }
 
@@ -950,6 +954,57 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
 
 const EXCLUDED_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
 
+/**
+ * Clock-skew-proof comparison between an existing post and an incoming post.
+ * Admin-saved posts carry a monotonically increasing `revision` (1, 2, 3...) and `adminSaved: true`,
+ * ensuring user edits ALWAYS override static baseline posts even if a container clock was in 2026.
+ */
+export function shouldReplacePost(
+  existing: BlogPost | undefined,
+  incoming: BlogPost,
+  isIncomingAuthoritative = false
+): boolean {
+  if (!existing) return true;
+  const existRev = Number(existing.revision || (existing.adminSaved ? 1 : 0));
+  const incomingRev = Number(incoming.revision || (incoming.adminSaved ? 1 : 0));
+
+  if (incomingRev > existRev) return true;
+  if (incomingRev < existRev) return false;
+
+  const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+  const incomingTime = incoming.updatedAt ? new Date(incoming.updatedAt).getTime() : 0;
+
+  if (isIncomingAuthoritative) {
+    if (existTime > incomingTime && incomingTime > 0) return false;
+    return true;
+  } else {
+    if (incomingTime > existTime && incomingTime > 0) return true;
+    return false;
+  }
+}
+
+/**
+ * Place admin-saved / newly edited posts at the very front of the custom posts list
+ */
+export function sortCustomPosts(posts: BlogPost[]): BlogPost[] {
+  const adminEdited: BlogPost[] = [];
+  const baseline: BlogPost[] = [];
+  for (const p of posts) {
+    if (p.adminSaved || (p.revision && p.revision > 0)) {
+      adminEdited.push(p);
+    } else {
+      baseline.push(p);
+    }
+  }
+  adminEdited.sort((a, b) => {
+    const timeA = a.updatedAt ? new Date(a.updatedAt).getTime() : 0;
+    const timeB = b.updatedAt ? new Date(b.updatedAt).getTime() : 0;
+    if (timeB !== timeA) return timeB - timeA;
+    return Number(b.revision || 0) - Number(a.revision || 0);
+  });
+  return [...adminEdited, ...baseline];
+}
+
 export function getCustomBlogPosts(): BlogPost[] {
   const deleted = getDeletedPostSlugs();
   const filterDeleted = (posts: BlogPost[]) =>
@@ -986,8 +1041,7 @@ export function getCustomBlogPosts(): BlogPost[] {
     } catch {}
   }
 
-  // 3. Merge: Server injected posts (initialList) form the authoritative baseline.
-  // LocalStorage items only override if they have a strictly newer valid updatedAt timestamp.
+  // 3. Merge using clock-skew-proof shouldReplacePost
   const postMap = new Map<string, BlogPost>();
   initialList.forEach((p) => {
     const key = (p.slug || p.id || '').toLowerCase().trim();
@@ -1004,21 +1058,13 @@ export function getCustomBlogPosts(): BlogPost[] {
     if (oldSlug && oldSlug !== key) postMap.delete(oldSlug);
 
     const existing = postMap.get(key);
-    if (existing) {
-      const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
-      const localTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-      // Only allow localStorage to override server baseline if localTime is strictly newer
-      if (localTime > existTime && localTime > 0) {
-        postMap.set(key, p);
-      }
-    } else {
-      // Brand new post present in localList
+    if (shouldReplacePost(existing, p, false)) {
       postMap.set(key, p);
       KNOWN_BLOG_SLUGS.add(key);
     }
   });
 
-  return filterDeleted(Array.from(postMap.values()));
+  return sortCustomPosts(filterDeleted(Array.from(postMap.values())));
 }
 
 export function getAllBlogPosts(): BlogPost[] {
@@ -1183,34 +1229,19 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
 
   const mergeItem = (p: any, isAuthoritativeServer = false) => {
     if (!p || (!p.slug && !p.id)) return;
-    const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    const id = (p.id || '').toLowerCase().trim();
+    const normalized = normalizeBlogPost(p);
+    const s = (normalized.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const id = (normalized.id || '').toLowerCase().trim();
     if (deleted.has(s) || deleted.has(id) || EXCLUDED_BLOG_SLUGS.has(s) || EXCLUDED_BLOG_SLUGS.has(id)) return;
     const key = s || id;
-    const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
+    const oldSlug = ((normalized as any).oldSlug || (normalized as any).previousSlug || '').toLowerCase().trim();
     if (oldSlug && oldSlug !== key) {
       postMap.delete(oldSlug);
     }
     const existing = postMap.get(key);
-    if (existing) {
-      const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
-      const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-      if (isAuthoritativeServer) {
-        // Live server wins unless existing item has a strictly newer valid timestamp
-        if (existTime > newTime && newTime > 0) {
-          return;
-        }
-      } else {
-        // Non-authoritative source (e.g., localStorage) only wins if strictly newer than existing
-        if (existTime >= newTime && existTime > 0) {
-          return;
-        }
-        if (newTime === 0) {
-          return;
-        }
-      }
+    if (shouldReplacePost(existing, normalized, isAuthoritativeServer)) {
+      postMap.set(key, normalized);
     }
-    postMap.set(key, normalizeBlogPost(p));
   };
 
   // 1. Fetch dynamic Express server API (/api/admin/posts) FIRST (Authoritative live server state)
@@ -1256,7 +1287,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     // ignore
   }
 
-  // 3. Merge localStorage items only if they have a strictly newer timestamp (e.g. unsynced local draft)
+  // 3. Merge localStorage items (higher revision or adminSaved items always preserved)
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
     if (raw) {
@@ -1288,7 +1319,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   }
 
-  const merged = Array.from(postMap.values());
+  const merged = sortCustomPosts(Array.from(postMap.values()));
   if (merged.length > 0) {
     try {
       (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
@@ -1312,20 +1343,30 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
 /**
  * Helper to upsert a single fresh post into localStorage and window.__INITIAL_CUSTOM_POSTS__
  */
-function upsertFreshPostLocally(normalized: BlogPost) {
-  if (typeof window === 'undefined') return;
+function upsertFreshPostLocally(normalized: BlogPost, isAuthoritative = true): BlogPost {
+  if (typeof window === 'undefined') return normalized;
   try {
     const cleanKey = (normalized.slug || normalized.id || '').toLowerCase().trim();
-    const current = getCustomBlogPosts().filter((p) => {
+    const allCurrent = getCustomBlogPosts();
+    const existing = allCurrent.find((p) => {
+      const s = (p.slug || '').toLowerCase().trim();
+      const id = (p.id || '').toLowerCase().trim();
+      return s === cleanKey || id === cleanKey;
+    });
+    if (existing && !shouldReplacePost(existing, normalized, isAuthoritative)) {
+      return existing;
+    }
+    const rest = allCurrent.filter((p) => {
       const s = (p.slug || '').toLowerCase().trim();
       const id = (p.id || '').toLowerCase().trim();
       return s !== cleanKey && id !== cleanKey;
     });
-    const updated = [normalized, ...current];
+    const updated = sortCustomPosts([normalized, ...rest]);
     (window as any).__INITIAL_CUSTOM_POSTS__ = updated;
     localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(updated));
     KNOWN_BLOG_SLUGS.add(cleanKey);
   } catch {}
+  return normalized;
 }
 
 /**
@@ -1383,8 +1424,7 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
           });
           if (matched) {
             const normalized = normalizeBlogPost(matched);
-            upsertFreshPostLocally(normalized);
-            return normalized;
+            return upsertFreshPostLocally(normalized, false);
           }
         }
       }
@@ -1400,8 +1440,7 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
     ]);
     if (cloudPost) {
       const normalized = normalizeBlogPost(cloudPost);
-      upsertFreshPostLocally(normalized);
-      return normalized;
+      return upsertFreshPostLocally(normalized, true);
     }
   } catch {}
 

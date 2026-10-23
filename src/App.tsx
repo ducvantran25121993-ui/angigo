@@ -13,8 +13,9 @@ import {
   formatLocationDisplay,
   isAutoDetectLocationEnabled,
 } from './utils/location';
-import { getTabFromUrl, updateTabSEO, updateRegionSEO, TAB_CONFIG, TabType } from './utils/navigation';
+import { getTabFromUrl, updateTabSEO, updateRegionSEO, TAB_CONFIG, TabType, isBlogPostSlug } from './utils/navigation';
 import { getRegionFromUrl, isRegionPath } from './data/regionalCuisine';
+import { findDishByRecipeSlug } from './data/recipes';
 import { fetchAndSyncCustomPosts } from './data/blogPosts';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { ErrorBoundary } from './components/ErrorBoundary';
@@ -249,10 +250,12 @@ export default function App() {
 
   // Sync with browser Back/Forward buttons, secret admin URL query, and keyboard shortcut
   useEffect(() => {
+    const pathname = window.location.pathname.replace(/\/$/, '') || '/';
     const isCurrentPathRecipe =
-      window.location.pathname.startsWith('/cach-nau-') ||
-      window.location.pathname.startsWith('/cach-lam-') ||
-      window.location.pathname.startsWith('/cach-nau-mon-ngon/');
+      !isBlogPostSlug(pathname) &&
+      (pathname.startsWith('/cach-nau-mon-ngon/') ||
+        ((pathname.startsWith('/cach-nau-') || pathname.startsWith('/cach-lam-')) &&
+          Boolean(findDishByRecipeSlug(pathname, INITIAL_DISHES))));
     const currentRegionId = getRegionFromUrl();
 
     // Initial SEO update on tab change
@@ -264,8 +267,23 @@ export default function App() {
     // Note: Do not call window.scrollTo synchronously on mount to avoid forced reflow during first paint!
 
     // Defer blog custom post sync so it NEVER blocks initial mobile FCP or LCP
-    const pathname = window.location.pathname.replace(/\/$/, '') || '/';
-    const isBlogRoute = !isCurrentPathRecipe && (pathname.startsWith('/blog') || pathname === '/admin' || (pathname !== '/' && !['/vong-quay', '/mon-ngon', '/do-uong-an-vat', '/lich-an-theo-tuan', '/quan-ngon', '/kham-pha-am-thuc', '/am-thuc-vung-mien', '/thuc-don-moi-ngay', '/cach-nau-mon-ngon'].includes(pathname)));
+    const isBlogRoute =
+      pathname.startsWith('/blog') ||
+      pathname === '/admin' ||
+      activeTab === 'blog' ||
+      activeTab === 'admin' ||
+      (pathname !== '/' &&
+        ![
+          '/vong-quay',
+          '/mon-ngon',
+          '/do-uong-an-vat',
+          '/lich-an-theo-tuan',
+          '/quan-ngon',
+          '/kham-pha-am-thuc',
+          '/am-thuc-vung-mien',
+          '/thuc-don-moi-ngay',
+          '/cach-nau-mon-ngon',
+        ].includes(pathname));
 
     if (isBlogRoute) {
       const syncBlog = async () => {
@@ -275,10 +293,13 @@ export default function App() {
 
       syncBlog().then((syncedPosts) => {
         if (syncedPosts && syncedPosts.length > 0) {
-          const cleanSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').trim();
-          if (cleanSlug && cleanSlug !== '/') {
+          const cleanSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
+          if (cleanSlug && cleanSlug !== '/' && cleanSlug !== 'admin' && cleanSlug !== 'blog') {
             const isCustomPost = syncedPosts.some(
-              (p) => (p.slug && p.slug === cleanSlug) || (p.id && p.id === cleanSlug) || ((p as any).oldSlug && (p as any).oldSlug === cleanSlug)
+              (p) =>
+                (p.slug && p.slug.toLowerCase() === cleanSlug) ||
+                (p.id && p.id.toLowerCase() === cleanSlug) ||
+                ((p as any).oldSlug && String((p as any).oldSlug).toLowerCase() === cleanSlug)
             );
             if (isCustomPost && activeTab !== 'blog') {
               setActiveTab('blog');

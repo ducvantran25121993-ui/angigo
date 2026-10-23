@@ -21,7 +21,7 @@
     "publishDate": "22/10/2026",
     "readTime": "6 phút đọc",
     "featured": true,
-    "updatedAt": "2026-10-22T01:00:00.000Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem",
@@ -45,7 +45,7 @@
     "publishDate": "28/09/2026",
     "readTime": "4 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-12T12:19:39.114Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
@@ -71,7 +71,7 @@
     "publishDate": "12/10/2026",
     "readTime": "7 phút đọc",
     "featured": true,
-    "updatedAt": "2026-10-15T06:54:14.647Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "an-gi-hom-nay-goi-y-mon-ngon-de-lam-cho-bua-com-moi-ngay",
@@ -94,7 +94,7 @@
     "publishDate": "07/10/2026",
     "readTime": "12 phút đọc",
     "featured": true,
-    "updatedAt": "2026-10-10T02:47:40.708Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam",
@@ -117,7 +117,7 @@
     "publishDate": "05/10/2026",
     "readTime": "15 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-22T01:00:00.000Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "cuoi-tuan-an-gi-nhung-bua-an-tan-huong-ngay-nghi",
@@ -141,7 +141,7 @@
     "publishDate": "09/10/2026",
     "readTime": "6 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-15T07:26:39.407Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "mon-ngon-de-lam-goi-y-cac-mon-de-nau-cho-nguoi-moi-bat-dau",
@@ -165,7 +165,7 @@
     "publishDate": "17/10/2026",
     "readTime": "6 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-17T04:49:46.755Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "thit-bo-lam-mon-gi-ngon-goi-y-mon-bo-de-lam-dam-da-cho-bua-com-gia-dinh",
@@ -188,7 +188,7 @@
     "publishDate": "05/10/2026",
     "readTime": "6 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-08T08:50:47.658Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "thit-ga-nau-mon-gi-ngon",
@@ -213,7 +213,7 @@
     "publishDate": "01/10/2026",
     "readTime": "12 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-08T08:50:47.826Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "thit-heo-lam-mon-gi-ngon",
@@ -238,7 +238,7 @@
     "publishDate": "30/09/2026",
     "readTime": "7 phút đọc",
     "featured": true,
-    "updatedAt": "2026-10-08T08:50:47.692Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "toi-nay-an-gi-goi-y-bua-toi-ngon-de-lam-cho-ca-nha",
@@ -261,7 +261,7 @@
     "publishDate": "08/10/2026",
     "readTime": "6 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-09T15:39:25.773Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "trua-nay-an-gi-goi-y-bua-trua-ngon-de-an-cho-moi-ngay",
@@ -284,7 +284,7 @@
     "publishDate": "08/10/2026",
     "readTime": "8 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-09T15:12:02.863Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   },
   {
     "id": "trung-lam-mon-gi-ngon-goi-y-cac-mon-trung-de-lam-hao-com-cho-ca-nha",
@@ -307,6 +307,6 @@
     "publishDate": "05/10/2026",
     "readTime": "6 phút đọc",
     "featured": false,
-    "updatedAt": "2026-10-08T08:50:47.787Z"
+    "updatedAt": "2020-01-01T00:00:00.000Z"
   }
 ]

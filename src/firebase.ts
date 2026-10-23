@@ -130,6 +130,8 @@ export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Pro
     readTime: post.readTime || '5 phút đọc',
     featured: Boolean(post.featured),
     updatedAt: post.updatedAt || new Date().toISOString(),
+    revision: Number(post.revision || 1),
+    adminSaved: true,
   };
 
   try {
@@ -250,6 +252,8 @@ export async function getPostsFromFirestore(): Promise<BlogPost[]> {
         readTime: data.readTime || '5 phút đọc',
         featured: Boolean(data.featured),
         updatedAt: data.updatedAt || new Date().toISOString(),
+        revision: Number(data.revision || 1),
+        adminSaved: true,
       });
     });
     return posts;
@@ -299,6 +303,8 @@ export async function getSinglePostFromFirestore(slugOrId: string): Promise<Blog
         readTime: data.readTime || '5 phút đọc',
         featured: Boolean(data.featured),
         updatedAt: data.updatedAt || new Date().toISOString(),
+        revision: Number(data.revision || 1),
+        adminSaved: true,
       };
     }
   } catch (error: any) {

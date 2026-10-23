@@ -257,10 +257,10 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
     const customPostsPath = path.join(process.cwd(), 'public', 'custom_blog_posts.json');
     if (fs.existsSync(customPostsPath)) {
       const rawCustom = fs.readFileSync(customPostsPath, 'utf-8');
-      const serialized = rawCustom.replace(/</g, '\\u003c');
+      const compactCustom = JSON.stringify(JSON.parse(rawCustom)).replace(/</g, '\\u003c');
       updatedHtml = updatedHtml.replace(
         '</head>',
-        `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>\n  </head>`
+        `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${compactCustom};</script>\n  </head>`
       );
     }
   } catch {}
@@ -270,10 +270,10 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
     const deletedPostsPath = path.join(process.cwd(), 'public', 'deleted_posts.json');
     if (fs.existsSync(deletedPostsPath)) {
       const rawDeleted = fs.readFileSync(deletedPostsPath, 'utf-8');
-      const serializedDel = rawDeleted.replace(/</g, '\\u003c');
+      const compactDel = JSON.stringify(JSON.parse(rawDeleted)).replace(/</g, '\\u003c');
       updatedHtml = updatedHtml.replace(
         '</head>',
-        `    <script>window.__INITIAL_DELETED_POSTS__ = ${serializedDel};</script>\n  </head>`
+        `    <script>window.__INITIAL_DELETED_POSTS__ = ${compactDel};</script>\n  </head>`
       );
     }
   } catch {}

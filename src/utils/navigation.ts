@@ -2,6 +2,8 @@ import { Dish, DishRecipe, RegionId } from '../types';
 import { getRegionById } from '../data/regionalCuisine';
 import { KNOWN_BLOG_SLUGS } from '../data/blogSlugs';
 import { getDeletedPostSlugs } from '../data/blogPosts';
+import { INITIAL_DISHES } from '../data/dishes';
+import { findDishByRecipeSlug } from '../data/recipes';
 
 export function isBlogPostSlug(slug: string): boolean {
   if (!slug) return false;
@@ -305,9 +307,9 @@ export function getTabFromUrl(): TabType {
     pathname === '/kham-pha' ||
     pathname === '/cam-nang' ||
     pathname === '/cam-nang-am-thuc' ||
-    pathname.startsWith('/am-thuc-') ||
-    pathname.startsWith('/cach-nau-') ||
-    pathname.startsWith('/cach-lam-')
+    (pathname.startsWith('/am-thuc-') && Boolean(getRegionFromUrl(pathname))) ||
+    ((pathname.startsWith('/cach-nau-') || pathname.startsWith('/cach-lam-')) &&
+      Boolean(findDishByRecipeSlug(pathname, INITIAL_DISHES)))
   ) return 'discover';
   if (pathname === '/gioi-thieu' || pathname === '/about') return 'about';
   if (pathname === '/lien-he' || pathname === '/contact') return 'contact';

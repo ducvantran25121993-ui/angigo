@@ -2153,18 +2153,28 @@
     </image:image>
   </url>
   <url>
-    <loc>https://angigio.com/goi-y-thuc-don-hang-ngay-cho-gia-dinh</loc>
-    <lastmod>2026-10-22</lastmod>
+    <loc>https://angigio.com/cach-lam-mon-ngon-test-sync</loc>
+    <lastmod>2025-03-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
+      <image:loc>https://angigio.com/images/mam-com-gia-dinh-mien-bac.jpg</image:loc>
+      <image:title>Cách Làm Món Ngon Test Đồng Bộ Đa Thiết Bị</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://angigio.com/goi-y-thuc-don-hang-ngay-cho-gia-dinh</loc>
+    <lastmod>2020-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/mam_com_gia_dinh_moi.jpg</image:loc>
       <image:title>Gợi Ý Thực Đơn Hàng Ngày Cho Gia Đình</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://angigio.com/100-nghin-nau-duoc-mon-gi-goi-y-bua-an-tiet-kiem</loc>
-    <lastmod>2026-10-12</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2174,7 +2184,7 @@
   </url>
   <url>
     <loc>https://angigio.com/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2184,7 +2194,7 @@
   </url>
   <url>
     <loc>https://angigio.com/an-gi-hom-nay-goi-y-mon-ngon-de-lam-cho-bua-com-moi-ngay</loc>
-    <lastmod>2026-10-10</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2194,17 +2204,17 @@
   </url>
   <url>
     <loc>https://angigio.com/ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://angigio.com/images/mam_com_gia_dinh.jpg</image:loc>
+      <image:loc>https://angigio.com/images/ca-lam-mon-gi-ngon.jpg</image:loc>
       <image:title>Cá Làm Món Gì Ngon? Gợi Ý Các Món Cá Dễ Làm</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://angigio.com/cuoi-tuan-an-gi-nhung-bua-an-tan-huong-ngay-nghi</loc>
-    <lastmod>2026-10-15</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2214,7 +2224,7 @@
   </url>
   <url>
     <loc>https://angigio.com/mon-ngon-de-lam-goi-y-cac-mon-de-nau-cho-nguoi-moi-bat-dau</loc>
-    <lastmod>2026-10-17</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2224,7 +2234,7 @@
   </url>
   <url>
     <loc>https://angigio.com/thit-bo-lam-mon-gi-ngon-goi-y-mon-bo-de-lam-dam-da-cho-bua-com-gia-dinh</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2234,7 +2244,7 @@
   </url>
   <url>
     <loc>https://angigio.com/thit-ga-nau-mon-gi-ngon</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2244,7 +2254,7 @@
   </url>
   <url>
     <loc>https://angigio.com/thit-heo-lam-mon-gi-ngon</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2254,7 +2264,7 @@
   </url>
   <url>
     <loc>https://angigio.com/toi-nay-an-gi-goi-y-bua-toi-ngon-de-lam-cho-ca-nha</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2264,7 +2274,7 @@
   </url>
   <url>
     <loc>https://angigio.com/trua-nay-an-gi-goi-y-bua-trua-ngon-de-an-cho-moi-ngay</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2274,7 +2284,7 @@
   </url>
   <url>
     <loc>https://angigio.com/trung-lam-mon-gi-ngon-goi-y-cac-mon-trung-de-lam-hao-com-cho-ca-nha</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2020-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>

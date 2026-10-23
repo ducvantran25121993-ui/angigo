@@ -73,6 +73,8 @@ import {
   removeDeletedPostSlugLocal,
   getCustomBlogPosts,
   getAllBlogPosts,
+  shouldReplacePost,
+  sortCustomPosts,
 } from '../data/blogPosts';
 import {
   savePostToFirestore,
@@ -691,17 +693,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         customOnlyMap.delete(oldSlug);
       }
       const existing = customOnlyMap.get(key);
-      if (existing) {
-        const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
-        const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-        if (isServerAuthoritative) {
-          if (existTime > newTime && newTime > 0) return;
-        } else {
-          if (existTime >= newTime && existTime > 0) return;
-          if (newTime === 0) return;
-        }
+      if (shouldReplacePost(existing, p, isServerAuthoritative)) {
+        customOnlyMap.set(key, p);
       }
-      customOnlyMap.set(key, p);
     };
 
     // 1. Try server API (/api/admin/posts) FIRST (Authoritative live server state)
@@ -725,7 +719,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       console.warn('API posts load warning:', apiErr);
     }
 
-    // 2. Local custom posts from window or localStorage (only override if strictly newer than server)
+    // 2. Local custom posts from window or localStorage (higher revision / adminSaved always preserved)
     try {
       const localCustom = getCustomBlogPosts();
       localCustom.forEach((p) => mergeCustom(p, !apiLoaded));
@@ -754,10 +748,12 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       console.warn('Firestore load error:', e);
     }
 
-    // 4. Populate table postMap: custom posts first
-    customOnlyMap.forEach((p, k) => {
-      postMap.set(k, p);
-      if (p.slug) postMap.set(p.slug.toLowerCase().trim(), p);
+    const customList = sortCustomPosts(Array.from(customOnlyMap.values()));
+
+    // 4. Populate table postMap: sorted custom posts first so newest/edited posts are at the top
+    customList.forEach((p) => {
+      const k = (p.slug || p.id || '').toLowerCase().trim();
+      if (k) postMap.set(k, p);
     });
 
     // 5. Initial baseline posts (only if not overridden by custom post)
@@ -765,7 +761,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
       if (!deleted.has(s) && !deleted.has(id)) {
-        const isOverridden = Array.from(customOnlyMap.values()).some((cp) => {
+        const isOverridden = customList.some((cp) => {
           const cpSlug = (cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
           const cpId = (cp.id || '').toLowerCase().trim();
           const cpOldSlug = ((cp as any).oldSlug || (cp as any).previousSlug || '').toLowerCase().trim();
@@ -782,10 +778,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     });
 
     const merged = Array.from(postMap.values());
-    const customList = Array.from(customOnlyMap.values());
     setPosts(merged);
 
-    // Save only genuine custom / edited posts back to localStorage and window
+    // Save sorted custom / edited posts back to localStorage and window
     if (typeof window !== 'undefined' && customList.length > 0) {
       localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(customList));
       (window as any).__INITIAL_CUSTOM_POSTS__ = customList;
@@ -1253,7 +1248,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setAuthorRole('Chuyên gia Ẩm thực & Dinh dưỡng');
     setPublishDate(new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }));
     setReadTime('6 phút đọc');
-    setFeatured(false);
+    setFeatured(true);
     setViewMode('editor');
     setEditorSubTab('visual');
     setFloatingLink(null);
@@ -2019,6 +2014,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     currentHtml = currentHtml.replace(/<span[^>]*class="[^"]*blog-editor-marker[^"]*"[^>]*><\/span>/gi, '');
     const markdownContent = htmlToMarkdown(currentHtml);
 
+    const existingTarget = posts.find(
+      (p) => p.slug === cleanSlug || p.id === cleanSlug || (oldSlug && (p.slug === oldSlug || p.id === oldSlug))
+    );
+    const nextRevision = Math.max(Number(existingTarget?.revision || 0) + 1, 1);
+
     const postPayload: BlogPost = {
       id: cleanSlug,
       slug: cleanSlug,
@@ -2043,6 +2043,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       content: markdownContent,
       htmlContent: currentHtml,
       updatedAt: new Date().toISOString(),
+      revision: nextRevision,
+      adminSaved: true,
     };
 
     // 1. Update localStorage & memory immediately
@@ -2377,6 +2379,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     const rawMarkdown = htmlToMarkdown(currentHtml);
     const markdownContent = rawMarkdown;
 
+    const existingTarget = posts.find(
+      (p) => p.slug === cleanSlug || p.id === cleanSlug || (oldSlug && (p.slug === oldSlug || p.id === oldSlug))
+    );
+    const nextRevision = Math.max(Number(existingTarget?.revision || 0) + 1, 1);
+
     const postPayload: BlogPost = {
       id: cleanSlug,
       slug: cleanSlug,
@@ -2399,6 +2406,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       content: markdownContent,
       htmlContent: currentHtml,
       updatedAt: new Date().toISOString(),
+      revision: nextRevision,
+      adminSaved: true,
     };
 
     removeDeletedPostSlugLocal(cleanSlug);
@@ -2622,6 +2631,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     currentHtml = currentHtml.replace(/<span[^>]*id="blog-editor-insert-marker"[^>]*><\/span>/gi, '');
     currentHtml = currentHtml.replace(/<span[^>]*class="[^"]*blog-editor-marker[^"]*"[^>]*><\/span>/gi, '');
 
+    const existingTarget = posts.find(
+      (p) => p.slug === cleanSlug || p.id === cleanSlug || (editingPostId && (p.slug === editingPostId || p.id === editingPostId))
+    );
+    const nextRevision = Math.max(Number(existingTarget?.revision || 0) + 1, 1);
+
     const draftPayload: BlogPost = {
       id: cleanSlug,
       slug: cleanSlug,
@@ -2644,6 +2658,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       content: htmlToMarkdown(currentHtml),
       htmlContent: currentHtml,
       updatedAt: new Date().toISOString(),
+      revision: nextRevision,
+      adminSaved: true,
     };
 
     try {

@@ -59,6 +59,17 @@ app.use((req, res, next) => {
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
+// Allow cross-origin requests so any device/domain can sync blog posts seamlessly
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Cache-Control, Pragma, Authorization");
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+  next();
+});
+
 // In-memory click tracking & stats
 interface ClickEvent {
   id: string;
@@ -1222,6 +1233,8 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
         readTime: data.readTime || "5 phút đọc",
         featured: Boolean(data.featured),
         updatedAt: data.updatedAt || new Date().toISOString(),
+        revision: Number(data.revision || 1),
+        adminSaved: true,
       });
     });
 
@@ -1244,11 +1257,17 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
       const key = p.slug || p.id;
       const existing = map.get(key);
       if (existing) {
-        const localTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
-        const cloudTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-        // Never overwrite a newer local post with an older cloud post
-        if (localTime > cloudTime) {
+        const localRev = Number(existing.revision || (existing.adminSaved ? 1 : 0));
+        const cloudRev = Number(p.revision || (p.adminSaved ? 1 : 0));
+        if (localRev > cloudRev) {
           return;
+        }
+        if (localRev === cloudRev) {
+          const localTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+          const cloudTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
+          if (localTime > cloudTime) {
+            return;
+          }
         }
       }
       map.set(key, p);
@@ -1501,6 +1520,8 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
           readTime: data.readTime || "5 phút đọc",
           featured: Boolean(data.featured),
           updatedAt: data.updatedAt || new Date().toISOString(),
+          revision: Number(data.revision || 1),
+          adminSaved: true,
         };
 
         // Cache into local file storage so all future requests serve instantly
@@ -1565,9 +1586,10 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     : SEO_ROUTES_CONFIG[cleanPath];
 
   const isRecipeRoute =
-    cleanPath.startsWith("/cach-nau-") ||
-    cleanPath.startsWith("/cach-lam-") ||
-    cleanPath.startsWith("/cach-nau-mon-ngon/");
+    !customMatch &&
+    (cleanPath.startsWith("/cach-nau-") ||
+      cleanPath.startsWith("/cach-lam-") ||
+      cleanPath.startsWith("/cach-nau-mon-ngon/"));
 
   if (!meta && cleanPath.startsWith("/cach-nau-mon-ngon/")) {
     const slug = cleanPath.replace("/cach-nau-mon-ngon/", "");
@@ -1827,7 +1849,7 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     const serialized = JSON.stringify(customPosts).replace(/</g, '\\u003c');
     if (updatedHtml.includes('window.__INITIAL_CUSTOM_POSTS__')) {
       updatedHtml = updatedHtml.replace(
-        /<script>window\.__INITIAL_CUSTOM_POSTS__\s*=.*?<\/script>/,
+        /<script>window\.__INITIAL_CUSTOM_POSTS__\s*=[\s\S]*?<\/script>/,
         `<script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>`
       );
     } else {
@@ -1844,7 +1866,7 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     const serializedDeleted = JSON.stringify(deletedPosts).replace(/</g, '\\u003c');
     if (updatedHtml.includes('window.__INITIAL_DELETED_POSTS__')) {
       updatedHtml = updatedHtml.replace(
-        /<script>window\.__INITIAL_DELETED_POSTS__\s*=.*?<\/script>/,
+        /<script>window\.__INITIAL_DELETED_POSTS__\s*=[\s\S]*?<\/script>/,
         `<script>window.__INITIAL_DELETED_POSTS__ = ${serializedDeleted};</script>`
       );
     } else {
@@ -1948,6 +1970,13 @@ app.post("/api/admin/posts", async (req, res) => {
       }
     }
 
+    const existingPost = existingIdx >= 0 ? customPosts[existingIdx] : undefined;
+    const nextRevision = Math.max(
+      Number(postData.revision || 0),
+      Number(existingPost?.revision || 0) + 1,
+      1
+    );
+
     const savedPost = {
       ...postData,
       coverImage: finalCoverImage,
@@ -1956,7 +1985,9 @@ app.post("/api/admin/posts", async (req, res) => {
       id: cleanSlug,
       slug: cleanSlug,
       publishDate: postData.publishDate || new Date().toLocaleDateString("vi-VN", { day: '2-digit', month: '2-digit', year: 'numeric' }),
-      updatedAt: new Date().toISOString(),
+      updatedAt: postData.updatedAt || new Date().toISOString(),
+      revision: nextRevision,
+      adminSaved: true,
     };
 
     // If re-saving/creating, remove from deleted post blacklist
@@ -1964,11 +1995,11 @@ app.post("/api/admin/posts", async (req, res) => {
     if (oldSlug) removeDeletedPostSlug(oldSlug);
     if (postData.id) removeDeletedPostSlug(postData.id);
 
+    // Move newly created or edited post to the very top of customPosts so it appears first everywhere
     if (existingIdx >= 0) {
-      customPosts[existingIdx] = savedPost;
-    } else {
-      customPosts.unshift(savedPost);
+      customPosts.splice(existingIdx, 1);
     }
+    customPosts.unshift(savedPost);
 
     saveCustomBlogPosts(customPosts);
     SEO_ROUTES_CONFIG = getAllSeoRoutes();
@@ -2049,6 +2080,8 @@ app.post("/api/admin/posts", async (req, res) => {
             readTime: savedPost.readTime || '5 phút đọc',
             featured: Boolean(savedPost.featured),
             updatedAt: savedPost.updatedAt,
+            revision: savedPost.revision,
+            adminSaved: true,
           });
 
           if (oldSlug && oldSlug !== cleanSlug) {
@@ -3284,21 +3317,28 @@ async function startServer() {
       ? __dirname
       : path.resolve(process.cwd(), "dist");
 
-    app.use(
-      express.static(distPath, {
-        index: false,
-        maxAge: "1y",
-        immutable: true,
-        etag: true,
-        setHeaders: (res, filePath) => {
-          if (filePath.endsWith(".html") || filePath.endsWith(".json")) {
-            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-          } else if (filePath.includes("/assets/") || /\.(png|jpe?g|webp|svg|ico|woff2?|ttf|eot)$/i.test(filePath)) {
-            res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
-          }
-        },
-      })
-    );
+    const staticMiddleware = express.static(distPath, {
+      index: false,
+      redirect: false,
+      maxAge: "1y",
+      immutable: true,
+      etag: true,
+      setHeaders: (res, filePath) => {
+        if (filePath.endsWith(".html") || filePath.endsWith(".json")) {
+          res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        } else if (filePath.includes("/assets/") || /\.(png|jpe?g|webp|svg|ico|woff2?|ttf|eot)$/i.test(filePath)) {
+          res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+        }
+      },
+    });
+
+    // Only serve non-HTML static assets via express.static so all page routes use live injectSeoMeta
+    app.use((req, res, next) => {
+      if (req.path.includes(".") && !req.path.endsWith(".html") && !req.path.endsWith(".json")) {
+        return staticMiddleware(req, res, next);
+      }
+      next();
+    });
 
     app.get("*", (req, res) => {
       const indexPath = path.join(distPath, "index.html");

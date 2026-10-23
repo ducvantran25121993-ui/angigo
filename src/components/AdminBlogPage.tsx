@@ -669,55 +669,74 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       .replace(/\s+/g, '-');
   };
 
-  // Fetch all posts from Cloud Firestore, API, or localStorage
+  // Fetch all posts from API, Cloud Firestore, or localStorage
   const loadPosts = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
 
-    // Sync deleted post records from Cloud Firestore & server first
+    // Sync deleted post records from server & Cloud Firestore first
     await syncDeletedPosts();
     const deleted = getDeletedPostSlugs();
 
-    // Fetch all posts from Cloud Firestore, API, and local storage (Unified Merging)
     const customOnlyMap = new Map<string, BlogPost>();
     const postMap = new Map<string, BlogPost>();
 
-    const mergeCustom = (p: BlogPost) => {
+    const mergeCustom = (p: BlogPost, isServerAuthoritative = false) => {
       if (!p || (!p.slug && !p.id)) return;
       const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
       const id = (p.id || '').toLowerCase().trim();
       if (deleted.has(s) || deleted.has(id)) return;
       const key = s || id;
+      const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
+      if (oldSlug && oldSlug !== key) {
+        customOnlyMap.delete(oldSlug);
+      }
       const existing = customOnlyMap.get(key);
       if (existing) {
         const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
         const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-        if (existTime > newTime) return; // Keep newest
+        if (isServerAuthoritative) {
+          if (existTime > newTime && newTime > 0) return;
+        } else {
+          if (existTime >= newTime && existTime > 0) return;
+          if (newTime === 0) return;
+        }
       }
       customOnlyMap.set(key, p);
     };
 
-    // 1. Local custom posts from window or localStorage (immediate client edits)
+    // 1. Try server API (/api/admin/posts) FIRST (Authoritative live server state)
+    let apiLoaded = false;
     try {
-      const localCustom = getCustomBlogPosts();
-      localCustom.forEach(mergeCustom);
-    } catch {}
-
-    // 2. Try server API (/api/admin/posts)
-    try {
-      const res = await fetch('/api/admin/posts?_t=' + Date.now(), { cache: 'no-store' });
+      const res = await fetch('/api/admin/posts?_t=' + Date.now(), {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+        },
+      });
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data.customPosts)) {
-          data.customPosts.forEach(mergeCustom);
+          apiLoaded = true;
+          data.customPosts.forEach((p: BlogPost) => mergeCustom(p, true));
         }
       }
     } catch (apiErr) {
       console.warn('API posts load warning:', apiErr);
     }
 
-    // 3. Try Cloud Firestore (Primary Cloud Authority)
+    // 2. Local custom posts from window or localStorage (only override if strictly newer than server)
     try {
-      const cloudPosts = await getPostsFromFirestore();
+      const localCustom = getCustomBlogPosts();
+      localCustom.forEach((p) => mergeCustom(p, !apiLoaded));
+    } catch {}
+
+    // 3. Try Cloud Firestore with a fast 2000ms timeout so Admin never hangs when quota is reached
+    try {
+      const cloudPosts = await Promise.race([
+        getPostsFromFirestore(),
+        new Promise<BlogPost[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+      ]);
       if (cloudPosts && cloudPosts.length > 0) {
         cloudPosts.forEach((p) => {
           if (p.slug) {
@@ -728,7 +747,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
             deleted.delete(p.id.toLowerCase().trim());
             removeDeletedPostSlugLocal(p.id);
           }
-          mergeCustom(p);
+          mergeCustom(p, true);
         });
       }
     } catch (e) {
@@ -2382,25 +2401,20 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       updatedAt: new Date().toISOString(),
     };
 
-    let cloudSaved = false;
-    try {
-      removeDeletedPostSlugLocal(cleanSlug);
-      if (oldSlug) removeDeletedPostSlugLocal(oldSlug);
-      await savePostToFirestore(postPayload, oldSlug);
-      cloudSaved = true;
-    } catch (fbErr) {
-      console.warn('Firestore save warning:', fbErr);
-    }
+    removeDeletedPostSlugLocal(cleanSlug);
+    if (oldSlug) removeDeletedPostSlugLocal(oldSlug);
 
     let serverSaved = false;
     let serverErrorMsg = '';
+    let finalSavedPost: BlogPost = postPayload;
 
+    // 1. Send to server API FIRST so public/custom_blog_posts.json and dist/custom_blog_posts.json are updated immediately
     try {
-      // 1. Send to server API with oldSlug for clean transition & 301 alias registration
       const res = await fetch('/api/admin/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache',
         },
         body: JSON.stringify({ ...postPayload, oldSlug }),
       });
@@ -2409,6 +2423,12 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
       if (res.ok && resData?.success) {
         serverSaved = true;
+        if (resData.post) {
+          finalSavedPost = { ...postPayload, ...resData.post };
+          if (resData.post.coverImage && resData.post.coverImage !== coverImage) {
+            setCoverImage(resData.post.coverImage);
+          }
+        }
       } else {
         serverErrorMsg = resData?.message || `Lỗi máy chủ (${res.status})`;
       }
@@ -2416,7 +2436,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       serverErrorMsg = apiErr?.message || 'Không thể kết nối máy chủ';
     }
 
-    // 2. Also save to localStorage immediately for instant client responsiveness
+    // 2. Also save to localStorage & window.__INITIAL_CUSTOM_POSTS__ immediately for instant client responsiveness
     try {
       const existingCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
       let customList: BlogPost[] = existingCustomStr ? JSON.parse(existingCustomStr) : [];
@@ -2427,7 +2447,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         if (s === cleanSlug || id === cleanSlug) return false;
         return true;
       });
-      customList.unshift(postPayload);
+      customList.unshift(finalSavedPost);
       localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(customList));
 
       if (typeof window !== 'undefined') {
@@ -2439,6 +2459,18 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       KNOWN_BLOG_SLUGS.add(cleanSlug);
     } catch (storageErr) {
       console.warn('LocalStorage error:', storageErr);
+    }
+
+    // 3. Also sync to Cloud Firestore with a 2500ms timeout so it never blocks if quota is reached
+    let cloudSaved = false;
+    try {
+      await Promise.race([
+        savePostToFirestore(finalSavedPost, oldSlug),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore timeout')), 2500)),
+      ]);
+      cloudSaved = true;
+    } catch (fbErr) {
+      console.warn('Firestore save warning:', fbErr);
     }
 
     // Dispatch event so blog lists update data silently
@@ -2466,10 +2498,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setTimeout(restoreScroll, 120);
     setTimeout(restoreScroll, 250);
 
-    if (cloudSaved) {
-      showToast(`Đã lưu bài viết lên Đám Mây (Firestore) thành công! Tất cả các máy tính và điện thoại khác đều xem được ngay tại /${cleanSlug}`, 'success');
-    } else if (serverSaved) {
-      showToast(`Đã lưu bài viết thành công! Website đã được cập nhật tại /${cleanSlug}`, 'success');
+    if (serverSaved || cloudSaved) {
+      showToast(`Đã lưu bài viết thành công! Tất cả các máy tính và điện thoại khác đều xem được ngay tại /${cleanSlug}`, 'success');
     } else {
       const is404OrStatic = serverErrorMsg.includes('404') || serverErrorMsg.includes('Failed to fetch');
       if (is404OrStatic) {

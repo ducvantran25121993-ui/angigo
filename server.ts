@@ -1032,7 +1032,10 @@ async function syncFirestoreDeletedPosts(): Promise<string[]> {
     const { getFirestore, collection, getDocs } = await import("firebase/firestore");
     const app = getApps().length === 0 ? initializeApp(config) : getApp();
     const db = getFirestore(app, config.firestoreDatabaseId);
-    const snap = await getDocs(collection(db, "deleted_posts"));
+    const snap = await Promise.race([
+      getDocs(collection(db, "deleted_posts")),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+    ]);
     const set = new Set<string>(loadDeletedPostSlugs());
     snap.forEach((d) => {
       const data = d.data();
@@ -1175,7 +1178,10 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     const { getFirestore, collection, getDocs } = await import("firebase/firestore");
     const app = getApps().length === 0 ? initializeApp(config) : getApp();
     const db = getFirestore(app, config.firestoreDatabaseId);
-    const snap = await getDocs(collection(db, "posts"));
+    const snap = await Promise.race([
+      getDocs(collection(db, "posts")),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+    ]);
     if (snap.empty) {
       const current = loadCustomBlogPosts();
       cachedFirestorePosts = current;
@@ -1450,24 +1456,31 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
     return res.json({ success: true, post: initFound });
   }
 
-  // 4. Targeted Firestore lookup for this specific document (costs only 1 read unit)
-  try {
-    const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-    if (fs.existsSync(configPath)) {
-      const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-      const { initializeApp, getApps, getApp } = await import("firebase/app");
-      const { getFirestore, doc, getDoc } = await import("firebase/firestore");
-      const app = getApps().length === 0 ? initializeApp(config) : getApp();
-      const db = getFirestore(app, config.firestoreDatabaseId);
+  // 4. Targeted Firestore lookup for this specific document (only if quota not exceeded)
+  if (Date.now() >= firestoreQuotaExceededUntil) {
+    try {
+      const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+      if (fs.existsSync(configPath)) {
+        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+        const { initializeApp, getApps, getApp } = await import("firebase/app");
+        const { getFirestore, doc, getDoc } = await import("firebase/firestore");
+        const app = getApps().length === 0 ? initializeApp(config) : getApp();
+        const db = getFirestore(app, config.firestoreDatabaseId);
 
-      const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
-      let snap = await getDoc(doc(db, "posts", docId));
-      if (!snap.exists() && canonical !== clean) {
-        const canDocId = canonical.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
-        snap = await getDoc(doc(db, "posts", canDocId));
-      }
+        const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+        let snap = await Promise.race([
+          getDoc(doc(db, "posts", docId)),
+          new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+        ]);
+        if (!snap.exists() && canonical !== clean) {
+          const canDocId = canonical.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+          snap = await Promise.race([
+            getDoc(doc(db, "posts", canDocId)),
+            new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2000)),
+          ]);
+        }
 
-      if (snap.exists()) {
+        if (snap.exists()) {
         const data = snap.data();
         const post = {
           id: data.id || snap.id,
@@ -1503,8 +1516,11 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
         return res.json({ success: true, post });
       }
     }
-  } catch (err) {
-    console.warn("Single post Firestore fetch error:", err);
+    } catch (err: any) {
+      if (err?.message?.includes("Quota") || err?.code === "resource-exhausted") {
+        firestoreQuotaExceededUntil = Date.now() + FIRESTORE_QUOTA_COOLDOWN;
+      }
+    }
   }
 
   return res.status(404).json({ success: false, message: "Không tìm thấy bài viết" });
@@ -1907,8 +1923,34 @@ app.post("/api/admin/posts", async (req, res) => {
     );
 
     const rawHtml = postData.htmlContent || (postData.content && /<[a-z][\s\S]*>/i.test(postData.content) && !postData.content.trim().startsWith('#') ? postData.content : "");
+
+    // If coverImage is a base64 Data URI, automatically write it to /public/images/ and /dist/images/ so it loads fast on all devices
+    let finalCoverImage = postData.coverImage || "/images/an-gi-cho-do-ngan.jpg";
+    if (typeof finalCoverImage === "string" && finalCoverImage.startsWith("data:image/")) {
+      try {
+        const cleanBase64 = finalCoverImage.replace(/^data:image\/\w+;base64,/, "");
+        const imgBuffer = Buffer.from(cleanBase64, "base64");
+        const safeSlug = cleanSlug.replace(/[^a-z0-9_-]/g, "_").slice(0, 40);
+        const fileName = `blog_${safeSlug}_${Date.now()}.jpg`;
+        const pubImagesDir = path.join(process.cwd(), "public", "images");
+        if (!fs.existsSync(pubImagesDir)) fs.mkdirSync(pubImagesDir, { recursive: true });
+        const pubImgPath = path.join(pubImagesDir, fileName);
+        fs.writeFileSync(pubImgPath, imgBuffer);
+
+        const distImagesDir = path.join(process.cwd(), "dist", "images");
+        if (fs.existsSync(path.join(process.cwd(), "dist"))) {
+          if (!fs.existsSync(distImagesDir)) fs.mkdirSync(distImagesDir, { recursive: true });
+          fs.writeFileSync(path.join(distImagesDir, fileName), imgBuffer);
+        }
+        finalCoverImage = `/images/${fileName}`;
+      } catch (imgErr) {
+        console.warn("Could not convert base64 coverImage to file:", imgErr);
+      }
+    }
+
     const savedPost = {
       ...postData,
+      coverImage: finalCoverImage,
       content: postData.content || "",
       htmlContent: rawHtml || undefined,
       id: cleanSlug,
@@ -1929,6 +1971,7 @@ app.post("/api/admin/posts", async (req, res) => {
     }
 
     saveCustomBlogPosts(customPosts);
+    SEO_ROUTES_CONFIG = getAllSeoRoutes();
     addUrlToSitemap(cleanSlug);
 
     // Prerender static HTML files in dist/ if available
@@ -1974,59 +2017,59 @@ app.post("/api/admin/posts", async (req, res) => {
       console.warn("Could not generate static post html:", ssgErr);
     }
 
-    // Also persist to Firestore so it is globally available across all servers
-    try {
-      const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-      if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-        const { initializeApp, getApps, getApp } = await import("firebase/app");
-        const { getFirestore, doc, setDoc, deleteDoc } = await import("firebase/firestore");
-        const app = getApps().length === 0 ? initializeApp(config) : getApp();
-        const db = getFirestore(app, config.firestoreDatabaseId);
-        const docId = cleanSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
-        await setDoc(doc(db, "posts", docId), {
-          id: savedPost.id,
-          slug: savedPost.slug,
-          title: savedPost.title,
-          excerpt: savedPost.excerpt || '',
-          content: savedPost.content || '',
-          htmlContent: savedPost.htmlContent || '',
-          coverImage: savedPost.coverImage || '/images/an-gi-cho-do-ngan.jpg',
-          category: savedPost.category || 'Gợi Ý Thực Đơn',
-          tags: Array.isArray(savedPost.tags) ? savedPost.tags.join(', ') : (savedPost.tags || ''),
-          authorName: savedPost.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì',
-          authorRole: savedPost.author?.role || 'Chuyên gia Ẩm thực & Dinh dưỡng',
-          authorAvatar: savedPost.author?.avatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80',
-          publishDate: savedPost.publishDate,
-          readTime: savedPost.readTime || '5 phút đọc',
-          featured: Boolean(savedPost.featured),
-          updatedAt: savedPost.updatedAt,
-        });
-
-        // If renamed from oldSlug, delete old doc from Firestore
-        if (oldSlug && oldSlug !== cleanSlug) {
-          const oldDocId = oldSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
-          if (oldDocId !== docId) {
-            await deleteDoc(doc(db, "posts", oldDocId)).catch(() => {});
-            if (oldSlug !== oldDocId) {
-              await deleteDoc(doc(db, "posts", oldSlug)).catch(() => {});
-            }
-          }
-        }
-
-        // Unmark from Firestore deleted_posts
-        await deleteDoc(doc(db, "deleted_posts", docId)).catch(() => {});
-        if (cleanSlug !== docId) {
-          await deleteDoc(doc(db, "deleted_posts", cleanSlug)).catch(() => {});
-        }
-      }
-    } catch (fbErr) {
-      console.warn("Backend Firestore save warning:", fbErr);
-    }
-
     // Keep cachedFirestorePosts populated with the latest customPosts saved by saveCustomBlogPosts(customPosts) above
     cachedFirestorePosts = customPosts;
     lastFirestorePostsSyncTime = Date.now();
+
+    // Persist to Firestore asynchronously in background so API responds in < 20ms
+    (async () => {
+      try {
+        const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+        if (fs.existsSync(configPath)) {
+          const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+          const { initializeApp, getApps, getApp } = await import("firebase/app");
+          const { getFirestore, doc, setDoc, deleteDoc } = await import("firebase/firestore");
+          const app = getApps().length === 0 ? initializeApp(config) : getApp();
+          const db = getFirestore(app, config.firestoreDatabaseId);
+          const docId = cleanSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+          await setDoc(doc(db, "posts", docId), {
+            id: savedPost.id,
+            slug: savedPost.slug,
+            title: savedPost.title,
+            excerpt: savedPost.excerpt || '',
+            content: savedPost.content || '',
+            htmlContent: savedPost.htmlContent || '',
+            coverImage: savedPost.coverImage || '/images/an-gi-cho-do-ngan.jpg',
+            category: savedPost.category || 'Gợi Ý Thực Đơn',
+            tags: Array.isArray(savedPost.tags) ? savedPost.tags.join(', ') : (savedPost.tags || ''),
+            authorName: savedPost.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì',
+            authorRole: savedPost.author?.role || 'Chuyên gia Ẩm thực & Dinh dưỡng',
+            authorAvatar: savedPost.author?.avatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80',
+            publishDate: savedPost.publishDate,
+            readTime: savedPost.readTime || '5 phút đọc',
+            featured: Boolean(savedPost.featured),
+            updatedAt: savedPost.updatedAt,
+          });
+
+          if (oldSlug && oldSlug !== cleanSlug) {
+            const oldDocId = oldSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
+            if (oldDocId !== docId) {
+              await deleteDoc(doc(db, "posts", oldDocId)).catch(() => {});
+              if (oldSlug !== oldDocId) {
+                await deleteDoc(doc(db, "posts", oldSlug)).catch(() => {});
+              }
+            }
+          }
+
+          await deleteDoc(doc(db, "deleted_posts", docId)).catch(() => {});
+          if (cleanSlug !== docId) {
+            await deleteDoc(doc(db, "deleted_posts", cleanSlug)).catch(() => {});
+          }
+        }
+      } catch (fbErr) {
+        console.warn("Backend Firestore save warning:", fbErr);
+      }
+    })();
 
     return res.json({
       success: true,

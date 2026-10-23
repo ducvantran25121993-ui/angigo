@@ -181,7 +181,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     return Array.from(postMap.values());
   }, [customPosts, deletedSlugs]);
 
-  // Helper to reliably resolve post across all data sources (always prioritize fresh customPosts and getBlogPostBySlug)
+  // Helper to reliably resolve post across all data sources (always prioritize fresh getBlogPostBySlug & window.__INITIAL_CUSTOM_POSTS__)
   const resolvePostFromPath = useCallback((rawPathname?: string): BlogPost | null => {
     if (typeof window === 'undefined') return null;
     const pathname = (rawPathname ?? window.location.pathname).replace(/\/$/, '') || '';
@@ -192,43 +192,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     } catch {}
     clean = clean.toLowerCase().trim();
 
-    // 1. Try in customPosts state first (contains latest synced server data)
-    const inCustom = customPosts.find((p) => {
-      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-      const id = (p.id || '').toLowerCase().trim();
-      return s === clean || id === clean;
-    });
-    if (inCustom) return normalizeBlogPost(inCustom);
-
-    // 2. Try getBlogPostBySlug (reads merged custom + initial posts)
+    // 1. Try getBlogPostBySlug FIRST (reads live window.__INITIAL_CUSTOM_POSTS__ & localStorage, never stale closure)
     const bySlug = getBlogPostBySlug(clean);
     if (bySlug) return normalizeBlogPost(bySlug);
 
-    // 3. Try in allPosts
-    const inAll = allPosts.find((p) => {
-      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-      const id = (p.id || '').toLowerCase().trim();
-      return s === clean || id === clean;
-    });
-    if (inAll) return normalizeBlogPost(inAll);
-
-    // 4. Try in localStorage directly for zero-delay response
-    try {
-      const raw = localStorage.getItem('angigio_custom_blog_posts');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          const inLocal = parsed.find((p: any) => {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            return s === clean || id === clean;
-          });
-          if (inLocal) return normalizeBlogPost(inLocal);
-        }
-      }
-    } catch {}
-
-    // 5. Try in window.__INITIAL_CUSTOM_POSTS__
+    // 2. Try in window.__INITIAL_CUSTOM_POSTS__ directly
     if (Array.isArray((window as any).__INITIAL_CUSTOM_POSTS__)) {
       const inInit = (window as any).__INITIAL_CUSTOM_POSTS__.find((p: any) => {
         const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -238,7 +206,23 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       if (inInit) return normalizeBlogPost(inInit);
     }
 
-    // 6. Fallback to activePostRef if still matching
+    // 3. Try in customPosts state
+    const inCustom = customPosts.find((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      return s === clean || id === clean;
+    });
+    if (inCustom) return normalizeBlogPost(inCustom);
+
+    // 4. Try in allPosts
+    const inAll = allPosts.find((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      return s === clean || id === clean;
+    });
+    if (inAll) return normalizeBlogPost(inAll);
+
+    // 5. Fallback to activePostRef if still matching
     if (activePostRef.current && ((activePostRef.current.slug || '').toLowerCase().trim() === clean || (activePostRef.current.id || '').toLowerCase().trim() === clean)) {
       return activePostRef.current;
     }
@@ -246,7 +230,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     return null;
   }, [customPosts, allPosts]);
 
-  // Load latest posts and deleted posts from server API / Firestore on mount
+  // Load latest posts and deleted posts from server API / Firestore on mount & focus
   useEffect(() => {
     let isMounted = true;
     const fetchLatestPosts = async () => {
@@ -264,49 +248,82 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
           }
         }
       } catch {}
+
       await syncDeletedPosts(true);
       if (!isMounted) return;
       setDeletedSlugs(getDeletedPostSlugs());
+
       const synced = await fetchAndSyncCustomPosts(true);
       if (!isMounted) return;
       if (synced && synced.length > 0) {
         setCustomPosts(synced.filter((p) => p.slug !== 'cach-lam-com-suon-nuong-mat-ong' && p.id !== 'cach-lam-com-suon-nuong-mat-ong'));
       }
       setDeletedSlugs(getDeletedPostSlugs());
-      let resolved = resolvePostFromPath();
-      if (!resolved) {
-        const pathname = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '';
-        if (pathname && pathname !== '/blog' && pathname !== '/') {
-          const targetSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
-          if (targetSlug) {
-            const { fetchSinglePost } = await import('../data/blogPosts');
-            resolved = await fetchSinglePost(targetSlug);
+
+      const pathname = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '';
+      let resolved: BlogPost | null = null;
+
+      if (pathname && pathname !== '/blog' && pathname !== '/') {
+        const targetSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
+        if (targetSlug) {
+          // Always check getBlogPostBySlug first (which now has fresh synced data in window.__INITIAL_CUSTOM_POSTS__)
+          const freshBySlug = getBlogPostBySlug(targetSlug);
+          if (freshBySlug) {
+            resolved = normalizeBlogPost(freshBySlug);
+            setActivePost(resolved);
+            activePostRef.current = resolved;
+          }
+          // Also fetch single post from live server endpoint to guarantee latest edit even if cached
+          const { fetchSinglePost } = await import('../data/blogPosts');
+          const singleFresh = await fetchSinglePost(targetSlug);
+          if (isMounted && singleFresh) {
+            resolved = singleFresh;
+            setActivePost(singleFresh);
+            activePostRef.current = singleFresh;
+            setCustomPosts(getCustomBlogPosts().map(normalizeBlogPost));
           }
         }
       }
-      if (resolved) {
-        setActivePost(resolved);
-        activePostRef.current = resolved;
-      }
-      setIsSyncingPost(false);
-    };
-    fetchLatestPosts();
 
-    const handleCustomPostsUpdated = () => {
-      setDeletedSlugs(getDeletedPostSlugs());
-      const latest = getCustomBlogPosts().map(normalizeBlogPost);
-      setCustomPosts(latest);
-      const resolved = resolvePostFromPath();
-      if (resolved) {
-        setActivePost(resolved);
-        activePostRef.current = resolved;
+      if (isMounted) {
         setIsSyncingPost(false);
       }
     };
+
+    fetchLatestPosts();
+
+    const handleCustomPostsUpdated = () => {
+      if (!isMounted) return;
+      setDeletedSlugs(getDeletedPostSlugs());
+      const latest = getCustomBlogPosts().map(normalizeBlogPost);
+      setCustomPosts(latest);
+      const pathname = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '';
+      if (pathname && pathname !== '/blog' && pathname !== '/') {
+        const targetSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
+        const fresh = getBlogPostBySlug(targetSlug);
+        if (fresh) {
+          const normalized = normalizeBlogPost(fresh);
+          setActivePost(normalized);
+          activePostRef.current = normalized;
+          setIsSyncingPost(false);
+        }
+      }
+    };
+
+    const handleVisibilityOrFocus = () => {
+      if (document.visibilityState === 'visible') {
+        fetchLatestPosts();
+      }
+    };
+
     window.addEventListener('custom-posts-updated', handleCustomPostsUpdated);
+    window.addEventListener('focus', handleVisibilityOrFocus);
+    document.addEventListener('visibilitychange', handleVisibilityOrFocus);
     return () => {
       isMounted = false;
       window.removeEventListener('custom-posts-updated', handleCustomPostsUpdated);
+      window.removeEventListener('focus', handleVisibilityOrFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
     };
   }, []);
 
@@ -319,12 +336,6 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         activePostRef.current = null;
         setIsSyncingPost(false);
       } else {
-        const clean = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
-        const cur = activePostRef.current;
-        if (cur && ((cur.slug || '').toLowerCase().trim() === clean || (cur.id || '').toLowerCase().trim() === clean)) {
-          setIsSyncingPost(false);
-          return;
-        }
         const resolved = resolvePostFromPath(pathname);
         if (resolved) {
           setActivePost(resolved);
@@ -333,7 +344,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         } else {
           // Attempt rapid re-sync
           setIsSyncingPost(true);
-          fetchAndSyncCustomPosts().then(async (posts) => {
+          fetchAndSyncCustomPosts(true).then(async (posts) => {
             if (posts && posts.length > 0) setCustomPosts(posts);
             let secondResolved = resolvePostFromPath(pathname);
             if (!secondResolved) {

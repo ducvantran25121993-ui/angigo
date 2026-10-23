@@ -15,6 +15,7 @@ import {
 } from './utils/location';
 import { getTabFromUrl, updateTabSEO, updateRegionSEO, TAB_CONFIG, TabType } from './utils/navigation';
 import { getRegionFromUrl, isRegionPath } from './data/regionalCuisine';
+import { fetchAndSyncCustomPosts } from './data/blogPosts';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
@@ -424,26 +425,15 @@ export default function App() {
     }
   }, [isAffiliateModalOpen, fetchAffiliateData]);
 
-  // Sync custom blog posts only on blog / admin route or idle
+  // Sync custom blog posts on blog / admin route or tab switch
   useEffect(() => {
     const pathname = window.location.pathname.replace(/\/$/, '') || '/';
-    const isBlog = pathname.startsWith('/blog') || pathname === '/admin';
+    const isBlog = activeTab === 'blog' || activeTab === 'admin' || pathname.startsWith('/blog') || pathname === '/admin';
     if (!isBlog) return;
 
-    const syncCustomBlogPosts = async () => {
-      try {
-        const res = await fetch('/api/admin/posts');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.customPosts && Array.isArray(data.customPosts) && typeof window !== 'undefined') {
-            localStorage.setItem('angigio_custom_blog_posts', JSON.stringify(data.customPosts));
-          }
-        }
-      } catch {
-        // Fallback silently
-      }
-    };
-    syncCustomBlogPosts();
+    fetchAndSyncCustomPosts(true).catch(() => {
+      // Fallback silently
+    });
   }, [activeTab]);
 
   // Listen for global location events

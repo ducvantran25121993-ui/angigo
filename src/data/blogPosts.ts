@@ -959,7 +959,20 @@ export function getCustomBlogPosts(): BlogPost[] {
       return !deleted.has(s) && !deleted.has(id) && !EXCLUDED_BLOG_SLUGS.has(s) && !EXCLUDED_BLOG_SLUGS.has(id);
     });
 
-  // 1. Read from localStorage first (local client always has the latest edits made in Admin)
+  // 1. Read from window.__INITIAL_CUSTOM_POSTS__ (injected live by server on every request) or fallback to bundled custom_blog_posts.json
+  let initialList: BlogPost[] = [];
+  const hasServerInjectedPosts =
+    typeof window !== 'undefined' &&
+    Array.isArray((window as any).__INITIAL_CUSTOM_POSTS__) &&
+    (window as any).__INITIAL_CUSTOM_POSTS__.length > 0;
+
+  if (hasServerInjectedPosts) {
+    initialList = filterDeleted((window as any).__INITIAL_CUSTOM_POSTS__.map(normalizeBlogPost));
+  } else if (Array.isArray(customPostsFallback) && customPostsFallback.length > 0) {
+    initialList = filterDeleted((customPostsFallback as any[]).map(normalizeBlogPost));
+  }
+
+  // 2. Read from localStorage
   let localList: BlogPost[] = [];
   if (typeof window !== 'undefined') {
     try {
@@ -973,49 +986,39 @@ export function getCustomBlogPosts(): BlogPost[] {
     } catch {}
   }
 
-  // 2. Read from window.__INITIAL_CUSTOM_POSTS__ or fallback to bundled custom_blog_posts.json
-  let initialList: BlogPost[] = [];
-  if (typeof window !== 'undefined' && Array.isArray((window as any).__INITIAL_CUSTOM_POSTS__) && (window as any).__INITIAL_CUSTOM_POSTS__.length > 0) {
-    initialList = filterDeleted((window as any).__INITIAL_CUSTOM_POSTS__.map(normalizeBlogPost));
-  } else if (Array.isArray(customPostsFallback) && customPostsFallback.length > 0) {
-    initialList = filterDeleted((customPostsFallback as any[]).map(normalizeBlogPost));
-  }
-
-  // 3. Merge: Compare updatedAt between localList and initialList so newest edits always win
+  // 3. Merge: Server injected posts (initialList) form the authoritative baseline.
+  // LocalStorage items only override if they have a strictly newer valid updatedAt timestamp.
   const postMap = new Map<string, BlogPost>();
   initialList.forEach((p) => {
     const key = (p.slug || p.id || '').toLowerCase().trim();
     if (key) {
       postMap.set(key, p);
+      KNOWN_BLOG_SLUGS.add(key);
     }
   });
 
   localList.forEach((p) => {
     const key = (p.slug || p.id || '').toLowerCase().trim();
-    if (key) {
-      const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
-      if (oldSlug && oldSlug !== key) postMap.delete(oldSlug);
-      const existing = postMap.get(key);
-      if (existing) {
-        const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
-        const localTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-        // Server data overrides if strictly newer or equal and existTime is valid
-        if (existTime >= localTime && existTime > 0) {
-          return;
-        }
+    if (!key) return;
+    const oldSlug = ((p as any).oldSlug || (p as any).previousSlug || '').toLowerCase().trim();
+    if (oldSlug && oldSlug !== key) postMap.delete(oldSlug);
+
+    const existing = postMap.get(key);
+    if (existing) {
+      const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+      const localTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
+      // Only allow localStorage to override server baseline if localTime is strictly newer
+      if (localTime > existTime && localTime > 0) {
+        postMap.set(key, p);
       }
+    } else {
+      // Brand new post present in localList
       postMap.set(key, p);
+      KNOWN_BLOG_SLUGS.add(key);
     }
   });
 
-  const merged = filterDeleted(Array.from(postMap.values()));
-  if (typeof window !== 'undefined') {
-    try {
-      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
-      (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
-    } catch {}
-  }
-  return merged;
+  return filterDeleted(Array.from(postMap.values()));
 }
 
 export function getAllBlogPosts(): BlogPost[] {
@@ -1159,43 +1162,24 @@ export function getFeaturedBlogPosts(): BlogPost[] {
 
 /**
  * Fetch and synchronize custom blog posts from:
- * 1. Google Cloud Firestore (global cloud database accessible by any device/server)
- * 2. Dynamic Express server API (/api/admin/posts)
- * 3. Static fallback (/custom_blog_posts.json)
+ * 1. Dynamic Express server API (/api/admin/posts)
+ * 2. Fresh JSON endpoint (/custom_blog_posts.json)
+ * 3. Google Cloud Firestore (global cloud database accessible by any device/server)
  */
 let _lastFetchSyncTime = 0;
 let _cachedFetchSyncPosts: BlogPost[] | null = null;
 
-/**
- * Fetch and synchronize custom blog posts from server and Firestore
- */
 export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<BlogPost[]> {
   if (typeof window === 'undefined') return [];
   const now = Date.now();
-  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 3000)) {
+  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 2000)) {
     return _cachedFetchSyncPosts;
   }
   _lastFetchSyncTime = now;
 
-  // 0. Synchronize deleted posts from Firestore & server first!
+  // 0. Synchronize deleted posts from server & Firestore first
   const deleted = await syncDeletedPosts(forceRefresh);
   const postMap = new Map<string, BlogPost>();
-
-  // 1. Read existing localStorage first as baseline
-  try {
-    const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        parsed.forEach((p) => {
-          if (p && (p.slug || p.id)) {
-            const key = (p.slug || p.id || '').toLowerCase().trim();
-            if (!deleted.has(key) && !EXCLUDED_BLOG_SLUGS.has(key)) postMap.set(key, normalizeBlogPost(p));
-          }
-        });
-      }
-    }
-  } catch {}
 
   const mergeItem = (p: any, isAuthoritativeServer = false) => {
     if (!p || (!p.slug && !p.id)) return;
@@ -1208,70 +1192,95 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
       postMap.delete(oldSlug);
     }
     const existing = postMap.get(key);
-    if (existing && !isAuthoritativeServer) {
+    if (existing) {
       const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
       const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-      if (existTime > newTime && newTime > 0) return; // Keep the newer one
-    } else if (existing && isAuthoritativeServer) {
-      const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
-      const newTime = p.updatedAt ? new Date(p.updatedAt).getTime() : 0;
-      // Only keep existing local item if it was explicitly edited AFTER the server's timestamp on the same admin device
-      if (existTime > newTime && newTime > 0 && window.location.pathname.startsWith('/admin')) {
-        return;
+      if (isAuthoritativeServer) {
+        // Live server wins unless existing item has a strictly newer valid timestamp
+        if (existTime > newTime && newTime > 0) {
+          return;
+        }
+      } else {
+        // Non-authoritative source (e.g., localStorage) only wins if strictly newer than existing
+        if (existTime >= newTime && existTime > 0) {
+          return;
+        }
+        if (newTime === 0) {
+          return;
+        }
       }
     }
     postMap.set(key, normalizeBlogPost(p));
   };
 
-  // 2. Fetch fresh /custom_blog_posts.json (bypass browser cache so updates on other devices show immediately)
-  let serverFetched = false;
+  // 1. Fetch dynamic Express server API (/api/admin/posts) FIRST (Authoritative live server state)
+  let liveApiSuccess = false;
   try {
-    const res = await fetch(`/custom_blog_posts.json?_t=${now}`, { cache: 'no-store' });
+    const res = await fetch(`/api/admin/posts?_t=${now}`, {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+      },
+    });
+    if (res.ok) {
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        if (data && data.success && Array.isArray(data.customPosts)) {
+          liveApiSuccess = true;
+          data.customPosts.forEach((item: any) => mergeItem(item, true));
+        }
+      }
+    }
+  } catch {
+    // ignore
+  }
+
+  // 2. Also fetch /custom_blog_posts.json with no-store
+  try {
+    const res = await fetch(`/custom_blog_posts.json?_t=${now}`, {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+      },
+    });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
-        serverFetched = true;
-        data.forEach((item) => mergeItem(item, true));
+        data.forEach((item) => mergeItem(item, !liveApiSuccess));
       }
     }
   } catch {
     // ignore
   }
 
-  // 3. Fetch dynamic Express server API (/api/admin/posts) with cache: 'no-store'
+  // 3. Merge localStorage items only if they have a strictly newer timestamp (e.g. unsynced local draft)
   try {
-    const res = await fetch(`/api/admin/posts?_t=${now}`, { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data.customPosts)) {
-        serverFetched = true;
-        data.customPosts.forEach((item: any) => mergeItem(item, true));
-      }
-      if (Array.isArray(data.posts)) {
-        serverFetched = true;
-        data.posts.forEach((p: any) => {
-          if (p.isCustom || p.htmlContent) mergeItem(p, true);
-        });
+    const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        parsed.forEach((p) => mergeItem(p, false));
       }
     }
-  } catch {
-    // ignore
-  }
+  } catch {}
 
-  // 4. Cloud Firestore fallback (only query directly from client if server API didn't respond or on admin page)
-  if (!serverFetched || window.location.pathname.startsWith('/admin')) {
+  // 4. Cloud Firestore sync (always run if live Express API wasn't reached, e.g. on static host, or on Admin page)
+  if (!liveApiSuccess || window.location.pathname.startsWith('/admin')) {
     try {
       const { getPostsFromFirestore } = await import('../firebase');
       const cloudPromise = getPostsFromFirestore();
       const timeoutPromise = new Promise<BlogPost[]>((_, reject) =>
-        setTimeout(() => reject(new Error('Firestore timeout')), 3500)
+        setTimeout(() => reject(new Error('Firestore timeout')), 2000)
       );
       const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
-      if (Array.isArray(cloudPosts)) {
+      if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
         cloudPosts.forEach((p) => {
           if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
           if (p.id) deleted.delete(p.id.toLowerCase().trim());
-          mergeItem(p, false);
+          mergeItem(p, true);
         });
       }
     } catch {
@@ -1280,27 +1289,48 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
   }
 
   const merged = Array.from(postMap.values());
-  try {
-    (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
-    localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
-    // Register all slugs into KNOWN_BLOG_SLUGS dynamically
-    const { KNOWN_BLOG_SLUGS } = await import('./blogSlugs');
-    // Remove deleted from KNOWN_BLOG_SLUGS
-    deleted.forEach((d) => KNOWN_BLOG_SLUGS.delete(d));
-    merged.forEach((p) => {
-      if (p.slug && !deleted.has(p.slug.toLowerCase())) KNOWN_BLOG_SLUGS.add(p.slug);
-      if (p.id && !deleted.has(p.id.toLowerCase())) KNOWN_BLOG_SLUGS.add(p.id);
-    });
-    window.dispatchEvent(new Event('custom-posts-updated'));
-  } catch {}
+  if (merged.length > 0) {
+    try {
+      (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
+      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
+      // Register all slugs into KNOWN_BLOG_SLUGS dynamically
+      const { KNOWN_BLOG_SLUGS: slugsSet } = await import('./blogSlugs');
+      deleted.forEach((d) => slugsSet.delete(d));
+      merged.forEach((p) => {
+        if (p.slug && !deleted.has(p.slug.toLowerCase())) slugsSet.add(p.slug);
+        if (p.id && !deleted.has(p.id.toLowerCase())) slugsSet.add(p.id);
+      });
+      window.dispatchEvent(new Event('custom-posts-updated'));
+    } catch {}
+    _cachedFetchSyncPosts = merged;
+  }
 
-  _cachedFetchSyncPosts = merged;
   _lastFetchSyncTime = Date.now();
   return merged;
 }
 
 /**
- * Fetch a single blog post directly by slug or ID with fallback to Firestore
+ * Helper to upsert a single fresh post into localStorage and window.__INITIAL_CUSTOM_POSTS__
+ */
+function upsertFreshPostLocally(normalized: BlogPost) {
+  if (typeof window === 'undefined') return;
+  try {
+    const cleanKey = (normalized.slug || normalized.id || '').toLowerCase().trim();
+    const current = getCustomBlogPosts().filter((p) => {
+      const s = (p.slug || '').toLowerCase().trim();
+      const id = (p.id || '').toLowerCase().trim();
+      return s !== cleanKey && id !== cleanKey;
+    });
+    const updated = [normalized, ...current];
+    (window as any).__INITIAL_CUSTOM_POSTS__ = updated;
+    localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(updated));
+    KNOWN_BLOG_SLUGS.add(cleanKey);
+  } catch {}
+}
+
+/**
+ * Fetch a single blog post directly by slug or ID, prioritizing live server API & Firestore
+ * so edits to existing or new posts are always reflected immediately on every device.
  */
 export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null> {
   if (!slugOrId) return null;
@@ -1308,36 +1338,23 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
   const deleted = getDeletedPostSlugs();
   if (deleted.has(clean)) return null;
 
-  // 1. Check in local memory first
-  const found = getBlogPostBySlug(clean);
-  if (found) return found;
-
-  // 2. Check in customPostsFallback directly
-  if (Array.isArray(customPostsFallback)) {
-    const inFallback = (customPostsFallback as any[]).find((p) => {
-      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-      const id = (p.id || '').toLowerCase().trim();
-      return s === clean || id === clean;
-    });
-    if (inFallback) {
-      return normalizeBlogPost(inFallback);
-    }
-  }
-
-  // 3. Try fetching from static /custom_blog_posts.json
+  // 1. Always query live server API /api/posts/:slugOrId FIRST (bypass cache) so edited posts get latest data
   if (typeof window !== 'undefined') {
     try {
-      const res = await fetch(`/custom_blog_posts.json?_t=${Date.now()}`);
+      const res = await fetch(`/api/posts/${encodeURIComponent(clean)}?_t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+        },
+      });
       if (res.ok) {
-        const list = await res.json();
-        if (Array.isArray(list)) {
-          const matched = list.find((p: any) => {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            return s === clean || id === clean;
-          });
-          if (matched) {
-            const normalized = normalizeBlogPost(matched);
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await res.json();
+          if (data?.post) {
+            const normalized = normalizeBlogPost(data.post);
+            upsertFreshPostLocally(normalized);
             return normalized;
           }
         }
@@ -1345,42 +1362,54 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
     } catch {}
   }
 
-  // 4. Try fetching from server API /api/posts/:slugOrId
-  try {
-    const res = await fetch(`/api/posts/${encodeURIComponent(clean)}?_t=${Date.now()}`, { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      if (data?.post) {
-        const normalized = normalizeBlogPost(data.post);
-        const custom = getCustomBlogPosts();
-        if (!custom.some((p) => p.slug === normalized.slug || p.id === normalized.id)) {
-          custom.unshift(normalized);
-          localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(custom));
+  // 2. Try fetching from fresh /custom_blog_posts.json (with cache: 'no-store')
+  if (typeof window !== 'undefined') {
+    try {
+      const res = await fetch(`/custom_blog_posts.json?_t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+        },
+      });
+      if (res.ok) {
+        const list = await res.json();
+        if (Array.isArray(list)) {
+          const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+          const matched = list.find((p: any) => {
+            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+            const id = (p.id || '').toLowerCase().trim();
+            return s === clean || id === clean || s === canonical || id === canonical;
+          });
+          if (matched) {
+            const normalized = normalizeBlogPost(matched);
+            upsertFreshPostLocally(normalized);
+            return normalized;
+          }
         }
-        const { KNOWN_BLOG_SLUGS } = await import('./blogSlugs');
-        KNOWN_BLOG_SLUGS.add(normalized.slug);
-        return normalized;
       }
-    }
-  } catch {}
+    } catch {}
+  }
 
-  // 3. Try fetching single post directly from Firestore
+  // 3. Try fetching single post directly from Cloud Firestore (with 2s timeout)
   try {
     const { getSinglePostFromFirestore } = await import('../firebase');
-    const cloudPost = await getSinglePostFromFirestore(clean);
+    const cloudPost = await Promise.race([
+      getSinglePostFromFirestore(clean),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000)),
+    ]);
     if (cloudPost) {
       const normalized = normalizeBlogPost(cloudPost);
-      const custom = getCustomBlogPosts();
-      if (!custom.some((p) => p.slug === normalized.slug || p.id === normalized.id)) {
-        custom.unshift(normalized);
-        localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(custom));
-      }
-      const { KNOWN_BLOG_SLUGS } = await import('./blogSlugs');
-      KNOWN_BLOG_SLUGS.add(normalized.slug);
+      upsertFreshPostLocally(normalized);
       return normalized;
     }
   } catch {}
 
+  // 4. Fallback to local memory / bundled posts
+  const found = getBlogPostBySlug(clean);
+  if (found) return found;
+
   return null;
 }
+
 

@@ -161,6 +161,7 @@ export default defineConfig(() => {
           clientsClaim: true,
           cleanupOutdatedCaches: true,
           globPatterns: ['**/*.{js,css,ico,png,svg,webp,jpg,jpeg,woff,woff2}'],
+          navigateFallback: null,
           navigateFallbackDenylist: [/^\/api\//, /^\/admin/, /^\/custom_blog_posts\.json/, /^\/deleted_posts\.json/],
           runtimeCaching: [
             {

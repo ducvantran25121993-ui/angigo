@@ -32,6 +32,7 @@ import {
   Target,
   Play,
   Video,
+  ExternalLink,
 } from 'lucide-react';
 import { Dish, UserLocation, AffiliateConfig, RegionId } from '../types';
 import {
@@ -2049,60 +2050,6 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
 
                   {/* Steps Column (8 cols) */}
                   <div className="lg:col-span-8 space-y-6">
-                    {/* Cooking Video Guide Card matching Google Recipe Video Schema */}
-                    <section
-                      id="video-guide"
-                      className="bg-stone-900 text-white rounded-2xl p-4 sm:p-5 border border-stone-800 shadow-md space-y-3.5"
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-xl bg-orange-600 flex items-center justify-center text-white shrink-0 shadow-xs">
-                            <Video className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <h2 className="font-extrabold text-sm sm:text-base text-white leading-snug">
-                              Video Hướng Dẫn Nấu {selectedRecipeDish.vietnameseName || currentRecipe.dishName}
-                            </h2>
-                            <p className="text-xs text-stone-400">
-                              Thời lượng clip: 04:30 • Chuẩn vị Bếp Trưởng gia đình
-                            </p>
-                          </div>
-                        </div>
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-500/20 text-orange-400 text-xs font-bold border border-orange-500/30 shrink-0">
-                          Full HD
-                        </span>
-                      </div>
-
-                      <div className="relative aspect-video rounded-xl overflow-hidden bg-stone-950 border border-stone-800 group">
-                        <img
-                          src={selectedRecipeDish.image}
-                          alt={`Video hướng dẫn cách nấu ${selectedRecipeDish.vietnameseName || currentRecipe.dishName}`}
-                          className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-3.5 sm:p-4">
-                          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-                            <div className="space-y-0.5">
-                              <span className="text-2xs font-extrabold text-orange-400 uppercase tracking-wider">
-                                Video Hướng Dẫn Thực Hành
-                              </span>
-                              <div className="text-xs sm:text-sm font-extrabold text-white line-clamp-1">
-                                {getRecipeArticleTitle(selectedRecipeDish, currentRecipe)}
-                              </div>
-                            </div>
-                            <a
-                              href={`https://www.youtube.com/results?search_query=${encodeURIComponent('cách nấu ' + (selectedRecipeDish.vietnameseName || currentRecipe.dishName))}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-orange-500 hover:bg-orange-600 text-white font-bold text-xs transition-colors shrink-0 shadow-md cursor-pointer"
-                            >
-                              <Play className="w-3.5 h-3.5 fill-current" />
-                              <span>Xem Video Nấu Món Này</span>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-
                     <div className="flex items-center justify-between gap-3 pt-2">
                       <h2 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
                         <BookOpen className="w-4 h-4 text-orange-500" />

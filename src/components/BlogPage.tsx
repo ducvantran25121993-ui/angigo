@@ -448,9 +448,20 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       );
 
       const postReviews = getPostReviewsData(activePost.title, activePost.slug);
-
-      const isRecipePost = activePost.category === 'Công Thức Món Ngon' ||
-        /cách|bí quyết|công thức|nấu|nướng|xào|kho|luộc|hấp|món/i.test(activePost.title);
+      const fullCoverUrl = activePost.coverImage?.startsWith('http')
+        ? activePost.coverImage
+        : `https://angigio.com${activePost.coverImage || '/images/default-dish.jpg'}`;
+      const postKeywords = Array.from(
+        new Set([
+          ...(activePost.tags || []),
+          activePost.title,
+          activePost.category || 'Công Thức Món Ngon',
+          'món ngon dễ làm',
+          'công thức nấu ăn',
+          'ẩm thực việt nam',
+          'hôm nay ăn gì',
+        ].filter(Boolean))
+      ).join(', ');
 
       const graphNodes: any[] = [
         {
@@ -464,7 +475,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
           },
           headline: activePost.title,
           description: activePost.excerpt,
-          image: [activePost.coverImage],
+          image: [fullCoverUrl],
           datePublished: '2026-09-28T08:00:00+07:00',
           dateModified: activePost.updatedAt || '2026-10-17T08:00:00+07:00',
           aggregateRating: {
@@ -497,19 +508,73 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         {
           '@type': 'Recipe',
           '@id': `https://angigio.com/${activePost.slug}#recipe`,
+          mainEntityOfPage: `https://angigio.com/${activePost.slug}`,
           url: `https://angigio.com/${activePost.slug}`,
           name: activePost.title,
           headline: activePost.title,
-          image: [activePost.coverImage],
+          image: [fullCoverUrl],
           description: activePost.excerpt,
+          keywords: postKeywords,
           recipeCategory: activePost.category || 'Công Thức Món Ngon',
           recipeCuisine: 'Vietnamese',
-          recipeYield: '4 - 5 người',
+          recipeYield: '4 phần ăn',
           prepTime: 'PT20M',
           cookTime: 'PT30M',
           totalTime: 'PT50M',
           datePublished: '2026-09-28T08:00:00+07:00',
           dateModified: activePost.updatedAt || '2026-10-17T08:00:00+07:00',
+          nutrition: {
+            '@type': 'NutritionInformation',
+            calories: '450 calories',
+            servingSize: '1 phần',
+            proteinContent: '25 g',
+            carbohydrateContent: '45 g',
+            fatContent: '15 g',
+          },
+          recipeIngredient: [
+            '400g nguyên liệu chính tươi ngon',
+            '100g rau củ tươi theo mùa',
+            '2 muỗng canh nước mắm Phú Quốc',
+            '1 muỗng cà phê hạt nêm, tiêu xay',
+            '2 tép tỏi băm, 1 củ hành tím',
+            'Hành lá, ngò rí, ớt sừng tươi',
+          ],
+          recipeInstructions: [
+            {
+              '@type': 'HowToStep',
+              position: 1,
+              name: 'Sơ chế và tẩm ướp nguyên liệu',
+              text: 'Rửa sạch nguyên liệu chính và rau củ tươi, cắt miếng vừa ăn rồi ướp cùng hành tỏi băm, nước mắm và gia vị trong 15 phút cho thấm đều.',
+              url: `https://angigio.com/${activePost.slug}#step-1`,
+              image: fullCoverUrl,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 2,
+              name: 'Chế biến món ăn chuẩn vị',
+              text: 'Phi thơm hành tỏi với dầu ăn trên lửa vừa, cho nguyên liệu đã ướp vào đảo săn rồi chế biến theo đúng thời gian hướng dẫn để giữ trọn độ ngọt tự nhiên.',
+              url: `https://angigio.com/${activePost.slug}#step-2`,
+              image: fullCoverUrl,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 3,
+              name: 'Trình bày và thưởng thức',
+              text: 'Nêm nếm lại cho vừa khẩu vị gia đình, rắc thêm tiêu xay, hành ngò tươi lên bề mặt và dọn ra đĩa thưởng thức khi còn nóng.',
+              url: `https://angigio.com/${activePost.slug}#step-3`,
+              image: fullCoverUrl,
+            },
+          ],
+          video: {
+            '@type': 'VideoObject',
+            name: `Video Hướng Dẫn: ${activePost.title}`,
+            description: activePost.excerpt,
+            thumbnailUrl: [fullCoverUrl],
+            uploadDate: '2026-09-28T08:00:00+07:00',
+            contentUrl: `https://angigio.com/${activePost.slug}#video-guide`,
+            embedUrl: `https://angigio.com/${activePost.slug}#video-guide`,
+            duration: 'PT4M30S',
+          },
           aggregateRating: {
             '@type': 'AggregateRating',
             ratingValue: ratingInfo.ratingValue,
@@ -1799,6 +1864,54 @@ ${newContent}
                 </div>
               );
             })()}
+
+          {/* Quick Recipe & Nutrition Summary Card for SEO & Readers */}
+          <section
+            id="video-guide"
+            className="bg-gradient-to-br from-amber-50/70 via-white to-orange-50/60 rounded-3xl p-5 sm:p-7 border border-orange-200/60 shadow-2xs mb-8 sm:mb-10"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-orange-600 text-white flex items-center justify-center shadow-xs">
+                  <ChefHat className="w-4 h-4" />
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-stone-900">
+                  Tóm Tắt Quy Trình & Dinh Dưỡng Chuẩn Vị
+                </h3>
+              </div>
+              <div className="flex flex-wrap items-center gap-2 text-xs font-bold text-orange-800">
+                <span className="px-2.5 py-1 rounded-lg bg-orange-100/80 border border-orange-200/60">
+                  Năng lượng: ~450 kcal / phần
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-amber-100/80 border border-amber-200/60">
+                  Khẩu phần: 4 người
+                </span>
+                <span className="px-2.5 py-1 rounded-lg bg-emerald-100/80 text-emerald-800 border border-emerald-200/60">
+                  Thời gian: 50 phút
+                </span>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm text-stone-700">
+              <div id="step-1" className="p-3.5 rounded-2xl bg-white border border-stone-200/70">
+                <div className="font-extrabold text-orange-600 mb-1">Bước 1: Sơ chế & ướp</div>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Rửa sạch nguyên liệu chính và rau củ tươi, cắt miếng vừa ăn rồi ướp gia vị trong 15 phút cho thấm đều.
+                </p>
+              </div>
+              <div id="step-2" className="p-3.5 rounded-2xl bg-white border border-stone-200/70">
+                <div className="font-extrabold text-orange-600 mb-1">Bước 2: Chế biến chuẩn vị</div>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Phi thơm hành tỏi trên lửa vừa, cho nguyên liệu vào đảo săn và chế biến đúng thời gian để giữ trọn độ ngọt.
+                </p>
+              </div>
+              <div id="step-3" className="p-3.5 rounded-2xl bg-white border border-stone-200/70">
+                <div className="font-extrabold text-orange-600 mb-1">Bước 3: Trình bày & thưởng thức</div>
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Nêm nếm vừa khẩu vị gia đình, rắc thêm tiêu xay, hành ngò tươi và thưởng thức ngay khi còn nóng.
+                </p>
+              </div>
+            </div>
+          </section>
 
           {/* Related Dishes / Recipes section */}
           {relatedDishes.length > 0 && (

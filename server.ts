@@ -2919,6 +2919,16 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-heo-quay-banh-hoi");
   });
 
+  // 301 Permanent Redirect for bun ca ngu phu yen alias to canonical cach-nau-bun-ca-ngu
+  app.get([
+    "/cach-nau-bun-ca-ngu-phu-yen",
+    "/cach-nau-bun-ca-ngu-phu-yen/",
+    "/cach-lam-bun-ca-ngu-phu-yen",
+    "/cach-lam-bun-ca-ngu-phu-yen/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-nau-bun-ca-ngu");
+  });
+
   // 301 Permanent Redirect for be thui recipe alias requested by user
   app.get([
     "/cach-nau-be-thui",

@@ -97,6 +97,8 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'region', region: 'nam' }, '', '/am-thuc-mien-nam');
       } else if (pathname === '/am-thuc-vung-mien/mien-tay' || pathname === '/am-thuc-mien-tay-song-nuoc') {
         window.history.replaceState({ tab: 'discover', sub: 'region', region: 'mientay' }, '', '/am-thuc-mien-tay');
+      } else if (pathname === '/cach-nau-bun-ca-ngu-phu-yen' || pathname === '/cach-lam-bun-ca-ngu-phu-yen') {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-ca-ngu');
       } else if (pathname === '/cach-nau-muc-mot-nang-nuong-sa-te') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-muc-mot-nang-nuong-sa-te');
       } else if (pathname === '/cach-nau-heo-quay-banh-hoi') {

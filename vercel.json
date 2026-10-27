@@ -1,6 +1,26 @@
 {
   "redirects": [
     {
+      "source": "/cach-nau-bun-ca-ngu-phu-yen",
+      "destination": "/cach-nau-bun-ca-ngu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bun-ca-ngu-phu-yen/",
+      "destination": "/cach-nau-bun-ca-ngu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-ca-ngu-phu-yen",
+      "destination": "/cach-nau-bun-ca-ngu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bun-ca-ngu-phu-yen/",
+      "destination": "/cach-nau-bun-ca-ngu",
+      "permanent": true
+    },
+    {
       "source": "/cach-nau-muc-mot-nang-nuong-sa-te",
       "destination": "/cach-lam-muc-mot-nang-nuong-sa-te",
       "permanent": true

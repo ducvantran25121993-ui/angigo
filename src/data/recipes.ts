@@ -15107,6 +15107,8 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'bun-ca-ngu': 'bun-ca-ngu-phu-yen',
   'cach-nau-bun-ca-ngu': 'bun-ca-ngu-phu-yen',
   'cach-lam-bun-ca-ngu': 'bun-ca-ngu-phu-yen',
+  'cach-nau-bun-ca-ngu-phu-yen': 'bun-ca-ngu-phu-yen',
+  'cach-lam-bun-ca-ngu-phu-yen': 'bun-ca-ngu-phu-yen',
   'cach-nau-bun-ca-ngu-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-ca-ngu-phu-yen',
   'cach-lam-bun-ca-ngu-nuoc-dung-thanh-ngot-chuan-vi-gia-dinh': 'bun-ca-ngu-phu-yen',
   'mi-xao-bo-rau-cai': 'mi-xao-bo-rau-cai',

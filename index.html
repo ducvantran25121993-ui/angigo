@@ -1,6 +1,37 @@
 <!doctype html>
 <html lang="vi">
   <head>
+    <script>
+      (function() {
+        var isBenign = function(args) {
+          try {
+            for (var i = 0; i < args.length; i++) {
+              var a = args[i];
+              if (!a) continue;
+              var s = typeof a === 'string' ? a : (a.message || a.stack || '');
+              if (typeof s === 'string' && (
+                s.indexOf('Disconnecting idle stream') !== -1 ||
+                s.indexOf('Timed out waiting for new targets') !== -1 ||
+                (s.indexOf('GrpcConnection') !== -1 && s.indexOf('CANCELLED') !== -1)
+              )) {
+                return true;
+              }
+            }
+          } catch (e) {}
+          return false;
+        };
+        var origErr = console.error;
+        var origWarn = console.warn;
+        console.error = function() {
+          if (isBenign(arguments)) return;
+          return origErr.apply(console, arguments);
+        };
+        console.warn = function() {
+          if (isBenign(arguments)) return;
+          return origWarn.apply(console, arguments);
+        };
+      })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-KHYNQTS8KL"></script>
     <script>

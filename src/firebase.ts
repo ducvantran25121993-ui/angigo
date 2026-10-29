@@ -18,20 +18,33 @@ import {
   getDoc,
   deleteDoc,
   getDocFromServer,
+  getDocsFromServer,
 } from 'firebase/firestore';
 
 setLogLevel('silent');
 
 // Silence benign internal Firestore gRPC idle stream disconnection messages
 if (typeof window !== 'undefined') {
+  const isBenignNotice = (args: any[]) => {
+    try {
+      for (const a of args) {
+        if (!a) continue;
+        const s = typeof a === 'string' ? a : (a.message || a.stack || (typeof a === 'object' ? JSON.stringify(a) : String(a)));
+        if (
+          typeof s === 'string' &&
+          (s.includes('Disconnecting idle stream') ||
+           s.includes('Timed out waiting for new targets') ||
+           (s.includes('GrpcConnection') && s.includes('CANCELLED')))
+        ) {
+          return true;
+        }
+      }
+    } catch {}
+    return false;
+  };
   const filterIdleStreamError = (originalFn: (...args: any[]) => void) => {
     return (...args: any[]) => {
-      const msg = args.map((a) => (typeof a === 'string' ? a : (a?.message || ''))).join(' ');
-      if (
-        msg.includes('Disconnecting idle stream') ||
-        msg.includes('Timed out waiting for new targets') ||
-        (msg.includes('GrpcConnection RPC') && msg.includes('CANCELLED'))
-      ) {
+      if (isBenignNotice(args)) {
         return; // Benign internal gRPC connection cleanup, ignore
       }
       originalFn.apply(console, args);
@@ -206,7 +219,7 @@ export async function getDeletedPostsFromFirestore(): Promise<string[]> {
   }
   const path = 'deleted_posts';
   try {
-    const snapshot = await getDocs(collection(db, path));
+    const snapshot = await getDocsFromServer(collection(db, path)).catch(() => getDocs(collection(db, path)));
     const list: string[] = [];
     snapshot.forEach((d) => {
       const data = d.data();
@@ -278,7 +291,7 @@ export async function getPostsFromFirestore(forceRefresh = false): Promise<BlogP
   }
   const path = 'posts';
   try {
-    const snapshot = await getDocs(collection(db, path));
+    const snapshot = await getDocsFromServer(collection(db, path)).catch(() => getDocs(collection(db, path)));
     const posts: BlogPost[] = [];
     const EXCLUDED_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
     snapshot.forEach((d) => {
@@ -335,9 +348,9 @@ export async function getSinglePostFromFirestore(slugOrId: string): Promise<Blog
   const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
 
   try {
-    let snap = await getDoc(doc(db, 'posts', docId));
+    let snap = await getDocFromServer(doc(db, 'posts', docId)).catch(() => getDoc(doc(db, 'posts', docId)));
     if (!snap.exists() && clean !== docId) {
-      snap = await getDoc(doc(db, 'posts', clean));
+      snap = await getDocFromServer(doc(db, 'posts', clean)).catch(() => getDoc(doc(db, 'posts', clean)));
     }
 
     if (snap.exists()) {

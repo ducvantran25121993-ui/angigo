@@ -21,6 +21,26 @@ import {
 } from 'firebase/firestore';
 
 setLogLevel('silent');
+
+// Silence benign internal Firestore gRPC idle stream disconnection messages
+if (typeof window !== 'undefined') {
+  const filterIdleStreamError = (originalFn: (...args: any[]) => void) => {
+    return (...args: any[]) => {
+      const msg = args.map((a) => (typeof a === 'string' ? a : (a?.message || ''))).join(' ');
+      if (
+        msg.includes('Disconnecting idle stream') ||
+        msg.includes('Timed out waiting for new targets') ||
+        (msg.includes('GrpcConnection RPC') && msg.includes('CANCELLED'))
+      ) {
+        return; // Benign internal gRPC connection cleanup, ignore
+      }
+      originalFn.apply(console, args);
+    };
+  };
+  console.error = filterIdleStreamError(console.error);
+  console.warn = filterIdleStreamError(console.warn);
+}
+
 import firebaseConfig from '../firebase-applet-config.json';
 import { BlogPost } from './data/blogPosts';
 
@@ -33,7 +53,7 @@ export const db = (() => {
     return initializeFirestore(
       app,
       {
-        experimentalForceLongPolling: true,
+        experimentalAutoDetectLongPolling: true,
       },
       firebaseConfig.firestoreDatabaseId
     );

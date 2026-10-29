@@ -1,4 +1,6 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/cach-nau-bun-ca-ngu-phu-yen",
@@ -745,9 +747,15 @@
       ]
     },
     {
-      "source": "/(.*).(png|jpg|jpeg|webp|svg|ico|woff2|ttf)",
+      "source": "/(.*).(js|css|woff|woff2|ttf|otf|png|jpg|jpeg|webp|svg|ico)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(sitemap.xml|robots.txt|manifest.webmanifest)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {

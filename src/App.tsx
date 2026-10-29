@@ -454,7 +454,8 @@ export default function App() {
     const isBlog = activeTab === 'blog' || activeTab === 'admin' || pathname.startsWith('/blog') || pathname === '/admin';
     if (!isBlog) return;
 
-    fetchAndSyncCustomPosts(true).catch(() => {
+    const isAdmin = activeTab === 'admin' || pathname === '/admin';
+    fetchAndSyncCustomPosts(isAdmin).catch(() => {
       // Fallback silently
     });
   }, [activeTab]);

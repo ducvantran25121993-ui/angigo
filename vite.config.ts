@@ -160,10 +160,24 @@ export default defineConfig(() => {
           skipWaiting: true,
           clientsClaim: true,
           cleanupOutdatedCaches: true,
-          globPatterns: ['**/*.{js,css,ico,png,svg,webp,jpg,jpeg,woff,woff2}'],
+          globPatterns: ['**/*.{js,css,ico,woff,woff2}'],
           navigateFallback: null,
           navigateFallbackDenylist: [/^\/api\//, /^\/admin/, /^\/custom_blog_posts\.json/, /^\/deleted_posts\.json/],
           runtimeCaching: [
+            {
+              urlPattern: /\.(?:png|jpg|jpeg|svg|webp|ico)$/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'app-images-cache',
+                expiration: {
+                  maxEntries: 120,
+                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
             {
               urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
               handler: 'CacheFirst',

@@ -943,22 +943,32 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
   }
   _lastSyncDeletedTime = now;
 
-  // 1. Fetch from backend API first (Fastest & direct connection, bypass browser cache)
+  // 1. Fetch from backend API only if on local dev server or in admin panel
   let apiSuccess = false;
-  try {
-    const res = await fetch(`/api/admin/deleted-posts?_t=${now}`, { cache: 'no-store' });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.deleted && Array.isArray(data.deleted)) {
-        apiSuccess = true;
-        data.deleted.forEach((s: string) => {
-          const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-          if (clean) set.add(clean);
-        });
+  const isDevOrAdmin = typeof window !== 'undefined' && (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname.includes('run.app') ||
+    window.location.pathname.startsWith('/admin')
+  );
+  if (isDevOrAdmin) {
+    try {
+      const res = await fetch(`/api/admin/deleted-posts?_t=${now}`, { cache: 'no-store' });
+      if (res.ok) {
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await res.json();
+          if (data.deleted && Array.isArray(data.deleted)) {
+            apiSuccess = true;
+            data.deleted.forEach((s: string) => {
+              const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+              if (clean) set.add(clean);
+            });
+          }
+        }
       }
+    } catch (err) {
+      console.warn('syncDeletedPosts API error:', err);
     }
-  } catch (err) {
-    console.warn('syncDeletedPosts API error:', err);
   }
 
   // 2. Fallback to Firestore deleted_posts only if API did not respond
@@ -1259,7 +1269,7 @@ let _cachedFetchSyncPosts: BlogPost[] | null = null;
 export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<BlogPost[]> {
   if (typeof window === 'undefined') return [];
   const now = Date.now();
-  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 2000)) {
+  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 60000)) {
     return _cachedFetchSyncPosts;
   }
   _lastFetchSyncTime = now;
@@ -1289,43 +1299,45 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   };
 
-  // 1. Fetch dynamic Express server API (/api/admin/posts) FIRST (Authoritative live server state)
+  const isDevOrAdmin = typeof window !== 'undefined' && (
+    window.location.hostname === 'localhost' ||
+    window.location.hostname.includes('run.app') ||
+    window.location.pathname.startsWith('/admin')
+  );
+
+  // 1. Fetch dynamic Express server API (/api/admin/posts) ONLY if dev or admin
   let liveApiSuccess = false;
+  if (isDevOrAdmin) {
+    try {
+      const res = await fetch(`/api/admin/posts?_t=${now}`, {
+        cache: 'no-store',
+      });
+      if (res.ok) {
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await res.json();
+          if (data && data.success && Array.isArray(data.customPosts)) {
+            liveApiSuccess = true;
+            data.customPosts.forEach((item: any) => mergeItem(item, true, true));
+          }
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  // 2. Fetch /custom_blog_posts.json (allow edge cache for normal visitors)
   try {
-    const res = await fetch(`/api/admin/posts?_t=${now}`, {
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-      },
-    });
+    const jsonUrl = (forceRefresh && isDevOrAdmin) ? `/custom_blog_posts.json?_t=${now}` : `/custom_blog_posts.json`;
+    const res = await fetch(jsonUrl, forceRefresh && isDevOrAdmin ? { cache: 'no-store' } : {});
     if (res.ok) {
       const contentType = res.headers.get('content-type') || '';
       if (contentType.includes('application/json')) {
         const data = await res.json();
-        if (data && data.success && Array.isArray(data.customPosts)) {
-          liveApiSuccess = true;
-          data.customPosts.forEach((item: any) => mergeItem(item, true, true));
+        if (Array.isArray(data)) {
+          data.forEach((item) => mergeItem(item, !liveApiSuccess, !liveApiSuccess));
         }
-      }
-    }
-  } catch {
-    // ignore
-  }
-
-  // 2. Also fetch /custom_blog_posts.json with no-store
-  try {
-    const res = await fetch(`/custom_blog_posts.json?_t=${now}`, {
-      cache: 'no-store',
-      headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-      },
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data)) {
-        data.forEach((item) => mergeItem(item, !liveApiSuccess, !liveApiSuccess));
       }
     }
   } catch {

@@ -1,6 +1,33 @@
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Bingbot
+User-agent: Slurp
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /api/
+
+# Block aggressive AI scrapers & commercial SEO audit bots that exhaust Edge Requests quota
+User-agent: Bytespider
+User-agent: GPTBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+User-agent: CCBot
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+User-agent: PetalBot
+User-agent: Amazonbot
+User-agent: BLEXBot
+User-agent: DataForSeoBot
+User-agent: Scrapy
+Disallow: /
+
 User-agent: *
 Allow: /
 Disallow: /api/
+Crawl-delay: 2
 
 # Sitemaps
 Sitemap: https://angigio.com/sitemap.xml

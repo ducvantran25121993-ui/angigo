@@ -225,6 +225,20 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   const [editingLinkTextVal, setEditingLinkTextVal] = useState('');
   const [isEditingLinkText, setIsEditingLinkText] = useState(false);
 
+  // Interactive Image Resizer & Toolbar state
+  const editorSheetRef = useRef<HTMLDivElement>(null);
+  const [selectedImageEl, setSelectedImageEl] = useState<HTMLImageElement | null>(null);
+  const [imageResizerRect, setImageResizerRect] = useState<{
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  } | null>(null);
+  const [isResizingImage, setIsResizingImage] = useState(false);
+  const [isEditingImageCaption, setIsEditingImageCaption] = useState(false);
+  const [imageCaptionVal, setImageCaptionVal] = useState('');
+  const [imageAlignment, setImageAlignment] = useState<'left' | 'center' | 'right'>('center');
+
   // Insert Link Modal
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const [linkModalUrl, setLinkModalUrl] = useState('');
@@ -1288,6 +1302,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setViewMode('editor');
     setEditorSubTab('visual');
     setFloatingLink(null);
+    setSelectedImageEl(null);
+    setImageResizerRect(null);
+    setIsEditingImageCaption(false);
 
     setTimeout(() => {
       if (editorRef.current) {
@@ -1313,6 +1330,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setViewMode('editor');
     setEditorSubTab('visual');
     setFloatingLink(null);
+    setSelectedImageEl(null);
+    setImageResizerRect(null);
+    setIsEditingImageCaption(false);
 
     const htmlContent = post.htmlContent || (post.content && /<[a-z][\s\S]*>/i.test(post.content) && !post.content.trim().startsWith('#') ? post.content : markdownToHtml(post.content || ''));
     const populateEditor = () => {
@@ -1780,13 +1800,300 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     showToast('Đã gỡ bỏ liên kết!');
   };
 
-  // Handle click on links inside editor ("trình soạn thảo đứng im dể dễ chọn & có thể xóa bỏ")
+  // Sync image resizer overlay bounding box with selected image
+  const updateResizerRect = useCallback((targetImg?: HTMLImageElement | null) => {
+    const img = targetImg !== undefined ? targetImg : selectedImageEl;
+    if (!img || !editorSheetRef.current || !img.isConnected) {
+      setImageResizerRect(null);
+      return;
+    }
+    const imgRect = img.getBoundingClientRect();
+    const sheetRect = editorSheetRef.current.getBoundingClientRect();
+    setImageResizerRect({
+      top: imgRect.top - sheetRect.top,
+      left: imgRect.left - sheetRect.left,
+      width: imgRect.width,
+      height: imgRect.height,
+    });
+  }, [selectedImageEl]);
+
+  // Keep resizer overlay aligned on window resize, scroll, or content change
+  useEffect(() => {
+    if (!selectedImageEl) return;
+    const handleSync = () => updateResizerRect(selectedImageEl);
+    window.addEventListener('resize', handleSync);
+    window.addEventListener('scroll', handleSync, true);
+    return () => {
+      window.removeEventListener('resize', handleSync);
+      window.removeEventListener('scroll', handleSync, true);
+    };
+  }, [selectedImageEl, updateResizerRect]);
+
+  // Handle selecting an image inside editor
+  const handleSelectImage = useCallback((imgEl: HTMLImageElement) => {
+    setSelectedImageEl(imgEl);
+    setFloatingLink(null);
+    setIsEditingLinkInline(false);
+    setIsEditingLinkText(false);
+
+    // Determine current caption
+    const parentFigure = imgEl.closest('figure');
+    const figcaption = parentFigure?.querySelector('figcaption');
+    setImageCaptionVal(figcaption?.textContent || imgEl.getAttribute('alt') || '');
+    setIsEditingImageCaption(false);
+
+    // Determine current alignment
+    if (parentFigure?.classList.contains('align-left') || parentFigure?.style.float === 'left' || imgEl.style.float === 'left') {
+      setImageAlignment('left');
+    } else if (parentFigure?.classList.contains('align-right') || parentFigure?.style.float === 'right' || imgEl.style.float === 'right') {
+      setImageAlignment('right');
+    } else {
+      setImageAlignment('center');
+    }
+
+    // Sync rect
+    updateResizerRect(imgEl);
+  }, [updateResizerRect]);
+
+  // Drag-to-resize handler for corners and edges
+  const handleResizeStart = (
+    e: React.PointerEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>,
+    handle: 'se' | 'sw' | 'ne' | 'nw' | 'e' | 'w'
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!selectedImageEl || !editorSheetRef.current) return;
+
+    const startX = e.clientX;
+    const startWidth = selectedImageEl.offsetWidth || selectedImageEl.getBoundingClientRect().width;
+    const containerWidth = editorRef.current?.clientWidth || 750;
+
+    setIsResizingImage(true);
+
+    // Remove fixed max-w-md or w-full classes that would restrict free drag sizing
+    selectedImageEl.classList.remove('max-w-md', 'w-full');
+    selectedImageEl.style.maxWidth = '100%';
+    selectedImageEl.style.height = 'auto';
+
+    const parentFigure = selectedImageEl.closest('figure');
+    if (parentFigure) {
+      parentFigure.style.maxWidth = '100%';
+    }
+
+    const onPointerMove = (moveEvent: PointerEvent | MouseEvent) => {
+      moveEvent.preventDefault();
+      const currentX = moveEvent.clientX;
+      let deltaX = 0;
+
+      if (handle === 'se' || handle === 'ne' || handle === 'e') {
+        deltaX = currentX - startX;
+      } else {
+        deltaX = startX - currentX;
+      }
+
+      // Min width 90px, max width containerWidth
+      const newWidth = Math.max(90, Math.min(containerWidth, Math.round(startWidth + deltaX)));
+
+      selectedImageEl.style.width = `${newWidth}px`;
+      selectedImageEl.style.maxWidth = '100%';
+      selectedImageEl.style.height = 'auto';
+
+      // Update overlay box immediately so handles follow cursor
+      const imgRect = selectedImageEl.getBoundingClientRect();
+      const sheetRect = editorSheetRef.current?.getBoundingClientRect();
+      if (sheetRect) {
+        setImageResizerRect({
+          top: imgRect.top - sheetRect.top,
+          left: imgRect.left - sheetRect.left,
+          width: imgRect.width,
+          height: imgRect.height,
+        });
+      }
+    };
+
+    const onPointerUp = () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('mousemove', onPointerMove);
+      window.removeEventListener('mouseup', onPointerUp);
+      setIsResizingImage(false);
+
+      updateCounts();
+      saveCurrentSelection();
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: false });
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('mousemove', onPointerMove, { passive: false });
+    window.addEventListener('mouseup', onPointerUp);
+  };
+
+  // Preset size applier (100%, 75%, 50%, 33%, auto)
+  const handleApplyImagePreset = (preset: '100%' | '75%' | '50%' | '33%' | 'auto') => {
+    if (!selectedImageEl) return;
+
+    selectedImageEl.classList.remove('max-w-md', 'w-full');
+    selectedImageEl.style.maxWidth = '100%';
+    selectedImageEl.style.height = 'auto';
+
+    const parentFigure = selectedImageEl.closest('figure');
+    if (parentFigure) {
+      parentFigure.style.maxWidth = '100%';
+    }
+
+    if (preset === 'auto') {
+      selectedImageEl.style.width = '';
+    } else {
+      selectedImageEl.style.width = preset;
+    }
+
+    requestAnimationFrame(() => {
+      updateResizerRect(selectedImageEl);
+      updateCounts();
+      saveCurrentSelection();
+    });
+    showToast(`Đã đổi kích thước ảnh thành ${preset === 'auto' ? 'Tự động (Gốc)' : preset}!`, 'success');
+  };
+
+  // Image alignment applier (left, center, right)
+  const handleApplyImageAlignment = (align: 'left' | 'center' | 'right') => {
+    if (!selectedImageEl) return;
+
+    setImageAlignment(align);
+    const parentFigure = selectedImageEl.closest('figure');
+
+    if (parentFigure) {
+      parentFigure.classList.remove('align-left', 'align-center', 'align-right');
+      parentFigure.classList.add(`align-${align}`);
+
+      if (align === 'left') {
+        parentFigure.style.float = 'left';
+        parentFigure.style.margin = '0.5rem 1.5rem 1rem 0';
+        parentFigure.style.textAlign = 'left';
+        selectedImageEl.style.display = 'block';
+        selectedImageEl.style.margin = '0';
+      } else if (align === 'right') {
+        parentFigure.style.float = 'right';
+        parentFigure.style.margin = '0.5rem 0 1rem 1.5rem';
+        parentFigure.style.textAlign = 'right';
+        selectedImageEl.style.display = 'block';
+        selectedImageEl.style.margin = '0';
+      } else {
+        parentFigure.style.float = 'none';
+        parentFigure.style.margin = '1.5rem auto';
+        parentFigure.style.textAlign = 'center';
+        selectedImageEl.style.display = 'inline-block';
+        selectedImageEl.style.margin = '0 auto';
+      }
+    } else {
+      if (align === 'left') {
+        selectedImageEl.style.float = 'left';
+        selectedImageEl.style.margin = '0.5rem 1.5rem 1rem 0';
+        selectedImageEl.style.display = 'block';
+      } else if (align === 'right') {
+        selectedImageEl.style.float = 'right';
+        selectedImageEl.style.margin = '0.5rem 0 1rem 1.5rem';
+        selectedImageEl.style.display = 'block';
+      } else {
+        selectedImageEl.style.float = 'none';
+        selectedImageEl.style.margin = '1.5rem auto';
+        selectedImageEl.style.display = 'block';
+      }
+    }
+
+    requestAnimationFrame(() => {
+      updateResizerRect(selectedImageEl);
+      updateCounts();
+      saveCurrentSelection();
+    });
+  };
+
+  // Save caption for selected image
+  const handleSaveImageCaption = () => {
+    if (!selectedImageEl) return;
+    const cleanCaption = imageCaptionVal.trim();
+    let parentFigure = selectedImageEl.closest('figure');
+
+    if (!parentFigure) {
+      parentFigure = document.createElement('figure');
+      parentFigure.className = 'my-6 text-center align-center';
+      selectedImageEl.parentNode?.insertBefore(parentFigure, selectedImageEl);
+      parentFigure.appendChild(selectedImageEl);
+    }
+
+    let figcaption = parentFigure.querySelector('figcaption');
+    if (cleanCaption) {
+      if (!figcaption) {
+        figcaption = document.createElement('figcaption');
+        figcaption.className = 'text-xs text-stone-500 mt-2 italic font-medium';
+        parentFigure.appendChild(figcaption);
+      }
+      figcaption.textContent = cleanCaption;
+      selectedImageEl.setAttribute('alt', cleanCaption);
+    } else if (figcaption) {
+      figcaption.remove();
+    }
+
+    setIsEditingImageCaption(false);
+    updateResizerRect(selectedImageEl);
+    updateCounts();
+    saveCurrentSelection();
+    showToast('Đã cập nhật chú thích ảnh!', 'success');
+  };
+
+  // Delete selected image
+  const handleDeleteSelectedImage = useCallback(() => {
+    if (!selectedImageEl) return;
+    const parentFigure = selectedImageEl.closest('figure');
+    if (parentFigure && parentFigure.parentNode) {
+      parentFigure.remove();
+    } else if (selectedImageEl.parentNode) {
+      selectedImageEl.remove();
+    }
+    setSelectedImageEl(null);
+    setImageResizerRect(null);
+    setIsEditingImageCaption(false);
+    updateCounts();
+    saveCurrentSelection();
+    showToast('Đã xóa ảnh khỏi bài viết!', 'success');
+  }, [selectedImageEl, saveCurrentSelection, updateCounts]);
+
+  // Keyboard shortcut: Escape to deselect, Delete / Backspace to remove selected image (if not typing in input)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!selectedImageEl) return;
+      const activeEl = document.activeElement;
+      const isTyping = activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA');
+
+      if (e.key === 'Escape') {
+        setSelectedImageEl(null);
+        setImageResizerRect(null);
+        setIsEditingImageCaption(false);
+      } else if ((e.key === 'Delete' || e.key === 'Backspace') && !isTyping) {
+        e.preventDefault();
+        handleDeleteSelectedImage();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageEl, handleDeleteSelectedImage]);
+
+  // Handle click on links and images inside editor
   const handleEditorClick = (e: React.MouseEvent<HTMLDivElement>) => {
     updateCounts();
     detectCurrentBlockFormat();
     const target = e.target as HTMLElement;
-    const linkEl = target.closest('a');
 
+    // 1. Detect if clicked on an image
+    const imgEl = target.closest('img') as HTMLImageElement | null;
+    if (imgEl && editorRef.current?.contains(imgEl)) {
+      e.preventDefault();
+      handleSelectImage(imgEl);
+      return;
+    }
+
+    // 2. Detect if clicked on a link
+    const linkEl = target.closest('a');
     if (linkEl && editorRef.current?.contains(linkEl)) {
       e.preventDefault();
       e.stopPropagation();
@@ -1811,15 +2118,26 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       setIsEditingLinkText(false);
       setEditingLinkUrl(linkEl.getAttribute('href') || '');
       setEditingLinkTextVal(linkEl.textContent || '');
+
+      // Deselect image
+      setSelectedImageEl(null);
+      setImageResizerRect(null);
+      setIsEditingImageCaption(false);
       return;
     }
 
-    // Clicked outside link: dismiss floating toolbar & popovers
+    // 3. Clicked elsewhere: dismiss floating link & image resizer (unless clicked inside resizer handles or toolbar)
     setFloatingLink(null);
     setIsEditingLinkInline(false);
     setIsEditingLinkText(false);
     setIsTextColorPickerOpen(false);
     setIsBgColorPickerOpen(false);
+
+    if (!target.closest('.image-resizer-overlay') && !target.closest('.image-resizer-toolbar')) {
+      setSelectedImageEl(null);
+      setImageResizerRect(null);
+      setIsEditingImageCaption(false);
+    }
   };
 
   // Remove the currently selected link (Unlink without jumping or moving the editor)
@@ -3728,7 +4046,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
               >
                 {/* Document Page Canvas Styled Like Microsoft Word / WordPress Sheet */}
                 <div className="p-4 sm:p-8 bg-stone-100/80 min-h-[680px] relative">
-                    <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md border border-stone-200/90 p-8 sm:p-14 min-h-[600px] relative">
+                    <div ref={editorSheetRef} className="max-w-4xl mx-auto bg-white rounded-xl shadow-md border border-stone-200/90 p-8 sm:p-14 min-h-[600px] relative">
                       <div
                         ref={editorRef}
                         contentEditable
@@ -3758,6 +4076,248 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                           wordBreak: 'break-word',
                         }}
                       />
+
+                      {/* Interactive Image Resizer Selection Box & Drag Handles */}
+                      {selectedImageEl && imageResizerRect && (
+                        <>
+                          <div
+                            className="image-resizer-overlay absolute pointer-events-none border-2 border-orange-500 rounded-xl z-20 transition-all duration-75"
+                            style={{
+                              top: `${imageResizerRect.top}px`,
+                              left: `${imageResizerRect.left}px`,
+                              width: `${imageResizerRect.width}px`,
+                              height: `${imageResizerRect.height}px`,
+                              boxShadow: '0 0 0 1px rgba(234, 88, 12, 0.4), 0 8px 24px -4px rgba(234, 88, 12, 0.25)',
+                            }}
+                          >
+                            {/* 4 Corner Drag Handles */}
+                            <div
+                              onPointerDown={(e) => handleResizeStart(e, 'nw')}
+                              className="absolute -top-2.5 -left-2.5 w-5 h-5 bg-white border-2 border-orange-600 rounded-md shadow-md cursor-nwse-resize pointer-events-auto hover:bg-orange-50 hover:scale-125 transition-transform flex items-center justify-center select-none"
+                              title="Kéo góc để phóng to / thu nhỏ (Tây Bắc)"
+                            >
+                              <div className="w-1.5 h-1.5 bg-orange-600 rounded-full" />
+                            </div>
+                            <div
+                              onPointerDown={(e) => handleResizeStart(e, 'ne')}
+                              className="absolute -top-2.5 -right-2.5 w-5 h-5 bg-white border-2 border-orange-600 rounded-md shadow-md cursor-nesw-resize pointer-events-auto hover:bg-orange-50 hover:scale-125 transition-transform flex items-center justify-center select-none"
+                              title="Kéo góc để phóng to / thu nhỏ (Đông Bắc)"
+                            >
+                              <div className="w-1.5 h-1.5 bg-orange-600 rounded-full" />
+                            </div>
+                            <div
+                              onPointerDown={(e) => handleResizeStart(e, 'se')}
+                              className="absolute -bottom-2.5 -right-2.5 w-5 h-5 bg-white border-2 border-orange-600 rounded-md shadow-md cursor-nwse-resize pointer-events-auto hover:bg-orange-50 hover:scale-125 transition-transform flex items-center justify-center select-none"
+                              title="Kéo góc để phóng to / thu nhỏ (Đông Nam)"
+                            >
+                              <div className="w-1.5 h-1.5 bg-orange-600 rounded-full" />
+                            </div>
+                            <div
+                              onPointerDown={(e) => handleResizeStart(e, 'sw')}
+                              className="absolute -bottom-2.5 -left-2.5 w-5 h-5 bg-white border-2 border-orange-600 rounded-md shadow-md cursor-nesw-resize pointer-events-auto hover:bg-orange-50 hover:scale-125 transition-transform flex items-center justify-center select-none"
+                              title="Kéo góc để phóng to / thu nhỏ (Tây Nam)"
+                            >
+                              <div className="w-1.5 h-1.5 bg-orange-600 rounded-full" />
+                            </div>
+
+                            {/* 2 Side Handles */}
+                            <div
+                              onPointerDown={(e) => handleResizeStart(e, 'w')}
+                              className="absolute top-1/2 -left-2.5 -translate-y-1/2 w-4 h-7 bg-white border-2 border-orange-600 rounded-md shadow-md cursor-ew-resize pointer-events-auto hover:bg-orange-50 hover:scale-110 transition-transform flex items-center justify-center select-none"
+                              title="Kéo cạnh trái để đổi chiều rộng"
+                            >
+                              <div className="w-0.5 h-3 bg-orange-600 rounded-full" />
+                            </div>
+                            <div
+                              onPointerDown={(e) => handleResizeStart(e, 'e')}
+                              className="absolute top-1/2 -right-2.5 -translate-y-1/2 w-4 h-7 bg-white border-2 border-orange-600 rounded-md shadow-md cursor-ew-resize pointer-events-auto hover:bg-orange-50 hover:scale-110 transition-transform flex items-center justify-center select-none"
+                              title="Kéo cạnh phải để đổi chiều rộng"
+                            >
+                              <div className="w-0.5 h-3 bg-orange-600 rounded-full" />
+                            </div>
+
+                            {/* Live Dimension Indicator Pill */}
+                            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-stone-900/90 text-amber-300 text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full shadow-lg pointer-events-none whitespace-nowrap flex items-center gap-1.5 border border-stone-700">
+                              <span>↔ {Math.round(imageResizerRect.width)}px</span>
+                              <span className="text-stone-500">•</span>
+                              <span>↕ {Math.round(imageResizerRect.height)}px</span>
+                              {isResizingImage && <span className="text-orange-400 animate-pulse font-sans text-[10px] ml-1">(Đang kéo...)</span>}
+                            </div>
+                          </div>
+
+                          {/* Floating Image Control Toolbar */}
+                          <div
+                            onClick={(e) => e.stopPropagation()}
+                            className="image-resizer-toolbar absolute z-30 bg-stone-900/95 backdrop-blur-md text-white rounded-2xl shadow-2xl p-2 border border-stone-700/80 animate-fadeIn text-xs space-y-2 select-none"
+                            style={{
+                              top: `${Math.max(8, imageResizerRect.top > 60 ? imageResizerRect.top - 54 : imageResizerRect.top + imageResizerRect.height + 14)}px`,
+                              left: `${Math.max(10, Math.min(imageResizerRect.left + (imageResizerRect.width / 2) - 230, (editorSheetRef.current?.clientWidth || 750) - 470))}px`,
+                            }}
+                          >
+                            <div className="flex items-center gap-1.5">
+                              {/* Current Width Badge */}
+                              <div className="px-2 py-1 rounded-lg bg-stone-800 text-amber-400 font-mono font-bold text-[11px] border border-stone-700/60 shrink-0" title="Kích thước hiện tại (Kéo các góc tròn để chỉnh tự do)">
+                                {Math.round(imageResizerRect.width)}px
+                              </div>
+
+                              <div className="h-4 w-px bg-stone-700 mx-0.5 shrink-0" />
+
+                              {/* Quick Size Presets */}
+                              <div className="flex items-center gap-1 bg-stone-800/80 p-0.5 rounded-lg border border-stone-700/60">
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImagePreset('100%')}
+                                  className="px-2 py-1 rounded hover:bg-stone-700 text-stone-200 hover:text-white font-medium text-[11px] transition-colors cursor-pointer"
+                                  title="Toàn rộng (100%)"
+                                >
+                                  100%
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImagePreset('75%')}
+                                  className="px-2 py-1 rounded hover:bg-stone-700 text-stone-200 hover:text-white font-medium text-[11px] transition-colors cursor-pointer"
+                                  title="Lớn (75%)"
+                                >
+                                  75%
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImagePreset('50%')}
+                                  className="px-2 py-1 rounded hover:bg-stone-700 text-stone-200 hover:text-white font-medium text-[11px] transition-colors cursor-pointer"
+                                  title="Vừa (50%)"
+                                >
+                                  50%
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImagePreset('33%')}
+                                  className="px-2 py-1 rounded hover:bg-stone-700 text-stone-200 hover:text-white font-medium text-[11px] transition-colors cursor-pointer"
+                                  title="Nhỏ (33%)"
+                                >
+                                  33%
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImagePreset('auto')}
+                                  className="px-2 py-1 rounded hover:bg-stone-700 text-amber-400 hover:text-amber-300 font-medium text-[11px] transition-colors cursor-pointer"
+                                  title="Kích thước gốc / Tự động"
+                                >
+                                  Gốc
+                                </button>
+                              </div>
+
+                              <div className="h-4 w-px bg-stone-700 mx-0.5 shrink-0" />
+
+                              {/* Alignment Controls */}
+                              <div className="flex items-center gap-0.5 bg-stone-800/80 p-0.5 rounded-lg border border-stone-700/60">
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImageAlignment('left')}
+                                  className={`p-1.5 rounded transition-colors cursor-pointer ${
+                                    imageAlignment === 'left' ? 'bg-orange-600 text-white' : 'text-stone-300 hover:text-white hover:bg-stone-700'
+                                  }`}
+                                  title="Canh trái (Chữ bao quanh bên phải)"
+                                >
+                                  <AlignLeft className="w-3.5 h-3.5" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImageAlignment('center')}
+                                  className={`p-1.5 rounded transition-colors cursor-pointer ${
+                                    imageAlignment === 'center' ? 'bg-orange-600 text-white' : 'text-stone-300 hover:text-white hover:bg-stone-700'
+                                  }`}
+                                  title="Canh giữa"
+                                >
+                                  <AlignCenter className="w-3.5 h-3.5" />
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => handleApplyImageAlignment('right')}
+                                  className={`p-1.5 rounded transition-colors cursor-pointer ${
+                                    imageAlignment === 'right' ? 'bg-orange-600 text-white' : 'text-stone-300 hover:text-white hover:bg-stone-700'
+                                  }`}
+                                  title="Canh phải (Chữ bao quanh bên trái)"
+                                >
+                                  <AlignRight className="w-3.5 h-3.5" />
+                                </button>
+                              </div>
+
+                              <div className="h-4 w-px bg-stone-700 mx-0.5 shrink-0" />
+
+                              {/* Edit Caption Button */}
+                              <button
+                                type="button"
+                                onClick={() => setIsEditingImageCaption(!isEditingImageCaption)}
+                                className={`flex items-center gap-1 px-2 py-1 rounded-lg font-medium text-[11px] transition-colors cursor-pointer ${
+                                  isEditingImageCaption ? 'bg-amber-600 text-white' : 'bg-stone-800 hover:bg-stone-700 text-stone-200 hover:text-white'
+                                }`}
+                                title="Sửa hoặc thêm chú thích ảnh"
+                              >
+                                <FileText className="w-3.5 h-3.5" />
+                                <span>Chú thích</span>
+                              </button>
+
+                              {/* Delete Image Button */}
+                              <button
+                                type="button"
+                                onClick={handleDeleteSelectedImage}
+                                className="p-1.5 rounded-lg bg-rose-900/60 hover:bg-rose-600 text-rose-200 hover:text-white transition-colors cursor-pointer ml-auto"
+                                title="Xóa ảnh khỏi bài viết (Phím Delete)"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+
+                              {/* Close Button */}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedImageEl(null);
+                                  setImageResizerRect(null);
+                                  setIsEditingImageCaption(false);
+                                }}
+                                className="p-1.5 rounded-lg hover:bg-stone-800 text-stone-400 hover:text-white cursor-pointer"
+                                title="Xong (Phím Esc)"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+
+                            {/* Expandable Caption Input row */}
+                            {isEditingImageCaption && (
+                              <div className="pt-1.5 border-t border-stone-800 flex items-center gap-2">
+                                <input
+                                  type="text"
+                                  value={imageCaptionVal}
+                                  onChange={(e) => setImageCaptionVal(e.target.value)}
+                                  onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                      e.preventDefault();
+                                      handleSaveImageCaption();
+                                    }
+                                  }}
+                                  placeholder="Nhập chú thích hiển thị dưới ảnh..."
+                                  className="flex-1 bg-stone-800 border border-stone-700 rounded-lg px-2.5 py-1 text-white text-xs focus:outline-none focus:border-orange-500"
+                                  autoFocus
+                                />
+                                <button
+                                  type="button"
+                                  onClick={handleSaveImageCaption}
+                                  className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-2.5 py-1 rounded-lg text-xs transition-colors cursor-pointer"
+                                >
+                                  Lưu
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setIsEditingImageCaption(false)}
+                                  className="text-stone-400 hover:text-white text-xs px-1 cursor-pointer"
+                                >
+                                  Hủy
+                                </button>
+                              </div>
+                            )}
+                          </div>
+                        </>
+                      )}
 
                       {/* Floating Interactive Link Toolbar (Anchored directly to clicked link) */}
                       {floatingLink && (

@@ -259,14 +259,6 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
             "image": [fullArtImage],
             "datePublished": publishedTime,
             "dateModified": modifiedTime,
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": artRating,
-              "ratingCount": artReviews,
-              "reviewCount": artReviews,
-              "bestRating": "5",
-              "worstRating": "1"
-            },
             "author": {
               "@type": "Person",
               "name": "Bếp Trưởng Hôm Nay Ăn Gì",

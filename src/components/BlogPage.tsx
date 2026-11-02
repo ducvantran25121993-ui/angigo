@@ -478,14 +478,6 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
           image: [fullCoverUrl],
           datePublished: '2026-09-28T08:00:00+07:00',
           dateModified: activePost.updatedAt || '2026-10-17T08:00:00+07:00',
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: ratingInfo.ratingValue,
-            ratingCount: ratingInfo.reviewCount,
-            reviewCount: ratingInfo.reviewCount,
-            bestRating: ratingInfo.bestRating,
-            worstRating: ratingInfo.worstRating,
-          },
           author: {
             '@type': 'Person',
             name: activePost.author.name,

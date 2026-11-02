@@ -1823,16 +1823,11 @@ function injectSeoMeta(html: string, requestedPath: string): string {
 
       updatedHtml = updatedHtml.replace(
         '</head>',
-        `    <script type="application/ld+json">\n${JSON.stringify(recipeSchema, null, 2)}\n    </script>\n  </head>`
+        `    <script id="recipe-jsonld" type="application/ld+json">\n${JSON.stringify(recipeSchema, null, 2)}\n    </script>\n  </head>`
       );
     } else {
-      const articleHash = Math.abs((cleanPath || 'article').split('').reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0));
-      const ratingVariants = ['4.8', '4.9', '4.7', '4.8', '4.9'];
-      const artRating = ratingVariants[articleHash % ratingVariants.length];
-      const artReviews = String(185 + (articleHash % 240));
       const fullArtImage = meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image || '/images/default-dish.jpg'}`;
       const cleanArtTitle = meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '').trim();
-      const artKeywords = `${cleanArtTitle}, món ngon dễ làm, công thức nấu ăn, ẩm thực việt nam, hôm nay ăn gì`;
 
       const articleSchema = {
         "@context": "https://schema.org",
@@ -1851,14 +1846,6 @@ function injectSeoMeta(html: string, requestedPath: string): string {
             "image": [fullArtImage],
             "datePublished": publishedTime,
             "dateModified": modifiedTime,
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": artRating,
-              "ratingCount": artReviews,
-              "reviewCount": artReviews,
-              "bestRating": "5",
-              "worstRating": "1"
-            },
             "author": {
               "@type": "Person",
               "name": "Bếp Trưởng Hôm Nay Ăn Gì",
@@ -1876,116 +1863,6 @@ function injectSeoMeta(html: string, requestedPath: string): string {
             "mainEntityOfPage": {
               "@type": "WebPage",
               "@id": canonicalUrl
-            }
-          },
-          {
-            "@type": "Recipe",
-            "@id": `${canonicalUrl}#recipe`,
-            "mainEntityOfPage": canonicalUrl,
-            "url": canonicalUrl,
-            "name": cleanArtTitle,
-            "headline": cleanArtTitle,
-            "image": [fullArtImage],
-            "description": meta.description,
-            "keywords": artKeywords,
-            "recipeCategory": "Công Thức Món Ngon",
-            "recipeCuisine": "Vietnamese",
-            "recipeYield": "4 phần ăn",
-            "prepTime": "PT20M",
-            "cookTime": "PT30M",
-            "totalTime": "PT50M",
-            "datePublished": publishedTime,
-            "dateModified": modifiedTime,
-            "nutrition": {
-              "@type": "NutritionInformation",
-              "calories": "450 calories",
-              "servingSize": "1 phần",
-              "proteinContent": "25 g",
-              "carbohydrateContent": "45 g",
-              "fatContent": "15 g"
-            },
-            "recipeIngredient": [
-              "400g nguyên liệu chính tươi ngon",
-              "100g rau củ tươi theo mùa",
-              "2 muỗng canh nước mắm Phú Quốc",
-              "1 muỗng cà phê hạt nêm, tiêu xay",
-              "2 tép tỏi băm, 1 củ hành tím",
-              "Hành lá, ngò rí, ớt sừng tươi"
-            ],
-            "recipeInstructions": [
-              {
-                "@type": "HowToStep",
-                "position": 1,
-                "name": "Sơ chế và tẩm ướp nguyên liệu",
-                "text": "Rửa sạch nguyên liệu chính và rau củ tươi, cắt miếng vừa ăn rồi ướp cùng hành tỏi băm, nước mắm và gia vị trong 15 phút cho thấm đều.",
-                "url": `${canonicalUrl}#step-1`,
-                "image": fullArtImage
-              },
-              {
-                "@type": "HowToStep",
-                "position": 2,
-                "name": "Chế biến món ăn chuẩn vị",
-                "text": "Phi thơm hành tỏi với dầu ăn trên lửa vừa, cho nguyên liệu đã ướp vào đảo săn rồi chế biến theo đúng thời gian hướng dẫn để giữ trọn độ ngọt tự nhiên.",
-                "url": `${canonicalUrl}#step-2`,
-                "image": fullArtImage
-              },
-              {
-                "@type": "HowToStep",
-                "position": 3,
-                "name": "Trình bày và thưởng thức",
-                "text": "Nêm nếm lại cho vừa khẩu vị gia đình, rắc thêm tiêu xay, hành ngò tươi lên bề mặt và dọn ra đĩa thưởng thức khi còn nóng.",
-                "url": `${canonicalUrl}#step-3`,
-                "image": fullArtImage
-              }
-            ],
-            "video": {
-              "@type": "VideoObject",
-              "name": `Video Hướng Dẫn: ${cleanArtTitle}`,
-              "description": meta.description,
-              "thumbnailUrl": [fullArtImage],
-              "uploadDate": publishedTime,
-              "contentUrl": `${canonicalUrl}#video-guide`,
-              "embedUrl": `${canonicalUrl}#video-guide`,
-              "duration": "PT4M30S"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": artRating,
-              "ratingCount": artReviews,
-              "reviewCount": artReviews,
-              "bestRating": "5",
-              "worstRating": "1"
-            },
-            "review": [
-              {
-                "@type": "Review",
-                "reviewRating": {
-                  "@type": "Rating",
-                  "ratingValue": "5",
-                  "bestRating": "5",
-                  "worstRating": "1"
-                },
-                "author": {
-                  "@type": "Person",
-                  "name": "Nguyễn Thị Minh Thư"
-                },
-                "datePublished": "2026-10-05",
-                "reviewBody": `Bài viết hướng dẫn ${cleanArtTitle} rất chi tiết, công thức dễ áp dụng và hương vị thơm ngon chuẩn vị gia đình.`
-              }
-            ],
-            "author": {
-              "@type": "Organization",
-              "name": "Hôm Nay Ăn Gì",
-              "url": "https://angigio.com/"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Hôm Nay Ăn Gì",
-              "url": "https://angigio.com/",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://angigio.com/logo.png"
-              }
             }
           },
           {

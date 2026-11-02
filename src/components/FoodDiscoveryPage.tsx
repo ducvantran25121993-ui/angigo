@@ -1157,6 +1157,162 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
     return { ratingValue, reviewCount };
   }, [selectedRecipeDish.id, currentRecipe]);
 
+  // Sync single Schema.org JSON-LD in <head> for client-side navigation (prevents duplicate aggregateRating scripts in body)
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const scriptId = 'recipe-jsonld';
+    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
+
+    if (viewingRecipeArticle && selectedRecipeDish) {
+      if (!script) {
+        script = document.createElement('script');
+        script.id = scriptId;
+        script.type = 'application/ld+json';
+        document.head.appendChild(script);
+      }
+      const canonicalPath = getRecipePath(selectedRecipeDish);
+      const articleTitle = getRecipeArticleTitle(selectedRecipeDish, currentRecipe);
+      const fullImageUrl = selectedRecipeDish.image.startsWith('http')
+        ? selectedRecipeDish.image
+        : `https://angigio.com${selectedRecipeDish.image}`;
+      const ingr = formatRecipeIngredientsForSchema(currentRecipe.ingredients);
+      const cleanIngr = ingr && ingr.length > 0 ? ingr : [
+        `${selectedRecipeDish.vietnameseName || currentRecipe.dishName} tươi ngon`,
+        'Hành tím, tỏi băm, ớt tươi',
+        'Nước mắm ngon truyền thống',
+        'Gia vị nêm nếm: muối, đường, tiêu, hạt nêm'
+      ];
+      const stepsList = currentRecipe.steps && currentRecipe.steps.length > 0
+        ? currentRecipe.steps.map((st) => ({
+            '@type': 'HowToStep',
+            position: st.step,
+            name: st.title,
+            text: st.description,
+            url: `https://angigio.com${canonicalPath}#step-${st.step}`,
+            image: fullImageUrl,
+          }))
+        : [
+            {
+              '@type': 'HowToStep',
+              position: 1,
+              name: 'Chuẩn bị và sơ chế nguyên liệu',
+              text: `Rửa sạch và sơ chế nguyên liệu cho món ${selectedRecipeDish.vietnameseName || currentRecipe.dishName}.`,
+              url: `https://angigio.com${canonicalPath}#step-1`,
+              image: fullImageUrl,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 2,
+              name: 'Chế biến và nêm nếm',
+              text: `Nấu chín và nêm nếm gia vị đậm đà cho món ${selectedRecipeDish.vietnameseName || currentRecipe.dishName}.`,
+              url: `https://angigio.com${canonicalPath}#step-2`,
+              image: fullImageUrl,
+            },
+            {
+              '@type': 'HowToStep',
+              position: 3,
+              name: 'Hoàn thành và thưởng thức',
+              text: `Múc ra đĩa và thưởng thức cùng cơm nóng gia đình.`,
+              url: `https://angigio.com${canonicalPath}#step-3`,
+              image: fullImageUrl,
+            },
+          ];
+
+      const schemaData = {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Recipe',
+            '@id': `https://angigio.com${canonicalPath}#recipe`,
+            url: `https://angigio.com${canonicalPath}`,
+            mainEntityOfPage: `https://angigio.com${canonicalPath}`,
+            name: articleTitle,
+            headline: `${articleTitle} - Hướng dẫn chi tiết định lượng và các bước nấu chuẩn vị`,
+            image: [fullImageUrl],
+            description:
+              currentRecipe.description ||
+              selectedRecipeDish.description ||
+              `Hướng dẫn chi tiết từng bước ${articleTitle.toLowerCase()} đậm đà hương vị truyền thống Việt Nam.`,
+            keywords: `${articleTitle.toLowerCase()}, ${currentRecipe.dishName}, cách nấu ${selectedRecipeDish.vietnameseName}, công thức ${selectedRecipeDish.vietnameseName}, cách làm ${selectedRecipeDish.vietnameseName}, món ngon mỗi ngày, ẩm thực Việt Nam, ${selectedRecipeDish.category}`,
+            recipeCategory: selectedRecipeDish.category,
+            recipeCuisine: 'Vietnamese',
+            recipeYield: currentRecipe.servings || '4 người',
+            prepTime: prepDurationIso,
+            cookTime: cookDurationIso,
+            totalTime: totalDurationIso,
+            datePublished: '2024-01-15T08:00:00+07:00',
+            dateModified: '2026-09-20T00:00:00+07:00',
+            nutrition: {
+              '@type': 'NutritionInformation',
+              calories: `${recipeCaloriesNumber || 480} calories`,
+              servingSize: '1 phần',
+            },
+            aggregateRating: {
+              '@type': 'AggregateRating',
+              ratingValue: recipeRating.ratingValue,
+              reviewCount: recipeRating.reviewCount,
+              bestRating: '5',
+              worstRating: '1',
+            },
+            recipeIngredient: cleanIngr,
+            recipeInstructions: stepsList,
+            video: {
+              '@type': 'VideoObject',
+              name: `Video Hướng Dẫn Cách Nấu ${selectedRecipeDish.vietnameseName || currentRecipe.dishName} Chuẩn Vị`,
+              description: `Video clip hướng dẫn chi tiết từng bước nấu món ${selectedRecipeDish.vietnameseName || currentRecipe.dishName} chuẩn vị gia đình Việt Nam.`,
+              thumbnailUrl: [fullImageUrl],
+              uploadDate: '2024-01-15T08:00:00+07:00',
+              contentUrl: `https://angigio.com${canonicalPath}#video-guide`,
+              embedUrl: `https://angigio.com${canonicalPath}#video-guide`,
+              duration: 'PT4M30S',
+            },
+            author: {
+              '@type': 'Organization',
+              name: 'Hôm Nay Ăn Gì',
+              url: 'https://angigio.com/',
+            },
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `https://angigio.com${canonicalPath}#breadcrumb`,
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: 'Trang Chủ',
+                item: 'https://angigio.com/',
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: 'Cách Nấu Món Ngon',
+                item: 'https://angigio.com/cach-nau-mon-ngon',
+              },
+              {
+                '@type': 'ListItem',
+                position: 3,
+                name: articleTitle,
+                item: `https://angigio.com${canonicalPath}`,
+              },
+            ],
+          },
+        ],
+      };
+      script.textContent = JSON.stringify(schemaData);
+    } else if (script && !viewingRecipeArticle) {
+      script.remove();
+    }
+  }, [
+    viewingRecipeArticle,
+    selectedRecipeDish,
+    currentRecipe,
+    prepDurationIso,
+    cookDurationIso,
+    totalDurationIso,
+    recipeRating,
+    recipeCaloriesNumber,
+  ]);
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-5">
       {/* 1. Header Banner */}
@@ -2478,287 +2634,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Structured Data (Schema.org JSON-LD for Discovery & Recipe) */}
-      {/* Schema.org Structured Data (JSON-LD) for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "WebPage",
-                "@id": `https://angigio.com${
-                  viewingRecipeArticle
-                    ? getRecipePath(selectedRecipeDish)
-                    : sectionTab === 'region' && typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                    ? currentRegion.path
-                    : DISCOVER_SUB_CONFIG[sectionTab].path
-                }#webpage`,
-                "url": `https://angigio.com${
-                  viewingRecipeArticle
-                    ? getRecipePath(selectedRecipeDish)
-                    : sectionTab === 'region' && typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                    ? currentRegion.path
-                    : DISCOVER_SUB_CONFIG[sectionTab].path
-                }`,
-                "name": viewingRecipeArticle
-                  ? formatRecipeSeoTitle(getRecipeArticleTitle(selectedRecipeDish, currentRecipe))
-                  : sectionTab === 'region' && typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                  ? currentRegion.metaTitle
-                  : DISCOVER_SUB_CONFIG[sectionTab].title,
-                "description": viewingRecipeArticle
-                  ? (currentRecipe.description || selectedRecipeDish.description || `Hướng dẫn chi tiết ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()} chuẩn vị gia đình Việt Nam.`)
-                  : sectionTab === 'region' && typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                  ? currentRegion.metaDescription
-                  : DISCOVER_SUB_CONFIG[sectionTab].description,
-                "inLanguage": "vi-VN",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "@id": "https://angigio.com/#website",
-                  "name": "Hôm Nay Ăn Gì",
-                  "url": "https://angigio.com/"
-                }
-              },
-              {
-                "@type": "BreadcrumbList",
-                "@id": `https://angigio.com${
-                  viewingRecipeArticle
-                    ? getRecipePath(selectedRecipeDish)
-                    : sectionTab === 'region' && typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                    ? currentRegion.path
-                    : DISCOVER_SUB_CONFIG[sectionTab].path
-                }#breadcrumb`,
-                "itemListElement": [
-                  {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Trang Chủ",
-                    "item": "https://angigio.com/"
-                  },
-                  ...(sectionTab === 'recipe'
-                    ? [
-                        {
-                          "@type": "ListItem",
-                          "position": 2,
-                          "name": "Cách Nấu Món Ngon",
-                          "item": "https://angigio.com/cach-nau-mon-ngon"
-                        },
-                        ...(viewingRecipeArticle
-                          ? [
-                              {
-                                "@type": "ListItem",
-                                "position": 3,
-                                "name": getRecipeArticleTitle(selectedRecipeDish, currentRecipe),
-                                "item": `https://angigio.com${getRecipePath(selectedRecipeDish)}`
-                              }
-                            ]
-                          : [])
-                      ]
-                    : sectionTab === 'region'
-                    ? [
-                        {
-                          "@type": "ListItem",
-                          "position": 2,
-                          "name": "Ẩm Thực Vùng Miền",
-                          "item": "https://angigio.com/am-thuc-vung-mien"
-                        },
-                        ...(typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                          ? [
-                              {
-                                "@type": "ListItem",
-                                "position": 3,
-                                "name": currentRegion.name,
-                                "item": `https://angigio.com${currentRegion.path}`
-                              }
-                            ]
-                          : [])
-                      ]
-                    : [
-                        {
-                          "@type": "ListItem",
-                          "position": 2,
-                          "name": "Thực Đơn Mỗi Ngày",
-                          "item": "https://angigio.com/thuc-don-moi-ngay"
-                        }
-                      ]
-                  )
-                ]
-              },
-              // Chỉ chèn Schema Recipe khi đang xem bài viết công thức chi tiết
-              ...(sectionTab === 'recipe' && viewingRecipeArticle
-                ? [
-                    {
-                      "@type": "Recipe",
-                      "@id": `https://angigio.com${getRecipePath(selectedRecipeDish)}#recipe`,
-                      "url": `https://angigio.com${getRecipePath(selectedRecipeDish)}`,
-                      "mainEntityOfPage": `https://angigio.com${getRecipePath(selectedRecipeDish)}`,
-                      "name": getRecipeArticleTitle(selectedRecipeDish, currentRecipe),
-                      "headline": `${getRecipeArticleTitle(selectedRecipeDish, currentRecipe)} - Hướng dẫn chi tiết định lượng và các bước nấu chuẩn vị`,
-                      "image": [
-                        selectedRecipeDish.image.startsWith('http')
-                          ? selectedRecipeDish.image
-                          : `https://angigio.com${selectedRecipeDish.image}`
-                      ],
-                      "description":
-                        currentRecipe.description ||
-                        selectedRecipeDish.description ||
-                        `Hướng dẫn chi tiết từng bước ${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()} đậm đà hương vị truyền thống Việt Nam.`,
-                      "keywords": `${getRecipeArticleTitle(selectedRecipeDish, currentRecipe).toLowerCase()}, ${currentRecipe.dishName}, cách nấu ${selectedRecipeDish.vietnameseName}, công thức ${selectedRecipeDish.vietnameseName}, cách làm ${selectedRecipeDish.vietnameseName}, món ngon mỗi ngày, ẩm thực Việt Nam, ${selectedRecipeDish.category}`,
-                      "recipeCategory": selectedRecipeDish.category,
-                      "recipeCuisine": "Vietnamese",
-                      "recipeYield": currentRecipe.servings || "4 người",
-                      "prepTime": prepDurationIso,
-                      "cookTime": cookDurationIso,
-                      "totalTime": totalDurationIso,
-                      "datePublished": "2024-01-15T08:00:00+07:00",
-                      "dateModified": "2026-09-20T00:00:00+07:00",
-                      "nutrition": {
-                        "@type": "NutritionInformation",
-                        "calories": `${recipeCaloriesNumber || 480} calories`,
-                        "servingSize": "1 phần"
-                      },
-                      "aggregateRating": {
-                        "@type": "AggregateRating",
-                        "ratingValue": recipeRating.ratingValue,
-                        "reviewCount": recipeRating.reviewCount,
-                        "bestRating": "5",
-                        "worstRating": "1"
-                      },
-                      "recipeIngredient": (() => {
-                        const ingr = formatRecipeIngredientsForSchema(currentRecipe.ingredients);
-                        return ingr && ingr.length > 0 ? ingr : [
-                          `${selectedRecipeDish.vietnameseName || currentRecipe.dishName} tươi ngon`,
-                          'Hành tím, tỏi băm, ớt tươi',
-                          'Nước mắm ngon truyền thống',
-                          'Gia vị nêm nếm: muối, đường, tiêu, hạt nêm'
-                        ];
-                      })(),
-                      "recipeInstructions": currentRecipe.steps && currentRecipe.steps.length > 0
-                        ? currentRecipe.steps.map((st) => ({
-                            "@type": "HowToStep",
-                            "position": st.step,
-                            "name": st.title,
-                            "text": st.description,
-                            "url": `https://angigio.com${getRecipePath(selectedRecipeDish)}#step-${st.step}`,
-                            "image": selectedRecipeDish.image.startsWith('http')
-                              ? selectedRecipeDish.image
-                              : `https://angigio.com${selectedRecipeDish.image}`
-                          }))
-                        : [
-                            {
-                              "@type": "HowToStep",
-                              "position": 1,
-                              "name": "Chuẩn bị và sơ chế nguyên liệu",
-                              "text": `Rửa sạch và sơ chế nguyên liệu cho món ${selectedRecipeDish.vietnameseName || currentRecipe.dishName}.`,
-                              "url": `https://angigio.com${getRecipePath(selectedRecipeDish)}#step-1`,
-                              "image": selectedRecipeDish.image.startsWith('http') ? selectedRecipeDish.image : `https://angigio.com${selectedRecipeDish.image}`
-                            },
-                            {
-                              "@type": "HowToStep",
-                              "position": 2,
-                              "name": "Chế biến và nêm nếm",
-                              "text": `Nấu chín và nêm nếm gia vị đậm đà cho món ${selectedRecipeDish.vietnameseName || currentRecipe.dishName}.`,
-                              "url": `https://angigio.com${getRecipePath(selectedRecipeDish)}#step-2`,
-                              "image": selectedRecipeDish.image.startsWith('http') ? selectedRecipeDish.image : `https://angigio.com${selectedRecipeDish.image}`
-                            },
-                            {
-                              "@type": "HowToStep",
-                              "position": 3,
-                              "name": "Hoàn thành và thưởng thức",
-                              "text": `Múc ra đĩa và thưởng thức cùng cơm nóng gia đình.`,
-                              "url": `https://angigio.com${getRecipePath(selectedRecipeDish)}#step-3`,
-                              "image": selectedRecipeDish.image.startsWith('http') ? selectedRecipeDish.image : `https://angigio.com${selectedRecipeDish.image}`
-                            }
-                          ],
-                      "video": {
-                        "@type": "VideoObject",
-                        "name": `Video Hướng Dẫn Cách Nấu ${selectedRecipeDish.vietnameseName || currentRecipe.dishName} Chuẩn Vị`,
-                        "description": `Video clip hướng dẫn chi tiết từng bước nấu món ${selectedRecipeDish.vietnameseName || currentRecipe.dishName} chuẩn vị gia đình Việt Nam.`,
-                        "thumbnailUrl": [
-                          selectedRecipeDish.image.startsWith('http')
-                            ? selectedRecipeDish.image
-                            : `https://angigio.com${selectedRecipeDish.image}`
-                        ],
-                        "uploadDate": "2024-01-15T08:00:00+07:00",
-                        "contentUrl": `https://angigio.com${getRecipePath(selectedRecipeDish)}#video-guide`,
-                        "embedUrl": `https://angigio.com${getRecipePath(selectedRecipeDish)}#video-guide`,
-                        "duration": "PT4M30S"
-                      },
-                      "author": {
-                        "@type": "Organization",
-                        "name": "Hôm Nay Ăn Gì",
-                        "url": "https://angigio.com/"
-                      }
-                    }
-                  ]
-                : sectionTab === 'recipe' && !viewingRecipeArticle
-                ? [
-                    {
-                      "@type": "CollectionPage",
-                      "@id": "https://angigio.com/cach-nau-mon-ngon#collection",
-                      "url": "https://angigio.com/cach-nau-mon-ngon",
-                      "name": "Cách Nấu Món Ngon - Công Thức Nấu Ăn Chuẩn Vị & Bí Quyết Bếp Trưởng",
-                      "description": "Hướng dẫn chi tiết cách nấu hơn 210+ món ngon chuẩn vị gia đình Việt Nam: Định lượng nguyên liệu chuẩn xác, các bước thực hiện dễ hiểu và mẹo bí quyết bếp trưởng.",
-                      "inLanguage": "vi-VN",
-                      "isPartOf": {
-                        "@type": "WebSite",
-                        "@id": "https://angigio.com/#website"
-                      }
-                    }
-                  ]
-                : sectionTab === 'region'
-                ? [
-                    {
-                      "@type": "CollectionPage",
-                      "@id": `https://angigio.com${typeof window !== 'undefined' && isRegionPath(window.location.pathname) ? currentRegion.path : '/am-thuc-vung-mien'}#collection`,
-                      "url": `https://angigio.com${typeof window !== 'undefined' && isRegionPath(window.location.pathname) ? currentRegion.path : '/am-thuc-vung-mien'}`,
-                      "name": typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                        ? currentRegion.metaTitle
-                        : "Bản Đồ Ẩm Thực Vùng Miền 3 Miền Việt Nam",
-                      "description": typeof window !== 'undefined' && isRegionPath(window.location.pathname)
-                        ? currentRegion.metaDescription
-                        : "Khám phá hương vị ẩm thực 3 miền Bắc, Trung, Nam và Miền Tây sông nước với các món đặc sản truyền thống tinh hoa.",
-                      "inLanguage": "vi-VN",
-                      "isPartOf": {
-                        "@type": "WebSite",
-                        "@id": "https://angigio.com/#website"
-                      },
-                      "mainEntity": {
-                        "@type": "ItemList",
-                        "name": `Danh sách món ngon đặc sản ${currentRegion.name}`,
-                        "description": currentRegion.description,
-                        "numberOfItems": regionDishes.length,
-                        "itemListElement": regionDishes.map((dish, idx) => ({
-                          "@type": "ListItem",
-                          "position": idx + 1,
-                          "name": dish.name,
-                          "url": `https://angigio.com${getRecipePath(dish)}`,
-                          "image": dish.image.startsWith('http') ? dish.image : `https://angigio.com${dish.image}`
-                        }))
-                      }
-                    }
-                  ]
-                : [
-                    {
-                      "@type": "CollectionPage",
-                      "@id": "https://angigio.com/thuc-don-moi-ngay#collection",
-                      "url": "https://angigio.com/thuc-don-moi-ngay",
-                      "name": "Thực Đơn Mỗi Ngày Cân Bằng Dinh Dưỡng",
-                      "description": "Gợi ý mâm cơm gia đình chuẩn vị, đủ dinh dưỡng từ Thứ 2 đến Chủ Nhật cho cả nhà quây quần.",
-                      "inLanguage": "vi-VN",
-                      "isPartOf": {
-                        "@type": "WebSite",
-                        "@id": "https://angigio.com/#website"
-                      }
-                    }
-                  ]
-              )
-            ]
-          })
-        }}
-      />
     </div>
   );
 };
+

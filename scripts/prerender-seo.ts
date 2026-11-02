@@ -231,7 +231,7 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
 
       updatedHtml = updatedHtml.replace(
         '</head>',
-        `    <script type="application/ld+json">\n${JSON.stringify(recipeSchema, null, 2)}\n    </script>\n  </head>`
+        `    <script id="recipe-jsonld" type="application/ld+json">\n${JSON.stringify(recipeSchema, null, 2)}\n    </script>\n  </head>`
       );
     } else {
       const articleHash = Math.abs((meta.path || 'article').split('').reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0));

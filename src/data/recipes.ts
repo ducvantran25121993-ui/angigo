@@ -1,6 +1,137 @@
 import { Dish, DishRecipe } from '../types';
 
 export const CURATED_RECIPES: Record<string, DishRecipe> = {
+  'chan-ga-nuong-mat-ong': {
+    dishId: 'chan-ga-nuong-mat-ong',
+    dishName: 'Chân Gà Nướng Mật Ong Vàng Óng Cay Cay',
+    seoTitle: 'Cách Làm Chân Gà Nướng Da Giòn Thịt Mềm',
+    description:
+      'Bí quyết làm chân gà nướng mật ong da giòn rụm, thịt gân mềm mọng nước không bị khô cháy với mẹo luộc sơ giấm nghệ, sấy ráo da và sốt ướp caramen chuẩn vị phố nướng.',
+    ratingValue: '4.9',
+    reviewCount: 395,
+    prepTime: '20 phút',
+    cookTime: '15 phút',
+    totalTime: '35 phút',
+    calories: '450 kcal',
+    difficulty: 'Dễ',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Chân gà tươi & Khử mùi sơ chế',
+        items: [
+          '800g - 1kg chân gà tươi mập mạp (khoảng 15 - 20 cái)',
+          '1 củ gừng đập dập, 2 cây sả, 2 thìa canh giấm trắng',
+          '1 thìa canh muối hạt',
+          '1/2 thìa cà phê bột nghệ (giúp da lên màu vàng óng)',
+        ],
+      },
+      {
+        category: 'Sốt ướp mật ong sa tế nướng đậm đà',
+        items: [
+          '2.5 thìa canh mật ong hoa cà phê nguyên chất',
+          '1.5 thìa canh dầu hào Maggi',
+          '1.5 thìa canh tương ớt Chin-su tạo độ sánh',
+          '1 thìa canh dầu màu điều lên màu đẹp',
+          '1 thìa canh nước mắm ngon truyền thống',
+          '1 thìa cà phê bột tỏi, 1 thìa cà phê bột hành tây (tránh cháy khét)',
+          '1 thìa cà phê ớt bột Paprika tạo sắc đỏ cam',
+          '1/2 thìa cà phê tiêu sọ xay vỡ',
+          '1/3 thìa cà phê bột ngũ vị hương',
+          '1 thìa canh dầu ăn sạch giữ ẩm',
+        ],
+      },
+      {
+        category: 'Nước sốt chấm tắc chua ngọt & Đồ ăn kèm',
+        items: [
+          'Nước chấm sốt quất sả ớt chua cay ngọt dịu hoặc muối tiêu chanh',
+          'Rau răm tươi non cay nồng ấm bụng',
+          'Dưa leo giòn mát, đồ chua cà rốt củ cải',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Làm sạch móng, khía chân và khử mùi tanh hôi',
+        time: '10 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Chân gà sạch trắng, không còn mùi hôi, khía nhẹ để ngấm sâu gia vị',
+        actionPoints: [
+          'Dùng kéo hoặc dao chặt bỏ hết các móng chân gà, cạo sạch lớp màng vàng bẩn ở kẽ móng và cuống chân.',
+          'Cho chân gà vào chậu cùng muối hạt, gừng đập dập và 2 thìa canh giấm trắng. Dùng tay bóp kỹ trong 3 - 5 phút để khử sạch nhớt và mùi hôi đặc trưng, sau đó xả lại 2 - 3 lần nước lạnh cho thật sạch.',
+          'Dùng dao khía một đường dọc ở phần cẳng chân và khía nhẹ một đường chữ thập trong lòng bàn chân gà để khi ướp gia vị len lỏi vào tận xương và khi nướng chân gà nhanh chín đều từ trong ra ngoài.',
+        ],
+        description:
+          'Chặt móng, cạo sạch màng vàng rồi bóp kỹ với muối hạt, gừng và giấm trắng để khử sạch mùi hôi. Khía nhẹ dọc xương cẳng chân để gia vị thấm sâu.',
+        tip: 'Khía một đường dọc cẳng chân gà là thao tác cốt lõi giúp chân gà nướng chín thấu tận tủy xương mà không bị cháy xém lớp da bên ngoài.',
+      },
+      {
+        step: 2,
+        title: 'Luộc sơ với giấm nghệ và sốc nước đá để da gà giòn rụm',
+        time: '8 phút',
+        heat: 'Nước sôi lăn tăn rồi ngâm đá lạnh',
+        goal: 'Chân gà chín sơ 50%, da săn se giòn dai, lên sắc vàng óng tự nhiên',
+        actionPoints: [
+          'Đun sôi một nồi nước cùng 2 cây sả đập dập, vài lát gừng, 1 thìa canh giấm trắng và 1/2 thìa cà phê bột nghệ.',
+          'Thả chân gà vào luộc sơ đúng 4 - 5 phút từ khi nước sôi lăn tăn lại (chú ý không luộc quá chín nhừ kẻo da bị bở rách).',
+          'Vớt chân gà ra, thả ngay vào thau nước đá lạnh ngâm 5 phút để da co săn giòn dai.',
+          'Vớt chân gà ra rổ để ráo kiệt nước. Dùng khăn giấy thấm thật khô bề mặt da (hoặc bật quạt hong 15 phút cho da khô se lại).',
+        ],
+        description:
+          'Luộc sơ chân gà trong nước sôi có sả gừng, giấm và chút bột nghệ trong 4 phút rồi ngâm ngay vào thau nước đá. Vớt ra thấm thật khô ráo bề mặt da.',
+        tip: 'Axit trong giấm làm mềm collagen giúp da phồng giòn khi nướng, còn bột nghệ giúp da gà có màu vàng óng ả bắt mắt mà không cần phẩm màu hóa học.',
+      },
+      {
+        step: 3,
+        title: 'Pha sốt mật ong dầu điều và ướp chân gà thấm đẫm',
+        time: '15 phút (ướp 1 - 2 giờ)',
+        heat: 'Ngăn mát tủ lạnh',
+        goal: 'Chân gà thấm đẫm hương vị mặn ngọt cay thơm, màu sắc đỏ cam bóng bẩy',
+        actionPoints: [
+          'Cho vào tô: 2.5 thìa canh mật ong, 1.5 thìa dầu hào, 1.5 thìa tương ớt, 1 thìa dầu màu điều, 1 thìa nước mắm, bột tỏi, bột hành, ớt paprika, ngũ vị hương, tiêu xay và dầu ăn. Khuấy tan đều thành hỗn hợp sốt sánh mịn óng ánh.',
+          'Đổ 2/3 lượng sốt vào tô chân gà, đeo găng tay xoa bóp đều từng kẽ chân và đường khía trong 3 - 5 phút cho sốt bao phủ hoàn toàn.',
+          'Giữ lại 1/3 lượng sốt trong bát riêng để quét bóng ở giai đoạn nướng cuối.',
+          'Bọc kín chân gà, để trong ngăn mát tủ lạnh ướp từ 1 - 2 giờ cho gia vị ngấm sâu vào từng sợi gân sụn.',
+        ],
+        description:
+          'Khuấy đều sốt mật ong, dầu hào, tương ớt, dầu điều, bột tỏi hành và ngũ vị hương. Xoa bóp 2/3 sốt lên chân gà, ướp lạnh 1 - 2 giờ. Để dành 1/3 sốt quét bóng khi nướng.',
+        tip: 'Bắt buộc dùng bột tỏi và bột hành thay tỏi hành tươi băm nhỏ để khi nướng than hoặc nồi chiên không dầu, bề mặt chân gà không bị lấm tấm xác tỏi cháy đắng.',
+      },
+      {
+        step: 4,
+        title: 'Nướng than hoa hoặc nồi chiên không dầu vàng ươm caramen',
+        time: '12 - 15 phút',
+        heat: 'Than hồng vừa hoặc Nồi chiên không dầu 170°C - 190°C' ,
+        goal: 'Da chân gà phồng rộp giòn dai, màu nâu hổ phách caramen óng ả, thịt gân bên trong chín mềm ngọt',
+        actionPoints: [
+          'Nếu dùng than hoa: Xếp chân gà lên vỉ nướng trên than hồng vừa (không để mỡ chảy gây bùng lửa). Nướng chậm khoảng 10 - 12 phút, lật trở liên tục. Dùng cọ quét thêm lớp sốt mật ong còn lại lên khắp bề mặt, nướng tiếp 3 - 4 phút cho da phồng rộp xém vàng nâu óng ả.',
+          'Nếu dùng nồi chiên không dầu: Làm nóng nồi 170°C trước 5 phút. Xếp chân gà vào giỏ nướng ở 170°C trong 10 phút. Kéo giỏ ra quét một lớp dày sốt mật ong dầu điều, tăng nhiệt lên 190°C nướng tiếp 5 - 6 phút cho da phồng rộp giòn rụm thơm lừng.',
+        ],
+        description:
+          'Nướng than hoa hoặc nồi chiên không dầu 2 giai đoạn (170°C trong 10 phút, quét sốt mật ong rồi tăng lên 190°C nướng 5 phút) cho da gà căng bóng caramen, thơm lừng hương khói.',
+        tip: 'Quét sốt mật ong ở 5 phút cuối cùng là kỹ thuật chuẩn giúp mật ong caramen hóa bóng loáng mà không bị cháy khét.',
+      },
+      {
+        step: 5,
+        title: 'Pha sốt quất chua ngọt & Thưởng thức giòn rụm bốc khói',
+        time: '3 phút',
+        heat: 'Thưởng thức khi còn nóng hổi',
+        goal: 'Đĩa chân gà vàng óng caramen thơm phức, cắn vào da giòn sần sật, gân mềm ngọt',
+        actionPoints: [
+          'Xếp chân gà nướng nóng hổi ra đĩa, trang trí rau răm tươi non cay nồng, dưa leo thái lát và đồ chua giòn mát.',
+          'Pha sốt chấm: 1 thìa canh muối tinh, 1 thìa canh đường, 1/2 thìa tiêu xay, ớt chỉ thiên băm nhỏ, lá chanh thái chỉ và vắt đẫm nước cốt quất (tắc) tươi đánh tan sủi tăm.',
+          'Cầm chiếc chân gà nóng hổi chấm ngập chén sốt quất chua ngọt, cắn ngập chân răng cảm nhận tiếng da giòn rôm rốp hòa cùng gân sụn béo mềm mọng nước, ngon khó cưỡng.',
+        ],
+        description:
+          'Bày chân gà nướng vàng ruộm ra đĩa cùng rau răm, dưa leo. Chấm đẫm sốt muối tiêu quất lá chanh chua cay mặn ngọt cảm nhận vị da giòn rụm và gân mềm béo ngậy.',
+        tip: 'Nước sốt quất (tắc) cùng rau răm cay ấm là sự kết hợp hoàn hảo để cân bằng độ béo ngậy của chân gà nướng, giúp ăn bao nhiêu cũng không ngán.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng cho món chân gà nướng bất bại: 1. Khía dọc cẳng chân để chín thấu và thấm gia vị; 2. Luộc sơ với giấm và bột nghệ rồi sốc nước đá giúp da vàng óng và giòn rụm; 3. Dùng bột tỏi hành thay tỏi tươi và quét sốt mật ong ở 5 phút cuối để lên màu caramen bóng loáng mà không cháy khét.',
+    recommendedSauce:
+      'Sốt muối quất (tắc) lá chanh chua cay ngọt dịu, hoặc sốt ớt xanh sữa đặc Nha Trang ăn kèm rau răm non.',
+  },
   'bach-tuoc-nuong-sa-te': {
     dishId: 'bach-tuoc-nuong-sa-te',
     dishName: 'Bạch Tuộc Nướng Sa Tế Giòn Sần Sật',
@@ -15215,6 +15346,7 @@ export function getDishRecipe(dish: Dish): DishRecipe {
  * Tất cả các món ăn khác trên các trang khác (Vòng quay, Thực đơn tuần, Món ngon, Ẩm thực vùng miền...) vẫn giữ nguyên đầy đủ.
  */
 export const ACTIVE_RECIPE_DISH_IDS: string[] = [
+  'chan-ga-nuong-mat-ong',
   'bach-tuoc-nuong-sa-te',
   'dau-hu-chien-gion',
   'dimsum-ha-cao-xiu-mai',
@@ -15244,6 +15376,7 @@ export function getActiveRecipeDishes(allDishes: Dish[]): Dish[] {
 }
 
 export const FEATURED_RECIPE_IDS = [
+  'chan-ga-nuong-mat-ong',
   'bach-tuoc-nuong-sa-te',
   'dau-hu-chien-gion',
   'dimsum-ha-cao-xiu-mai',
@@ -15253,6 +15386,7 @@ export const FEATURED_RECIPE_IDS = [
 ];
 
 export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
+  'chan-ga-nuong-mat-ong': 'cach-lam-chan-ga-nuong-da-gion',
   'bach-tuoc-nuong-sa-te': 'cach-lam-bach-tuoc-nuong-sa-te',
   'dau-hu-chien-gion': 'cach-lam-dau-hu-chien-gion',
   'suon-nuong-bbq': 'cach-lam-de-suon-heo-nuong-bbq-bang-noi-chien-khong-dau',
@@ -15388,6 +15522,17 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'chan-ga-nuong-mat-ong': 'chan-ga-nuong-mat-ong',
+  'cach-lam-chan-ga-nuong-da-gion': 'chan-ga-nuong-mat-ong',
+  'cach-nau-chan-ga-nuong-da-gion': 'chan-ga-nuong-mat-ong',
+  'cach-lam-chan-ga-nuong-da-gion-thit-mem': 'chan-ga-nuong-mat-ong',
+  'cach-lam-chan-ga-nuong-da-gion-thit-mem-thom-lung-khoi-than': 'chan-ga-nuong-mat-ong',
+  'cach-nau-chan-ga-nuong-da-gion-thit-mem': 'chan-ga-nuong-mat-ong',
+  'chan-ga-nuong': 'chan-ga-nuong-mat-ong',
+  'cach-lam-chan-ga-nuong': 'chan-ga-nuong-mat-ong',
+  'cach-nau-chan-ga-nuong': 'chan-ga-nuong-mat-ong',
+  'cach-lam-chan-ga-nuong-mat-ong': 'chan-ga-nuong-mat-ong',
+  'cach-nau-chan-ga-nuong-mat-ong': 'chan-ga-nuong-mat-ong',
   'bach-tuoc-nuong-sa-te': 'bach-tuoc-nuong-sa-te',
   'cach-lam-bach-tuoc-nuong-sa-te': 'bach-tuoc-nuong-sa-te',
   'cach-nau-bach-tuoc-nuong-sa-te': 'bach-tuoc-nuong-sa-te',

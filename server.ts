@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 import { getAllSeoRoutes } from "./src/data/seoRoutes";
 import { BLOG_SLUG_ALIASES, INITIAL_BLOG_POSTS } from "./src/data/blogPosts";
 import { INITIAL_DISHES } from "./src/data/dishes";
-import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema, findDishByRecipeSlug, RECIPE_SLUG_ALIASES, CUSTOM_RECIPE_SLUGS } from "./src/data/recipes";
+import { getDishRecipe, getRecipeSlug, getRecipePath, getRecipeArticleTitle, formatRecipeSeoTitle, formatRecipeIngredientsForSchema, findDishByRecipeSlug, RECIPE_SLUG_ALIASES, CUSTOM_RECIPE_SLUGS } from "./src/data/recipes";
 import { getDishImageByName } from "./src/utils/dishImageCatalog";
 
 function parseMinutesToIso(str?: string): string {
@@ -1598,21 +1598,40 @@ function injectSeoMeta(html: string, requestedPath: string): string {
   }
 
   if (!meta && (cleanPath.startsWith("/cach-nau-") || cleanPath.startsWith("/cach-lam-"))) {
-    const slug = cleanPath.replace(/^\//, "");
-    const normalizedName = slug
-      .replace(/^cach-(?:nau|lam)-/, "")
-      .split("-")
-      .map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : ""))
-      .join(" ")
-      .trim();
-    meta = {
-      path: cleanPath,
-      title: `Cách Nấu ${normalizedName} Thơm Ngon Chuẩn Vị | Hôm Nay Ăn Gì`,
-      description: `Hướng dẫn chi tiết từng bước nấu món ${normalizedName} thơm ngon, chuẩn vị gia đình Việt Nam: Định lượng nguyên liệu, mẹo sơ chế và bí quyết nêm nếm.`,
-      keywords: `cách nấu ${normalizedName.toLowerCase()}, công thức nấu ${normalizedName.toLowerCase()}, hướng dẫn làm ${normalizedName.toLowerCase()}, món ngon mỗi ngày, ẩm thực việt nam`,
-      image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&auto=format&fit=crop&q=80",
-      imageAlt: `Cách Nấu ${normalizedName} Thơm Ngon Chuẩn Vị`,
-    };
+    const matchedDish =
+      INITIAL_DISHES.find((d) => `/${getRecipeSlug(d)}` === cleanPath || cleanPath === `/${d.id}`) ||
+      findDishByRecipeSlug(cleanPath, INITIAL_DISHES);
+    if (matchedDish) {
+      const recipe = getDishRecipe(matchedDish);
+      const artTitle = getRecipeArticleTitle(matchedDish, recipe);
+      meta = {
+        path: getRecipePath(matchedDish),
+        title: formatRecipeSeoTitle(artTitle),
+        description:
+          recipe?.description ||
+          matchedDish.description ||
+          `Hướng dẫn chi tiết từng bước nấu món ${matchedDish.vietnameseName || matchedDish.name} thơm ngon chuẩn vị.`,
+        keywords: `${artTitle.toLowerCase()}, cách làm ${matchedDish.vietnameseName?.toLowerCase() || matchedDish.name.toLowerCase()}, công thức ${matchedDish.vietnameseName?.toLowerCase() || matchedDish.name.toLowerCase()}, món ngon mỗi ngày`,
+        image: matchedDish.image?.startsWith("http") ? matchedDish.image : `https://angigio.com${matchedDish.image}`,
+        imageAlt: artTitle,
+      };
+    } else {
+      const slug = cleanPath.replace(/^\//, "");
+      const normalizedName = slug
+        .replace(/^cach-(?:nau|lam)-/, "")
+        .split("-")
+        .map((w) => (w ? w.charAt(0).toUpperCase() + w.slice(1) : ""))
+        .join(" ")
+        .trim();
+      meta = {
+        path: cleanPath,
+        title: `Cách Nấu ${normalizedName} Thơm Ngon Chuẩn Vị | Ăn Gì Giờ`,
+        description: `Hướng dẫn chi tiết từng bước nấu món ${normalizedName} thơm ngon, chuẩn vị gia đình Việt Nam: Định lượng nguyên liệu, mẹo sơ chế và bí quyết nêm nếm.`,
+        keywords: `cách nấu ${normalizedName.toLowerCase()}, công thức nấu ${normalizedName.toLowerCase()}, hướng dẫn làm ${normalizedName.toLowerCase()}, món ngon mỗi ngày, ẩm thực việt nam`,
+        image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&auto=format&fit=crop&q=80",
+        imageAlt: `Cách Nấu ${normalizedName} Thơm Ngon Chuẩn Vị`,
+      };
+    }
   }
 
   if (!meta) {

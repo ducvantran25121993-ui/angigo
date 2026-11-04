@@ -97,6 +97,15 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'region', region: 'nam' }, '', '/am-thuc-mien-nam');
       } else if (pathname === '/am-thuc-vung-mien/mien-tay' || pathname === '/am-thuc-mien-tay-song-nuoc') {
         window.history.replaceState({ tab: 'discover', sub: 'region', region: 'mientay' }, '', '/am-thuc-mien-tay');
+      } else if (
+        pathname === '/cach-lam-ga-ran-han-quoc-vang-gion-rum-thom-ngon-bat-bai' ||
+        pathname === '/cach-lam-ga-ran-han-quoc-vang-gion-rum-thom-ngon' ||
+        pathname === '/cach-lam-ga-ran-han-quoc' ||
+        pathname === '/cach-nau-ga-ran-han-quoc' ||
+        pathname === '/cach-nau-ga-ran-gion-cay' ||
+        pathname === '/cach-nau-ga-ran'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-ga-ran-han-quoc-gion-cay');
       } else if (pathname === '/cach-nau-bun-ca-ngu-phu-yen' || pathname === '/cach-lam-bun-ca-ngu-phu-yen') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-ca-ngu');
       } else if (pathname === '/cach-nau-muc-mot-nang-nuong-sa-te') {

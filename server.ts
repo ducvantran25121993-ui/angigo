@@ -2799,6 +2799,24 @@ async function startServer() {
     return res.redirect(301, "/blog");
   });
 
+  // 301 Permanent Redirect for ga ran han quoc recipe aliases requested by user
+  app.get([
+    "/cach-lam-ga-ran-han-quoc-vang-gion-rum-thom-ngon-bat-bai",
+    "/cach-lam-ga-ran-han-quoc-vang-gion-rum-thom-ngon-bat-bai/",
+    "/cach-lam-ga-ran-han-quoc-vang-gion-rum-thom-ngon",
+    "/cach-lam-ga-ran-han-quoc-vang-gion-rum-thom-ngon/",
+    "/cach-lam-ga-ran-han-quoc",
+    "/cach-lam-ga-ran-han-quoc/",
+    "/cach-nau-ga-ran-han-quoc",
+    "/cach-nau-ga-ran-han-quoc/",
+    "/cach-nau-ga-ran-gion-cay",
+    "/cach-nau-ga-ran-gion-cay/",
+    "/cach-nau-ga-ran",
+    "/cach-nau-ga-ran/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-ga-ran-han-quoc-gion-cay");
+  });
+
   // 301 Permanent Redirect for squid recipe alias requested by user
   app.get([
     "/cach-nau-muc-mot-nang-nuong-sa-te",

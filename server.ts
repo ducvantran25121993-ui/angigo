@@ -2835,6 +2835,28 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-doi-sun-nuong-than-hoa");
   });
 
+  // 301 Permanent Redirect for chim cut quay recipe aliases requested by user
+  app.get([
+    "/cach-lam-chim-cut-quay-da-gion-thit-mem-thom-lung-khoi-than",
+    "/cach-lam-chim-cut-quay-da-gion-thit-mem-thom-lung-khoi-than/",
+    "/cach-lam-chim-cut-quay-da-gion-thit-mem",
+    "/cach-lam-chim-cut-quay-da-gion-thit-mem/",
+    "/cach-lam-chim-cut-quay-da-gion",
+    "/cach-lam-chim-cut-quay-da-gion/",
+    "/cach-nau-chim-cut-quay-da-gion-la-mac-mat",
+    "/cach-nau-chim-cut-quay-da-gion-la-mac-mat/",
+    "/cach-nau-chim-cut-quay-la-mac-mat",
+    "/cach-nau-chim-cut-quay-la-mac-mat/",
+    "/cach-nau-chim-cut-quay",
+    "/cach-nau-chim-cut-quay/",
+    "/cach-lam-chim-cut-quay-la-mac-mat",
+    "/cach-lam-chim-cut-quay-la-mac-mat/",
+    "/cach-lam-chim-cut-quay",
+    "/cach-lam-chim-cut-quay/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-chim-cut-quay-da-gion-la-mac-mat");
+  });
+
   // 301 Permanent Redirect for squid recipe alias requested by user
   app.get([
     "/cach-nau-muc-mot-nang-nuong-sa-te",

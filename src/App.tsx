@@ -115,6 +115,17 @@ export default function App() {
         pathname === '/cach-lam-doi-sun-nuong'
       ) {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-doi-sun-nuong-than-hoa');
+      } else if (
+        pathname === '/cach-lam-chim-cut-quay-da-gion-thit-mem-thom-lung-khoi-than' ||
+        pathname === '/cach-lam-chim-cut-quay-da-gion-thit-mem' ||
+        pathname === '/cach-lam-chim-cut-quay-da-gion' ||
+        pathname === '/cach-nau-chim-cut-quay-da-gion-la-mac-mat' ||
+        pathname === '/cach-nau-chim-cut-quay-la-mac-mat' ||
+        pathname === '/cach-nau-chim-cut-quay' ||
+        pathname === '/cach-lam-chim-cut-quay-la-mac-mat' ||
+        pathname === '/cach-lam-chim-cut-quay'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-chim-cut-quay-da-gion-la-mac-mat');
       } else if (pathname === '/cach-nau-bun-ca-ngu-phu-yen' || pathname === '/cach-lam-bun-ca-ngu-phu-yen') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-ca-ngu');
       } else if (pathname === '/cach-nau-muc-mot-nang-nuong-sa-te') {

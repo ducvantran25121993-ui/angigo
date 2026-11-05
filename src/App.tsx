@@ -106,6 +106,15 @@ export default function App() {
         pathname === '/cach-nau-ga-ran'
       ) {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-ga-ran-han-quoc-gion-cay');
+      } else if (
+        pathname === '/cach-lam-doi-sun-nuong-da-gion-thit-mem-thom-lung-khoi-than' ||
+        pathname === '/cach-lam-doi-sun-nuong-da-gion-thit-mem' ||
+        pathname === '/cach-lam-doi-sun-nuong-da-gion' ||
+        pathname === '/cach-nau-doi-sun-nuong-than-hoa' ||
+        pathname === '/cach-nau-doi-sun-nuong' ||
+        pathname === '/cach-lam-doi-sun-nuong'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-doi-sun-nuong-than-hoa');
       } else if (pathname === '/cach-nau-bun-ca-ngu-phu-yen' || pathname === '/cach-lam-bun-ca-ngu-phu-yen') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-ca-ngu');
       } else if (pathname === '/cach-nau-muc-mot-nang-nuong-sa-te') {

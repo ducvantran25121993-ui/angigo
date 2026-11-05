@@ -8320,11 +8320,17 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   'doi-sun-nuong-than-hoa': {
     dishId: 'doi-sun-nuong-than-hoa',
     dishName: 'Dồi Sụn Nướng Than Hoa Thơm Lừng Phố Cổ',
-    seoTitle: 'Cách Làm Dồi Sụn Nướng Da Giòn Thịt Mềm, Thơm Lừng Khói Than',
-    prepTime: '40 - 50 phút (sơ chế lòng non, băm sụn, trộn nhân & nhồi dồi)',
-    cookTime: '20 - 25 phút (luộc xăm thoát khí 10 phút + nướng than hoa vàng giòn 15 phút)',
+    seoTitle: 'Cách Làm Dồi Sụn Nướng Da Giòn Thịt Mềm',
+    description:
+      'Bí quyết làm dồi sụn nướng than hoa da giòn rụm sần sật, nhân thịt mềm mọng sụn non giòn sần sật thơm nức khói than với mẹo nhồi lỏng tay và xăm thoát khí chống bục nát.',
+    ratingValue: '4.9',
+    reviewCount: 388,
+    prepTime: '40 phút',
+    cookTime: '25 phút',
+    totalTime: '65 phút',
+    calories: '520 kcal',
     difficulty: 'Trung bình',
-    servings: '4 - 5 người ăn (khoảng 6 - 8 khúc dồi sụn mập mạp)',
+    servings: '4 - 5 người',
     ingredients: [
       {
         category: 'Vỏ dồi lòng non & Sụn heo, thịt nạc vai',
@@ -15610,6 +15616,7 @@ export function getDishRecipe(dish: Dish): DishRecipe {
  * Tất cả các món ăn khác trên các trang khác (Vòng quay, Thực đơn tuần, Món ngon, Ẩm thực vùng miền...) vẫn giữ nguyên đầy đủ.
  */
 export const ACTIVE_RECIPE_DISH_IDS: string[] = [
+  'doi-sun-nuong-than-hoa',
   'ga-ran-gion-cay',
   'muc-nuong-muoi-ot',
   'chan-ga-nuong-mat-ong',
@@ -15642,6 +15649,7 @@ export function getActiveRecipeDishes(allDishes: Dish[]): Dish[] {
 }
 
 export const FEATURED_RECIPE_IDS = [
+  'doi-sun-nuong-than-hoa',
   'ga-ran-gion-cay',
   'muc-nuong-muoi-ot',
   'chan-ga-nuong-mat-ong',
@@ -15654,6 +15662,7 @@ export const FEATURED_RECIPE_IDS = [
 ];
 
 export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
+  'doi-sun-nuong-than-hoa': 'cach-lam-doi-sun-nuong-than-hoa',
   'ga-ran-gion-cay': 'cach-lam-ga-ran-han-quoc-gion-cay',
   'muc-nuong-muoi-ot': 'cach-lam-muc-trung-nuong-muoi-ot',
   'chan-ga-nuong-mat-ong': 'cach-lam-chan-ga-nuong-da-gion',

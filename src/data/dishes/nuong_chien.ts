@@ -166,7 +166,7 @@ export const NUONG_CHIEN_DISHES: Dish[] = [
     estimatedPrice: 110000,
     calories: '680 - 850 kcal',
     description: 'Thăn bò mềm tan áp chảo thơm lừng bơ tỏi, rưới đẫm nước sốt tiêu đen cay nồng đậm đà, ăn kèm khoai tây chiên vàng giòn và bánh mì nóng.',
-    image: 'https://images.unsplash.com/photo-1558030006-450675393462?w=800&auto=format&fit=crop&q=80',
+    image: '/images/bo_bit_tet_sot_tieu.jpg',
     popularTags: ['Bò Bít Tết', 'Beefsteak', 'Sốt tiêu đen', 'Món Tây'],
     searchKeyword: 'Bò bít tết',
   },

@@ -1,6 +1,124 @@
 import { Dish, DishRecipe } from '../types';
 
 export const CURATED_RECIPES: Record<string, DishRecipe> = {
+  'bo-bit-tet-sot-tieu': {
+    dishId: 'bo-bit-tet-sot-tieu',
+    dishName: 'Bò Bít Tết Sốt Tiêu Đen Khoai Tây Chiên Bánh Mì',
+    seoTitle: 'Cách Làm Bò Bít Tết Sốt Tiêu Chuẩn Vị',
+    description:
+      'Bí quyết làm bò bít tết sốt tiêu đen mềm tan mọng nước, xém cạnh nâu vàng thơm lừng bơ tỏi hương thảo cùng công thức sốt tiêu đen sánh quyện đậm đà chuẩn phong cách Âu.',
+    ratingValue: '4.9',
+    reviewCount: 412,
+    prepTime: '20 phút',
+    cookTime: '15 phút',
+    totalTime: '35 phút',
+    calories: '720 kcal',
+    difficulty: 'Trung bình',
+    servings: '2 - 3 người',
+    ingredients: [
+      {
+        category: 'Thịt thăn bò tươi ngon & Thảo mộc áp chảo',
+        items: [
+          '500g thăn bò hảo hạng (thăn nội, thăn ngoại hoặc thăn vai dày 2.5 - 3cm)',
+          '2 nhánh hương thảo tươi (rosemary) và 2 nhánh xạ hương (thyme)',
+          '4 tép tỏi để nguyên vỏ đập dập nhẹ',
+          '30g bơ lạt động vật thơm béo',
+          '1 thìa canh dầu olive hoặc dầu thực vật chịu nhiệt',
+          '1 thìa cà phê muối biển hạt thô, 1 thìa cà phê tiêu sọ đen giã vỡ',
+        ],
+      },
+      {
+        category: 'Sốt tiêu đen cay nồng đậm đà chuẩn Âu',
+        items: [
+          '2 thìa canh hạt tiêu đen nguyên hạt giã vỡ hạt thô',
+          '1 thìa canh hạt tiêu xanh tươi đập dập tạo hương tươi mới',
+          '1 thìa canh bơ lạt phi thơm sốt',
+          '2 củ hành khô và 3 tép tỏi băm nhuyễn mịn',
+          '2 thìa canh dầu hào Maggi',
+          '1.5 thìa canh nước tương đậm đặc',
+          '1 thìa canh đường nâu và 1 thìa canh rượu vang đỏ',
+          '100ml nước dùng bò hoặc nước hầm xương đậm đà',
+          '1 thìa cà phê tinh bột bắp hòa cùng 2 thìa canh nước',
+        ],
+      },
+      {
+        category: 'Món ăn kèm chuẩn vị nhà hàng',
+        items: [
+          '300g khoai tây chiên vàng giòn rụm',
+          '2 ổ bánh mì nướng giòn nóng hổi',
+          'Xà lách tươi non, cà chua bi trộn dầu giấm thanh mát',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Đưa thịt bò về nhiệt độ phòng & Thấm khô kiệt nước',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Miếng thịt ráo mịn hoàn toàn, nhiệt độ đồng đều giúp chín mọng không bị chảy nước',
+        actionPoints: [
+          'Lấy miếng thăn bò ra khỏi tủ lạnh trước khi chế biến 20 - 30 phút để nhiệt độ trong lõi cân bằng với nhiệt độ phòng. Nếu áp chảo miếng thịt lạnh buốt, nhiệt độ chảo sẽ tụt dốc khiến thịt bị luộc chảy nước và dai bã.',
+          'Dùng khăn giấy đa năng thấm thật khô ráo toàn bộ bề mặt hai mặt thăn bò.',
+          'Ngay trước khi đặt vào chảo 2 phút, rắc đều muối biển thô và tiêu đen giã vỡ lên cả hai mặt thịt, dùng tay vỗ nhẹ cho gia vị bám chặt.',
+        ],
+        description:
+          'Để thịt bò về nhiệt độ phòng 20 phút. Thấm thật khô ráo hai mặt thịt rồi rắc đều muối biển và tiêu giã vỡ trước khi áp chảo 2 phút.',
+        tip: 'Thấm khô ráo bề mặt là điều kiện tiên quyết để kích hoạt phản ứng Maillard giúp miếng thịt xém nâu vàng giòn thơm nức thay vì bị bốc hơi nước.',
+      },
+      {
+        step: 2,
+        title: 'Kỹ thuật áp chảo nhiệt cao & Rưới bơ béo thảo mộc (Basting)',
+        time: '6 - 8 phút',
+        heat: 'Lửa lớn - Chảo gang cực nóng',
+        goal: 'Tạo lớp vỏ xém nâu vàng giòn thơm lừng bơ tỏi, lõi thịt chín hồng đào medium-rare mọng nước',
+        actionPoints: [
+          'Đặt chảo gang lên bếp, đun cho chảo thật nóng già đến khi bốc khói mỏng nhẹ. Rót 1 thìa canh dầu ăn vào láng đều mặt chảo.',
+          'Nhẹ nhàng đặt miếng thăn bò vào chảo, giữ nguyên không di chuyển trong 2 phút đầu để hình thành lớp vỏ xém nâu giòn rụm.',
+          'Lật mặt thịt, áp chảo tiếp 1.5 - 2 phút cho mặt thứ hai xém vàng. Dùng kẹp giữ nghiêng miếng thịt để áp các cạnh viền mỡ cho chảy bớt mỡ và giòn thơm.',
+          'Hạ lửa vừa, thả 30g bơ lạt, 4 tép tỏi đập dập và cành hương thảo vào chảo. Khi bơ tan chảy sủi bọt thơm nức, nghiêng chảo dùng thìa múc bơ nóng liên tục rưới (basting) lên mặt miếng bò trong 1 phút để hương bơ tỏi thẩm thấu sâu vào từng thớ thịt.',
+        ],
+        description:
+          'Áp chảo thịt bò trên chảo gang cực nóng mỗi mặt 2 phút cho xém vàng giòn. Thả bơ lạt, tỏi đập dập và lá hương thảo vào rồi liên tục rưới bơ nóng lên miếng thịt trong 1 phút.',
+        tip: 'Kỹ thuật basting (rưới bơ thảo mộc liên tục) giúp thớ thịt chín đều êm dịu, không bị khô xơ và có hương vị béo ngậy nồng nàn chuẩn phong cách nhà hàng Âu.',
+      },
+      {
+        step: 3,
+        title: 'Kỹ thuật cho thịt nghỉ (Resting) khóa trọn vẹn nước ngọt',
+        time: '5 - 7 phút',
+        heat: 'Nhiệt độ phòng thoáng',
+        goal: 'Nước ngọt tái phân bổ đều khắp các mô cơ, không bị chảy lênh láng khi cắt',
+        actionPoints: [
+          'Gắp miếng thịt bò ra đĩa hoặc thớt gỗ sạch, để thịt nghỉ hoàn toàn trong 5 - 7 phút (có thể đậy hờ miếng giấy bạc lên trên để giữ ấm).',
+          'Trong lúc nghỉ, nhiệt độ dư sẽ tiếp tục nấu chín nhẹ phần lõi thịt, các sợi cơ đang co rút vì nhiệt cao sẽ từ từ giãn ra, hấp thụ và khóa chặt toàn bộ nước ngọt đậm đà lại bên trong thớ thịt.',
+          'Tuyệt đối không dùng dao cắt thịt ngay lúc vừa nhấc khỏi chảo, vì toàn bộ nước ngọt sẽ trào ra đĩa khiến miếng bít tết bị khô cứng và nguội tanh.',
+        ],
+        description:
+          'Gắp thịt bò ra đĩa để nghỉ từ 5 - 7 phút cho các sợi cơ thư giãn và khóa chặt toàn bộ nước ngọt mọng bên trong trước khi thái lát.',
+        tip: 'Thời gian nghỉ bằng 1/2 thời gian nấu là quy tắc vàng của mọi đầu bếp steak thế giới để tạo nên miếng bít tết mềm tan mọng nước.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nước sốt tiêu đen sánh quyện & Bày biện thưởng thức',
+        time: '5 phút',
+        heat: 'Lửa vừa nhỏ',
+        goal: 'Sốt tiêu đen cay nồng ấm bụng, nâu bóng sánh mịn, vị mặn ngọt hài hòa',
+        actionPoints: [
+          'Tận dụng luôn chiếc chảo vừa áp chảo thịt, cho 1 thìa canh bơ lạt phi thơm vàng hành tỏi băm nhuyễn.',
+          'Cho tiêu đen giã vỡ và tiêu xanh đập dập vào đảo nhanh 30 giây cho dậy mùi cay nồng. Thêm rượu vang đỏ, dầu hào, nước tương, đường nâu và 100ml nước dùng bò vào khuấy tan đều, đun sôi liu riu.',
+          'Rót từ từ nước tinh bột bắp vào khuấy đều tay đến khi sốt chuyển màu nâu đen cánh gián óng ả, sánh quyện sền sệt bám đều mặt thìa thì tắt bếp.',
+          'Dùng dao sắc thái vát miếng bít tết thành các lát dày 1 - 1.5cm, xếp lên đĩa. Rưới nước sốt tiêu đen nóng hổi lên trên, rắc vài hạt tiêu xanh tươi. Thưởng thức ngay cùng khoai tây chiên giòn, bánh mì nóng giòn rụm và đĩa salad thanh mát.',
+        ],
+        description:
+          'Phi thơm hành tỏi băm trên chảo áp chảo bò, xào thơm tiêu đen và tiêu xanh. Thêm dầu hào, nước tương, rượu vang, nước dùng bò và bột bắp khuấy sánh mịn. Thái lát bít tết, rưới sốt tiêu nóng và ăn kèm khoai chiên, bánh mì.',
+        tip: 'Hạt tiêu đen giã vỡ thô (thay vì xay nhuyễn mịn) sẽ tạo độ giòn nổ li ti cay thơm nồng ấm khi nhai cùng thớ thịt bò mềm béo.',
+      },
+    ],
+    chefSecret:
+      '3 nguyên tắc vàng để bít tết sốt tiêu đen mềm tan bất bại: 1. Đưa thịt về nhiệt độ phòng và thấm thật khô ráo bề mặt trước khi áp chảo để tạo lớp vỏ xém nâu giòn (crust) hoàn hảo; 2. Áp chảo trên chảo gang cực nóng và liên tục rưới bơ béo thảo mộc (basting) để thịt ngấm hương bơ tỏi mọng nước; 3. Bắt buộc cho thịt nghỉ (resting) 5 - 7 phút trước khi cắt để thớ thịt giữ trọn vẹn 100% nước ngọt tự nhiên bên trong.',
+    recommendedSauce:
+      'Sốt tiêu đen cay nồng sánh quyện đậm đà, ăn kèm sốt nấm bơ tỏi hoặc muối tảng thảo mộc, nhâm nhi cùng ly rượu vang đỏ hảo hạng.',
+  },
   'chim-cut-quay-la-mac-mat': {
     dishId: 'chim-cut-quay-la-mac-mat',
     dishName: 'Chim Cút Quay Mật Ong Lá Mắc Mật',
@@ -15741,6 +15859,7 @@ export function getDishRecipe(dish: Dish): DishRecipe {
  * Tất cả các món ăn khác trên các trang khác (Vòng quay, Thực đơn tuần, Món ngon, Ẩm thực vùng miền...) vẫn giữ nguyên đầy đủ.
  */
 export const ACTIVE_RECIPE_DISH_IDS: string[] = [
+  'bo-bit-tet-sot-tieu',
   'chim-cut-quay-la-mac-mat',
   'doi-sun-nuong-than-hoa',
   'ga-ran-gion-cay',
@@ -15775,6 +15894,7 @@ export function getActiveRecipeDishes(allDishes: Dish[]): Dish[] {
 }
 
 export const FEATURED_RECIPE_IDS = [
+  'bo-bit-tet-sot-tieu',
   'chim-cut-quay-la-mac-mat',
   'doi-sun-nuong-than-hoa',
   'ga-ran-gion-cay',
@@ -15789,6 +15909,7 @@ export const FEATURED_RECIPE_IDS = [
 ];
 
 export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
+  'bo-bit-tet-sot-tieu': 'cach-lam-bo-bit-tet-sot-tieu',
   'chim-cut-quay-la-mac-mat': 'cach-lam-chim-cut-quay-da-gion-la-mac-mat',
   'doi-sun-nuong-than-hoa': 'cach-lam-doi-sun-nuong-than-hoa',
   'ga-ran-gion-cay': 'cach-lam-ga-ran-han-quoc-gion-cay',
@@ -15929,6 +16050,16 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'bo-bit-tet-sot-tieu': 'bo-bit-tet-sot-tieu',
+  'cach-lam-bo-bit-tet-sot-tieu': 'bo-bit-tet-sot-tieu',
+  'cach-nau-bo-bit-tet-sot-tieu': 'bo-bit-tet-sot-tieu',
+  'cach-lam-bo-bit-tet-sot-tieu-chuan-vi': 'bo-bit-tet-sot-tieu',
+  'cach-nau-bo-bit-tet-sot-tieu-chuan-vi': 'bo-bit-tet-sot-tieu',
+  'cach-nau-bo-bit-tet-thom-ngon-chuan-vi-gia-dinh': 'bo-bit-tet-sot-tieu',
+  'cach-lam-bo-bit-tet-thom-ngon-chuan-vi-gia-dinh': 'bo-bit-tet-sot-tieu',
+  'cach-lam-bo-bit-tet': 'bo-bit-tet-sot-tieu',
+  'cach-nau-bo-bit-tet': 'bo-bit-tet-sot-tieu',
+  'bo-bit-tet': 'bo-bit-tet-sot-tieu',
   'chim-cut-quay-la-mac-mat': 'chim-cut-quay-la-mac-mat',
   'cach-lam-chim-cut-quay-da-gion-la-mac-mat': 'chim-cut-quay-la-mac-mat',
   'cach-nau-chim-cut-quay-da-gion-la-mac-mat': 'chim-cut-quay-la-mac-mat',

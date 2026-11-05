@@ -2857,6 +2857,26 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-chim-cut-quay-da-gion-la-mac-mat");
   });
 
+  // 301 Permanent Redirect for bo bit tet recipe aliases requested by user
+  app.get([
+    "/cach-nau-bo-bit-tet-thom-ngon-chuan-vi-gia-dinh",
+    "/cach-nau-bo-bit-tet-thom-ngon-chuan-vi-gia-dinh/",
+    "/cach-lam-bo-bit-tet-thom-ngon-chuan-vi-gia-dinh",
+    "/cach-lam-bo-bit-tet-thom-ngon-chuan-vi-gia-dinh/",
+    "/cach-lam-bo-bit-tet-sot-tieu-chuan-vi",
+    "/cach-lam-bo-bit-tet-sot-tieu-chuan-vi/",
+    "/cach-nau-bo-bit-tet-sot-tieu-chuan-vi",
+    "/cach-nau-bo-bit-tet-sot-tieu-chuan-vi/",
+    "/cach-nau-bo-bit-tet-sot-tieu",
+    "/cach-nau-bo-bit-tet-sot-tieu/",
+    "/cach-nau-bo-bit-tet",
+    "/cach-nau-bo-bit-tet/",
+    "/cach-lam-bo-bit-tet",
+    "/cach-lam-bo-bit-tet/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-bo-bit-tet-sot-tieu");
+  });
+
   // 301 Permanent Redirect for squid recipe alias requested by user
   app.get([
     "/cach-nau-muc-mot-nang-nuong-sa-te",

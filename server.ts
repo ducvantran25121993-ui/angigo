@@ -2877,6 +2877,32 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-bo-bit-tet-sot-tieu");
   });
 
+  // 301 Permanent Redirect for hau nuong recipe aliases requested by user
+  app.get([
+    "/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem-thom-lung-khoi-than",
+    "/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem-thom-lung-khoi-than/",
+    "/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem",
+    "/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem/",
+    "/cach-nau-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem",
+    "/cach-nau-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem/",
+    "/cach-nau-hau-nuong-mo-hanh-pho-mai",
+    "/cach-nau-hau-nuong-mo-hanh-pho-mai/",
+    "/cach-lam-hau-nuong-mo-hanh",
+    "/cach-lam-hau-nuong-mo-hanh/",
+    "/cach-nau-hau-nuong-mo-hanh",
+    "/cach-nau-hau-nuong-mo-hanh/",
+    "/cach-lam-hau-nuong-pho-mai",
+    "/cach-lam-hau-nuong-pho-mai/",
+    "/cach-nau-hau-nuong-pho-mai",
+    "/cach-nau-hau-nuong-pho-mai/",
+    "/cach-lam-hau-nuong",
+    "/cach-lam-hau-nuong/",
+    "/cach-nau-hau-nuong",
+    "/cach-nau-hau-nuong/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-hau-nuong-mo-hanh-pho-mai");
+  });
+
   // 301 Permanent Redirect for squid recipe alias requested by user
   app.get([
     "/cach-nau-muc-mot-nang-nuong-sa-te",

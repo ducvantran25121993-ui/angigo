@@ -136,6 +136,19 @@ export default function App() {
         pathname === '/cach-lam-bo-bit-tet'
       ) {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bo-bit-tet-sot-tieu');
+      } else if (
+        pathname === '/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem-thom-lung-khoi-than' ||
+        pathname === '/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem' ||
+        pathname === '/cach-nau-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem' ||
+        pathname === '/cach-nau-hau-nuong-mo-hanh-pho-mai' ||
+        pathname === '/cach-lam-hau-nuong-mo-hanh' ||
+        pathname === '/cach-nau-hau-nuong-mo-hanh' ||
+        pathname === '/cach-lam-hau-nuong-pho-mai' ||
+        pathname === '/cach-nau-hau-nuong-pho-mai' ||
+        pathname === '/cach-lam-hau-nuong' ||
+        pathname === '/cach-nau-hau-nuong'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-hau-nuong-mo-hanh-pho-mai');
       } else if (pathname === '/cach-nau-bun-ca-ngu-phu-yen' || pathname === '/cach-lam-bun-ca-ngu-phu-yen') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-bun-ca-ngu');
       } else if (pathname === '/cach-nau-muc-mot-nang-nuong-sa-te') {

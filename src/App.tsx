@@ -137,6 +137,17 @@ export default function App() {
       ) {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bo-bit-tet-sot-tieu');
       } else if (
+        pathname === '/cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem-thom-lung-khoi-than' ||
+        pathname === '/cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem' ||
+        pathname === '/cach-nau-bo-nuong-tang-trung-muoi-da-gion-thit-mem' ||
+        pathname === '/cach-nau-bo-nuong-tang-trung-muoi' ||
+        pathname === '/cach-lam-bo-nuong-tang-sot-trung-muoi' ||
+        pathname === '/cach-nau-bo-nuong-tang-sot-trung-muoi' ||
+        pathname === '/cach-lam-bo-nuong-tang' ||
+        pathname === '/cach-nau-bo-nuong-tang'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-bo-nuong-tang-trung-muoi');
+      } else if (
         pathname === '/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem-thom-lung-khoi-than' ||
         pathname === '/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem' ||
         pathname === '/cach-nau-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem' ||

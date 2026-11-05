@@ -1,6 +1,126 @@
 import { Dish, DishRecipe } from '../types';
 
 export const CURATED_RECIPES: Record<string, DishRecipe> = {
+  'bo-nuong-tang-trung-muoi': {
+    dishId: 'bo-nuong-tang-trung-muoi',
+    dishName: 'Bò Tơ Nướng Tảng Sốt Trứng Muối Phô Mai Chảo Gang',
+    seoTitle: 'Cách Làm Bò Nướng Tảng Trứng Muối',
+    description:
+      'Bí quyết làm bò nướng tảng sốt trứng muối phô mai chảo gang thịt mềm ngọt mọng nước, sốt trứng muối bùi béo dẻo quánh kéo sợi phô mai thơm nức mũi ăn cùng bánh mì nóng giòn.',
+    ratingValue: '4.9',
+    reviewCount: 425,
+    prepTime: '20 phút',
+    cookTime: '15 phút',
+    totalTime: '35 phút',
+    calories: '750 kcal',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người',
+    ingredients: [
+      {
+        category: 'Bò tơ nướng tảng nguyên miếng',
+        items: [
+          '600g - 800g thịt thăn bò tơ hoặc nạc vai bò tươi (cắt tảng dày 2.5 - 3cm)',
+          '1 thìa canh dầu hào Maggi',
+          '1 thìa canh dầu màu điều lên màu óng ả',
+          '1 thìa cà phê tiêu sọ đen giã dập, 1/2 thìa cà phê bột tỏi, 1/2 thìa cà phê hạt nêm',
+          '1 thìa canh dầu ăn sạch giúp giữ trọn độ ẩm thịt',
+        ],
+      },
+      {
+        category: 'Sốt trứng muối bơ béo dẻo quánh',
+        items: [
+          '5 lòng đỏ trứng muối hấp chín tán nhuyễn mịn',
+          '30g bơ lạt động vật thơm ngậy',
+          '50ml sữa tươi không đường và 2 thìa canh sữa đặc có đường',
+          '1 thìa canh sốt Mayonnaise tạo độ béo sánh mượt',
+          '1 thìa cà phê nước mắm ngon, 1/2 thìa cà phê ớt bột Hàn Quốc tạo màu',
+        ],
+      },
+      {
+        category: 'Phô mai kéo sợi & Topping chảo gang',
+        items: [
+          '100g phô mai Mozzarella bào sợi kéo màng dai béo',
+          '1/2 củ hành tây thái múi cau mỏng lót đáy chảo',
+          '1 nắm hành lá thái nhỏ và ớt sừng sợi',
+        ],
+      },
+      {
+        category: 'Bánh mì giòn & Đồ ăn kèm',
+        items: [
+          '3 - 4 ổ bánh mì nướng giòn rụm nóng hổi',
+          'Dưa leo giòn mát, rau xà lách, kim chi chua ngọt giải ngấy',
+          '1 chén sốt ớt xanh hải sản hoặc muối tiêu chanh ớt',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế bò tảng & Tẩm ướp giữ trọn độ ẩm ngọt thịt',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Tảng thịt bò ráo mịn, thấm đều gia vị nhẹ nhàng, giữ lại trọn vẹn nước ngọt tự nhiên',
+        actionPoints: [
+          'Tảng thịt bò tơ rửa nhanh với nước muối loãng, dùng khăn giấy đa năng thấm thật khô ráo toàn bộ bề mặt. Tuyệt đối không ngâm nước lâu làm nhạt vị ngọt tự nhiên của thịt.',
+          'Dùng búa đập thịt hoặc sống dao dập nhẹ lên hai mặt tảng bò để làm mềm các bó cơ, giúp thịt khi nướng chín mềm tơi mà không bị dai co rút.',
+          'Ướp tảng thịt bò với: 1 thìa canh dầu hào, 1 thìa canh dầu màu điều, tiêu sọ giã dập, bột tỏi, hạt nêm và 1 thìa canh dầu ăn. Thoa đều hai mặt thịt và để ngấm trong 15 - 20 phút.',
+        ],
+        description:
+          'Thấm khô tảng thịt bò, dùng sống dao dập nhẹ làm mềm thớ cơ. Thoa đều dầu hào, dầu điều, tiêu, bột tỏi và dầu ăn ướp 15 - 20 phút cho thấm vị.',
+        tip: 'Ướp thêm 1 thìa dầu ăn giúp khóa ẩm bề mặt, khi nướng ở nhiệt cao nước ngọt trong thớ thịt không bị bốc hơi ra ngoài.',
+      },
+      {
+        step: 2,
+        title: 'Chế biến sốt trứng muối bùi béo vàng óng dẻo quánh',
+        time: '8 phút',
+        heat: 'Lửa nhỏ liu riu',
+        goal: 'Sốt trứng muối mịn mượt không vón cục, thơm nức mùi bơ, vị bùi mặn ngọt cân bằng',
+        actionPoints: [
+          'Lòng đỏ trứng muối rửa qua rượu trắng và gừng khử tanh, đem hấp chín trong 7 - 8 phút. Lấy ra dùng dĩa hoặc máy xay tán thật nhuyễn mịn tơi xốp.',
+          'Đặt chảo nhỏ lên bếp, đun chảy 30g bơ lạt rồi trút trứng muối nhuyễn vào đảo đều trên lửa nhỏ cho trứng muối sôi sủi bọt thơm lừng.',
+          'Thêm 50ml sữa tươi không đường, 2 thìa canh sữa đặc, 1 thìa canh mayonnaise, 1 thìa cà phê nước mắm và ớt bột. Dùng phới lồng khuấy đều tay liên tục đến khi hỗn hợp hòa quyện thành chất sốt sánh mịn, vàng ươm óng ả thì tắt bếp.',
+        ],
+        description:
+          'Rửa rượu hấp chín trứng muối rồi tán nhuyễn. Phi thơm bơ lạt, cho trứng muối vào đảo sủi bọt thơm rồi thêm sữa tươi, sữa đặc, mayonnaise khuấy thành sốt sánh mịn vàng óng.',
+        tip: 'Hấp trứng muối với chút rượu gừng giúp loại bỏ hoàn toàn mùi tanh, khi nấu sốt sẽ dậy mùi thơm béo ngậy hấp dẫn.',
+      },
+      {
+        step: 3,
+        title: 'Nướng tảng bò xém vàng trên than hoa hoặc chảo gang',
+        time: '6 - 8 phút',
+        heat: 'Lửa lớn - Than hoa đỏ hồng hoặc Chảo gang siêu nóng',
+        goal: 'Tảng thịt xém nâu cạnh thơm nức mùi khói, lõi thịt chín hồng đào mọng nước ngọt lịm',
+        actionPoints: [
+          'Đặt tảng bò lên vỉ than hoa đỏ hồng (hoặc chảo gang thật nóng già có thoa chút bơ). Nướng lửa lớn mỗi mặt khoảng 3 phút cho lớp ngoài xém vàng nâu óng ả.',
+          'Lật mặt thịt, áp nhanh các cạnh viền cho se mỡ giòn thơm. Canh thịt chín tới ở mức Medium (khoảng 70% - 75%) để thịt giữ trọn độ mọng nước ngọt ngào.',
+          'Gắp tảng bò ra thớt, dùng dao thật sắc thái thành các lát dày 1 - 1.5cm vừa ăn.',
+        ],
+        description:
+          'Nướng tảng bò trên than hoa đỏ hồng hoặc chảo gang nóng mỗi mặt 3 phút cho xém nâu thơm nức khói than. Thái lát dày 1 - 1.5cm giữ lõi thịt hồng đào mọng nước.',
+        tip: 'Không nướng bò chín kỹ 100% trên vỉ vì sau đó thịt còn được đun sôi trên chảo gang cùng sốt trứng muối; nướng chín tới giúp thịt giữ được độ mềm tan.',
+      },
+      {
+        step: 4,
+        title: 'Đun sôi chảo gang sốt trứng muối phô mai kéo sợi & Thưởng thức',
+        time: '4 phút',
+        heat: 'Lửa vừa nhỏ',
+        goal: 'Chảo gang xèo xèo sôi sùng sục, phô mai kéo sợi dài béo ngậy, sốt trứng muối quyện đều từng thớ thịt',
+        actionPoints: [
+          'Đặt chảo gang con bò lên bếp cho thật nóng, láng 1 thìa bơ lạt rồi rải đều hành tây thái múi cau lót đáy chảo.',
+          'Xếp các lát bò tơ đã thái vào một bên chảo gang. Bên còn lại rót đẫm nước sốt trứng muối vàng óng, rắc ngập phô mai Mozzarella bào sợi lên trên sốt.',
+          'Đun trên lửa vừa đến khi chảo gang reo xì xèo, sốt trứng muối sôi lục bục và phô mai tan chảy kéo sợi dẻo quánh. Rắc hành lá thái nhỏ và tiêu đen lên trên.',
+          'Bưng nguyên chảo gang nóng hổi ra bàn gỗ: Dùng nĩa gắp miếng thịt bò mềm tan quệt ngập vào dòng sốt trứng muối bùi ngậy kéo sợi phô mai dai béo, kẹp bánh mì giòn rụm chấm đẫm sốt ăn kèm kim chi và dưa leo mát lạnh.',
+        ],
+        description:
+          'Đun nóng chảo gang có bơ và hành tây, xếp thịt bò lát và rót đẫm sốt trứng muối, rắc ngập Mozzarella sợi. Đun xì xèo cho phô mai tan chảy kéo sợi, rắc tiêu hành rồi chấm cùng bánh mì giòn nóng.',
+        tip: 'Chảo gang giữ nhiệt cực lâu giúp sốt trứng muối luôn sôi sùng sục bốc khói và phô mai không bị đông cứng trong suốt bữa ăn.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng cho món bò nướng tảng sốt trứng muối ngon chuẩn vị phố nướng: 1. Đập nhẹ tảng bò và thoa 1 thìa dầu ăn giúp khóa chặt nước ngọt trong thớ thịt, nướng chín tới 70% để thịt mềm mọng không bị dai khô; 2. Sốt trứng muối tán thật nhuyễn mịn, đun chảy cùng bơ lạt và sữa đặc giúp sốt dẻo quánh vàng ươm bùi béo ngậy; 3. Dùng chảo gang giữ nhiệt cao, rải hành tây lót đáy chống cháy khét thịt, đun sôi xì xèo cùng phô mai Mozzarella kéo sợi thơm lừng ăn kèm bánh mì giòn tan bùng nổ vị giác.',
+    recommendedSauce:
+      'Sốt trứng muối bơ béo dẻo quánh phủ phô mai Mozzarella kéo sợi, chấm kèm sốt ớt xanh hải sản chua cay hoặc sốt tiêu đen đậm đà.',
+  },
   'hau-nuong-mo-hanh-pho-mai': {
     dishId: 'hau-nuong-mo-hanh-pho-mai',
     dishName: 'Hàu Sữa Nướng Mỡ Hành & Phô Mai Kéo Sợi',
@@ -15976,6 +16096,7 @@ export function getDishRecipe(dish: Dish): DishRecipe {
  * Tất cả các món ăn khác trên các trang khác (Vòng quay, Thực đơn tuần, Món ngon, Ẩm thực vùng miền...) vẫn giữ nguyên đầy đủ.
  */
 export const ACTIVE_RECIPE_DISH_IDS: string[] = [
+  'bo-nuong-tang-trung-muoi',
   'hau-nuong-mo-hanh-pho-mai',
   'bo-bit-tet-sot-tieu',
   'chim-cut-quay-la-mac-mat',
@@ -16012,6 +16133,7 @@ export function getActiveRecipeDishes(allDishes: Dish[]): Dish[] {
 }
 
 export const FEATURED_RECIPE_IDS = [
+  'bo-nuong-tang-trung-muoi',
   'hau-nuong-mo-hanh-pho-mai',
   'bo-bit-tet-sot-tieu',
   'chim-cut-quay-la-mac-mat',
@@ -16028,6 +16150,7 @@ export const FEATURED_RECIPE_IDS = [
 ];
 
 export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
+  'bo-nuong-tang-trung-muoi': 'cach-lam-bo-nuong-tang-trung-muoi',
   'hau-nuong-mo-hanh-pho-mai': 'cach-lam-hau-nuong-mo-hanh-pho-mai',
   'bo-bit-tet-sot-tieu': 'cach-lam-bo-bit-tet-sot-tieu',
   'chim-cut-quay-la-mac-mat': 'cach-lam-chim-cut-quay-da-gion-la-mac-mat',
@@ -16170,6 +16293,18 @@ export function getRecipePath(dish: Dish): string {
 }
 
 export const RECIPE_SLUG_ALIASES: Record<string, string> = {
+  'bo-nuong-tang-trung-muoi': 'bo-nuong-tang-trung-muoi',
+  'cach-lam-bo-nuong-tang-trung-muoi': 'bo-nuong-tang-trung-muoi',
+  'cach-nau-bo-nuong-tang-trung-muoi': 'bo-nuong-tang-trung-muoi',
+  'cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem-thom-lung-khoi-than': 'bo-nuong-tang-trung-muoi',
+  'cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem': 'bo-nuong-tang-trung-muoi',
+  'cach-nau-bo-nuong-tang-trung-muoi-da-gion-thit-mem': 'bo-nuong-tang-trung-muoi',
+  'cach-lam-bo-nuong-tang-sot-trung-muoi': 'bo-nuong-tang-trung-muoi',
+  'cach-nau-bo-nuong-tang-sot-trung-muoi': 'bo-nuong-tang-trung-muoi',
+  'bo-nuong-tang-sot-trung-muoi': 'bo-nuong-tang-trung-muoi',
+  'cach-lam-bo-nuong-tang': 'bo-nuong-tang-trung-muoi',
+  'cach-nau-bo-nuong-tang': 'bo-nuong-tang-trung-muoi',
+  'bo-nuong-tang': 'bo-nuong-tang-trung-muoi',
   'hau-nuong-mo-hanh-pho-mai': 'hau-nuong-mo-hanh-pho-mai',
   'cach-lam-hau-nuong-mo-hanh-pho-mai': 'hau-nuong-mo-hanh-pho-mai',
   'cach-nau-hau-nuong-mo-hanh-pho-mai': 'hau-nuong-mo-hanh-pho-mai',

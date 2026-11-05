@@ -2877,6 +2877,30 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-bo-bit-tet-sot-tieu");
   });
 
+  // 301 Permanent Redirect for bo nuong tang trung muoi recipe aliases requested by user
+  app.get([
+    "/cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem-thom-lung-khoi-than",
+    "/cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem-thom-lung-khoi-than/",
+    "/cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem",
+    "/cach-lam-bo-nuong-tang-trung-muoi-da-gion-thit-mem/",
+    "/cach-nau-bo-nuong-tang-trung-muoi-da-gion-thit-mem",
+    "/cach-nau-bo-nuong-tang-trung-muoi-da-gion-thit-mem/",
+    "/cach-nau-bo-nuong-tang-trung-muoi",
+    "/cach-nau-bo-nuong-tang-trung-muoi/",
+    "/cach-lam-bo-nuong-tang-sot-trung-muoi",
+    "/cach-lam-bo-nuong-tang-sot-trung-muoi/",
+    "/cach-nau-bo-nuong-tang-sot-trung-muoi",
+    "/cach-nau-bo-nuong-tang-sot-trung-muoi/",
+    "/cach-lam-bo-nuong-tang",
+    "/cach-lam-bo-nuong-tang/",
+    "/cach-nau-bo-nuong-tang",
+    "/cach-nau-bo-nuong-tang/",
+    "/bo-nuong-tang",
+    "/bo-nuong-tang/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-bo-nuong-tang-trung-muoi");
+  });
+
   // 301 Permanent Redirect for hau nuong recipe aliases requested by user
   app.get([
     "/cach-lam-hau-nuong-mo-hanh-pho-mai-da-gion-thit-mem-thom-lung-khoi-than",

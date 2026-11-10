@@ -88,6 +88,7 @@ export default defineConfig(() => {
       VitePWA({
         injectRegister: 'script-defer',
         registerType: 'autoUpdate',
+        includeManifestIcons: false,
         includeAssets: [
           'favicon.ico',
           'favicon-64x64.png',
@@ -96,8 +97,6 @@ export default defineConfig(() => {
           'logo.svg',
           'logo.png',
           'pwa-192x192.png',
-          'pwa-512x512.png',
-          'pwa-maskable-512x512.png',
         ],
         manifest: {
           id: '/',
@@ -161,12 +160,18 @@ export default defineConfig(() => {
           clientsClaim: true,
           cleanupOutdatedCaches: true,
           globPatterns: ['**/*.{js,css,ico,woff,woff2}'],
-          globIgnores: ['**/recipes-data-*.js', '**/seo-faq-data-*.js', '**/AdminBlogPage-*.js'],
+          globIgnores: [
+            '**/recipes-data-*.js',
+            '**/seo-faq-data-*.js',
+            '**/AdminBlogPage-*.js',
+            '**/FoodDiscoveryPage-*.js',
+            '**/pwa-512*.png',
+          ],
           navigateFallback: null,
           navigateFallbackDenylist: [/^\/api\//, /^\/admin/, /^\/custom_blog_posts\.json/, /^\/deleted_posts\.json/],
           runtimeCaching: [
             {
-              urlPattern: /\/assets\/(?:recipes-data|seo-faq-data|AdminBlogPage)-.*\.js$/i,
+              urlPattern: /\/assets\/(?:recipes-data|seo-faq-data|AdminBlogPage|FoodDiscoveryPage)-.*\.js$/i,
               handler: 'CacheFirst',
               options: {
                 cacheName: 'heavy-chunks-cache',

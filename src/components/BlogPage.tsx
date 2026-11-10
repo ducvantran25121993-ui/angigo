@@ -36,7 +36,7 @@ import {
   getPostReviewsData,
 } from '../data/blogPosts';
 import { INITIAL_DISHES } from '../data/dishes';
-import { findDishByRecipeSlug, getRecipePath } from '../data/recipes';
+import { findDishByRecipeSlug, getRecipePath } from '../data/recipeSlugs';
 import { Dish } from '../types';
 import { TabType } from '../utils/navigation';
 

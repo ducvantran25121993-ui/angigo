@@ -15,7 +15,7 @@ import {
 } from './utils/location';
 import { getTabFromUrl, updateTabSEO, updateRegionSEO, TAB_CONFIG, TabType, isBlogPostSlug } from './utils/navigation';
 import { getRegionFromUrl, isRegionPath } from './data/regionalCuisine';
-import { findDishByRecipeSlug } from './data/recipes';
+import { findDishByRecipeSlug } from './data/recipeSlugs';
 import { fetchAndSyncCustomPosts } from './data/blogPosts';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { ErrorBoundary } from './components/ErrorBoundary';

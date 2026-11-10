@@ -161,9 +161,24 @@ export default defineConfig(() => {
           clientsClaim: true,
           cleanupOutdatedCaches: true,
           globPatterns: ['**/*.{js,css,ico,woff,woff2}'],
+          globIgnores: ['**/recipes-data-*.js', '**/seo-faq-data-*.js', '**/AdminBlogPage-*.js'],
           navigateFallback: null,
           navigateFallbackDenylist: [/^\/api\//, /^\/admin/, /^\/custom_blog_posts\.json/, /^\/deleted_posts\.json/],
           runtimeCaching: [
+            {
+              urlPattern: /\/assets\/(?:recipes-data|seo-faq-data|AdminBlogPage)-.*\.js$/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'heavy-chunks-cache',
+                expiration: {
+                  maxEntries: 10,
+                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
             {
               urlPattern: /\.(?:png|jpg|jpeg|svg|webp|ico)$/i,
               handler: 'CacheFirst',
@@ -257,6 +272,9 @@ export default defineConfig(() => {
             }
             if (id.includes('node_modules/lucide-react/')) {
               return 'vendor-lucide';
+            }
+            if (id.includes('src/data/recipeSlugs.ts')) {
+              return 'recipe-slugs';
             }
             if (id.includes('src/data/recipes.ts')) {
               return 'recipes-data';

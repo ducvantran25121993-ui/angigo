@@ -2,7 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { INITIAL_DISHES } from './dishes';
 import { REGIONAL_CUISINES } from './regionalCuisine';
-import { getDishRecipe, getRecipeSlug, getRecipeArticleTitle, formatRecipeSeoTitle, RECIPE_SLUG_ALIASES } from './recipes';
+import { getDishRecipe } from './recipes';
+import { getRecipeSlug, getRecipeArticleTitle, formatRecipeSeoTitle, RECIPE_SLUG_ALIASES } from './recipeSlugs';
 import { INITIAL_BLOG_POSTS, BLOG_SLUG_ALIASES } from './blogPosts';
 
 export interface RouteSeoMeta {

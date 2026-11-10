@@ -58,14 +58,14 @@ import {
   getTrayIngredients,
 } from '../data/dailyMenus';
 import { getCurrentDayId } from '../utils/mealPlanner';
+import { getDishRecipe } from '../data/recipes';
 import {
-  getDishRecipe,
   getRecipeSlug,
   getRecipePath,
   findDishByRecipeSlug,
   formatRecipeSeoTitle,
   getRecipeArticleTitle,
-} from '../data/recipes';
+} from '../data/recipeSlugs';
 import { getFamilyMealDishRecipe, FamilyDishRecipe } from '../data/familyDishRecipes';
 
 export const RECIPE_CATEGORIES = [

@@ -9,7 +9,8 @@ import dotenv from "dotenv";
 import { getAllSeoRoutes } from "./src/data/seoRoutes";
 import { BLOG_SLUG_ALIASES, INITIAL_BLOG_POSTS } from "./src/data/blogPosts";
 import { INITIAL_DISHES } from "./src/data/dishes";
-import { getDishRecipe, getRecipeSlug, getRecipePath, getRecipeArticleTitle, formatRecipeSeoTitle, formatRecipeIngredientsForSchema, findDishByRecipeSlug, RECIPE_SLUG_ALIASES, CUSTOM_RECIPE_SLUGS } from "./src/data/recipes";
+import { getDishRecipe } from "./src/data/recipes";
+import { getRecipeSlug, getRecipePath, getRecipeArticleTitle, formatRecipeSeoTitle, formatRecipeIngredientsForSchema, findDishByRecipeSlug, RECIPE_SLUG_ALIASES, CUSTOM_RECIPE_SLUGS } from "./src/data/recipeSlugs";
 import { getDishImageByName } from "./src/utils/dishImageCatalog";
 
 function parseMinutesToIso(str?: string): string {

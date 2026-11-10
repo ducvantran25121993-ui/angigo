@@ -8,7 +8,7 @@ import {
   getDiscoverSubSectionFromUrl,
 } from '../utils/navigation';
 import { getRegionFromUrl, getRegionById, isRegionPath, RegionId } from '../data/regionalCuisine';
-import { findDishByRecipeSlug, getDishRecipe, getRecipeArticleTitle, getRecipePath } from '../data/recipes';
+import { findDishByRecipeSlug, getRecipeArticleTitle, getRecipePath } from '../data/recipeSlugs';
 import { INITIAL_DISHES } from '../data/dishes';
 
 interface BreadcrumbsProps {
@@ -83,7 +83,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     currentPathname !== '/cach-nau-mon-ngon';
 
   const recipeDish = isRecipeArticle ? findDishByRecipeSlug(currentPathname, INITIAL_DISHES) : null;
-  const recipeArticleTitle = recipeDish ? getRecipeArticleTitle(recipeDish, getDishRecipe(recipeDish)) : null;
+  const recipeArticleTitle = recipeDish ? getRecipeArticleTitle(recipeDish) : null;
 
   // Check if article was navigated to from a specific region
   const stateReturnRegionId = typeof window !== 'undefined' ? (window.history.state?.returnRegion as RegionId | undefined) : undefined;

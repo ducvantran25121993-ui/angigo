@@ -3,7 +3,8 @@ import path from 'path';
 import { getAllSeoRoutes, RouteSeoMeta } from '../src/data/seoRoutes';
 import { INITIAL_DISHES } from '../src/data/dishes';
 import { INITIAL_BLOG_POSTS } from '../src/data/blogPosts';
-import { getDishRecipe, getRecipeSlug, formatRecipeIngredientsForSchema, findDishByRecipeSlug } from '../src/data/recipes';
+import { getDishRecipe } from '../src/data/recipes';
+import { getRecipeSlug, formatRecipeIngredientsForSchema, findDishByRecipeSlug } from '../src/data/recipeSlugs';
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';

@@ -3,7 +3,7 @@ import { getRegionById, isRegionPath } from '../data/regionalCuisine';
 import { KNOWN_BLOG_SLUGS } from '../data/blogSlugs';
 import { getDeletedPostSlugs } from '../data/blogPosts';
 import { INITIAL_DISHES } from '../data/dishes';
-import { findDishByRecipeSlug } from '../data/recipes';
+import { findDishByRecipeSlug } from '../data/recipeSlugs';
 
 export function isBlogPostSlug(slug: string): boolean {
   if (!slug) return false;
@@ -448,7 +448,7 @@ export function updateRegionSEO(regionId: RegionId): void {
  */
 export async function updateRecipeArticleSEO(dish: Dish, recipe?: DishRecipe): Promise<void> {
   if (typeof document === 'undefined') return;
-  const { getRecipePath, getRecipeArticleTitle, formatRecipeSeoTitle } = await import('../data/recipes');
+  const { getRecipePath, getRecipeArticleTitle, formatRecipeSeoTitle } = await import('../data/recipeSlugs');
   const recipePath = getRecipePath(dish);
   const articleTitle = getRecipeArticleTitle(dish, recipe);
   const title = formatRecipeSeoTitle(articleTitle);

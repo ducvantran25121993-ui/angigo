@@ -232,6 +232,19 @@ export default function App() {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-nau-com-ca-kho-to');
       } else if (pathname === '/an-gi-cho-do-ngan') {
         window.history.replaceState({ tab: 'blog' }, '', '/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha');
+      } else if (
+        pathname === '/mon-ngon-tu-chan-gio-heo' ||
+        pathname === '/gio-heo-lam-mon-gi-ngon' ||
+        pathname === '/chan-gio-heo-nau-mon-gi-ngon' ||
+        pathname === '/chan-gio-heo-lam-mon-gi-ngon' ||
+        pathname === '/chan-gio-nau-mon-gi-ngon' ||
+        pathname === '/chan-gio-lam-mon-gi-ngon' ||
+        pathname === '/gio-heo-nau-gi-ngon' ||
+        pathname === '/gio-heo-lam-gi-ngon' ||
+        pathname === '/mon-ngon-tu-gio-heo' ||
+        pathname === '/mon-ngon-tu-chan-gio'
+      ) {
+        window.history.replaceState({ tab: 'blog' }, '', '/gio-heo-nau-mon-gi-ngon');
       }
     }
     return tab;

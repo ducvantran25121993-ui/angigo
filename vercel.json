@@ -731,6 +731,76 @@
       "source": "/an-gi-cho-do-ngan/",
       "destination": "/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha",
       "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-chan-gio-heo",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-chan-gio-heo/",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/gio-heo-lam-mon-gi-ngon",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/gio-heo-lam-mon-gi-ngon/",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/chan-gio-heo-nau-mon-gi-ngon",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/chan-gio-heo-nau-mon-gi-ngon/",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/chan-gio-nau-mon-gi-ngon",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/chan-gio-nau-mon-gi-ngon/",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/chan-gio-heo-lam-mon-gi-ngon",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/chan-gio-heo-lam-mon-gi-ngon/",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-gio-heo",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-gio-heo/",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-chan-gio",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-chan-gio/",
+      "destination": "/gio-heo-nau-mon-gi-ngon",
+      "permanent": true
     }
   ],
   "headers": [

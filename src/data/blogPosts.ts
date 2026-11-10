@@ -1269,7 +1269,7 @@ let _cachedFetchSyncPosts: BlogPost[] | null = null;
 export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<BlogPost[]> {
   if (typeof window === 'undefined') return [];
   const now = Date.now();
-  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 60000)) {
+  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 300000)) {
     return _cachedFetchSyncPosts;
   }
   _lastFetchSyncTime = now;
@@ -1480,16 +1480,10 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
     } catch {}
   }
 
-  // 2. Try fetching from fresh /custom_blog_posts.json (with cache: 'no-store')
+  // 2. Try fetching from /custom_blog_posts.json (with standard ETag / HTTP cache)
   if (typeof window !== 'undefined') {
     try {
-      const res = await fetch(`/custom_blog_posts.json?_t=${Date.now()}`, {
-        cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache',
-        },
-      });
+      const res = await fetch('/custom_blog_posts.json');
       if (res.ok) {
         const list = await res.json();
         if (Array.isArray(list)) {

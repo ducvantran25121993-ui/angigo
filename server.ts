@@ -1306,12 +1306,21 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
 // Trigger initial sync on startup in background
 syncFirestorePostsToServer().catch(() => {});
 
-// Direct static JSON endpoint with no-store Cache-Control so multi-device edits reflect immediately
+// Direct static JSON endpoint with ETag and stale-while-revalidate caching to eliminate wasted bandwidth
 app.get("/custom_blog_posts.json", async (req, res) => {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const posts = await syncFirestorePostsToServer();
-  return res.send(JSON.stringify(posts));
+  const jsonStr = JSON.stringify(posts);
+  const etag = `W/"${Buffer.byteLength(jsonStr)}-${posts.length}-${posts[0]?.updatedAt || posts[0]?.publishedAt || ''}"`;
+  res.setHeader("ETag", etag);
+
+  if (req.headers["if-none-match"] === etag) {
+    res.setHeader("Cache-Control", "public, max-age=120, stale-while-revalidate=600");
+    return res.status(304).end();
+  }
+
+  res.setHeader("Cache-Control", "public, max-age=120, stale-while-revalidate=600");
+  return res.send(jsonStr);
 });
 
 // Endpoint for deleted post slugs (synced from Cloud Firestore)

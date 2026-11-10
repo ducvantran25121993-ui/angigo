@@ -30,6 +30,84 @@ function formatIngredients(groups?: Array<{ category: string; items: string[] }>
 
 dotenv.config();
 
+// Silence benign internal Firestore gRPC idle stream disconnection messages in Node.js
+const isBenignFirestoreNotice = (args: any[]) => {
+  try {
+    for (const a of args) {
+      if (!a) continue;
+      const s = typeof a === 'string' ? a : (a.message || a.stack || (typeof a === 'object' ? JSON.stringify(a) : String(a)));
+      if (
+        typeof s === 'string' &&
+        (s.includes('Disconnecting idle stream') ||
+         s.includes('Timed out waiting for new targets') ||
+         (s.includes('GrpcConnection') && s.includes('CANCELLED')) ||
+         (s.includes('@firebase/firestore') && s.includes('idle stream')))
+      ) {
+        return true;
+      }
+    }
+  } catch {}
+  return false;
+};
+
+const origConsoleError = console.error.bind(console);
+const origConsoleWarn = console.warn.bind(console);
+console.error = (...args: any[]) => {
+  if (isBenignFirestoreNotice(args)) return;
+  origConsoleError(...args);
+};
+console.warn = (...args: any[]) => {
+  if (isBenignFirestoreNotice(args)) return;
+  origConsoleWarn(...args);
+};
+
+if (typeof process !== 'undefined' && process.stderr && typeof process.stderr.write === 'function') {
+  const origStderrWrite = process.stderr.write.bind(process.stderr);
+  (process.stderr as any).write = function (chunk: any, encoding?: any, callback?: any): boolean {
+    const str = typeof chunk === 'string' ? chunk : chunk?.toString() || '';
+    if (
+      str.includes('Disconnecting idle stream') ||
+      str.includes('Timed out waiting for new targets') ||
+      (str.includes('GrpcConnection') && str.includes('CANCELLED')) ||
+      (str.includes('@firebase/firestore') && str.includes('idle stream'))
+    ) {
+      if (typeof callback === 'function') callback();
+      return true;
+    }
+    return origStderrWrite(chunk, encoding, callback);
+  };
+}
+
+let _serverFirestoreInstance: any = null;
+
+async function getServerFirestore() {
+  if (_serverFirestoreInstance) return _serverFirestoreInstance;
+  const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+  if (!fs.existsSync(configPath)) return null;
+  try {
+    const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+    const { initializeApp, getApps, getApp } = await import("firebase/app");
+    const { initializeFirestore, getFirestore, setLogLevel } = await import("firebase/firestore");
+    setLogLevel("silent");
+    const app = getApps().length === 0 ? initializeApp(config) : getApp();
+    try {
+      _serverFirestoreInstance = initializeFirestore(
+        app,
+        {
+          experimentalAutoDetectLongPolling: true,
+        },
+        config.firestoreDatabaseId
+      );
+    } catch {
+      _serverFirestoreInstance = getFirestore(app, config.firestoreDatabaseId);
+    }
+    return _serverFirestoreInstance;
+  } catch (err) {
+    console.warn("Could not initialize server Firestore:", err);
+    return null;
+  }
+}
+
 // Compile-time define replaced by esbuild for the production bundle
 declare const __IS_PRODUCTION_BUILD__: boolean | undefined;
 
@@ -1037,13 +1115,9 @@ async function syncFirestoreDeletedPosts(): Promise<string[]> {
     return loadDeletedPostSlugs();
   }
   try {
-    const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-    if (!fs.existsSync(configPath)) return loadDeletedPostSlugs();
-    const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-    const { initializeApp, getApps, getApp } = await import("firebase/app");
-    const { getFirestore, collection, getDocs } = await import("firebase/firestore");
-    const app = getApps().length === 0 ? initializeApp(config) : getApp();
-    const db = getFirestore(app, config.firestoreDatabaseId);
+    const db = await getServerFirestore();
+    if (!db) return loadDeletedPostSlugs();
+    const { collection, getDocs } = await import("firebase/firestore");
     const snap = await Promise.race([
       getDocs(collection(db, "deleted_posts")),
       new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 6000)),
@@ -1183,13 +1257,9 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
     return loadCustomBlogPosts();
   }
   try {
-    const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-    if (!fs.existsSync(configPath)) return loadCustomBlogPosts();
-    const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-    const { initializeApp, getApps, getApp } = await import("firebase/app");
-    const { getFirestore, collection, getDocs } = await import("firebase/firestore");
-    const app = getApps().length === 0 ? initializeApp(config) : getApp();
-    const db = getFirestore(app, config.firestoreDatabaseId);
+    const db = await getServerFirestore();
+    if (!db) return loadCustomBlogPosts();
+    const { collection, getDocs } = await import("firebase/firestore");
     const snap = await Promise.race([
       getDocs(collection(db, "posts")),
       new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 6000)),
@@ -1488,13 +1558,9 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
   // 4. Targeted Firestore lookup for this specific document (only if quota not exceeded)
   if (Date.now() >= firestoreQuotaExceededUntil) {
     try {
-      const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-      if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-        const { initializeApp, getApps, getApp } = await import("firebase/app");
-        const { getFirestore, doc, getDoc } = await import("firebase/firestore");
-        const app = getApps().length === 0 ? initializeApp(config) : getApp();
-        const db = getFirestore(app, config.firestoreDatabaseId);
+      const db = await getServerFirestore();
+      if (db) {
+        const { doc, getDoc } = await import("firebase/firestore");
 
         const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
         let snap = await Promise.race([
@@ -2143,13 +2209,9 @@ app.post("/api/admin/posts", async (req, res) => {
     // Persist to Firestore asynchronously in background so API responds in < 20ms
     (async () => {
       try {
-        const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-        if (fs.existsSync(configPath)) {
-          const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-          const { initializeApp, getApps, getApp } = await import("firebase/app");
-          const { getFirestore, doc, setDoc, deleteDoc } = await import("firebase/firestore");
-          const app = getApps().length === 0 ? initializeApp(config) : getApp();
-          const db = getFirestore(app, config.firestoreDatabaseId);
+        const db = await getServerFirestore();
+        if (db) {
+          const { doc, setDoc, deleteDoc } = await import("firebase/firestore");
           const docId = cleanSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
           await setDoc(doc(db, "posts", docId), {
             id: savedPost.id,
@@ -2226,13 +2288,9 @@ app.delete("/api/admin/posts/:slugOrId", async (req, res) => {
 
     // 3. Remove from Cloud Firestore
     try {
-      const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-      if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-        const { initializeApp, getApps, getApp } = await import("firebase/app");
-        const { getFirestore, doc, deleteDoc, setDoc, collection, getDocs } = await import("firebase/firestore");
-        const app = getApps().length === 0 ? initializeApp(config) : getApp();
-        const db = getFirestore(app, config.firestoreDatabaseId);
+      const db = await getServerFirestore();
+      if (db) {
+        const { doc, deleteDoc, setDoc, collection, getDocs } = await import("firebase/firestore");
 
         const docId1 = cleanSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
         await deleteDoc(doc(db, "posts", docId1)).catch(() => {});
@@ -2434,13 +2492,9 @@ app.post("/api/admin/posts/import", (req, res) => {
       try {
         const toCloud = sanitizedIncoming.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
         if (toCloud.length === 0) return;
-        const configPath = path.join(process.cwd(), "firebase-applet-config.json");
-        if (!fs.existsSync(configPath)) return;
-        const config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
-        const { initializeApp, getApps, getApp } = await import("firebase/app");
-        const { getFirestore, doc, setDoc } = await import("firebase/firestore");
-        const fbApp = getApps().length === 0 ? initializeApp(config) : getApp();
-        const db = getFirestore(fbApp, config.firestoreDatabaseId);
+        const db = await getServerFirestore();
+        if (!db) return;
+        const { doc, setDoc } = await import("firebase/firestore");
         for (const p of toCloud) {
           const docId = p.slug.replace(/[^a-zA-Z0-9_\-]/g, "-").slice(0, 120);
           await setDoc(doc(db, "posts", docId), {

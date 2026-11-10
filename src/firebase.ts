@@ -24,34 +24,50 @@ import {
 setLogLevel('silent');
 
 // Silence benign internal Firestore gRPC idle stream disconnection messages
-if (typeof window !== 'undefined') {
-  const isBenignNotice = (args: any[]) => {
-    try {
-      for (const a of args) {
-        if (!a) continue;
-        const s = typeof a === 'string' ? a : (a.message || a.stack || (typeof a === 'object' ? JSON.stringify(a) : String(a)));
-        if (
-          typeof s === 'string' &&
-          (s.includes('Disconnecting idle stream') ||
-           s.includes('Timed out waiting for new targets') ||
-           (s.includes('GrpcConnection') && s.includes('CANCELLED')))
-        ) {
-          return true;
-        }
+const isBenignNotice = (args: any[]) => {
+  try {
+    for (const a of args) {
+      if (!a) continue;
+      const s = typeof a === 'string' ? a : (a.message || a.stack || (typeof a === 'object' ? JSON.stringify(a) : String(a)));
+      if (
+        typeof s === 'string' &&
+        (s.includes('Disconnecting idle stream') ||
+         s.includes('Timed out waiting for new targets') ||
+         (s.includes('GrpcConnection') && s.includes('CANCELLED')) ||
+         (s.includes('@firebase/firestore') && s.includes('idle stream')))
+      ) {
+        return true;
       }
-    } catch {}
-    return false;
+    }
+  } catch {}
+  return false;
+};
+const filterIdleStreamError = (originalFn: (...args: any[]) => void) => {
+  return (...args: any[]) => {
+    if (isBenignNotice(args)) {
+      return; // Benign internal gRPC connection cleanup, ignore
+    }
+    originalFn.apply(console, args);
   };
-  const filterIdleStreamError = (originalFn: (...args: any[]) => void) => {
-    return (...args: any[]) => {
-      if (isBenignNotice(args)) {
-        return; // Benign internal gRPC connection cleanup, ignore
-      }
-      originalFn.apply(console, args);
-    };
+};
+console.error = filterIdleStreamError(console.error);
+console.warn = filterIdleStreamError(console.warn);
+
+if (typeof process !== 'undefined' && process.stderr && typeof process.stderr.write === 'function') {
+  const origStderrWrite = process.stderr.write.bind(process.stderr);
+  (process.stderr as any).write = function (chunk: any, encoding?: any, callback?: any): boolean {
+    const str = typeof chunk === 'string' ? chunk : chunk?.toString() || '';
+    if (
+      str.includes('Disconnecting idle stream') ||
+      str.includes('Timed out waiting for new targets') ||
+      (str.includes('GrpcConnection') && str.includes('CANCELLED')) ||
+      (str.includes('@firebase/firestore') && str.includes('idle stream'))
+    ) {
+      if (typeof callback === 'function') callback();
+      return true;
+    }
+    return origStderrWrite(chunk, encoding, callback);
   };
-  console.error = filterIdleStreamError(console.error);
-  console.warn = filterIdleStreamError(console.warn);
 }
 
 import firebaseConfig from '../firebase-applet-config.json';

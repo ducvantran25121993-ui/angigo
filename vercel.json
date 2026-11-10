@@ -801,6 +801,36 @@
       "source": "/mon-ngon-tu-chan-gio/",
       "destination": "/gio-heo-nau-mon-gi-ngon",
       "permanent": true
+    },
+    {
+      "source": "/cac-mon-thit-heo-kho",
+      "destination": "/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com",
+      "permanent": true
+    },
+    {
+      "source": "/cac-mon-thit-heo-kho/",
+      "destination": "/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com",
+      "permanent": true
+    },
+    {
+      "source": "/thit-heo-kho-gi-ngon",
+      "destination": "/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com",
+      "permanent": true
+    },
+    {
+      "source": "/thit-heo-kho-gi-ngon/",
+      "destination": "/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com",
+      "permanent": true
+    },
+    {
+      "source": "/mon-thit-heo-kho",
+      "destination": "/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com",
+      "permanent": true
+    },
+    {
+      "source": "/mon-thit-heo-kho/",
+      "destination": "/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com",
+      "permanent": true
     }
   ],
   "headers": [

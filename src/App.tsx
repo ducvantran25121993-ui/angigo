@@ -245,6 +245,14 @@ export default function App() {
         pathname === '/mon-ngon-tu-chan-gio'
       ) {
         window.history.replaceState({ tab: 'blog' }, '', '/gio-heo-nau-mon-gi-ngon');
+      } else if (
+        pathname === '/cac-mon-thit-heo-kho' ||
+        pathname === '/thit-heo-kho-gi-ngon' ||
+        pathname === '/mon-thit-heo-kho' ||
+        pathname === '/thit-kho-gi-ngon' ||
+        pathname === '/thit-heo-kho-ngon'
+      ) {
+        window.history.replaceState({ tab: 'blog' }, '', '/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com');
       }
     }
     return tab;

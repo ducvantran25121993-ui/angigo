@@ -253,6 +253,14 @@ export default function App() {
         pathname === '/thit-heo-kho-ngon'
       ) {
         window.history.replaceState({ tab: 'blog' }, '', '/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com');
+      } else if (
+        pathname === '/mon-ngon-tu-tai-heo' ||
+        pathname === '/tai-heo-lam-mon-gi-ngon' ||
+        pathname === '/cac-mon-ngon-tu-tai-heo' ||
+        pathname === '/tai-heo-nau-mon-gi-ngon' ||
+        pathname === '/tai-heo-lam-gi-ngon'
+      ) {
+        window.history.replaceState({ tab: 'blog' }, '', '/goi-y-tai-heo-lam-mon-gi-ngon');
       }
     }
     return tab;

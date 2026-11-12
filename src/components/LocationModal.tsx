@@ -125,28 +125,50 @@ export const LocationModal: React.FC<LocationModalProps> = ({
 
   const handleSelectSearchResult = (item: LocationSuggestion) => {
     const matchedCity = POPULAR_CITIES.find((c) => c.citySlug === item.citySlug);
-    if (matchedCity) {
-      setSelectedCityId(matchedCity.id);
-      setSelectedDistrict(item.district || matchedCity.districts[0] || '');
-    } else {
-      // Province outside preset
-      const newLoc: UserLocation = {
-        city: item.cityName,
-        citySlug: item.citySlug,
-        district: item.district || '',
-        address: item.label,
-        source: 'manual',
-        updatedAt: new Date().toISOString(),
-      };
-      saveUserLocation(newLoc);
-      notifyLocationChange(newLoc);
-      if (onConfirmOrderWithLocation) {
-        onConfirmOrderWithLocation(newLoc);
-      }
-      onClose();
-      return;
+    const cityName = matchedCity ? matchedCity.name : item.cityName;
+    const citySlug = matchedCity ? matchedCity.citySlug : item.citySlug;
+    const districtName = item.district || (matchedCity ? matchedCity.districts[0] : '');
+
+    const districtCoords = matchedCity ? getDistrictCoordinates(matchedCity.id, districtName) : null;
+    const lat = districtCoords?.latitude ?? (matchedCity ? matchedCity.latitude : 10.7769);
+    const lng = districtCoords?.longitude ?? (matchedCity ? matchedCity.longitude : 106.7009);
+
+    const newLoc: UserLocation = {
+      city: cityName,
+      citySlug: citySlug,
+      district: districtName,
+      address: districtName ? `${districtName}, ${cityName}` : cityName,
+      latitude: lat,
+      longitude: lng,
+      source: 'manual',
+      updatedAt: new Date().toISOString(),
+    };
+
+    saveUserLocation(newLoc);
+    notifyLocationChange(newLoc);
+    if (onConfirmOrderWithLocation) {
+      onConfirmOrderWithLocation(newLoc);
     }
-    setSearchQuery('');
+    onClose();
+  };
+
+  const handleApplyCustomQuery = () => {
+    if (!searchQuery.trim()) return;
+    const q = searchQuery.trim();
+    const newLoc: UserLocation = {
+      city: currentCityObj.name,
+      citySlug: currentCityObj.citySlug,
+      district: q,
+      address: `${q}, ${currentCityObj.name}`,
+      source: 'manual',
+      updatedAt: new Date().toISOString(),
+    };
+    saveUserLocation(newLoc);
+    notifyLocationChange(newLoc);
+    if (onConfirmOrderWithLocation) {
+      onConfirmOrderWithLocation(newLoc);
+    }
+    onClose();
   };
 
   const handleApplySelection = () => {
@@ -181,10 +203,9 @@ export const LocationModal: React.FC<LocationModalProps> = ({
 
     try {
       const detected = await detectGpsLocation();
-      setGpsSuccess(`Đã xác định vị trí: ${formatLocationDisplay(detected)}`);
-      notifyLocationChange(detected);
+      setGpsSuccess(`GPS tìm thấy: ${formatLocationDisplay(detected)}. Bạn có thể bấm "Áp dụng vị trí này" bên dưới!`);
 
-      // Auto update active form state
+      // Auto update active form state so user can review and edit if needed
       const matchingCity = POPULAR_CITIES.find(
         (c) =>
           c.citySlug === detected.citySlug ||
@@ -196,15 +217,8 @@ export const LocationModal: React.FC<LocationModalProps> = ({
           setSelectedDistrict(detected.district);
         }
       }
-
-      setTimeout(() => {
-        if (onConfirmOrderWithLocation) {
-          onConfirmOrderWithLocation(detected);
-        }
-        onClose();
-      }, 700);
     } catch (err: any) {
-      setGpsError(err.message || 'Không thể xác định vị trí GPS.');
+      setGpsError(err.message || 'Không thể xác định vị trí GPS. Vui lòng chọn Tỉnh & Quận/Huyện thủ công bên dưới.');
     } finally {
       setIsDetectingGps(false);
     }
@@ -291,11 +305,8 @@ export const LocationModal: React.FC<LocationModalProps> = ({
             </div>
 
             {/* Search Suggestions Dropdown */}
-            {searchResults.length > 0 && (
+            {searchQuery.trim().length > 0 && (
               <div className="absolute left-0 right-0 top-full mt-1.5 bg-white rounded-2xl shadow-xl border border-stone-200 p-1.5 z-30 max-h-56 overflow-y-auto space-y-1 animate-fade-in">
-                <div className="px-2.5 py-1 text-[10px] font-bold uppercase text-stone-400">
-                  Kết quả gợi ý ({searchResults.length})
-                </div>
                 {searchResults.map((item) => (
                   <button
                     key={item.id}
@@ -307,58 +318,34 @@ export const LocationModal: React.FC<LocationModalProps> = ({
                       <MapPin className="w-3.5 h-3.5 text-stone-400 group-hover:text-orange-600 shrink-0" />
                       <span className="group-hover:text-orange-900">{item.label}</span>
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 group-hover:bg-orange-100 group-hover:text-orange-700 text-stone-500 font-bold">
-                      Chọn
+                    <span className="text-[10px] px-2.5 py-1 rounded-full bg-orange-600 text-white font-bold">
+                      Chọn ngay
                     </span>
                   </button>
                 ))}
+
+                {/* Option to apply raw custom search text directly */}
+                <button
+                  type="button"
+                  onClick={handleApplyCustomQuery}
+                  className="w-full flex items-center justify-between p-2 rounded-xl bg-orange-50/80 hover:bg-orange-100 text-left text-xs font-bold text-orange-950 transition-colors border border-orange-200 cursor-pointer"
+                >
+                  <span className="flex items-center gap-2 truncate">
+                    <Check className="w-3.5 h-3.5 text-orange-600 shrink-0" />
+                    <span className="truncate">Sử dụng: "{searchQuery.trim()}"</span>
+                  </span>
+                  <span className="text-[10px] px-2.5 py-1 rounded-full bg-orange-600 text-white font-bold shrink-0">
+                    Áp dụng
+                  </span>
+                </button>
               </div>
             )}
           </div>
 
-          {/* Quick GPS Auto-Detect Button */}
-          <div>
-            <button
-              onClick={handleDetectGps}
-              disabled={isDetectingGps}
-              className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2.5 transition-all shadow-md hover:shadow-emerald-600/30 cursor-pointer active:scale-98"
-            >
-              <Crosshair className={`w-4 h-4 ${isDetectingGps ? 'animate-spin' : ''}`} />
-              {isDetectingGps
-                ? 'Đang kết nối GPS & định vị...'
-                : '📍 Tự động lấy vị trí hiện tại của tôi (GPS)'}
-            </button>
-
-            {gpsSuccess && (
-              <div className="mt-2 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-1.5 font-medium">
-                <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>{gpsSuccess}</span>
-              </div>
-            )}
-
-            {gpsError && (
-              <div className="mt-2 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-1.5 font-medium">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-                <span>{gpsError}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Explanatory Info Card on GPS and Location Accuracy */}
-          <div className="p-3 bg-amber-50/90 rounded-2xl border border-amber-200/90 text-xs text-amber-950 leading-relaxed flex items-start gap-2.5">
-            <Info className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-            <div className="text-[11px]">
-              <strong>💡 Lưu ý nếu GPS bị sai vị trí:</strong> Khi duyệt web trên máy tính hoặc mạng WiFi/4G, trình duyệt thường định vị theo địa chỉ IP của nhà mạng nên có thể hiển thị trạm mạng (ví dụ: <em>Phường Chợ Quán</em>).
-              <span className="block mt-1 text-stone-800 font-medium">
-                👉 Bạn chỉ cần chọn nhanh <strong>Tỉnh / Thành</strong> và <strong>Quận / Huyện</strong> của mình ở bên dưới, rồi bấm <strong>"Áp dụng vị trí này"</strong>!
-              </span>
-            </div>
-          </div>
-
-          <div className="relative flex py-1 items-center">
+          <div className="relative flex py-0.5 items-center">
             <div className="flex-grow border-t border-stone-200" />
-            <span className="shrink-0 mx-3 text-[11px] font-bold text-stone-400 uppercase tracking-wider">
-              Chọn nhanh Tỉnh / Thành &amp; Quận / Huyện
+            <span className="shrink-0 mx-3 text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+              Hoặc bấm chọn Quận / Huyện bên dưới
             </span>
             <div className="flex-grow border-t border-stone-200" />
           </div>
@@ -437,6 +424,33 @@ export const LocationModal: React.FC<LocationModalProps> = ({
               </div>
             </div>
           )}
+
+          {/* Quick GPS Auto-Detect Option (Secondary) */}
+          <div className="pt-1">
+            <button
+              onClick={handleDetectGps}
+              disabled={isDetectingGps}
+              type="button"
+              className="w-full py-2.5 px-3 rounded-2xl bg-stone-100 hover:bg-stone-200/80 text-stone-700 font-bold text-xs flex items-center justify-center gap-2 transition-all border border-stone-200 cursor-pointer"
+            >
+              <Crosshair className={`w-3.5 h-3.5 text-stone-500 ${isDetectingGps ? 'animate-spin' : ''}`} />
+              <span>{isDetectingGps ? 'Đang kết nối GPS...' : '🛰️ Hoặc thử lấy vị trí tự động qua GPS (Phù hợp trên điện thoại)'}</span>
+            </button>
+
+            {gpsSuccess && (
+              <div className="mt-2 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-1.5 font-medium animate-fade-in">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{gpsSuccess}</span>
+              </div>
+            )}
+
+            {gpsError && (
+              <div className="mt-2 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-1.5 font-medium animate-fade-in">
+                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                <span>{gpsError}</span>
+              </div>
+            )}
+          </div>
 
           {/* Benefit Explanation */}
           <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 text-[11px] text-stone-600 leading-relaxed flex items-start gap-2">

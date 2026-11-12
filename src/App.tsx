@@ -581,12 +581,16 @@ export default function App() {
     let isCancelled = false;
     const triggerAutoDetect = async () => {
       if (!isAutoDetectLocationEnabled()) return;
+      // Do not overwrite if user has already chosen their location manually
+      const stored = getStoredUserLocation();
+      if (stored && stored.source === 'manual') return;
+
       try {
         const detected = await autoDetectUserLocation();
-        if (!isCancelled && detected) {
+        if (!isCancelled && detected && detected.source === 'gps') {
           setUserLocation(detected);
           setGpsToast({
-            message: 'Đã tự động xác định vị trí của bạn',
+            message: 'Đã định vị vị trí GPS của bạn',
             city: detected.city,
             district: detected.district,
           });

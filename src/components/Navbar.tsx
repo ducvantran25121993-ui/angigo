@@ -1,10 +1,9 @@
-import React, { useState, useRef, useEffect, Suspense, lazy } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   UtensilsCrossed,
   Sparkles,
   Disc,
   Compass,
-  Share2,
   MapPin,
   CalendarDays,
   ChevronDown,
@@ -18,8 +17,6 @@ import {
 import { UserLocation } from '../types';
 import { TAB_CONFIG, TabType } from '../utils/navigation';
 import { PWAInstallButton } from './PWAInstallButton';
-
-const ShareModal = lazy(() => import('./ShareModal').then(m => ({ default: m.ShareModal })));
 
 interface NavbarProps {
   activeTab: TabType;
@@ -37,7 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   userLocation,
   onOpenLocationModal,
 }) => {
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isWheelDropdownOpen, setIsWheelDropdownOpen] = useState(false);
   const [isFoodDropdownOpen, setIsFoodDropdownOpen] = useState(false);
   const [isDiscoverDropdownOpen, setIsDiscoverDropdownOpen] = useState(false);
@@ -80,10 +76,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     } catch {
       setUploadingLogo(false);
     }
-  };
-
-  const handleOpenShare = () => {
-    setIsShareModalOpen(true);
   };
 
   const handleNavClick = (tab: TabType, e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -654,17 +646,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* PWA Install App Button */}
             <PWAInstallButton variant="navbar" />
-
-            <button
-              type="button"
-              onClick={handleOpenShare}
-              aria-label="Chia sẻ trang web Hôm Nay Ăn Gì cùng bạn bè qua mạng xã hội"
-              title="Chia sẻ cùng bạn bè qua mạng xã hội"
-              className="px-3.5 py-1.5 rounded-full border border-stone-200/80 bg-white hover:bg-stone-50 hover:border-orange-300 text-stone-700 transition-all duration-200 flex items-center gap-1.5 text-xs font-medium cursor-pointer shadow-2xs group"
-            >
-              <Share2 className="w-3.5 h-3.5 text-stone-500 group-hover:text-orange-600 transition-colors" />
-              <span className="hidden sm:inline font-semibold">Chia sẻ</span>
-            </button>
           </div>
         </div>
 
@@ -702,18 +683,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </nav>
       </div>
-
-      {/* Share to Social Media Modal (Rendered lazily on demand) */}
-      {isShareModalOpen && (
-        <Suspense fallback={null}>
-          <ShareModal
-            isOpen={isShareModalOpen}
-            onClose={() => setIsShareModalOpen(false)}
-            title="Hôm Nay Ăn Gì? • Gợi ý món ngon chuẩn vị"
-            text="Cùng quay bánh xe may mắn, bốc quẻ Tarot, lên lịch ăn tuần và tìm món ngon nhé!"
-          />
-        </Suspense>
-      )}
 
       {/* Toast message for logo upload */}
       {logoToast && (

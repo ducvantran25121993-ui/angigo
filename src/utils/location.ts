@@ -23,16 +23,26 @@ export const POPULAR_CITIES: CityPreset[] = [
     districts: [
       'Quận 1',
       'Quận 3',
+      'Quận 4',
       'Quận 5',
+      'Quận 6',
       'Quận 7',
+      'Quận 8',
       'Quận 10',
+      'Quận 11',
+      'Quận 12',
       'Bình Thạnh',
       'Phú Nhuận',
       'Tân Bình',
       'Gò Vấp',
-      'TP. Thủ Đức',
       'Tân Phú',
       'Bình Tân',
+      'TP. Thủ Đức',
+      'Hóc Môn',
+      'Bình Chánh',
+      'Nhà Bè',
+      'Củ Chi',
+      'Cần Giờ',
     ],
   },
   {
@@ -53,6 +63,15 @@ export const POPULAR_CITIES: CityPreset[] = [
       'Nam Từ Liêm',
       'Bắc Từ Liêm',
       'Hà Đông',
+      'Hoàng Mai',
+      'Long Biên',
+      'Thanh Trì',
+      'Gia Lâm',
+      'Đông Anh',
+      'Hoài Đức',
+      'Sóc Sơn',
+      'Thạch Thất',
+      'Sơn Tây',
     ],
   },
   {
@@ -69,25 +88,8 @@ export const POPULAR_CITIES: CityPreset[] = [
       'Ngũ Hành Sơn',
       'Liên Chiểu',
       'Cẩm Lệ',
+      'Hòa Vang',
     ],
-  },
-  {
-    id: 'ct',
-    name: 'Cần Thơ',
-    shortName: 'Cần Thơ',
-    citySlug: 'can-tho',
-    latitude: 10.0452,
-    longitude: 105.7469,
-    districts: ['Ninh Kiều', 'Cái Răng', 'Bình Thủy', 'Ô Môn'],
-  },
-  {
-    id: 'hp',
-    name: 'Hải Phòng',
-    shortName: 'Hải Phòng',
-    citySlug: 'hai-phong',
-    latitude: 20.8449,
-    longitude: 106.6881,
-    districts: ['Hồng Bàng', 'Ngô Quyền', 'Lê Chân', 'Hải An'],
   },
   {
     id: 'bd',
@@ -96,7 +98,7 @@ export const POPULAR_CITIES: CityPreset[] = [
     citySlug: 'binh-duong',
     latitude: 10.9804,
     longitude: 106.6745,
-    districts: ['Thủ Dầu Một', 'Thuận An', 'Dĩ An', 'Bến Cát'],
+    districts: ['Thủ Dầu Một', 'Thuận An', 'Dĩ An', 'Bến Cát', 'Tân Uyên', 'Bàu Bàng', 'Bắc Tân Uyên'],
   },
   {
     id: 'dnai',
@@ -105,7 +107,25 @@ export const POPULAR_CITIES: CityPreset[] = [
     citySlug: 'dong-nai',
     latitude: 10.9574,
     longitude: 106.8427,
-    districts: ['Biên Hòa', 'Long Thành', 'Nhơn Trạch'],
+    districts: ['Biên Hòa', 'Long Thành', 'Nhơn Trạch', 'Trảng Bom', 'Vĩnh Cửu', 'Long Khánh'],
+  },
+  {
+    id: 'ct',
+    name: 'Cần Thơ',
+    shortName: 'Cần Thơ',
+    citySlug: 'can-tho',
+    latitude: 10.0452,
+    longitude: 105.7469,
+    districts: ['Ninh Kiều', 'Cái Răng', 'Bình Thủy', 'Ô Môn', 'Thốt Nốt', 'Phong Điền'],
+  },
+  {
+    id: 'hp',
+    name: 'Hải Phòng',
+    shortName: 'Hải Phòng',
+    citySlug: 'hai-phong',
+    latitude: 20.8449,
+    longitude: 106.6881,
+    districts: ['Hồng Bàng', 'Ngô Quyền', 'Lê Chân', 'Hải An', 'Kiến An', 'Đồ Sơn', 'Thủy Nguyên'],
   },
   {
     id: 'vt',
@@ -114,7 +134,7 @@ export const POPULAR_CITIES: CityPreset[] = [
     citySlug: 'vung-tau',
     latitude: 10.346,
     longitude: 107.0843,
-    districts: ['Vũng Tàu', 'Bà Rịa', 'Phú Mỹ'],
+    districts: ['Vũng Tàu', 'Bà Rịa', 'Phú Mỹ', 'Long Điền', 'Đất Đỏ'],
   },
   {
     id: 'nt',
@@ -123,7 +143,16 @@ export const POPULAR_CITIES: CityPreset[] = [
     citySlug: 'khanh-hoa',
     latitude: 12.2388,
     longitude: 109.1967,
-    districts: ['Nha Trang', 'Cam Ranh'],
+    districts: ['Nha Trang', 'Cam Ranh', 'Ninh Hòa', 'Diên Khánh'],
+  },
+  {
+    id: 'ld',
+    name: 'Lâm Đồng (Đà Lạt)',
+    shortName: 'Đà Lạt',
+    citySlug: 'lam-dong',
+    latitude: 11.9404,
+    longitude: 108.4583,
+    districts: ['TP. Đà Lạt', 'TP. Bảo Lộc', 'Đức Trọng', 'Di Linh'],
   },
   {
     id: 'hue',
@@ -132,8 +161,83 @@ export const POPULAR_CITIES: CityPreset[] = [
     citySlug: 'hue',
     latitude: 16.4637,
     longitude: 107.5909,
-    districts: ['TP. Huế', 'Hương Thủy', 'Hương Trà'],
+    districts: ['TP. Huế', 'Hương Thủy', 'Hương Trà', 'Phú Vang'],
   },
+  {
+    id: 'qn',
+    name: 'Quảng Ninh (Hạ Long)',
+    shortName: 'Hạ Long',
+    citySlug: 'quang-ninh',
+    latitude: 20.9505,
+    longitude: 107.0734,
+    districts: ['Hạ Long', 'Cẩm Phả', 'Uông Bí', 'Móng Cái'],
+  },
+];
+
+export const ALL_VIETNAM_PROVINCES: { name: string; slug: string; region: string }[] = [
+  { name: 'TP. Hồ Chí Minh', slug: 'ho-chi-minh', region: 'Miền Nam' },
+  { name: 'Hà Nội', slug: 'ha-noi', region: 'Miền Bắc' },
+  { name: 'Đà Nẵng', slug: 'da-nang', region: 'Miền Trung' },
+  { name: 'Hải Phòng', slug: 'hai-phong', region: 'Miền Bắc' },
+  { name: 'Cần Thơ', slug: 'can-tho', region: 'Miền Nam' },
+  { name: 'An Giang', slug: 'an-giang', region: 'Miền Nam' },
+  { name: 'Bà Rịa - Vũng Tàu', slug: 'vung-tau', region: 'Miền Nam' },
+  { name: 'Bắc Giang', slug: 'bac-giang', region: 'Miền Bắc' },
+  { name: 'Bắc Kạn', slug: 'bac-kan', region: 'Miền Bắc' },
+  { name: 'Bạc Liêu', slug: 'bac-lieu', region: 'Miền Nam' },
+  { name: 'Bắc Ninh', slug: 'bac-ninh', region: 'Miền Bắc' },
+  { name: 'Bến Tre', slug: 'ben-tre', region: 'Miền Nam' },
+  { name: 'Bình Định', slug: 'binh-dinh', region: 'Miền Trung' },
+  { name: 'Bình Dương', slug: 'binh-duong', region: 'Miền Nam' },
+  { name: 'Bình Phước', slug: 'binh-phuoc', region: 'Miền Nam' },
+  { name: 'Bình Thuận', slug: 'binh-thuan', region: 'Miền Trung' },
+  { name: 'Cà Mau', slug: 'ca-mau', region: 'Miền Nam' },
+  { name: 'Cao Bằng', slug: 'cao-bang', region: 'Miền Bắc' },
+  { name: 'Đắk Lắk', slug: 'dak-lak', region: 'Tây Nguyên' },
+  { name: 'Đắk Nông', slug: 'dak-nong', region: 'Tây Nguyên' },
+  { name: 'Điện Biên', slug: 'dien-bien', region: 'Miền Bắc' },
+  { name: 'Đồng Nai', slug: 'dong-nai', region: 'Miền Nam' },
+  { name: 'Đồng Tháp', slug: 'dong-thap', region: 'Miền Nam' },
+  { name: 'Gia Lai', slug: 'gia-lai', region: 'Tây Nguyên' },
+  { name: 'Hà Giang', slug: 'ha-giang', region: 'Miền Bắc' },
+  { name: 'Hà Nam', slug: 'ha-nam', region: 'Miền Bắc' },
+  { name: 'Hà Tĩnh', slug: 'ha-tinh', region: 'Miền Trung' },
+  { name: 'Hải Dương', slug: 'hai-duong', region: 'Miền Bắc' },
+  { name: 'Hậu Giang', slug: 'hau-giang', region: 'Miền Nam' },
+  { name: 'Hòa Bình', slug: 'hoa-binh', region: 'Miền Bắc' },
+  { name: 'Hưng Yên', slug: 'hung-yen', region: 'Miền Bắc' },
+  { name: 'Khánh Hòa', slug: 'khanh-hoa', region: 'Miền Trung' },
+  { name: 'Kiên Giang', slug: 'kien-giang', region: 'Miền Nam' },
+  { name: 'Kon Tum', slug: 'kon-tum', region: 'Tây Nguyên' },
+  { name: 'Lai Châu', slug: 'lai-chau', region: 'Miền Bắc' },
+  { name: 'Lâm Đồng', slug: 'lam-dong', region: 'Tây Nguyên' },
+  { name: 'Lạng Sơn', slug: 'lang-son', region: 'Miền Bắc' },
+  { name: 'Lào Cai', slug: 'lao-cai', region: 'Miền Bắc' },
+  { name: 'Long An', slug: 'long-an', region: 'Miền Nam' },
+  { name: 'Nam Định', slug: 'nam-dinh', region: 'Miền Bắc' },
+  { name: 'Nghệ An', slug: 'nghe-an', region: 'Miền Trung' },
+  { name: 'Ninh Bình', slug: 'ninh-binh', region: 'Miền Bắc' },
+  { name: 'Ninh Thuận', slug: 'ninh-thuan', region: 'Miền Trung' },
+  { name: 'Phú Thọ', slug: 'phu-tho', region: 'Miền Bắc' },
+  { name: 'Phú Yên', slug: 'phu-yen', region: 'Miền Trung' },
+  { name: 'Quảng Bình', slug: 'quang-binh', region: 'Miền Trung' },
+  { name: 'Quảng Nam', slug: 'quang-nam', region: 'Miền Trung' },
+  { name: 'Quảng Ngãi', slug: 'quang-ngai', region: 'Miền Trung' },
+  { name: 'Quảng Ninh', slug: 'quang-ninh', region: 'Miền Bắc' },
+  { name: 'Quảng Trị', slug: 'quang-tri', region: 'Miền Trung' },
+  { name: 'Sóc Trăng', slug: 'soc-trang', region: 'Miền Nam' },
+  { name: 'Sơn La', slug: 'son-la', region: 'Miền Bắc' },
+  { name: 'Tây Ninh', slug: 'tay-ninh', region: 'Miền Nam' },
+  { name: 'Thái Bình', slug: 'thai-binh', region: 'Miền Bắc' },
+  { name: 'Thái Nguyên', slug: 'thai-nguyen', region: 'Miền Bắc' },
+  { name: 'Thanh Hóa', slug: 'thanh-hoa', region: 'Miền Trung' },
+  { name: 'Thừa Thiên Huế', slug: 'hue', region: 'Miền Trung' },
+  { name: 'Tiền Giang', slug: 'tien-giang', region: 'Miền Nam' },
+  { name: 'Trà Vinh', slug: 'tra-vinh', region: 'Miền Nam' },
+  { name: 'Tuyên Quang', slug: 'tuyen-quang', region: 'Miền Bắc' },
+  { name: 'Vĩnh Long', slug: 'vinh-long', region: 'Miền Nam' },
+  { name: 'Vĩnh Phúc', slug: 'vinh-phuc', region: 'Miền Bắc' },
+  { name: 'Yên Bái', slug: 'yen-bai', region: 'Miền Bắc' },
 ];
 
 export const DEFAULT_USER_LOCATION: UserLocation = {
@@ -327,6 +431,90 @@ export function saveUserLocation(loc: UserLocation): void {
   }
 }
 
+export interface LocationSuggestion {
+  id: string;
+  label: string;
+  district?: string;
+  cityName: string;
+  citySlug: string;
+  source: 'preset' | 'province' | 'ward';
+}
+
+export function searchLocationSuggestions(query: string): LocationSuggestion[] {
+  if (!query || query.trim().length === 0) return [];
+  const q = query.trim().toLowerCase();
+  const results: LocationSuggestion[] = [];
+
+  // 1. Known popular wards (Chợ Quán, Bến Nghé, Thảo Điền, v.v.)
+  const knownWards = [
+    { ward: 'Phường Chợ Quán', district: 'Quận 5', city: 'TP. Hồ Chí Minh', slug: 'ho-chi-minh' },
+    { ward: 'Phường Chợ Lớn', district: 'Quận 5', city: 'TP. Hồ Chí Minh', slug: 'ho-chi-minh' },
+    { ward: 'Phường Bến Nghé', district: 'Quận 1', city: 'TP. Hồ Chí Minh', slug: 'ho-chi-minh' },
+    { ward: 'Phường Bến Thành', district: 'Quận 1', city: 'TP. Hồ Chí Minh', slug: 'ho-chi-minh' },
+    { ward: 'Phường Thảo Điền', district: 'TP. Thủ Đức', city: 'TP. Hồ Chí Minh', slug: 'ho-chi-minh' },
+    { ward: 'Phường Phú Mỹ Hưng', district: 'Quận 7', city: 'TP. Hồ Chí Minh', slug: 'ho-chi-minh' },
+    { ward: 'Phường Hàng Trống', district: 'Hoàn Kiếm', city: 'Hà Nội', slug: 'ha-noi' },
+    { ward: 'Phường Tràng Tiền', district: 'Hoàn Kiếm', city: 'Hà Nội', slug: 'ha-noi' },
+  ];
+
+  for (const w of knownWards) {
+    if (w.ward.toLowerCase().includes(q)) {
+      results.push({
+        id: `ward-${w.ward}`,
+        label: `${w.ward}, ${w.district}, ${w.city}`,
+        district: w.district,
+        cityName: w.city,
+        citySlug: w.slug,
+        source: 'ward',
+      });
+    }
+  }
+
+  // 2. Search in popular cities & their districts
+  for (const city of POPULAR_CITIES) {
+    if (city.name.toLowerCase().includes(q) || city.shortName.toLowerCase().includes(q)) {
+      results.push({
+        id: `city-${city.id}`,
+        label: `${city.name}`,
+        district: city.districts[0],
+        cityName: city.name,
+        citySlug: city.citySlug,
+        source: 'preset',
+      });
+    }
+
+    for (const dist of city.districts) {
+      if (dist.toLowerCase().includes(q) || dist.toLowerCase().replace('quận ', 'q').includes(q)) {
+        results.push({
+          id: `${city.id}-${dist}`,
+          label: `${dist}, ${city.name}`,
+          district: dist,
+          cityName: city.name,
+          citySlug: city.citySlug,
+          source: 'preset',
+        });
+      }
+    }
+  }
+
+  // 3. Search in all 63 provinces
+  for (const prov of ALL_VIETNAM_PROVINCES) {
+    if (prov.name.toLowerCase().includes(q)) {
+      if (!results.some((r) => r.cityName.toLowerCase() === prov.name.toLowerCase() && !r.district)) {
+        results.push({
+          id: `prov-${prov.slug}`,
+          label: `${prov.name} (${prov.region})`,
+          cityName: prov.name,
+          citySlug: prov.slug,
+          source: 'province',
+        });
+      }
+    }
+  }
+
+  return results.slice(0, 8);
+}
+
 /**
  * Reverse geocode coordinates using OpenStreetMap Nominatim with graceful fallback
  */
@@ -334,6 +522,8 @@ async function reverseGeocodeCoordinates(
   lat: number,
   lng: number
 ): Promise<{ address?: string; district?: string; city?: string; citySlug?: string }> {
+  const matchedCity = findClosestCity(lat, lng);
+
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 2500);
@@ -350,25 +540,48 @@ async function reverseGeocodeCoordinates(
     if (res.ok) {
       const data = await res.json();
       const addr = data.address || {};
-      const district =
-        addr.suburb ||
-        addr.city_district ||
-        addr.district ||
-        addr.quarter ||
-        addr.county;
-      const city =
-        addr.city ||
-        addr.state ||
-        addr.province ||
-        addr.town;
+      
+      const ward = addr.suburb || addr.quarter || addr.neighbourhood;
+      let district = addr.city_district || addr.district || addr.county;
+      const detectedCity = addr.city || addr.state || addr.province || addr.town;
 
-      let addressParts = [district, city].filter(Boolean);
-      let address = addressParts.length > 0 ? addressParts.join(', ') : data.display_name;
+      // Handle common Vietnamese ward-to-district mappings (e.g. Chợ Quán -> Quận 5)
+      if (!district && ward) {
+        const lowerWard = ward.toLowerCase();
+        if (lowerWard.includes('chợ quán') || lowerWard.includes('chợ lớn') || lowerWard.includes('an đông')) {
+          district = 'Quận 5';
+        } else if (lowerWard.includes('bến nghé') || lowerWard.includes('bến thành') || lowerWard.includes('đa kao') || lowerWard.includes('tân định')) {
+          district = 'Quận 1';
+        } else if (lowerWard.includes('thảo điền') || lowerWard.includes('an phú') || lowerWard.includes('thủ thiêm') || lowerWard.includes('linh trung')) {
+          district = 'TP. Thủ Đức';
+        } else if (lowerWard.includes('phú mỹ hưng') || lowerWard.includes('tân phong') || lowerWard.includes('tân quy')) {
+          district = 'Quận 7';
+        } else if (lowerWard.includes('hàng trống') || lowerWard.includes('hàng mã') || lowerWard.includes('tràng tiền')) {
+          district = 'Hoàn Kiếm';
+        }
+      }
 
-      const matchedCity = findClosestCity(lat, lng);
+      // If still no district, check if ward matches any known district
+      if (!district && ward) {
+        const found = matchedCity.districts.find((d) => ward.toLowerCase().includes(d.toLowerCase()));
+        if (found) {
+          district = found;
+        } else {
+          district = ward;
+        }
+      }
+
+      const finalDistrict = district || matchedCity.districts[0];
+      const finalCity = detectedCity || matchedCity.name;
+      
+      let addressParts = [ward, finalDistrict, finalCity].filter(Boolean);
+      // Deduplicate parts
+      addressParts = addressParts.filter((item, index, self) => self.indexOf(item) === index);
+      const address = addressParts.length > 0 ? addressParts.join(', ') : data.display_name;
+
       return {
         address: address || `${matchedCity.name}`,
-        district: district || matchedCity.districts[0],
+        district: finalDistrict,
         city: matchedCity.name,
         citySlug: matchedCity.citySlug,
       };
@@ -378,12 +591,11 @@ async function reverseGeocodeCoordinates(
   }
 
   // Fallback to geometric closest city
-  const closestCity = findClosestCity(lat, lng);
   return {
-    address: `${closestCity.name}`,
-    district: closestCity.districts[0],
-    city: closestCity.name,
-    citySlug: closestCity.citySlug,
+    address: `${matchedCity.districts[0]}, ${matchedCity.name}`,
+    district: matchedCity.districts[0],
+    city: matchedCity.name,
+    citySlug: matchedCity.citySlug,
   };
 }
 

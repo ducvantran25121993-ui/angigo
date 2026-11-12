@@ -334,21 +334,21 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Minimalist Modern Pill Tab Menu with Fluid Motion Slider */}
           <nav 
             aria-label="Menu điều hướng chính" 
-            className="hidden md:flex items-center bg-stone-100/80 p-1.5 rounded-full border border-stone-200/60 shadow-xs"
+            className="hidden md:flex items-center gap-0.5 bg-stone-100/75 p-1 rounded-full border border-stone-200/80 shadow-2xs backdrop-blur-md transition-colors"
           >
             {/* 1. Tarot Ẩm Thực */}
             <a
               href={TAB_CONFIG.tarot.path}
               onClick={(e) => handleNavClick('tarot', e)}
-              className={`relative flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-medium transition-colors select-none cursor-pointer ${
-                activeTab === 'tarot' ? 'text-stone-900 font-semibold' : 'text-stone-500 hover:text-stone-900'
+              className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
+                activeTab === 'tarot' ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
               }`}
             >
               {activeTab === 'tarot' && (
-                <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/50 transition-all duration-200" />
+                <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
               )}
               <span className={`relative z-10 transition-colors ${
-                activeTab === 'tarot' ? 'text-orange-600' : 'text-stone-400 group-hover:text-stone-600'
+                activeTab === 'tarot' ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
               }`}>
                 <Compass className="w-4 h-4" />
               </span>
@@ -365,16 +365,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <a
                 href={TAB_CONFIG.wheel.path}
                 onClick={(e) => handleNavClick(activeTab === 'ai' ? 'ai' : 'wheel', e)}
-                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors select-none cursor-pointer ${
-                  isWheelGroupActive ? 'text-stone-900 font-semibold' : 'text-stone-500 hover:text-stone-900'
+                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
+                  isWheelGroupActive ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
                 }`}
               >
                 {isWheelGroupActive && (
-                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/50 transition-all duration-200" />
+                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
                 )}
 
                 <span className={`relative z-10 transition-colors ${
-                  isWheelGroupActive ? 'text-orange-600' : 'text-stone-400'
+                  isWheelGroupActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
                 }`}>
                   {activeTab === 'ai' ? <Sparkles className="w-4 h-4" /> : <Disc className="w-4 h-4" />}
                 </span>
@@ -383,8 +383,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {activeTab === 'ai' ? 'Trợ Lý AI' : 'Vòng Quay'}
                 </span>
 
-                <ChevronDown className={`relative z-10 w-3.5 h-3.5 text-stone-400 transition-transform duration-200 ${
-                  isWheelDropdownOpen ? 'rotate-180 text-orange-600' : ''
+                <ChevronDown className={`relative z-10 w-3 h-3 text-stone-400 transition-transform duration-200 ${
+                  isWheelDropdownOpen ? 'rotate-180 text-orange-600' : 'group-hover:text-stone-600'
                 }`} />
               </a>
 
@@ -446,16 +446,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <a
                 href={TAB_CONFIG.catalog.path}
                 onClick={(e) => handleNavClick('catalog', e)}
-                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors select-none cursor-pointer ${
-                  isFoodGroupActive ? 'text-stone-900 font-semibold' : 'text-stone-500 hover:text-stone-900'
+                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
+                  isFoodGroupActive ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
                 }`}
               >
                 {isFoodGroupActive && (
-                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/50 transition-all duration-200" />
+                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
                 )}
 
                 <span className={`relative z-10 transition-colors ${
-                  isFoodGroupActive ? 'text-orange-600' : 'text-stone-400'
+                  isFoodGroupActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
                 }`}>
                   <UtensilsCrossed className="w-4 h-4" />
                 </span>
@@ -468,8 +468,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'Món Ngon'}
                 </span>
 
-                <ChevronDown className={`relative z-10 w-3.5 h-3.5 text-stone-400 transition-transform duration-200 ${
-                  isFoodDropdownOpen ? 'rotate-180 text-orange-600' : ''
+                <ChevronDown className={`relative z-10 w-3 h-3 text-stone-400 transition-transform duration-200 ${
+                  isFoodDropdownOpen ? 'rotate-180 text-orange-600' : 'group-hover:text-stone-600'
                 }`} />
               </a>
 
@@ -525,15 +525,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             <a
               href={TAB_CONFIG.restaurants.path}
               onClick={(e) => handleNavClick('restaurants', e)}
-              className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors select-none cursor-pointer ${
-                activeTab === 'restaurants' ? 'text-stone-900 font-semibold' : 'text-stone-500 hover:text-stone-900'
+              className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
+                activeTab === 'restaurants' ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
               }`}
             >
               {activeTab === 'restaurants' && (
-                <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/50 transition-all duration-200" />
+                <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
               )}
               <span className={`relative z-10 transition-colors ${
-                activeTab === 'restaurants' ? 'text-orange-600' : 'text-stone-400 group-hover:text-stone-600'
+                activeTab === 'restaurants' ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
               }`}>
                 <Store className="w-4 h-4" />
               </span>
@@ -550,16 +550,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <a
                 href={activeTab === 'blog' ? TAB_CONFIG.blog.path : TAB_CONFIG.discover.path}
                 onClick={(e) => handleNavClick(activeTab === 'blog' ? 'blog' : 'discover', e)}
-                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-sm font-medium transition-colors select-none cursor-pointer ${
-                  isDiscoverGroupActive ? 'text-stone-900 font-semibold' : 'text-stone-500 hover:text-stone-900'
+                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
+                  isDiscoverGroupActive ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
                 }`}
               >
                 {isDiscoverGroupActive && (
-                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/50 transition-all duration-200" />
+                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
                 )}
 
                 <span className={`relative z-10 transition-colors ${
-                  isDiscoverGroupActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-stone-600'
+                  isDiscoverGroupActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
                 }`}>
                   {activeTab === 'blog' ? <BookOpen className="w-4 h-4" /> : <Compass className="w-4 h-4" />}
                 </span>
@@ -568,8 +568,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {activeTab === 'blog' ? 'Blog Ẩm Thực' : 'Ẩm Thực'}
                 </span>
 
-                <ChevronDown className={`relative z-10 w-3.5 h-3.5 text-stone-400 transition-transform duration-200 ${
-                  isDiscoverDropdownOpen ? 'rotate-180 text-orange-600' : ''
+                <ChevronDown className={`relative z-10 w-3 h-3 text-stone-400 transition-transform duration-200 ${
+                  isDiscoverDropdownOpen ? 'rotate-180 text-orange-600' : 'group-hover:text-stone-600'
                 }`} />
               </a>
 

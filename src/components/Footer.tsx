@@ -28,7 +28,7 @@ export const SOCIAL_MEDIA_LINKS: SocialMediaItem[] = [
   {
     id: 'facebook',
     name: 'Facebook',
-    url: 'https://www.facebook.com/angigiocom',
+    url: 'https://www.facebook.com/homnayanmongigio/',
     title: 'Theo dõi Fanpage Hôm Nay Ăn Gì trên Facebook',
     hoverBg: 'hover:bg-[#1877F2]',
     hoverBorder: 'hover:border-[#1877F2]',
@@ -42,8 +42,8 @@ export const SOCIAL_MEDIA_LINKS: SocialMediaItem[] = [
   {
     id: 'tiktok',
     name: 'TikTok',
-    url: 'https://www.tiktok.com/@angigiocom',
-    title: 'Khám phá video ẩm thực & quán ngon trên TikTok @angigiocom',
+    url: 'https://www.tiktok.com/@gocnhacuaduc',
+    title: 'Khám phá video ẩm thực & quán ngon trên TikTok @gocnhacuaduc',
     hoverBg: 'hover:bg-stone-900',
     hoverBorder: 'hover:border-stone-900',
     hoverShadow: 'hover:shadow-stone-300',
@@ -56,7 +56,7 @@ export const SOCIAL_MEDIA_LINKS: SocialMediaItem[] = [
   {
     id: 'pinterest',
     name: 'Pinterest',
-    url: 'https://www.pinterest.com/angigiocom/',
+    url: 'https://www.pinterest.com/homnayangigio/',
     title: 'Khám phá & lưu giữ công thức món ngon trên Pinterest Hôm Nay Ăn Gì',
     hoverBg: 'hover:bg-[#E60023]',
     hoverBorder: 'hover:border-[#E60023]',
@@ -70,8 +70,8 @@ export const SOCIAL_MEDIA_LINKS: SocialMediaItem[] = [
   {
     id: 'instagram',
     name: 'Instagram',
-    url: 'https://www.instagram.com/angigiocom',
-    title: 'Góc ảnh ẩm thực 3 miền trên Instagram @angigiocom',
+    url: 'https://www.instagram.com/homnayangigio/',
+    title: 'Góc ảnh ẩm thực 3 miền trên Instagram @homnayangigio',
     hoverBg: 'hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888]',
     hoverBorder: 'hover:border-transparent',
     hoverShadow: 'hover:shadow-pink-200/80',

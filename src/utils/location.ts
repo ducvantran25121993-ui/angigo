@@ -406,6 +406,43 @@ export function findClosestCity(latitude: number, longitude: number): CityPreset
   return closest;
 }
 
+// Calculate closest district in city given lat and lng using spatial coordinates
+export function findClosestDistrict(
+  latitude: number,
+  longitude: number,
+  cityIdOrSlugOrName: string
+): string | null {
+  let cityKey = 'hcm';
+  const c = cityIdOrSlugOrName.toLowerCase();
+  if (c === 'hcm' || c.includes('ho-chi-minh') || c.includes('hồ chí minh')) cityKey = 'hcm';
+  else if (c === 'hn' || c.includes('ha-noi') || c.includes('hà nội')) cityKey = 'hn';
+  else if (c === 'dn' || c.includes('da-nang') || c.includes('đà nẵng')) cityKey = 'dn';
+  else if (c === 'ct' || c.includes('can-tho') || c.includes('cần thơ')) cityKey = 'ct';
+  else if (c === 'hp' || c.includes('hai-phong') || c.includes('hải phòng')) cityKey = 'hp';
+  else if (c === 'bd' || c.includes('binh-duong') || c.includes('bình dương')) cityKey = 'bd';
+  else if (c === 'dnai' || c.includes('dong-nai') || c.includes('đồng nai') || c.includes('biên hòa')) cityKey = 'dnai';
+  else if (c === 'vt' || c.includes('vung-tau') || c.includes('vũng tàu') || c.includes('bà rịa')) cityKey = 'vt';
+  else if (c === 'nt' || c.includes('nha-trang') || c.includes('khánh hòa')) cityKey = 'nt';
+  else if (c === 'hue' || c.includes('huế')) cityKey = 'hue';
+
+  const cityDistricts = DISTRICT_COORDINATES[cityKey];
+  if (!cityDistricts) return null;
+
+  let closestDistrict: string | null = null;
+  let minDistance = Infinity;
+
+  for (const [distName, coords] of Object.entries(cityDistricts)) {
+    const dist = calculateDistance(latitude, longitude, coords.latitude, coords.longitude);
+    if (dist < minDistance) {
+      minDistance = dist;
+      closestDistrict = distName;
+    }
+  }
+
+  // Only return if within reasonable proximity (< 40km of district center)
+  return minDistance < 40 ? closestDistrict : null;
+}
+
 export function getStoredUserLocation(): UserLocation {
   try {
     const raw = localStorage.getItem(LOCATION_STORAGE_KEY);
@@ -526,10 +563,11 @@ async function reverseGeocodeCoordinates(
 
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 2500);
+    const timeout = setTimeout(() => controller.abort(), 3000);
 
+    // Zoom 18 provides building & street level precision in OpenStreetMap
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`,
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`,
       {
         signal: controller.signal,
         headers: { 'Accept-Language': 'vi,en;q=0.8' },
@@ -544,6 +582,8 @@ async function reverseGeocodeCoordinates(
       const ward = addr.suburb || addr.quarter || addr.neighbourhood;
       let district = addr.city_district || addr.district || addr.county;
       const detectedCity = addr.city || addr.state || addr.province || addr.town;
+      const road = addr.road;
+      const houseNumber = addr.house_number;
 
       // Handle common Vietnamese ward-to-district mappings (e.g. Chợ Quán -> Quận 5)
       if (!district && ward) {
@@ -566,15 +606,22 @@ async function reverseGeocodeCoordinates(
         const found = matchedCity.districts.find((d) => ward.toLowerCase().includes(d.toLowerCase()));
         if (found) {
           district = found;
-        } else {
-          district = ward;
+        }
+      }
+
+      // If still no district, mathematically find closest district center using GPS coordinates
+      if (!district) {
+        const closestGeoDist = findClosestDistrict(lat, lng, matchedCity.id);
+        if (closestGeoDist) {
+          district = closestGeoDist;
         }
       }
 
       const finalDistrict = district || matchedCity.districts[0];
       const finalCity = detectedCity || matchedCity.name;
       
-      let addressParts = [ward, finalDistrict, finalCity].filter(Boolean);
+      const streetPart = [houseNumber, road].filter(Boolean).join(' ');
+      let addressParts = [streetPart, ward, finalDistrict, finalCity].filter(Boolean);
       // Deduplicate parts
       addressParts = addressParts.filter((item, index, self) => self.indexOf(item) === index);
       const address = addressParts.length > 0 ? addressParts.join(', ') : data.display_name;
@@ -590,17 +637,18 @@ async function reverseGeocodeCoordinates(
     // Network or abort timeout
   }
 
-  // Fallback to geometric closest city
+  // Fallback to geometric closest city & district
+  const closestDistrict = findClosestDistrict(lat, lng, matchedCity.id) || matchedCity.districts[0];
   return {
-    address: `${matchedCity.districts[0]}, ${matchedCity.name}`,
-    district: matchedCity.districts[0],
+    address: `${closestDistrict}, ${matchedCity.name}`,
+    district: closestDistrict,
     city: matchedCity.name,
     citySlug: matchedCity.citySlug,
   };
 }
 
 /**
- * Detect user's current GPS position via browser Geolocation API
+ * Detect user's current GPS position via browser Geolocation API with high accuracy
  */
 export async function detectGpsLocation(): Promise<UserLocation> {
   if (!navigator.geolocation) {
@@ -630,11 +678,12 @@ export async function detectGpsLocation(): Promise<UserLocation> {
           resolve(locationResult);
         } catch {
           const closest = findClosestCity(latitude, longitude);
+          const closestDist = findClosestDistrict(latitude, longitude, closest.id) || closest.districts[0];
           const locationResult: UserLocation = {
             city: closest.name,
             citySlug: closest.citySlug,
-            district: closest.districts[0],
-            address: `${closest.name} (GPS)`,
+            district: closestDist,
+            address: `${closestDist}, ${closest.name} (GPS)`,
             latitude,
             longitude,
             source: 'gps',
@@ -647,18 +696,18 @@ export async function detectGpsLocation(): Promise<UserLocation> {
       (error) => {
         let msg = 'Không thể lấy vị trí hiện tại.';
         if (error.code === error.PERMISSION_DENIED) {
-          msg = 'Bạn chưa cấp quyền truy cập vị trí. Vui lòng cho phép hoặc chọn thủ công.';
+          msg = 'Bạn chưa cấp quyền truy cập vị trí. Vui lòng bật quyền vị trí hoặc chọn thủ công.';
         } else if (error.code === error.POSITION_UNAVAILABLE) {
-          msg = 'Vị trí hiện không khả dụng.';
+          msg = 'Tín hiệu vị trí hiện không khả dụng. Bạn có thể chọn nhanh Tỉnh & Quận/Huyện bên dưới.';
         } else if (error.code === error.TIMEOUT) {
-          msg = 'Quá thời gian kết nối GPS.';
+          msg = 'Quá thời gian kết nối GPS. Vui lòng thử lại hoặc chọn thủ công.';
         }
         reject(new Error(msg));
       },
       {
         enableHighAccuracy: true,
-        timeout: 8000,
-        maximumAge: 60000,
+        timeout: 10000,
+        maximumAge: 0, // Force fresh real-time hardware GPS query, no stale cache
       }
     );
   });
@@ -679,20 +728,29 @@ export function setAutoDetectLocationEnabled(enabled: boolean): void {
 }
 
 /**
- * Tự động lấy vị trí người dùng: ưu tiên vị trí đã lưu, nếu chưa có thì thử GPS (nếu được phép)
+ * Tự động lấy vị trí người dùng:
+ * - Nếu người dùng đã chọn thủ công (source: manual), tôn trọng lựa chọn của họ.
+ * - Nếu chưa chọn thủ công và trình duyệt đã cấp quyền vị trí, tự động lấy tọa độ GPS mới nhất.
  */
-export async function autoDetectUserLocation(): Promise<UserLocation | null> {
+export async function autoDetectUserLocation(force = false): Promise<UserLocation | null> {
   const stored = getStoredUserLocation();
-  if (stored) return stored;
+  if (stored && stored.source === 'manual' && !force) {
+    return stored;
+  }
 
   if (typeof navigator !== 'undefined' && navigator.geolocation) {
     try {
-      return await detectGpsLocation();
+      if ('permissions' in navigator) {
+        const status = await navigator.permissions.query({ name: 'geolocation' as PermissionName });
+        if (status.state === 'granted') {
+          return await detectGpsLocation();
+        }
+      }
     } catch {
-      return null;
+      // ignore
     }
   }
-  return null;
+  return stored;
 }
 
 export function formatLocationDisplay(location?: UserLocation): string {

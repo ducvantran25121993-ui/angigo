@@ -1007,6 +1007,11 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "category": "Thịt Bò"
   },
   {
+    "name": "Cơm bò xào cần tỏi giòn ngọt",
+    "url": "/images/com_bo_xao_can_toi.jpg",
+    "category": "Thịt Bò"
+  },
+  {
     "name": "Cơm niêu bò xào tiêu đen",
     "url": "/images/com_nieu_bo_tieu_den.jpg",
     "category": "Thịt Bò"

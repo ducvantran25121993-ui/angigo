@@ -907,6 +907,9 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
     if (n.includes('gà')) {
       return '/images/com_ga_hoi_an.jpg';
     }
+    if (n.includes('cần tỏi') || n.includes('bò xào cần')) {
+      return '/images/com_bo_xao_can_toi.jpg';
+    }
     if (n.includes('bò')) {
       return '/images/com_bo_luc_lac.jpg';
     }

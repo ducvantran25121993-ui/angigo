@@ -578,6 +578,11 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
     "category": "nuong_chien"
   },
   {
+    "image": "/images/com_bo_xao_can_toi.jpg",
+    "name": "Cơm Bò Xào Cần Tỏi Mềm Ngọt Giòn Mát Chuẩn Vị",
+    "category": "com_xoi"
+  },
+  {
     "image": "/images/com_bo_luc_lac.jpg",
     "name": "Cơm Bò Lúc Lắc Sốt Tiêu Đen & Cơm Chiên Đỏ",
     "category": "com_xoi"
@@ -1388,6 +1393,7 @@ export function getDishImageByName(name: string = "", category: string = ""): st
   if (norm.includes("com ga hoi an")) return "/images/com_ga_hoi_an.jpg";
   if (norm.includes("com ga xoi mo")) return "/images/com_ga_xoi_mo.jpg";
   if (norm.includes("com ga")) return "/images/com_ga_hoi_an.jpg";
+  if (norm.includes("bo xao can toi") || norm.includes("can toi")) return "/images/com_bo_xao_can_toi.jpg";
   if (norm.includes("com bo") || norm.includes("bo luc lac")) return "/images/com_bo_luc_lac.jpg";
   if (norm.includes("com nieu")) return "/images/com_nieu_bo_tieu_den.jpg";
   if (norm.includes("com chien hai san")) return "/images/com_chien_hai_san.jpg";

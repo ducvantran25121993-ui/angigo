@@ -333,7 +333,7 @@ export const COM_XOI_DISHES: Dish[] = [
     estimatedPrice: 50000,
     calories: '580 - 680 kcal',
     description: 'Bí quyết làm cơm bò xào cần tỏi mềm ngọt giòn mát chuẩn quán: Thịt thăn bò tươi thái mỏng ngang thớ ướp dầu ăn bột năng mọng nước, xào lửa lớn 90 giây giữ trọn độ mềm tan, quyện cùng cần tây đập dập giòn xanh ngát và tỏi phi thơm nức mũi.',
-    image: '/images/com_bo_luc_lac.jpg',
+    image: '/images/com_bo_xao_can_toi.jpg',
     popularTags: ['Cơm bò xào cần tỏi', 'Bò xào cần tây', 'Thịt bò mềm mọng', 'Cơm văn phòng', 'Chuẩn vị quán'],
     searchKeyword: 'Cách làm cơm bò xào cần tỏi thơm ngon đậm đà chuẩn quán',
     bestPairedWith: 'Thịt bò xào mềm mọng, cần tây giòn xanh, cơm dẻo nóng hổi & chén nước tương ớt hiểm',

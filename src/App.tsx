@@ -298,33 +298,11 @@ export default function App() {
         targetPath = '/am-thuc-vung-mien';
       }
     } else if (newTab === 'blog') {
-      const nonArticleSystemPaths = [
-        '/',
-        '/blog',
-        '/admin',
-        '/quan-tri',
-        '/vong-quay',
-        '/mon-ngon',
-        '/do-uong-an-vat',
-        '/lich-an-theo-tuan',
-        '/quan-ngon',
-        '/kham-pha-am-thuc',
-        '/am-thuc-vung-mien',
-        '/thuc-don-moi-ngay',
-        '/cach-nau-mon-ngon',
-        '/gioi-thieu',
-        '/lien-he',
-        '/chinh-sach-bao-mat',
-        '/dieu-khoan-su-dung',
-      ];
-      if (currentPath.startsWith('/blog/') || !nonArticleSystemPaths.includes(currentPath)) {
-        targetPath = currentPath;
-      } else {
-        targetPath = '/blog';
-      }
+      targetPath = '/blog';
     }
     if (window.location.pathname !== targetPath) {
       window.history.pushState({ tab: newTab }, '', targetPath);
+      window.dispatchEvent(new Event('locationchange'));
     }
     const targetIsRecipe =
       targetPath.startsWith('/cach-nau-') ||
@@ -377,6 +355,11 @@ export default function App() {
           '/am-thuc-vung-mien',
           '/thuc-don-moi-ngay',
           '/cach-nau-mon-ngon',
+          '/ai-goi-y-mon-an',
+          '/gioi-thieu',
+          '/lien-he',
+          '/chinh-sach-bao-mat',
+          '/dieu-khoan-su-dung',
         ].includes(pathname));
 
     if (isBlogRoute) {

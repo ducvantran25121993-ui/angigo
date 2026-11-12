@@ -16,6 +16,7 @@ import {
   POPULAR_CITIES,
   ALL_VIETNAM_PROVINCES,
   detectGpsLocation,
+  smartAutoDetectLocation,
   saveUserLocation,
   CityPreset,
   formatLocationDisplay,
@@ -202,8 +203,8 @@ export const LocationModal: React.FC<LocationModalProps> = ({
     setGpsSuccess(null);
 
     try {
-      const detected = await detectGpsLocation();
-      setGpsSuccess(`GPS tìm thấy: ${formatLocationDisplay(detected)}. Bạn có thể bấm "Áp dụng vị trí này" bên dưới!`);
+      const res = await smartAutoDetectLocation(true);
+      const detected = res.location;
 
       // Auto update active form state so user can review and edit if needed
       const matchingCity = POPULAR_CITIES.find(
@@ -216,6 +217,12 @@ export const LocationModal: React.FC<LocationModalProps> = ({
         if (detected.district) {
           setSelectedDistrict(detected.district);
         }
+      }
+
+      if (res.accuracyLevel === 'high') {
+        setGpsSuccess(`✓ Đã định vị chính xác cao bằng GPS: ${formatLocationDisplay(detected)}. Bạn có thể bấm "Áp dụng vị trí này" để hoàn tất!`);
+      } else {
+        setGpsSuccess(`📍 Đã tự động nhận diện bạn ở ${detected.city}! Do mạng máy tính/WiFi không có chip vệ tinh, bạn hãy bấm chọn nhanh Quận/Huyện của mình ở mục số 2 bên dưới nhé.`);
       }
     } catch (err: any) {
       setGpsError(err.message || 'Không thể xác định vị trí GPS. Vui lòng chọn Tỉnh & Quận/Huyện thủ công bên dưới.');
@@ -279,6 +286,37 @@ export const LocationModal: React.FC<LocationModalProps> = ({
             <span className="text-[10px] px-2 py-0.5 rounded-full font-bold bg-stone-200/80 text-stone-700 uppercase">
               {currentLocation.source === 'gps' ? 'GPS Trực tiếp' : 'Thủ công'}
             </span>
+          </div>
+
+          {/* Prominent Smart Auto-Detect Button */}
+          <div>
+            <button
+              onClick={handleDetectGps}
+              disabled={isDetectingGps}
+              type="button"
+              className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-800 text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2.5 transition-all shadow-md active:scale-98 cursor-pointer"
+            >
+              <Crosshair className={`w-4 h-4 ${isDetectingGps ? 'animate-spin' : ''}`} />
+              <span>
+                {isDetectingGps
+                  ? 'Đang dò GPS & Tọa độ thực tế...'
+                  : '⚡ Tự động lấy vị trí chính xác của tôi (GPS)'}
+              </span>
+            </button>
+
+            {gpsSuccess && (
+              <div className="mt-2.5 p-3 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs flex items-start gap-2 font-medium animate-fade-in shadow-xs">
+                <Check className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                <div className="leading-snug">{gpsSuccess}</div>
+              </div>
+            )}
+
+            {gpsError && (
+              <div className="mt-2.5 p-3 rounded-2xl bg-rose-50 border border-rose-300 text-rose-900 text-xs flex items-start gap-2 font-medium animate-fade-in shadow-xs">
+                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                <div className="leading-snug">{gpsError}</div>
+              </div>
+            )}
           </div>
 
           {/* Quick Search Input */}
@@ -424,33 +462,6 @@ export const LocationModal: React.FC<LocationModalProps> = ({
               </div>
             </div>
           )}
-
-          {/* Quick GPS Auto-Detect Option (Secondary) */}
-          <div className="pt-1">
-            <button
-              onClick={handleDetectGps}
-              disabled={isDetectingGps}
-              type="button"
-              className="w-full py-2.5 px-3 rounded-2xl bg-stone-100 hover:bg-stone-200/80 text-stone-700 font-bold text-xs flex items-center justify-center gap-2 transition-all border border-stone-200 cursor-pointer"
-            >
-              <Crosshair className={`w-3.5 h-3.5 text-stone-500 ${isDetectingGps ? 'animate-spin' : ''}`} />
-              <span>{isDetectingGps ? 'Đang kết nối GPS...' : '🛰️ Hoặc thử lấy vị trí tự động qua GPS (Phù hợp trên điện thoại)'}</span>
-            </button>
-
-            {gpsSuccess && (
-              <div className="mt-2 p-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center gap-1.5 font-medium animate-fade-in">
-                <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>{gpsSuccess}</span>
-              </div>
-            )}
-
-            {gpsError && (
-              <div className="mt-2 p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-center gap-1.5 font-medium animate-fade-in">
-                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-                <span>{gpsError}</span>
-              </div>
-            )}
-          </div>
 
           {/* Benefit Explanation */}
           <div className="p-3 bg-stone-50 rounded-2xl border border-stone-200 text-[11px] text-stone-600 leading-relaxed flex items-start gap-2">

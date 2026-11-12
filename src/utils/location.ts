@@ -449,6 +449,11 @@ export function getStoredUserLocation(): UserLocation {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (parsed && parsed.city && parsed.citySlug) {
+        // Automatically sanitize legacy "Phường Chợ Quán" to proper district
+        if (parsed.district && (parsed.district.includes('Chợ Quán') || parsed.district.includes('Chợ Lớn'))) {
+          parsed.district = 'Quận 5';
+          parsed.address = 'Quận 5, TP. Hồ Chí Minh';
+        }
         return parsed;
       }
     }
@@ -660,6 +665,8 @@ export async function detectGpsLocation(): Promise<UserLocation> {
       async (pos) => {
         const latitude = pos.coords.latitude;
         const longitude = pos.coords.longitude;
+        const accuracy = Math.round(pos.coords.accuracy || 100);
+        const accuracyLevel: 'high' | 'approximate' = accuracy <= 500 ? 'high' : 'approximate';
 
         try {
           const geoInfo = await reverseGeocodeCoordinates(latitude, longitude);
@@ -671,6 +678,8 @@ export async function detectGpsLocation(): Promise<UserLocation> {
             latitude,
             longitude,
             source: 'gps',
+            accuracy,
+            accuracyLevel,
             updatedAt: new Date().toISOString(),
           };
 
@@ -687,6 +696,8 @@ export async function detectGpsLocation(): Promise<UserLocation> {
             latitude,
             longitude,
             source: 'gps',
+            accuracy,
+            accuracyLevel,
             updatedAt: new Date().toISOString(),
           };
           saveUserLocation(locationResult);
@@ -711,6 +722,92 @@ export async function detectGpsLocation(): Promise<UserLocation> {
       }
     );
   });
+}
+
+/**
+ * Tự động phát hiện vị trí qua mạng IP công cộng khi GPS không khả dụng
+ */
+export async function detectIpLocation(): Promise<UserLocation | null> {
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 3500);
+    const res = await fetch('https://ipwho.is/', { signal: controller.signal });
+    clearTimeout(timeout);
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.success) {
+        const lat = data.latitude || 10.7769;
+        const lng = data.longitude || 106.7009;
+        const closestCity = findClosestCity(lat, lng);
+        const closestDist = findClosestDistrict(lat, lng, closestCity.id) || closestCity.districts[0];
+
+        const locationResult: UserLocation = {
+          city: closestCity.name,
+          citySlug: closestCity.citySlug,
+          district: closestDist,
+          address: `${closestDist}, ${closestCity.name}`,
+          latitude: lat,
+          longitude: lng,
+          source: 'ip',
+          accuracy: 5000,
+          accuracyLevel: 'approximate',
+          updatedAt: new Date().toISOString(),
+        };
+        saveUserLocation(locationResult);
+        return locationResult;
+      }
+    }
+  } catch {
+    // fallback
+  }
+  return null;
+}
+
+/**
+ * Tính năng tự động lấy vị trí thông minh đa tầng:
+ * 1. Thử GPS phần cứng độ chính xác cao trước.
+ * 2. Nếu không có GPS, tự động fallback sang định vị mạng IP.
+ * 3. Trả về kết quả kèm cấp độ chính xác (high hoặc approximate).
+ */
+export async function smartAutoDetectLocation(force = true): Promise<{
+  location: UserLocation;
+  accuracyLevel: 'high' | 'approximate';
+  message: string;
+}> {
+  // 1. First attempt hardware GPS
+  if (typeof navigator !== 'undefined' && navigator.geolocation) {
+    try {
+      const gpsResult = await detectGpsLocation();
+      const isHigh = gpsResult.accuracyLevel === 'high';
+      return {
+        location: gpsResult,
+        accuracyLevel: isHigh ? 'high' : 'approximate',
+        message: isHigh
+          ? `Đã định vị chính xác vị trí GPS của bạn (${gpsResult.district ? `${gpsResult.district}, ` : ''}${gpsResult.city})`
+          : `Đã tự động xác định khu vực ${gpsResult.district || gpsResult.city} (Bạn có thể đổi quận nếu muốn)`,
+      };
+    } catch {
+      // GPS denied or failed
+    }
+  }
+
+  // 2. Fallback to IP Geolocation
+  const ipResult = await detectIpLocation();
+  if (ipResult) {
+    return {
+      location: ipResult,
+      accuracyLevel: 'approximate',
+      message: `Đã tự động nhận diện khu vực ${ipResult.city} qua mạng`,
+    };
+  }
+
+  // 3. Fallback to stored or default
+  const stored = getStoredUserLocation();
+  return {
+    location: stored,
+    accuracyLevel: stored.accuracyLevel || 'approximate',
+    message: `Đang áp dụng vị trí: ${stored.district || stored.city}`,
+  };
 }
 
 export function isAutoDetectLocationEnabled(): boolean {

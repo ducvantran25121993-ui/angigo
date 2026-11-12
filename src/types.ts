@@ -71,7 +71,9 @@ export interface UserLocation {
   address?: string;
   latitude?: number;
   longitude?: number;
-  source: 'gps' | 'manual' | 'default';
+  source: 'gps' | 'manual' | 'default' | 'ip';
+  accuracy?: number; // accuracy in meters from GPS/device
+  accuracyLevel?: 'high' | 'approximate';
   updatedAt?: string;
 }
 

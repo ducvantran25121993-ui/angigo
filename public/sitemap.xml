@@ -2154,7 +2154,7 @@
   </url>
   <url>
     <loc>https://angigio.com/ca-lam-mon-gi-ngon-goi-y-cac-mon-ca-de-lam</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2313,8 +2313,28 @@
     </image:image>
   </url>
   <url>
+    <loc>https://angigio.com/gio-heo-nau-mon-gi-ngon</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/gio_heo_chien_gion.jpg</image:loc>
+      <image:title>Giò Heo Nấu Món Gì Ngon? Gợi Ý 10 Món Ngon Từ Giò Heo</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://angigio.com/goi-y-tai-heo-lam-mon-gi-ngon</loc>
+    <lastmod>2026-11-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/tai_heo_sot_thai.jpg</image:loc>
+      <image:title>Gợi Ý Tai Heo Làm Món Gì Ngon</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://angigio.com/mon-ngon-tu-thit-ba-chi</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2324,7 +2344,7 @@
   </url>
   <url>
     <loc>https://angigio.com/suon-heo-lam-mon-gi-ngon</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2333,8 +2353,18 @@
     </image:image>
   </url>
   <url>
+    <loc>https://angigio.com/thit-heo-kho-gi-ngon-goi-y-10-mon-kho-dam-da-hao-com</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://angigio.com/images/thit_kho_tau.jpg</image:loc>
+      <image:title>Thịt Heo Kho Gì Ngon? Gợi Ý 10 Món Kho Đậm Đà, Hao Cơm</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://angigio.com/thit-nac-heo-lam-mon-gi-ngon</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
     <image:image>
@@ -2360,36 +2390,6 @@
     <image:image>
       <image:loc>https://angigio.com/images/thit-bam-lam-mon-gi-ngon.jpg</image:loc>
       <image:title>Thịt Băm Làm Món Gì Ngon? 9 Món Nhanh Gọn, Cực Hao Cơm Cho Cả Nhà</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/cac-mon-thit-heo-kho</loc>
-    <lastmod>2026-10-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/thit_kho_tau.jpg</image:loc>
-      <image:title>Thịt Heo Kho Gì Ngon? 7 Món Thịt Kho Đậm Đà Óng Ả Chuẩn Cơm Mẹ Nấu</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/mon-ngon-tu-chan-gio-heo</loc>
-    <lastmod>2026-10-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/gio_heo_chien_gion.jpg</image:loc>
-      <image:title>Chân Giò Heo Làm Món Gì Ngon? 8 Món Hầm, Chiên Giòn, Luộc Giòn Bì</image:title>
-    </image:image>
-  </url>
-  <url>
-    <loc>https://angigio.com/mon-ngon-tu-tai-heo</loc>
-    <lastmod>2026-10-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-    <image:image>
-      <image:loc>https://angigio.com/images/tai_heo_sot_thai.jpg</image:loc>
-      <image:title>Tai Heo Làm Món Gì Ngon? Top Món Gỏi, Tai Heo Sốt Thái, Ngâm Chua Ngọt</image:title>
     </image:image>
   </url>
   <url>

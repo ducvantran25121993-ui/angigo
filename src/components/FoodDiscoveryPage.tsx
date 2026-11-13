@@ -58,7 +58,13 @@ import {
   getTrayIngredients,
 } from '../data/dailyMenus';
 import { getCurrentDayId } from '../utils/mealPlanner';
-import { getDishRecipe } from '../data/recipes';
+import {
+  fetchDishRecipe,
+  generateFallbackRecipe,
+  getCachedDishRecipe,
+  getDishRecipeMeta,
+} from '../data/recipeLoader';
+import { DishRecipe } from '../types';
 import {
   getRecipeSlug,
   getRecipePath,
@@ -516,6 +522,30 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
   const [copiedRecipe, setCopiedRecipe] = useState(false);
   const [copiedFamilyDishRecipe, setCopiedFamilyDishRecipe] = useState<string | null>(null);
 
+  const [loadedRecipeEntry, setLoadedRecipeEntry] = useState<{ dishId: string; recipe: DishRecipe } | null>(null);
+
+  // Fetch single curated recipe JSON (~4-10 KB) on demand when viewing a recipe article
+  useEffect(() => {
+    if (!viewingRecipeArticle || !selectedRecipeDish) return;
+    const cached = getCachedDishRecipe(selectedRecipeDish);
+    if (cached) {
+      setLoadedRecipeEntry({ dishId: selectedRecipeDish.id, recipe: cached });
+      updateRecipeArticleSEO(selectedRecipeDish, cached);
+      return;
+    }
+
+    let cancelled = false;
+    fetchDishRecipe(selectedRecipeDish).then((recipe) => {
+      if (!cancelled) {
+        setLoadedRecipeEntry({ dishId: selectedRecipeDish.id, recipe });
+        updateRecipeArticleSEO(selectedRecipeDish, recipe);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [viewingRecipeArticle, selectedRecipeDish]);
+
   // Sync URL deep-linking for recipes (supports international clean URL /:slug, /cach-nau-mon-ngon/:slug, and legacy #recipe-...)
   useEffect(() => {
     const syncRecipeFromLocation = () => {
@@ -539,7 +569,8 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
           if (pathname !== canonical) {
             window.history.replaceState({ section: 'recipe', dishId: match.id }, '', canonical);
           }
-          updateRecipeArticleSEO(match, getDishRecipe(match));
+          const immediateRecipe = getCachedDishRecipe(match) || generateFallbackRecipe(match);
+          updateRecipeArticleSEO(match, immediateRecipe);
           return;
         }
       } else if (window.location.hash.startsWith('#recipe-')) {
@@ -549,7 +580,8 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
           setViewingRecipeArticle(true);
           // Canonicalize legacy hash into international clean SEO path
           window.history.replaceState({ section: 'recipe', dishId: match.id }, '', getRecipePath(match));
-          updateRecipeArticleSEO(match, getDishRecipe(match));
+          const immediateRecipe = getCachedDishRecipe(match) || generateFallbackRecipe(match);
+          updateRecipeArticleSEO(match, immediateRecipe);
           return;
         }
       } else if (pathname === '/cach-nau-mon-ngon') {
@@ -599,7 +631,8 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
       targetPath
     );
     window.dispatchEvent(new Event('locationchange'));
-    updateRecipeArticleSEO(dish, getDishRecipe(dish));
+    const immediateRecipe = getCachedDishRecipe(dish) || generateFallbackRecipe(dish);
+    updateRecipeArticleSEO(dish, immediateRecipe);
     const el = document.getElementById('recipe-article-container');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -973,9 +1006,14 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
     );
   }, [recipeSearchQuery, selectedRecipeCategory]);
 
-  // Current active recipe with safe fallback to guarantee zero runtime crashes
+  // Current active recipe with instant fallback while per-dish JSON (~4-10 KB) loads
   const currentRecipe = useMemo(() => {
-    const rec = getDishRecipe(selectedRecipeDish);
+    if (loadedRecipeEntry && loadedRecipeEntry.dishId === selectedRecipeDish.id) {
+      return loadedRecipeEntry.recipe;
+    }
+    const cached = getCachedDishRecipe(selectedRecipeDish);
+    if (cached) return cached;
+    const rec = generateFallbackRecipe(selectedRecipeDish);
     if (rec) return rec;
     return {
       dishId: selectedRecipeDish?.id || 'mon-ngon',
@@ -1014,7 +1052,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
       chefSecret: 'Chọn nguyên liệu tươi ngon và nêm nếm vừa khẩu vị là bí quyết cho món ăn tròn vị.',
       recommendedSauce: 'Nước chấm gia đình hoặc tương ớt cay nhẹ.',
     };
-  }, [selectedRecipeDish]);
+  }, [selectedRecipeDish, loadedRecipeEntry]);
 
   // Current region data
   const currentRegion = useMemo(() => {
@@ -1072,7 +1110,8 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
       targetPath
     );
     window.dispatchEvent(new Event('locationchange'));
-    updateRecipeArticleSEO(dish, getDishRecipe(dish));
+    const immediateRecipe = getCachedDishRecipe(dish) || generateFallbackRecipe(dish);
+    updateRecipeArticleSEO(dish, immediateRecipe);
     window.scrollTo({ top: 350, behavior: 'smooth' });
   };
 
@@ -2509,9 +2548,9 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                     {recipeFilteredDishes.slice(0, recipeDisplayLimit).map((dish) => {
-                      const recipe = getDishRecipe(dish);
+                      const recipeMeta = getDishRecipeMeta(dish);
                       const recipePath = getRecipePath(dish);
-                      const articleTitle = getRecipeArticleTitle(dish, recipe);
+                      const articleTitle = getRecipeArticleTitle(dish, recipeMeta);
                       return (
                         <a
                           key={dish.id}
@@ -2544,7 +2583,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                             <div className="absolute top-2.5 right-2.5">
                               <span className="px-2 py-0.5 rounded-lg bg-white/90 backdrop-blur-md text-stone-800 text-[10px] font-extrabold flex items-center gap-1 shadow-2xs">
                                 <Clock className="w-3 h-3 text-orange-500" />
-                                {recipe.cookTime.split('(')[0].trim()}
+                                {recipeMeta.cookTime.split('(')[0].trim()}
                               </span>
                             </div>
 
@@ -2569,7 +2608,7 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
                             <div className="pt-3 border-t border-stone-100 flex items-center justify-between">
                               <span className="text-[11px] font-semibold text-stone-500 flex items-center gap-1">
                                 <ChefHat className="w-3.5 h-3.5 text-amber-500" />
-                                {recipe.difficulty}
+                                {recipeMeta.difficulty}
                               </span>
 
                               <span className="inline-flex items-center gap-1 text-xs font-extrabold text-orange-600 group-hover:translate-x-0.5 transition-transform">

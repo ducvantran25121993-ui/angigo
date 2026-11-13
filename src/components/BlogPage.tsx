@@ -29,7 +29,6 @@ import {
   getBlogPostBySlug,
   getCustomBlogPosts,
   getDeletedPostSlugs,
-  syncDeletedPosts,
   fetchAndSyncCustomPosts,
   normalizeBlogPost,
   getPostRatingData,
@@ -249,17 +248,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         }
       } catch {}
 
-      await syncDeletedPosts(true);
+      const synced = await fetchAndSyncCustomPosts(false);
       if (!isMounted) return;
       setDeletedSlugs(getDeletedPostSlugs());
-
-      const synced = await fetchAndSyncCustomPosts(true);
-      if (!isMounted) return;
       const latestCustom = (synced && synced.length > 0 ? synced : getCustomBlogPosts()).filter(
         (p) => p.slug !== 'cach-lam-com-suon-nuong-mat-ong' && p.id !== 'cach-lam-com-suon-nuong-mat-ong'
       );
       setCustomPosts(latestCustom);
-      setDeletedSlugs(getDeletedPostSlugs());
 
       const pathname = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '';
       let resolved: BlogPost | null = null;
@@ -274,14 +269,15 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
             setActivePost(resolved);
             activePostRef.current = resolved;
           }
-          // Also fetch single post from live server endpoint to guarantee latest edit even if cached
-          const { fetchSinglePost } = await import('../data/blogPosts');
-          const singleFresh = await fetchSinglePost(targetSlug);
-          if (isMounted && singleFresh) {
-            resolved = singleFresh;
-            setActivePost(singleFresh);
-            activePostRef.current = singleFresh;
-            setCustomPosts(getCustomBlogPosts().map(normalizeBlogPost));
+          if (!resolved) {
+            const { fetchSinglePost } = await import('../data/blogPosts');
+            const singleFresh = await fetchSinglePost(targetSlug);
+            if (isMounted && singleFresh) {
+              resolved = singleFresh;
+              setActivePost(singleFresh);
+              activePostRef.current = singleFresh;
+              setCustomPosts(getCustomBlogPosts().map(normalizeBlogPost));
+            }
           }
         }
       }
@@ -311,20 +307,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       }
     };
 
-    const handleVisibilityOrFocus = () => {
-      if (document.visibilityState === 'visible') {
-        fetchLatestPosts();
-      }
-    };
-
     window.addEventListener('custom-posts-updated', handleCustomPostsUpdated);
-    window.addEventListener('focus', handleVisibilityOrFocus);
-    document.addEventListener('visibilitychange', handleVisibilityOrFocus);
     return () => {
       isMounted = false;
       window.removeEventListener('custom-posts-updated', handleCustomPostsUpdated);
-      window.removeEventListener('focus', handleVisibilityOrFocus);
-      document.removeEventListener('visibilitychange', handleVisibilityOrFocus);
     };
   }, []);
 
@@ -345,7 +331,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         } else {
           // Attempt rapid re-sync
           setIsSyncingPost(true);
-          fetchAndSyncCustomPosts(true).then(async (posts) => {
+          fetchAndSyncCustomPosts(false).then(async (posts) => {
             if (posts && posts.length > 0) setCustomPosts(posts);
             let secondResolved = resolvePostFromPath(pathname);
             if (!secondResolved) {

@@ -949,23 +949,39 @@ export function removeDeletedPostSlugLocal(slugOrId: string): void {
  */
 let _lastSyncDeletedTime = 0;
 
+function isAdminSessionContext(): boolean {
+  if (typeof window === 'undefined') return false;
+  const p = window.location.pathname.toLowerCase();
+  const s = window.location.search.toLowerCase();
+  return (
+    p.startsWith('/admin') ||
+    p.startsWith('/quan-tri') ||
+    s.includes('admin=1') ||
+    s.includes('admin=inbox')
+  );
+}
+
+function isLocalDevServer(): boolean {
+  if (typeof window === 'undefined') return false;
+  const h = window.location.hostname;
+  return h === 'localhost' || h === '127.0.0.1' || h.includes('run.app');
+}
+
 export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string>> {
   const set = getDeletedPostSlugs();
   if (typeof window === 'undefined') return set;
 
+  const isAdmin = isAdminSessionContext();
+  const isDevOrAdmin = isLocalDevServer() || isAdmin;
   const now = Date.now();
-  if (!forceRefresh && (now - _lastSyncDeletedTime < 3000)) {
+  const cacheWindowMs = isAdmin ? 3000 : 1800000; // 30 minutes for normal visitors
+  if (!forceRefresh && (now - _lastSyncDeletedTime < cacheWindowMs)) {
     return set;
   }
   _lastSyncDeletedTime = now;
 
-  // 1. Fetch from backend API only if on local dev server or in admin panel
+  // 1. Fetch from backend API only on local dev server or in admin panel
   let apiSuccess = false;
-  const isDevOrAdmin = typeof window !== 'undefined' && (
-    window.location.hostname === 'localhost' ||
-    window.location.hostname.includes('run.app') ||
-    window.location.pathname.startsWith('/admin')
-  );
   if (isDevOrAdmin) {
     try {
       const res = await fetch(`/api/admin/deleted-posts?_t=${now}`, { cache: 'no-store' });
@@ -985,10 +1001,28 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
     } catch (err) {
       console.warn('syncDeletedPosts API error:', err);
     }
+  } else {
+    // For normal readers on production/static hosting, use lightweight static /deleted_posts.json (zero Firebase load)
+    try {
+      const res = await fetch('/deleted_posts.json');
+      if (res.ok) {
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            apiSuccess = true;
+            data.forEach((s: string) => {
+              const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+              if (clean) set.add(clean);
+            });
+          }
+        }
+      }
+    } catch {}
   }
 
-  // 2. Fallback to Firestore deleted_posts only if API did not respond
-  if (!apiSuccess) {
+  // 2. Load Firestore deleted_posts ONLY inside /admin (when API did not respond)
+  if (!apiSuccess && isAdmin) {
     try {
       const { getDeletedPostsFromFirestore } = await import('../firebase');
       const cloudPromise = getDeletedPostsFromFirestore();
@@ -1284,14 +1318,17 @@ let _cachedFetchSyncPosts: BlogPost[] | null = null;
 
 export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<BlogPost[]> {
   if (typeof window === 'undefined') return [];
+  const isAdmin = isAdminSessionContext();
+  const isDevOrAdmin = isLocalDevServer() || isAdmin;
   const now = Date.now();
-  if (!forceRefresh && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < 300000)) {
+  const memoryTtlMs = isAdmin ? 300000 : 1800000; // 30 minutes cache for normal visitors
+  if ((!forceRefresh || !isAdmin) && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < memoryTtlMs)) {
     return _cachedFetchSyncPosts;
   }
   _lastFetchSyncTime = now;
 
-  // 0. Synchronize deleted posts from server & Firestore first
-  const deleted = await syncDeletedPosts(forceRefresh);
+  // 0. Synchronize deleted posts from static JSON (visitors) or server & Firestore (admin)
+  const deleted = await syncDeletedPosts(forceRefresh && isAdmin);
   const postMap = new Map<string, BlogPost>();
   const serverPostMap = new Map<string, BlogPost>();
 
@@ -1315,12 +1352,6 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   };
 
-  const isDevOrAdmin = typeof window !== 'undefined' && (
-    window.location.hostname === 'localhost' ||
-    window.location.hostname.includes('run.app') ||
-    window.location.pathname.startsWith('/admin')
-  );
-
   // 1. Fetch dynamic Express server API (/api/admin/posts) ONLY if dev or admin
   let liveApiSuccess = false;
   if (isDevOrAdmin) {
@@ -1343,7 +1374,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   }
 
-  // 2. Fetch /custom_blog_posts.json (allow edge cache for normal visitors)
+  // 2. Fetch /custom_blog_posts.json (allow 30-min edge/browser cache for normal visitors)
   try {
     const jsonUrl = (forceRefresh && isDevOrAdmin) ? `/custom_blog_posts.json?_t=${now}` : `/custom_blog_posts.json`;
     const res = await fetch(jsonUrl, forceRefresh && isDevOrAdmin ? { cache: 'no-store' } : {});
@@ -1371,23 +1402,25 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   } catch {}
 
-  // 4. Cloud Firestore sync (always run on all routes with client-side cache + quota protection)
-  try {
-    const { getPostsFromFirestore } = await import('../firebase');
-    const cloudPromise = getPostsFromFirestore(forceRefresh);
-    const timeoutPromise = new Promise<BlogPost[]>((_, reject) =>
-      setTimeout(() => reject(new Error('Firestore timeout')), 2000)
-    );
-    const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
-    if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
-      cloudPosts.forEach((p) => {
-        if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
-        if (p.id) deleted.delete(p.id.toLowerCase().trim());
-        mergeItem(p, true, false);
-      });
+  // 4. Cloud Firestore sync ONLY inside /admin (normal readers rely on static JSON & cache, saving ~168 KB vendor-firebase.js)
+  if (isAdmin) {
+    try {
+      const { getPostsFromFirestore } = await import('../firebase');
+      const cloudPromise = getPostsFromFirestore(forceRefresh);
+      const timeoutPromise = new Promise<BlogPost[]>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore timeout')), 2000)
+      );
+      const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
+      if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
+        cloudPosts.forEach((p) => {
+          if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
+          if (p.id) deleted.delete(p.id.toLowerCase().trim());
+          mergeItem(p, true, false);
+        });
+      }
+    } catch {
+      // ignore
     }
-  } catch {
-    // ignore
   }
 
   const merged = sortCustomPosts(Array.from(postMap.values()));
@@ -1472,8 +1505,11 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
   const deleted = getDeletedPostSlugs();
   if (deleted.has(clean)) return null;
 
-  // 1. Always query live server API /api/posts/:slugOrId FIRST (bypass cache) so edited posts get latest data
-  if (typeof window !== 'undefined') {
+  const isAdmin = isAdminSessionContext();
+  const isDevOrAdmin = isLocalDevServer() || isAdmin;
+
+  // 1. Query live server API /api/posts/:slugOrId only on local dev or admin
+  if (typeof window !== 'undefined' && isDevOrAdmin) {
     try {
       const res = await fetch(`/api/posts/${encodeURIComponent(clean)}?_t=${Date.now()}`, {
         cache: 'no-store',
@@ -1496,40 +1532,45 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
     } catch {}
   }
 
-  // 2. Try fetching from /custom_blog_posts.json (with standard ETag / HTTP cache)
+  // 2. Try fetching from /custom_blog_posts.json (with standard 30-min HTTP cache)
   if (typeof window !== 'undefined') {
     try {
       const res = await fetch('/custom_blog_posts.json');
       if (res.ok) {
-        const list = await res.json();
-        if (Array.isArray(list)) {
-          const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
-          const matched = list.find((p: any) => {
-            const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-            const id = (p.id || '').toLowerCase().trim();
-            return s === clean || id === clean || s === canonical || id === canonical;
-          });
-          if (matched) {
-            const normalized = normalizeBlogPost(matched);
-            return upsertFreshPostLocally(normalized, false);
+        const contentType = res.headers.get('content-type') || '';
+        if (contentType.includes('application/json')) {
+          const list = await res.json();
+          if (Array.isArray(list)) {
+            const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+            const matched = list.find((p: any) => {
+              const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+              const id = (p.id || '').toLowerCase().trim();
+              return s === clean || id === clean || s === canonical || id === canonical;
+            });
+            if (matched) {
+              const normalized = normalizeBlogPost(matched);
+              return upsertFreshPostLocally(normalized, false);
+            }
           }
         }
       }
     } catch {}
   }
 
-  // 3. Try fetching single post directly from Cloud Firestore (with 2s timeout)
-  try {
-    const { getSinglePostFromFirestore } = await import('../firebase');
-    const cloudPost = await Promise.race([
-      getSinglePostFromFirestore(clean),
-      new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000)),
-    ]);
-    if (cloudPost) {
-      const normalized = normalizeBlogPost(cloudPost);
-      return upsertFreshPostLocally(normalized, true);
-    }
-  } catch {}
+  // 3. Query Cloud Firestore ONLY in /admin context
+  if (isAdmin) {
+    try {
+      const { getSinglePostFromFirestore } = await import('../firebase');
+      const cloudPost = await Promise.race([
+        getSinglePostFromFirestore(clean),
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000)),
+      ]);
+      if (cloudPost) {
+        const normalized = normalizeBlogPost(cloudPost);
+        return upsertFreshPostLocally(normalized, true);
+      }
+    } catch {}
+  }
 
   // 4. Fallback to local memory / bundled posts
   const found = getBlogPostBySlug(clean);

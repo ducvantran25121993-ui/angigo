@@ -911,7 +911,19 @@
     {
       "source": "/custom_blog_posts.json",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=180, stale-while-revalidate=1800" }
+        { "key": "Cache-Control", "value": "public, max-age=1800, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/deleted_posts.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=1800, stale-while-revalidate=86400" }
+      ]
+    },
+    {
+      "source": "/recipes/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     }
   ],

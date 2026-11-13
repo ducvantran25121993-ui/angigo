@@ -185,6 +185,20 @@ export default defineConfig(() => {
               },
             },
             {
+              urlPattern: /\/recipes\/.*\.json$/i,
+              handler: 'CacheFirst',
+              options: {
+                cacheName: 'recipes-json-cache',
+                expiration: {
+                  maxEntries: 160,
+                  maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+                },
+                cacheableResponse: {
+                  statuses: [0, 200],
+                },
+              },
+            },
+            {
               urlPattern: /\.(?:png|jpg|jpeg|svg|webp|ico)$/i,
               handler: 'CacheFirst',
               options: {

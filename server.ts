@@ -1385,11 +1385,11 @@ app.get("/custom_blog_posts.json", async (req, res) => {
   res.setHeader("ETag", etag);
 
   if (req.headers["if-none-match"] === etag) {
-    res.setHeader("Cache-Control", "public, max-age=120, stale-while-revalidate=600");
+    res.setHeader("Cache-Control", "public, max-age=1800, stale-while-revalidate=86400");
     return res.status(304).end();
   }
 
-  res.setHeader("Cache-Control", "public, max-age=120, stale-while-revalidate=600");
+  res.setHeader("Cache-Control", "public, max-age=1800, stale-while-revalidate=86400");
   return res.send(jsonStr);
 });
 

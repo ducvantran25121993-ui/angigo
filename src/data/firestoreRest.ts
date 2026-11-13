@@ -158,6 +158,10 @@ function mapDocToBlogPost(docId: string, data: Record<string, any>): BlogPost {
     updatedAt: data.updatedAt || new Date().toISOString(),
     revision: Number(data.revision || 1),
     adminSaved: true,
+    seoTitle: data.seoTitle ? String(data.seoTitle) : undefined,
+    seoDescription: data.seoDescription ? String(data.seoDescription) : undefined,
+    focusKeyword: data.focusKeyword ? String(data.focusKeyword) : undefined,
+    noIndex: Boolean(data.noIndex),
   };
 }
 

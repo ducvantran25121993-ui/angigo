@@ -395,8 +395,21 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
 
   // Update document title, meta tags, and structured JSON-LD schema when activePost changes
   useEffect(() => {
+    const robotsMeta = document.querySelector('meta[name="robots"]');
     if (activePost) {
-      document.title = `${activePost.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`;
+      const effectiveTitle = activePost.seoTitle?.trim() || `${activePost.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`;
+      const effectiveDesc = activePost.seoDescription?.trim() || activePost.excerpt;
+
+      document.title = effectiveTitle;
+      if (robotsMeta) {
+        robotsMeta.setAttribute(
+          'content',
+          activePost.noIndex
+            ? 'noindex, nofollow'
+            : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+        );
+      }
+
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
         canonical.setAttribute('href', `https://angigio.com/${activePost.slug}`);
@@ -410,21 +423,28 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         }
       }
 
-      // Update description & OG tags
+      // Update description & OG/Twitter tags
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
         metaDesc.setAttribute('name', 'description');
         document.head.appendChild(metaDesc);
       }
-      metaDesc.setAttribute('content', activePost.excerpt);
+      metaDesc.setAttribute('content', effectiveDesc);
 
-      let ogTitle = document.querySelector('meta[property="og:title"]');
-      if (ogTitle) ogTitle.setAttribute('content', `${activePost.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`);
-      let ogDesc = document.querySelector('meta[property="og:description"]');
-      if (ogDesc) ogDesc.setAttribute('content', activePost.excerpt);
-      let ogImage = document.querySelector('meta[property="og:image"]');
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute('content', effectiveTitle);
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute('content', effectiveDesc);
+      const ogImage = document.querySelector('meta[property="og:image"]');
       if (ogImage) ogImage.setAttribute('content', activePost.coverImage);
+
+      const twTitle = document.querySelector('meta[name="twitter:title"]');
+      if (twTitle) twTitle.setAttribute('content', effectiveTitle);
+      const twDesc = document.querySelector('meta[name="twitter:description"]');
+      if (twDesc) twDesc.setAttribute('content', effectiveDesc);
+      const twImage = document.querySelector('meta[name="twitter:image"]');
+      if (twImage) twImage.setAttribute('content', activePost.coverImage);
 
       // JSON-LD Schema for Article, Recipe & Breadcrumbs
       const scriptId = 'blog-post-jsonld';
@@ -451,7 +471,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
             url: 'https://angigio.com/',
           },
           headline: activePost.title,
-          description: activePost.excerpt,
+          description: effectiveDesc,
           image: [fullCoverUrl],
           datePublished: '2026-09-28T08:00:00+07:00',
           dateModified: activePost.updatedAt || '2026-10-17T08:00:00+07:00',
@@ -506,6 +526,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       });
     } else {
       document.title = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Hôm Nay Ăn Gì';
+      if (robotsMeta) {
+        robotsMeta.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+      }
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
         canonical.setAttribute('href', 'https://angigio.com/blog');

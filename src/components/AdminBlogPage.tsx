@@ -60,6 +60,10 @@ import {
   LogOut,
   Monitor,
   Smartphone,
+  ChevronDown,
+  ChevronUp,
+  TrendingUp,
+  AlertTriangle,
 } from 'lucide-react';
 import {
   BlogPost,
@@ -88,6 +92,7 @@ import {
 } from '../firebase';
 import { TabType } from '../utils/navigation';
 import { AdminInboxView } from './AdminInboxView';
+import { analyzePostSeo } from '../utils/seoAnalyzer';
 import { getContactMessages } from '../utils/contactStorage';
 import {
   AdminLogin,
@@ -205,6 +210,12 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   );
   const [readTime, setReadTime] = useState('6 phút đọc');
   const [featured, setFeatured] = useState(false);
+  const [seoTitle, setSeoTitle] = useState('');
+  const [seoDescription, setSeoDescription] = useState('');
+  const [focusKeyword, setFocusKeyword] = useState('');
+  const [noIndex, setNoIndex] = useState(false);
+  const [serpDevice, setSerpDevice] = useState<'desktop' | 'mobile'>('desktop');
+  const [showSeoDetails, setShowSeoDetails] = useState(true);
   const [editorSubTab, setEditorSubTab] = useState<'visual' | 'preview' | 'markdown'>('visual');
   const [currentBlockFormat, setCurrentBlockFormat] = useState<string>('p');
   const [currentFontSize, setCurrentFontSize] = useState<string>('3');
@@ -1397,6 +1408,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setPublishDate(new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }));
     setReadTime('6 phút đọc');
     setFeatured(true);
+    setSeoTitle('');
+    setSeoDescription('');
+    setFocusKeyword('');
+    setNoIndex(false);
     setViewMode('editor');
     setEditorSubTab('visual');
     setFloatingLink(null);
@@ -1425,6 +1440,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setPublishDate(post.publishDate || new Date().toLocaleDateString('vi-VN'));
     setReadTime(post.readTime || '5 phút đọc');
     setFeatured(!!post.featured);
+    setSeoTitle(post.seoTitle || '');
+    setSeoDescription(post.seoDescription || '');
+    setFocusKeyword(post.focusKeyword || '');
+    setNoIndex(!!post.noIndex);
     setViewMode('editor');
     setEditorSubTab('visual');
     setFloatingLink(null);
@@ -2497,6 +2516,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       updatedAt: new Date().toISOString(),
       revision: nextRevision,
       adminSaved: true,
+      seoTitle: seoTitle.trim() || undefined,
+      seoDescription: seoDescription.trim() || undefined,
+      focusKeyword: focusKeyword.trim() || undefined,
+      noIndex: !!noIndex,
     };
 
     // 1. Update localStorage & memory immediately
@@ -2860,6 +2883,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       updatedAt: new Date().toISOString(),
       revision: nextRevision,
       adminSaved: true,
+      seoTitle: seoTitle.trim() || undefined,
+      seoDescription: seoDescription.trim() || undefined,
+      focusKeyword: focusKeyword.trim() || undefined,
+      noIndex: !!noIndex,
     };
 
     removeDeletedPostSlugLocal(cleanSlug);
@@ -3002,7 +3029,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [viewMode, saving, title, slug, excerpt, coverImage, category, tags, authorName, authorRole, publishDate, readTime, featured, posts]);
+  }, [viewMode, saving, title, slug, excerpt, coverImage, category, tags, authorName, authorRole, publishDate, readTime, featured, seoTitle, seoDescription, focusKeyword, noIndex, posts]);
 
   // Open Delete Confirmation Modal
   const handleDeletePost = (post: BlogPost) => {
@@ -3158,6 +3185,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       updatedAt: new Date().toISOString(),
       revision: nextRevision,
       adminSaved: true,
+      seoTitle: seoTitle.trim() || undefined,
+      seoDescription: seoDescription.trim() || undefined,
+      focusKeyword: focusKeyword.trim() || undefined,
+      noIndex: !!noIndex,
     };
 
     try {
@@ -3182,7 +3213,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     }
 
     return draftPayload;
-  }, [slug, title, excerpt, coverImage, category, tags, authorName, authorRole, publishDate, readTime, featured, editingPostId]);
+  }, [slug, title, excerpt, coverImage, category, tags, authorName, authorRole, publishDate, readTime, featured, seoTitle, seoDescription, focusKeyword, noIndex, editingPostId]);
 
   // Open Preview Modal directly from Editor
   const handleOpenPreview = useCallback(() => {
@@ -4659,44 +4690,221 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
             {/* Right 4 Cols: WordPress Document Settings Sidebar (Sticky & Fixed) */}
             <div className="lg:col-span-4 space-y-5 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto lg:pr-1.5 pb-10 overscroll-contain">
-              {/* Google SERP SEO Preview */}
-              <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs space-y-3">
-                <h3 className="font-extrabold text-stone-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
-                  <Globe className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Xem Trước Kết Quả Google (SEO)</span>
-                </h3>
+              {/* Yoast / RankMath SEO Optimizer & Google SERP Preview */}
+              {(() => {
+                const liveHtml = editorRef.current ? editorRef.current.innerHTML : '';
+                const seoReport = analyzePostSeo({
+                  title,
+                  seoTitle,
+                  slug: slug || generateSlug(title),
+                  excerpt,
+                  seoDescription,
+                  focusKeyword,
+                  htmlContent: liveHtml,
+                  coverImage,
+                  noIndex,
+                });
+                const scoreBadgeCls =
+                  seoReport.rating === 'good'
+                    ? 'bg-emerald-100 text-emerald-800 border-emerald-200'
+                    : seoReport.rating === 'ok'
+                      ? 'bg-amber-100 text-amber-800 border-amber-200'
+                      : 'bg-rose-100 text-rose-800 border-rose-200';
+                const scoreBarCls =
+                  seoReport.rating === 'good'
+                    ? 'bg-emerald-500'
+                    : seoReport.rating === 'ok'
+                      ? 'bg-amber-500'
+                      : 'bg-rose-500';
+                const effectiveTitleLen = (seoTitle.trim() || (title ? `${title} | Hôm Nay Ăn Gì` : '')).length;
+                const effectiveDescText = seoDescription.trim() || excerpt;
 
-                <div className="bg-stone-50 p-3.5 rounded-xl border border-stone-200 text-xs space-y-1">
-                  <div className="text-[11px] text-stone-500 flex items-center gap-1">
-                    <span className="font-bold text-stone-700">angigio.com</span>
-                    <span>›</span>
-                    <span className="font-mono text-stone-500 truncate">/{slug || 'bai-viet'}</span>
-                  </div>
-                  <div className="text-blue-700 font-bold text-sm hover:underline cursor-pointer leading-snug">
-                    {title ? `${title} | Hôm Nay Ăn Gì` : 'Tiêu Đề Bài Viết Chuẩn SEO'}
-                  </div>
-                  <div className="text-stone-600 line-clamp-2 text-[12px] leading-relaxed">
-                    {excerpt || 'Tóm tắt bài viết hấp dẫn, chứa từ khóa chính giúp tăng tỷ lệ nhấp chuột CTR từ công cụ tìm kiếm Google...'}
-                  </div>
-                </div>
+                return (
+                  <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs space-y-3.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-extrabold text-stone-900 text-xs uppercase tracking-wider flex items-center gap-1.5">
+                        <TrendingUp className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>Tối Ưu SEO (Yoast / RankMath)</span>
+                      </h3>
+                      <span className={`text-[11px] font-extrabold px-2 py-0.5 rounded-full border ${scoreBadgeCls}`}>
+                        {seoReport.score}/100
+                      </span>
+                    </div>
 
-                {/* Excerpt Meta Description input */}
-                <div>
-                  <label className="block text-xs font-bold text-stone-700 mb-1">
-                    Mô tả tóm tắt (Meta Description):
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={excerpt}
-                    onChange={(e) => setExcerpt(e.target.value)}
-                    placeholder="Tóm tắt ngắn gọn 140 - 160 ký tự..."
-                    className="w-full text-xs p-2.5 bg-stone-50 border border-stone-200 rounded-xl focus:bg-white focus:outline-none focus:ring-1 focus:ring-orange-500 leading-relaxed"
-                  />
-                  <div className="text-[11px] text-stone-400 text-right mt-0.5">
-                    {excerpt.length}/160 ký tự
+                    {/* Score bar */}
+                    <div className="space-y-1">
+                      <div className="w-full h-1.5 bg-stone-100 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full transition-all duration-300 ${scoreBarCls}`}
+                          style={{ width: `${seoReport.score}%` }}
+                        />
+                      </div>
+                      <div className="flex items-center justify-between text-[11px] text-stone-500">
+                        <span className="font-semibold">{seoReport.ratingLabel}</span>
+                        <span>{seoReport.wordCount} từ • {seoReport.headingCount} H2/H3 • {seoReport.internalLinkCount} link nội bộ</span>
+                      </div>
+                    </div>
+
+                    {/* Focus Keyword */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-xs font-bold text-stone-700">Từ khóa chính (Focus Keyword):</label>
+                        {!focusKeyword && title.trim() && (
+                          <button
+                            type="button"
+                            onClick={() => setFocusKeyword(title.trim().split(/[:\-–|?]/)[0].trim().slice(0, 60))}
+                            className="text-[10px] font-bold text-orange-600 hover:underline"
+                          >
+                            Gợi ý từ tiêu đề
+                          </button>
+                        )}
+                      </div>
+                      <input
+                        type="text"
+                        value={focusKeyword}
+                        onChange={(e) => setFocusKeyword(e.target.value)}
+                        placeholder="VD: thịt heo làm món gì ngon"
+                        className="w-full text-xs p-2 bg-stone-50 border border-stone-200 rounded-xl focus:bg-white focus:outline-none focus:ring-1 focus:ring-orange-500"
+                      />
+                    </div>
+
+                    {/* Google SERP Preview */}
+                    <div className="space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[11px] font-bold text-stone-600 flex items-center gap-1">
+                          <Globe className="w-3 h-3 text-blue-600" />
+                          Xem trước Google ({serpDevice === 'mobile' ? 'Mobile' : 'Desktop'})
+                        </span>
+                        <div className="flex items-center gap-1 bg-stone-100 p-0.5 rounded-lg">
+                          <button
+                            type="button"
+                            onClick={() => setSerpDevice('desktop')}
+                            className={`p-1 rounded ${serpDevice === 'desktop' ? 'bg-white shadow-2xs text-stone-900' : 'text-stone-400'}`}
+                            title="Desktop Preview"
+                          >
+                            <Monitor className="w-3 h-3" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setSerpDevice('mobile')}
+                            className={`p-1 rounded ${serpDevice === 'mobile' ? 'bg-white shadow-2xs text-stone-900' : 'text-stone-400'}`}
+                            title="Mobile Preview"
+                          >
+                            <Smartphone className="w-3 h-3" />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className={`bg-stone-50 p-3 rounded-xl border border-stone-200 text-xs space-y-1 ${serpDevice === 'mobile' ? 'max-w-[300px]' : ''}`}>
+                        <div className="text-[11px] text-stone-500 flex items-center gap-1">
+                          <span className="font-bold text-stone-700">angigio.com</span>
+                          <span>›</span>
+                          <span className="font-mono text-stone-500 truncate">/{slug || generateSlug(title) || 'bai-viet'}</span>
+                        </div>
+                        <div className="text-blue-700 font-bold text-sm leading-snug line-clamp-2">
+                          {seoReport.effectiveTitle || 'Tiêu Đề Bài Viết Chuẩn SEO | Hôm Nay Ăn Gì'}
+                        </div>
+                        <div className="text-stone-600 line-clamp-2 text-[12px] leading-relaxed">
+                          {effectiveDescText || 'Tóm tắt bài viết hấp dẫn, chứa từ khóa chính giúp tăng tỷ lệ nhấp chuột CTR từ công cụ tìm kiếm Google...'}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Custom SEO Title */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-xs font-bold text-stone-700">Tiêu đề SEO (SEO Title - tùy chọn):</label>
+                        <span className={`text-[10px] font-bold ${effectiveTitleLen >= 35 && effectiveTitleLen <= 65 ? 'text-emerald-600' : 'text-amber-600'}`}>
+                          {effectiveTitleLen}/65
+                        </span>
+                      </div>
+                      <input
+                        type="text"
+                        value={seoTitle}
+                        onChange={(e) => setSeoTitle(e.target.value)}
+                        placeholder={title ? `${title} | Hôm Nay Ăn Gì` : 'Để trống sẽ tự lấy theo tiêu đề bài viết'}
+                        maxLength={200}
+                        className="w-full text-xs p-2 bg-stone-50 border border-stone-200 rounded-xl focus:bg-white focus:outline-none focus:ring-1 focus:ring-orange-500"
+                      />
+                    </div>
+
+                    {/* Excerpt / Meta Description */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-xs font-bold text-stone-700">Đoạn trích bài viết (Excerpt):</label>
+                        <span className="text-[10px] text-stone-400">{excerpt.length} ký tự</span>
+                      </div>
+                      <textarea
+                        rows={2}
+                        value={excerpt}
+                        onChange={(e) => setExcerpt(e.target.value)}
+                        placeholder="Đoạn mở đầu hiển thị trên trang danh sách blog..."
+                        className="w-full text-xs p-2 bg-stone-50 border border-stone-200 rounded-xl focus:bg-white focus:outline-none focus:ring-1 focus:ring-orange-500 leading-relaxed"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="flex items-center justify-between mb-1">
+                        <label className="text-xs font-bold text-stone-700">Meta Description (SEO - tùy chọn):</label>
+                        <span className={`text-[10px] font-bold ${effectiveDescText.length >= 115 && effectiveDescText.length <= 165 ? 'text-emerald-600' : 'text-amber-600'}`}>
+                          {effectiveDescText.length}/160
+                        </span>
+                      </div>
+                      <textarea
+                        rows={2}
+                        value={seoDescription}
+                        onChange={(e) => setSeoDescription(e.target.value)}
+                        placeholder="Để trống sẽ tự dùng Đoạn trích (Excerpt) ở trên..."
+                        maxLength={350}
+                        className="w-full text-xs p-2 bg-stone-50 border border-stone-200 rounded-xl focus:bg-white focus:outline-none focus:ring-1 focus:ring-orange-500 leading-relaxed"
+                      />
+                    </div>
+
+                    {/* NoIndex Toggle */}
+                    <label className="flex items-center gap-2 text-xs text-stone-700 cursor-pointer select-none pt-0.5">
+                      <input
+                        type="checkbox"
+                        checked={noIndex}
+                        onChange={(e) => setNoIndex(e.target.checked)}
+                        className="rounded border-stone-300 text-orange-600 focus:ring-orange-500"
+                      />
+                      <span>Ẩn bài khỏi Google tìm kiếm (<code className="text-[10px] bg-stone-100 px-1 rounded">noindex</code>)</span>
+                    </label>
+
+                    {/* Detailed Checklist */}
+                    <div className="border-t border-stone-100 pt-2.5">
+                      <button
+                        type="button"
+                        onClick={() => setShowSeoDetails((v) => !v)}
+                        className="w-full flex items-center justify-between text-xs font-bold text-stone-700 hover:text-stone-900"
+                      >
+                        <span>Checklist On-Page ({seoReport.checks.filter((c) => c.status === 'pass').length}/{seoReport.checks.length} đạt)</span>
+                        {showSeoDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+
+                      {showSeoDetails && (
+                        <ul className="mt-2.5 space-y-2">
+                          {seoReport.checks.map((item) => (
+                            <li key={item.id} className="flex items-start gap-2 text-[11px] leading-snug">
+                              {item.status === 'pass' ? (
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
+                              ) : item.status === 'warn' ? (
+                                <AlertTriangle className="w-3.5 h-3.5 text-amber-500 shrink-0 mt-0.5" />
+                              ) : (
+                                <AlertCircle className="w-3.5 h-3.5 text-rose-500 shrink-0 mt-0.5" />
+                              )}
+                              <div>
+                                <div className="font-bold text-stone-800">{item.label}</div>
+                                <div className="text-stone-500">{item.detail}</div>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </div>
+                );
+              })()}
 
               {/* Chuyên mục (Category) */}
               <div className="bg-white p-5 rounded-2xl border border-stone-200 shadow-xs space-y-3">

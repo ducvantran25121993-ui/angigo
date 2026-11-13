@@ -39,6 +39,10 @@ export interface BlogPost {
   revision?: number;
   adminSaved?: boolean;
   isMetadataOnly?: boolean;
+  seoTitle?: string;
+  seoDescription?: string;
+  focusKeyword?: string;
+  noIndex?: boolean;
   ratingValue?: number;
   reviewCount?: number;
 }
@@ -903,6 +907,10 @@ export function normalizeBlogPost(raw: any): BlogPost {
     revision: normalizedRevision,
     adminSaved: isAdminSaved,
     isMetadataOnly: Boolean(raw.isMetadataOnly) && !content && !raw.htmlContent,
+    seoTitle: raw.seoTitle ? String(raw.seoTitle).trim().slice(0, 200) : undefined,
+    seoDescription: raw.seoDescription ? String(raw.seoDescription).trim().slice(0, 350) : undefined,
+    focusKeyword: raw.focusKeyword ? String(raw.focusKeyword).trim().slice(0, 120) : undefined,
+    noIndex: Boolean(raw.noIndex),
   };
 }
 

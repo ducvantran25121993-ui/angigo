@@ -1,6 +1,11 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "functions": {
+    "api/*.ts": {
+      "includeFiles": "{dist/index.html,dist/sitemap-base.xml,public/sitemap.xml,firebase-applet-config.json}"
+    }
+  },
   "redirects": [
     {
       "source": "/cach-nau-bun-ca-ngu-phu-yen",
@@ -903,9 +908,15 @@
       ]
     },
     {
-      "source": "/(sitemap.xml|robots.txt|manifest.webmanifest)",
+      "source": "/(robots.txt|manifest.webmanifest)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/sitemap.xml",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, s-maxage=1800, stale-while-revalidate=86400" }
       ]
     },
     {
@@ -929,8 +940,12 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/((?!api/|assets/|images/|recipes/|.*\\..*).*)",
+      "destination": "/api/seo-page?path=/$1"
     }
   ]
 }

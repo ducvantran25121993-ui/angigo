@@ -78,6 +78,25 @@
           "type": "string",
           "description": "Thời gian cập nhật bài viết dạng ISO string",
           "maxLength": 100
+        },
+        "seoTitle": {
+          "type": "string",
+          "description": "Tiêu đề hiển thị trên Google (SEO Title tùy chỉnh)",
+          "maxLength": 200
+        },
+        "seoDescription": {
+          "type": "string",
+          "description": "Mô tả hiển thị trên kết quả tìm kiếm Google (Meta Description)",
+          "maxLength": 350
+        },
+        "focusKeyword": {
+          "type": "string",
+          "description": "Từ khóa SEO chính của bài viết",
+          "maxLength": 120
+        },
+        "noIndex": {
+          "type": "boolean",
+          "description": "Ẩn bài viết khỏi công cụ tìm kiếm (noindex)"
         }
       },
       "required": ["id", "slug", "title", "content"]

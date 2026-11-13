@@ -1165,6 +1165,10 @@ async function syncServerBlogManifestToFirestore(db: any): Promise<boolean> {
         updatedAt: String(p.updatedAt || new Date().toISOString()).slice(0, 100),
         revision: Math.max(Number(p.revision || 0), p.adminSaved ? 1 : 0),
         adminSaved: Boolean(p.adminSaved),
+        seoTitle: p.seoTitle ? String(p.seoTitle).trim().slice(0, 200) : "",
+        seoDescription: p.seoDescription ? String(p.seoDescription).trim().slice(0, 350) : "",
+        focusKeyword: p.focusKeyword ? String(p.focusKeyword).trim().slice(0, 120) : "",
+        noIndex: Boolean(p.noIndex),
       });
       if (compactPosts.length >= 450) break;
     }
@@ -1382,6 +1386,10 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
         updatedAt: data.updatedAt || new Date().toISOString(),
         revision: Number(data.revision || 1),
         adminSaved: true,
+        seoTitle: data.seoTitle ? String(data.seoTitle) : undefined,
+        seoDescription: data.seoDescription ? String(data.seoDescription) : undefined,
+        focusKeyword: data.focusKeyword ? String(data.focusKeyword) : undefined,
+        noIndex: Boolean(data.noIndex),
       });
     });
 
@@ -1674,6 +1682,10 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
           updatedAt: data.updatedAt || new Date().toISOString(),
           revision: Number(data.revision || 1),
           adminSaved: true,
+          seoTitle: data.seoTitle ? String(data.seoTitle) : undefined,
+          seoDescription: data.seoDescription ? String(data.seoDescription) : undefined,
+          focusKeyword: data.focusKeyword ? String(data.focusKeyword) : undefined,
+          noIndex: Boolean(data.noIndex),
         };
 
         // Cache into local file storage so all future requests serve instantly
@@ -1702,15 +1714,75 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
 // Comprehensive dynamic SEO routes config for server-rendered HTML meta tags
 let SEO_ROUTES_CONFIG = getAllSeoRoutes();
 
-function injectSeoMeta(html: string, requestedPath: string): string {
+// Targeted 1-read Firestore lookup for unknown paths so newly published admin posts get full SSR SEO immediately
+async function fetchSinglePostFromServerFirestore(slug: string): Promise<any | null> {
+  if (!slug || Date.now() < firestoreQuotaExceededUntil) return null;
+  const clean = slug.toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "");
+  if (!clean) return null;
+  const deleted = new Set(loadDeletedPostSlugs());
+  if (deleted.has(clean)) return null;
+
+  try {
+    const db = await getServerFirestore();
+    if (!db) return null;
+    const { doc, getDoc } = await import("firebase/firestore");
+    const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, "-").slice(0, 120);
+    const snap = await Promise.race([
+      getDoc(doc(db, "posts", docId)),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore timeout")), 2500)),
+    ]);
+    if (snap.exists()) {
+      const data = snap.data();
+      const post = {
+        id: data.id || snap.id,
+        slug: data.slug || snap.id,
+        title: data.title || "",
+        excerpt: data.excerpt || "",
+        content: data.content || "",
+        htmlContent: data.htmlContent || undefined,
+        coverImage: data.coverImage || "/images/an-gi-cho-do-ngan.jpg",
+        category: data.category || "Gợi Ý Thực Đơn",
+        tags: typeof data.tags === "string" ? data.tags.split(",").map((t: string) => t.trim()).filter(Boolean) : (data.tags || []),
+        author: {
+          name: data.authorName || "Bếp Trưởng Hôm Nay Ăn Gì",
+          role: data.authorRole || "Chuyên gia Ẩm thực & Dinh dưỡng",
+          avatar: data.authorAvatar || "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=120&auto=format&fit=crop&q=80",
+        },
+        publishDate: data.publishDate || "",
+        readTime: data.readTime || "5 phút đọc",
+        featured: Boolean(data.featured),
+        updatedAt: data.updatedAt || new Date().toISOString(),
+        revision: Number(data.revision || 1),
+        adminSaved: true,
+        seoTitle: data.seoTitle ? String(data.seoTitle) : undefined,
+        seoDescription: data.seoDescription ? String(data.seoDescription) : undefined,
+        focusKeyword: data.focusKeyword ? String(data.focusKeyword) : undefined,
+        noIndex: Boolean(data.noIndex),
+      };
+      const currentCustom = loadCustomBlogPosts();
+      const idx = currentCustom.findIndex((p) => p.slug === post.slug || p.id === post.id);
+      if (idx >= 0) currentCustom[idx] = post;
+      else currentCustom.unshift(post);
+      saveCustomBlogPosts(currentCustom);
+      return post;
+    }
+  } catch (err: any) {
+    if (err?.message?.includes("Quota") || err?.code === "resource-exhausted") {
+      firestoreQuotaExceededUntil = Date.now() + FIRESTORE_QUOTA_COOLDOWN;
+    }
+  }
+  return null;
+}
+
+function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?: any): string {
   const cleanPath = requestedPath.replace(/\/$/, "") || "/";
   const slug = cleanPath.replace(/^\//, "").replace(/^\/?blog\//, "").toLowerCase().trim();
 
   const customPosts = loadCustomBlogPosts();
 
   // 1. Check custom posts first so any newly published or edited admin posts take immediate effect (only for non-root paths)
-  let customMatch = undefined;
-  if (slug && cleanPath !== "/" && cleanPath !== "/blog") {
+  let customMatch = overrideCustomPost || undefined;
+  if (!customMatch && slug && cleanPath !== "/" && cleanPath !== "/blog") {
     const canonicalSlug = (BLOG_SLUG_ALIASES[slug] || slug).toLowerCase();
     customMatch = customPosts.find((p) => {
       const pSlug = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -1727,8 +1799,8 @@ function injectSeoMeta(html: string, requestedPath: string): string {
   let meta = customMatch
     ? {
         path: `/${customMatch.slug}`,
-        title: `${customMatch.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`,
-        description: customMatch.excerpt,
+        title: customMatch.seoTitle?.trim() || `${customMatch.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`,
+        description: customMatch.seoDescription?.trim() || customMatch.excerpt,
         keywords: Array.isArray(customMatch.tags) ? customMatch.tags.join(', ') : (customMatch.tags || ''),
         image: customMatch.coverImage || "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80",
         imageAlt: customMatch.title,
@@ -1809,21 +1881,33 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     ? `https://angigio.com${meta.canonicalPath === "/" ? "/" : meta.canonicalPath}`
     : fullUrl;
 
+  const safeTitle = escapeXml(meta.title || "");
+  const safeDesc = escapeXml(meta.description || "");
+  const safeKeywords = escapeXml(meta.keywords || "");
+  const safeImageAlt = escapeXml(meta.imageAlt || meta.title || "");
+
   let updatedHtml = html
-    .replace(/<title>.*?<\/title>/i, `<title>${meta.title}</title>`)
-    .replace(/<meta\s+name="title"\s+content=".*?"\s*\/?>/i, `<meta name="title" content="${meta.title}" />`)
-    .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${meta.description}" />`)
-    .replace(/<meta\s+name="keywords"\s+content=".*?"\s*\/?>/i, `<meta name="keywords" content="${meta.keywords}" />`)
+    .replace(/<title>.*?<\/title>/i, `<title>${safeTitle}</title>`)
+    .replace(/<meta\s+name="title"\s+content=".*?"\s*\/?>/i, `<meta name="title" content="${safeTitle}" />`)
+    .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${safeDesc}" />`)
+    .replace(/<meta\s+name="keywords"\s+content=".*?"\s*\/?>/i, `<meta name="keywords" content="${safeKeywords}" />`)
     .replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="${canonicalUrl}" />`)
-    .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${meta.title}" />`)
-    .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${meta.description}" />`)
+    .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${safeTitle}" />`)
+    .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${safeDesc}" />`)
     .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i, `<meta property="og:url" content="${fullUrl}" />`)
     .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i, `<meta property="og:image" content="${meta.image}" />`)
-    .replace(/<meta\s+property="og:image:alt"\s+content=".*?"\s*\/?>/i, `<meta property="og:image:alt" content="${meta.imageAlt}" />`)
-    .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${meta.title}" />`)
-    .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${meta.description}" />`)
+    .replace(/<meta\s+property="og:image:alt"\s+content=".*?"\s*\/?>/i, `<meta property="og:image:alt" content="${safeImageAlt}" />`)
+    .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${safeTitle}" />`)
+    .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${safeDesc}" />`)
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${fullUrl}" />`)
     .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${meta.image}" />`);
+
+  if (customMatch?.noIndex) {
+    updatedHtml = updatedHtml.replace(
+      /<meta\s+name="robots"\s+content=".*?"\s*\/?>/i,
+      `<meta name="robots" content="noindex, nofollow" />`
+    );
+  }
 
   if (isRecipeRoute || meta.isArticle) {
     const publishedTime = '2026-09-28T08:00:00+07:00';
@@ -2070,32 +2154,22 @@ function injectSeoMeta(html: string, requestedPath: string): string {
     }
   }
 
-  // Inject initial custom posts so all devices and machines see new posts instantaneously on page load
-  if (customPosts && Array.isArray(customPosts) && customPosts.length > 0) {
-    const serialized = JSON.stringify(customPosts).replace(/</g, '\\u003c');
-    if (updatedHtml.includes('window.__INITIAL_CUSTOM_POSTS__')) {
-      updatedHtml = updatedHtml.replace(
-        /<script>window\.__INITIAL_CUSTOM_POSTS__\s*=[\s\S]*?<\/script>/,
-        `<script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>`
-      );
-    } else {
-      updatedHtml = updatedHtml.replace(
-        '</head>',
-        `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>\n  </head>`
-      );
-    }
+  // Strip any stale global __INITIAL_CUSTOM_POSTS__ and inject ONLY the single matching custom post on its own article route
+  updatedHtml = updatedHtml.replace(/\s*<script>window\.__INITIAL_CUSTOM_POSTS__\s*=[\s\S]*?<\/script>/g, '');
+  if (customMatch) {
+    const serialized = JSON.stringify([customMatch]).replace(/</g, '\\u003c');
+    updatedHtml = updatedHtml.replace(
+      '</head>',
+      `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${serialized};</script>\n  </head>`
+    );
   }
 
-  // Inject initial deleted posts so all devices, browsers, and visitors filter out deleted posts instantaneously
+  // Inject compact deleted posts list only on blog/home routes when tiny (<= 8 KB)
+  updatedHtml = updatedHtml.replace(/\s*<script>window\.__INITIAL_DELETED_POSTS__\s*=[\s\S]*?<\/script>/g, '');
   const deletedPosts = loadDeletedPostSlugs();
-  if (deletedPosts && Array.isArray(deletedPosts) && deletedPosts.length > 0) {
+  if (deletedPosts && Array.isArray(deletedPosts) && deletedPosts.length > 0 && (cleanPath === '/' || cleanPath === '/blog' || meta.isArticle)) {
     const serializedDeleted = JSON.stringify(deletedPosts).replace(/</g, '\\u003c');
-    if (updatedHtml.includes('window.__INITIAL_DELETED_POSTS__')) {
-      updatedHtml = updatedHtml.replace(
-        /<script>window\.__INITIAL_DELETED_POSTS__\s*=[\s\S]*?<\/script>/,
-        `<script>window.__INITIAL_DELETED_POSTS__ = ${serializedDeleted};</script>`
-      );
-    } else {
+    if (serializedDeleted.length <= 8192) {
       updatedHtml = updatedHtml.replace(
         '</head>',
         `    <script>window.__INITIAL_DELETED_POSTS__ = ${serializedDeleted};</script>\n  </head>`
@@ -2308,6 +2382,10 @@ app.post("/api/admin/posts", async (req, res) => {
             updatedAt: savedPost.updatedAt,
             revision: savedPost.revision,
             adminSaved: true,
+            seoTitle: String(savedPost.seoTitle || '').trim().slice(0, 200),
+            seoDescription: String(savedPost.seoDescription || '').trim().slice(0, 350),
+            focusKeyword: String(savedPost.focusKeyword || '').trim().slice(0, 120),
+            noIndex: Boolean(savedPost.noIndex),
           });
 
           if (oldSlug && oldSlug !== cleanSlug) {
@@ -2601,6 +2679,10 @@ app.post("/api/admin/posts/import", (req, res) => {
             updatedAt: p.updatedAt,
             revision: Number(p.revision || 1),
             adminSaved: true,
+            seoTitle: String(p.seoTitle || "").trim().slice(0, 200),
+            seoDescription: String(p.seoDescription || "").trim().slice(0, 350),
+            focusKeyword: String(p.focusKeyword || "").trim().slice(0, 120),
+            noIndex: Boolean(p.noIndex),
           }).catch(() => {});
         }
         await syncServerBlogManifestToFirestore(db).catch(() => {});
@@ -3794,9 +3876,18 @@ async function startServer() {
         !req.path.includes(".")
       ) {
         try {
+          const cleanReq = req.path.replace(/\/$/, "") || "/";
+          const slug = cleanReq.replace(/^\//, "").replace(/^blog\//, "").toLowerCase().trim();
+          let overridePost: any = undefined;
+          if (slug && cleanReq !== "/" && cleanReq !== "/blog" && !SEO_ROUTES_CONFIG[cleanReq] && !slug.startsWith("cach-")) {
+            const localMatch = loadCustomBlogPosts().some((p) => p.slug === slug || p.id === slug);
+            if (!localMatch) {
+              overridePost = await fetchSinglePostFromServerFirestore(slug);
+            }
+          }
           const rawHtml = fs.readFileSync(path.join(process.cwd(), "index.html"), "utf-8");
           const transformedHtml = await vite.transformIndexHtml(req.originalUrl, rawHtml);
-          const seoHtml = injectSeoMeta(transformedHtml, req.path);
+          const seoHtml = injectSeoMeta(transformedHtml, req.path, overridePost);
           return res.status(200).set({
             "Content-Type": "text/html; charset=utf-8",
             "Cache-Control": "no-cache, no-store, must-revalidate",
@@ -3841,11 +3932,20 @@ async function startServer() {
       next();
     });
 
-    app.get("*", (req, res) => {
+    app.get("*", async (req, res) => {
       const indexPath = path.join(distPath, "index.html");
       if (fs.existsSync(indexPath)) {
+        const cleanReq = req.path.replace(/\/$/, "") || "/";
+        const slug = cleanReq.replace(/^\//, "").replace(/^blog\//, "").toLowerCase().trim();
+        let overridePost: any = undefined;
+        if (slug && cleanReq !== "/" && cleanReq !== "/blog" && !SEO_ROUTES_CONFIG[cleanReq] && !slug.startsWith("cach-")) {
+          const localMatch = loadCustomBlogPosts().some((p) => p.slug === slug || p.id === slug);
+          if (!localMatch) {
+            overridePost = await fetchSinglePostFromServerFirestore(slug);
+          }
+        }
         const rawHtml = fs.readFileSync(indexPath, "utf-8");
-        const seoHtml = injectSeoMeta(rawHtml, req.path);
+        const seoHtml = injectSeoMeta(rawHtml, req.path, overridePost);
         res.setHeader("Content-Type", "text/html; charset=utf-8");
         res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         return res.send(seoHtml);

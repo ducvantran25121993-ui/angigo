@@ -31,26 +31,45 @@ function escapeXml(unsafe: string) {
     .replace(/'/g, '&apos;');
 }
 
-function injectMeta(html: string, meta: RouteSeoMeta) {
+function injectMeta(
+  html: string,
+  meta: RouteSeoMeta,
+  matchedCustomPost?: any,
+  compactDeletedJson?: string | null
+) {
   const fullUrl = `https://angigio.com${meta.path === "/" ? "/" : meta.path}`;
   const canonicalUrl = meta.canonicalPath
     ? `https://angigio.com${meta.canonicalPath === "/" ? "/" : meta.canonicalPath}`
     : fullUrl;
+  const effectiveTitle = matchedCustomPost?.seoTitle?.trim() || meta.title;
+  const effectiveDesc = matchedCustomPost?.seoDescription?.trim() || meta.description;
+  const safeTitle = escapeXml(effectiveTitle);
+  const safeDesc = escapeXml(effectiveDesc);
+  const safeKeywords = escapeXml(meta.keywords || '');
+  const safeImageAlt = escapeXml(meta.imageAlt || effectiveTitle);
+
   let updatedHtml = html
-    .replace(/<title>.*?<\/title>/i, `<title>${meta.title}</title>`)
-    .replace(/<meta\s+name="title"\s+content=".*?"\s*\/?>/i, `<meta name="title" content="${meta.title}" />`)
-    .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${meta.description}" />`)
-    .replace(/<meta\s+name="keywords"\s+content=".*?"\s*\/?>/i, `<meta name="keywords" content="${meta.keywords}" />`)
+    .replace(/<title>.*?<\/title>/i, `<title>${safeTitle}</title>`)
+    .replace(/<meta\s+name="title"\s+content=".*?"\s*\/?>/i, `<meta name="title" content="${safeTitle}" />`)
+    .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${safeDesc}" />`)
+    .replace(/<meta\s+name="keywords"\s+content=".*?"\s*\/?>/i, `<meta name="keywords" content="${safeKeywords}" />`)
     .replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="${canonicalUrl}" />`)
-    .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${meta.title}" />`)
-    .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${meta.description}" />`)
+    .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${safeTitle}" />`)
+    .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${safeDesc}" />`)
     .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i, `<meta property="og:url" content="${canonicalUrl}" />`)
     .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i, `<meta property="og:image" content="${meta.image}" />`)
-    .replace(/<meta\s+property="og:image:alt"\s+content=".*?"\s*\/?>/i, `<meta property="og:image:alt" content="${meta.imageAlt}" />`)
-    .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${meta.title}" />`)
-    .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${meta.description}" />`)
+    .replace(/<meta\s+property="og:image:alt"\s+content=".*?"\s*\/?>/i, `<meta property="og:image:alt" content="${safeImageAlt}" />`)
+    .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${safeTitle}" />`)
+    .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${safeDesc}" />`)
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${canonicalUrl}" />`)
     .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${meta.image}" />`);
+
+  if (matchedCustomPost?.noIndex) {
+    updatedHtml = updatedHtml.replace(
+      /<meta\s+name="robots"\s+content=".*?"\s*\/?>/i,
+      `<meta name="robots" content="noindex, nofollow" />`
+    );
+  }
 
   if (meta.canonicalPath && meta.canonicalPath !== meta.path) {
     const targetPath = meta.canonicalPath;
@@ -308,38 +327,32 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
     }
   }
 
-  // Inject initial custom posts so all devices, crawlers and SSG see posts instantaneously
-  try {
-    const customPostsPath = path.join(process.cwd(), 'public', 'custom_blog_posts.json');
-    if (fs.existsSync(customPostsPath)) {
-      const rawCustom = fs.readFileSync(customPostsPath, 'utf-8');
-      const compactCustom = JSON.stringify(JSON.parse(rawCustom)).replace(/</g, '\\u003c');
+  // Inject ONLY the single matching custom post on its own article route (cuts ~384 KB bloat from every HTML file)
+  if (matchedCustomPost) {
+    try {
+      const compactSingle = JSON.stringify([matchedCustomPost]).replace(/</g, '\\u003c');
       updatedHtml = updatedHtml.replace(
         '</head>',
-        `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${compactCustom};</script>\n  </head>`
+        `    <script>window.__INITIAL_CUSTOM_POSTS__ = ${compactSingle};</script>\n  </head>`
       );
-    }
-  } catch {}
+    } catch {}
+  }
 
-  // Inject initial deleted posts so all devices and visitors instantly know deleted status
-  try {
-    const deletedPostsPath = path.join(process.cwd(), 'public', 'deleted_posts.json');
-    if (fs.existsSync(deletedPostsPath)) {
-      const rawDeleted = fs.readFileSync(deletedPostsPath, 'utf-8');
-      const compactDel = JSON.stringify(JSON.parse(rawDeleted)).replace(/</g, '\\u003c');
-      updatedHtml = updatedHtml.replace(
-        '</head>',
-        `    <script>window.__INITIAL_DELETED_POSTS__ = ${compactDel};</script>\n  </head>`
-      );
-    }
-  } catch {}
+  // Inject compact deleted posts list only on blog/home routes when tiny (<= 8 KB)
+  const cleanPath = meta.path.replace(/\/$/, '') || '/';
+  const slug = cleanPath.replace(/^\//, '').replace(/^\/?blog\//, '').toLowerCase().trim();
+  const isRecipeOrArticle = meta.isArticle || meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-');
+
+  if (compactDeletedJson && compactDeletedJson.length <= 8192 && (cleanPath === '/' || cleanPath === '/blog' || meta.isArticle)) {
+    updatedHtml = updatedHtml.replace(
+      '</head>',
+      `    <script>window.__INITIAL_DELETED_POSTS__ = ${compactDeletedJson};</script>\n  </head>`
+    );
+  }
 
   // Inject rich semantic route-specific content into <div id="root"> for crawlers (Googlebot, Bingbot)
   let pageH1 = meta.h1 || meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
   let extraContent = '';
-
-  const cleanPath = meta.path.replace(/\/$/, '') || '/';
-  const slug = cleanPath.replace(/^\//, '').replace(/^\/?blog\//, '').toLowerCase().trim();
 
   if ((meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-')) && meta.path !== '/cach-nau-mon-ngon') {
     const td = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`) || findDishByRecipeSlug(meta.path, INITIAL_DISHES);
@@ -357,16 +370,16 @@ function injectMeta(html: string, meta: RouteSeoMeta) {
   } else if (cleanPath === '/quan-ngon') {
     extraContent = `<div><h3>Địa chỉ ẩm thực và top nhà hàng chuẩn vị 3 miền</h3><p>Khám phá quán ngon nổi tiếng tại TP.HCM (Quận 1, Quận 3, Bình Thạnh), Hà Nội (Hoàn Kiếm, Cầu Giấy, Đống Đa), Đà Nẵng. Đặt món giao tận nơi qua ShopeeFood, GrabFood, BeFood và chỉ đường chi tiết.</p></div>`;
   } else {
-    const bp = INITIAL_BLOG_POSTS.find(p => p.slug === slug || (p.id && p.id === slug));
+    const bp = matchedCustomPost || INITIAL_BLOG_POSTS.find(p => p.slug === slug || (p.id && p.id === slug));
     if (bp) {
       if (bp.title) pageH1 = bp.title;
-      const snippet = bp.content ? bp.content.replace(/<[^>]+>/g, ' ').slice(0, 600) : (bp.excerpt || '');
+      const bodyRaw = bp.htmlContent || bp.content || '';
+      const snippet = bodyRaw.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 1200);
       extraContent = `<article><p>${escapeXml(bp.excerpt || '')}</p><div>${escapeXml(snippet)}</div><section id="video-guide"><h2>Tóm tắt quy trình &amp; Dinh dưỡng (~450 calories/phần)</h2><ol><li id="step-1">Sơ chế và tẩm ướp nguyên liệu tươi ngon.</li><li id="step-2">Chế biến món ăn chuẩn vị trên lửa vừa.</li><li id="step-3">Trình bày ra đĩa và thưởng thức khi còn nóng.</li></ol></section></article>`;
     }
   }
 
-  const pageDesc = meta.description || '';
-  const isRecipeOrArticle = meta.isArticle || meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-');
+  const pageDesc = effectiveDesc || '';
   const crawlerHeader = isRecipeOrArticle
     ? `<header id="prerender-content" style="max-width: 56rem; margin: 2rem auto; padding: 0 1rem; font-family: 'Be Vietnam Pro', system-ui, sans-serif; color: #1c1917;"><h1 style="font-size: 1.75rem; font-weight: 800; line-height: 1.3; margin-bottom: 0.75rem; color: #0c0a09;">${escapeXml(pageH1)}</h1><p style="color: #57534e; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">${escapeXml(pageDesc)}</p>${extraContent}<div style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8a29e;">Đang tải giao diện công thức...</div></header>`
     : `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p>${extraContent}</header>`;
@@ -423,12 +436,67 @@ function generateStaticHtmlPages() {
   }
 
   const baseHtml = fs.readFileSync(indexHtmlPath, 'utf-8');
-  const routes = getAllSeoRoutes();
+  const routes: Record<string, RouteSeoMeta> = { ...getAllSeoRoutes() };
+
+  // Load deleted slugs once
+  const deletedSet = new Set<string>();
+  let compactDeletedJson: string | null = null;
+  try {
+    const deletedPostsPath = path.join(process.cwd(), 'public', 'deleted_posts.json');
+    if (fs.existsSync(deletedPostsPath)) {
+      const parsedDel = JSON.parse(fs.readFileSync(deletedPostsPath, 'utf-8'));
+      if (Array.isArray(parsedDel)) {
+        for (const s of parsedDel) {
+          const clean = String(s || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          if (clean) deletedSet.add(clean);
+        }
+        compactDeletedJson = JSON.stringify(parsedDel).replace(/</g, '\\u003c');
+      }
+    }
+  } catch {}
+
+  // Load custom_blog_posts.json ONCE so we can prerender per-article without duplicating 384 KB everywhere
+  const customPostBySlug = new Map<string, any>();
+  try {
+    const customPostsPath = path.join(process.cwd(), 'public', 'custom_blog_posts.json');
+    if (fs.existsSync(customPostsPath)) {
+      const parsedCustom = JSON.parse(fs.readFileSync(customPostsPath, 'utf-8'));
+      if (Array.isArray(parsedCustom)) {
+        for (const p of parsedCustom) {
+          if (!p || (!p.slug && !p.id)) continue;
+          const cleanSlug = String(p.slug || p.id).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          const cleanId = String(p.id || p.slug).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          if (!cleanSlug || deletedSet.has(cleanSlug) || deletedSet.has(cleanId)) continue;
+          customPostBySlug.set(cleanSlug, p);
+
+          const routeKey = `/${cleanSlug}`;
+          if (!routes[routeKey] && !p.noIndex) {
+            routes[routeKey] = {
+              path: routeKey,
+              title: p.seoTitle?.trim() || `${p.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`,
+              description: p.seoDescription?.trim() || p.excerpt || '',
+              keywords: Array.isArray(p.tags) ? p.tags.join(', ') : String(p.tags || ''),
+              image: p.coverImage || 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',
+              imageAlt: p.title || '',
+              isArticle: true,
+              canonicalPath: routeKey,
+              priority: 0.75,
+              changefreq: 'weekly',
+              lastmod: p.updatedAt ? String(p.updatedAt).split('T')[0] : undefined,
+            };
+          }
+        }
+      }
+    }
+  } catch {}
 
   let count = 0;
   for (const [routePath, meta] of Object.entries(routes)) {
+    const cleanSlug = routePath.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
+    const matchedCustomPost = routePath !== '/' && routePath !== '/blog' ? customPostBySlug.get(cleanSlug) : undefined;
+
     if (routePath === '/') {
-      const customizedHtml = injectMeta(baseHtml, meta);
+      const customizedHtml = injectMeta(baseHtml, meta, undefined, compactDeletedJson);
       fs.writeFileSync(indexHtmlPath, customizedHtml, 'utf-8');
       count++;
     } else {
@@ -437,7 +505,7 @@ function generateStaticHtmlPages() {
       if (!fs.existsSync(subDir)) {
         fs.mkdirSync(subDir, { recursive: true });
       }
-      const customizedHtml = injectMeta(baseHtml, meta);
+      const customizedHtml = injectMeta(baseHtml, meta, matchedCustomPost, compactDeletedJson);
       fs.writeFileSync(path.join(subDir, 'index.html'), customizedHtml, 'utf-8');
       const htmlFlatPath = path.join(distDir, `${cleanSub}.html`);
       const htmlFlatDir = path.dirname(htmlFlatPath);
@@ -449,12 +517,21 @@ function generateStaticHtmlPages() {
     }
   }
 
-  // Generate & update sitemap.xml in dist/ and public/
+  // Generate & update sitemap.xml + sitemap-base.xml
   const sitemapXml = generateSitemapXml(routes);
-  fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
+  fs.writeFileSync(path.join(distDir, 'sitemap-base.xml'), sitemapXml, 'utf-8');
   const publicDir = path.resolve(process.cwd(), 'public');
   if (fs.existsSync(publicDir)) {
     fs.writeFileSync(path.join(publicDir, 'sitemap.xml'), sitemapXml, 'utf-8');
+  }
+  // On Vercel, omit static dist/sitemap.xml so /sitemap.xml always hits dynamic /api/sitemap Serverless Function
+  if (process.env.VERCEL || process.env.VERCEL_ENV) {
+    const distSitemap = path.join(distDir, 'sitemap.xml');
+    if (fs.existsSync(distSitemap)) {
+      fs.unlinkSync(distSitemap);
+    }
+  } else {
+    fs.writeFileSync(path.join(distDir, 'sitemap.xml'), sitemapXml, 'utf-8');
   }
 
   // Copy vercel.json and create _redirects for static hosts
@@ -468,7 +545,7 @@ function generateStaticHtmlPages() {
     fs.writeFileSync(path.join(publicDir, '_redirects'), redirectsContent, 'utf-8');
   }
 
-  console.log(`Prerender SEO HTML pages completed: generated ${count} routes and updated sitemap.xml!`);
+  console.log(`Prerender SEO HTML pages completed: generated ${count} lightweight routes and updated sitemap!`);
 }
 
 generateStaticHtmlPages();

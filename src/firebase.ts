@@ -193,6 +193,10 @@ export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Pro
     updatedAt: post.updatedAt || new Date().toISOString(),
     revision: Number(post.revision || 1),
     adminSaved: true,
+    seoTitle: String(post.seoTitle || '').trim().slice(0, 200),
+    seoDescription: String(post.seoDescription || '').trim().slice(0, 350),
+    focusKeyword: String(post.focusKeyword || '').trim().slice(0, 120),
+    noIndex: Boolean(post.noIndex),
   };
 
   try {
@@ -280,6 +284,10 @@ export async function syncBlogManifestToFirestore(
         updatedAt: String(p.updatedAt || new Date().toISOString()).slice(0, 100),
         revision: Math.max(Number(p.revision || 0), p.adminSaved ? 1 : 0),
         adminSaved: Boolean(p.adminSaved),
+        seoTitle: p.seoTitle ? String(p.seoTitle).trim().slice(0, 200) : '',
+        seoDescription: p.seoDescription ? String(p.seoDescription).trim().slice(0, 350) : '',
+        focusKeyword: p.focusKeyword ? String(p.focusKeyword).trim().slice(0, 120) : '',
+        noIndex: Boolean(p.noIndex),
       });
       if (compactPosts.length >= 450) break;
     }
@@ -416,6 +424,10 @@ export async function getPostsFromFirestore(forceRefresh = false): Promise<BlogP
         updatedAt: data.updatedAt || new Date().toISOString(),
         revision: Number(data.revision || 1),
         adminSaved: true,
+        seoTitle: data.seoTitle ? String(data.seoTitle) : undefined,
+        seoDescription: data.seoDescription ? String(data.seoDescription) : undefined,
+        focusKeyword: data.focusKeyword ? String(data.focusKeyword) : undefined,
+        noIndex: Boolean(data.noIndex),
       });
     });
     _clientPostsCache = posts;
@@ -470,6 +482,10 @@ export async function getSinglePostFromFirestore(slugOrId: string): Promise<Blog
         updatedAt: data.updatedAt || new Date().toISOString(),
         revision: Number(data.revision || 1),
         adminSaved: true,
+        seoTitle: data.seoTitle ? String(data.seoTitle) : undefined,
+        seoDescription: data.seoDescription ? String(data.seoDescription) : undefined,
+        focusKeyword: data.focusKeyword ? String(data.focusKeyword) : undefined,
+        noIndex: Boolean(data.noIndex),
       };
     }
   } catch (error: any) {

@@ -13,7 +13,11 @@ service cloud.firestore {
       return data.id is string && data.id.size() <= 150 &&
              data.slug is string && data.slug.size() <= 150 &&
              data.title is string && data.title.size() <= 300 &&
-             data.content is string && data.content.size() <= 500000;
+             data.content is string && data.content.size() <= 500000 &&
+             (!('seoTitle' in data) || (data.seoTitle is string && data.seoTitle.size() <= 200)) &&
+             (!('seoDescription' in data) || (data.seoDescription is string && data.seoDescription.size() <= 350)) &&
+             (!('focusKeyword' in data) || (data.focusKeyword is string && data.focusKeyword.size() <= 120)) &&
+             (!('noIndex' in data) || data.noIndex is bool);
     }
 
     function isValidDeletedPost(data) {

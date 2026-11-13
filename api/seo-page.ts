@@ -121,7 +121,7 @@ function renderInlineMarkdown(text: string, fallbackAlt: string): string {
     if (!safeSrc) return '';
     const safeAlt = escapeHtml(String(alt || '').trim() || fallbackAlt);
     const idx = placeholders.length;
-    placeholders.push(`<img src="${escapeHtml(safeSrc)}" alt="${safeAlt}" loading="lazy" />`);
+    placeholders.push(`<img src="${escapeHtml(safeSrc)}" alt="${safeAlt}" loading="lazy" decoding="async" />`);
     return `\u0000PH_${idx}\u0000`;
   });
 
@@ -217,7 +217,7 @@ function sanitizeHtmlFragment(rawHtml: string, fallbackAlt: string): string {
       const altVal = (extractHtmlAttr(attrs, 'alt') || '').trim() || fallbackAlt;
       const titleVal = (extractHtmlAttr(attrs, 'title') || '').trim();
       const titleAttr = titleVal ? ` title="${escapeHtml(titleVal)}"` : '';
-      return `<img src="${escapeHtml(src)}" alt="${escapeHtml(altVal)}"${titleAttr} loading="lazy" />`;
+      return `<img src="${escapeHtml(src)}" alt="${escapeHtml(altVal)}"${titleAttr} loading="lazy" decoding="async" />`;
     }
     if (tag === 'a') {
       const href = sanitizeSafeUrl(extractHtmlAttr(attrs, 'href') || '', false);
@@ -355,7 +355,7 @@ function markdownToSemanticHtml(markdown: string, fallbackAlt: string): string {
       if (safeSrc) {
         const alt = imgMatch[1].trim() || fallbackAlt;
         chunks.push(
-          `<figure><img src="${escapeHtml(safeSrc)}" alt="${escapeHtml(alt)}" loading="lazy" />${
+          `<figure><img src="${escapeHtml(safeSrc)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />${
             imgMatch[1].trim() ? `<figcaption>${escapeHtml(imgMatch[1].trim())}</figcaption>` : ''
           }</figure>`
         );
@@ -424,7 +424,7 @@ function buildFullArticleSsrHtml(post: Record<string, any>, fullImageUrl: string
           ${desc ? `<p style="color: #57534e; font-size: 1rem; line-height: 1.65; margin: 0 0 1.25rem 0;">${escapeHtml(desc)}</p>` : ''}
           ${
             showCoverImg && fullImageUrl
-              ? `<figure style="margin: 0 0 1.5rem 0;"><img src="${escapeHtml(fullImageUrl)}" alt="${escapeHtml(cleanTitle)}" style="width: 100%; max-height: 480px; object-fit: cover; border-radius: 1rem;" /></figure>`
+              ? `<figure style="margin: 0 0 1.5rem 0;"><img src="${escapeHtml(fullImageUrl)}" alt="${escapeHtml(cleanTitle)}" fetchpriority="high" decoding="async" style="width: 100%; max-height: 480px; object-fit: cover; border-radius: 1rem;" /></figure>`
               : ''
           }
         </header>
@@ -513,14 +513,73 @@ function mapFirestorePost(docId: string, fields: Record<string, any>): Record<st
   };
 }
 
-async function fetchSinglePostFromFirestore(slug: string): Promise<Record<string, any> | null> {
+type FirestorePostLookupResult =
+  | { status: 'found'; post: Record<string, any> }
+  | { status: 'not_found' }
+  | { status: 'unavailable' };
+
+const KNOWN_APP_ROUTES = new Set([
+  '/',
+  '/vong-quay',
+  '/lich-an-theo-tuan',
+  '/ai-goi-y-mon-an',
+  '/mon-ngon',
+  '/do-uong-an-vat',
+  '/am-thuc-vung-mien',
+  '/thuc-don-moi-ngay',
+  '/cach-nau-mon-ngon',
+  '/gioi-thieu',
+  '/lien-he',
+  '/chinh-sach-bao-mat',
+  '/dieu-khoan-su-dung',
+  '/blog',
+  '/quan-ngon',
+]);
+
+function replaceHomepageGraphWithSiteIdentity(html: string): string {
+  const siteIdentityGraph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': 'https://angigio.com/#organization',
+        name: 'Hôm Nay Ăn Gì',
+        url: 'https://angigio.com/',
+        logo: {
+          '@type': 'ImageObject',
+          '@id': 'https://angigio.com/#logo',
+          url: 'https://angigio.com/logo.png',
+          width: 1024,
+          height: 1024,
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': 'https://angigio.com/#website',
+        url: 'https://angigio.com/',
+        name: 'Hôm Nay Ăn Gì',
+        publisher: {
+          '@id': 'https://angigio.com/#organization',
+        },
+      },
+    ],
+  };
+
+  return html.replace(
+    /<script(?:\s+id="home-seo-jsonld")?\s+type="application\/ld\+json">[\s\S]*?<\/script>/i,
+    `<script id="site-identity-jsonld" type="application/ld+json">\n${JSON.stringify(siteIdentityGraph, null, 2)}\n    </script>`
+  );
+}
+
+async function fetchSinglePostFromFirestore(slug: string): Promise<FirestorePostLookupResult> {
   const cfg = getFirebaseConfig();
-  if (!cfg || !slug) return null;
+  if (!cfg || !slug) return { status: 'unavailable' };
 
   const base = `https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/${cfg.firestoreDatabaseId}/documents`;
   const docId = slug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
   const candidates = docId !== slug ? [docId, slug] : [docId];
 
+  let sawNotFound = false;
   for (const id of candidates) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 3000);
@@ -528,23 +587,27 @@ async function fetchSinglePostFromFirestore(slug: string): Promise<Record<string
       const url = `${base}/posts/${encodeURIComponent(id)}?key=${encodeURIComponent(cfg.apiKey)}`;
       const res = await fetch(url, { signal: controller.signal });
       if (res.status === 429 || res.status === 403) {
-        return null;
+        return { status: 'unavailable' };
+      }
+      if (res.status === 404) {
+        sawNotFound = true;
+        continue;
       }
       if (res.ok) {
         const json = await res.json();
         if (json?.fields) {
           const nameParts = String(json.name || '').split('/');
           const resolvedId = nameParts[nameParts.length - 1] || id;
-          return mapFirestorePost(resolvedId, json.fields);
+          return { status: 'found', post: mapFirestorePost(resolvedId, json.fields) };
         }
       }
     } catch {
-      // Ignore transient/timeout errors and fall back to base SPA HTML
+      return { status: 'unavailable' };
     } finally {
       clearTimeout(timer);
     }
   }
-  return null;
+  return sawNotFound ? { status: 'not_found' } : { status: 'unavailable' };
 }
 
 function injectPostSeo(baseHtml: string, post: Record<string, any>): string {
@@ -580,7 +643,7 @@ function injectPostSeo(baseHtml: string, post: Record<string, any>): string {
     .split(/\s+/)
     .filter(Boolean).length;
 
-  let html = baseHtml
+  let html = replaceHomepageGraphWithSiteIdentity(baseHtml)
     .replace(/<title>.*?<\/title>/i, `<title>${safeTitle}</title>`)
     .replace(/<meta\s+name="title"\s+content=".*?"\s*\/?>/i, `<meta name="title" content="${safeTitle}" />`)
     .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${safeDesc}" />`)
@@ -692,6 +755,31 @@ function injectPostSeo(baseHtml: string, post: Record<string, any>): string {
   return html;
 }
 
+function buildNotFoundHtml(baseHtml: string): string {
+  const title = 'Không tìm thấy trang (404) | Hôm Nay Ăn Gì';
+  const desc = 'Nội dung bạn tìm kiếm không tồn tại hoặc đã bị gỡ bỏ. Khám phá thêm hàng trăm món ngon và bí quyết nấu ăn tại Hôm Nay Ăn Gì.';
+  let html = replaceHomepageGraphWithSiteIdentity(baseHtml)
+    .replace(/<title>.*?<\/title>/i, `<title>${escapeXml(title)}</title>`)
+    .replace(/<meta\s+name="title"\s+content=".*?"\s*\/?>/i, `<meta name="title" content="${escapeXml(title)}" />`)
+    .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${escapeXml(desc)}" />`)
+    .replace(/<meta\s+name="robots"\s+content=".*?"\s*\/?>/i, `<meta name="robots" content="noindex, nofollow" />`)
+    .replace(/<meta\s+name="googlebot"\s+content=".*?"\s*\/?>/i, `<meta name="googlebot" content="noindex, nofollow" />`)
+    .replace(/<meta\s+name="bingbot"\s+content=".*?"\s*\/?>/i, `<meta name="bingbot" content="noindex, nofollow" />`)
+    .replace(/\s*<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, '');
+
+  const notFoundBody = `<main id="prerender-content" style="max-width: 44rem; margin: 4rem auto; padding: 0 1.25rem; font-family: 'Be Vietnam Pro', system-ui, sans-serif; text-align: center; color: #1c1917;">
+        <h1 style="font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem;">404 — Không tìm thấy nội dung</h1>
+        <p style="color: #57534e; line-height: 1.6; margin-bottom: 1.5rem;">${escapeHtml(desc)}</p>
+        <p><a href="/" style="color: #ea580c; font-weight: 600;">Về trang chủ Hôm Nay Ăn Gì</a> • <a href="/blog" style="color: #ea580c; font-weight: 600;">Xem Blog Ẩm Thực</a></p>
+      </main>`;
+
+  if (html.includes('<div id="root">')) {
+    html = html.replace(/<div id="root">[\s\S]*?<\/div>/, `<div id="root">\n      ${notFoundBody}\n    </div>`);
+  }
+
+  return html;
+}
+
 export default async function handler(req: any, res: any) {
   const rawQueryPath = Array.isArray(req?.query?.path) ? req.query.path[0] : req?.query?.path;
   let pathname = rawQueryPath ? String(rawQueryPath) : '';
@@ -703,30 +791,59 @@ export default async function handler(req: any, res: any) {
     }
   }
   const cleanPath = ('/' + pathname.replace(/^\/+/, '')).replace(/\/+$/, '') || '/';
+
+  // 301 Redirect /blog/:slug -> /:slug to eliminate duplicate URLs
+  if (cleanPath.toLowerCase().startsWith('/blog/') && cleanPath.length > 6) {
+    const cleanSlug = cleanPath.slice(6).replace(/^\/+/, '').replace(/\/+$/, '').toLowerCase();
+    if (cleanSlug) {
+      res.setHeader('Location', `/${cleanSlug}`);
+      res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+      return res.status(301).end();
+    }
+  }
+
   const baseHtml = await getBaseHtml(req);
 
   if (cleanPath === '/admin' || cleanPath.startsWith('/admin/')) {
-    const adminHtml = baseHtml
+    const adminHtml = replaceHomepageGraphWithSiteIdentity(baseHtml)
       .replace(/<meta\s+name="robots"\s+content=".*?"\s*\/?>/i, `<meta name="robots" content="noindex, nofollow" />`)
+      .replace(/<meta\s+name="googlebot"\s+content=".*?"\s*\/?>/i, `<meta name="googlebot" content="noindex, nofollow" />`)
+      .replace(/<meta\s+name="bingbot"\s+content=".*?"\s*\/?>/i, `<meta name="bingbot" content="noindex, nofollow" />`)
       .replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="https://angigio.com/admin" />`);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     return res.status(200).send(adminHtml);
   }
 
-  const slug = cleanPath.replace(/^\//, '').replace(/^blog\//i, '').toLowerCase().trim();
-  if (slug) {
-    const post = await fetchSinglePostFromFirestore(slug);
-    if (post) {
-      const seoHtml = injectPostSeo(baseHtml, post);
+  const normalizedRoute = cleanPath.toLowerCase();
+  const slug = normalizedRoute.replace(/^\//, '').trim();
+
+  if (slug && !KNOWN_APP_ROUTES.has(normalizedRoute)) {
+    const lookup = await fetchSinglePostFromFirestore(slug);
+    if (lookup.status === 'found') {
+      const canonicalSlug = String(lookup.post.slug || '').toLowerCase().trim();
+      if (canonicalSlug && canonicalSlug !== slug) {
+        res.setHeader('Location', `/${canonicalSlug}`);
+        res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
+        return res.status(301).end();
+      }
+      const seoHtml = injectPostSeo(baseHtml, lookup.post);
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
       return res.status(200).send(seoHtml);
     }
+
+    if (lookup.status === 'not_found') {
+      const notFoundHtml = buildNotFoundHtml(baseHtml);
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+      return res.status(404).send(notFoundHtml);
+    }
   }
 
-  const fallbackUrl = `https://angigio.com${cleanPath}`;
-  const cleanFallback = baseHtml
+  const fallbackUrl = `https://angigio.com${cleanPath === '/' ? '/' : cleanPath}`;
+  let cleanFallback = cleanPath === '/' ? baseHtml : replaceHomepageGraphWithSiteIdentity(baseHtml);
+  cleanFallback = cleanFallback
     .replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="${escapeXml(fallbackUrl)}" />`)
     .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i, `<meta property="og:url" content="${escapeXml(fallbackUrl)}" />`)
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${escapeXml(fallbackUrl)}" />`);

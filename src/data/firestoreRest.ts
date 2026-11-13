@@ -21,7 +21,7 @@ export interface BlogSyncManifestResult {
   version?: number;
 }
 
-const REST_CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes
+const REST_CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes browser cache for visitors
 const REST_QUOTA_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes cooldown on 429/quota
 const LS_POSTS_CACHE_KEY = 'angigio_rest_posts_cache_v1';
 const LS_DELETED_CACHE_KEY = 'angigio_rest_deleted_cache_v1';
@@ -165,9 +165,56 @@ function mapDocToBlogPost(docId: string, data: Record<string, any>): BlogPost {
   };
 }
 
+function normalizeManifestPayload(data: Record<string, any>): BlogSyncManifestResult {
+  const deletedSlugs: string[] = [];
+  if (Array.isArray(data.deletedSlugs)) {
+    for (const s of data.deletedSlugs) {
+      const clean = String(s || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      if (clean && !deletedSlugs.includes(clean)) deletedSlugs.push(clean);
+    }
+  }
+  const deletedSet = new Set(deletedSlugs);
+
+  const posts: BlogPost[] = [];
+  if (Array.isArray(data.posts)) {
+    for (const rawItem of data.posts) {
+      if (!rawItem || typeof rawItem !== 'object') continue;
+      const pSlug = String(rawItem.slug || rawItem.id || '')
+        .toLowerCase()
+        .trim()
+        .replace(/^\//, '')
+        .replace(/\/$/, '');
+      const pId = String(rawItem.id || rawItem.slug || '').toLowerCase().trim();
+      if (!pSlug && !pId) continue;
+      if (
+        deletedSet.has(pSlug) ||
+        deletedSet.has(pId) ||
+        EXCLUDED_BLOG_SLUGS.has(pSlug) ||
+        EXCLUDED_BLOG_SLUGS.has(pId)
+      ) {
+        continue;
+      }
+      const mapped = mapDocToBlogPost(pSlug || pId, rawItem);
+      mapped.content = '';
+      mapped.htmlContent = '';
+      mapped.isMetadataOnly = true;
+      if (rawItem.oldSlug) mapped.oldSlug = String(rawItem.oldSlug);
+      posts.push(mapped);
+    }
+  }
+
+  return {
+    exists: true,
+    posts,
+    deletedSlugs,
+    version: Number(data.version || 0),
+  };
+}
+
 /**
  * 1-Read Manifest Reader (/meta/blog_sync):
- * Fetches compact post metadata + deletedSlugs in a single Firestore read unit (~95% read quota reduction).
+ * Prefers Vercel Edge CDN cached /api/blog-sync (~99% Firestore read reduction),
+ * falling back to direct 1-read Firestore REST when needed.
  */
 export async function fetchBlogSyncManifestViaFirestoreRest(
   forceRefresh = false
@@ -187,10 +234,34 @@ export async function fetchBlogSyncManifestViaFirestoreRest(
       return localCached;
     }
   }
+
+  // 1. Try CDN-cached /api/blog-sync first (zero Firestore reads for 99.9% of visitors)
+  try {
+    const proxyRes = await fetch('/api/blog-sync');
+    const contentType = proxyRes.headers.get('content-type') || '';
+    if (proxyRes.ok && contentType.includes('application/json')) {
+      const proxyJson = await proxyRes.json();
+      if (proxyJson && proxyJson.exists) {
+        const result = normalizeManifestPayload(proxyJson);
+        _restManifestCache = result;
+        _restManifestCacheTime = Date.now();
+        writeLocalCache(LS_MANIFEST_CACHE_KEY, result);
+        return result;
+      }
+      if (proxyJson?.quotaLimited) {
+        setQuotaCooldown();
+        return _restManifestCache || { exists: false, posts: [], deletedSlugs: [] };
+      }
+    }
+  } catch {
+    // Fall through to direct Firestore REST if /api/blog-sync is unavailable
+  }
+
   if (now < getQuotaCooldownUntil()) {
     return _restManifestCache || { exists: false, posts: [], deletedSlugs: [] };
   }
 
+  // 2. Direct 1-read Firestore REST fallback
   try {
     const url = `${FIRESTORE_REST_BASE}/meta/blog_sync?key=${encodeURIComponent(API_KEY)}`;
     const res = await fetch(url);
@@ -211,50 +282,7 @@ export async function fetchBlogSyncManifestViaFirestoreRest(
       return { exists: false, posts: [], deletedSlugs: [] };
     }
 
-    const data = decoded.data;
-    const deletedSlugs: string[] = [];
-    if (Array.isArray(data.deletedSlugs)) {
-      for (const s of data.deletedSlugs) {
-        const clean = String(s || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-        if (clean && !deletedSlugs.includes(clean)) deletedSlugs.push(clean);
-      }
-    }
-    const deletedSet = new Set(deletedSlugs);
-
-    const posts: BlogPost[] = [];
-    if (Array.isArray(data.posts)) {
-      for (const rawItem of data.posts) {
-        if (!rawItem || typeof rawItem !== 'object') continue;
-        const pSlug = String(rawItem.slug || rawItem.id || '')
-          .toLowerCase()
-          .trim()
-          .replace(/^\//, '')
-          .replace(/\/$/, '');
-        const pId = String(rawItem.id || rawItem.slug || '').toLowerCase().trim();
-        if (!pSlug && !pId) continue;
-        if (
-          deletedSet.has(pSlug) ||
-          deletedSet.has(pId) ||
-          EXCLUDED_BLOG_SLUGS.has(pSlug) ||
-          EXCLUDED_BLOG_SLUGS.has(pId)
-        ) {
-          continue;
-        }
-        const mapped = mapDocToBlogPost(pSlug || pId, rawItem);
-        mapped.content = '';
-        mapped.htmlContent = '';
-        mapped.isMetadataOnly = true;
-        if (rawItem.oldSlug) mapped.oldSlug = String(rawItem.oldSlug);
-        posts.push(mapped);
-      }
-    }
-
-    const result: BlogSyncManifestResult = {
-      exists: true,
-      posts,
-      deletedSlugs,
-      version: Number(data.version || 0),
-    };
+    const result = normalizeManifestPayload(decoded.data);
     _restManifestCache = result;
     _restManifestCacheTime = Date.now();
     writeLocalCache(LS_MANIFEST_CACHE_KEY, result);

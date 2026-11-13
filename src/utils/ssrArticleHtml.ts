@@ -51,7 +51,7 @@ function renderInlineMarkdown(text: string, fallbackAlt: string): string {
     if (!safeSrc) return '';
     const safeAlt = escapeHtml(String(alt || '').trim() || fallbackAlt);
     const idx = placeholders.length;
-    placeholders.push(`<img src="${escapeHtml(safeSrc)}" alt="${safeAlt}" loading="lazy" />`);
+    placeholders.push(`<img src="${escapeHtml(safeSrc)}" alt="${safeAlt}" loading="lazy" decoding="async" />`);
     return `\u0000PH_${idx}\u0000`;
   });
 
@@ -165,7 +165,7 @@ export function sanitizeHtmlFragment(rawHtml: string, fallbackAlt: string): stri
       const altVal = (extractAttr(attrs, 'alt') || '').trim() || fallbackAlt;
       const titleVal = (extractAttr(attrs, 'title') || '').trim();
       const titleAttr = titleVal ? ` title="${escapeHtml(titleVal)}"` : '';
-      return `<img src="${escapeHtml(src)}" alt="${escapeHtml(altVal)}"${titleAttr} loading="lazy" />`;
+      return `<img src="${escapeHtml(src)}" alt="${escapeHtml(altVal)}"${titleAttr} loading="lazy" decoding="async" />`;
     }
     if (tag === 'a') {
       const href = sanitizeSafeUrl(extractAttr(attrs, 'href') || '', false);
@@ -311,7 +311,7 @@ export function markdownToSemanticHtml(markdown: string, fallbackAlt: string): s
       if (safeSrc) {
         const alt = imgMatch[1].trim() || fallbackAlt;
         chunks.push(
-          `<figure><img src="${escapeHtml(safeSrc)}" alt="${escapeHtml(alt)}" loading="lazy" />${
+          `<figure><img src="${escapeHtml(safeSrc)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />${
             imgMatch[1].trim() ? `<figcaption>${escapeHtml(imgMatch[1].trim())}</figcaption>` : ''
           }</figure>`
         );
@@ -410,7 +410,7 @@ export function buildFullArticleSsrHtml(post: {
           ${desc ? `<p style="color: #57534e; font-size: 1rem; line-height: 1.65; margin: 0 0 1.25rem 0;">${escapeHtml(desc)}</p>` : ''}
           ${
             showCoverImg && fullImgUrl
-              ? `<figure style="margin: 0 0 1.5rem 0;"><img src="${escapeHtml(fullImgUrl)}" alt="${escapeHtml(cleanTitle)}" style="width: 100%; max-height: 480px; object-fit: cover; border-radius: 1rem;" /></figure>`
+              ? `<figure style="margin: 0 0 1.5rem 0;"><img src="${escapeHtml(fullImgUrl)}" alt="${escapeHtml(cleanTitle)}" fetchpriority="high" decoding="async" style="width: 100%; max-height: 480px; object-fit: cover; border-radius: 1rem;" /></figure>`
               : ''
           }
         </header>

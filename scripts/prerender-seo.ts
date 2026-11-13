@@ -81,6 +81,42 @@ function injectMeta(
     );
   }
 
+  // On non-homepage routes, replace the homepage graph (which embeds FAQPage, WebApplication & 12-item BreadcrumbList)
+  // with lightweight site-wide Organization + WebSite identity so subpages never have duplicate BreadcrumbLists or off-page FAQs.
+  if (meta.path !== '/') {
+    const siteIdentityGraph = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://angigio.com/#organization",
+          "name": "Hôm Nay Ăn Gì",
+          "url": "https://angigio.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://angigio.com/#logo",
+            "url": "https://angigio.com/logo.png",
+            "width": 1024,
+            "height": 1024
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://angigio.com/#website",
+          "url": "https://angigio.com/",
+          "name": "Hôm Nay Ăn Gì",
+          "publisher": {
+            "@id": "https://angigio.com/#organization"
+          }
+        }
+      ]
+    };
+    updatedHtml = updatedHtml.replace(
+      /<script(?:\s+id="home-seo-jsonld")?\s+type="application\/ld\+json">[\s\S]*?<\/script>/i,
+      `<script id="site-identity-jsonld" type="application/ld+json">\n${JSON.stringify(siteIdentityGraph, null, 2)}\n    </script>`
+    );
+  }
+
   if (meta.isArticle) {
     const publishedTime = '2026-09-28T08:00:00+07:00';
     const modifiedTime = '2026-09-30T00:00:00+07:00';
@@ -100,10 +136,9 @@ function injectMeta(
 
     if (isRecipeRoute && targetDish) {
       const recipe = getDishRecipe(targetDish);
-      const absHash = Math.abs((meta.path || targetDish.id).split('').reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0));
-      const ratingVariants = ['4.8', '4.9', '4.7', '4.8', '4.9', '4.8'];
-      const ratingValue = recipe?.ratingValue ? String(recipe.ratingValue) : ratingVariants[absHash % ratingVariants.length];
-      const reviewCount = recipe?.reviewCount ? String(recipe.reviewCount) : String(98 + (absHash % 175));
+      const hasRealRating = Boolean(recipe?.ratingValue && recipe?.reviewCount);
+      const ratingValue = hasRealRating ? String(recipe!.ratingValue) : '';
+      const reviewCount = hasRealRating ? String(recipe!.reviewCount) : '';
 
       const dishTitle = recipe?.dishName || targetDish.vietnameseName || targetDish.name;
       const recipeTitle = recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '');
@@ -189,25 +224,19 @@ function injectMeta(
               "calories": cleanCalories,
               "servingSize": "1 phần"
             },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": ratingValue,
-              "reviewCount": reviewCount,
-              "bestRating": "5",
-              "worstRating": "1"
-            },
+            ...(hasRealRating
+              ? {
+                  "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": ratingValue,
+                    "reviewCount": reviewCount,
+                    "bestRating": "5",
+                    "worstRating": "1"
+                  }
+                }
+              : {}),
             "recipeIngredient": ingredientsList,
             "recipeInstructions": stepsList,
-            "video": {
-              "@type": "VideoObject",
-              "name": `Video Hướng Dẫn Cách Nấu ${dishTitle} Chuẩn Vị`,
-              "description": `Video clip hướng dẫn chi tiết từng bước nấu món ${dishTitle} thơm ngon, chuẩn vị gia đình Việt Nam.`,
-              "thumbnailUrl": [imageUrl],
-              "uploadDate": publishedTime,
-              "contentUrl": `${canonicalUrl}#video-guide`,
-              "embedUrl": `${canonicalUrl}#video-guide`,
-              "duration": "PT4M30S"
-            },
             "author": {
               "@type": "Organization",
               "name": "Hôm Nay Ăn Gì",

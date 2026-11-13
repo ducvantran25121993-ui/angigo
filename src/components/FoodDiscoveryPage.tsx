@@ -1298,16 +1298,6 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
             },
             recipeIngredient: cleanIngr,
             recipeInstructions: stepsList,
-            video: {
-              '@type': 'VideoObject',
-              name: `Video Hướng Dẫn Cách Nấu ${selectedRecipeDish.vietnameseName || currentRecipe.dishName} Chuẩn Vị`,
-              description: `Video clip hướng dẫn chi tiết từng bước nấu món ${selectedRecipeDish.vietnameseName || currentRecipe.dishName} chuẩn vị gia đình Việt Nam.`,
-              thumbnailUrl: [fullImageUrl],
-              uploadDate: '2024-01-15T08:00:00+07:00',
-              contentUrl: `https://angigio.com${canonicalPath}#video-guide`,
-              embedUrl: `https://angigio.com${canonicalPath}#video-guide`,
-              duration: 'PT4M30S',
-            },
             author: {
               '@type': 'Organization',
               name: 'Hôm Nay Ăn Gì',

@@ -1910,6 +1910,40 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
     );
   }
 
+  if (meta.path !== '/') {
+    const siteIdentityGraph = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://angigio.com/#organization",
+          "name": "Hôm Nay Ăn Gì",
+          "url": "https://angigio.com/",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://angigio.com/#logo",
+            "url": "https://angigio.com/logo.png",
+            "width": 1024,
+            "height": 1024
+          }
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://angigio.com/#website",
+          "url": "https://angigio.com/",
+          "name": "Hôm Nay Ăn Gì",
+          "publisher": {
+            "@id": "https://angigio.com/#organization"
+          }
+        }
+      ]
+    };
+    updatedHtml = updatedHtml.replace(
+      /<script(?:\s+id="home-seo-jsonld")?\s+type="application\/ld\+json">[\s\S]*?<\/script>/i,
+      `<script id="site-identity-jsonld" type="application/ld+json">\n${JSON.stringify(siteIdentityGraph, null, 2)}\n    </script>`
+    );
+  }
+
   if (isRecipeRoute || meta.isArticle) {
     const publishedTime = '2026-09-28T08:00:00+07:00';
     const modifiedTime = '2026-09-30T00:00:00+07:00';
@@ -1928,9 +1962,9 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
 
     if (isRecipeRoute && targetDish) {
       const recipe = getDishRecipe(targetDish);
-      const absHash = Math.abs((targetDish.id || 'recipe').split('').reduce((acc, char) => (acc << 5) - acc + char.charCodeAt(0), 0));
-      const ratingValue = recipe?.ratingValue || (4.7 + (absHash % 3) * 0.1).toFixed(1);
-      const reviewCount = recipe?.reviewCount ? recipe.reviewCount.toString() : (88 + (absHash % 155)).toString();
+      const hasRealRating = Boolean(recipe?.ratingValue && recipe?.reviewCount);
+      const ratingValue = hasRealRating ? String(recipe!.ratingValue) : '';
+      const reviewCount = hasRealRating ? String(recipe!.reviewCount) : '';
 
       const dishTitle = recipe?.dishName || targetDish.vietnameseName || targetDish.name;
       const recipeTitle = recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '');
@@ -2016,25 +2050,19 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
               "calories": cleanCalories,
               "servingSize": "1 phần"
             },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": ratingValue,
-              "reviewCount": reviewCount,
-              "bestRating": "5",
-              "worstRating": "1"
-            },
+            ...(hasRealRating
+              ? {
+                  "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": ratingValue,
+                    "reviewCount": reviewCount,
+                    "bestRating": "5",
+                    "worstRating": "1"
+                  }
+                }
+              : {}),
             "recipeIngredient": ingredientsList,
             "recipeInstructions": stepsList,
-            "video": {
-              "@type": "VideoObject",
-              "name": `Video Hướng Dẫn Cách Nấu ${dishTitle} Chuẩn Vị`,
-              "description": `Video clip hướng dẫn chi tiết từng bước nấu món ${dishTitle} thơm ngon, chuẩn vị gia đình Việt Nam.`,
-              "thumbnailUrl": [imageUrl],
-              "uploadDate": publishedTime,
-              "contentUrl": `${canonicalUrl}#video-guide`,
-              "embedUrl": `${canonicalUrl}#video-guide`,
-              "duration": "PT4M30S"
-            },
             "author": {
               "@type": "Organization",
               "name": "Hôm Nay Ăn Gì",
@@ -2979,6 +3007,30 @@ async function startServer() {
         res.status(404).send("Sitemap not found");
       }
     }
+  });
+
+  app.get("/api/blog-sync", (_req, res) => {
+    const deletedSlugs = loadDeletedPostSlugs();
+    const deletedSet = new Set(deletedSlugs.map((s) => String(s || "").toLowerCase().trim()));
+    const posts = loadCustomBlogPosts()
+      .filter((p) => {
+        const s = String(p?.slug || p?.id || "").toLowerCase().trim();
+        return s && !deletedSet.has(s);
+      })
+      .map((p) => ({
+        ...p,
+        content: "",
+        htmlContent: "",
+        isMetadataOnly: true,
+      }));
+    res.setHeader("Cache-Control", "public, max-age=120, s-maxage=1800, stale-while-revalidate=86400");
+    return res.json({
+      exists: true,
+      version: Date.now(),
+      updatedAt: new Date().toISOString(),
+      deletedSlugs,
+      posts,
+    });
   });
 
   // Microsoft Bing Webmaster Tools XML verification

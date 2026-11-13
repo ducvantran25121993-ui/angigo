@@ -2,8 +2,14 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "functions": {
-    "api/*.ts": {
-      "includeFiles": "{dist/index.html,dist/sitemap-base.xml,public/sitemap.xml,firebase-applet-config.json}"
+    "api/seo-page.ts": {
+      "includeFiles": "{dist/index.html,firebase-applet-config.json}"
+    },
+    "api/sitemap.ts": {
+      "includeFiles": "{dist/sitemap-base.xml,public/sitemap.xml,firebase-applet-config.json}"
+    },
+    "api/blog-sync.ts": {
+      "includeFiles": "firebase-applet-config.json"
     }
   },
   "redirects": [

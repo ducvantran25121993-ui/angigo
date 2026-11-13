@@ -380,16 +380,76 @@ export async function removeDeletedPostFromFirestore(slugOrId: string): Promise<
   }
 }
 
+export interface FirestorePostsFetchMeta {
+  posts: BlogPost[];
+  ok: boolean;
+  quotaExceeded: boolean;
+  errorMessage?: string;
+}
+
 /**
- * Get all posts from Cloud Firestore
+ * Safe manifest writer: prevents accidentally wiping existing cloud posts in /meta/blog_sync
+ * if the admin browser failed to read Firestore (e.g. 429 quota or 2s timeout).
  */
-export async function getPostsFromFirestore(forceRefresh = false): Promise<BlogPost[]> {
+export async function syncBlogManifestSafely(
+  posts: BlogPost[],
+  deletedSlugs: string[] = [],
+  cloudReadWasOk = false
+): Promise<boolean> {
+  if (cloudReadWasOk) {
+    return syncBlogManifestToFirestore(posts, deletedSlugs);
+  }
+  try {
+    const manifestSnap = await getDocFromServer(doc(db, 'meta', 'blog_sync'));
+    if (!manifestSnap.exists()) {
+      return syncBlogManifestToFirestore(posts, deletedSlugs);
+    }
+    const existingData = manifestSnap.data() || {};
+    const existingDeleted = Array.isArray(existingData.deletedSlugs) ? existingData.deletedSlugs : [];
+    const mergedDeleted = Array.from(
+      new Set(
+        [...existingDeleted, ...deletedSlugs]
+          .map((s) => String(s || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, ''))
+          .filter(Boolean)
+      )
+    );
+    const deletedSet = new Set(mergedDeleted);
+    const existingPosts: BlogPost[] = Array.isArray(existingData.posts) ? existingData.posts : [];
+    const mergedMap = new Map<string, BlogPost>();
+    for (const ep of existingPosts) {
+      const k = String(ep?.slug || ep?.id || '').toLowerCase().trim();
+      if (k && !deletedSet.has(k)) mergedMap.set(k, ep);
+    }
+    for (const np of posts) {
+      const k = String(np?.slug || np?.id || '').toLowerCase().trim();
+      if (!k || deletedSet.has(k)) continue;
+      const prev = mergedMap.get(k);
+      if (!prev || Number(np.revision || 0) >= Number(prev.revision || 0)) {
+        mergedMap.set(k, np);
+      }
+    }
+    return syncBlogManifestToFirestore(Array.from(mergedMap.values()), mergedDeleted);
+  } catch (err) {
+    console.warn('Skipped unsafe manifest overwrite because existing /meta/blog_sync could not be verified:', err);
+    return false;
+  }
+}
+
+/**
+ * Get all posts from Cloud Firestore with read status metadata
+ */
+export async function getPostsFromFirestoreWithMeta(forceRefresh = false): Promise<FirestorePostsFetchMeta> {
   const now = Date.now();
   if (!forceRefresh && _clientPostsCache && now - _clientPostsCacheTime < CLIENT_FIRESTORE_CACHE_TTL) {
-    return _clientPostsCache;
+    return { posts: _clientPostsCache, ok: true, quotaExceeded: false };
   }
   if (now < _clientQuotaCooldownUntil) {
-    return _clientPostsCache || [];
+    return {
+      posts: _clientPostsCache || [],
+      ok: false,
+      quotaExceeded: true,
+      errorMessage: 'Quota exceeded (cooldown)',
+    };
   }
   const path = 'posts';
   try {
@@ -432,17 +492,31 @@ export async function getPostsFromFirestore(forceRefresh = false): Promise<BlogP
     });
     _clientPostsCache = posts;
     _clientPostsCacheTime = now;
-    return posts;
+    return { posts, ok: true, quotaExceeded: false };
   } catch (error: any) {
-    const isQuota = error?.message?.includes('Quota') || error?.code === 'resource-exhausted';
+    const msg = String(error?.message || error || '');
+    const isQuota = msg.includes('Quota') || error?.code === 'resource-exhausted' || msg.includes('429');
     if (isQuota) {
       _clientQuotaCooldownUntil = Date.now() + CLIENT_QUOTA_COOLDOWN_MS;
       console.warn('Firestore read quota reached. Falling back gracefully to server/cached posts.');
     } else {
-      console.warn('Firestore getPosts error:', error?.message || error);
+      console.warn('Firestore getPosts error:', msg);
     }
-    return _clientPostsCache || [];
+    return {
+      posts: _clientPostsCache || [],
+      ok: false,
+      quotaExceeded: isQuota,
+      errorMessage: msg,
+    };
   }
+}
+
+/**
+ * Get all posts from Cloud Firestore
+ */
+export async function getPostsFromFirestore(forceRefresh = false): Promise<BlogPost[]> {
+  const meta = await getPostsFromFirestoreWithMeta(forceRefresh);
+  return meta.posts;
 }
 
 /**

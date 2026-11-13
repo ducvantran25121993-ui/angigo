@@ -3009,28 +3009,94 @@ async function startServer() {
     }
   });
 
-  app.get("/api/blog-sync", (_req, res) => {
-    const deletedSlugs = loadDeletedPostSlugs();
-    const deletedSet = new Set(deletedSlugs.map((s) => String(s || "").toLowerCase().trim()));
-    const posts = loadCustomBlogPosts()
-      .filter((p) => {
-        const s = String(p?.slug || p?.id || "").toLowerCase().trim();
-        return s && !deletedSet.has(s);
-      })
-      .map((p) => ({
-        ...p,
-        content: "",
-        htmlContent: "",
-        isMetadataOnly: true,
-      }));
-    res.setHeader("Cache-Control", "public, max-age=120, s-maxage=1800, stale-while-revalidate=86400");
-    return res.json({
-      exists: true,
-      version: Date.now(),
-      updatedAt: new Date().toISOString(),
-      deletedSlugs,
-      posts,
-    });
+  let cachedExpressBlogSync: { ts: number; ttlMs: number; payload: any } | null = null;
+
+  app.get("/api/blog-sync", async (_req, res) => {
+    const now = Date.now();
+    if (cachedExpressBlogSync && now - cachedExpressBlogSync.ts < cachedExpressBlogSync.ttlMs) {
+      res.setHeader("Cache-Control", "public, max-age=120, s-maxage=1800, stale-while-revalidate=86400");
+      return res.json(cachedExpressBlogSync.payload);
+    }
+
+    const configPath = path.join(process.cwd(), "firebase-applet-config.json");
+    if (!fs.existsSync(configPath)) {
+      res.setHeader("Cache-Control", "public, s-maxage=60");
+      return res.json({ exists: false, posts: [], deletedSlugs: [] });
+    }
+
+    try {
+      const cfg = JSON.parse(fs.readFileSync(configPath, "utf-8"));
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), 3500);
+      try {
+        const url = `https://firestore.googleapis.com/v1/projects/${cfg.projectId}/databases/${cfg.firestoreDatabaseId}/documents/meta/blog_sync?key=${encodeURIComponent(cfg.apiKey)}`;
+        const upstream = await fetch(url, { signal: controller.signal });
+
+        if (upstream.status === 429 || upstream.status === 403) {
+          const payload = { exists: false, quotaLimited: true, posts: [], deletedSlugs: [] };
+          cachedExpressBlogSync = { ts: now, ttlMs: 60_000, payload };
+          res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=300");
+          return res.json(payload);
+        }
+
+        if (!upstream.ok) {
+          const payload = { exists: false, posts: [], deletedSlugs: [] };
+          cachedExpressBlogSync = { ts: now, ttlMs: 60_000, payload };
+          res.setHeader("Cache-Control", "public, s-maxage=60");
+          return res.json(payload);
+        }
+
+        const docJson: any = await upstream.json();
+        const decodeFsVal = (val: any): any => {
+          if (!val || typeof val !== "object") return undefined;
+          if ("stringValue" in val) return val.stringValue;
+          if ("booleanValue" in val) return Boolean(val.booleanValue);
+          if ("integerValue" in val) return Number(val.integerValue);
+          if ("doubleValue" in val) return Number(val.doubleValue);
+          if ("timestampValue" in val) return val.timestampValue;
+          if ("nullValue" in val) return null;
+          if ("arrayValue" in val) {
+            const arr = Array.isArray(val.arrayValue?.values) ? val.arrayValue.values : [];
+            return arr.map(decodeFsVal);
+          }
+          if ("mapValue" in val) {
+            const out: Record<string, any> = {};
+            const fields = val.mapValue?.fields || {};
+            for (const [k, v] of Object.entries(fields)) {
+              out[k] = decodeFsVal(v);
+            }
+            return out;
+          }
+          return undefined;
+        };
+
+        const fields = docJson?.fields || {};
+        const rawDeleted = decodeFsVal(fields.deletedSlugs);
+        const rawPosts = decodeFsVal(fields.posts);
+        const version = Number(decodeFsVal(fields.version) || 0);
+        const updatedAt = String(decodeFsVal(fields.updatedAt) || "");
+        const deletedSlugs: string[] = Array.isArray(rawDeleted)
+          ? Array.from(
+              new Set(
+                rawDeleted
+                  .map((s: any) => String(s || "").toLowerCase().trim().replace(/^\//, "").replace(/\/$/, ""))
+                  .filter(Boolean)
+              )
+            )
+          : [];
+        const posts = Array.isArray(rawPosts) ? rawPosts.filter((p: any) => p && typeof p === "object") : [];
+
+        const payload = { exists: true, version, updatedAt, deletedSlugs, posts };
+        cachedExpressBlogSync = { ts: now, ttlMs: 5 * 60_000, payload };
+        res.setHeader("Cache-Control", "public, max-age=120, s-maxage=1800, stale-while-revalidate=86400");
+        return res.json(payload);
+      } finally {
+        clearTimeout(timer);
+      }
+    } catch {
+      res.setHeader("Cache-Control", "public, s-maxage=60");
+      return res.json({ exists: false, posts: [], deletedSlugs: [] });
+    }
   });
 
   // Microsoft Bing Webmaster Tools XML verification

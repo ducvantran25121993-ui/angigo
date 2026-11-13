@@ -84,8 +84,9 @@ import {
 import {
   savePostToFirestore,
   deletePostFromFirestore,
-  getPostsFromFirestore,
+  getPostsFromFirestoreWithMeta,
   syncBlogManifestToFirestore,
+  syncBlogManifestSafely,
   logoutUser,
   onAuthStateChanged,
   auth,
@@ -149,6 +150,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCategory, setFilterCategory] = useState<string>('Tất Cả');
   const [toastMessage, setToastMessage] = useState<{ text: string; type: 'success' | 'error' | 'warning' } | null>(null);
+  const [cloudSyncIssue, setCloudSyncIssue] = useState<'none' | 'quota' | 'error'>('none');
+  const cloudLoadedOkRef = useRef(false);
 
   // Sync Firebase Auth state strictly
   useEffect(() => {
@@ -893,15 +896,23 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       localCustom.forEach((p) => mergeCustom(p, !apiLoaded, false));
     } catch {}
 
-    // 3. Try Cloud Firestore with a fast 2000ms timeout so Admin never hangs when quota is reached
+    // 3. Try Cloud Firestore with a 4500ms timeout and track whether Cloud read actually succeeded
+    let cloudReadOk = false;
+    let cloudQuotaExceeded = false;
+    let cloudPostsCount = 0;
     try {
-      const cloudPosts = await Promise.race([
-        getPostsFromFirestore(),
-        new Promise<BlogPost[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+      const cloudMeta = await Promise.race([
+        getPostsFromFirestoreWithMeta(true),
+        new Promise<{ posts: BlogPost[]; ok: boolean; quotaExceeded: boolean }>((resolve) =>
+          setTimeout(() => resolve({ posts: [], ok: false, quotaExceeded: false }), 4500)
+        ),
       ]);
-      if (cloudPosts && cloudPosts.length > 0) {
+      cloudReadOk = cloudMeta.ok;
+      cloudQuotaExceeded = cloudMeta.quotaExceeded;
+      cloudPostsCount = cloudMeta.posts.length;
+      if (cloudMeta.posts && cloudMeta.posts.length > 0) {
         const { normalizeBlogPost } = await import('../data/blogPosts');
-        cloudPosts.forEach((rawP) => {
+        cloudMeta.posts.forEach((rawP) => {
           const p = normalizeBlogPost(rawP);
           mergeCustom(p, true, false);
         });
@@ -909,6 +920,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     } catch (e) {
       console.warn('Firestore load error:', e);
     }
+    cloudLoadedOkRef.current = cloudReadOk;
+    setCloudSyncIssue(cloudReadOk ? 'none' : cloudQuotaExceeded ? 'quota' : 'error');
 
     const customList = sortCustomPosts(Array.from(customOnlyMap.values()));
 
@@ -967,14 +980,17 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       (window as any).__INITIAL_CUSTOM_POSTS__ = customList;
     }
 
-    // Bootstrap 1-read Firestore manifest (/meta/blog_sync) once if authenticated as Admin
+    // Bootstrap 1-read Firestore manifest (/meta/blog_sync) ONLY if Cloud Firestore read succeeded
+    // so a 429/timeout never overwrites /meta/blog_sync with an old partial list!
     if (
       typeof window !== 'undefined' &&
+      cloudReadOk &&
+      cloudPostsCount > 0 &&
       auth.currentUser?.emailVerified &&
       isAllowedAdminEmail(auth.currentUser?.email) &&
       !localStorage.getItem('angigio_manifest_seeded_v1')
     ) {
-      syncBlogManifestToFirestore(customList, Array.from(deleted))
+      syncBlogManifestSafely(customList, Array.from(deleted), false)
         .then((ok) => {
           if (ok) localStorage.setItem('angigio_manifest_seeded_v1', '1');
         })
@@ -3021,7 +3037,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       });
 
       manifestOk = await Promise.race([
-        syncBlogManifestToFirestore(manifestPosts, Array.from(deletedSet)),
+        syncBlogManifestSafely(manifestPosts, Array.from(deletedSet), cloudLoadedOkRef.current),
         new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 6000)),
       ]);
       if (manifestOk) {
@@ -3176,7 +3192,11 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           }
         }
         const manifestOk = await Promise.race([
-          syncBlogManifestToFirestore(Array.from(manifestMap.values()), Array.from(deletedSet)),
+          syncBlogManifestSafely(
+            Array.from(manifestMap.values()),
+            Array.from(deletedSet),
+            cloudLoadedOkRef.current
+          ),
           new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 6000)),
         ]);
         if (manifestOk) {
@@ -3625,6 +3645,42 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
       {/* Main Body */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6">
+        {cloudSyncIssue !== 'none' && (
+          <div className="mb-5 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-amber-950 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+              <div className="text-xs sm:text-sm leading-relaxed">
+                <p className="font-bold text-amber-900">
+                  {cloudSyncIssue === 'quota'
+                    ? 'Cloud Firestore đã chạm hạn mức đọc miễn phí hôm nay (429 Quota Exceeded)'
+                    : 'Chưa kết nối đọc được dữ liệu mới nhất từ Cloud Firestore'}
+                </p>
+                <p className="text-amber-800 mt-0.5">
+                  {cloudSyncIssue === 'quota'
+                    ? 'Các bài viết bạn đã đăng trên Cloud KHÔNG bị mất — hệ thống chỉ đang tạm hiển thị bản lưu cục bộ/tĩnh cho tới khi hạn mức reset (khoảng 15:00 chiều giờ VN) hoặc nâng cấp gói Blaze. Hãy deploy bản code mới có cache CDN (/api/blog-sync) lên Vercel để tránh hết quota.'
+                    : 'Đang tạm hiển thị bản lưu cục bộ trên trình duyệt/máy chủ này. Hãy bấm Tải lại để thử đồng bộ lại Cloud.'}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => loadPosts(false)}
+                className="px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-colors cursor-pointer"
+              >
+                Thử Đồng Bộ Lại
+              </button>
+              <a
+                href="https://console.firebase.google.com/project/gen-lang-client-0179592491/firestore/databases/ai-studio-remixhmnaynggimn-69e3831f-3e0b-46b8-95b8-4dbb6380cff1/data?openUpgradeDialog=true"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 rounded-lg bg-white border border-amber-300 hover:bg-amber-100 text-amber-900 text-xs font-semibold transition-colors"
+              >
+                Mở Firestore Console
+              </a>
+            </div>
+          </div>
+        )}
         {viewMode === 'inbox' ? (
           /* ================= INBOX VIEW ================= */
           <div className="py-2">

@@ -60,6 +60,18 @@ function readLocalCache<T>(key: string, maxAgeMs: number): T | null {
   return null;
 }
 
+function readStaleLocalCache<T>(key: string): T | null {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.data !== undefined) {
+      return parsed.data as T;
+    }
+  } catch {}
+  return null;
+}
+
 function writeLocalCache<T>(key: string, data: T): void {
   try {
     localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data }));
@@ -235,6 +247,14 @@ export async function fetchBlogSyncManifestViaFirestoreRest(
     }
   }
 
+  const staleManifestFallback = (): BlogSyncManifestResult =>
+    _restManifestCache ||
+    readStaleLocalCache<BlogSyncManifestResult>(LS_MANIFEST_CACHE_KEY) || {
+      exists: false,
+      posts: [],
+      deletedSlugs: [],
+    };
+
   // 1. Try CDN-cached /api/blog-sync first (zero Firestore reads for 99.9% of visitors)
   try {
     const proxyRes = await fetch('/api/blog-sync');
@@ -250,7 +270,7 @@ export async function fetchBlogSyncManifestViaFirestoreRest(
       }
       if (proxyJson?.quotaLimited) {
         setQuotaCooldown();
-        return _restManifestCache || { exists: false, posts: [], deletedSlugs: [] };
+        return staleManifestFallback();
       }
     }
   } catch {
@@ -258,7 +278,7 @@ export async function fetchBlogSyncManifestViaFirestoreRest(
   }
 
   if (now < getQuotaCooldownUntil()) {
-    return _restManifestCache || { exists: false, posts: [], deletedSlugs: [] };
+    return staleManifestFallback();
   }
 
   // 2. Direct 1-read Firestore REST fallback
@@ -267,13 +287,13 @@ export async function fetchBlogSyncManifestViaFirestoreRest(
     const res = await fetch(url);
     if (res.status === 429 || res.status === 403) {
       setQuotaCooldown();
-      return _restManifestCache || { exists: false, posts: [], deletedSlugs: [] };
+      return staleManifestFallback();
     }
     if (res.status === 404) {
       return { exists: false, posts: [], deletedSlugs: [] };
     }
     if (!res.ok) {
-      return _restManifestCache || { exists: false, posts: [], deletedSlugs: [] };
+      return staleManifestFallback();
     }
 
     const rawDoc = await res.json();
@@ -288,7 +308,7 @@ export async function fetchBlogSyncManifestViaFirestoreRest(
     writeLocalCache(LS_MANIFEST_CACHE_KEY, result);
     return result;
   } catch {
-    return _restManifestCache || { exists: false, posts: [], deletedSlugs: [] };
+    return staleManifestFallback();
   }
 }
 
@@ -310,8 +330,11 @@ export async function fetchPostsViaFirestoreRest(forceRefresh = false): Promise<
       return localCached;
     }
   }
+  const stalePostsFallback = (): BlogPost[] =>
+    _restPostsCache || readStaleLocalCache<BlogPost[]>(LS_POSTS_CACHE_KEY) || [];
+
   if (now < getQuotaCooldownUntil()) {
-    return _restPostsCache || [];
+    return stalePostsFallback();
   }
 
   try {
@@ -325,10 +348,10 @@ export async function fetchPostsViaFirestoreRest(forceRefresh = false): Promise<
       const res = await fetch(url);
       if (res.status === 429 || res.status === 403) {
         setQuotaCooldown();
-        return _restPostsCache || [];
+        return stalePostsFallback();
       }
       if (!res.ok) {
-        return _restPostsCache || [];
+        return stalePostsFallback();
       }
       const json = await res.json();
       const docs = Array.isArray(json.documents) ? json.documents : [];
@@ -350,7 +373,7 @@ export async function fetchPostsViaFirestoreRest(forceRefresh = false): Promise<
     writeLocalCache(LS_POSTS_CACHE_KEY, posts);
     return posts;
   } catch {
-    return _restPostsCache || [];
+    return stalePostsFallback();
   }
 }
 
@@ -401,8 +424,11 @@ export async function fetchDeletedPostsViaFirestoreRest(forceRefresh = false): P
       return localCached;
     }
   }
+  const staleDeletedFallback = (): string[] =>
+    _restDeletedCache || readStaleLocalCache<string[]>(LS_DELETED_CACHE_KEY) || [];
+
   if (now < getQuotaCooldownUntil()) {
-    return _restDeletedCache || [];
+    return staleDeletedFallback();
   }
 
   try {
@@ -410,10 +436,10 @@ export async function fetchDeletedPostsViaFirestoreRest(forceRefresh = false): P
     const res = await fetch(url);
     if (res.status === 429 || res.status === 403) {
       setQuotaCooldown();
-      return _restDeletedCache || [];
+      return staleDeletedFallback();
     }
     if (!res.ok) {
-      return _restDeletedCache || [];
+      return staleDeletedFallback();
     }
     const json = await res.json();
     const docs = Array.isArray(json.documents) ? json.documents : [];
@@ -435,6 +461,6 @@ export async function fetchDeletedPostsViaFirestoreRest(forceRefresh = false): P
     writeLocalCache(LS_DELETED_CACHE_KEY, list);
     return list;
   } catch {
-    return _restDeletedCache || [];
+    return staleDeletedFallback();
   }
 }

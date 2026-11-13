@@ -12,6 +12,7 @@ import { INITIAL_DISHES } from "./src/data/dishes";
 import { getDishRecipe } from "./src/data/recipes";
 import { getRecipeSlug, getRecipePath, getRecipeArticleTitle, formatRecipeSeoTitle, formatRecipeIngredientsForSchema, findDishByRecipeSlug, RECIPE_SLUG_ALIASES, CUSTOM_RECIPE_SLUGS } from "./src/data/recipeSlugs";
 import { getDishImageByName } from "./src/utils/dishImageCatalog";
+import { buildFullArticleSsrHtml } from "./src/utils/ssrArticleHtml";
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';
@@ -2180,6 +2181,7 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
   // Inject rich semantic route-specific content into <div id="root"> for crawlers (Googlebot, Bingbot)
   let pageH1 = ('h1' in meta && meta.h1) ? meta.h1 : meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
   let extraContent = '';
+  let fullArticleHtmlWrapper: string | null = null;
 
   if (isRecipeRoute) {
     const td = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`) || findDishByRecipeSlug(meta.path, INITIAL_DISHES);
@@ -2200,16 +2202,17 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
     const bp = customMatch || INITIAL_BLOG_POSTS.find(p => p.slug === slug || (p.id && p.id === slug));
     if (bp) {
       if (bp.title) pageH1 = bp.title;
-      const snippet = bp.content ? bp.content.replace(/<[^>]+>/g, ' ').slice(0, 600) : (bp.excerpt || '');
-      extraContent = `<article><p>${escapeXml(bp.excerpt || '')}</p><div>${escapeXml(snippet)}</div><section id="video-guide"><h2>Tóm tắt quy trình &amp; Dinh dưỡng (~450 calories/phần)</h2><ol><li id="step-1">Sơ chế và tẩm ướp nguyên liệu tươi ngon.</li><li id="step-2">Chế biến món ăn chuẩn vị trên lửa vừa.</li><li id="step-3">Trình bày ra đĩa và thưởng thức khi còn nóng.</li></ol></section></article>`;
+      fullArticleHtmlWrapper = buildFullArticleSsrHtml(bp);
     }
   }
 
   const pageDesc = meta.description || '';
   const isRecipeOrArticle = isRecipeRoute || meta.isArticle;
-  const crawlerHeader = isRecipeOrArticle
-    ? `<header id="prerender-content" style="max-width: 56rem; margin: 2rem auto; padding: 0 1rem; font-family: 'Be Vietnam Pro', system-ui, sans-serif; color: #1c1917;"><h1 style="font-size: 1.75rem; font-weight: 800; line-height: 1.3; margin-bottom: 0.75rem; color: #0c0a09;">${escapeXml(pageH1)}</h1><p style="color: #57534e; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">${escapeXml(pageDesc)}</p>${extraContent}<div style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8a29e;">Đang tải giao diện công thức...</div></header>`
-    : `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p>${extraContent}</header>`;
+  const crawlerHeader = fullArticleHtmlWrapper
+    ? fullArticleHtmlWrapper
+    : isRecipeOrArticle
+      ? `<header id="prerender-content" style="max-width: 56rem; margin: 2rem auto; padding: 0 1rem; font-family: 'Be Vietnam Pro', system-ui, sans-serif; color: #1c1917;"><h1 style="font-size: 1.75rem; font-weight: 800; line-height: 1.3; margin-bottom: 0.75rem; color: #0c0a09;">${escapeXml(pageH1)}</h1><p style="color: #57534e; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.25rem;">${escapeXml(pageDesc)}</p>${extraContent}<div style="margin-top: 1.5rem; font-size: 0.8rem; color: #a8a29e;">Đang tải giao diện công thức...</div></header>`
+      : `<header class="sr-only"><h1>${escapeXml(pageH1)}</h1><p>${escapeXml(pageDesc)}</p>${extraContent}</header>`;
 
   if (updatedHtml.includes('<div id="root">')) {
     updatedHtml = updatedHtml.replace(

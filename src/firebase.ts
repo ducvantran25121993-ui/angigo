@@ -223,6 +223,82 @@ export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Pro
 }
 
 /**
+ * Write compact 1-read manifest document at /meta/blog_sync so visitors load all post metadata
+ * and deletedSlugs in 1 single Firestore read unit instead of scanning entire collections.
+ */
+export async function syncBlogManifestToFirestore(
+  posts: BlogPost[],
+  deletedSlugs: string[] = []
+): Promise<boolean> {
+  try {
+    const deletedSet = new Set<string>();
+    const cleanDeleted: string[] = [];
+    for (const raw of deletedSlugs) {
+      const clean = String(raw || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      if (clean && !deletedSet.has(clean)) {
+        deletedSet.add(clean);
+        cleanDeleted.push(clean);
+      }
+      if (cleanDeleted.length >= 900) break;
+    }
+
+    const compactPosts: Record<string, any>[] = [];
+    const seenSlugs = new Set<string>();
+    for (const p of posts) {
+      if (!p || (!p.slug && !p.id)) continue;
+      const cleanSlug = String(p.slug || p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const cleanId = String(p.id || p.slug || cleanSlug).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      if (!cleanSlug || deletedSet.has(cleanSlug) || deletedSet.has(cleanId) || seenSlugs.has(cleanSlug)) continue;
+      seenSlugs.add(cleanSlug);
+
+      const rawCover = String(p.coverImage || '');
+      const safeCover =
+        rawCover && rawCover.length <= 2048
+          ? rawCover
+          : 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80';
+
+      compactPosts.push({
+        id: cleanId.slice(0, 150),
+        slug: cleanSlug.slice(0, 150),
+        title: String(p.title || '').slice(0, 300),
+        excerpt: String(p.excerpt || '').slice(0, 500),
+        coverImage: safeCover,
+        category: String(p.category || 'Gợi Ý Thực Đơn').slice(0, 100),
+        tags: Array.isArray(p.tags) ? p.tags.slice(0, 15).map((t) => String(t).slice(0, 60)) : [],
+        authorName: String(p.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì').slice(0, 100),
+        authorRole: String(p.author?.role || 'Bếp Trưởng & Chuyên Gia Ẩm Thực').slice(0, 100),
+        authorAvatar: String(
+          p.author?.avatar && p.author.avatar.length <= 2048
+            ? p.author.avatar
+            : 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=160&auto=format&fit=crop&q=80'
+        ),
+        publishDate: String(p.publishDate || '').slice(0, 50),
+        readTime: String(p.readTime || '5 phút đọc').slice(0, 50),
+        featured: Boolean(p.featured),
+        relatedDishIds: Array.isArray(p.relatedDishIds) ? p.relatedDishIds.slice(0, 20) : [],
+        oldSlug: p.oldSlug ? String(p.oldSlug).slice(0, 150) : '',
+        updatedAt: String(p.updatedAt || new Date().toISOString()).slice(0, 100),
+        revision: Math.max(Number(p.revision || 0), p.adminSaved ? 1 : 0),
+        adminSaved: Boolean(p.adminSaved),
+      });
+      if (compactPosts.length >= 450) break;
+    }
+
+    await setDoc(doc(db, 'meta', 'blog_sync'), {
+      version: Math.floor(Date.now()),
+      updatedAt: new Date().toISOString(),
+      deletedSlugs: cleanDeleted,
+      posts: compactPosts,
+    });
+    invalidateClientFirestoreCache();
+    return true;
+  } catch (error) {
+    console.warn('Firestore syncBlogManifest error:', error);
+    return false;
+  }
+}
+
+/**
  * Get all deleted post slugs/IDs from Cloud Firestore for global multi-device sync
  */
 export async function getDeletedPostsFromFirestore(): Promise<string[]> {

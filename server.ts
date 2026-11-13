@@ -1106,6 +1106,82 @@ function invalidateFirestoreServerCache() {
   lastFirestoreDeletedSyncTime = 0;
 }
 
+async function syncServerBlogManifestToFirestore(db: any): Promise<boolean> {
+  if (!db) return false;
+  try {
+    const { doc, setDoc } = await import("firebase/firestore");
+    const deletedList = loadDeletedPostSlugs();
+    const deletedSet = new Set<string>();
+    const cleanDeleted: string[] = [];
+    for (const raw of deletedList) {
+      const clean = String(raw || "").toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "");
+      if (clean && !deletedSet.has(clean)) {
+        deletedSet.add(clean);
+        cleanDeleted.push(clean);
+      }
+      if (cleanDeleted.length >= 900) break;
+    }
+
+    const customPosts = loadCustomBlogPosts();
+    const compactPosts: Record<string, any>[] = [];
+    const seenSlugs = new Set<string>();
+    for (const p of customPosts) {
+      if (!p || (!p.slug && !p.id)) continue;
+      const cleanSlug = String(p.slug || p.id || "").toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "");
+      const cleanId = String(p.id || p.slug || cleanSlug).toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "");
+      if (!cleanSlug || deletedSet.has(cleanSlug) || deletedSet.has(cleanId) || seenSlugs.has(cleanSlug)) continue;
+      seenSlugs.add(cleanSlug);
+
+      const rawCover = String(p.coverImage || "");
+      const safeCover =
+        rawCover && rawCover.length <= 2048
+          ? rawCover
+          : "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80";
+
+      compactPosts.push({
+        id: cleanId.slice(0, 150),
+        slug: cleanSlug.slice(0, 150),
+        title: String(p.title || "").slice(0, 300),
+        excerpt: String(p.excerpt || "").slice(0, 500),
+        coverImage: safeCover,
+        category: String(p.category || "Gợi Ý Thực Đơn").slice(0, 100),
+        tags: Array.isArray(p.tags)
+          ? p.tags.slice(0, 15).map((t: any) => String(t).slice(0, 60))
+          : typeof p.tags === "string"
+            ? p.tags.split(",").map((t: string) => t.trim().slice(0, 60)).filter(Boolean).slice(0, 15)
+            : [],
+        authorName: String(p.author?.name || "Bếp Trưởng Hôm Nay Ăn Gì").slice(0, 100),
+        authorRole: String(p.author?.role || "Bếp Trưởng & Chuyên Gia Ẩm Thực").slice(0, 100),
+        authorAvatar: String(
+          p.author?.avatar && p.author.avatar.length <= 2048
+            ? p.author.avatar
+            : "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=160&auto=format&fit=crop&q=80"
+        ),
+        publishDate: String(p.publishDate || "").slice(0, 50),
+        readTime: String(p.readTime || "5 phút đọc").slice(0, 50),
+        featured: Boolean(p.featured),
+        relatedDishIds: Array.isArray(p.relatedDishIds) ? p.relatedDishIds.slice(0, 20) : [],
+        oldSlug: p.oldSlug ? String(p.oldSlug).slice(0, 150) : "",
+        updatedAt: String(p.updatedAt || new Date().toISOString()).slice(0, 100),
+        revision: Math.max(Number(p.revision || 0), p.adminSaved ? 1 : 0),
+        adminSaved: Boolean(p.adminSaved),
+      });
+      if (compactPosts.length >= 450) break;
+    }
+
+    await setDoc(doc(db, "meta", "blog_sync"), {
+      version: Math.floor(Date.now()),
+      updatedAt: new Date().toISOString(),
+      deletedSlugs: cleanDeleted,
+      posts: compactPosts,
+    });
+    return true;
+  } catch (err: any) {
+    console.warn("syncServerBlogManifestToFirestore warning:", err?.message || err);
+    return false;
+  }
+}
+
 async function syncFirestoreDeletedPosts(): Promise<string[]> {
   const now = Date.now();
   if (cachedFirestoreDeleted && now - lastFirestoreDeletedSyncTime < FIRESTORE_CACHE_TTL) {
@@ -2248,6 +2324,8 @@ app.post("/api/admin/posts", async (req, res) => {
           if (cleanSlug !== docId) {
             await deleteDoc(doc(db, "deleted_posts", cleanSlug)).catch(() => {});
           }
+
+          await syncServerBlogManifestToFirestore(db).catch(() => {});
         }
       } catch (fbErr) {
         console.warn("Backend Firestore save warning:", fbErr);
@@ -2327,6 +2405,7 @@ app.delete("/api/admin/posts/:slugOrId", async (req, res) => {
           }
         } catch {}
 
+        await syncServerBlogManifestToFirestore(db).catch(() => {});
         invalidateFirestoreServerCache();
       }
     } catch (fbErr) {
@@ -2494,13 +2573,12 @@ app.post("/api/admin/posts/import", (req, res) => {
       }
     } catch {}
 
-    // Also persist newly imported adminSaved posts to Cloud Firestore in background
+    // Also persist newly imported adminSaved posts & 1-read manifest to Cloud Firestore in background
     (async () => {
       try {
-        const toCloud = sanitizedIncoming.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
-        if (toCloud.length === 0) return;
         const db = await getServerFirestore();
         if (!db) return;
+        const toCloud = sanitizedIncoming.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
         const { doc, setDoc } = await import("firebase/firestore");
         for (const p of toCloud) {
           const docId = p.slug.replace(/[^a-zA-Z0-9_\-]/g, "-").slice(0, 120);
@@ -2525,6 +2603,7 @@ app.post("/api/admin/posts/import", (req, res) => {
             adminSaved: true,
           }).catch(() => {});
         }
+        await syncServerBlogManifestToFirestore(db).catch(() => {});
       } catch {}
     })();
 

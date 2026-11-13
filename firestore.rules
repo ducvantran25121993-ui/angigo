@@ -20,6 +20,17 @@ service cloud.firestore {
       return data.slugOrId is string && data.slugOrId.size() <= 150;
     }
 
+    function isValidBlogSyncManifest(data) {
+      return data.keys().hasAll(['version', 'updatedAt', 'deletedSlugs', 'posts']) &&
+             data.keys().hasOnly(['version', 'updatedAt', 'deletedSlugs', 'posts']) &&
+             data.version is int && data.version >= 0 &&
+             data.updatedAt is string && data.updatedAt.size() <= 100 &&
+             data.deletedSlugs is list && data.deletedSlugs.size() <= 1000 &&
+             (data.deletedSlugs.size() == 0 || data.deletedSlugs[0] is string) &&
+             data.posts is list && data.posts.size() <= 500 &&
+             (data.posts.size() == 0 || data.posts[0] is map);
+    }
+
     match /posts/{postId} {
       allow read: if true;
       allow create: if isValidId(postId) && isValidPost(request.resource.data);
@@ -32,6 +43,14 @@ service cloud.firestore {
       allow create: if isValidId(slugId) && isValidDeletedPost(request.resource.data);
       allow update: if isValidId(slugId) && isValidDeletedPost(request.resource.data);
       allow delete: if isValidId(slugId);
+    }
+
+    match /meta/{docId} {
+      allow get: if isValidId(docId);
+      allow list: if false;
+      allow create: if isValidId(docId) && isValidBlogSyncManifest(request.resource.data);
+      allow update: if isValidId(docId) && isValidBlogSyncManifest(request.resource.data);
+      allow delete: if false;
     }
 
     match /test/{testId} {

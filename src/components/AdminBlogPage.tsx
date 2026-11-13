@@ -81,6 +81,7 @@ import {
   savePostToFirestore,
   deletePostFromFirestore,
   getPostsFromFirestore,
+  syncBlogManifestToFirestore,
   logoutUser,
   onAuthStateChanged,
   auth,
@@ -649,6 +650,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
             }
             await savePostToFirestore(post).catch(() => {});
           }
+          await syncBlogManifestToFirestore(mergedList, Array.from(getDeletedPostSlugs())).catch(() => {});
         } catch (fbErr) {
           console.warn('Firestore import sync warning:', fbErr);
         }
@@ -736,13 +738,23 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         }
       } catch {}
 
+      const manifestSynced = await Promise.race([
+        syncBlogManifestToFirestore(customList, Array.from(getDeletedPostSlugs())),
+        new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 3000)),
+      ]).catch(() => false);
+      if (manifestSynced && typeof window !== 'undefined') {
+        try {
+          localStorage.setItem('angigio_manifest_seeded_v1', '1');
+        } catch {}
+      }
+
       invalidateBlogPostsMemoryCache();
       await loadPosts(true);
 
       if (serverSynced) {
         showToast(`Đã đồng bộ toàn bộ ${customList.length} bài viết lên máy chủ & Cloud cho mọi thiết bị!`, 'success');
-      } else if (cloudPostsSynced > 0 || serverErrorDetail === 'static_hosting') {
-        if (cloudPostsSynced > 0) {
+      } else if (cloudPostsSynced > 0 || manifestSynced || serverErrorDetail === 'static_hosting') {
+        if (cloudPostsSynced > 0 || manifestSynced) {
           showToast(
             `Đã đồng bộ ${cloudPostsSynced} bài viết lên Cloud Firestore! (Vercel là host tĩnh nên không tự ghi file JSON; hãy dùng nút "Tải File Chuẩn" nếu muốn cập nhật file deploy.)`,
             'success'
@@ -911,6 +923,16 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(customList));
       (window as any).__INITIAL_CUSTOM_POSTS__ = customList;
     }
+
+    // Bootstrap 1-read Firestore manifest (/meta/blog_sync) once if not yet seeded
+    if (typeof window !== 'undefined' && !localStorage.getItem('angigio_manifest_seeded_v1')) {
+      syncBlogManifestToFirestore(customList, Array.from(deleted))
+        .then((ok) => {
+          if (ok) localStorage.setItem('angigio_manifest_seeded_v1', '1');
+        })
+        .catch(() => {});
+    }
+
     if (!silent) setLoading(false);
   }, []);
 
@@ -2912,6 +2934,20 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       console.warn('Firestore save warning:', fbErr);
     }
 
+    // Update 1-read /meta/blog_sync manifest so other devices see this post immediately in 1 read
+    try {
+      const currentCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+      const currentCustom: BlogPost[] = currentCustomStr ? JSON.parse(currentCustomStr) : [finalSavedPost];
+      const manifestOk = await Promise.race([
+        syncBlogManifestToFirestore(currentCustom, Array.from(getDeletedPostSlugs())),
+        new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 3000)),
+      ]);
+      if (manifestOk) {
+        cloudSaved = true;
+        localStorage.setItem('angigio_manifest_seeded_v1', '1');
+      }
+    } catch {}
+
     invalidateBlogPostsMemoryCache();
 
     // Dispatch event so blog lists update data silently
@@ -3024,6 +3060,20 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       } catch (e) {
         console.warn('Firestore delete error:', e);
       }
+
+      // Update 1-read /meta/blog_sync manifest so other devices hide this deleted post in 1 read
+      try {
+        const currentCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+        const currentCustom: BlogPost[] = currentCustomStr ? JSON.parse(currentCustomStr) : [];
+        const manifestOk = await Promise.race([
+          syncBlogManifestToFirestore(currentCustom, Array.from(getDeletedPostSlugs())),
+          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 3000)),
+        ]);
+        if (manifestOk) {
+          cloudDeleted = true;
+          localStorage.setItem('angigio_manifest_seeded_v1', '1');
+        }
+      } catch {}
 
       invalidateBlogPostsMemoryCache();
 

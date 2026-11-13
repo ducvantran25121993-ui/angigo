@@ -269,7 +269,8 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
             setActivePost(resolved);
             activePostRef.current = resolved;
           }
-          if (!resolved) {
+          const missingBody = !resolved || Boolean(resolved.isMetadataOnly) || (!resolved.content && !resolved.htmlContent);
+          if (missingBody) {
             const { fetchSinglePost } = await import('../data/blogPosts');
             const singleFresh = await fetchSinglePost(targetSlug);
             if (isMounted && singleFresh) {
@@ -324,26 +325,34 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         setIsSyncingPost(false);
       } else {
         const resolved = resolvePostFromPath(pathname);
-        if (resolved) {
+        const missingBody = !resolved || Boolean(resolved.isMetadataOnly) || (!resolved.content && !resolved.htmlContent);
+        if (resolved && !missingBody) {
           setActivePost(resolved);
           activePostRef.current = resolved;
           setIsSyncingPost(false);
         } else {
-          // Attempt rapid re-sync
+          if (resolved) {
+            setActivePost(resolved);
+            activePostRef.current = resolved;
+          }
           setIsSyncingPost(true);
           fetchAndSyncCustomPosts(false).then(async (posts) => {
             if (posts && posts.length > 0) setCustomPosts(posts);
             let secondResolved = resolvePostFromPath(pathname);
-            if (!secondResolved) {
+            const stillMissingBody =
+              !secondResolved || Boolean(secondResolved.isMetadataOnly) || (!secondResolved.content && !secondResolved.htmlContent);
+            if (stillMissingBody) {
               const targetSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
               if (targetSlug) {
                 const { fetchSinglePost } = await import('../data/blogPosts');
-                secondResolved = await fetchSinglePost(targetSlug);
+                const fetched = await fetchSinglePost(targetSlug);
+                if (fetched) secondResolved = fetched;
               }
             }
             if (secondResolved) {
               setActivePost(secondResolved);
               activePostRef.current = secondResolved;
+              setCustomPosts(getCustomBlogPosts().map(normalizeBlogPost));
             }
             setIsSyncingPost(false);
           });

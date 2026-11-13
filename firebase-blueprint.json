@@ -100,6 +100,31 @@
       },
       "required": ["slugOrId"]
     },
+    "BlogSyncManifest": {
+      "title": "BlogSyncManifest",
+      "description": "Tài liệu tổng hợp danh sách bài viết rút gọn và các slug đã xóa để giảm 95% lượt đọc Firestore",
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "description": "Dấu thời gian phiên bản đồng bộ (ms)"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Thời gian cập nhật gần nhất dạng ISO string",
+          "maxLength": 100
+        },
+        "deletedSlugs": {
+          "type": "array",
+          "description": "Danh sách slug/ID bài viết đã bị xóa"
+        },
+        "posts": {
+          "type": "array",
+          "description": "Danh sách metadata rút gọn của các bài viết blog tùy chỉnh"
+        }
+      },
+      "required": ["version", "updatedAt", "deletedSlugs", "posts"]
+    },
     "TestConnection": {
       "title": "TestConnection",
       "description": "Tài liệu kiểm tra kết nối kiểm thử Firestore",
@@ -120,6 +145,10 @@
     "/deleted_posts/{slugId}": {
       "schema": "DeletedPost",
       "description": "Danh sách các slug/ID bài viết đã bị xóa để đồng bộ trên mọi thiết bị và trình duyệt"
+    },
+    "/meta/{docId}": {
+      "schema": "BlogSyncManifest",
+      "description": "Tài liệu tổng hợp 1-read chứa metadata bài viết và danh sách slug đã xóa"
     },
     "/test/{testId}": {
       "schema": "TestConnection",

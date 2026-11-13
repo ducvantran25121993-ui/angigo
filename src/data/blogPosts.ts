@@ -38,6 +38,7 @@ export interface BlogPost {
   updatedAt?: string;
   revision?: number;
   adminSaved?: boolean;
+  isMetadataOnly?: boolean;
   ratingValue?: number;
   reviewCount?: number;
 }
@@ -901,6 +902,7 @@ export function normalizeBlogPost(raw: any): BlogPost {
     updatedAt: normalizedUpdatedAt,
     revision: normalizedRevision,
     adminSaved: isAdminSaved,
+    isMetadataOnly: Boolean(raw.isMetadataOnly) && !content && !raw.htmlContent,
   };
 }
 
@@ -1004,11 +1006,19 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
     }
   } else if (!isAdmin) {
     try {
-      const { fetchDeletedPostsViaFirestoreRest } = await import('./firestoreRest');
-      const cloudDeleted = await Promise.race([
-        fetchDeletedPostsViaFirestoreRest(forceRefresh),
-        new Promise<string[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+      const { fetchBlogSyncManifestViaFirestoreRest, fetchDeletedPostsViaFirestoreRest } = await import('./firestoreRest');
+      const manifest = await Promise.race([
+        fetchBlogSyncManifestViaFirestoreRest(forceRefresh),
+        new Promise<{ exists: false; posts: BlogPost[]; deletedSlugs: string[] }>((resolve) =>
+          setTimeout(() => resolve({ exists: false, posts: [], deletedSlugs: [] }), 2000)
+        ),
       ]);
+      const cloudDeleted = manifest.exists
+        ? manifest.deletedSlugs
+        : await Promise.race([
+            fetchDeletedPostsViaFirestoreRest(forceRefresh),
+            new Promise<string[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+          ]);
       if (Array.isArray(cloudDeleted)) {
         cloudDeleted.forEach((s) => {
           const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -1048,11 +1058,23 @@ export function shouldReplacePost(
   const existRev = Number(existing.revision || (existing.adminSaved ? 1 : 0));
   const incomingRev = Number(incoming.revision || (incoming.adminSaved ? 1 : 0));
 
+  const existHasBody = Boolean(existing.content || existing.htmlContent) && !existing.isMetadataOnly;
+  const incomingIsMetaOnly = Boolean(incoming.isMetadataOnly) && !incoming.content && !incoming.htmlContent;
+
   if (incomingRev > existRev) return true;
   if (incomingRev < existRev) return false;
 
   const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
   const incomingTime = incoming.updatedAt ? new Date(incoming.updatedAt).getTime() : 0;
+
+  // Never downgrade a full-content local copy to metadata-only at the same revision/time
+  if (existHasBody && incomingIsMetaOnly && incomingTime <= existTime) {
+    return false;
+  }
+  // Upgrade metadata-only entry when full content arrives at same revision/time
+  if (!existHasBody && !incomingIsMetaOnly && incomingTime >= existTime) {
+    return true;
+  }
 
   if (isIncomingAuthoritative) {
     if (existTime > incomingTime && incomingTime > 0) return false;
@@ -1410,11 +1432,19 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   } else {
     try {
-      const { fetchPostsViaFirestoreRest } = await import('./firestoreRest');
-      const cloudPosts = await Promise.race([
-        fetchPostsViaFirestoreRest(false),
-        new Promise<BlogPost[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+      const { fetchBlogSyncManifestViaFirestoreRest, fetchPostsViaFirestoreRest } = await import('./firestoreRest');
+      const manifest = await Promise.race([
+        fetchBlogSyncManifestViaFirestoreRest(false),
+        new Promise<{ exists: false; posts: BlogPost[]; deletedSlugs: string[] }>((resolve) =>
+          setTimeout(() => resolve({ exists: false, posts: [], deletedSlugs: [] }), 2000)
+        ),
       ]);
+      const cloudPosts = manifest.exists
+        ? manifest.posts
+        : await Promise.race([
+            fetchPostsViaFirestoreRest(false),
+            new Promise<BlogPost[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+          ]);
       if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
         cloudPosts.forEach((p) => {
           mergeItem(p, true, false);
@@ -1533,6 +1563,9 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
     } catch {}
   }
 
+  const existingLocal = getBlogPostBySlug(clean);
+  let jsonFallback: BlogPost | null = null;
+
   // 2. Try fetching from /custom_blog_posts.json (with standard 30-min HTTP cache)
   if (typeof window !== 'undefined') {
     try {
@@ -1550,7 +1583,11 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
             });
             if (matched) {
               const normalized = normalizeBlogPost(matched);
-              return upsertFreshPostLocally(normalized, false);
+              // If manifest/local does NOT have a newer revision, static JSON is already up-to-date (0 Firestore reads)
+              if (!existingLocal || !shouldReplacePost(normalized, existingLocal, false)) {
+                return upsertFreshPostLocally(normalized, false);
+              }
+              jsonFallback = normalized;
             }
           }
         }
@@ -1586,6 +1623,8 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
       }
     } catch {}
   }
+
+  if (jsonFallback) return upsertFreshPostLocally(jsonFallback, false);
 
   // 4. Fallback to local memory / bundled posts
   const found = getBlogPostBySlug(clean);

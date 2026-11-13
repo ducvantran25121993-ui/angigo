@@ -14,12 +14,57 @@ let _restQuotaCooldownUntil = 0;
 
 const REST_CACHE_TTL_MS = 2 * 60 * 1000; // 2 minutes
 const REST_QUOTA_COOLDOWN_MS = 5 * 60 * 1000; // 5 minutes cooldown on 429/quota
+const LS_POSTS_CACHE_KEY = 'angigio_rest_posts_cache_v1';
+const LS_DELETED_CACHE_KEY = 'angigio_rest_deleted_cache_v1';
+const LS_COOLDOWN_KEY = 'angigio_rest_quota_cooldown_v1';
+
+function getQuotaCooldownUntil(): number {
+  let until = _restQuotaCooldownUntil;
+  try {
+    const raw = localStorage.getItem(LS_COOLDOWN_KEY);
+    if (raw) {
+      const parsed = Number(raw);
+      if (Number.isFinite(parsed) && parsed > until) until = parsed;
+    }
+  } catch {}
+  return until;
+}
+
+function setQuotaCooldown(): void {
+  const until = Date.now() + REST_QUOTA_COOLDOWN_MS;
+  _restQuotaCooldownUntil = until;
+  try {
+    localStorage.setItem(LS_COOLDOWN_KEY, String(until));
+  } catch {}
+}
+
+function readLocalCache<T>(key: string, maxAgeMs: number): T | null {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed.ts === 'number' && Date.now() - parsed.ts < maxAgeMs) {
+      return parsed.data as T;
+    }
+  } catch {}
+  return null;
+}
+
+function writeLocalCache<T>(key: string, data: T): void {
+  try {
+    localStorage.setItem(key, JSON.stringify({ ts: Date.now(), data }));
+  } catch {}
+}
 
 export function invalidateFirestoreRestCache(): void {
   _restPostsCache = null;
   _restPostsCacheTime = 0;
   _restDeletedCache = null;
   _restDeletedCacheTime = 0;
+  try {
+    localStorage.removeItem(LS_POSTS_CACHE_KEY);
+    localStorage.removeItem(LS_DELETED_CACHE_KEY);
+  } catch {}
 }
 
 function isAutomatedCrawler(): boolean {
@@ -113,7 +158,15 @@ export async function fetchPostsViaFirestoreRest(forceRefresh = false): Promise<
   if (!forceRefresh && _restPostsCache && now - _restPostsCacheTime < REST_CACHE_TTL_MS) {
     return _restPostsCache;
   }
-  if (now < _restQuotaCooldownUntil) {
+  if (!forceRefresh) {
+    const localCached = readLocalCache<BlogPost[]>(LS_POSTS_CACHE_KEY, REST_CACHE_TTL_MS);
+    if (localCached) {
+      _restPostsCache = localCached;
+      _restPostsCacheTime = now;
+      return localCached;
+    }
+  }
+  if (now < getQuotaCooldownUntil()) {
     return _restPostsCache || [];
   }
 
@@ -127,7 +180,7 @@ export async function fetchPostsViaFirestoreRest(forceRefresh = false): Promise<
       const url = `${FIRESTORE_REST_BASE}/posts?pageSize=100${tokenParam}&key=${encodeURIComponent(API_KEY)}`;
       const res = await fetch(url);
       if (res.status === 429 || res.status === 403) {
-        _restQuotaCooldownUntil = Date.now() + REST_QUOTA_COOLDOWN_MS;
+        setQuotaCooldown();
         return _restPostsCache || [];
       }
       if (!res.ok) {
@@ -150,6 +203,7 @@ export async function fetchPostsViaFirestoreRest(forceRefresh = false): Promise<
 
     _restPostsCache = posts;
     _restPostsCacheTime = Date.now();
+    writeLocalCache(LS_POSTS_CACHE_KEY, posts);
     return posts;
   } catch {
     return _restPostsCache || [];
@@ -159,7 +213,7 @@ export async function fetchPostsViaFirestoreRest(forceRefresh = false): Promise<
 export async function fetchSinglePostViaFirestoreRest(slugOrId: string): Promise<BlogPost | null> {
   if (isAutomatedCrawler()) return null;
   const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-  if (!clean || EXCLUDED_BLOG_SLUGS.has(clean) || Date.now() < _restQuotaCooldownUntil) return null;
+  if (!clean || EXCLUDED_BLOG_SLUGS.has(clean) || Date.now() < getQuotaCooldownUntil()) return null;
 
   const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
   const candidates = docId !== clean ? [docId, clean] : [docId];
@@ -169,7 +223,7 @@ export async function fetchSinglePostViaFirestoreRest(slugOrId: string): Promise
       const url = `${FIRESTORE_REST_BASE}/posts/${encodeURIComponent(id)}?key=${encodeURIComponent(API_KEY)}`;
       const res = await fetch(url);
       if (res.status === 429 || res.status === 403) {
-        _restQuotaCooldownUntil = Date.now() + REST_QUOTA_COOLDOWN_MS;
+        setQuotaCooldown();
         return null;
       }
       if (res.ok) {
@@ -195,7 +249,15 @@ export async function fetchDeletedPostsViaFirestoreRest(forceRefresh = false): P
   if (!forceRefresh && _restDeletedCache && now - _restDeletedCacheTime < REST_CACHE_TTL_MS) {
     return _restDeletedCache;
   }
-  if (now < _restQuotaCooldownUntil) {
+  if (!forceRefresh) {
+    const localCached = readLocalCache<string[]>(LS_DELETED_CACHE_KEY, REST_CACHE_TTL_MS);
+    if (localCached) {
+      _restDeletedCache = localCached;
+      _restDeletedCacheTime = now;
+      return localCached;
+    }
+  }
+  if (now < getQuotaCooldownUntil()) {
     return _restDeletedCache || [];
   }
 
@@ -203,7 +265,7 @@ export async function fetchDeletedPostsViaFirestoreRest(forceRefresh = false): P
     const url = `${FIRESTORE_REST_BASE}/deleted_posts?pageSize=200&key=${encodeURIComponent(API_KEY)}`;
     const res = await fetch(url);
     if (res.status === 429 || res.status === 403) {
-      _restQuotaCooldownUntil = Date.now() + REST_QUOTA_COOLDOWN_MS;
+      setQuotaCooldown();
       return _restDeletedCache || [];
     }
     if (!res.ok) {
@@ -226,6 +288,7 @@ export async function fetchDeletedPostsViaFirestoreRest(forceRefresh = false): P
     }
     _restDeletedCache = list;
     _restDeletedCacheTime = Date.now();
+    writeLocalCache(LS_DELETED_CACHE_KEY, list);
     return list;
   } catch {
     return _restDeletedCache || [];

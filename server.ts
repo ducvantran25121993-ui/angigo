@@ -2291,25 +2291,9 @@ app.delete("/api/admin/posts/:slugOrId", async (req, res) => {
       const db = await getServerFirestore();
       if (db) {
         const { doc, deleteDoc, setDoc, collection, getDocs } = await import("firebase/firestore");
-
         const docId1 = cleanSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
-        await deleteDoc(doc(db, "posts", docId1)).catch(() => {});
-        if (cleanSlug !== docId1) {
-          await deleteDoc(doc(db, "posts", cleanSlug)).catch(() => {});
-        }
 
-        // Search and delete any remaining docs in "posts"
-        const snap = await getDocs(collection(db, "posts"));
-        for (const docSnap of snap.docs) {
-          const d = docSnap.data();
-          const pSlug = (d.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-          const pId = (d.id || '').toLowerCase().trim();
-          if (pSlug === cleanSlug || pId === cleanSlug || docSnap.id === docId1 || docSnap.id === cleanSlug) {
-            await deleteDoc(doc(db, "posts", docSnap.id)).catch(() => {});
-          }
-        }
-
-        // Persist deletion into Cloud Firestore deleted_posts collection for global multi-device sync
+        // Persist deletion into Cloud Firestore deleted_posts FIRST (works even if read quota is reached)
         await setDoc(doc(db, "deleted_posts", docId1), {
           slugOrId: cleanSlug,
           deletedAt: new Date().toISOString(),
@@ -2321,6 +2305,29 @@ app.delete("/api/admin/posts/:slugOrId", async (req, res) => {
             deletedAt: new Date().toISOString(),
           }).catch(() => {});
         }
+
+        await deleteDoc(doc(db, "posts", docId1)).catch(() => {});
+        if (cleanSlug !== docId1) {
+          await deleteDoc(doc(db, "posts", cleanSlug)).catch(() => {});
+        }
+
+        // Best-effort sweep to delete any remaining docs in "posts"
+        try {
+          const snap = await Promise.race([
+            getDocs(collection(db, "posts")),
+            new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Firestore sweep timeout")), 2500)),
+          ]);
+          for (const docSnap of snap.docs) {
+            const d = docSnap.data();
+            const pSlug = (d.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+            const pId = (d.id || '').toLowerCase().trim();
+            if (pSlug === cleanSlug || pId === cleanSlug || docSnap.id === docId1 || docSnap.id === cleanSlug) {
+              await deleteDoc(doc(db, "posts", docSnap.id)).catch(() => {});
+            }
+          }
+        } catch {}
+
+        invalidateFirestoreServerCache();
       }
     } catch (fbErr) {
       console.warn("Backend Firestore delete warning:", fbErr);

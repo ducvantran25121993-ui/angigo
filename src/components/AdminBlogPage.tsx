@@ -765,14 +765,6 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         const { normalizeBlogPost } = await import('../data/blogPosts');
         cloudPosts.forEach((rawP) => {
           const p = normalizeBlogPost(rawP);
-          if (p.slug) {
-            deleted.delete(p.slug.toLowerCase().trim());
-            removeDeletedPostSlugLocal(p.slug);
-          }
-          if (p.id) {
-            deleted.delete(p.id.toLowerCase().trim());
-            removeDeletedPostSlugLocal(p.id);
-          }
           mergeCustom(p, true, false);
         });
       }
@@ -2940,8 +2932,12 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       window.dispatchEvent(new Event('locationchange'));
 
       // 5. Delete from Cloud Firestore permanently & record into deleted_posts
+      let cloudDeleted = false;
       try {
-        await deletePostFromFirestore(targetSlug || targetId, allIdentifiers);
+        cloudDeleted = await Promise.race([
+          deletePostFromFirestore(targetSlug || targetId, allIdentifiers),
+          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 4500)),
+        ]);
       } catch (e) {
         console.warn('Firestore delete error:', e);
       }
@@ -2949,16 +2945,19 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       invalidateBlogPostsMemoryCache();
 
       // 6. Delete from backend API
+      let serverDeleted = false;
       try {
         if (targetSlug) {
-          await fetch(`/api/admin/posts/${encodeURIComponent(targetSlug)}`, {
+          const r1 = await fetch(`/api/admin/posts/${encodeURIComponent(targetSlug)}`, {
             method: 'DELETE',
-          }).catch(() => {});
+          }).catch(() => null);
+          if (r1?.ok) serverDeleted = true;
         }
         if (targetId && targetId !== targetSlug) {
-          await fetch(`/api/admin/posts/${encodeURIComponent(targetId)}`, {
+          const r2 = await fetch(`/api/admin/posts/${encodeURIComponent(targetId)}`, {
             method: 'DELETE',
-          }).catch(() => {});
+          }).catch(() => null);
+          if (r2?.ok) serverDeleted = true;
         }
       } catch (apiErr) {
         console.warn('API delete error:', apiErr);
@@ -2973,7 +2972,14 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       // 7. Reload posts
       await loadPosts(true);
 
-      showToast(`Đã xóa bài viết "${postToDelete.title}" thành công!`, 'success');
+      if (cloudDeleted || serverDeleted) {
+        showToast(`Đã xóa bài viết "${postToDelete.title}" thành công trên mọi thiết bị!`, 'success');
+      } else {
+        showToast(
+          `Đã xóa "${postToDelete.title}" trên máy này, nhưng chưa đồng bộ được lên Cloud Firestore (kiểm tra mạng hoặc quota Firebase).`,
+          'warning'
+        );
+      }
       setPostToDelete(null);
     } catch (err: any) {
       console.error('Lỗi khi xóa bài viết:', err);

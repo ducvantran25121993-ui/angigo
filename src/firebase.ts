@@ -261,9 +261,9 @@ export async function getDeletedPostsFromFirestore(): Promise<string[]> {
 /**
  * Record a deleted post slug or ID into Cloud Firestore
  */
-export async function recordDeletedPostInFirestore(slugOrId: string): Promise<void> {
+export async function recordDeletedPostInFirestore(slugOrId: string): Promise<boolean> {
   const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-  if (!clean) return;
+  if (!clean) return false;
   const docId = clean.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
   invalidateClientFirestoreCache();
   try {
@@ -271,8 +271,10 @@ export async function recordDeletedPostInFirestore(slugOrId: string): Promise<vo
       slugOrId: clean,
       deletedAt: new Date().toISOString(),
     });
+    return true;
   } catch (error) {
     console.warn('Firestore recordDeletedPost error:', error);
+    return false;
   }
 }
 
@@ -403,11 +405,18 @@ export async function getSinglePostFromFirestore(slugOrId: string): Promise<Blog
 /**
  * Delete a post from Cloud Firestore permanently and record into deleted_posts
  */
-export async function deletePostFromFirestore(postIdOrSlug: string, aliases: string[] = []): Promise<void> {
+export async function deletePostFromFirestore(postIdOrSlug: string, aliases: string[] = []): Promise<boolean> {
   const clean = String(postIdOrSlug).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
   const allIdentifiers = Array.from(new Set([clean, ...aliases.map((a) => a.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, ''))].filter(Boolean)));
+  let deletedRecordSaved = false;
 
-  // 1. Delete documents from posts collection
+  // 1. Record all identifiers into deleted_posts FIRST (write-only, works even if daily read quota is 429)
+  for (const id of allIdentifiers) {
+    const ok = await recordDeletedPostInFirestore(id);
+    if (ok) deletedRecordSaved = true;
+  }
+
+  // 2. Delete direct document IDs from posts collection
   for (const id of allIdentifiers) {
     const docId = id.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
     try {
@@ -420,9 +429,12 @@ export async function deletePostFromFirestore(postIdOrSlug: string, aliases: str
     }
   }
 
-  // 2. Query posts collection to delete any documents where slug or id matches
+  // 3. Best-effort sweep query on posts collection with fast timeout (never blocks deletion if read quota is reached)
   try {
-    const snapshot = await getDocs(collection(db, 'posts'));
+    const snapshot = await Promise.race([
+      getDocs(collection(db, 'posts')),
+      new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Firestore sweep timeout')), 2500)),
+    ]);
     for (const d of snapshot.docs) {
       const data = d.data();
       const pSlug = (data.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
@@ -435,10 +447,8 @@ export async function deletePostFromFirestore(postIdOrSlug: string, aliases: str
     console.warn('Firestore sweep delete warning:', queryErr);
   }
 
-  // 3. Record all identifiers into deleted_posts collection for multi-device sync
-  for (const id of allIdentifiers) {
-    await recordDeletedPostInFirestore(id);
-  }
+  invalidateClientFirestoreCache();
+  return deletedRecordSaved;
 }
 
 /**

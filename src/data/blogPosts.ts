@@ -1391,6 +1391,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
   // 4. Cloud Firestore sync:
   // - Inside /admin: use Firebase SDK
   // - For normal visitors: use lightweight 2.5 KB Firestore REST reader (0 KB vendor-firebase, 0 KB Vercel FDT)
+  // Note: Never delete from `deleted` here — deleted_posts is authoritative; re-saved posts already remove themselves from deleted_posts on save.
   if (isAdmin) {
     try {
       const { getPostsFromFirestore } = await import('../firebase');
@@ -1401,8 +1402,6 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
       const cloudPosts = await Promise.race([cloudPromise, timeoutPromise]);
       if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
         cloudPosts.forEach((p) => {
-          if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
-          if (p.id) deleted.delete(p.id.toLowerCase().trim());
           mergeItem(p, true, false);
         });
       }
@@ -1418,8 +1417,6 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
       ]);
       if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
         cloudPosts.forEach((p) => {
-          if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
-          if (p.id) deleted.delete(p.id.toLowerCase().trim());
           mergeItem(p, true, false);
         });
       }
@@ -1451,21 +1448,19 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   }
 
-  if (merged.length > 0) {
-    try {
-      (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
-      localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
-      // Register all slugs into KNOWN_BLOG_SLUGS dynamically
-      const { KNOWN_BLOG_SLUGS: slugsSet } = await import('./blogSlugs');
-      deleted.forEach((d) => slugsSet.delete(d));
-      merged.forEach((p) => {
-        if (p.slug && !deleted.has(p.slug.toLowerCase())) slugsSet.add(p.slug);
-        if (p.id && !deleted.has(p.id.toLowerCase())) slugsSet.add(p.id);
-      });
-      window.dispatchEvent(new Event('custom-posts-updated'));
-    } catch {}
-    _cachedFetchSyncPosts = merged;
-  }
+  try {
+    (window as any).__INITIAL_CUSTOM_POSTS__ = merged;
+    localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
+    // Register all slugs into KNOWN_BLOG_SLUGS dynamically
+    const { KNOWN_BLOG_SLUGS: slugsSet } = await import('./blogSlugs');
+    deleted.forEach((d) => slugsSet.delete(d));
+    merged.forEach((p) => {
+      if (p.slug && !deleted.has(p.slug.toLowerCase())) slugsSet.add(p.slug);
+      if (p.id && !deleted.has(p.id.toLowerCase())) slugsSet.add(p.id);
+    });
+    window.dispatchEvent(new Event('custom-posts-updated'));
+  } catch {}
+  _cachedFetchSyncPosts = merged;
 
   _lastFetchSyncTime = Date.now();
   return merged;
@@ -1507,8 +1502,9 @@ function upsertFreshPostLocally(normalized: BlogPost, isAuthoritative = true): B
 export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null> {
   if (!slugOrId) return null;
   const clean = slugOrId.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+  const canonicalCheck = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
   const deleted = getDeletedPostSlugs();
-  if (deleted.has(clean)) return null;
+  if (deleted.has(clean) || deleted.has(canonicalCheck)) return null;
 
   const isAdmin = isAdminSessionContext();
   const isDevOrAdmin = isLocalDevServer() || isAdmin;

@@ -27,13 +27,18 @@
         },
         "content": {
           "type": "string",
-          "description": "Nội dung bài viết đầy đủ ở định dạng HTML",
+          "description": "Nội dung bài viết đầy đủ ở định dạng Markdown hoặc HTML",
+          "maxLength": 500000
+        },
+        "htmlContent": {
+          "type": "string",
+          "description": "Nội dung bài viết ở định dạng HTML",
           "maxLength": 500000
         },
         "coverImage": {
           "type": "string",
-          "description": "URL ảnh bìa đại diện",
-          "maxLength": 2048
+          "description": "URL hoặc ảnh bìa đại diện",
+          "maxLength": 500000
         },
         "category": {
           "type": "string",
@@ -58,7 +63,7 @@
         "authorAvatar": {
           "type": "string",
           "description": "Ảnh đại diện tác giả",
-          "maxLength": 2048
+          "maxLength": 10000
         },
         "publishDate": {
           "type": "string",
@@ -78,6 +83,14 @@
           "type": "string",
           "description": "Thời gian cập nhật bài viết dạng ISO string",
           "maxLength": 100
+        },
+        "revision": {
+          "type": "number",
+          "description": "Số phiên bản chỉnh sửa bài viết"
+        },
+        "adminSaved": {
+          "type": "boolean",
+          "description": "Đánh dấu bài viết được lưu từ trang quản trị"
         },
         "seoTitle": {
           "type": "string",

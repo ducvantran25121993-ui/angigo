@@ -5,15 +5,55 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+             request.auth.token.email_verified == true &&
+             request.auth.token.email is string &&
+             (
+               request.auth.token.email.lower() == 'ducvantran25121993@gmail.com' ||
+               request.auth.token.email.lower() == 'tranduc474@gmail.com'
+             );
+    }
+
     function isValidId(id) {
       return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
     }
 
     function isValidPost(data) {
-      return data.id is string && data.id.size() <= 150 &&
+      return data.keys().hasAll(['id', 'slug', 'title', 'content']) &&
+             data.keys().hasOnly([
+               'id', 'slug', 'title', 'excerpt', 'content', 'htmlContent',
+               'coverImage', 'category', 'tags', 'authorName', 'authorRole',
+               'authorAvatar', 'publishDate', 'readTime', 'featured',
+               'updatedAt', 'revision', 'adminSaved', 'seoTitle',
+               'seoDescription', 'focusKeyword', 'noIndex'
+             ]) &&
+             data.id is string && data.id.size() <= 150 &&
              data.slug is string && data.slug.size() <= 150 &&
              data.title is string && data.title.size() <= 300 &&
              data.content is string && data.content.size() <= 500000 &&
+             (!('excerpt' in data) || (data.excerpt is string && data.excerpt.size() <= 1000)) &&
+             (!('htmlContent' in data) || (data.htmlContent is string && data.htmlContent.size() <= 500000)) &&
+             (!('coverImage' in data) || (data.coverImage is string && data.coverImage.size() <= 500000)) &&
+             (!('category' in data) || (data.category is string && data.category.size() <= 100)) &&
+             (!('tags' in data) || (data.tags is string && data.tags.size() <= 500)) &&
+             (!('authorName' in data) || (data.authorName is string && data.authorName.size() <= 100)) &&
+             (!('authorRole' in data) || (data.authorRole is string && data.authorRole.size() <= 100)) &&
+             (!('authorAvatar' in data) || (data.authorAvatar is string && data.authorAvatar.size() <= 10000)) &&
+             (!('publishDate' in data) || (data.publishDate is string && data.publishDate.size() <= 50)) &&
+             (!('readTime' in data) || (data.readTime is string && data.readTime.size() <= 50)) &&
+             (!('featured' in data) || data.featured is bool) &&
+             (!('updatedAt' in data) || (data.updatedAt is string && data.updatedAt.size() <= 100)) &&
+             (!('revision' in data) || (data.revision is number && data.revision >= 0)) &&
+             (!('adminSaved' in data) || data.adminSaved is bool) &&
              (!('seoTitle' in data) || (data.seoTitle is string && data.seoTitle.size() <= 200)) &&
              (!('seoDescription' in data) || (data.seoDescription is string && data.seoDescription.size() <= 350)) &&
              (!('focusKeyword' in data) || (data.focusKeyword is string && data.focusKeyword.size() <= 120)) &&
@@ -21,13 +61,16 @@ service cloud.firestore {
     }
 
     function isValidDeletedPost(data) {
-      return data.slugOrId is string && data.slugOrId.size() <= 150;
+      return data.keys().hasAll(['slugOrId']) &&
+             data.keys().hasOnly(['slugOrId', 'deletedAt']) &&
+             data.slugOrId is string && data.slugOrId.size() <= 150 &&
+             (!('deletedAt' in data) || (data.deletedAt is string && data.deletedAt.size() <= 100));
     }
 
     function isValidBlogSyncManifest(data) {
       return data.keys().hasAll(['version', 'updatedAt', 'deletedSlugs', 'posts']) &&
              data.keys().hasOnly(['version', 'updatedAt', 'deletedSlugs', 'posts']) &&
-             data.version is int && data.version >= 0 &&
+             data.version is number && data.version >= 0 &&
              data.updatedAt is string && data.updatedAt.size() <= 100 &&
              data.deletedSlugs is list && data.deletedSlugs.size() <= 1000 &&
              (data.deletedSlugs.size() == 0 || data.deletedSlugs[0] is string) &&
@@ -37,23 +80,23 @@ service cloud.firestore {
 
     match /posts/{postId} {
       allow read: if true;
-      allow create: if isValidId(postId) && isValidPost(request.resource.data);
-      allow update: if isValidId(postId) && isValidPost(request.resource.data);
-      allow delete: if isValidId(postId);
+      allow create: if isAdmin() && isValidId(postId) && isValidPost(incoming());
+      allow update: if isAdmin() && isValidId(postId) && isValidPost(incoming());
+      allow delete: if isAdmin() && isValidId(postId);
     }
 
     match /deleted_posts/{slugId} {
       allow read: if true;
-      allow create: if isValidId(slugId) && isValidDeletedPost(request.resource.data);
-      allow update: if isValidId(slugId) && isValidDeletedPost(request.resource.data);
-      allow delete: if isValidId(slugId);
+      allow create: if isAdmin() && isValidId(slugId) && isValidDeletedPost(incoming());
+      allow update: if isAdmin() && isValidId(slugId) && isValidDeletedPost(incoming());
+      allow delete: if isAdmin() && isValidId(slugId);
     }
 
     match /meta/{docId} {
       allow get: if isValidId(docId);
       allow list: if false;
-      allow create: if isValidId(docId) && isValidBlogSyncManifest(request.resource.data);
-      allow update: if isValidId(docId) && isValidBlogSyncManifest(request.resource.data);
+      allow create: if isAdmin() && isValidId(docId) && docId == 'blog_sync' && isValidBlogSyncManifest(incoming());
+      allow update: if isAdmin() && isValidId(docId) && docId == 'blog_sync' && isValidBlogSyncManifest(incoming());
       allow delete: if false;
     }
 
@@ -62,4 +105,3 @@ service cloud.firestore {
     }
   }
 }
-

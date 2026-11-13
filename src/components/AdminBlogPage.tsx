@@ -89,6 +89,7 @@ import {
   logoutUser,
   onAuthStateChanged,
   auth,
+  isAllowedAdminEmail,
 } from '../firebase';
 import { TabType } from '../utils/navigation';
 import { AdminInboxView } from './AdminInboxView';
@@ -136,19 +137,9 @@ const HIGHLIGHT_COLORS = [
 ];
 
 export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
-  // Authentication session state
-  const [adminSession, setAdminSession] = useState<AdminUserSession | null>(() => {
-    if (typeof window === 'undefined') return null;
-    try {
-      const stored =
-        localStorage.getItem(ADMIN_SESSION_STORAGE_KEY) ||
-        sessionStorage.getItem(ADMIN_SESSION_STORAGE_KEY);
-      if (stored) {
-        return JSON.parse(stored);
-      }
-    } catch {}
-    return null;
-  });
+  // Authentication session state (strictly verified via Firebase Auth)
+  const [adminSession, setAdminSession] = useState<AdminUserSession | null>(null);
+  const [authChecking, setAuthChecking] = useState(true);
 
   const [viewMode, setViewMode] = useState<'list' | 'editor' | 'inbox'>('list');
   const [unreadMessagesCount, setUnreadMessagesCount] = useState<number>(0);
@@ -159,10 +150,10 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   const [filterCategory, setFilterCategory] = useState<string>('Tất Cả');
   const [toastMessage, setToastMessage] = useState<{ text: string; type: 'success' | 'error' | 'warning' } | null>(null);
 
-  // Sync Firebase Auth state
+  // Sync Firebase Auth state strictly
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user && user.emailVerified && isAllowedAdminEmail(user.email)) {
         const session: AdminUserSession = {
           email: user.email || 'ducvantran25121993@gmail.com',
           name: user.displayName || 'Quản Trị Viên',
@@ -174,7 +165,17 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         try {
           localStorage.setItem(ADMIN_SESSION_STORAGE_KEY, JSON.stringify(session));
         } catch {}
+      } else {
+        if (user) {
+          await logoutUser().catch(() => {});
+        }
+        setAdminSession(null);
+        try {
+          localStorage.removeItem(ADMIN_SESSION_STORAGE_KEY);
+          sessionStorage.removeItem(ADMIN_SESSION_STORAGE_KEY);
+        } catch {}
       }
+      setAuthChecking(false);
     });
     return () => unsubscribe();
   }, []);
@@ -855,6 +856,37 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       console.warn('API posts load warning:', apiErr);
     }
 
+    // 1.5 On static hosting / Vercel (where Express /api/admin/posts does not exist),
+    // load /deleted_posts.json & /custom_blog_posts.json so fresh admin browsers never lose existing posts!
+    if (!apiLoaded) {
+      try {
+        const delRes = await fetch('/deleted_posts.json?_t=' + Date.now(), { cache: 'no-store' });
+        if (delRes.ok && (delRes.headers.get('content-type') || '').includes('application/json')) {
+          const delArr = await delRes.json();
+          if (Array.isArray(delArr)) {
+            delArr.forEach((s: string) => {
+              const clean = String(s || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+              if (clean) deleted.add(clean);
+            });
+          }
+        }
+      } catch {}
+
+      try {
+        const staticRes = await fetch('/custom_blog_posts.json?_t=' + Date.now(), { cache: 'no-store' });
+        if (staticRes.ok && (staticRes.headers.get('content-type') || '').includes('application/json')) {
+          const staticArr = await staticRes.json();
+          if (Array.isArray(staticArr)) {
+            const { normalizeBlogPost } = await import('../data/blogPosts');
+            staticArr.forEach((rawP: BlogPost) => {
+              const p = normalizeBlogPost(rawP);
+              mergeCustom(p, true, false);
+            });
+          }
+        }
+      } catch {}
+    }
+
     // 2. Local custom posts from window or localStorage (higher revision / adminSaved always preserved)
     try {
       const localCustom = getCustomBlogPosts();
@@ -935,8 +967,13 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       (window as any).__INITIAL_CUSTOM_POSTS__ = customList;
     }
 
-    // Bootstrap 1-read Firestore manifest (/meta/blog_sync) once if not yet seeded
-    if (typeof window !== 'undefined' && !localStorage.getItem('angigio_manifest_seeded_v1')) {
+    // Bootstrap 1-read Firestore manifest (/meta/blog_sync) once if authenticated as Admin
+    if (
+      typeof window !== 'undefined' &&
+      auth.currentUser?.emailVerified &&
+      isAllowedAdminEmail(auth.currentUser?.email) &&
+      !localStorage.getItem('angigio_manifest_seeded_v1')
+    ) {
       syncBlogManifestToFirestore(customList, Array.from(deleted))
         .then((ok) => {
           if (ok) localStorage.setItem('angigio_manifest_seeded_v1', '1');
@@ -948,8 +985,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   }, []);
 
   useEffect(() => {
+    if (!adminSession) return;
     loadPosts();
-  }, [loadPosts]);
+  }, [adminSession, loadPosts]);
 
   // Check URL query tab=inbox and track unread contact messages
   useEffect(() => {
@@ -2949,25 +2987,42 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       console.warn('LocalStorage error:', storageErr);
     }
 
-    // 3. Also sync to Cloud Firestore with a 4500ms timeout so cold-start writes succeed reliably
+    // 3. Also sync to Cloud Firestore with an 8000ms timeout so cold-start writes succeed reliably
     let cloudSaved = false;
+    let cloudErrorReason = '';
     try {
       await Promise.race([
         savePostToFirestore(finalSavedPost, oldSlug),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore timeout')), 4500)),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore timeout')), 8000)),
       ]);
       cloudSaved = true;
-    } catch (fbErr) {
+    } catch (fbErr: any) {
+      cloudErrorReason = fbErr?.message || String(fbErr || '');
       console.warn('Firestore save warning:', fbErr);
     }
 
     // Update 1-read /meta/blog_sync manifest so other devices see this post immediately in 1 read
+    let manifestOk = false;
     try {
       const currentCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-      const currentCustom: BlogPost[] = currentCustomStr ? JSON.parse(currentCustomStr) : [finalSavedPost];
-      const manifestOk = await Promise.race([
-        syncBlogManifestToFirestore(currentCustom, Array.from(getDeletedPostSlugs())),
-        new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 3000)),
+      const localCustom: BlogPost[] = currentCustomStr ? JSON.parse(currentCustomStr) : [];
+      const mergedManifestMap = new Map<string, BlogPost>();
+      for (const p of [...posts, ...localCustom]) {
+        const k = (p.slug || p.id || '').toLowerCase().trim();
+        if (k) mergedManifestMap.set(k, p);
+      }
+      mergedManifestMap.set(cleanSlug, finalSavedPost);
+      if (oldSlug) mergedManifestMap.delete(oldSlug);
+      const deletedSet = getDeletedPostSlugs();
+      const manifestPosts = Array.from(mergedManifestMap.values()).filter((p) => {
+        const s = (p.slug || '').toLowerCase().trim();
+        const id = (p.id || '').toLowerCase().trim();
+        return !deletedSet.has(s) && !deletedSet.has(id);
+      });
+
+      manifestOk = await Promise.race([
+        syncBlogManifestToFirestore(manifestPosts, Array.from(deletedSet)),
+        new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 6000)),
       ]);
       if (manifestOk) {
         cloudSaved = true;
@@ -3002,17 +3057,34 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     setTimeout(restoreScroll, 120);
     setTimeout(restoreScroll, 250);
 
-    if (serverSaved || cloudSaved) {
-      showToast(`Đã lưu bài viết thành công! Tất cả các máy tính và điện thoại khác đều xem được ngay tại /${cleanSlug}`, 'success');
+    const isQuotaError = /quota|resource-exhausted|429/i.test(cloudErrorReason);
+    const isPermissionError = /permission|insufficient/i.test(cloudErrorReason);
+    if (cloudSaved) {
+      showToast(`Đã lưu bài viết lên Cloud! Tất cả các máy khác đều xem được ngay tại /${cleanSlug}`, 'success');
+    } else if (isPermissionError) {
+      showToast(
+        `Đã lưu tạm trên máy này, NHƯNG tài khoản Google chưa được cấp quyền ghi Cloud Firestore. Hãy đăng xuất và đăng nhập lại đúng Gmail Admin!`,
+        'warning'
+      );
+    } else if (isQuotaError) {
+      showToast(
+        `Đã lưu trên trình duyệt này, NHƯNG Cloud Firestore đang hết hạn mức miễn phí hôm nay (429) nên máy khác chưa thấy ngay. Hạn mức reset lúc 15:00 chiều VN hoặc bạn dùng "Mục Lưu Data" → tải JSON để deploy Vercel!`,
+        'warning'
+      );
+    } else if (serverSaved) {
+      showToast(
+        `Đã lưu trên máy chủ cục bộ, nhưng chưa đồng bộ được lên Cloud Firestore (${cloudErrorReason || 'timeout/mất mạng'}) nên máy ngoài chưa thấy.`,
+        'warning'
+      );
     } else {
       const is404OrStatic = serverErrorMsg.includes('404') || serverErrorMsg.includes('Failed to fetch');
       if (is404OrStatic) {
         showToast(
-          `Đã lưu bài viết vào bộ nhớ trình duyệt! (Chế độ web tĩnh / Vercel: Bạn có thể nhấn nút "Mục Lưu Data" để tải file JSON)`,
+          `Đã lưu vào trình duyệt này, nhưng chưa đồng bộ được lên Cloud Firestore (${cloudErrorReason || 'kiểm tra mạng/quota'}). Hãy thử lại hoặc tải JSON ở "Mục Lưu Data"!`,
           'warning'
         );
       } else {
-        showToast(`Đã lưu bài viết vào bộ nhớ trình duyệt! (${serverErrorMsg})`, 'warning');
+        showToast(`Đã lưu vào trình duyệt này (${cloudErrorReason || serverErrorMsg})`, 'warning');
       }
     }
   };
@@ -3079,22 +3151,33 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
       // 5. Delete from Cloud Firestore permanently & record into deleted_posts
       let cloudDeleted = false;
+      let cloudDeleteError = '';
       try {
         cloudDeleted = await Promise.race([
           deletePostFromFirestore(targetSlug || targetId, allIdentifiers),
-          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 4500)),
+          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 8000)),
         ]);
-      } catch (e) {
+      } catch (e: any) {
+        cloudDeleteError = e?.message || String(e || '');
         console.warn('Firestore delete error:', e);
       }
 
       // Update 1-read /meta/blog_sync manifest so other devices hide this deleted post in 1 read
       try {
         const currentCustomStr = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
-        const currentCustom: BlogPost[] = currentCustomStr ? JSON.parse(currentCustomStr) : [];
+        const localCustom: BlogPost[] = currentCustomStr ? JSON.parse(currentCustomStr) : [];
+        const deletedSet = getDeletedPostSlugs();
+        const manifestMap = new Map<string, BlogPost>();
+        for (const p of [...posts, ...localCustom]) {
+          const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          const id = (p.id || '').toLowerCase().trim();
+          if (!allIdentifiers.includes(s) && !allIdentifiers.includes(id) && !deletedSet.has(s) && !deletedSet.has(id)) {
+            manifestMap.set(s || id, p);
+          }
+        }
         const manifestOk = await Promise.race([
-          syncBlogManifestToFirestore(currentCustom, Array.from(getDeletedPostSlugs())),
-          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 3000)),
+          syncBlogManifestToFirestore(Array.from(manifestMap.values()), Array.from(deletedSet)),
+          new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 6000)),
         ]);
         if (manifestOk) {
           cloudDeleted = true;
@@ -3105,19 +3188,16 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       invalidateBlogPostsMemoryCache();
 
       // 6. Delete from backend API
-      let serverDeleted = false;
       try {
         if (targetSlug) {
-          const r1 = await fetch(`/api/admin/posts/${encodeURIComponent(targetSlug)}`, {
+          await fetch(`/api/admin/posts/${encodeURIComponent(targetSlug)}`, {
             method: 'DELETE',
           }).catch(() => null);
-          if (r1?.ok && (r1.headers.get('content-type') || '').includes('application/json')) serverDeleted = true;
         }
         if (targetId && targetId !== targetSlug) {
-          const r2 = await fetch(`/api/admin/posts/${encodeURIComponent(targetId)}`, {
+          await fetch(`/api/admin/posts/${encodeURIComponent(targetId)}`, {
             method: 'DELETE',
           }).catch(() => null);
-          if (r2?.ok && (r2.headers.get('content-type') || '').includes('application/json')) serverDeleted = true;
         }
       } catch (apiErr) {
         console.warn('API delete error:', apiErr);
@@ -3132,11 +3212,17 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       // 7. Reload posts
       await loadPosts(true);
 
-      if (cloudDeleted || serverDeleted) {
-        showToast(`Đã xóa bài viết "${postToDelete.title}" thành công trên mọi thiết bị!`, 'success');
+      if (cloudDeleted) {
+        showToast(`Đã xóa bài viết "${postToDelete.title}" lên Cloud thành công trên mọi thiết bị!`, 'success');
       } else {
+        const isQuota = /quota|resource-exhausted|429/i.test(cloudDeleteError);
+        const isPerm = /permission|insufficient/i.test(cloudDeleteError);
         showToast(
-          `Đã xóa "${postToDelete.title}" trên máy này, nhưng chưa đồng bộ được lên Cloud Firestore (kiểm tra mạng hoặc quota Firebase).`,
+          isPerm
+            ? `Đã xóa "${postToDelete.title}" trên máy này, NHƯNG phiên Google Admin chưa đủ quyền ghi Cloud Firestore. Hãy đăng nhập lại đúng Gmail Admin!`
+            : isQuota
+              ? `Đã xóa "${postToDelete.title}" trên máy này, NHƯNG Cloud Firestore đang hết hạn mức hôm nay (429) nên máy khác vẫn thấy bài cũ cho tới 15:00 chiều VN (hoặc tải "deleted_posts.json" trong Mục Lưu Data).`
+              : `Đã xóa "${postToDelete.title}" trên máy này, nhưng chưa đồng bộ được lên Cloud Firestore (${cloudDeleteError || 'kiểm tra mạng hoặc quota Firebase'}).`,
           'warning'
         );
       }
@@ -3279,7 +3365,16 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     return matchQuery && matchCategory;
   });
 
-  // Check if user is authenticated before rendering admin dashboard
+  if (authChecking) {
+    return (
+      <div className="min-h-screen bg-stone-950 text-stone-100 flex flex-col justify-center items-center px-4">
+        <div className="w-8 h-8 border-2 border-orange-500 border-t-transparent rounded-full animate-spin mb-3" />
+        <p className="text-xs text-stone-400">Đang xác thực phiên quản trị Google...</p>
+      </div>
+    );
+  }
+
+  // Check if user is authenticated via verified Admin Google account before rendering admin dashboard
   if (!adminSession) {
     return (
       <AdminLogin

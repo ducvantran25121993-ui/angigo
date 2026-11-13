@@ -546,11 +546,32 @@ export async function deletePostFromFirestore(postIdOrSlug: string, aliases: str
 /**
  * Authentication Helpers for Admin
  */
+export const ADMIN_EMAILS = [
+  'ducvantran25121993@gmail.com',
+  'tranduc474@gmail.com',
+] as const;
+
+export function isAllowedAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  const normalized = email.trim().toLowerCase();
+  return ADMIN_EMAILS.includes(normalized as (typeof ADMIN_EMAILS)[number]);
+}
+
 export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 export async function loginWithGoogle(): Promise<User> {
   const result = await signInWithPopup(auth, googleProvider);
-  return result.user;
+  const user = result.user;
+  if (!user.emailVerified || !isAllowedAdminEmail(user.email)) {
+    await signOut(auth).catch(() => {});
+    const err = new Error(
+      `Tài khoản ${user.email || 'này'} không có quyền quản trị viên.`
+    ) as Error & { code?: string };
+    err.code = 'auth/unauthorized-admin';
+    throw err;
+  }
+  return user;
 }
 
 export async function logoutUser(): Promise<void> {

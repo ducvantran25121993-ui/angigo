@@ -1,7 +1,7 @@
 import { Dish, DishRecipe, RegionId } from '../types';
 import { getRegionById, isRegionPath } from '../data/regionalCuisine';
 import { KNOWN_BLOG_SLUGS } from '../data/blogSlugs';
-import { getDeletedPostSlugs } from '../data/blogPosts';
+import { getDeletedPostSlugs } from '../data/deletedPosts';
 import { INITIAL_DISHES } from '../data/dishes';
 import { findDishByRecipeSlug } from '../data/recipeSlugs';
 

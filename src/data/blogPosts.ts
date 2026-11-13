@@ -1,5 +1,17 @@
 import { KNOWN_BLOG_SLUGS } from './blogSlugs';
-import customPostsFallback from '../../public/custom_blog_posts.json';
+import {
+  LOCAL_STORAGE_DELETED_POSTS,
+  getDeletedPostSlugs,
+  recordDeletedPostSlugLocal,
+  removeDeletedPostSlugLocal,
+} from './deletedPosts';
+
+export {
+  LOCAL_STORAGE_DELETED_POSTS,
+  getDeletedPostSlugs,
+  recordDeletedPostSlugLocal,
+  removeDeletedPostSlugLocal,
+};
 
 export interface BlogAuthor {
   name: string;
@@ -892,57 +904,6 @@ export function normalizeBlogPost(raw: any): BlogPost {
   };
 }
 
-export const LOCAL_STORAGE_DELETED_POSTS = 'angigio_deleted_posts';
-
-export function getDeletedPostSlugs(): Set<string> {
-  const set = new Set<string>();
-  if (typeof window === 'undefined') return set;
-  if ((window as any).__ANGIGIO_DELETED_POSTS__ instanceof Set) {
-    return new Set((window as any).__ANGIGIO_DELETED_POSTS__);
-  }
-  // 1. Check window.__INITIAL_DELETED_POSTS__ injected by server for instant zero-latency multi-device sync
-  if (Array.isArray((window as any).__INITIAL_DELETED_POSTS__)) {
-    (window as any).__INITIAL_DELETED_POSTS__.forEach((s: any) => {
-      const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-      if (clean) set.add(clean);
-    });
-  }
-  // 2. Read from localStorage
-  try {
-    const raw = localStorage.getItem(LOCAL_STORAGE_DELETED_POSTS);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed)) {
-        parsed.forEach((s) => set.add(String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '')));
-      }
-    }
-  } catch {}
-  (window as any).__ANGIGIO_DELETED_POSTS__ = set;
-  return set;
-}
-
-export function recordDeletedPostSlugLocal(slugOrId: string): void {
-  if (typeof window === 'undefined') return;
-  try {
-    const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    const current = getDeletedPostSlugs();
-    current.add(clean);
-    (window as any).__ANGIGIO_DELETED_POSTS__ = current;
-    localStorage.setItem(LOCAL_STORAGE_DELETED_POSTS, JSON.stringify(Array.from(current)));
-  } catch {}
-}
-
-export function removeDeletedPostSlugLocal(slugOrId: string): void {
-  if (typeof window === 'undefined') return;
-  try {
-    const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-    const current = getDeletedPostSlugs();
-    current.delete(clean);
-    (window as any).__ANGIGIO_DELETED_POSTS__ = current;
-    localStorage.setItem(LOCAL_STORAGE_DELETED_POSTS, JSON.stringify(Array.from(current)));
-  } catch {}
-}
-
 /**
  * Global synchronization of deleted posts from Cloud Firestore & Backend API
  * Ensures any article deleted on one device is instantly hidden across all devices and visitors
@@ -974,7 +935,7 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
   const isAdmin = isAdminSessionContext();
   const isDevOrAdmin = isLocalDevServer() || isAdmin;
   const now = Date.now();
-  const cacheWindowMs = isAdmin ? 3000 : 1800000; // 30 minutes for normal visitors
+  const cacheWindowMs = isAdmin ? 3000 : 120000; // 2 minutes for normal visitors
   if (!forceRefresh && (now - _lastSyncDeletedTime < cacheWindowMs)) {
     return set;
   }
@@ -1021,8 +982,10 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
     } catch {}
   }
 
-  // 2. Load Firestore deleted_posts ONLY inside /admin (when API did not respond)
-  if (!apiSuccess && isAdmin) {
+  // 2. Sync Firestore deleted_posts:
+  // - Inside /admin (when API did not respond): use Firebase SDK
+  // - For normal visitors: use lightweight 2.5 KB Firestore REST reader so admin deletions propagate across devices
+  if (isAdmin && !apiSuccess) {
     try {
       const { getDeletedPostsFromFirestore } = await import('../firebase');
       const cloudPromise = getDeletedPostsFromFirestore();
@@ -1038,6 +1001,22 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
       }
     } catch (err) {
       console.warn('syncDeletedPosts cloud error:', err);
+    }
+  } else if (!isAdmin) {
+    try {
+      const { fetchDeletedPostsViaFirestoreRest } = await import('./firestoreRest');
+      const cloudDeleted = await Promise.race([
+        fetchDeletedPostsViaFirestoreRest(forceRefresh),
+        new Promise<string[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+      ]);
+      if (Array.isArray(cloudDeleted)) {
+        cloudDeleted.forEach((s) => {
+          const clean = String(s).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+          if (clean) set.add(clean);
+        });
+      }
+    } catch {
+      // fallback gracefully to /deleted_posts.json
     }
   }
 
@@ -1115,7 +1094,7 @@ export function getCustomBlogPosts(): BlogPost[] {
       return !deleted.has(s) && !deleted.has(id) && !EXCLUDED_BLOG_SLUGS.has(s) && !EXCLUDED_BLOG_SLUGS.has(id);
     });
 
-  // 1. Read from window.__INITIAL_CUSTOM_POSTS__ (injected live by server on every request) or fallback to bundled custom_blog_posts.json
+  // 1. Read from window.__INITIAL_CUSTOM_POSTS__ (injected live by server or hydrated by fetchAndSyncCustomPosts)
   let initialList: BlogPost[] = [];
   const hasServerInjectedPosts =
     typeof window !== 'undefined' &&
@@ -1124,8 +1103,6 @@ export function getCustomBlogPosts(): BlogPost[] {
 
   if (hasServerInjectedPosts) {
     initialList = filterDeleted((window as any).__INITIAL_CUSTOM_POSTS__.map(normalizeBlogPost));
-  } else if (Array.isArray(customPostsFallback) && customPostsFallback.length > 0) {
-    initialList = filterDeleted((customPostsFallback as any[]).map(normalizeBlogPost));
   }
 
   // 2. Read from localStorage
@@ -1316,18 +1293,27 @@ export function getFeaturedBlogPosts(): BlogPost[] {
 let _lastFetchSyncTime = 0;
 let _cachedFetchSyncPosts: BlogPost[] | null = null;
 
+export function invalidateBlogPostsMemoryCache(): void {
+  _cachedFetchSyncPosts = null;
+  _lastFetchSyncTime = 0;
+  _lastSyncDeletedTime = 0;
+  import('./firestoreRest')
+    .then((m) => m.invalidateFirestoreRestCache())
+    .catch(() => {});
+}
+
 export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<BlogPost[]> {
   if (typeof window === 'undefined') return [];
   const isAdmin = isAdminSessionContext();
   const isDevOrAdmin = isLocalDevServer() || isAdmin;
   const now = Date.now();
-  const memoryTtlMs = isAdmin ? 300000 : 1800000; // 30 minutes cache for normal visitors
+  const memoryTtlMs = isAdmin ? 300000 : 120000; // 2 minutes for normal visitors, 5 minutes for admin
   if ((!forceRefresh || !isAdmin) && _cachedFetchSyncPosts && (now - _lastFetchSyncTime < memoryTtlMs)) {
     return _cachedFetchSyncPosts;
   }
   _lastFetchSyncTime = now;
 
-  // 0. Synchronize deleted posts from static JSON (visitors) or server & Firestore (admin)
+  // 0. Synchronize deleted posts from static JSON + Firestore REST (visitors) or server & Firestore SDK (admin)
   const deleted = await syncDeletedPosts(forceRefresh && isAdmin);
   const postMap = new Map<string, BlogPost>();
   const serverPostMap = new Map<string, BlogPost>();
@@ -1402,7 +1388,9 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     }
   } catch {}
 
-  // 4. Cloud Firestore sync ONLY inside /admin (normal readers rely on static JSON & cache, saving ~168 KB vendor-firebase.js)
+  // 4. Cloud Firestore sync:
+  // - Inside /admin: use Firebase SDK
+  // - For normal visitors: use lightweight 2.5 KB Firestore REST reader (0 KB vendor-firebase, 0 KB Vercel FDT)
   if (isAdmin) {
     try {
       const { getPostsFromFirestore } = await import('../firebase');
@@ -1420,6 +1408,23 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
       }
     } catch {
       // ignore
+    }
+  } else {
+    try {
+      const { fetchPostsViaFirestoreRest } = await import('./firestoreRest');
+      const cloudPosts = await Promise.race([
+        fetchPostsViaFirestoreRest(false),
+        new Promise<BlogPost[]>((resolve) => setTimeout(() => resolve([]), 2000)),
+      ]);
+      if (Array.isArray(cloudPosts) && cloudPosts.length > 0) {
+        cloudPosts.forEach((p) => {
+          if (p.slug) deleted.delete(p.slug.toLowerCase().trim());
+          if (p.id) deleted.delete(p.id.toLowerCase().trim());
+          mergeItem(p, true, false);
+        });
+      }
+    } catch {
+      // fallback gracefully to /custom_blog_posts.json
     }
   }
 
@@ -1557,12 +1562,26 @@ export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null
     } catch {}
   }
 
-  // 3. Query Cloud Firestore ONLY in /admin context
+  // 3. Query Cloud Firestore:
+  // - Inside /admin: use Firebase SDK
+  // - For normal visitors: use lightweight 1-read Firestore REST lookup (no vendor-firebase SDK)
   if (isAdmin) {
     try {
       const { getSinglePostFromFirestore } = await import('../firebase');
       const cloudPost = await Promise.race([
         getSinglePostFromFirestore(clean),
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000)),
+      ]);
+      if (cloudPost) {
+        const normalized = normalizeBlogPost(cloudPost);
+        return upsertFreshPostLocally(normalized, true);
+      }
+    } catch {}
+  } else {
+    try {
+      const { fetchSinglePostViaFirestoreRest } = await import('./firestoreRest');
+      const cloudPost = await Promise.race([
+        fetchSinglePostViaFirestoreRest(clean),
         new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000)),
       ]);
       if (cloudPost) {

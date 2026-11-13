@@ -75,6 +75,7 @@ import {
   getAllBlogPosts,
   shouldReplacePost,
   sortCustomPosts,
+  invalidateBlogPostsMemoryCache,
 } from '../data/blogPosts';
 import {
   savePostToFirestore,
@@ -2824,17 +2825,19 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       console.warn('LocalStorage error:', storageErr);
     }
 
-    // 3. Also sync to Cloud Firestore with a 2500ms timeout so it never blocks if quota is reached
+    // 3. Also sync to Cloud Firestore with a 4500ms timeout so cold-start writes succeed reliably
     let cloudSaved = false;
     try {
       await Promise.race([
         savePostToFirestore(finalSavedPost, oldSlug),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore timeout')), 2500)),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore timeout')), 4500)),
       ]);
       cloudSaved = true;
     } catch (fbErr) {
       console.warn('Firestore save warning:', fbErr);
     }
+
+    invalidateBlogPostsMemoryCache();
 
     // Dispatch event so blog lists update data silently
     window.dispatchEvent(new Event('custom-posts-updated'));
@@ -2942,6 +2945,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       } catch (e) {
         console.warn('Firestore delete error:', e);
       }
+
+      invalidateBlogPostsMemoryCache();
 
       // 6. Delete from backend API
       try {

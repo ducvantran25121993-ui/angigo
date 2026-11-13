@@ -16,7 +16,6 @@ import {
 import { getTabFromUrl, updateTabSEO, updateRegionSEO, TAB_CONFIG, TabType, isBlogPostSlug } from './utils/navigation';
 import { getRegionFromUrl, isRegionPath } from './data/regionalCuisine';
 import { findDishByRecipeSlug } from './data/recipeSlugs';
-import { fetchAndSyncCustomPosts } from './data/blogPosts';
 import { OfflineIndicator } from './components/OfflineIndicator';
 import { ErrorBoundary } from './components/ErrorBoundary';
 
@@ -364,26 +363,32 @@ export default function App() {
 
     if (isBlogRoute) {
       const syncBlog = async () => {
-        const { fetchAndSyncCustomPosts } = await import('./data/blogPosts');
-        return fetchAndSyncCustomPosts();
-      };
-
-      syncBlog().then((syncedPosts) => {
-        if (syncedPosts && syncedPosts.length > 0) {
-          const cleanSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
-          if (cleanSlug && cleanSlug !== '/' && cleanSlug !== 'admin' && cleanSlug !== 'blog') {
-            const isCustomPost = syncedPosts.some(
+        const { fetchAndSyncCustomPosts, fetchSinglePost } = await import('./data/blogPosts');
+        const syncedPosts = await fetchAndSyncCustomPosts();
+        const cleanSlug = pathname.replace(/^\/?blog\//, '').replace(/^\//, '').toLowerCase().trim();
+        if (cleanSlug && cleanSlug !== '/' && cleanSlug !== 'admin' && cleanSlug !== 'blog') {
+          const isCustomPost =
+            Array.isArray(syncedPosts) &&
+            syncedPosts.some(
               (p) =>
                 (p.slug && p.slug.toLowerCase() === cleanSlug) ||
                 (p.id && p.id.toLowerCase() === cleanSlug) ||
                 ((p as any).oldSlug && String((p as any).oldSlug).toLowerCase() === cleanSlug)
             );
-            if (isCustomPost && activeTab !== 'blog') {
+          if (isCustomPost) {
+            if (activeTab !== 'blog') setActiveTab('blog');
+            return;
+          }
+          if (!isCurrentPathRecipe && !currentRegionId) {
+            const singlePost = await fetchSinglePost(cleanSlug);
+            if (singlePost && activeTab !== 'blog') {
               setActiveTab('blog');
             }
           }
         }
-      });
+      };
+
+      syncBlog().catch(() => {});
     }
 
     // Check if URL has secret query ?admin=1 or ?admin=inbox
@@ -530,9 +535,11 @@ export default function App() {
     if (!isBlog) return;
 
     const isAdmin = activeTab === 'admin' || pathname === '/admin';
-    fetchAndSyncCustomPosts(isAdmin).catch(() => {
-      // Fallback silently
-    });
+    import('./data/blogPosts')
+      .then(({ fetchAndSyncCustomPosts }) => fetchAndSyncCustomPosts(isAdmin))
+      .catch(() => {
+        // Fallback silently
+      });
   }, [activeTab]);
 
   // Listen for global location events

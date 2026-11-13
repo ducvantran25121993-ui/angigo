@@ -105,7 +105,7 @@ export default async function handler(_req: any, res: any) {
     const posts = Array.isArray(rawPosts) ? rawPosts.filter((p: any) => p && typeof p === 'object') : [];
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=120, s-maxage=1800, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=300, stale-while-revalidate=3600');
     return res.status(200).json({
       exists: true,
       version,

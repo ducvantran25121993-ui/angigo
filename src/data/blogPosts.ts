@@ -1069,20 +1069,20 @@ export function shouldReplacePost(
   const existHasBody = Boolean(existing.content || existing.htmlContent) && !existing.isMetadataOnly;
   const incomingIsMetaOnly = Boolean(incoming.isMetadataOnly) && !incoming.content && !incoming.htmlContent;
 
+  // NEVER downgrade a full-content copy to metadata-only regardless of revision
+  if (existHasBody && incomingIsMetaOnly) {
+    return false;
+  }
+  // ALWAYS hydrate a metadata-only stub when full content arrives regardless of revision
+  if (!existHasBody && !incomingIsMetaOnly) {
+    return true;
+  }
+
   if (incomingRev > existRev) return true;
   if (incomingRev < existRev) return false;
 
   const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
   const incomingTime = incoming.updatedAt ? new Date(incoming.updatedAt).getTime() : 0;
-
-  // Never downgrade a full-content local copy to metadata-only at the same revision/time
-  if (existHasBody && incomingIsMetaOnly && incomingTime <= existTime) {
-    return false;
-  }
-  // Upgrade metadata-only entry when full content arrives at same revision/time
-  if (!existHasBody && !incomingIsMetaOnly && incomingTime >= existTime) {
-    return true;
-  }
 
   if (isIncomingAuthoritative) {
     if (existTime > incomingTime && incomingTime > 0) return false;
@@ -1091,6 +1091,48 @@ export function shouldReplacePost(
     if (incomingTime > existTime && incomingTime > 0) return true;
     return false;
   }
+}
+
+/**
+ * Safely merge an incoming post with an existing entry without ever losing body content.
+ * If incoming is newer metadata-only while existing has full body, update metadata fields only.
+ */
+export function mergePostEntry(
+  existing: BlogPost | undefined,
+  incoming: BlogPost,
+  isIncomingAuthoritative = false
+): BlogPost {
+  if (!existing) return incoming;
+  const existHasBody = Boolean(existing.content || existing.htmlContent) && !existing.isMetadataOnly;
+  const incomingIsMetaOnly = Boolean(incoming.isMetadataOnly) && !incoming.content && !incoming.htmlContent;
+
+  if (existHasBody && incomingIsMetaOnly) {
+    const existRev = Number(existing.revision || (existing.adminSaved ? 1 : 0));
+    const incomingRev = Number(incoming.revision || (incoming.adminSaved ? 1 : 0));
+    const existTime = existing.updatedAt ? new Date(existing.updatedAt).getTime() : 0;
+    const incomingTime = incoming.updatedAt ? new Date(incoming.updatedAt).getTime() : 0;
+    const incomingIsNewer = incomingRev > existRev || (incomingRev === existRev && incomingTime > existTime);
+    if (incomingIsNewer) {
+      return {
+        ...existing,
+        ...incoming,
+        content: existing.content,
+        htmlContent: existing.htmlContent,
+        isMetadataOnly: false,
+      };
+    }
+    return existing;
+  }
+
+  if (!existHasBody && !incomingIsMetaOnly) {
+    return {
+      ...existing,
+      ...incoming,
+      isMetadataOnly: false,
+    };
+  }
+
+  return shouldReplacePost(existing, incoming, isIncomingAuthoritative) ? incoming : existing;
 }
 
 /**
@@ -1166,8 +1208,9 @@ export function getCustomBlogPosts(): BlogPost[] {
     if (oldSlug && oldSlug !== key) postMap.delete(oldSlug);
 
     const existing = postMap.get(key);
-    if (shouldReplacePost(existing, p, false)) {
-      postMap.set(key, p);
+    const mergedPost = mergePostEntry(existing, p, false);
+    if (mergedPost !== existing) {
+      postMap.set(key, mergedPost);
       KNOWN_BLOG_SLUGS.add(key);
     }
   });
@@ -1363,8 +1406,9 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
       serverPostMap.set(key, normalized);
     }
     const existing = postMap.get(key);
-    if (shouldReplacePost(existing, normalized, isAuthoritativeServer)) {
-      postMap.set(key, normalized);
+    const mergedPost = mergePostEntry(existing, normalized, isAuthoritativeServer);
+    if (mergedPost !== existing) {
+      postMap.set(key, mergedPost);
     }
   };
 

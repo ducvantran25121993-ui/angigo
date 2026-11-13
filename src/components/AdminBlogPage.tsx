@@ -729,17 +729,30 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         serverErrorDetail = 'network';
       }
 
-      // Push admin-saved posts and local deleted_posts records to Cloud Firestore
+      // Push admin-saved full-content posts and local deleted_posts records to Cloud Firestore
       let cloudPostsSynced = 0;
-      const adminSavedList = customList.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
-      for (const p of adminSavedList) {
-        try {
-          await Promise.race([
-            savePostToFirestore(p),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000)),
-          ]);
-          cloudPostsSynced += 1;
-        } catch {}
+      let cloudSyncError = '';
+      const adminSavedList = customList.filter(
+        (p) => (p.adminSaved || (p.revision && p.revision > 0)) && !p.isMetadataOnly && (p.content || p.htmlContent)
+      );
+      const BATCH_SIZE = 5;
+      for (let i = 0; i < adminSavedList.length; i += BATCH_SIZE) {
+        const batch = adminSavedList.slice(i, i + BATCH_SIZE);
+        await Promise.all(
+          batch.map(async (p) => {
+            try {
+              await Promise.race([
+                savePostToFirestore(p),
+                new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000)),
+              ]);
+              cloudPostsSynced += 1;
+            } catch (err: any) {
+              if (!cloudSyncError) {
+                cloudSyncError = err?.message || String(err || '');
+              }
+            }
+          })
+        );
       }
 
       try {
@@ -748,14 +761,14 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
         for (const s of deletedSlugs) {
           await Promise.race([
             recordDeletedPostInFirestore(s),
-            new Promise((resolve) => setTimeout(resolve, 1500)),
+            new Promise((resolve) => setTimeout(resolve, 3000)),
           ]).catch(() => {});
         }
       } catch {}
 
       const manifestSynced = await Promise.race([
-        syncBlogManifestToFirestore(customList, Array.from(getDeletedPostSlugs())),
-        new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 3000)),
+        syncBlogManifestSafely(customList, Array.from(getDeletedPostSlugs()), cloudLoadedOkRef.current),
+        new Promise<boolean>((resolve) => setTimeout(() => resolve(false), 6000)),
       ]).catch(() => false);
       if (manifestSynced && typeof window !== 'undefined') {
         try {
@@ -766,8 +779,16 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       invalidateBlogPostsMemoryCache();
       await loadPosts(true);
 
-      if (serverSynced) {
-        showToast(`Đã đồng bộ toàn bộ ${customList.length} bài viết lên máy chủ & Cloud cho mọi thiết bị!`, 'success');
+      if (serverSynced && cloudPostsSynced > 0) {
+        showToast(
+          `Đã đồng bộ ${cloudPostsSynced}/${adminSavedList.length} bài viết lên máy chủ & Cloud Firestore cho mọi thiết bị!`,
+          'success'
+        );
+      } else if (serverSynced && cloudSyncError) {
+        showToast(
+          `Đã lưu trên máy chủ cục bộ (${customList.length} bài), nhưng chưa đẩy lên Cloud được (${cloudSyncError}). Hãy chắc chắn bạn đã đăng nhập đúng Gmail Admin!`,
+          'warning'
+        );
       } else if (cloudPostsSynced > 0 || manifestSynced || serverErrorDetail === 'static_hosting') {
         if (cloudPostsSynced > 0 || manifestSynced) {
           showToast(
@@ -776,12 +797,12 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           );
         } else {
           showToast(
-            'Web đang chạy trên host tĩnh Vercel (không có API ghi file server). Hãy bấm "Tải File Chuẩn (custom_blog_posts.json)" hoặc "Tải File Đã Xóa (deleted_posts.json)" ở trên!',
+            `Chưa đẩy được lên Cloud (${cloudSyncError || 'hãy đăng nhập lại Gmail Admin'}). Bạn vẫn có thể bấm "Tải File Chuẩn (custom_blog_posts.json)" ở trên!`,
             'warning'
           );
         }
       } else {
-        showToast(`Chưa thể đồng bộ dữ liệu (${serverErrorDetail || 'lỗi kết nối'})`, 'error');
+        showToast(`Chưa thể đồng bộ dữ liệu (${cloudSyncError || serverErrorDetail || 'lỗi kết nối'})`, 'error');
       }
     } catch (err: any) {
       showToast(err?.message || 'Lỗi khi đồng bộ dữ liệu', 'error');

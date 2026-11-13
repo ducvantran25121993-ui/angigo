@@ -164,34 +164,49 @@ export function invalidateClientFirestoreCache() {
   _clientPostsCacheTime = 0;
   _clientDeletedCache = null;
   _clientDeletedCacheTime = 0;
+  _clientQuotaCooldownUntil = 0;
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.removeItem('angigio_rest_posts_cache_v1');
+      localStorage.removeItem('angigio_rest_deleted_cache_v1');
+      localStorage.removeItem('angigio_rest_manifest_cache_v1');
+      localStorage.removeItem('angigio_rest_quota_cooldown_v1');
+    } catch {}
+  }
 }
 
 /**
  * Save / Update a post in Cloud Firestore
  */
 export async function savePostToFirestore(post: BlogPost, oldSlug?: string): Promise<void> {
-  const cleanSlug = (post.slug || post.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+  const cleanSlug = (post.slug || post.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '').slice(0, 150);
   const docId = cleanSlug.replace(/[^a-zA-Z0-9_\-]/g, '-').slice(0, 120);
   const path = `posts/${docId}`;
-  
+
+  const rawCover = String(post.coverImage || '').trim();
+  const safeCover = rawCover.length <= 490000 ? rawCover : '/images/an-gi-cho-do-ngan.jpg';
+  const rawAvatar = String(post.author?.avatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=160&auto=format&fit=crop&q=80').trim();
+  const safeAvatar = rawAvatar.length <= 10000 ? rawAvatar : 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=160&auto=format&fit=crop&q=80';
+  const rawTags = Array.isArray(post.tags) ? post.tags.join(', ') : String(post.tags || '');
+
   const payload = {
     id: cleanSlug,
     slug: cleanSlug,
-    title: post.title || '',
-    excerpt: post.excerpt || '',
-    content: post.content || '',
-    htmlContent: post.htmlContent || '',
-    coverImage: post.coverImage || '',
-    category: post.category || 'Gợi Ý Thực Đơn',
-    tags: Array.isArray(post.tags) ? post.tags.join(', ') : (post.tags || ''),
-    authorName: post.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì',
-    authorRole: post.author?.role || 'Bếp Trưởng & Chuyên Gia Ẩm Thực',
-    authorAvatar: post.author?.avatar || 'https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=160&auto=format&fit=crop&q=80',
-    publishDate: post.publishDate || new Date().toLocaleDateString('vi-VN'),
-    readTime: post.readTime || '5 phút đọc',
+    title: String(post.title || '').trim().slice(0, 300),
+    excerpt: String(post.excerpt || '').trim().slice(0, 1000),
+    content: String(post.content || '').slice(0, 490000),
+    htmlContent: String(post.htmlContent || '').slice(0, 490000),
+    coverImage: safeCover,
+    category: String(post.category || 'Gợi Ý Thực Đơn').trim().slice(0, 100),
+    tags: rawTags.slice(0, 500),
+    authorName: String(post.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì').trim().slice(0, 100),
+    authorRole: String(post.author?.role || 'Bếp Trưởng & Chuyên Gia Ẩm Thực').trim().slice(0, 100),
+    authorAvatar: safeAvatar,
+    publishDate: String(post.publishDate || new Date().toLocaleDateString('vi-VN')).trim().slice(0, 50),
+    readTime: String(post.readTime || '5 phút đọc').trim().slice(0, 50),
     featured: Boolean(post.featured),
-    updatedAt: post.updatedAt || new Date().toISOString(),
-    revision: Number(post.revision || 1),
+    updatedAt: String(post.updatedAt || new Date().toISOString()).slice(0, 100),
+    revision: Math.max(Number(post.revision || 1), 1),
     adminSaved: true,
     seoTitle: String(post.seoTitle || '').trim().slice(0, 200),
     seoDescription: String(post.seoDescription || '').trim().slice(0, 350),

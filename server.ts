@@ -1097,6 +1097,7 @@ let lastFirestoreDeletedSyncTime = 0;
 let cachedFirestorePosts: any[] | null = null;
 let lastFirestorePostsSyncTime = 0;
 let firestoreQuotaExceededUntil = 0;
+let cachedExpressBlogSync: { ts: number; ttlMs: number; payload: any } | null = null;
 const FIRESTORE_CACHE_TTL = 3 * 60 * 1000; // 3 minutes cache
 const FIRESTORE_QUOTA_COOLDOWN = 2 * 60 * 1000; // 2 minutes cooldown when quota is exceeded
 
@@ -1105,6 +1106,7 @@ function invalidateFirestoreServerCache() {
   lastFirestorePostsSyncTime = 0;
   cachedFirestoreDeleted = null;
   lastFirestoreDeletedSyncTime = 0;
+  cachedExpressBlogSync = null;
 }
 
 async function syncServerBlogManifestToFirestore(db: any): Promise<boolean> {
@@ -2441,6 +2443,8 @@ app.post("/api/admin/posts", async (req, res) => {
       }
     })();
 
+    invalidateFirestoreServerCache();
+
     return res.json({
       success: true,
       message: "Lưu bài viết thành công!",
@@ -2719,6 +2723,8 @@ app.post("/api/admin/posts/import", (req, res) => {
         await syncServerBlogManifestToFirestore(db).catch(() => {});
       } catch {}
     })();
+
+    invalidateFirestoreServerCache();
 
     return res.json({
       success: true,
@@ -3009,12 +3015,10 @@ async function startServer() {
     }
   });
 
-  let cachedExpressBlogSync: { ts: number; ttlMs: number; payload: any } | null = null;
-
   app.get("/api/blog-sync", async (_req, res) => {
     const now = Date.now();
     if (cachedExpressBlogSync && now - cachedExpressBlogSync.ts < cachedExpressBlogSync.ttlMs) {
-      res.setHeader("Cache-Control", "public, max-age=120, s-maxage=1800, stale-while-revalidate=86400");
+      res.setHeader("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=3600");
       return res.json(cachedExpressBlogSync.payload);
     }
 
@@ -3087,8 +3091,8 @@ async function startServer() {
         const posts = Array.isArray(rawPosts) ? rawPosts.filter((p: any) => p && typeof p === "object") : [];
 
         const payload = { exists: true, version, updatedAt, deletedSlugs, posts };
-        cachedExpressBlogSync = { ts: now, ttlMs: 5 * 60_000, payload };
-        res.setHeader("Cache-Control", "public, max-age=120, s-maxage=1800, stale-while-revalidate=86400");
+        cachedExpressBlogSync = { ts: now, ttlMs: 3 * 60_000, payload };
+        res.setHeader("Cache-Control", "public, max-age=60, s-maxage=300, stale-while-revalidate=3600");
         return res.json(payload);
       } finally {
         clearTimeout(timer);

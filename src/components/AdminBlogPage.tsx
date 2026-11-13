@@ -408,12 +408,22 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     }, 4500);
   };
 
+  const buildCleanExportPosts = () => {
+    const deleted = getDeletedPostSlugs();
+    const customRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS) : null;
+    const customParsed: BlogPost[] = customRaw ? JSON.parse(customRaw) : [];
+    const baseList = customParsed.length > 0 ? customParsed : posts;
+    return baseList.filter((p) => {
+      const s = (p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+      const id = (p.id || '').toLowerCase().trim();
+      return !deleted.has(s) && !deleted.has(id);
+    });
+  };
+
   // Export exact custom_blog_posts.json file for other web servers (Vercel, VPS, Nginx, Hosting)
   const handleExportServerJson = () => {
     try {
-      const customRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS) : null;
-      const customParsed = customRaw ? JSON.parse(customRaw) : [];
-      const exportList = customParsed.length > 0 ? customParsed : posts;
+      const exportList = buildCleanExportPosts();
 
       const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(exportList, null, 2));
       const downloadAnchor = document.createElement('a');
@@ -423,18 +433,34 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       downloadAnchor.click();
       downloadAnchor.remove();
 
-      showToast('Đã tải file chuẩn "custom_blog_posts.json"! Chỉ cần đặt file này vào thư mục public của bất kỳ máy chủ nào.');
+      showToast('Đã tải file "custom_blog_posts.json" (đã loại bỏ các bài viết vừa xóa)!');
     } catch (err: any) {
       showToast('Lỗi xuất file: ' + (err?.message || ''), 'error');
+    }
+  };
+
+  // Export deleted_posts.json for static deployments (Vercel)
+  const handleExportDeletedJson = () => {
+    try {
+      const deletedList = Array.from(getDeletedPostSlugs()).filter(Boolean).sort();
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(deletedList, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute('href', dataStr);
+      downloadAnchor.setAttribute('download', 'deleted_posts.json');
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+
+      showToast(`Đã tải "deleted_posts.json" (${deletedList.length} bài đã xóa)! Đặt vào thư mục public khi deploy.`);
+    } catch (err: any) {
+      showToast('Lỗi xuất danh sách xóa: ' + (err?.message || ''), 'error');
     }
   };
 
   // Copy raw JSON to clipboard for instant pasting on other servers
   const handleCopyJsonToClipboard = () => {
     try {
-      const customRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS) : null;
-      const customParsed = customRaw ? JSON.parse(customRaw) : [];
-      const exportList = customParsed.length > 0 ? customParsed : posts;
+      const exportList = buildCleanExportPosts();
       navigator.clipboard.writeText(JSON.stringify(exportList, null, 2));
       setCopiedDataJson(true);
       showToast('Đã sao chép mã JSON vào Clipboard! Bạn có thể dán vào máy chủ khác.');
@@ -460,7 +486,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       let remotePosts: BlogPost[] = [];
       try {
         const res = await fetch(`${target}/api/admin/posts?_t=${Date.now()}`);
-        if (res.ok) {
+        const ct = res.headers.get('content-type') || '';
+        if (res.ok && ct.includes('application/json')) {
           const data = await res.json();
           if (Array.isArray(data.customPosts) && data.customPosts.length > 0) {
             remotePosts = data.customPosts;
@@ -474,7 +501,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
       if (remotePosts.length === 0) {
         const res = await fetch(`${target}/custom_blog_posts.json?_t=${Date.now()}`);
-        if (res.ok) {
+        const ct = res.headers.get('content-type') || '';
+        if (res.ok && ct.includes('application/json')) {
           const data = await res.json();
           if (Array.isArray(data) && data.length > 0) {
             remotePosts = data;
@@ -496,12 +524,14 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
       localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(merged));
 
-      // Sync to local server
-      await fetch('/api/admin/posts/import', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ posts: merged, overwrite: false }),
-      });
+      // Best-effort sync to local Express server if available
+      try {
+        await fetch('/api/admin/posts/import', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ posts: merged, overwrite: false }),
+        });
+      } catch {}
 
       await loadPosts();
       showToast(`Đồng bộ thành công! Đã nạp ${remotePosts.length} bài viết từ máy chủ từ xa.`);
@@ -516,16 +546,17 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   // Export / Download Data JSON file to computer
   const handleExportData = () => {
     try {
-      const customRaw = typeof window !== 'undefined' ? localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS) : null;
-      const customParsed = customRaw ? JSON.parse(customRaw) : [];
+      const cleanCustom = buildCleanExportPosts();
+      const deletedList = Array.from(getDeletedPostSlugs());
       const backupPayload = {
         app: 'Hôm Nay Ăn Gì (angigio.com)',
         type: 'blog_data_backup',
-        version: '2.0',
+        version: '2.1',
         exportedAt: new Date().toISOString(),
         totalPosts: posts.length,
-        customPostsCount: customParsed.length,
-        customPosts: customParsed,
+        customPostsCount: cleanCustom.length,
+        deletedSlugs: deletedList,
+        customPosts: cleanCustom,
         allPosts: posts,
       };
 
@@ -654,28 +685,79 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   const handleSyncAllData = async () => {
     setSyncingServer(true);
     try {
-      const customList = getCustomBlogPosts();
-      const res = await fetch('/api/admin/posts/import', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ posts: customList, overwrite: false }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'Lỗi đồng bộ server');
+      const customList = buildCleanExportPosts();
+      let serverSynced = false;
+      let serverErrorDetail = '';
 
-      // Also push admin-saved posts to Cloud Firestore in background
-      const adminSavedList = customList.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
-      for (const p of adminSavedList) {
-        await Promise.race([
-          savePostToFirestore(p),
-          new Promise((resolve) => setTimeout(resolve, 1500)),
-        ]).catch(() => {});
+      try {
+        const res = await fetch('/api/admin/posts/import', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ posts: customList, overwrite: false }),
+        });
+        const contentType = res.headers.get('content-type') || '';
+        if (res.ok && contentType.includes('application/json')) {
+          const data = await res.json().catch(() => null);
+          if (data?.success !== false) {
+            serverSynced = true;
+          } else {
+            serverErrorDetail = data?.message || 'Máy chủ không ghi được file';
+          }
+        } else if (res.status === 404 || !contentType.includes('application/json')) {
+          serverErrorDetail = 'static_hosting';
+        } else {
+          serverErrorDetail = `HTTP ${res.status}`;
+        }
+      } catch {
+        serverErrorDetail = 'network';
       }
 
+      // Push admin-saved posts and local deleted_posts records to Cloud Firestore
+      let cloudPostsSynced = 0;
+      const adminSavedList = customList.filter((p) => p.adminSaved || (p.revision && p.revision > 0));
+      for (const p of adminSavedList) {
+        try {
+          await Promise.race([
+            savePostToFirestore(p),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000)),
+          ]);
+          cloudPostsSynced += 1;
+        } catch {}
+      }
+
+      try {
+        const { recordDeletedPostInFirestore } = await import('../firebase');
+        const deletedSlugs = Array.from(getDeletedPostSlugs());
+        for (const s of deletedSlugs) {
+          await Promise.race([
+            recordDeletedPostInFirestore(s),
+            new Promise((resolve) => setTimeout(resolve, 1500)),
+          ]).catch(() => {});
+        }
+      } catch {}
+
+      invalidateBlogPostsMemoryCache();
       await loadPosts(true);
-      showToast(`Đã đồng bộ toàn bộ ${customList.length} bài viết lên máy chủ & Cloud cho mọi thiết bị!`, 'success');
+
+      if (serverSynced) {
+        showToast(`Đã đồng bộ toàn bộ ${customList.length} bài viết lên máy chủ & Cloud cho mọi thiết bị!`, 'success');
+      } else if (cloudPostsSynced > 0 || serverErrorDetail === 'static_hosting') {
+        if (cloudPostsSynced > 0) {
+          showToast(
+            `Đã đồng bộ ${cloudPostsSynced} bài viết lên Cloud Firestore! (Vercel là host tĩnh nên không tự ghi file JSON; hãy dùng nút "Tải File Chuẩn" nếu muốn cập nhật file deploy.)`,
+            'success'
+          );
+        } else {
+          showToast(
+            'Web đang chạy trên host tĩnh Vercel (không có API ghi file server). Hãy bấm "Tải File Chuẩn (custom_blog_posts.json)" hoặc "Tải File Đã Xóa (deleted_posts.json)" ở trên!',
+            'warning'
+          );
+        }
+      } else {
+        showToast(`Chưa thể đồng bộ dữ liệu (${serverErrorDetail || 'lỗi kết nối'})`, 'error');
+      }
     } catch (err: any) {
-      showToast(err?.message || 'Lỗi khi lưu dữ liệu lên máy chủ', 'error');
+      showToast(err?.message || 'Lỗi khi đồng bộ dữ liệu', 'error');
     } finally {
       setSyncingServer(false);
     }
@@ -734,7 +816,8 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           'Pragma': 'no-cache',
         },
       });
-      if (res.ok) {
+      const contentType = res.headers.get('content-type') || '';
+      if (res.ok && contentType.includes('application/json')) {
         const data = await res.json();
         if (Array.isArray(data.customPosts)) {
           apiLoaded = true;
@@ -2951,13 +3034,13 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
           const r1 = await fetch(`/api/admin/posts/${encodeURIComponent(targetSlug)}`, {
             method: 'DELETE',
           }).catch(() => null);
-          if (r1?.ok) serverDeleted = true;
+          if (r1?.ok && (r1.headers.get('content-type') || '').includes('application/json')) serverDeleted = true;
         }
         if (targetId && targetId !== targetSlug) {
           const r2 = await fetch(`/api/admin/posts/${encodeURIComponent(targetId)}`, {
             method: 'DELETE',
           }).catch(() => null);
-          if (r2?.ok) serverDeleted = true;
+          if (r2?.ok && (r2.headers.get('content-type') || '').includes('application/json')) serverDeleted = true;
         }
       } catch (apiErr) {
         console.warn('API delete error:', apiErr);
@@ -5658,6 +5741,24 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                 <span className="text-xs bg-amber-700 px-2.5 py-1 rounded-lg shrink-0">Tải JSON</span>
               </button>
 
+              {/* Option 1b: Export deleted_posts.json */}
+              <button
+                type="button"
+                onClick={handleExportDeletedJson}
+                className="w-full flex items-center justify-between p-3 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-800 font-bold text-xs sm:text-sm border border-rose-200 transition-all cursor-pointer"
+              >
+                <div className="flex items-center gap-3">
+                  <Trash2 className="w-4 h-4 text-rose-600 shrink-0" />
+                  <div className="text-left">
+                    <div>Tải File Danh Sách Bài Đã Xóa (deleted_posts.json)</div>
+                    <div className="text-[11px] font-normal text-rose-600">
+                      Đặt vào thư mục public khi deploy lại để ẩn vĩnh viễn các bài đã xóa trên mọi thiết bị
+                    </div>
+                  </div>
+                </div>
+                <span className="text-xs bg-rose-200 text-rose-800 px-2.5 py-1 rounded-lg shrink-0">Tải JSON</span>
+              </button>
+
               {/* Option 2: Copy JSON to Clipboard */}
               <button
                 type="button"
@@ -5744,7 +5845,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                 </p>
               </div>
 
-              {/* Option 6: Push/Sync to Local Server */}
+              {/* Option 6: Push/Sync to Cloud Firestore & Local Server */}
               <button
                 type="button"
                 onClick={handleSyncAllData}
@@ -5754,13 +5855,13 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                 <div className="flex items-center gap-3">
                   <RefreshCw className={`w-5 h-5 shrink-0 ${syncingServer ? 'animate-spin text-orange-400' : 'text-stone-300'}`} />
                   <div className="text-left">
-                    <div>{syncingServer ? 'Đang Gửi Lên Máy Chủ...' : 'Lưu & Cập Nhật File Trên Máy Chủ Này'}</div>
+                    <div>{syncingServer ? 'Đang Đồng Bộ...' : 'Đồng Bộ Dữ Liệu Lên Cloud & Máy Chủ'}</div>
                     <div className="text-[11px] font-normal text-stone-400">
-                      Ghi đè file public/custom_blog_posts.json ngay lập tức
+                      Đẩy bài viết & danh sách xóa lên Cloud Firestore (và ghi file JSON nếu chạy server riêng)
                     </div>
                   </div>
                 </div>
-                <span className="text-xs bg-stone-800 text-stone-300 px-2.5 py-1 rounded-lg shrink-0">Lưu Server</span>
+                <span className="text-xs bg-stone-800 text-stone-300 px-2.5 py-1 rounded-lg shrink-0">Đồng bộ</span>
               </button>
             </div>
 

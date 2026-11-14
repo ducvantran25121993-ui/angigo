@@ -1,0 +1,6 @@
+node_modules
+.git
+*.log
+public/assets/aistudio
+dist/assets/aistudio
+src/assets/images

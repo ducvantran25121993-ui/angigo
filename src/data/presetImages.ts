@@ -1277,6 +1277,11 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "category": "Thịt Heo"
   },
   {
+    "name": "Mẹo khử mùi hôi thịt heo (sơ chế gừng, sả, chanh, muối)",
+    "url": "/images/meo-khu-mui-hoi-thit-heo.jpg",
+    "category": "Thịt Heo"
+  },
+  {
     "name": "Nui giò heo hầm củ quả",
     "url": "/images/nui_gio_heo.jpg",
     "category": "Thịt Heo"

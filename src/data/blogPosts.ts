@@ -636,7 +636,7 @@ export const INITIAL_BLOG_POSTS: BlogPost[] = [
     "slug": "meo-so-che-va-bao-quan-thit-heo",
     "title": "Mẹo Khử Hôi Thịt Heo Sạch 100% & Cách Bảo Quản Trong Tủ Lạnh An Toàn",
     "excerpt": "Cách khử mùi hôi thịt heo sạch 100% bằng nguyên liệu tự nhiên: mẹo rã đông giữ trọn dinh dưỡng và cách bảo quản thịt tươi lâu trong tủ lạnh.",
-    "coverImage": "/images/hom-nay-an-gi-voi-thit-heo.jpg",
+    "coverImage": "/images/meo-khu-mui-hoi-thit-heo.jpg",
     "category": "Mẹo Nhà Bếp",
     "tags": [
       "Mẹo khử hôi",

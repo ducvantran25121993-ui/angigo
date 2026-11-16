@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "functions": {
     "api/seo-page.ts": {
-      "includeFiles": "{dist/index.html,firebase-applet-config.json}"
+      "includeFiles": "{dist/index.html,dist/blog-base.html,firebase-applet-config.json}"
     },
     "api/sitemap.ts": {
       "includeFiles": "{dist/sitemap-base.xml,public/sitemap.xml,firebase-applet-config.json}"
@@ -13,6 +13,76 @@
     }
   },
   "redirects": [
+    {
+      "source": "/cac-mon-canh-thit-heo-thanh-mat",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/cac-mon-canh-thit-heo-thanh-mat/",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/thit-heo-nau-canh-gi-ngon",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/thit-heo-nau-canh-gi-ngon/",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/canh-thit-heo-ngon",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/canh-thit-heo-ngon/",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cac-mon-canh-thit-heo-thanh-mat",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/cac-mon-canh-thit-heo-thanh-mat/",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-heo-nau-canh-gi-ngon",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-heo-nau-canh-gi-ngon/",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/canh-thit-heo-ngon",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/canh-thit-heo-ngon/",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau/",
+      "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+      "permanent": true
+    },
     {
       "source": "/cach-nau-bun-ca-ngu-phu-yen",
       "destination": "/cach-nau-bun-ca-ngu",

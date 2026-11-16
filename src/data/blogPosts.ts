@@ -224,8 +224,9 @@ export const BLOG_SLUG_ALIASES: Record<string, string> = {
   "suon-cot-let-lam-mon-gi-ngon": "mon-ngon-tu-thit-cot-let",
   "thit-heo-quay-gion-bi": "thit-heo-quay-va-nuong-gion-bi",
   "heo-quay-da-gion": "thit-heo-quay-va-nuong-gion-bi",
-  "thit-heo-nau-canh-gi-ngon": "cac-mon-canh-thit-heo-thanh-mat",
-  "canh-thit-heo-ngon": "cac-mon-canh-thit-heo-thanh-mat",
+  "cac-mon-canh-thit-heo-thanh-mat": "thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+  "thit-heo-nau-canh-gi-ngon": "thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+  "canh-thit-heo-ngon": "thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
   "mon-thit-heo-xao": "thit-heo-xao-gi-ngon",
   "cach-luoc-thit-heo-ngon": "cach-luoc-thit-heo-trang-gion-ngon",
   "cach-luoc-thit-heo-trang-gion": "cach-luoc-thit-heo-trang-gion-ngon",
@@ -1269,11 +1270,12 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
   }
 
   const deleted = getDeletedPostSlugs();
-  if (deleted.has(cleanSlug)) {
+  const aliasTarget = BLOG_SLUG_ALIASES[cleanSlug]?.toLowerCase();
+  if (deleted.has(cleanSlug) && (!aliasTarget || aliasTarget === cleanSlug)) {
     return undefined;
   }
 
-  const canonicalSlug = (BLOG_SLUG_ALIASES[cleanSlug] || cleanSlug).toLowerCase();
+  const canonicalSlug = (aliasTarget || cleanSlug).toLowerCase();
   if (deleted.has(canonicalSlug)) {
     return undefined;
   }
@@ -1320,13 +1322,14 @@ export function isBlogPostSlug(slug: string): boolean {
     return false;
   }
   const deleted = getDeletedPostSlugs();
-  if (deleted.has(clean)) {
+  const aliasTarget = BLOG_SLUG_ALIASES[clean]?.toLowerCase();
+  if (deleted.has(clean) && (!aliasTarget || aliasTarget === clean)) {
     return false;
   }
   if (KNOWN_BLOG_SLUGS.has(clean)) {
     return true;
   }
-  const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+  const canonical = (aliasTarget || clean).toLowerCase();
   if (deleted.has(canonical)) {
     return false;
   }
@@ -1584,9 +1587,10 @@ function upsertFreshPostLocally(normalized: BlogPost, isAuthoritative = true): B
 export async function fetchSinglePost(slugOrId: string): Promise<BlogPost | null> {
   if (!slugOrId) return null;
   const clean = slugOrId.toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-  const canonicalCheck = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+  const aliasTarget = BLOG_SLUG_ALIASES[clean]?.toLowerCase();
+  const canonicalCheck = (aliasTarget || clean).toLowerCase();
   const deleted = getDeletedPostSlugs();
-  if (deleted.has(clean) || deleted.has(canonicalCheck)) return null;
+  if ((deleted.has(clean) && (!aliasTarget || aliasTarget === clean)) || deleted.has(canonicalCheck)) return null;
 
   const isAdmin = isAdminSessionContext();
   const isDevOrAdmin = isLocalDevServer() || isAdmin;

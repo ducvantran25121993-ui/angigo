@@ -6,6 +6,13 @@ import { INITIAL_BLOG_POSTS } from '../src/data/blogPosts';
 import { getDishRecipe } from '../src/data/recipes';
 import { getRecipeSlug, formatRecipeIngredientsForSchema, findDishByRecipeSlug } from '../src/data/recipeSlugs';
 import { buildFullArticleSsrHtml } from '../src/utils/ssrArticleHtml';
+import {
+  buildAiAdvisorSsrHtml,
+  buildAiAdvisorSchemaJsonLd,
+  buildBlogIndexSsrHtml,
+  buildBlogIndexSchemaJsonLd,
+  BlogSsrCardItem,
+} from '../src/utils/ssrPageContent';
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';
@@ -36,7 +43,8 @@ function injectMeta(
   html: string,
   meta: RouteSeoMeta,
   matchedCustomPost?: any,
-  compactDeletedJson?: string | null
+  compactDeletedJson?: string | null,
+  allActiveBlogPosts?: BlogSsrCardItem[]
 ) {
   const fullUrl = `https://angigio.com${meta.path === "/" ? "/" : meta.path}`;
   const canonicalUrl = meta.canonicalPath
@@ -380,12 +388,31 @@ function injectMeta(
     );
   }
 
+  // Inject route-specific JSON-LD for /ai-goi-y-mon-an and /blog
+  if (cleanPath === '/ai-goi-y-mon-an') {
+    const aiSchema = buildAiAdvisorSchemaJsonLd();
+    updatedHtml = updatedHtml.replace(
+      '</head>',
+      `    <script id="ai-advisor-jsonld" type="application/ld+json">\n${JSON.stringify(aiSchema, null, 2)}\n    </script>\n  </head>`
+    );
+  } else if (cleanPath === '/blog') {
+    const blogSchema = buildBlogIndexSchemaJsonLd(allActiveBlogPosts || []);
+    updatedHtml = updatedHtml.replace(
+      '</head>',
+      `    <script id="blog-index-jsonld" type="application/ld+json">\n${JSON.stringify(blogSchema, null, 2)}\n    </script>\n  </head>`
+    );
+  }
+
   // Inject rich semantic route-specific content into <div id="root"> for crawlers (Googlebot, Bingbot)
   let pageH1 = meta.h1 || meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
   let extraContent = '';
   let fullArticleHtmlWrapper: string | null = null;
 
-  if ((meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-')) && meta.path !== '/cach-nau-mon-ngon') {
+  if (cleanPath === '/ai-goi-y-mon-an') {
+    fullArticleHtmlWrapper = buildAiAdvisorSsrHtml();
+  } else if (cleanPath === '/blog') {
+    fullArticleHtmlWrapper = buildBlogIndexSsrHtml(allActiveBlogPosts || []);
+  } else if ((meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-')) && meta.path !== '/cach-nau-mon-ngon') {
     const td = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`) || findDishByRecipeSlug(meta.path, INITIAL_DISHES);
     if (td) {
       const rec = getDishRecipe(td);
@@ -521,14 +548,92 @@ function generateStaticHtmlPages() {
     }
   } catch {}
 
+  // Build merged active blog posts list for /blog SSR listing (custom posts first, then remaining INITIAL_BLOG_POSTS)
+  const mergedActiveBlogPosts: BlogSsrCardItem[] = [];
+  const seenBlogSlugs = new Set<string>();
+  const overriddenKeys = new Set<string>();
+  for (const cp of customPostBySlug.values()) {
+    const s = String(cp.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const id = String(cp.id || '').toLowerCase().trim();
+    const oldS = String(cp.oldSlug || cp.previousSlug || '').toLowerCase().trim();
+    if (s) overriddenKeys.add(s);
+    if (id) overriddenKeys.add(id);
+    if (oldS) overriddenKeys.add(oldS);
+    if (s && !cp.noIndex && !deletedSet.has(s) && !deletedSet.has(id) && !seenBlogSlugs.has(s)) {
+      seenBlogSlugs.add(s);
+      mergedActiveBlogPosts.push({
+        slug: s,
+        title: cp.title,
+        excerpt: cp.excerpt,
+        category: cp.category,
+        publishDate: cp.publishDate,
+        updatedAt: cp.updatedAt,
+      });
+    }
+  }
+  for (const p of INITIAL_BLOG_POSTS) {
+    const s = String(p.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
+    const id = String(p.id || '').toLowerCase().trim();
+    if (!s || deletedSet.has(s) || deletedSet.has(id) || overriddenKeys.has(s) || overriddenKeys.has(id) || seenBlogSlugs.has(s)) {
+      continue;
+    }
+    seenBlogSlugs.add(s);
+    mergedActiveBlogPosts.push({
+      slug: s,
+      title: p.title,
+      excerpt: p.excerpt,
+      category: p.category,
+      publishDate: p.publishDate,
+    });
+  }
+
+  // Skip writing static HTML files for explicit 301-redirected pork soup duplicate/alias URLs
+  const REDIRECTED_STATIC_PATHS = new Set([
+    '/cac-mon-canh-thit-heo-thanh-mat',
+    '/thit-heo-nau-canh-gi-ngon',
+    '/canh-thit-heo-ngon',
+    '/blog/cac-mon-canh-thit-heo-thanh-mat',
+    '/blog/thit-heo-nau-canh-gi-ngon',
+    '/blog/canh-thit-heo-ngon',
+    '/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+  ]);
+  for (const redirPath of REDIRECTED_STATIC_PATHS) {
+    delete routes[redirPath];
+    const cleanRel = redirPath.replace(/^\//, '');
+    const staleHtml = path.join(distDir, `${cleanRel}.html`);
+    const staleDir = path.join(distDir, cleanRel);
+    try {
+      if (fs.existsSync(staleHtml)) fs.unlinkSync(staleHtml);
+      if (fs.existsSync(staleDir)) fs.rmSync(staleDir, { recursive: true, force: true });
+    } catch {}
+  }
+
   let count = 0;
   for (const [routePath, meta] of Object.entries(routes)) {
     const cleanSlug = routePath.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
     const matchedCustomPost = routePath !== '/' && routePath !== '/blog' ? customPostBySlug.get(cleanSlug) : undefined;
 
     if (routePath === '/') {
-      const customizedHtml = injectMeta(baseHtml, meta, undefined, compactDeletedJson);
+      const customizedHtml = injectMeta(baseHtml, meta, undefined, compactDeletedJson, mergedActiveBlogPosts);
       fs.writeFileSync(indexHtmlPath, customizedHtml, 'utf-8');
+      count++;
+    } else if (routePath === '/blog') {
+      const customizedBlogHtml = injectMeta(baseHtml, meta, undefined, compactDeletedJson, mergedActiveBlogPosts);
+      fs.writeFileSync(path.join(distDir, 'blog-base.html'), customizedBlogHtml, 'utf-8');
+      if (process.env.VERCEL || process.env.VERCEL_ENV) {
+        // On Vercel, omit static dist/blog.html so /blog hits dynamic /api/seo-page?path=/blog
+        const distBlogHtml = path.join(distDir, 'blog.html');
+        const distBlogDir = path.join(distDir, 'blog');
+        try {
+          if (fs.existsSync(distBlogHtml)) fs.unlinkSync(distBlogHtml);
+          if (fs.existsSync(path.join(distBlogDir, 'index.html'))) fs.unlinkSync(path.join(distBlogDir, 'index.html'));
+        } catch {}
+      } else {
+        const subDir = path.join(distDir, 'blog');
+        if (!fs.existsSync(subDir)) fs.mkdirSync(subDir, { recursive: true });
+        fs.writeFileSync(path.join(subDir, 'index.html'), customizedBlogHtml, 'utf-8');
+        fs.writeFileSync(path.join(distDir, 'blog.html'), customizedBlogHtml, 'utf-8');
+      }
       count++;
     } else {
       const cleanSub = routePath.replace(/^\//, '');
@@ -536,7 +641,7 @@ function generateStaticHtmlPages() {
       if (!fs.existsSync(subDir)) {
         fs.mkdirSync(subDir, { recursive: true });
       }
-      const customizedHtml = injectMeta(baseHtml, meta, matchedCustomPost, compactDeletedJson);
+      const customizedHtml = injectMeta(baseHtml, meta, matchedCustomPost, compactDeletedJson, mergedActiveBlogPosts);
       fs.writeFileSync(path.join(subDir, 'index.html'), customizedHtml, 'utf-8');
       const htmlFlatPath = path.join(distDir, `${cleanSub}.html`);
       const htmlFlatDir = path.dirname(htmlFlatPath);

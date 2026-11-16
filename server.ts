@@ -13,6 +13,13 @@ import { getDishRecipe } from "./src/data/recipes";
 import { getRecipeSlug, getRecipePath, getRecipeArticleTitle, formatRecipeSeoTitle, formatRecipeIngredientsForSchema, findDishByRecipeSlug, RECIPE_SLUG_ALIASES, CUSTOM_RECIPE_SLUGS } from "./src/data/recipeSlugs";
 import { getDishImageByName } from "./src/utils/dishImageCatalog";
 import { buildFullArticleSsrHtml } from "./src/utils/ssrArticleHtml";
+import {
+  buildAiAdvisorSsrHtml,
+  buildAiAdvisorSchemaJsonLd,
+  buildBlogIndexSsrHtml,
+  buildBlogIndexSchemaJsonLd,
+  BlogSsrCardItem,
+} from "./src/utils/ssrPageContent";
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';
@@ -1611,11 +1618,12 @@ app.get(["/api/posts/:slugOrId", "/api/admin/posts/:slugOrId"], async (req, res)
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   const { slugOrId } = req.params;
   const clean = String(slugOrId).toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
-  const canonical = (BLOG_SLUG_ALIASES[clean] || clean).toLowerCase();
+  const aliasTarget = BLOG_SLUG_ALIASES[clean]?.toLowerCase();
+  const canonical = (aliasTarget || clean).toLowerCase();
 
   // 1. Check deleted list
   const deletedSlugs = new Set(await syncFirestoreDeletedPosts());
-  if (deletedSlugs.has(clean) || deletedSlugs.has(canonical)) {
+  if ((deletedSlugs.has(clean) && (!aliasTarget || aliasTarget === clean)) || deletedSlugs.has(canonical)) {
     return res.status(404).json({ success: false, message: "Bài viết đã bị xóa" });
   }
 
@@ -2208,12 +2216,80 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
     }
   }
 
+  // Helper: merged active blog posts for /blog SSR listing
+  const getActiveMergedBlogPosts = (): BlogSsrCardItem[] => {
+    const deletedSet = new Set(
+      (Array.isArray(deletedPosts) ? deletedPosts : []).map((s: string) =>
+        String(s || "").toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "")
+      )
+    );
+    const items: BlogSsrCardItem[] = [];
+    const seen = new Set<string>();
+    const overridden = new Set<string>();
+    for (const cp of customPosts) {
+      const s = String(cp.slug || "").toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "");
+      const id = String(cp.id || "").toLowerCase().trim();
+      const oldS = String(cp.oldSlug || cp.previousSlug || "").toLowerCase().trim();
+      if (s) overridden.add(s);
+      if (id) overridden.add(id);
+      if (oldS) overridden.add(oldS);
+      if (s && !cp.noIndex && !deletedSet.has(s) && !deletedSet.has(id) && !seen.has(s)) {
+        seen.add(s);
+        items.push({
+          slug: s,
+          title: cp.title,
+          excerpt: cp.excerpt,
+          category: cp.category,
+          publishDate: cp.publishDate,
+          updatedAt: cp.updatedAt,
+        });
+      }
+    }
+    for (const p of INITIAL_BLOG_POSTS) {
+      const s = String(p.slug || "").toLowerCase().trim().replace(/^\//, "").replace(/\/$/, "");
+      const id = String(p.id || "").toLowerCase().trim();
+      if (!s || deletedSet.has(s) || deletedSet.has(id) || overridden.has(s) || overridden.has(id) || seen.has(s)) {
+        continue;
+      }
+      seen.add(s);
+      items.push({
+        slug: s,
+        title: p.title,
+        excerpt: p.excerpt,
+        category: p.category,
+        publishDate: p.publishDate,
+      });
+    }
+    return items;
+  };
+
+  // Inject route-specific JSON-LD for /ai-goi-y-mon-an and /blog
+  let cachedBlogPostsForSsr: BlogSsrCardItem[] | null = null;
+  if (cleanPath === "/ai-goi-y-mon-an") {
+    const aiSchema = buildAiAdvisorSchemaJsonLd();
+    updatedHtml = updatedHtml.replace(
+      "</head>",
+      `    <script id="ai-advisor-jsonld" type="application/ld+json">\n${JSON.stringify(aiSchema, null, 2)}\n    </script>\n  </head>`
+    );
+  } else if (cleanPath === "/blog") {
+    cachedBlogPostsForSsr = getActiveMergedBlogPosts();
+    const blogSchema = buildBlogIndexSchemaJsonLd(cachedBlogPostsForSsr);
+    updatedHtml = updatedHtml.replace(
+      "</head>",
+      `    <script id="blog-index-jsonld" type="application/ld+json">\n${JSON.stringify(blogSchema, null, 2)}\n    </script>\n  </head>`
+    );
+  }
+
   // Inject rich semantic route-specific content into <div id="root"> for crawlers (Googlebot, Bingbot)
   let pageH1 = ('h1' in meta && meta.h1) ? meta.h1 : meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '');
   let extraContent = '';
   let fullArticleHtmlWrapper: string | null = null;
 
-  if (isRecipeRoute) {
+  if (cleanPath === "/ai-goi-y-mon-an") {
+    fullArticleHtmlWrapper = buildAiAdvisorSsrHtml();
+  } else if (cleanPath === "/blog") {
+    fullArticleHtmlWrapper = buildBlogIndexSsrHtml(cachedBlogPostsForSsr || getActiveMergedBlogPosts());
+  } else if (isRecipeRoute) {
     const td = INITIAL_DISHES.find(d => `/${getRecipeSlug(d)}` === meta.path || meta.path === `/${d.id}`) || findDishByRecipeSlug(meta.path, INITIAL_DISHES);
     if (td) {
       const rec = getDishRecipe(td);
@@ -3924,6 +4000,26 @@ async function startServer() {
     "/cach-lam-com-nieu-bo-tieu-den/",
   ], (_req, res) => {
     return res.redirect(301, "/cach-lam-com-nieu-bo-sot-tieu-den");
+  });
+
+  // 301 Permanent Redirect for consolidated pork soup articles
+  app.get([
+    "/cac-mon-canh-thit-heo-thanh-mat",
+    "/cac-mon-canh-thit-heo-thanh-mat/",
+    "/thit-heo-nau-canh-gi-ngon",
+    "/thit-heo-nau-canh-gi-ngon/",
+    "/canh-thit-heo-ngon",
+    "/canh-thit-heo-ngon/",
+    "/blog/cac-mon-canh-thit-heo-thanh-mat",
+    "/blog/cac-mon-canh-thit-heo-thanh-mat/",
+    "/blog/thit-heo-nau-canh-gi-ngon",
+    "/blog/thit-heo-nau-canh-gi-ngon/",
+    "/blog/canh-thit-heo-ngon",
+    "/blog/canh-thit-heo-ngon/",
+    "/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
+    "/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau/",
+  ], (_req, res) => {
+    return res.redirect(301, "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau");
   });
 
   // 301 Permanent Redirect for blog slug aliases to canonical post URL

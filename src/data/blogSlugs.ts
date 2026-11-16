@@ -13,6 +13,7 @@ export const KNOWN_BLOG_SLUGS_LIST: string[] = [
   "goi-y-tai-heo-lam-mon-gi-ngon",
   "mon-ngon-tu-thit-cot-let",
   "thit-heo-quay-va-nuong-gion-bi",
+  "thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
   "cac-mon-canh-thit-heo-thanh-mat",
   "thit-heo-xao-gi-ngon",
   "cach-luoc-thit-heo-trang-gion-ngon",

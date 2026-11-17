@@ -261,6 +261,26 @@ export default function App() {
         pathname === '/tai-heo-lam-gi-ngon'
       ) {
         window.history.replaceState({ tab: 'blog' }, '', '/goi-y-tai-heo-lam-mon-gi-ngon');
+      } else if (
+        pathname === '/mon-ngon-tu-thit-ba-chi' ||
+        pathname === '/thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi' ||
+        pathname === '/thit-ba-roi-lam-mon-gi-ngon' ||
+        pathname === '/mon-ngon-tu-thit-ba-roi'
+      ) {
+        window.history.replaceState({ tab: 'blog' }, '', '/thit-ba-chi-lam-mon-gi-ngon');
+      } else if (
+        pathname === '/mon-ngon-tu-thit-bam' ||
+        pathname === '/thit-heo-xay-lam-mon-gi-ngon' ||
+        pathname === '/mon-ngon-tu-thit-heo-xay'
+      ) {
+        window.history.replaceState({ tab: 'blog' }, '', '/thit-bam-lam-mon-gi-ngon');
+      } else if (
+        pathname === '/cach-nau-com-bo-xao-can-toi' ||
+        pathname === '/cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan' ||
+        pathname === '/cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan' ||
+        pathname === '/com-bo-xao-can-toi'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-com-bo-xao-can-toi');
       }
     }
     return tab;
@@ -330,8 +350,9 @@ export default function App() {
           Boolean(findDishByRecipeSlug(pathname, INITIAL_DISHES))));
     const currentRegionId = getRegionFromUrl();
 
-    // Initial SEO update on tab change
-    if (!isCurrentPathRecipe && !currentRegionId) {
+    // Initial SEO update on tab change (never overwrite individual blog article canonicals to /blog)
+    const isIndividualBlogArticle = activeTab === 'blog' && pathname !== '/blog';
+    if (!isCurrentPathRecipe && !currentRegionId && !isIndividualBlogArticle) {
       updateTabSEO(activeTab);
     } else if (currentRegionId) {
       updateRegionSEO(currentRegionId);
@@ -411,8 +432,10 @@ export default function App() {
         window.location.pathname.startsWith('/cach-nau-') ||
         window.location.pathname.startsWith('/cach-lam-') ||
         window.location.pathname.startsWith('/cach-nau-mon-ngon/');
+      const popPathname = window.location.pathname.replace(/\/$/, '') || '/';
       const popRegionId = getRegionFromUrl();
-      if (!isPopRecipe && !popRegionId) {
+      const isPopIndividualBlog = currentTab === 'blog' && popPathname !== '/blog';
+      if (!isPopRecipe && !popRegionId && !isPopIndividualBlog) {
         updateTabSEO(currentTab);
       } else if (popRegionId) {
         updateRegionSEO(popRegionId);

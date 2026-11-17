@@ -1283,6 +1283,31 @@ function enrichPostContentLinks(content: string, allPosts: any[] = []): string {
   }).join("\n");
 }
 
+function normalizePostInternalLinks(post: any): any {
+  if (!post || typeof post !== "object") return post;
+  const rewriteText = (txt: string) =>
+    txt
+      .replace(/https:\/\/angigio\.com(\/blog)?\/mon-ngon-tu-thit-ba-chi(?=[/?#)"'\s<]|$)/gi, "https://angigio.com/thit-ba-chi-lam-mon-gi-ngon")
+      .replace(/https:\/\/angigio\.com(\/blog)?\/mon-ngon-tu-thit-bam(?=[/?#)"'\s<]|$)/gi, "https://angigio.com/thit-bam-lam-mon-gi-ngon")
+      .replace(/https:\/\/angigio\.com\/cach-nau-com-bo-xao-can-toi(?=[/?#)"'\s<]|$)/gi, "https://angigio.com/cach-lam-com-bo-xao-can-toi")
+      .replace(/\((\/blog)?\/mon-ngon-tu-thit-ba-chi\)/gi, "(/thit-ba-chi-lam-mon-gi-ngon)")
+      .replace(/\((\/blog)?\/mon-ngon-tu-thit-bam\)/gi, "(/thit-bam-lam-mon-gi-ngon)")
+      .replace(/\((\/blog)?\/cach-nau-com-bo-xao-can-toi\)/gi, "(/cach-lam-com-bo-xao-can-toi)")
+      .replace(/href="(\/blog)?\/mon-ngon-tu-thit-ba-chi"/gi, 'href="/thit-ba-chi-lam-mon-gi-ngon"')
+      .replace(/href="(\/blog)?\/mon-ngon-tu-thit-bam"/gi, 'href="/thit-bam-lam-mon-gi-ngon"')
+      .replace(/href="(\/blog)?\/cach-nau-com-bo-xao-can-toi"/gi, 'href="/cach-lam-com-bo-xao-can-toi"');
+
+  const next = { ...post };
+  if (typeof next.content === "string") next.content = rewriteText(next.content);
+  if (typeof next.htmlContent === "string") {
+    next.htmlContent = rewriteText(next.htmlContent).replace(
+      /<blockquote(?:\s+style="[^"]*")?(?:\s+class="[^"]*")?[^>]*>/gi,
+      '<blockquote class="border-l-4 border-orange-500 bg-orange-50/80 px-4 py-3 my-4 italic text-stone-700 rounded-r-xl shadow-2xs">'
+    );
+  }
+  return next;
+}
+
 function loadCustomBlogPosts(): any[] {
   try {
     let list: any[] = [];
@@ -1294,15 +1319,7 @@ function loadCustomBlogPosts(): any[] {
       list = JSON.parse(raw);
     }
     if (Array.isArray(list)) {
-      list = list.map((p) => {
-        if (p.htmlContent) {
-          p.htmlContent = String(p.htmlContent).replace(
-            /<blockquote(?:\s+style="[^"]*")?(?:\s+class="[^"]*")?[^>]*>/gi,
-            '<blockquote class="border-l-4 border-orange-500 bg-orange-50/80 px-4 py-3 my-4 italic text-stone-700 rounded-r-xl shadow-2xs">'
-          );
-        }
-        return p;
-      });
+      list = list.map((p) => normalizePostInternalLinks(p));
     }
     const EXCLUDED_SERVER_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
     const deletedSlugs = new Set(loadDeletedPostSlugs());
@@ -1438,11 +1455,13 @@ async function syncFirestorePostsToServer(): Promise<any[]> {
       map.set(key, p);
     });
     const allList = Array.from(map.values());
-    const merged = allList.map((p) => ({
-      ...p,
-      content: p.content || '',
-      htmlContent: p.htmlContent || undefined,
-    }));
+    const merged = allList.map((p) =>
+      normalizePostInternalLinks({
+        ...p,
+        content: p.content || '',
+        htmlContent: p.htmlContent || undefined,
+      })
+    );
     saveCustomBlogPosts(merged);
     cachedFirestorePosts = merged;
     lastFirestorePostsSyncTime = now;
@@ -4020,6 +4039,56 @@ async function startServer() {
     "/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau/",
   ], (_req, res) => {
     return res.redirect(301, "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau");
+  });
+
+  // 301 Permanent Redirect for consolidated Thịt Ba Chỉ, Thịt Băm, and Cơm Bò Xào Cần Tỏi URLs
+  app.get([
+    "/mon-ngon-tu-thit-ba-chi",
+    "/mon-ngon-tu-thit-ba-chi/",
+    "/thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi",
+    "/thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi/",
+    "/thit-ba-roi-lam-mon-gi-ngon",
+    "/thit-ba-roi-lam-mon-gi-ngon/",
+    "/mon-ngon-tu-thit-ba-roi",
+    "/mon-ngon-tu-thit-ba-roi/",
+    "/blog/mon-ngon-tu-thit-ba-chi",
+    "/blog/mon-ngon-tu-thit-ba-chi/",
+    "/blog/thit-ba-chi-lam-mon-gi-ngon",
+    "/blog/thit-ba-chi-lam-mon-gi-ngon/",
+  ], (_req, res) => {
+    return res.redirect(301, "/thit-ba-chi-lam-mon-gi-ngon");
+  });
+
+  app.get([
+    "/mon-ngon-tu-thit-bam",
+    "/mon-ngon-tu-thit-bam/",
+    "/thit-heo-xay-lam-mon-gi-ngon",
+    "/thit-heo-xay-lam-mon-gi-ngon/",
+    "/mon-ngon-tu-thit-heo-xay",
+    "/mon-ngon-tu-thit-heo-xay/",
+    "/blog/mon-ngon-tu-thit-bam",
+    "/blog/mon-ngon-tu-thit-bam/",
+    "/blog/thit-bam-lam-mon-gi-ngon",
+    "/blog/thit-bam-lam-mon-gi-ngon/",
+  ], (_req, res) => {
+    return res.redirect(301, "/thit-bam-lam-mon-gi-ngon");
+  });
+
+  app.get([
+    "/cach-nau-com-bo-xao-can-toi",
+    "/cach-nau-com-bo-xao-can-toi/",
+    "/cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan",
+    "/cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan/",
+    "/cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan",
+    "/cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan/",
+    "/com-bo-xao-can-toi",
+    "/com-bo-xao-can-toi/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-com-bo-xao-can-toi");
+  });
+
+  app.get(["/quan-tri", "/quan-tri/"], (_req, res) => {
+    return res.redirect(301, "/admin");
   });
 
   // 301 Permanent Redirect for blog slug aliases to canonical post URL

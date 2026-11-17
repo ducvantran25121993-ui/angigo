@@ -378,22 +378,26 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
     };
   }
 
-  // 5. Blog slug aliases pointing to canonical postPath
+  // 5. Blog slug aliases pointing to canonical postPath (never overwrite active canonical post routes)
   for (const [aliasSlug, canonicalSlug] of Object.entries(BLOG_SLUG_ALIASES)) {
     const canonicalPath = `/${canonicalSlug}`;
     if (routes[canonicalPath]) {
-      routes[`/${aliasSlug}`] = {
-        ...routes[canonicalPath],
-        path: `/${aliasSlug}`,
-        canonicalPath: canonicalPath,
-        isAlias: true,
-      };
-      routes[`/blog/${aliasSlug}`] = {
-        ...routes[canonicalPath],
-        path: `/blog/${aliasSlug}`,
-        canonicalPath: canonicalPath,
-        isAlias: true,
-      };
+      if (!routes[`/${aliasSlug}`]) {
+        routes[`/${aliasSlug}`] = {
+          ...routes[canonicalPath],
+          path: `/${aliasSlug}`,
+          canonicalPath: canonicalPath,
+          isAlias: true,
+        };
+      }
+      if (!routes[`/blog/${aliasSlug}`]) {
+        routes[`/blog/${aliasSlug}`] = {
+          ...routes[canonicalPath],
+          path: `/blog/${aliasSlug}`,
+          canonicalPath: canonicalPath,
+          isAlias: true,
+        };
+      }
     }
   }
 

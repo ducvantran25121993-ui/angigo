@@ -8,6 +8,31 @@ export function escapeHtml(unsafe: string): string {
     .replace(/'/g, '&#39;');
 }
 
+const SSR_INTERNAL_LINK_REWRITES: Record<string, string> = {
+  '/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/blog/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+  '/blog/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+  '/cach-nau-com-bo-xao-can-toi': '/cach-lam-com-bo-xao-can-toi',
+};
+
+function normalizeSsrInternalHref(raw: string): string {
+  const trimmed = String(raw || '').trim();
+  const absMatch = trimmed.match(/^(https?:\/\/angigio\.com)(\/[^?#]*)(.*)$/i);
+  if (absMatch) {
+    const cleanPath = absMatch[2].replace(/\/+$/, '').toLowerCase();
+    const mapped = SSR_INTERNAL_LINK_REWRITES[cleanPath];
+    if (mapped) return `${absMatch[1]}${mapped}${absMatch[3] || ''}`;
+  } else if (trimmed.startsWith('/') && !trimmed.startsWith('//')) {
+    const qIdx = trimmed.search(/[?#]/);
+    const pathPart = (qIdx >= 0 ? trimmed.slice(0, qIdx) : trimmed).replace(/\/+$/, '').toLowerCase();
+    const suffix = qIdx >= 0 ? trimmed.slice(qIdx) : '';
+    const mapped = SSR_INTERNAL_LINK_REWRITES[pathPart];
+    if (mapped) return `${mapped}${suffix}`;
+  }
+  return trimmed;
+}
+
 export function sanitizeSafeUrl(rawUrl: string, allowDataImage = false): string {
   const trimmed = String(rawUrl || '')
     .replace(/&amp;/gi, '&')
@@ -27,7 +52,7 @@ export function sanitizeSafeUrl(rawUrl: string, allowDataImage = false): string 
     trimmed.startsWith('/') &&
     !trimmed.startsWith('//')
   ) {
-    return trimmed;
+    return allowDataImage ? trimmed : normalizeSsrInternalHref(trimmed);
   }
   if (
     trimmed.startsWith('#') ||
@@ -36,7 +61,7 @@ export function sanitizeSafeUrl(rawUrl: string, allowDataImage = false): string 
     lower.startsWith('https://') ||
     lower.startsWith('http://')
   ) {
-    return trimmed;
+    return allowDataImage ? trimmed : normalizeSsrInternalHref(trimmed);
   }
   return allowDataImage ? '' : '#';
 }

@@ -10,6 +10,7 @@ interface FirebaseAppletConfig {
 let cachedConfig: FirebaseAppletConfig | null = null;
 let cachedBaseHtml: string | null = null;
 let cachedBlogBaseHtml: string | null = null;
+let cachedRedirectAliases: Record<string, string> | null = null;
 
 function getFirebaseConfig(): FirebaseAppletConfig | null {
   if (cachedConfig) return cachedConfig;
@@ -101,6 +102,52 @@ function escapeHtml(unsafe: string): string {
     .replace(/'/g, '&#39;');
 }
 
+function getRedirectAliases(): Record<string, string> {
+  if (cachedRedirectAliases) return cachedRedirectAliases;
+  const candidates = [
+    path.join(process.cwd(), 'dist', 'redirect-aliases.json'),
+    path.resolve('dist', 'redirect-aliases.json'),
+  ];
+  for (const p of candidates) {
+    try {
+      if (fs.existsSync(p)) {
+        const parsed = JSON.parse(fs.readFileSync(p, 'utf-8'));
+        if (parsed && typeof parsed === 'object') {
+          cachedRedirectAliases = parsed as Record<string, string>;
+          return cachedRedirectAliases;
+        }
+      }
+    } catch {}
+  }
+  cachedRedirectAliases = {};
+  return cachedRedirectAliases;
+}
+
+const INTERNAL_LINK_REWRITES: Record<string, string> = {
+  '/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/blog/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+  '/blog/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+  '/cach-nau-com-bo-xao-can-toi': '/cach-lam-com-bo-xao-can-toi',
+};
+
+function normalizeInternalHref(raw: string): string {
+  const trimmed = String(raw || '').trim();
+  const absMatch = trimmed.match(/^(https?:\/\/angigio\.com)(\/[^?#]*)(.*)$/i);
+  if (absMatch) {
+    const cleanPath = absMatch[2].replace(/\/+$/, '').toLowerCase();
+    const mapped = INTERNAL_LINK_REWRITES[cleanPath];
+    if (mapped) return `${absMatch[1]}${mapped}${absMatch[3] || ''}`;
+  } else if (trimmed.startsWith('/') && !trimmed.startsWith('//')) {
+    const qIdx = trimmed.search(/[?#]/);
+    const pathPart = (qIdx >= 0 ? trimmed.slice(0, qIdx) : trimmed).replace(/\/+$/, '').toLowerCase();
+    const suffix = qIdx >= 0 ? trimmed.slice(qIdx) : '';
+    const mapped = INTERNAL_LINK_REWRITES[pathPart];
+    if (mapped) return `${mapped}${suffix}`;
+  }
+  return trimmed;
+}
+
 function sanitizeSafeUrl(rawUrl: string, allowDataImage = false): string {
   const trimmed = String(rawUrl || '')
     .replace(/&amp;/gi, '&')
@@ -117,7 +164,7 @@ function sanitizeSafeUrl(rawUrl: string, allowDataImage = false): string {
     return allowDataImage ? '' : '#';
   }
   if (trimmed.startsWith('/') && !trimmed.startsWith('//')) {
-    return trimmed;
+    return allowDataImage ? trimmed : normalizeInternalHref(trimmed);
   }
   if (
     trimmed.startsWith('#') ||
@@ -126,7 +173,7 @@ function sanitizeSafeUrl(rawUrl: string, allowDataImage = false): string {
     lower.startsWith('https://') ||
     lower.startsWith('http://')
   ) {
-    return trimmed;
+    return allowDataImage ? trimmed : normalizeInternalHref(trimmed);
   }
   return allowDataImage ? '' : '#';
 }
@@ -807,6 +854,21 @@ const EXPLICIT_301_REDIRECTS: Record<string, string> = {
   '/blog/thit-heo-nau-canh-gi-ngon': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
   '/blog/canh-thit-heo-ngon': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
   '/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+  '/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/thit-ba-roi-lam-mon-gi-ngon': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/mon-ngon-tu-thit-ba-roi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/blog/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/blog/thit-ba-chi-lam-mon-gi-ngon': '/thit-ba-chi-lam-mon-gi-ngon',
+  '/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+  '/thit-heo-xay-lam-mon-gi-ngon': '/thit-bam-lam-mon-gi-ngon',
+  '/mon-ngon-tu-thit-heo-xay': '/thit-bam-lam-mon-gi-ngon',
+  '/blog/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+  '/blog/thit-bam-lam-mon-gi-ngon': '/thit-bam-lam-mon-gi-ngon',
+  '/cach-nau-com-bo-xao-can-toi': '/cach-lam-com-bo-xao-can-toi',
+  '/cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': '/cach-lam-com-bo-xao-can-toi',
+  '/cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': '/cach-lam-com-bo-xao-can-toi',
+  '/com-bo-xao-can-toi': '/cach-lam-com-bo-xao-can-toi',
 };
 
 const AI_ADVISOR_FAQS: Array<{ question: string; answer: string }> = [
@@ -1180,14 +1242,38 @@ export default async function handler(req: any, res: any) {
     return res.status(301).end();
   }
 
-  // 301 Redirect /blog/:slug -> /:slug to eliminate duplicate URLs
-  if (cleanPath.toLowerCase().startsWith('/blog/') && cleanPath.length > 6) {
-    const cleanSlug = cleanPath.slice(6).replace(/^\/+/, '').replace(/\/+$/, '').toLowerCase();
+  const redirectAliases = getRedirectAliases();
+
+  // 301 Redirect /blog/:slug -> canonical /:slug in a single hop
+  if (normalizedRoute.startsWith('/blog/') && normalizedRoute.length > 6) {
+    const cleanSlug = normalizedRoute.slice(6).replace(/^\/+/, '').replace(/\/+$/, '');
     if (cleanSlug) {
-      res.setHeader('Location', `/${cleanSlug}`);
+      const candidate = `/${cleanSlug}`;
+      const target = EXPLICIT_301_REDIRECTS[candidate] || redirectAliases[candidate] || candidate;
+      res.setHeader('Location', target);
       res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
       return res.status(301).end();
     }
+  }
+
+  // 301 Redirect legacy /cach-nau-mon-ngon/:slug -> canonical /:slug in a single hop
+  if (normalizedRoute.startsWith('/cach-nau-mon-ngon/') && normalizedRoute.length > 19) {
+    const cleanSlug = normalizedRoute.slice(19).replace(/^\/+/, '').replace(/\/+$/, '');
+    if (cleanSlug) {
+      const candidate = `/${cleanSlug}`;
+      const target = EXPLICIT_301_REDIRECTS[candidate] || redirectAliases[candidate] || candidate;
+      res.setHeader('Location', target);
+      res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+      return res.status(301).end();
+    }
+  }
+
+  // 301 Redirect all build-time alias routes (replaces <meta http-equiv="refresh">)
+  const aliasTarget = redirectAliases[normalizedRoute];
+  if (aliasTarget && aliasTarget !== normalizedRoute) {
+    res.setHeader('Location', aliasTarget);
+    res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    return res.status(301).end();
   }
 
   const baseHtml = await getBaseHtml(req);

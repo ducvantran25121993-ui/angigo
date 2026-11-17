@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "functions": {
     "api/seo-page.ts": {
-      "includeFiles": "{dist/index.html,dist/blog-base.html,firebase-applet-config.json}"
+      "includeFiles": "{dist/index.html,dist/blog-base.html,dist/redirect-aliases.json,firebase-applet-config.json}"
     },
     "api/sitemap.ts": {
       "includeFiles": "{dist/sitemap-base.xml,public/sitemap.xml,firebase-applet-config.json}"
@@ -961,6 +961,156 @@
     {
       "source": "/tai-heo-lam-gi-ngon/",
       "destination": "/goi-y-tai-heo-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-ba-chi",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-ba-chi/",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi/",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/thit-ba-roi-lam-mon-gi-ngon",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/thit-ba-roi-lam-mon-gi-ngon/",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-ba-roi",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-ba-roi/",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mon-ngon-tu-thit-ba-chi",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mon-ngon-tu-thit-ba-chi/",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-ba-chi-lam-mon-gi-ngon",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-ba-chi-lam-mon-gi-ngon/",
+      "destination": "/thit-ba-chi-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-bam",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-bam/",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/thit-heo-xay-lam-mon-gi-ngon",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/thit-heo-xay-lam-mon-gi-ngon/",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-heo-xay",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/mon-ngon-tu-thit-heo-xay/",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mon-ngon-tu-thit-bam",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/mon-ngon-tu-thit-bam/",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-bam-lam-mon-gi-ngon",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/blog/thit-bam-lam-mon-gi-ngon/",
+      "destination": "/thit-bam-lam-mon-gi-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-com-bo-xao-can-toi",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-com-bo-xao-can-toi/",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan/",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan/",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
+      "permanent": true
+    },
+    {
+      "source": "/com-bo-xao-can-toi",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
+      "permanent": true
+    },
+    {
+      "source": "/com-bo-xao-can-toi/",
+      "destination": "/cach-lam-com-bo-xao-can-toi",
       "permanent": true
     }
   ],

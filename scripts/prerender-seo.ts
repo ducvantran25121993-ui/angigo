@@ -80,15 +80,6 @@ function injectMeta(
     );
   }
 
-  if (meta.canonicalPath && meta.canonicalPath !== meta.path) {
-    const targetPath = meta.canonicalPath;
-    const targetFullUrl = `https://angigio.com${targetPath === "/" ? "/" : targetPath}`;
-    updatedHtml = updatedHtml.replace(
-      '</head>',
-      `    <meta http-equiv="refresh" content="0; url=${targetFullUrl}" />\n    <script>if (typeof window !== 'undefined' && window.location.pathname !== '${targetPath}') { window.location.replace('${targetPath}'); }</script>\n  </head>`
-    );
-  }
-
   // On non-homepage routes, replace the homepage graph (which embeds FAQPage, WebApplication & 12-item BreadcrumbList)
   // with lightweight site-wide Organization + WebSite identity so subpages never have duplicate BreadcrumbLists or off-page FAQs.
   if (meta.path !== '/') {
@@ -587,17 +578,52 @@ function generateStaticHtmlPages() {
     });
   }
 
-  // Skip writing static HTML files for explicit 301-redirected pork soup duplicate/alias URLs
-  const REDIRECTED_STATIC_PATHS = new Set([
-    '/cac-mon-canh-thit-heo-thanh-mat',
-    '/thit-heo-nau-canh-gi-ngon',
-    '/canh-thit-heo-ngon',
-    '/blog/cac-mon-canh-thit-heo-thanh-mat',
-    '/blog/thit-heo-nau-canh-gi-ngon',
-    '/blog/canh-thit-heo-ngon',
-    '/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
-  ]);
-  for (const redirPath of REDIRECTED_STATIC_PATHS) {
+  // Build redirect-aliases map & remove static HTML for ALL alias / redirected routes so server returns HTTP 301 (never <meta http-equiv="refresh">)
+  const redirectAliases: Record<string, string> = {};
+  const addAliasRedirect = (fromPath: string, toPath: string) => {
+    const cleanFrom = ('/' + fromPath.replace(/^\/+/, '')).replace(/\/+$/, '').toLowerCase();
+    const cleanTo = ('/' + toPath.replace(/^\/+/, '')).replace(/\/+$/, '').toLowerCase();
+    if (cleanFrom && cleanTo && cleanFrom !== cleanTo) {
+      redirectAliases[cleanFrom] = cleanTo;
+    }
+  };
+
+  for (const [routePath, meta] of Object.entries(routes)) {
+    if (meta.isAlias || (meta.canonicalPath && meta.canonicalPath !== meta.path)) {
+      const target = meta.canonicalPath || '/';
+      addAliasRedirect(routePath, target);
+    }
+  }
+
+  const EXPLICIT_CONSOLIDATION_REDIRECTS: Record<string, string> = {
+    '/cac-mon-canh-thit-heo-thanh-mat': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+    '/thit-heo-nau-canh-gi-ngon': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+    '/canh-thit-heo-ngon': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+    '/blog/cac-mon-canh-thit-heo-thanh-mat': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+    '/blog/thit-heo-nau-canh-gi-ngon': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+    '/blog/canh-thit-heo-ngon': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+    '/blog/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau': '/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau',
+    '/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+    '/thit-ba-chi-lam-mon-gi-ngon-10-mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+    '/thit-ba-roi-lam-mon-gi-ngon': '/thit-ba-chi-lam-mon-gi-ngon',
+    '/mon-ngon-tu-thit-ba-roi': '/thit-ba-chi-lam-mon-gi-ngon',
+    '/blog/mon-ngon-tu-thit-ba-chi': '/thit-ba-chi-lam-mon-gi-ngon',
+    '/blog/thit-ba-chi-lam-mon-gi-ngon': '/thit-ba-chi-lam-mon-gi-ngon',
+    '/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+    '/thit-heo-xay-lam-mon-gi-ngon': '/thit-bam-lam-mon-gi-ngon',
+    '/mon-ngon-tu-thit-heo-xay': '/thit-bam-lam-mon-gi-ngon',
+    '/blog/mon-ngon-tu-thit-bam': '/thit-bam-lam-mon-gi-ngon',
+    '/blog/thit-bam-lam-mon-gi-ngon': '/thit-bam-lam-mon-gi-ngon',
+    '/cach-nau-com-bo-xao-can-toi': '/cach-lam-com-bo-xao-can-toi',
+    '/cach-nau-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': '/cach-lam-com-bo-xao-can-toi',
+    '/cach-lam-com-bo-xao-can-toi-thom-ngon-dam-da-chuan-quan': '/cach-lam-com-bo-xao-can-toi',
+    '/com-bo-xao-can-toi': '/cach-lam-com-bo-xao-can-toi',
+  };
+  for (const [fromPath, toPath] of Object.entries(EXPLICIT_CONSOLIDATION_REDIRECTS)) {
+    addAliasRedirect(fromPath, toPath);
+  }
+
+  for (const redirPath of Object.keys(redirectAliases)) {
     delete routes[redirPath];
     const cleanRel = redirPath.replace(/^\//, '');
     const staleHtml = path.join(distDir, `${cleanRel}.html`);
@@ -608,8 +634,13 @@ function generateStaticHtmlPages() {
     } catch {}
   }
 
+  fs.writeFileSync(path.join(distDir, 'redirect-aliases.json'), JSON.stringify(redirectAliases, null, 2), 'utf-8');
+
   let count = 0;
   for (const [routePath, meta] of Object.entries(routes)) {
+    if (meta.isAlias || (meta.canonicalPath && meta.canonicalPath !== meta.path)) {
+      continue;
+    }
     const cleanSlug = routePath.replace(/^\//, '').replace(/\/$/, '').toLowerCase();
     const matchedCustomPost = routePath !== '/' && routePath !== '/blog' ? customPostBySlug.get(cleanSlug) : undefined;
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, Suspense, lazy } from 'react';
 import { Navbar } from './components/Navbar';
 import { FoodTarot } from './components/FoodTarot';
+import { CrossLinkEcosystemSection } from './components/CrossLinkEcosystemSection';
 import { OrderToast } from './components/OrderToast';
 import { Footer } from './components/Footer';
 import { Dish, AffiliateConfig, ClickRecord, UserLocation } from './types';
@@ -691,13 +692,20 @@ export default function App() {
         )}
 
         {activeTab === 'tarot' && (
-          <FoodTarot
-            affiliateConfig={affiliateConfig}
-            onSelectDish={(dish) => setSelectedDish(dish)}
-            userLocation={userLocation}
-            onOpenLocationModal={openLocationPicker}
-            onNavigate={handleNavigateTab}
-          />
+          <>
+            <FoodTarot
+              affiliateConfig={affiliateConfig}
+              onSelectDish={(dish) => setSelectedDish(dish)}
+              userLocation={userLocation}
+              onOpenLocationModal={openLocationPicker}
+              onNavigate={handleNavigateTab}
+            />
+            <CrossLinkEcosystemSection
+              activeTab="tarot"
+              onNavigate={handleNavigateTab}
+              standalone
+            />
+          </>
         )}
 
         {activeTab === 'catalog' && (

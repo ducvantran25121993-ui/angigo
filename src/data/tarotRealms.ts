@@ -36,7 +36,7 @@ export const TAROT_REALMS: TarotRealm[] = [
     id: 'do_mien',
     name: 'Đồ Miên',
     tagline: 'Ăn Vặt Xế Chiều • Miên Man Ngọt Ngào',
-    shortDesc: 'Bánh Tráng, Chè, Kem, Bánh Ngọt, Tráng Miệng',
+    shortDesc: 'Bánh Tráng, Chè, Kem, Bánh Ngọt, Ăn Vặt',
     icon: 'Cookie',
     emoji: '🍡',
     activeGradient: 'from-pink-600 via-rose-600 to-fuchsia-700',
@@ -64,7 +64,7 @@ export const TAROT_REALMS: TarotRealm[] = [
     id: 'tuy_vi',
     name: 'Túy Vị',
     tagline: 'Mồi Nhắm Say Lòng • Huynh Đệ Tri Kỷ',
-    shortDesc: 'Món Nhậu, Ốc, Chân Gà, Nướng, Mực, Bia Mồi',
+    shortDesc: 'Món Nhậu, Ốc, Chân Gà, Lẩu Nướng, Mực, Bia',
     icon: 'Flame',
     emoji: '🍻',
     activeGradient: 'from-purple-600 via-indigo-600 to-violet-700',
@@ -76,36 +76,57 @@ export const TAROT_REALMS: TarotRealm[] = [
   },
 ];
 
+// Street snacks & afternoon bites stored outside 'an_vat' category
+const DO_MIEN_EXTRA_IDS = new Set([
+  'ram-bap-cuon-rau',
+  'banh-dap-mam-nem',
+  'xoi-chien-gion-nhan-thit',
+  'bot-chien-gion-trung-doi',
+  'nom-bo-kho-ha-noi',
+]);
+
+// Pub/drinking, grilled skewers, hotpot & mồi nhậu dishes (37 dishes total aligned with Vòng Quay Mồi Nhậu & Lẩu Nướng)
+const TUY_VI_EXTRA_IDS = new Set([
+  'bach-tuoc-nuong-sa-te',
+  'oc-huong-sot-trung-muoi',
+  'dau-hu-chien-gion',
+  'chan-ga-nuong-mat-ong',
+  'muc-nuong-muoi-ot',
+  'chim-cut-quay-la-mac-mat',
+  'hau-nuong-mo-hanh-pho-mai',
+  'doi-sun-nuong-than-hoa',
+  'goi-xoai-xanh-ca-sac',
+  'bo-nuong-tang-trung-muoi',
+  'suon-nuong-bbq',
+  'ga-nuong-com-lam',
+  'ca-loc-nuong-trui',
+  'goi-ngo-sen-tom-thit',
+  'lau-thai-hai-san',
+  'lau-rieu-cua-bap-bo',
+  'bao-tu-ham-tieu',
+  'lau-bo-nhung-dam',
+  'lau-ga-la-e',
+  'lau-ech-mang-cay',
+  'lau-ga-ot-hiem',
+  'lau-ca-keo-la-giang',
+]);
+
+export function getDishRealm(dish: Dish): TarotRealmId {
+  if (dish.category === 'do_uong') {
+    return 'thuy_duoc';
+  }
+
+  if (dish.category === 'an_vat' || DO_MIEN_EXTRA_IDS.has(dish.id)) {
+    return 'do_mien';
+  }
+
+  if (dish.category === 'mon_nhau' || TUY_VI_EXTRA_IDS.has(dish.id)) {
+    return 'tuy_vi';
+  }
+
+  return 'thuc_canh';
+}
+
 export function isDishInRealm(dish: Dish, realmId: TarotRealmId): boolean {
-  if (realmId === 'thuy_duoc') {
-    return dish.category === 'do_uong';
-  }
-
-  if (realmId === 'do_mien') {
-    return dish.category === 'an_vat';
-  }
-
-  if (realmId === 'tuy_vi') {
-    if (dish.category === 'mon_nhau') return true;
-    // Also include drinking/pub dishes from grilling or seafood
-    if (
-      dish.id === 'bach-tuoc-nuong-sa-te' ||
-      dish.id === 'nuong-ngoi-bo-toi' ||
-      dish.id === 'mien-xao-cua' ||
-      dish.popularTags?.some((t) => t.toLowerCase().includes('ăn nhậu') || t.toLowerCase().includes('mồi'))
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  // thuc_canh (Default main meals)
-  // Exclude drinks, snacks, and pure drinking appetizers
-  if (dish.category === 'do_uong' || dish.category === 'an_vat' || dish.category === 'mon_nhau') {
-    return false;
-  }
-  if (dish.id === 'bach-tuoc-nuong-sa-te') {
-    return false;
-  }
-  return true;
+  return getDishRealm(dish) === realmId;
 }

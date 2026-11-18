@@ -1033,6 +1033,11 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
     "category": "do_uong"
   },
   {
+    "image": "/images/nuoc_ep_cam_ca_rot.jpg",
+    "name": "Nước Ép Cam Cà Rốt Tươi Mát Giàu Vitamin",
+    "category": "do_uong"
+  },
+  {
     "image": "/images/nuoc_ep_dua_hau.jpg",
     "name": "Nước Ép Dưa Hấu Đỏ Lá Bạc Hà Tươi",
     "category": "do_uong"
@@ -1298,6 +1303,11 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
     "category": "do_uong"
   },
   {
+    "image": "/images/tra_oi_hong_xi_muoi.jpg",
+    "name": "Trà Ổi Hồng Xí Muội Giải Nhiệt Chua Ngọt",
+    "category": "do_uong"
+  },
+  {
     "image": "/images/tra_sen_vang.jpg",
     "name": "Trà Sen Vàng Hạt Sen Bùi Béo Macchiato",
     "category": "do_uong"
@@ -1305,6 +1315,16 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
   {
     "image": "/images/tra_sua_tran_chau_duong_den.jpg",
     "name": "Trà Sữa Trân Châu Đường Đen Hoàng Gia",
+    "category": "do_uong"
+  },
+  {
+    "image": "/images/tra_vai_lai.jpg",
+    "name": "Trà Vải Lài Thơm Dịu Thanh Mát Giải Nhiệt",
+    "category": "do_uong"
+  },
+  {
+    "image": "/images/tra_xoai_macchiato.jpg",
+    "name": "Trà Xoài Macchiato Kem Cheese Béo Ngậy",
     "category": "do_uong"
   },
   {
@@ -1455,6 +1475,10 @@ export function getDishImageByName(name: string = "", category: string = ""): st
   if (norm.includes("canh rau ngot")) return "/images/canh_rau_ngot_thit_bam.jpg";
   if (norm.includes("tra sua") || norm.includes("tran chau")) return "/images/tra_sua_tran_chau_duong_den.jpg";
   if (norm.includes("tra dao")) return "/images/tra_dao_cam_sa.jpg";
+  if (norm.includes("tra vai")) return "/images/tra_vai_lai.jpg";
+  if (norm.includes("tra xoai")) return "/images/tra_xoai_macchiato.jpg";
+  if (norm.includes("tra oi")) return "/images/tra_oi_hong_xi_muoi.jpg";
+  if (norm.includes("cam ca rot")) return "/images/nuoc_ep_cam_ca_rot.jpg";
   if (norm.includes("tra chanh")) return "/images/tra_chanh_gia_tay.jpg";
   if (norm.includes("tra sen")) return "/images/tra_sen_vang.jpg";
   if (norm.includes("ca phe")) return "/images/ca_phe_muoi.jpg";

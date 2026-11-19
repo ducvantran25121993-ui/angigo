@@ -215,7 +215,7 @@ export const NUONG_CHIEN_DISHES: Dish[] = [
   {
     id: 'oc-huong-sot-trung-muoi',
     name: 'Ốc Hương Xào Bơ Tỏi Sốt Trứng Muối Bánh Mì',
-    vietnameseName: 'Ốc Hương Trứng Muối',
+    vietnameseName: 'Ốc Hương Sốt Trứng Muối',
     category: 'nuong_chien',
     mealTime: ['toi', 'an_dem'],
     priceRange: '110.000đ - 190.000đ',
@@ -224,7 +224,7 @@ export const NUONG_CHIEN_DISHES: Dish[] = [
     description: 'Ốc hương tươi giòn sần sật quyện nước sốt trứng muối vàng óng béo bùi, thơm lừng bơ tỏi và ớt lát, chấm kèm bánh mì đặc ruột nóng hổi giòn rụm.',
     image: '/images/oc_huong_trung_muoi.jpg',
     popularTags: ['Ốc hương', 'Sốt trứng muối', 'Bánh mì chấm', 'Ăn nhậu cuối tuần'],
-    searchKeyword: 'Ốc hương xào bơ tỏi trứng muối',
+    searchKeyword: 'Ốc hương sốt trứng muối',
   },
   {
     id: 'ca-loc-nuong-trui',

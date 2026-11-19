@@ -32,6 +32,7 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "bun-mam-mien-tay": "Cách Nấu Bún Mắm Miền Tây Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình",
   "bun-nuoc-leo-soc-trang": "Cách Nấu Bún Nước Lèo Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình",
   "oc-huong-xao-bo-toi": "Cách Làm Ốc Hương Xào Bơ Tỏi Giòn Ngon, Xanh Mướt Chuẩn Bếp Trưởng",
+  "oc-huong-sot-trung-muoi": "Cách Làm Ốc Hương Sốt Trứng Muối Đậm Đà, Bén Mồi",
   "ca-vien-chien-nuoc-mam": "Cách Làm Cá Viên Chiên Nước Mắm Vàng Giòn Rụm, Thơm Ngon Bất Bại",
   "banh-trang-tron-sa-te": "Cách Làm Bánh Tráng Trộn Sa Tế Sốt Chua Ngọt Đậm Đà Chuẩn Vị",
   "suon-nuong-bbq": "Cách Làm Dẻ Sườn Heo Nướng BBQ Bằng Nồi Chiên Không Dầu",
@@ -491,6 +492,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'mien-xao-cua': 'cach-lam-mien-xao-cua',
   'cha-ca-la-vong-ha-noi': 'cach-lam-cha-ca-la-vong-ha-noi',
   'cha-ca-la-vong': 'cach-lam-cha-ca-la-vong-ha-noi',
+  'oc-huong-sot-trung-muoi': 'cach-lam-oc-huong-sot-trung-muoi',
+  'oc-huong-trung-muoi': 'cach-lam-oc-huong-sot-trung-muoi',
 };
 
 /**
@@ -1265,6 +1268,14 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-cha-ca-la-vong': 'cha-ca-la-vong-ha-noi',
   'cach-lam-cha-ca-la-vong-ha-noi-nuong-than-hoa-xeo-xeo-chao-mo-chuan-vi-pho-co': 'cha-ca-la-vong-ha-noi',
   'cach-nau-cha-ca-la-vong-ha-noi-nuong-than-hoa-xeo-xeo-chao-mo-chuan-vi-pho-co': 'cha-ca-la-vong-ha-noi',
+
+  'oc-huong-sot-trung-muoi': 'oc-huong-sot-trung-muoi',
+  'oc-huong-trung-muoi': 'oc-huong-sot-trung-muoi',
+  'cach-nau-oc-huong-sot-trung-muoi': 'oc-huong-sot-trung-muoi',
+  'cach-nau-oc-huong-trung-muoi': 'oc-huong-sot-trung-muoi',
+  'cach-lam-oc-huong-trung-muoi': 'oc-huong-sot-trung-muoi',
+  'cach-lam-oc-huong-trung-muoi-dam-da-cay-nong-ben-moi-chuan-quan': 'oc-huong-sot-trung-muoi',
+  'cach-nau-oc-huong-trung-muoi-dam-da-cay-nong-ben-moi-chuan-quan': 'oc-huong-sot-trung-muoi',
 };
 
 /**

@@ -3801,6 +3801,130 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Sốt bơ tỏi sánh kẹo vàng óng chấm ngập bánh mì nóng giòn, ăn kèm đĩa rau răm xanh mướt & chén muối tiêu chanh ớt hiểm cay nồng.',
   },
+  'oc-huong-sot-trung-muoi': {
+    dishId: 'oc-huong-sot-trung-muoi',
+    dishName: 'Ốc Hương Xào Bơ Tỏi Sốt Trứng Muối Bánh Mì',
+    seoTitle: 'Cách Làm Ốc Hương Sốt Trứng Muối Đậm Đà, Bén Mồi',
+    description:
+      'Hướng dẫn cách làm ốc hương sốt trứng muối đậm đà, bén mồi chuẩn quán: mẹo ngâm ốc sạch cát, khử tanh lòng đỏ trứng muối và nấu sốt bơ sữa vàng óng sánh mịn chấm bánh mì cực cuốn.',
+    ratingValue: '4.9',
+    reviewCount: 412,
+    prepTime: '20 phút (ngâm ốc 1 - 2 giờ)',
+    cookTime: '18 phút',
+    totalTime: '38 phút',
+    servings: '2 - 3 người',
+    difficulty: 'Dễ',
+    calories: '580 kcal',
+    ingredients: [
+      {
+        category: 'Ốc hương tươi & Sơ chế khử tanh',
+        items: [
+          '500g - 600g ốc hương tươi sống (chọn con mẩy, vỏ sáng bóng, mày ốc nằm sát miệng)',
+          '1 lít nước vo gạo hoặc nước lạnh pha 3 quả ớt hiểm đập dập (ngâm ốc nhả sạch cát)',
+          '3 củ sả đập dập, 1 nhánh gừng thái lát, 1/2 thìa cà phê muối hạt (chần sơ khử tanh)',
+        ],
+      },
+      {
+        category: 'Sốt trứng muối bơ sữa vàng óng sánh mịn',
+        items: [
+          '5 - 6 lòng đỏ trứng muối tươi (chọn lòng đỏ cam đậm, rắn chắc, thơm béo)',
+          '2 thìa canh rượu trắng và vài lát gừng đập dập (rửa khử mùi tanh lòng đỏ)',
+          '40g bơ lạt (Anchor hoặc President) thơm ngậy',
+          '50ml sữa tươi không đường và 1.5 thìa canh sữa đặc có đường',
+          '1.5 thìa canh đường cát trắng, 1 thìa canh nước mắm ngon, 1 thìa cà phê hạt nêm',
+          '1 thìa canh tương ớt (tạo hậu cay nhẹ và màu cam óng đẹp), 1 thìa canh tỏi băm, 1 thìa canh hành tím băm',
+        ],
+      },
+      {
+        category: 'Đồ ăn kèm bén mồi chuẩn quán ốc',
+        items: [
+          '2 ổ bánh mì Việt Nam nướng nóng giòn (xé miếng chấm đẫm sốt trứng muối)',
+          '1 nắm rau răm tươi xanh mướt, 1 quả ớt sừng thái lát trang trí',
+          '1 chén muối tiêu chanh ớt hoặc muối ớt xanh chấm kèm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ngâm ốc hương nhả sạch cát & Chần sả gừng sốc nước đá',
+        time: '15 phút (ngâm 1 - 2 giờ)',
+        heat: 'Lửa lớn',
+        goal: 'Ốc hương sạch hoàn toàn bùn cát, thịt chín tới giòn sần sật, ngọt mọng không bị teo dai',
+        actionPoints: [
+          'Rửa ốc hương qua 2 lần nước sạch rồi ngâm trong thau nước vo gạo (hoặc nước lạnh) có thả 3 quả ớt hiểm cắt lát trong 1 - 2 giờ để ốc nhả hết cát bùn, sau đó chà rửa sạch lại 3 - 4 lần.',
+          'Đun sôi nồi nước cùng 3 củ sả đập dập, gừng thái lát và nhúm muối hạt. Cho ốc hương vào chần nhanh 1.5 - 2 phút đến khi vảy ốc vừa bong hé thì vớt ra ngay.',
+          'Thả ốc vừa chần vào tô nước đá lạnh ngâm 3 phút rồi vớt ra rổ để thật ráo nước (dùng tăm bỏ phần vảy ốc bong ra để sốt dễ thấm sâu vào ruột ốc).',
+        ],
+        description:
+          'Ngâm ốc hương với nước vo gạo và ớt cho nhả sạch cát, chần nhanh 1.5 - 2 phút cùng sả gừng rồi sốc ngay nước đá lạnh và để thật ráo nước.',
+        tip: 'Không luộc ốc quá lâu trước khi xào vì ốc hương rất nhanh chín; chần 1.5 - 2 phút rồi sốc nước đá giúp thịt ốc giòn sần sật và dễ khêu nguyên con.',
+      },
+      {
+        step: 2,
+        title: 'Khử tanh, hấp chín & Tán nhuyễn mịn lòng đỏ trứng muối',
+        time: '12 phút',
+        heat: 'Lửa vừa',
+        goal: 'Lòng đỏ trứng muối chín bở thơm nức, hoàn toàn không tanh và tán mịn tơi không vón cục',
+        actionPoints: [
+          'Tách sạch lớp màng trắng mỏng bám quanh lòng đỏ trứng muối. Ngâm rửa nhẹ lòng đỏ trong bát rượu trắng có thả vài lát gừng khoảng 3 phút rồi thấm khô.',
+          'Xếp lòng đỏ vào đĩa, đem hấp cách thủy 8 - 10 phút (hoặc nướng nồi chiên không dầu ở 160°C trong 6 phút) đến khi chín bở.',
+          'Dùng muỗng hoặc nĩa tán thật nhuyễn mịn khi lòng đỏ còn nóng, có thể ép qua rây lọc để sốt trứng muối đạt độ mịn mượt chuẩn quán.',
+        ],
+        description:
+          'Rửa lòng đỏ trứng muối với rượu gừng cho hết tanh, hấp chín 8 - 10 phút rồi tán thật nhuyễn mịn qua rây.',
+        tip: 'Tán nhuyễn lòng đỏ ngay lúc vừa hấp nóng sẽ rất dễ mịn tơi, giúp hỗn hợp sốt không bị lợn cợn hay đóng cục khi nấu.',
+      },
+      {
+        step: 3,
+        title: 'Nấu sốt trứng muối bơ sữa vàng óng sánh mịn không tách dầu',
+        time: '6 phút',
+        heat: 'Lửa nhỏ liu riu',
+        goal: 'Sốt trứng muối sủi bọt li ti thơm ngậy mùi bơ, màu vàng cam óng ả, vị mặn ngọt béo bùi hài hòa',
+        actionPoints: [
+          'Đặt chảo lên bếp với lửa nhỏ, cho 40g bơ lạt vào đun tan chảy rồi phi thơm hành tím và tỏi băm (đảo đều tránh cháy xém).',
+          'Trút phần lòng đỏ trứng muối tán nhuyễn vào chảo bơ, dùng phới hoặc muôi gỗ khuấy đều tay trên lửa nhỏ khoảng 1 - 2 phút cho trứng muối tan quyện và sôi sủi bọt lăn tăn thơm nức.',
+          'Đổ từ từ 50ml sữa tươi không đường, 1.5 thìa canh sữa đặc, 1.5 thìa canh đường, 1 thìa canh nước mắm ngon, 1 thìa cà phê hạt nêm và 1 thìa canh tương ớt. Khuấy liên tục 2 phút đến khi sốt sánh mượt, bóng mịn.',
+        ],
+        description:
+          'Phi thơm hành tỏi với bơ lạt, đảo trứng muối nhuyễn đến khi sôi sủi bọt thơm rồi thêm sữa tươi, sữa đặc, đường, nước mắm và tương ớt khuấy thành sốt vàng cam sánh mịn.',
+        tip: 'Luôn giữ lửa nhỏ khi đảo lòng đỏ trứng muối với bơ sữa để sốt lên màu vàng cam đẹp mắt, béo mượt mà không bị tách dầu hay khét đáy chảo.',
+      },
+      {
+        step: 4,
+        title: 'Xào ốc hương thấm đẫm sốt trứng muối béo ngậy',
+        time: '4 phút',
+        heat: 'Lửa vừa',
+        goal: 'Từng con ốc hương phủ kín lớp sốt trứng muối vàng ươm, bên trong miệng ốc ngập sốt đậm đà',
+        actionPoints: [
+          'Khi sốt trứng muối trong chảo đang sôi lăn tăn sánh đẹp, trút toàn bộ ốc hương đã chần ráo nước vào chảo.',
+          'Đảo đều tay liên tục trên lửa vừa trong 2 - 3 phút để nước sốt áo kín vỏ ốc và chảy len vào bên trong miệng ốc.',
+          'Nêm nếm lại độ mặn ngọt hài hòa, thả vài lát ớt sừng vào đảo nhanh 15 giây rồi tắt bếp ngay khi sốt còn độ sệt óng ả (không xào cạn khô).',
+        ],
+        description:
+          'Trút ốc hương đã ráo nước vào chảo sốt trứng muối, đảo nhanh lửa vừa 2 - 3 phút cho sốt bám đều vào vỏ và ngấm vào ruột ốc rồi tắt bếp ngay.',
+        tip: 'Giữ lại một lượng sốt sệt vừa đủ trong chảo thay vì xào quá khô để khi dọn ra đĩa vẫn dư sốt chấm bánh mì cực đã.',
+      },
+      {
+        step: 5,
+        title: 'Trình bày & Thưởng thức ốc hương sốt trứng muối chấm bánh mì nóng',
+        time: '2 phút',
+        heat: 'Thưởng thức nóng hổi',
+        goal: 'Đĩa ốc vàng cam bắt mắt, thơm nức bơ trứng muối, thịt ốc giòn sần sật chấm bánh mì bén mồi khó cưỡng',
+        actionPoints: [
+          'Múc ốc hương ra đĩa sâu lòng, rưới đẫm toàn bộ phần sốt trứng muối sánh mịn còn lại trong chảo lên bề mặt.',
+          'Xếp rau răm tươi xanh mướt bên cạnh đĩa và trang trí vài lát ớt đỏ nổi bật.',
+          'Dọn nóng kèm bánh mì đặc ruột nướng giòn cắt khúc và chén muối tiêu chanh hoặc muối ớt xanh. Khêu từng con ốc hương giòn ngọt quyện sốt bùi béo, xé miếng bánh mì quệt ngập sốt trứng muối thưởng thức ngay.',
+        ],
+        description:
+          'Bày ốc hương ra đĩa sâu lòng, rưới ngập sốt trứng muối vàng óng, xếp rau răm và ớt lát. Dọn nóng cùng bánh mì giòn rụm và muối tiêu chanh.',
+      },
+    ],
+    chefSecret:
+      'Bí quyết làm Ốc Hương Sốt Trứng Muối ngon chuẩn quán nhậu Sài Gòn gồm 3 điểm vàng: 1. Chần sơ ốc hương 1.5 - 2 phút với sả gừng rồi sốc ngay nước đá giúp thịt ốc giòn sần sật, không bị teo và không ra nước làm loãng sốt khi xào; 2. Lòng đỏ trứng muối rửa sạch màng trắng bằng rượu gừng trước khi hấp và tán mịn qua rây giúp sốt thơm béo, không tanh và không lợn cợn; 3. Kết hợp bơ lạt cùng sữa tươi không đường và chút sữa đặc trên lửa nhỏ giúp sốt sánh bóng, bùi béo chấm bánh mì cực bén mồi.',
+    recommendedSauce:
+      'Chấm bánh mì nóng giòn trực tiếp vào phần sốt trứng muối bơ sữa vàng óng trên đĩa, ăn kèm rau răm tươi và chén muối tiêu chanh ớt hoặc muối ớt xanh cay nồng.',
+  },
   'ca-vien-chien-nuoc-mam': {
     dishId: 'ca-vien-chien-nuoc-mam',
     dishName: 'Mẹt Cá Viên Chiên Nước Mắm Tỏi Ớt Đậm Đà',

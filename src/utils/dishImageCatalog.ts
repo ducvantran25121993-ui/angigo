@@ -1457,6 +1457,7 @@ export function getDishImageByName(name: string = "", category: string = ""): st
   if (norm.includes("lau nam chay") || norm.includes("lau nam")) return "/images/lau_nam_chay.jpg";
   if (norm.includes("lau mam")) return "/images/lau_mam_mien_tay.jpg";
   if (norm.includes("de tai chanh") || norm.includes("de")) return "/images/de_tai_chanh.jpg";
+  if (norm.includes("oc huong") && norm.includes("trung muoi")) return "/images/oc_huong_trung_muoi.jpg";
   if (norm.includes("oc huong")) return "/images/oc_huong_bo_toi.jpg";
   if (norm.includes("bach tuoc")) return "/images/bach_tuoc_nuong.jpg";
   if (norm.includes("muc nuong")) return "/images/muc_nuong.jpg";

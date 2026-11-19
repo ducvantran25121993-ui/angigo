@@ -1162,6 +1162,56 @@
       "source": "/cha-ca-la-vong/",
       "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-oc-huong-sot-trung-muoi",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-oc-huong-sot-trung-muoi/",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-oc-huong-trung-muoi",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-oc-huong-trung-muoi/",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-oc-huong-trung-muoi",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-oc-huong-trung-muoi/",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/oc-huong-sot-trung-muoi",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/oc-huong-sot-trung-muoi/",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/oc-huong-trung-muoi",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
+    },
+    {
+      "source": "/oc-huong-trung-muoi/",
+      "destination": "/cach-lam-oc-huong-sot-trung-muoi",
+      "permanent": true
     }
   ],
   "headers": [

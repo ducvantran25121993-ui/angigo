@@ -15627,6 +15627,117 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Sốt dầu giấm mật ong chanh (chua ngọt thanh mát, ~90 kcal/phần) là lựa chọn chuẩn Eat Clean nhất; ngoài ra có thể đổi vị linh hoạt với sốt mè rang Nhật ít béo hoặc sốt sữa chua Hy Lạp chanh tỏi.',
   },
+  'salad-ca-ngu-ngo-ngot': {
+    dishId: 'salad-ca-ngu-ngo-ngot',
+    dishName: 'Salad Cá Ngừ Đơn Giản Siêu Ngon',
+    seoTitle: 'Cách Làm Salad Cá Ngừ Đơn Giản Siêu Ngon',
+    description:
+      'Hướng dẫn cách làm salad cá ngừ đơn giản siêu ngon tại nhà chỉ 15 phút: mẹo khử tanh cá ngừ ngâm dầu, trộn ngô ngọt rau củ giòn mát với sốt mayonnaise sữa chua chanh béo dịu không ngấy.',
+    ratingValue: '4.9',
+    reviewCount: 342,
+    prepTime: '10 phút',
+    cookTime: '5 phút (luộc trứng & chần ngô)',
+    totalTime: '15 phút',
+    servings: '2 - 3 người ăn',
+    difficulty: 'Dễ',
+    calories: '340 kcal',
+    ingredients: [
+      {
+        category: 'Cá ngừ & Topping béo bùi',
+        items: [
+          '1 hộp cá ngừ ngâm dầu (175g - 185g, chắt thật ráo dầu)',
+          '100g ngô ngọt Mỹ hạt (luộc chín hoặc ngô đóng hộp để ráo)',
+          '2 quả trứng gà luộc chín vừa (luộc 8 phút, bổ múi cau)',
+          '1/2 quả bơ sáp chín tới (thái khối vuông, tùy chọn tăng độ béo healthy)',
+        ],
+      },
+      {
+        category: 'Rau củ tươi giòn giải ngấy',
+        items: [
+          '150g xà lách Romaine hoặc xà lách Carol (rửa sạch, ngâm đá, vẩy khô)',
+          '100g cà chua bi đỏ (bổ đôi)',
+          '1 quả dưa leo Nhật (bỏ ruột nếu nhiều nước, thái lát mỏng)',
+          '1/4 củ hành tây tím (thái lát thật mỏng, ngâm nước đá pha chút chanh cho hết hăng)',
+        ],
+      },
+      {
+        category: 'Sốt trộn salad cá ngừ béo dịu không tanh',
+        items: [
+          '3 thìa canh sốt mayonnaise (ưu tiên loại vị dịu hoặc giảm béo)',
+          '1.5 thìa canh sữa chua không đường (giúp sốt thanh nhẹ, chống ngấy)',
+          '1 thìa canh nước cốt chanh tươi (khử mùi tanh cá ngừ & tạo vị chua thanh)',
+          '1/2 thìa cà phê mật ong (hoặc đường), 1/3 thìa cà phê muối biển & 1/2 thìa cà phê tiêu đen xay',
+          '1/2 thìa cà phê mù tạt vàng (tùy chọn giúp sốt thơm béo như nhà hàng)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Chắt thật ráo dầu & khử mùi tanh cá ngừ hộp',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Thịt cá ngừ tơi ráo, thơm ngọt tự nhiên, hoàn toàn không còn mùi tanh hay dầu ngấy',
+        actionPoints: [
+          'Mở hộp cá ngừ ngâm dầu, đổ qua rây lưới và dùng muỗng ấn nhẹ cho chảy hết phần dầu ngâm.',
+          'Tách tơi nhẹ thớ thịt cá thành miếng nhỏ vừa ăn (không dầm quá nát).',
+          'Rưới 1/2 thìa cà phê nước cốt chanh tươi cùng chút tiêu đen xay lên cá ngừ, đảo nhẹ để khử sạch mùi tanh.',
+        ],
+        description:
+          'Chắt thật ráo dầu cá ngừ qua rây, tách tơi nhẹ thớ thịt rồi trộn cùng chút nước cốt chanh và tiêu đen để khử mùi tanh.',
+        tip: 'Không bỏ qua bước chắt ráo dầu vì dầu đọng trong hộp sẽ làm sốt bị loãng và dễ gây ngấy khi ăn.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế rau củ giòn lạnh & luộc trứng vừa tới',
+        time: '7 phút',
+        heat: 'Lửa vừa (luộc trứng & ngô)',
+        goal: 'Rau xà lách giòn tan khô ráo, hành tây không hăng, trứng lòng dẻo đẹp mắt',
+        actionPoints: [
+          'Rửa sạch xà lách, ngâm nước đá lạnh 5 phút rồi vẩy hoặc quay thật ráo nước để rau giòn và bám sốt tốt.',
+          'Cà chua bi bổ đôi, dưa leo thái lát mỏng; hạt ngô ngọt chần nhanh 2 phút rồi xả nước lạnh cho giòn ngọt.',
+          'Hành tây tím thái lát mỏng ngâm nước đá pha vài giọt chanh 5 phút rồi vắt ráo; luộc trứng gà 8 phút, ngâm nước lạnh bóc vỏ bổ múi cau.',
+        ],
+        description:
+          'Ngâm đá và vẩy khô xà lách, cắt cà chua bi, dưa leo, chần ngô ngọt, ngâm đá hành tây tím giảm hăng và luộc trứng gà 8 phút.',
+        tip: 'Ngâm hành tây tím trong nước đá pha chút nước cốt chanh giúp hành giòn ngọt và hết hoàn toàn mùi hăng nồng.',
+      },
+      {
+        step: 3,
+        title: 'Pha sốt mayonnaise sữa chua chanh béo dịu',
+        time: '2 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Hỗn hợp sốt mịn mượt, cân bằng vị béo nhẹ - chua thanh - ngọt dịu ăn hoài không ngán',
+        actionPoints: [
+          'Cho 3 thìa canh mayonnaise, 1.5 thìa canh sữa chua không đường, 1 thìa canh nước cốt chanh, mật ong, muối biển, tiêu đen và mù tạt vàng (nếu dùng) vào bát nhỏ.',
+          'Khuấy đều tay đến khi sốt hòa quyện mịn mượt, bóng nhẹ.',
+          'Nếm thử và điều chỉnh độ chua ngọt theo khẩu vị gia đình.',
+        ],
+        description:
+          'Trộn đều mayonnaise, sữa chua không đường, nước cốt chanh, mật ong, muối và tiêu đen thành hỗn hợp sốt béo dịu thanh mát.',
+        tip: 'Kết hợp mayonnaise và sữa chua không đường theo tỷ lệ 2:1 là mẹo giúp sốt giảm hẳn độ ngấy và cắt giảm lượng calo đáng kể.',
+      },
+      {
+        step: 4,
+        title: 'Trộn salad cá ngừ & thưởng thức ngay',
+        time: '3 phút',
+        heat: 'Dùng tươi mát',
+        goal: 'Đĩa salad cá ngừ tươi sắc màu, rau giòn rụm quyện cá ngừ thơm béo và sốt chua dịu cực cuốn',
+        actionPoints: [
+          'Cho xà lách, cà chua bi, dưa leo, ngô ngọt và hành tây tím vào tô lớn, rưới 1/2 phần sốt trộn nhẹ tay để rau không bị dập.',
+          'Bày rau ra đĩa, xếp phần cá ngừ tơi thơm, bơ sáp và trứng luộc bổ múi cau lên trên.',
+          'Rưới nốt phần sốt còn lại, rắc thêm tiêu đen xay và thưởng thức ngay (có thể ăn trực tiếp hoặc kẹp bánh mì sandwich nướng giòn).',
+        ],
+        description:
+          'Trộn nhẹ rau củ với nửa phần sốt ngay trước khi ăn, xếp cá ngừ, bơ và trứng lên trên, rưới nốt sốt và rắc tiêu thưởng thức ngay.',
+        tip: 'Chỉ trộn sốt ngay trước khi dùng để rau xà lách giữ nguyên độ giòn tươi, không bị ra nước hay ỉu xẹp.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết giúp Salad Cá Ngừ làm cực nhanh mà ngon chuẩn quán: 1. Chắt thật kiệt dầu hộp cá ngừ rồi trộn trước chút nước cốt chanh + tiêu đen để thịt cá thơm ngọt, không tanh; 2. Pha sốt mayonnaise với sữa chua không đường tỷ lệ 2:1 cho vị béo thanh nhẹ, ăn nhiều không ngấy; 3. Ngâm đá và vẩy khô hoàn toàn xà lách, chỉ trộn sốt sát giờ ăn để đĩa salad luôn giòn rụm.',
+    recommendedSauce:
+      'Sốt mayonnaise pha sữa chua không đường và nước cốt chanh tươi giúp cân bằng hoàn hảo vị béo của cá ngừ; nếu muốn ăn theo chế độ Eat Clean giảm cân có thể thay mayonnaise bằng sữa chua Hy Lạp hoặc sốt mè rang Nhật ít béo.',
+  },
 };
 
 /**

@@ -1262,6 +1262,66 @@
       "source": "/salad-uc-ga-healthy/",
       "destination": "/cach-lam-salad-uc-ga-ap-chao",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-ca-ngu-ngo-ngot",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-ca-ngu-ngo-ngot/",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-ca-ngu-ngo-ngot",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-ca-ngu-ngo-ngot/",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/salad-ca-ngu-ngo-ngot",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/salad-ca-ngu-ngo-ngot/",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-ca-ngu",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-ca-ngu/",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-ca-ngu",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-ca-ngu/",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/salad-ca-ngu",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
+    },
+    {
+      "source": "/salad-ca-ngu/",
+      "destination": "/cach-lam-salad-ca-ngu-don-gian",
+      "permanent": true
     }
   ],
   "headers": [

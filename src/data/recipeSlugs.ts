@@ -131,7 +131,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "mien-ga-ta-dui-xe": "Cách Nấu Miến Gà Ta Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình",
   "banh-canh-ghe-nguyen-con": "Cách Nấu Bánh Canh Ghẹ Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình",
   "mien-xao-cua": "Cách Làm Miến Xào Cua Mềm Mượt, Tơi Săn",
-  "salad-uc-ga-ap-chao": "Cách Làm Salad Ức Gà Healthy Chua Ngọt"
+  "salad-uc-ga-ap-chao": "Cách Làm Salad Ức Gà Healthy Chua Ngọt",
+  "salad-ca-ngu-ngo-ngot": "Cách Làm Salad Cá Ngừ Đơn Giản Siêu Ngon"
 };
 
 /**
@@ -498,6 +499,9 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'salad-uc-ga-ap-chao': 'cach-lam-salad-uc-ga-ap-chao',
   'salad-uc-ga-healthy': 'cach-lam-salad-uc-ga-ap-chao',
   'salad-uc-ga': 'cach-lam-salad-uc-ga-ap-chao',
+  'salad-ca-ngu-ngo-ngot': 'cach-lam-salad-ca-ngu-don-gian',
+  'salad-ca-ngu': 'cach-lam-salad-ca-ngu-don-gian',
+  'salad-ca-ngu-don-gian': 'cach-lam-salad-ca-ngu-don-gian',
 };
 
 /**
@@ -1291,6 +1295,18 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-salad-uc-ga-healthy-chua-ngot': 'salad-uc-ga-ap-chao',
   'cach-lam-salad-uc-ga-healthy-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-uc-ga-ap-chao',
   'cach-nau-salad-uc-ga-healthy-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-uc-ga-ap-chao',
+
+  'salad-ca-ngu-ngo-ngot': 'salad-ca-ngu-ngo-ngot',
+  'salad-ca-ngu': 'salad-ca-ngu-ngo-ngot',
+  'salad-ca-ngu-don-gian': 'salad-ca-ngu-ngo-ngot',
+  'cach-nau-salad-ca-ngu-ngo-ngot': 'salad-ca-ngu-ngo-ngot',
+  'cach-lam-salad-ca-ngu-ngo-ngot': 'salad-ca-ngu-ngo-ngot',
+  'cach-nau-salad-ca-ngu': 'salad-ca-ngu-ngo-ngot',
+  'cach-lam-salad-ca-ngu': 'salad-ca-ngu-ngo-ngot',
+  'cach-nau-salad-ca-ngu-don-gian': 'salad-ca-ngu-ngo-ngot',
+  'cach-lam-salad-ca-ngu-don-gian-sieu-ngon': 'salad-ca-ngu-ngo-ngot',
+  'cach-lam-salad-ca-ngu-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-ca-ngu-ngo-ngot',
+  'cach-nau-salad-ca-ngu-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-ca-ngu-ngo-ngot',
 };
 
 /**

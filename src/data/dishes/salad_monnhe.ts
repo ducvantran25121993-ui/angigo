@@ -37,10 +37,10 @@ export const SALAD_MONNHE_DISHES: Dish[] = [
     mealTime: ['trua', 'toi'],
     priceRange: '85.000đ - 140.000đ',
     estimatedPrice: 110000,
-    calories: '450 - 550 kcal',
-    description: 'Cá hồi Nauy tươi sống thái hạt lựu ướp dầu mè xì dầu Nhật, bơ sáp béo ngậy, đậu nành Edamame và rong biển Wakame trên nền cơm gạo lứt.',
+    calories: '450 - 520 kcal',
+    description: 'Cá hồi Nauy tươi chuẩn Sashimi ướp nước tương Nhật dầu mè không tanh, bày cùng cơm dẻo, bơ sáp béo ngậy, đậu Edamame, rong biển Wakame và sốt Spicy Mayo.',
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=80',
-    popularTags: ['Cá hồi Nauy', 'Bơ sáp béo', 'Poke Hawaii'],
+    popularTags: ['Cá hồi Nauy', 'Bơ sáp béo', 'Eat clean'],
     searchKeyword: 'Poke bowl cá hồi',
   },
   {

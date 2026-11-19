@@ -1322,6 +1322,56 @@
       "source": "/salad-ca-ngu/",
       "destination": "/cach-lam-salad-ca-ngu-don-gian",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-poke-bowl-ca-hoi",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-poke-bowl-ca-hoi/",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/poke-bowl-ca-hoi",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/poke-bowl-ca-hoi/",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-poke-bowl",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-poke-bowl/",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-poke-bowl",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-poke-bowl/",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/poke-bowl",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
+    },
+    {
+      "source": "/poke-bowl/",
+      "destination": "/cach-lam-poke-bowl-ca-hoi",
+      "permanent": true
     }
   ],
   "headers": [

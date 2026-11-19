@@ -15738,6 +15738,134 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Sốt mayonnaise pha sữa chua không đường và nước cốt chanh tươi giúp cân bằng hoàn hảo vị béo của cá ngừ; nếu muốn ăn theo chế độ Eat Clean giảm cân có thể thay mayonnaise bằng sữa chua Hy Lạp hoặc sốt mè rang Nhật ít béo.',
   },
+  'poke-bowl-ca-hoi': {
+    dishId: 'poke-bowl-ca-hoi',
+    dishName: 'Poke Bowl Cá Hồi Tươi Và Bơ Sáp',
+    seoTitle: 'Cách Làm Poke Bowl Cá Hồi Đơn Giản Tại Nhà',
+    description:
+      'Hướng dẫn cách làm Poke Bowl cá hồi đơn giản tại nhà chuẩn vị Hawaii – Nhật: bí quyết chọn & ướp cá hồi tươi với nước tương dầu mè không tanh, trộn cơm dẻo ngon cùng bơ sáp, đậu Edamame và sốt cay béo.',
+    ratingValue: '4.9',
+    reviewCount: 318,
+    prepTime: '15 phút (ướp cá hồi 10 phút)',
+    cookTime: '15 phút (nấu cơm Nhật/gạo lứt)',
+    totalTime: '30 phút',
+    servings: '2 người ăn',
+    difficulty: 'Dễ',
+    calories: '480 kcal',
+    ingredients: [
+      {
+        category: 'Cá hồi tươi & Sốt ướp Poke chuẩn vị',
+        items: [
+          '250g phi lê cá hồi Nauy tươi chuẩn ăn sống (Sashimi-grade, bỏ da, bỏ xương)',
+          '2 thìa canh nước tương Nhật (Shoyu)',
+          '1 thìa cà phê dầu mè thơm nguyên chất',
+          '1 thìa cà phê giấm gạo Nhật (hoặc mirin) & 1/2 thìa cà phê mật ong',
+          '1 thìa cà phê gừng tươi bào nhuyễn & 1 thìa canh hành lá cắt nhỏ',
+          '1 thìa cà phê hạt mè trắng rang thơm',
+        ],
+      },
+      {
+        category: 'Cơm nền & Topping đầy màu sắc',
+        items: [
+          '2 chén cơm gạo Nhật dẻo (hoặc cơm gạo lứt mềm Eat Clean)',
+          '1.5 thìa canh giấm gạo Nhật, 1 thìa cà phê đường & 1/4 thìa cà phê muối (trộn cơm dẻo thanh)',
+          '1 quả bơ sáp chín vừa (thái lát quạt hoặc khối vuông)',
+          '100g đậu nành Nhật Edamame (luộc chín, tách vỏ)',
+          '1 quả dưa leo Nhật (thái lát mỏng), 1/2 quả xoài chín tới (cắt hạt lựu) & 50g rong biển Wakame',
+          '2 thìa canh trứng cá chuồn Tobiko (tùy chọn) & 1 lá rong biển khô Nori cắt sợi',
+        ],
+      },
+      {
+        category: 'Sốt Spicy Mayo rưới mặt chuẩn quán',
+        items: [
+          '2 thìa canh sốt mayonnaise Nhật (Kewpie)',
+          '1 thìa canh tương ớt Sriracha (điều chỉnh theo độ cay)',
+          '1/2 thìa cà phê nước cốt chanh tươi & 1/2 thìa cà phê dầu mè',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Nấu & trộn cơm nền dẻo thanh để nguội bớt',
+        time: '15 phút',
+        heat: 'Nồi cơm điện',
+        goal: 'Hạt cơm gạo Nhật (hoặc gạo lứt) dẻo tơi, vị chua ngọt dịu nhẹ và nguội về nhiệt độ phòng để không làm chín tái cá hồi',
+        actionPoints: [
+          'Vo sạch gạo Nhật hoặc gạo lứt rồi nấu chín dẻo, không để quá nhão.',
+          'Hòa tan 1.5 thìa canh giấm gạo Nhật, 1 thìa cà phê đường và 1/4 thìa cà phê muối; rưới đều lên cơm khi còn ấm và dùng muôi xới tơi nhẹ tay.',
+          'Để cơm nghỉ cho nguội bớt về nhiệt độ phòng trước khi xếp topping.',
+        ],
+        description:
+          'Nấu chín cơm gạo Nhật hoặc gạo lứt, trộn đều với hỗn hợp giấm gạo – đường – muối cho vị thanh dịu rồi để nguội về nhiệt độ phòng.',
+        tip: 'Tuyệt đối không đặt cá hồi tươi lên cơm đang nóng hổi vì hơi nóng sẽ làm cá bị tái và dậy mùi tanh.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế & ướp cá hồi tươi thấm vị không tanh',
+        time: '10 phút',
+        heat: 'Ngăn mát tủ lạnh',
+        goal: 'Từng khối cá hồi tươi săn bóng, thấm đều nước tương Nhật và hương dầu mè gừng thơm lừng',
+        actionPoints: [
+          'Dùng khăn giấy thấm thật khô miếng phi lê cá hồi chuẩn Sashimi, thái khối vuông vừa ăn khoảng 1.5 - 2 cm.',
+          'Trộn đều nước tương Nhật, dầu mè, giấm gạo, mật ong, gừng bào nhuyễn, hành lá và mè trắng rang trong tô sạch.',
+          'Cho cá hồi vào đảo thật nhẹ tay để không nát thịt, bọc kín ướp trong ngăn mát tủ lạnh 10 - 15 phút (nếu không ăn cá sống, có thể áp chảo nhanh 2 phút/mặt hoặc nướng nồi chiên không dầu 180°C trong 6 phút).',
+        ],
+        description:
+          'Thái khối vuông cá hồi chuẩn Sashimi, đảo nhẹ với hỗn hợp nước tương Nhật, dầu mè, gừng bào và mè rang rồi ướp mát 10 - 15 phút.',
+        tip: 'Chỉ nên ướp cá hồi tối đa 15 phút sát giờ ăn để cá giữ độ béo ngọt tự nhiên, không bị mặn hay tái do giấm.',
+      },
+      {
+        step: 3,
+        title: 'Chuẩn bị topping rau củ tươi mát & đậu Edamame',
+        time: '5 phút',
+        heat: 'Lửa vừa (luộc đậu)',
+        goal: 'Topping tươi giòn nhiều màu sắc, cân bằng vị béo của cá hồi và bơ sáp',
+        actionPoints: [
+          'Luộc đậu nành Nhật Edamame trong nước sôi pha chút muối 3 - 4 phút, vớt ra xả nước lạnh cho xanh đẹp rồi tách lấy hạt.',
+          'Dưa leo Nhật thái lát mỏng; xoài chín tới cắt hạt lựu; bơ sáp cắt khối vuông hoặc lát quạt (vắt vài giọt chanh để bơ không bị thâm).',
+          'Rong biển trộn mè Wakame vắt ráo nhẹ, rong biển khô Nori cắt sợi mảnh.',
+        ],
+        description:
+          'Luộc chín đậu Edamame xả nước lạnh tách hạt, cắt sẵn dưa leo Nhật, xoài chín, bơ sáp và chuẩn bị rong biển Wakame, Nori sợi.',
+        tip: 'Kết hợp chút xoài chín ngọt dịu và dưa leo giòn mát giúp tô Poke Bowl hài hòa vị, ăn hết tô vẫn không thấy ngán.',
+      },
+      {
+        step: 4,
+        title: 'Pha sốt Spicy Mayo béo cay sánh mượt',
+        time: '2 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Sốt màu cam hồng sánh mịn, béo thơm vị mayonnaise Nhật quyện cay nhẹ kích thích vị giác',
+        actionPoints: [
+          'Cho 2 thìa canh sốt mayonnaise Nhật Kewpie, 1 thìa canh tương ớt Sriracha, 1/2 thìa cà phê nước cốt chanh và 1/2 thìa cà phê dầu mè vào bát nhỏ.',
+          'Khuấy đều tay đến khi sốt mịn bóng và đồng màu.',
+          'Có thể cho sốt vào túi bắt kem hoặc chai bóp để rưới đường ziczac đẹp mắt như ngoài quán.',
+        ],
+        description:
+          'Trộn đều mayonnaise Nhật, tương ớt Sriracha, vài giọt nước cốt chanh và dầu mè thành sốt Spicy Mayo sánh mịn.',
+        tip: 'Nếu ăn kiêng giảm calo, bạn có thể thay 1/2 lượng mayonnaise bằng sữa chua không đường để sốt nhẹ bụng hơn.',
+      },
+      {
+        step: 5,
+        title: 'Bày tô Poke Bowl chuẩn quán & thưởng thức ngay',
+        time: '3 phút',
+        heat: 'Dùng tươi mát',
+        goal: 'Tô Poke Bowl rực rỡ màu sắc, hạt cơm dẻo quyện cá hồi béo mềm, bơ sáp bùi ngậy và sốt cay béo cuốn hút',
+        actionPoints: [
+          'Xới cơm dẻo đã nguội bớt vào đáy tô sâu lòng, dàn phẳng nhẹ bề mặt.',
+          'Xếp phần cá hồi ướp sốt vào chính giữa hoặc một góc tô, lần lượt bày bơ sáp, đậu Edamame, dưa leo, xoài chín và rong biển Wakame thành từng mảng màu bắt mắt xung quanh.',
+          'Rưới đều sốt Spicy Mayo lên trên, thêm trứng cá chuồn Tobiko (nếu thích), rắc rong biển Nori cắt sợi cùng mè rang và thưởng thức ngay khi cá còn mát lạnh.',
+        ],
+        description:
+          'Xếp cơm nguội vào đáy tô, bày cá hồi ướp sốt, bơ sáp, Edamame, dưa leo, xoài và rong biển Wakame xung quanh, rưới sốt Spicy Mayo và rắc Nori mè rang thưởng thức ngay.',
+        tip: 'Khi ăn hãy trộn đều các nguyên liệu cùng nước sốt dưới đáy tô để mỗi muỗng đều trọn vị béo – mặn – ngọt – giòn mát.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm Poke Bowl Cá Hồi tại nhà ngon như nhà hàng Hawaii – Nhật: 1. Chọn phi lê cá hồi Nauy tươi chuẩn ăn sống (Sashimi-grade) từ nguồn uy tín, giữ lạnh sát giờ ăn và chỉ ướp tối đa 15 phút; 2. Để cơm nguội bớt về nhiệt độ phòng trước khi bày để không làm chín tái cá; 3. Nếu không quen ăn cá sống, có thể áp chảo cá hồi sốt teriyaki 2 phút/mặt vẫn cực kỳ mềm béo và tròn vị.',
+    recommendedSauce:
+      'Sốt ướp nước tương Nhật – dầu mè kết hợp sốt Spicy Mayo béo cay rưới mặt là cặp đôi chuẩn vị nhất; nếu ăn theo chế độ Eat Clean ít béo có thể đổi sang sốt mè rang Nhật hoặc sốt Ponzu cam yuzu thanh mát.',
+  },
 };
 
 /**

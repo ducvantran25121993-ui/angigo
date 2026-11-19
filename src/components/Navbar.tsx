@@ -331,31 +331,30 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
           </div>
 
-          {/* Minimalist Modern Pill Tab Menu with Fluid Motion Slider */}
+          {/* Elevated 3D Tactile Nav Buttons with Hot/Mới Badges (Phương án 3) */}
           <nav 
             aria-label="Menu điều hướng chính" 
-            className="hidden md:flex items-center gap-0.5 bg-stone-100/75 p-1 rounded-full border border-stone-200/80 shadow-2xs backdrop-blur-md transition-colors"
+            className="hidden md:flex items-center gap-1.5 lg:gap-2 transition-all"
           >
             {/* 1. Tarot Ẩm Thực */}
             <a
               href={TAB_CONFIG.tarot.path}
               onClick={(e) => handleNavClick('tarot', e)}
-              className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
-                activeTab === 'tarot' ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+              className={`relative flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all duration-200 select-none cursor-pointer group ${
+                activeTab === 'tarot'
+                  ? 'bg-gradient-to-b from-orange-500 to-orange-600 text-white border border-orange-500 shadow-[0_3px_0_0_rgba(194,65,12,0.85),0_6px_14px_rgba(234,88,12,0.26)] -translate-y-0.5'
+                  : 'bg-white text-stone-800 border border-stone-200/95 shadow-[0_2px_0_0_rgba(214,211,209,0.85),0_2px_6px_rgba(28,25,23,0.06)] hover:-translate-y-0.5 hover:border-orange-300 hover:bg-orange-50/40 hover:text-orange-700 hover:shadow-[0_3px_0_0_rgba(253,186,116,0.85),0_4px_10px_rgba(249,115,22,0.12)] active:translate-y-0'
               }`}
             >
-              {activeTab === 'tarot' && (
-                <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
-              )}
-              <span className={`relative z-10 transition-colors ${
-                activeTab === 'tarot' ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
+              <span className={`relative z-10 transition-transform duration-200 group-hover:scale-110 ${
+                activeTab === 'tarot' ? 'text-white' : 'text-violet-600'
               }`}>
-                <Compass className="w-4 h-4" />
+                <Compass className="w-[18px] h-[18px]" />
               </span>
               <span className="relative z-10 tracking-tight">Tarot Ẩm Thực</span>
             </a>
 
-            {/* 2. Vòng Quay (with Trợ Lý AI Dropdown) */}
+            {/* 2. Vòng Quay (with Trợ Lý AI Dropdown + HOT badge) */}
             <div 
               ref={wheelDropdownRef}
               className="relative"
@@ -365,27 +364,31 @@ export const Navbar: React.FC<NavbarProps> = ({
               <a
                 href={TAB_CONFIG.wheel.path}
                 onClick={(e) => handleNavClick(activeTab === 'ai' ? 'ai' : 'wheel', e)}
-                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
-                  isWheelGroupActive ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+                className={`relative flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all duration-200 select-none cursor-pointer group ${
+                  isWheelGroupActive
+                    ? 'bg-gradient-to-b from-orange-500 to-orange-600 text-white border border-orange-500 shadow-[0_3px_0_0_rgba(194,65,12,0.85),0_6px_14px_rgba(234,88,12,0.26)] -translate-y-0.5'
+                    : 'bg-white text-stone-800 border border-stone-200/95 shadow-[0_2px_0_0_rgba(214,211,209,0.85),0_2px_6px_rgba(28,25,23,0.06)] hover:-translate-y-0.5 hover:border-orange-300 hover:bg-orange-50/40 hover:text-orange-700 hover:shadow-[0_3px_0_0_rgba(253,186,116,0.85),0_4px_10px_rgba(249,115,22,0.12)] active:translate-y-0'
                 }`}
               >
-                {isWheelGroupActive && (
-                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
-                )}
+                <span className="pointer-events-none absolute -top-2 right-2 px-1.5 py-[1px] rounded-full bg-gradient-to-r from-rose-500 to-orange-500 text-white text-[9px] font-black uppercase tracking-wider shadow-xs ring-2 ring-white leading-tight">
+                  Hot
+                </span>
 
-                <span className={`relative z-10 transition-colors ${
-                  isWheelGroupActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
+                <span className={`relative z-10 transition-transform duration-200 group-hover:scale-110 ${
+                  isWheelGroupActive ? 'text-white' : 'text-orange-500'
                 }`}>
-                  {activeTab === 'ai' ? <Sparkles className="w-4 h-4" /> : <Disc className="w-4 h-4" />}
+                  {activeTab === 'ai' ? <Sparkles className="w-[18px] h-[18px]" /> : <Disc className="w-[18px] h-[18px]" />}
                 </span>
 
                 <span className="relative z-10 tracking-tight">
                   {activeTab === 'ai' ? 'Trợ Lý AI' : 'Vòng Quay'}
                 </span>
 
-                <ChevronDown className={`relative z-10 w-3 h-3 text-stone-400 transition-transform duration-200 ${
-                  isWheelDropdownOpen ? 'rotate-180 text-orange-600' : 'group-hover:text-stone-600'
-                }`} />
+                <ChevronDown className={`relative z-10 w-3.5 h-3.5 transition-transform duration-200 ${
+                  isWheelGroupActive
+                    ? 'text-orange-100'
+                    : 'text-stone-400 group-hover:text-orange-600'
+                } ${isWheelDropdownOpen ? 'rotate-180' : ''}`} />
               </a>
 
               {/* Desktop Submenu Dropdown for Vòng Quay & Trợ Lý AI */}
@@ -446,18 +449,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               <a
                 href={TAB_CONFIG.catalog.path}
                 onClick={(e) => handleNavClick('catalog', e)}
-                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
-                  isFoodGroupActive ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+                className={`relative flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all duration-200 select-none cursor-pointer group ${
+                  isFoodGroupActive
+                    ? 'bg-gradient-to-b from-orange-500 to-orange-600 text-white border border-orange-500 shadow-[0_3px_0_0_rgba(194,65,12,0.85),0_6px_14px_rgba(234,88,12,0.26)] -translate-y-0.5'
+                    : 'bg-white text-stone-800 border border-stone-200/95 shadow-[0_2px_0_0_rgba(214,211,209,0.85),0_2px_6px_rgba(28,25,23,0.06)] hover:-translate-y-0.5 hover:border-orange-300 hover:bg-orange-50/40 hover:text-orange-700 hover:shadow-[0_3px_0_0_rgba(253,186,116,0.85),0_4px_10px_rgba(249,115,22,0.12)] active:translate-y-0'
                 }`}
               >
-                {isFoodGroupActive && (
-                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
-                )}
-
-                <span className={`relative z-10 transition-colors ${
-                  isFoodGroupActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
+                <span className={`relative z-10 transition-transform duration-200 group-hover:scale-110 ${
+                  isFoodGroupActive ? 'text-white' : 'text-rose-500'
                 }`}>
-                  <UtensilsCrossed className="w-4 h-4" />
+                  <UtensilsCrossed className="w-[18px] h-[18px]" />
                 </span>
 
                 <span className="relative z-10 tracking-tight">
@@ -468,9 +469,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                     : 'Món Ngon'}
                 </span>
 
-                <ChevronDown className={`relative z-10 w-3 h-3 text-stone-400 transition-transform duration-200 ${
-                  isFoodDropdownOpen ? 'rotate-180 text-orange-600' : 'group-hover:text-stone-600'
-                }`} />
+                <ChevronDown className={`relative z-10 w-3.5 h-3.5 transition-transform duration-200 ${
+                  isFoodGroupActive
+                    ? 'text-orange-100'
+                    : 'text-stone-400 group-hover:text-orange-600'
+                } ${isFoodDropdownOpen ? 'rotate-180' : ''}`} />
               </a>
 
               {/* Desktop Submenu Dropdown Card for Món Ngon */}
@@ -521,21 +524,23 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </div>
 
-            {/* 4. Quán Ngon (Mới thêm) */}
+            {/* 4. Quán Ngon (with MỚI badge) */}
             <a
               href={TAB_CONFIG.restaurants.path}
               onClick={(e) => handleNavClick('restaurants', e)}
-              className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
-                activeTab === 'restaurants' ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+              className={`relative flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all duration-200 select-none cursor-pointer group ${
+                activeTab === 'restaurants'
+                  ? 'bg-gradient-to-b from-orange-500 to-orange-600 text-white border border-orange-500 shadow-[0_3px_0_0_rgba(194,65,12,0.85),0_6px_14px_rgba(234,88,12,0.26)] -translate-y-0.5'
+                  : 'bg-white text-stone-800 border border-stone-200/95 shadow-[0_2px_0_0_rgba(214,211,209,0.85),0_2px_6px_rgba(28,25,23,0.06)] hover:-translate-y-0.5 hover:border-orange-300 hover:bg-orange-50/40 hover:text-orange-700 hover:shadow-[0_3px_0_0_rgba(253,186,116,0.85),0_4px_10px_rgba(249,115,22,0.12)] active:translate-y-0'
               }`}
             >
-              {activeTab === 'restaurants' && (
-                <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
-              )}
-              <span className={`relative z-10 transition-colors ${
-                activeTab === 'restaurants' ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
+              <span className="pointer-events-none absolute -top-2 right-2 px-1.5 py-[1px] rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 text-white text-[9px] font-black uppercase tracking-wider shadow-xs ring-2 ring-white leading-tight">
+                Mới
+              </span>
+              <span className={`relative z-10 transition-transform duration-200 group-hover:scale-110 ${
+                activeTab === 'restaurants' ? 'text-white' : 'text-emerald-600'
               }`}>
-                <Store className="w-4 h-4" />
+                <Store className="w-[18px] h-[18px]" />
               </span>
               <span className="relative z-10 tracking-tight">Quán Ngon</span>
             </a>
@@ -550,27 +555,27 @@ export const Navbar: React.FC<NavbarProps> = ({
               <a
                 href={activeTab === 'blog' ? TAB_CONFIG.blog.path : TAB_CONFIG.discover.path}
                 onClick={(e) => handleNavClick(activeTab === 'blog' ? 'blog' : 'discover', e)}
-                className={`relative flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full text-[13px] font-semibold transition-all duration-200 select-none cursor-pointer group ${
-                  isDiscoverGroupActive ? 'text-stone-900' : 'text-stone-600 hover:text-stone-900 hover:bg-white/60'
+                className={`relative flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-xl text-[13px] font-bold whitespace-nowrap transition-all duration-200 select-none cursor-pointer group ${
+                  isDiscoverGroupActive
+                    ? 'bg-gradient-to-b from-orange-500 to-orange-600 text-white border border-orange-500 shadow-[0_3px_0_0_rgba(194,65,12,0.85),0_6px_14px_rgba(234,88,12,0.26)] -translate-y-0.5'
+                    : 'bg-white text-stone-800 border border-stone-200/95 shadow-[0_2px_0_0_rgba(214,211,209,0.85),0_2px_6px_rgba(28,25,23,0.06)] hover:-translate-y-0.5 hover:border-orange-300 hover:bg-orange-50/40 hover:text-orange-700 hover:shadow-[0_3px_0_0_rgba(253,186,116,0.85),0_4px_10px_rgba(249,115,22,0.12)] active:translate-y-0'
                 }`}
               >
-                {isDiscoverGroupActive && (
-                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/90 transition-all duration-200" />
-                )}
-
-                <span className={`relative z-10 transition-colors ${
-                  isDiscoverGroupActive ? 'text-orange-600' : 'text-stone-400 group-hover:text-orange-500'
+                <span className={`relative z-10 transition-transform duration-200 group-hover:scale-110 ${
+                  isDiscoverGroupActive ? 'text-white' : 'text-amber-600'
                 }`}>
-                  {activeTab === 'blog' ? <BookOpen className="w-4 h-4" /> : <Compass className="w-4 h-4" />}
+                  {activeTab === 'blog' ? <BookOpen className="w-[18px] h-[18px]" /> : <Compass className="w-[18px] h-[18px]" />}
                 </span>
 
                 <span className="relative z-10 tracking-tight">
                   {activeTab === 'blog' ? 'Blog Ẩm Thực' : 'Ẩm Thực'}
                 </span>
 
-                <ChevronDown className={`relative z-10 w-3 h-3 text-stone-400 transition-transform duration-200 ${
-                  isDiscoverDropdownOpen ? 'rotate-180 text-orange-600' : 'group-hover:text-stone-600'
-                }`} />
+                <ChevronDown className={`relative z-10 w-3.5 h-3.5 transition-transform duration-200 ${
+                  isDiscoverGroupActive
+                    ? 'text-orange-100'
+                    : 'text-stone-400 group-hover:text-orange-600'
+                } ${isDiscoverDropdownOpen ? 'rotate-180' : ''}`} />
               </a>
 
               {/* Desktop Submenu Dropdown Card for Ẩm Thực & Blog */}
@@ -649,30 +654,52 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Mobile Modern Pill Slider (5 direct items: Tarot | Vòng Quay | Món Ngon | Quán Ngon | Ẩm Thực) */}
+        {/* Mobile Elevated 3D Button Bar (5 direct items: Tarot | Vòng Quay | Món Ngon | Quán Ngon | Ẩm Thực) */}
         <nav 
           aria-label="Menu điều hướng di động" 
-          className="md:hidden flex items-center justify-between p-1 my-1.5 rounded-full bg-stone-100/90 border border-stone-200/60"
+          className="md:hidden flex items-center justify-between gap-1.5 py-1.5"
         >
           {mobileNavItems.map((item) => {
             const isActive = item.id === 'catalog' 
               ? (activeTab === 'catalog' || activeTab === 'snacks' || activeTab === 'planner') 
               : item.id === 'wheel'
               ? (activeTab === 'wheel' || activeTab === 'ai')
+              : item.id === 'discover'
+              ? (activeTab === 'discover' || activeTab === 'blog')
               : (activeTab === item.id);
+            const inactiveIconColor =
+              item.id === 'tarot'
+                ? 'text-violet-600'
+                : item.id === 'wheel'
+                ? 'text-orange-500'
+                : item.id === 'catalog'
+                ? 'text-rose-500'
+                : item.id === 'restaurants'
+                ? 'text-emerald-600'
+                : 'text-amber-600';
+            const microBadge =
+              item.id === 'wheel'
+                ? { label: 'Hot', cls: 'from-rose-500 to-orange-500' }
+                : item.id === 'restaurants'
+                ? { label: 'Mới', cls: 'from-emerald-500 to-teal-500' }
+                : null;
             return (
               <a
                 key={item.id}
                 href={item.path}
                 onClick={(e) => handleNavClick(item.id, e)}
-                className={`relative flex-1 flex flex-col items-center justify-center gap-0.5 py-1 px-1 rounded-full text-xs font-medium transition-colors select-none text-center cursor-pointer ${
-                  isActive ? 'text-stone-900 font-bold' : 'text-stone-500 hover:text-stone-800'
+                className={`relative flex-1 flex flex-col items-center justify-center gap-0.5 py-1.5 px-1 rounded-xl text-xs font-bold transition-all select-none text-center cursor-pointer ${
+                  isActive
+                    ? 'bg-gradient-to-b from-orange-500 to-orange-600 text-white border border-orange-500 shadow-[0_2px_0_0_rgba(194,65,12,0.85),0_4px_10px_rgba(234,88,12,0.22)]'
+                    : 'bg-white text-stone-800 border border-stone-200/95 shadow-[0_2px_0_0_rgba(214,211,209,0.85),0_1px_4px_rgba(28,25,23,0.05)] hover:border-orange-300 hover:text-orange-700'
                 }`}
               >
-                {isActive && (
-                  <div className="absolute inset-0 bg-white rounded-full shadow-xs border border-stone-200/50 transition-all duration-200" />
+                {microBadge && (
+                  <span className={`pointer-events-none absolute -top-1.5 right-1 px-1 py-[0.5px] rounded-full bg-gradient-to-r ${microBadge.cls} text-white text-[8px] font-black uppercase tracking-tight ring-1 ring-white leading-tight`}>
+                    {microBadge.label}
+                  </span>
                 )}
-                <span className={`relative z-10 ${isActive ? 'text-orange-600' : 'text-stone-400'}`}>
+                <span className={`relative z-10 ${isActive ? 'text-white' : inactiveIconColor}`}>
                   {item.icon}
                 </span>
                 <span className="relative z-10 text-[10px] min-[360px]:text-[11px] sm:text-xs leading-none whitespace-nowrap">

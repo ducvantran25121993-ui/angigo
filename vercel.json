@@ -1112,6 +1112,56 @@
       "source": "/com-bo-xao-can-toi/",
       "destination": "/cach-lam-com-bo-xao-can-toi",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-cha-ca-la-vong-ha-noi",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-cha-ca-la-vong-ha-noi/",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-cha-ca-la-vong",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-cha-ca-la-vong/",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-cha-ca-la-vong",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-cha-ca-la-vong/",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cha-ca-la-vong-ha-noi",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cha-ca-la-vong-ha-noi/",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cha-ca-la-vong",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cha-ca-la-vong/",
+      "destination": "/cach-lam-cha-ca-la-vong-ha-noi",
+      "permanent": true
     }
   ],
   "headers": [

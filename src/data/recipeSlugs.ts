@@ -50,7 +50,7 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "banh-mi-que-hai-phong": "Cách Làm Bánh Mì Que Hải Phòng Patê Béo Ngậy Giòn Rụm Chuẩn Vị Đất Cảng",
   "banh-mi-cha-ca-nong": "Cách Làm Bánh Mì Chả Cá Giòn Rụm, Đậm Đà Chuẩn Vị Đường Phố",
   "pho-cuon-thit-bo": "Cách Làm Phở Cuốn Hà Nội Thịt Bò Tươi Ngon Nước Chấm Chua Ngọt Chuẩn Vị",
-  "cha-ca-la-vong-ha-noi": "Cách Làm Chả Cá Lã Vọng Hà Nội Nướng Than Hoa, Xèo Xèo Chảo Mỡ Chuẩn Vị Phố Cổ",
+  "cha-ca-la-vong-ha-noi": "Cách Làm Chả Cá Lã Vọng Hà Nội Chuẩn Vị Phố Cổ",
   "banh-cuon-nong-thit-bam": "Cách Làm Bánh Cuốn Nóng Vỏ Mỏng Mướt, Nước Chấm Ấm Nóng Chuẩn Vị Hà Nội",
   "com-tam-suon-bi-cha": "Cách Làm Cơm Sườn Nướng Mật Ong Thơm Ngon Đậm Đà Chuẩn Quán",
   "banh-canh-ca-loc": "Cách Nấu Bánh Canh Cá Lóc Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình",
@@ -188,7 +188,9 @@ export function getRecipeArticleTitle(dish: Dish, recipe?: { seoTitle?: string }
     return `Cách Làm ${cleanName} Thịt Nướng Than Hoa, Nước Chấm Đậm Đà Chuẩn Vị`;
   }
   if (lowerName.includes("chả cá lã vọng")) {
-    return `Cách Làm ${cleanName} Nướng Than Hoa, Xèo Xèo Chảo Mỡ Chuẩn Vị Phố Cổ`;
+    return lowerName.includes("hà nội")
+      ? `Cách Làm ${cleanName} Chuẩn Vị Phố Cổ`
+      : `Cách Làm ${cleanName} Hà Nội Chuẩn Vị Phố Cổ`;
   }
   if (lowerName.includes("bún chả cá")) {
     return `Cách Nấu ${cleanName} Thơm Ngon Đậm Đà Chuẩn Vị`;
@@ -487,6 +489,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'banh-canh-ghe-nguyen-con': 'cach-nau-banh-canh-ghe',
   'banh-canh-ghe': 'cach-nau-banh-canh-ghe',
   'mien-xao-cua': 'cach-lam-mien-xao-cua',
+  'cha-ca-la-vong-ha-noi': 'cach-lam-cha-ca-la-vong-ha-noi',
+  'cha-ca-la-vong': 'cach-lam-cha-ca-la-vong-ha-noi',
 };
 
 /**
@@ -1253,6 +1257,14 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-hu-tieu-muc-tuoi': 'hu-tieu-muc-tuoi',
   'cach-lam-hu-tieu-muc': 'hu-tieu-muc-tuoi',
   'cach-lam-hu-tieu-muc-tuoi': 'hu-tieu-muc-tuoi',
+
+  'cha-ca-la-vong': 'cha-ca-la-vong-ha-noi',
+  'cha-ca-la-vong-ha-noi': 'cha-ca-la-vong-ha-noi',
+  'cach-nau-cha-ca-la-vong': 'cha-ca-la-vong-ha-noi',
+  'cach-nau-cha-ca-la-vong-ha-noi': 'cha-ca-la-vong-ha-noi',
+  'cach-lam-cha-ca-la-vong': 'cha-ca-la-vong-ha-noi',
+  'cach-lam-cha-ca-la-vong-ha-noi-nuong-than-hoa-xeo-xeo-chao-mo-chuan-vi-pho-co': 'cha-ca-la-vong-ha-noi',
+  'cach-nau-cha-ca-la-vong-ha-noi-nuong-than-hoa-xeo-xeo-chao-mo-chuan-vi-pho-co': 'cha-ca-la-vong-ha-noi',
 };
 
 /**

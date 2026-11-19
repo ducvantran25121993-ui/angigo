@@ -5911,9 +5911,15 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   'cha-ca-la-vong-ha-noi': {
     dishId: 'cha-ca-la-vong-ha-noi',
     dishName: 'Chả Cá Lã Vọng Thì Là Hành Hoa Chảo Gang',
-    seoTitle: 'Cách Làm Chả Cá Lã Vọng Hà Nội Nướng Than Hoa, Xèo Xèo Chảo Mỡ Chuẩn Vị Phố Cổ',
+    seoTitle: 'Cách Làm Chả Cá Lã Vọng Hà Nội Chuẩn Vị Phố Cổ',
+    description:
+      'Hướng dẫn cách làm chả cá Lã Vọng Hà Nội chuẩn vị phố cổ tại nhà: bí quyết ướp cá lăng riềng mẻ nghệ đậm đà, nướng than hoa vàng thơm, đảo chảo mỡ xèo xèo cùng thì là và mắm tôm đánh sủi bọt.',
+    ratingValue: '4.9',
+    reviewCount: 386,
     prepTime: '40 phút',
     cookTime: '20 phút',
+    totalTime: '60 phút',
+    calories: '610 kcal',
     difficulty: 'Trung bình',
     servings: '4 - 5 người',
     ingredients: [

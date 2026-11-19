@@ -480,7 +480,7 @@ export const SAMPLE_SPONSORED_PARTNERS: SponsoredPartner[] = [
     category: 'Nhà Hàng',
     priceRange: '120.000đ - 280.000đ',
     openingHours: '07:30 - 22:00',
-    dishIds: ['cha-ca-la-vong', 'ga-hap-la-chanh', 'thit-kho-tau'],
+    dishIds: ['cha-ca-la-vong-ha-noi', 'ga-hap-la-chanh', 'thit-kho-tau'],
     logo: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=120&auto=format&fit=crop&q=80',
     coverImage: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=800&auto=format&fit=crop&q=80',
     rating: 4.8,

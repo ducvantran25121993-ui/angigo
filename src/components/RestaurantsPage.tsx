@@ -27,6 +27,8 @@ import {
   ShieldCheck,
   Mail,
   Check,
+  Map as MapIcon,
+  LayoutGrid,
 } from 'lucide-react';
 import { SAMPLE_SPONSORED_PARTNERS } from '../data/sponsoredPartners';
 import { SponsoredPartner, UserLocation } from '../types';
@@ -58,6 +60,11 @@ const CITIES = [
   'Đà Nẵng',
 ] as const;
 
+const MY_MAPS_EMBED_URL =
+  'https://www.google.com/maps/d/embed?mid=1GBgjvZxfQWe012uVfw29e3DRmR5JbGk&ehbc=2E312F';
+const MY_MAPS_VIEW_URL =
+  'https://www.google.com/maps/d/u/0/viewer?mid=1GBgjvZxfQWe012uVfw29e3DRmR5JbGk&usp=sharing';
+
 export const RestaurantsPage: React.FC<RestaurantsPageProps> = ({
   userLocation,
   onOpenLocationModal,
@@ -69,6 +76,7 @@ export const RestaurantsPage: React.FC<RestaurantsPageProps> = ({
   const [selectedCity, setSelectedCity] = useState<string>('Tất Cả Thành Phố');
   const [onlyPromo, setOnlyPromo] = useState(false);
   const [onlyHighRating, setOnlyHighRating] = useState(false);
+  const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
 
   // Count restaurants in each category
   const categoryCounts = useMemo(() => {
@@ -256,16 +264,103 @@ export const RestaurantsPage: React.FC<RestaurantsPageProps> = ({
               </button>
             </div>
 
-            <div className="text-stone-500 font-medium">
-              Tìm thấy <strong className="text-stone-900">{filteredRestaurants.length}</strong> quán ngon
+            <div className="flex flex-wrap items-center gap-3 ml-auto">
+              <div className="text-stone-500 font-medium">
+                Tìm thấy <strong className="text-stone-900">{filteredRestaurants.length}</strong> quán ngon
+              </div>
+
+              {/* View Mode Switcher: Danh sách | Bản đồ */}
+              <div
+                role="tablist"
+                aria-label="Chế độ hiển thị quán ngon"
+                className="inline-flex items-center p-1 rounded-xl bg-stone-100 border border-stone-200/90 shadow-2xs"
+              >
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={viewMode === 'list'}
+                  onClick={() => setViewMode('list')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === 'list'
+                      ? 'bg-white text-stone-900 shadow-xs ring-1 ring-stone-200/80'
+                      : 'text-stone-600 hover:text-stone-900'
+                  }`}
+                >
+                  <LayoutGrid className={`w-3.5 h-3.5 ${viewMode === 'list' ? 'text-orange-600' : 'text-stone-400'}`} />
+                  <span>Danh sách</span>
+                </button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-selected={viewMode === 'map'}
+                  onClick={() => setViewMode('map')}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    viewMode === 'map'
+                      ? 'bg-gradient-to-r from-orange-600 to-amber-500 text-white shadow-sm shadow-orange-500/25'
+                      : 'text-stone-700 hover:text-orange-700'
+                  }`}
+                >
+                  <MapIcon className={`w-3.5 h-3.5 ${viewMode === 'map' ? 'text-white' : 'text-emerald-600'}`} />
+                  <span>Xem Bản Đồ</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. RESTAURANTS GRID */}
+      {/* 3. INTERACTIVE MAP VIEW OR RESTAURANTS GRID */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
-        {filteredRestaurants.length === 0 ? (
+        {viewMode === 'map' ? (
+          <div className="bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-sm animate-fade-in">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-4 sm:px-6 py-4 bg-gradient-to-r from-orange-50/90 via-amber-50/60 to-white border-b border-stone-200/80">
+              <div className="flex items-start sm:items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-orange-500 to-amber-500 text-white flex items-center justify-center shadow-sm shrink-0">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="text-sm sm:text-base font-extrabold text-stone-900">
+                    Bản Đồ Quán Ngon Tương Tác
+                  </h2>
+                  <p className="text-xs text-stone-600">
+                    Phóng to, di chuyển hoặc nhấp vào từng điểm ghim để xem chi tiết quán và chỉ đường nhanh.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('list')}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 text-xs font-bold transition-colors cursor-pointer"
+                >
+                  <LayoutGrid className="w-3.5 h-3.5 text-orange-600" />
+                  <span>Quay lại danh sách</span>
+                </button>
+                <a
+                  href={MY_MAPS_VIEW_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-orange-600 to-amber-500 hover:from-orange-500 hover:to-amber-400 text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+                >
+                  <span>Mở toàn màn hình</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            <div className="relative w-full bg-stone-100">
+              <iframe
+                src={MY_MAPS_EMBED_URL}
+                title="Bản đồ quán ngon Hôm Nay Ăn Gì"
+                className="w-full h-[500px] sm:h-[600px] lg:h-[660px] border-0 block"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            </div>
+          </div>
+        ) : filteredRestaurants.length === 0 ? (
           <div className="bg-white rounded-3xl p-12 text-center border border-stone-200 shadow-2xs max-w-lg mx-auto">
             <UtensilsCrossed className="w-12 h-12 text-stone-300 mx-auto mb-3" />
             <h3 className="text-base font-bold text-stone-800 mb-1">

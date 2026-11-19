@@ -1212,6 +1212,56 @@
       "source": "/oc-huong-trung-muoi/",
       "destination": "/cach-lam-oc-huong-sot-trung-muoi",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-uc-ga-ap-chao",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-uc-ga-ap-chao/",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-uc-ga-ap-chao",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-uc-ga-ap-chao/",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-uc-ga-healthy",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-uc-ga-healthy/",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-uc-ga-healthy",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-uc-ga-healthy/",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-uc-ga-healthy",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-uc-ga-healthy/",
+      "destination": "/cach-lam-salad-uc-ga-ap-chao",
+      "permanent": true
     }
   ],
   "headers": [

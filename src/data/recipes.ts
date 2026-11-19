@@ -15497,6 +15497,136 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Đĩa miến xào cua bốc khói ngào ngạt hương dầu mè, từng sợi miến dong tơi săn bóng mượt ngập thịt cua biển đỏ au béo ngậy, quyện mộc nhĩ cà rốt giòn ngọt sần sật, chấm thêm muỗng xì dầu tỏi ớt hiểm cay nồng ngon tuyệt đỉnh.',
   },
+  'salad-uc-ga-ap-chao': {
+    dishId: 'salad-uc-ga-ap-chao',
+    dishName: 'Salad Ức Gà Healthy Chua Ngọt',
+    seoTitle: 'Cách Làm Salad Ức Gà Healthy Chua Ngọt',
+    description:
+      'Hướng dẫn cách làm salad ức gà healthy chua ngọt chuẩn Eat Clean: bí quyết áp chảo ức gà mềm mọng không khô, rau củ giòn mát và pha sốt dầu giấm mật ong chanh sánh mịn.',
+    ratingValue: '4.9',
+    reviewCount: 386,
+    prepTime: '15 phút (ướp ức gà 15 phút)',
+    cookTime: '12 phút',
+    totalTime: '27 phút',
+    servings: '2 người ăn',
+    difficulty: 'Dễ',
+    calories: '350 kcal',
+    ingredients: [
+      {
+        category: 'Ức gà áp chảo mềm mọng (Eat Clean)',
+        items: [
+          '300g ức gà phi lê tươi (bỏ da, lọc sạch gân trắng)',
+          '1 thìa canh dầu ô liu nguyên chất (Extra Virgin)',
+          '1 thìa cà phê tỏi băm nhuyễn (hoặc 1/2 thìa bột tỏi)',
+          '1/2 thìa cà phê muối hồng Himalaya (hoặc muối biển), 1/2 thìa cà phê tiêu đen xay',
+          '1/2 thìa cà phê lá oregano khô (hoặc hương thảo) & 1/2 thìa cà phê ớt bột paprika tạo màu vàng đẹp',
+          '1 thìa cà phê mật ong nguyên chất (giúp mặt gà áp chảo vàng óng thơm nhẹ)',
+        ],
+      },
+      {
+        category: 'Rau củ tươi giòn & Topping Eat Clean',
+        items: [
+          '200g xà lách Romaine hoặc xà lách Mỹ (rửa sạch, quay ráo nước)',
+          '100g cà chua bi đỏ/vàng (bổ đôi)',
+          '1 quả dưa leo Nhật (thái lát mỏng vừa ăn)',
+          '1/2 quả bơ sáp chín vừa (thái miếng vuông) & 50g bắp Mỹ hạt luộc chín',
+          '2 quả trứng gà luộc lòng đào (luộc 7 phút) & 1/4 củ hành tây tím thái mỏng ngâm đá',
+          '1 thìa canh hạt mè rang hoặc hạnh nhân lát rang giòn',
+        ],
+      },
+      {
+        category: 'Sốt salad chua ngọt healthy (Dầu giấm mật ong chanh)',
+        items: [
+          '2 thìa canh dầu ô liu nguyên chất',
+          '1.5 thìa canh nước cốt chanh vàng (hoặc giấm táo hữu cơ)',
+          '1 thìa canh mật ong nguyên chất',
+          '1 thìa cà phê mù tạt vàng Dijon (giúp sốt nhũ hóa sánh mịn, không tách dầu)',
+          '1/3 thìa cà phê muối biển & 1/3 thìa cà phê tiêu đen xay mới',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế khử mùi & dàn đều độ dày ức gà',
+        time: '5 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Ức gà sạch mùi tanh, khô ráo hoàn toàn và dày đồng đều 1.5 - 2 cm để khi áp chảo chín đều không bị khô rìa',
+        actionPoints: [
+          'Rửa sạch ức gà với nước muối loãng pha vài lát gừng hoặc chút nước cốt chanh, xả sạch rồi dùng khăn giấy thấm thật khô bề mặt.',
+          'Đặt miếng ức gà giữa hai lớp màng bọc thực phẩm, dùng búa dần thịt (hoặc sống dao) đập nhẹ phần dày nhất để cả miếng dày đều khoảng 1.5 - 2 cm.',
+          'Khứa nhẹ vài đường nông trên bề mặt để gia vị thảo mộc thấm nhanh hơn.',
+        ],
+        description:
+          'Rửa sạch khử mùi ức gà, thấm thật khô rồi dần nhẹ để miếng thịt có độ dày đồng đều 1.5 - 2 cm, giúp áp chảo chín đều mà không khô xác.',
+        tip: 'Không nên thái lát nhỏ trước khi áp chảo vì sẽ làm thịt mất nước nhanh; hãy áp chảo nguyên miếng rồi mới thái sau khi thịt nghỉ.',
+      },
+      {
+        step: 2,
+        title: 'Ướp ức gà thảo mộc & sơ chế rau củ giòn lạnh',
+        time: '15 phút',
+        heat: 'Nhiệt độ phòng mát',
+        goal: 'Ức gà thấm đều hương thảo mộc; xà lách giòn tan, khô ráo hoàn toàn để bám sốt tốt',
+        actionPoints: [
+          'Trộn dầu ô liu, muối biển, tiêu đen, bột tỏi, ớt bột paprika, lá oregano và mật ong rồi xoa đều hai mặt ức gà, ướp 15 phút.',
+          'Rửa sạch xà lách Romaine, ngâm nước đá lạnh 5 phút rồi dùng rổ quay salad (hoặc vẩy thật kỹ) cho lá khô ráo hoàn toàn.',
+          'Cà chua bi bổ đôi, dưa leo thái lát, bơ sáp cắt khối vuông; hành tây tím thái mỏng ngâm nước đá lạnh 5 phút để hết hăng và giòn ngọt.',
+        ],
+        description:
+          'Ướp ức gà với dầu ô liu và thảo mộc 15 phút; trong lúc đó ngâm đá, vẩy khô rau xà lách và cắt sẵn cà chua bi, dưa leo, bơ sáp, trứng lòng đào.',
+        tip: 'Rau xà lách còn đọng nước sẽ làm sốt chua ngọt bị loãng và không bám vào lá — bước quay/vẩy khô rau rất quan trọng.',
+      },
+      {
+        step: 3,
+        title: 'Áp chảo ức gà vàng ươm mọng nước & để thịt nghỉ',
+        time: '10 phút',
+        heat: 'Lửa vừa -> lửa nhỏ',
+        goal: 'Lớp ngoài ức gà xém vàng thơm lừng thảo mộc, bên trong chín vừa tới, cắt ra vẫn giữ trọn nước thịt mềm mọng',
+        actionPoints: [
+          'Làm nóng chảo chống dính với 1 thìa cà phê dầu ô liu ở lửa vừa. Cho ức gà vào áp chảo mặt đầu tiên 3.5 - 4 phút (không lật sớm) đến khi mặt thịt vàng đẹp.',
+          'Lật mặt áp chảo tiếp 3 phút, sau đó hạ lửa nhỏ, đậy nắp chảo thêm 1 - 2 phút cho thịt chín thấu bên trong (nhiệt tâm đạt 74°C).',
+          'Gắp ức gà ra thớt sạch, để thịt nghỉ 5 phút cho dịch ngọt phân bổ đều trở lại rồi mới thái lát chéo dày khoảng 1 cm.',
+        ],
+        description:
+          'Áp chảo ức gà lửa vừa mỗi mặt 3 - 4 phút, đậy nắp lửa nhỏ 1 - 2 phút cho chín đều rồi để thịt nghỉ 5 phút trước khi thái lát.',
+        tip: 'Để thịt nghỉ 5 phút trước khi cắt là bí quyết số một giúp ức gà giữ nước, mềm ngọt như nhà hàng thay vì khô bã.',
+      },
+      {
+        step: 4,
+        title: 'Pha sốt salad chua ngọt healthy sánh mịn',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Sốt dầu giấm mật ong chanh vàng óng, nhũ hóa sánh mượt, hài hòa vị chua thanh - ngọt dịu không ngấy',
+        actionPoints: [
+          'Cho nước cốt chanh vàng (hoặc giấm táo), mật ong, mù tạt Dijon, muối biển và tiêu đen vào hũ thủy tinh sạch hoặc tô nhỏ, khuấy tan đều.',
+          'Rưới từ từ dầu ô liu nguyên chất vào, đồng thời đánh mạnh tay (hoặc đậy nắp hũ lắc đều 20 giây) để hỗn hợp nhũ hóa sánh mịn, không tách dầu.',
+          'Nếm thử và điều chỉnh độ chua ngọt theo khẩu vị (thêm chút chanh nếu thích chua thanh, hoặc chút mật ong nếu thích dịu ngọt).',
+        ],
+        description:
+          'Đánh nhũ hóa nước cốt chanh/giấm táo, mật ong, mù tạt Dijon, muối tiêu và dầu ô liu đến khi sốt vàng óng, sánh mịn chua ngọt hài hòa.',
+        tip: 'Một thìa cà phê mù tạt Dijon là chất nhũ hóa tự nhiên giúp dầu ô liu và nước cốt chanh quyện chặt thành lớp sốt bóng mượt.',
+      },
+      {
+        step: 5,
+        title: 'Trộn salad & thưởng thức chuẩn vị Eat Clean',
+        time: '2 phút',
+        heat: 'Dùng tươi mát',
+        goal: 'Đĩa salad đầy màu sắc, rau giòn mát thấm đều sốt chua ngọt, thịt ức gà mềm mọng béo bùi vị bơ và mè rang',
+        actionPoints: [
+          'Cho xà lách Romaine, cà chua bi, dưa leo, bắp Mỹ và hành tây tím vào tô lớn, rưới 2/3 phần sốt chua ngọt rồi đảo nhẹ tay để rau không bị dập.',
+          'Bày rau ra đĩa sâu lòng, xếp bơ sáp, trứng gà lòng đào bổ tư và các lát ức gà áp chảo vàng ươm lên trên.',
+          'Rưới nốt 1/3 phần sốt còn lại lên thịt gà, rắc thêm hạt mè rang hoặc hạnh nhân lát giòn và thưởng thức ngay khi rau còn mát giòn.',
+        ],
+        description:
+          'Trộn nhẹ rau củ với 2/3 sốt ngay trước khi ăn, xếp ức gà áp chảo, bơ sáp, trứng lòng đào lên trên, rưới nốt sốt và rắc mè rang thưởng thức ngay.',
+        tip: 'Chỉ trộn sốt ngay trước khi ăn (hoặc để riêng chén sốt nếu mang đi làm) để xà lách luôn giòn tan, không bị xẹp hay ra nước.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng cho đĩa Salad Ức Gà Healthy Chua Ngọt ngon chuẩn quán Eat Clean: 1. Dần đều độ dày ức gà và để thịt nghỉ 5 phút sau áp chảo giúp từng thớ thịt mềm mọng, tuyệt đối không bị khô bã; 2. Ngâm đá lạnh rồi quay khô hoàn toàn xà lách giúp rau giòn tan và bám sốt cực tốt; 3. Dùng 1 thìa mù tạt Dijon nhũ hóa sốt dầu giấm mật ong chanh giúp sốt sánh mịn, ít calo, giải ngấy hoàn hảo.',
+    recommendedSauce:
+      'Sốt dầu giấm mật ong chanh (chua ngọt thanh mát, ~90 kcal/phần) là lựa chọn chuẩn Eat Clean nhất; ngoài ra có thể đổi vị linh hoạt với sốt mè rang Nhật ít béo hoặc sốt sữa chua Hy Lạp chanh tỏi.',
+  },
 };
 
 /**

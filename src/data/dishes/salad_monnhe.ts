@@ -3,17 +3,17 @@ import { Dish } from '../../types';
 export const SALAD_MONNHE_DISHES: Dish[] = [
   {
     id: 'salad-uc-ga-ap-chao',
-    name: 'Salad Ức Gà Áp Chảo Sốt Mè Rang',
+    name: 'Salad Ức Gà Áp Chảo Healthy Chua Ngọt',
     vietnameseName: 'Salad Ức Gà Healthy',
     category: 'salad_monnhe',
     mealTime: ['sang', 'trua', 'toi'],
     priceRange: '50.000đ - 75.000đ',
     estimatedPrice: 60000,
-    calories: '320 - 400 kcal',
-    description: 'Ức gà tẩm ướp thảo mộc áp chảo vàng mọng nước, ăn kèm xà lách Romaine tươi giòn, cà chua bi, trứng luộc và sốt mè rang bùi béo.',
+    calories: '320 - 380 kcal',
+    description: 'Ức gà tẩm ướp thảo mộc áp chảo vàng mọng nước, ăn kèm xà lách Romaine tươi giòn, cà chua bi, bơ sáp, trứng lòng đào và sốt dầu giấm mật ong chanh chua ngọt thanh mát.',
     image: '/images/chicken_caesar.jpg',
-    popularTags: ['Eat clean', 'Ức gà mềm', 'Sốt mè rang'],
-    searchKeyword: 'Salad ức gà sốt mè rang',
+    popularTags: ['Eat clean', 'Ức gà mềm mọng', 'Sốt chua ngọt'],
+    searchKeyword: 'Salad ức gà healthy',
   },
   {
     id: 'salad-ca-ngu-ngo-ngot',

@@ -503,7 +503,7 @@ export const INITIAL_BLOG_POSTS: BlogPost[] = [
     "slug": "mon-ngon-tu-thit-cot-let",
     "title": "Thịt Cốt Lết Làm Món Gì Ngon? Bí Quyết Ướp Cốt Lết Mềm Mọng Không Khô",
     "excerpt": "Bí quyết ướp thịt cốt lết nướng cơm tấm mềm mọng không khô: cốt lết ram mặn ngọt, chiên xù kiểu Nhật và mẹo đập mềm thớ thịt chuẩn vị.",
-    "coverImage": "/images/suon_heo_rim_man_ngot.jpg",
+    "coverImage": "/images/thit-cot-let-lam-mon-gi-ngon.jpg",
     "category": "Bí Quyết Nấu Ăn",
     "tags": [
       "Thịt cốt lết",

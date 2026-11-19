@@ -607,6 +607,11 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "category": "Đồ Uống"
   },
   {
+    "name": "Nước ép cam cà rốt tươi",
+    "url": "/images/nuoc_ep_cam_ca_rot.jpg",
+    "category": "Đồ Uống"
+  },
+  {
     "name": "Trà chanh giã tay thơm lừng",
     "url": "/images/tra_chanh_gia_tay.jpg",
     "category": "Đồ Uống"
@@ -632,8 +637,23 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "category": "Đồ Uống"
   },
   {
+    "name": "Trà ổi hồng xí muội giải nhiệt",
+    "url": "/images/tra_oi_hong_xi_muoi.jpg",
+    "category": "Đồ Uống"
+  },
+  {
     "name": "Trà sen vàng củ năng kem sữa",
     "url": "/images/tra_sen_vang.jpg",
+    "category": "Đồ Uống"
+  },
+  {
+    "name": "Trà vải lài thơm dịu",
+    "url": "/images/tra_vai_lai.jpg",
+    "category": "Đồ Uống"
+  },
+  {
+    "name": "Trà xoài macchiato kem cheese",
+    "url": "/images/tra_xoai_macchiato.jpg",
     "category": "Đồ Uống"
   },
   {
@@ -934,6 +954,11 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
   {
     "name": "Bê thui Cầu Mống chấm mắm nêm",
     "url": "/images/be_thui.jpg",
+    "category": "Thịt Bò"
+  },
+  {
+    "name": "Bò bít tết sốt tiêu đen",
+    "url": "/images/bo_bit_tet_sot_tieu.jpg",
     "category": "Thịt Bò"
   },
   {
@@ -1319,6 +1344,11 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
   {
     "name": "Thịt băm sốt cà chua đậm vị",
     "url": "/images/thit_bam_sot_ca_chua.jpg",
+    "category": "Thịt Heo"
+  },
+  {
+    "name": "Thịt cốt lết làm món gì ngon",
+    "url": "/images/thit-cot-let-lam-mon-gi-ngon.jpg",
     "category": "Thịt Heo"
   },
   {

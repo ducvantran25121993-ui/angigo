@@ -374,9 +374,9 @@ export const CURATED_RECIPE_META: Record<string, RecipeCardMeta> = {
     "seoTitle": "Cách Nấu Miến Lươn Giòn Nước Dùng Thanh Ngọt Chuẩn Vị Gia Đình"
   },
   "nom-bo-kho-ha-noi": {
-    "cookTime": "15 phút (pha nước giấm đường ớt tỏi & trộn nộm)",
+    "cookTime": "15 phút (pha nước giấm tỏi ớt & trộn nộm)",
     "difficulty": "Dễ",
-    "seoTitle": "Cách Làm Nộm Bò Khô Đu Đủ Chua Ngọt Giòn Tan, Giải Ngấy Cực Tốt"
+    "seoTitle": "Cách Làm Nộm Bò Khô Đu Đủ Chua Ngọt Giòn"
   },
   "nem-chua-ran-ha-noi": {
     "cookTime": "15 - 20 phút (lăn bột chiên xù & rán ngập dầu giòn rụm)",

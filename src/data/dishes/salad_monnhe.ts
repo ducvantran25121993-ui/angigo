@@ -66,10 +66,10 @@ export const SALAD_MONNHE_DISHES: Dish[] = [
     priceRange: '30.000đ - 50.000đ',
     estimatedPrice: 40000,
     calories: '280 - 360 kcal',
-    description: 'Đu đủ nạo sợi giòn tanh tách, bò khô miếng cay cay ngọt ngọt, gan sấy bùi bùi, rắc lạc rang thơm phức chan nước giấm tỏi ớt chua ngọt.',
+    description: 'Hướng dẫn cách làm nộm bò khô đu đủ Hà Nội chua ngọt giòn tan với bí quyết ngâm nước đá, pha nước giấm tỏi ớt tỷ lệ vàng, ăn kèm bò khô, lạc rang, kinh giới.',
     image: '/images/nom_bo_kho.jpg',
-    popularTags: ['Bờ Hồ Hà Nội', 'Bò khô cay', 'Đu đủ giòn'],
-    searchKeyword: 'Nộm bò khô đu đủ',
+    popularTags: ['Nộm Bờ Hồ Hà Nội', 'Bò khô cay ngọt', 'Đu đủ giòn tan'],
+    searchKeyword: 'Cách làm nộm bò khô đu đủ Hà Nội',
   },
   {
     id: 'goi-ngo-sen-tom-thit',

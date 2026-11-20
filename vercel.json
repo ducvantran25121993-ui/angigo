@@ -1422,6 +1422,76 @@
       "source": "/salad-bo-trung/",
       "destination": "/cach-lam-salad-bo-trung-long-dao",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-nom-bo-kho-ha-noi",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nom-bo-kho-ha-noi/",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/nom-bo-kho-ha-noi",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/nom-bo-kho-ha-noi/",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nom-bo-kho",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nom-bo-kho/",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nom-bo-kho",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nom-bo-kho/",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/nom-bo-kho",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/nom-bo-kho/",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nom-bo-kho-du-du",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nom-bo-kho-du-du/",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nom-bo-kho-du-du",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nom-bo-kho-du-du/",
+      "destination": "/cach-lam-nom-bo-kho-ha-noi",
+      "permanent": true
     }
   ],
   "headers": [

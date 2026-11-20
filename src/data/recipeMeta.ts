@@ -491,12 +491,12 @@ export const CURATED_RECIPE_META: Record<string, RecipeCardMeta> = {
   "goi-xoai-xanh-ca-sac": {
     "cookTime": "15 phút",
     "difficulty": "Dễ",
-    "seoTitle": "Cách Làm Gỏi Xoài Cá Sặc Chua Ngọt Giòn Tan, Giải Ngấy Cực Tốt"
+    "seoTitle": "Cách Làm Gỏi Xoài Cá Sặc Ngon Chuẩn Vị"
   },
   "goi-ngo-sen-tom-thit": {
     "cookTime": "20 phút",
     "difficulty": "Trung bình",
-    "seoTitle": "Cách Làm Gỏi Ngó Sen Tôm Thịt Chua Ngọt Giòn Tan, Giải Ngấy Cực Tốt"
+    "seoTitle": "Cách Làm Gỏi Ngó Sen Tôm Thịt Giòn Ngon"
   },
   "com-chien-ca-man": {
     "cookTime": "20 phút",

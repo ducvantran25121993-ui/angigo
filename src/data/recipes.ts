@@ -11407,7 +11407,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   'goi-xoai-xanh-ca-sac': {
     dishId: 'goi-xoai-xanh-ca-sac',
     dishName: 'Gỏi Xoài Xanh Khô Cá Sặc Bùi Béo',
-    seoTitle: 'Cách Làm Gỏi Xoài Cá Sặc Chua Ngọt Giòn Tan, Giải Ngấy Cực Tốt',
+    seoTitle: 'Cách Làm Gỏi Xoài Cá Sặc Ngon Chuẩn Vị',
     description:
       'Hướng dẫn chi tiết cách làm gỏi xoài khô cá sặc rằn chuẩn vị Miền Tây: Xoài xanh bào sợi giòn sần sật mát lạnh, khô cá sặc nướng/chiên vỡ da giòn rụm béo bùi xé miếng vừa ăn, quyện sốt mắm đường thốt nốt tỏi ớt chua ngọt vừa miệng, rắc rau răm, hành phi và đậu phụng rang bùi ngậy.',
     prepTime: '20 phút',
@@ -11531,7 +11531,7 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   'goi-ngo-sen-tom-thit': {
     dishId: 'goi-ngo-sen-tom-thit',
     dishName: 'Gỏi Ngó Sen Tôm Thịt Thanh Mát Chua Ngọt',
-    seoTitle: 'Cách Làm Gỏi Ngó Sen Tôm Thịt Chua Ngọt Giòn Tan, Giải Ngấy Cực Tốt',
+    seoTitle: 'Cách Làm Gỏi Ngó Sen Tôm Thịt Giòn Ngon',
     description:
       'Hướng dẫn chi tiết cách làm gỏi ngó sen tôm thịt chuẩn vị tiệc gia đình: Ngó sen tươi trắng ngần giòn sần sật không thâm đen, tôm sú luộc đỏ au ngọt thịt, thịt ba chỉ mỏng mềm béo ngậy, quyện sốt mắm đường thốt nốt tỏi ớt chua ngọt đậm đà, rắc rau răm, hành phi và đậu phụng rang bùi thơm, ăn kèm bánh phồng tôm giòn rụm.',
     prepTime: '25 phút',

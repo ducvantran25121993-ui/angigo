@@ -1390,5 +1390,10 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "name": "Tôm đồng rim thịt ba chỉ đưa cơm",
     "url": "/images/tom_dong_rim_ba_chi.jpg",
     "category": "Thịt Heo"
+  },
+  {
+    "name": "Salad bơ trứng lòng đào bổ dưỡng",
+    "url": "/images/salad_bo_trung_long_dao.jpg",
+    "category": "Món Trứng"
   }
 ];

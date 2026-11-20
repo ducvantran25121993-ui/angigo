@@ -1395,5 +1395,10 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "name": "Salad bơ trứng lòng đào bổ dưỡng",
     "url": "/images/salad_bo_trung_long_dao.jpg",
     "category": "Món Trứng"
+  },
+  {
+    "name": "Poke Bowl cá hồi tươi bơ sáp",
+    "url": "/images/poke_bowl_ca_hoi.jpg",
+    "category": "Cá & Hải Sản"
   }
 ];

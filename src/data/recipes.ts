@@ -15866,6 +15866,133 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Sốt ướp nước tương Nhật – dầu mè kết hợp sốt Spicy Mayo béo cay rưới mặt là cặp đôi chuẩn vị nhất; nếu ăn theo chế độ Eat Clean ít béo có thể đổi sang sốt mè rang Nhật hoặc sốt Ponzu cam yuzu thanh mát.',
   },
+  'salad-bo-trung-long-dao': {
+    dishId: 'salad-bo-trung-long-dao',
+    dishName: 'Salad Bơ Sáp Trứng Lòng Đào Rau Mầm',
+    seoTitle: 'Cách Làm Salad Bơ Trứng Ngon Miệng Bổ Dưỡng',
+    description:
+      'Hướng dẫn cách làm salad bơ trứng ngon miệng bổ dưỡng chuẩn vị: bí quyết luộc trứng gà lòng đào chảy vàng óng trong 6.5 phút, cắt bơ sáp dẻo bùi không thâm và pha sốt dầu ô liu chanh mật ong thanh mát.',
+    ratingValue: '4.9',
+    reviewCount: 286,
+    prepTime: '10 phút',
+    cookTime: '7 phút (luộc trứng lòng đào)',
+    totalTime: '17 phút',
+    servings: '2 người ăn',
+    difficulty: 'Dễ',
+    calories: '340 kcal',
+    ingredients: [
+      {
+        category: 'Nguyên liệu chính (Bơ sáp & Trứng lòng đào)',
+        items: [
+          '1 quả bơ sáp chín tới (khoảng 250 - 300g, vỏ căng, ấn nhẹ hơi mềm tay)',
+          '3 quả trứng gà ta tươi (để nhiệt độ phòng để luộc không bị nứt vỏ)',
+          '1/2 thìa cà phê muối & 1 thìa cà phê giấm trắng (cho vào nước luộc giúp dễ bóc vỏ)',
+        ],
+      },
+      {
+        category: 'Rau xanh giòn mát & Topping bổ dưỡng',
+        items: [
+          '150g xà lách Romaine hoặc xà lách thủy tinh tươi',
+          '50g rau mầm (rau mầm củ cải hoặc cải xanh)',
+          '100g cà chua bi (bổ đôi)',
+          '1/2 quả dưa leo Nhật (thái lát mỏng vừa ăn)',
+          '1/4 củ hành tây tím (thái lát thật mỏng, ngâm nước đá pha giấm cho hết hăng)',
+          '1 thìa canh hạt mè trắng rang thơm hoặc hạnh nhân lát rang giòn',
+        ],
+      },
+      {
+        category: 'Sốt dầu ô liu chanh mật ong (hoặc chanh dây)',
+        items: [
+          '2 thìa canh dầu ô liu nguyên chất (Extra Virgin Olive Oil)',
+          '1.5 thìa canh nước cốt chanh tươi (hoặc 2 thìa canh nước cốt chanh dây lọc bỏ hạt)',
+          '1 thìa canh mật ong nguyên chất',
+          '1/2 thìa cà phê mù tạt vàng Dijon (giúp sốt nhũ hóa sánh mượt, thơm dịu)',
+          '1/4 thìa cà phê muối biển & 1/4 thìa cà phê tiêu đen xay mới',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế & ngâm lạnh rau củ giúp salad giòn lâu',
+        time: '5 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Rau xà lách, rau mầm, dưa leo và cà chua bi tươi giòn rụm, ráo nước hoàn toàn và hành tây tím hết vị hăng',
+        actionPoints: [
+          'Rửa sạch xà lách, rau mầm, cà chua bi và dưa leo Nhật dưới vòi nước nhẹ; ngâm qua nước muối loãng 3 phút rồi rửa lại nước sạch.',
+          'Ngâm xà lách và dưa leo trong tô nước đá lạnh khoảng 5 phút để lá rau căng giòn, sau đó vẩy hoặc dùng rổ quay salad làm thật ráo nước.',
+          'Hành tây tím thái lát mỏng, ngâm 5 phút trong bát nước đá pha vài giọt giấm rồi vớt ra để ráo; cà chua bi cắt đôi.',
+        ],
+        description:
+          'Rửa sạch và ngâm nước đá lạnh xà lách, dưa leo, hành tây tím trong 5 phút rồi vẩy thật ráo nước để khi trộn sốt salad luôn giòn rụm, không bị chảy nước.',
+        tip: 'Rau còn ướt nước sẽ làm loãng nước sốt và khiến salad nhanh bị nhũn; hãy thấm hoặc vẩy rau thật khô trước khi bày.',
+      },
+      {
+        step: 2,
+        title: 'Luộc trứng gà lòng đào chảy chuẩn 6.5 - 7 phút',
+        time: '8 phút',
+        heat: 'Lửa vừa (nước sôi lăn tăn)',
+        goal: 'Lòng trắng chín mềm mịn dễ bóc vỏ, lòng đỏ màu cam sánh dẻo hơi chảy óng ả',
+        actionPoints: [
+          'Đun sôi một nồi nước ngập trứng cùng 1/2 thìa cà phê muối và 1 thìa cà phê giấm trắng (giúp lòng trắng đông nhanh nếu vỏ nứt và bóc cực mượt).',
+          'Hạ lửa vừa để nước sôi lăn tăn nhẹ, dùng muôi thả nhẹ từng quả trứng nhiệt độ phòng vào luộc đúng 6 phút 30 giây đến 7 phút (nếu trứng lấy thẳng từ ngăn mát tủ lạnh thì cộng thêm 30 giây).',
+          'Hết giờ, vớt trứng thả ngay vào tô nước đá lạnh ngâm 3 - 4 phút để dừng chín hoàn toàn, sau đó bóc sạch vỏ và bổ đôi hoặc bổ múi cau.',
+        ],
+        description:
+          'Thả nhẹ trứng vào nồi nước sôi lăn tăn có pha chút muối và giấm, luộc đúng 6.5 - 7 phút rồi ngâm ngay vào tô nước đá lạnh 3 phút trước khi bóc vỏ bổ đôi.',
+        tip: 'Dùng chỉ mảnh hoặc dao sắc lau ướt qua nước nóng để cắt trứng giúp mặt cắt mịn đẹp, không dính nát lòng đào.',
+      },
+      {
+        step: 3,
+        title: 'Chọn & cắt bơ sáp dẻo bùi không bị thâm đen',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Từng miếng bơ sáp xanh vàng tươi mắt, béo ngậy nguyên khối, không nát và không bị oxy hóa thâm đen',
+        actionPoints: [
+          'Dùng dao rạch dọc vòng quanh hạt bơ, xoay nhẹ tách làm đôi rồi lấy hạt ra.',
+          'Lột nhẹ lớp vỏ bơ hoặc dùng thìa lớn múc trọn phần thịt bơ nguyên khối để giữ được phần thịt xanh đậm giàu dinh dưỡng sát vỏ nhất.',
+          'Thái bơ thành lát mỏng xếp hình quạt hoặc cắt khối vuông 2 cm, vắt ngay vài giọt nước cốt chanh tươi áo đều bề mặt để bơ giữ màu tươi sáng.',
+        ],
+        description:
+          'Bổ đôi bỏ hạt, lột vỏ bơ sáp chín tới, cắt miếng vừa ăn hoặc thái lát quạt rồi vắt ngay vài giọt chanh tươi chống thâm.',
+        tip: 'Chỉ cắt bơ ngay trước bước trình bày và tuyệt đối không đảo trộn bơ mạnh tay với rau để bơ không bị nát bét.',
+      },
+      {
+        step: 4,
+        title: 'Pha sốt dầu ô liu chanh mật ong sánh mượt',
+        time: '3 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Nước sốt nhũ hóa sánh óng, hòa quyện vị chua thanh – ngọt dịu – béo thơm tôn trọn hương vị bơ và trứng',
+        actionPoints: [
+          'Cho dầu ô liu nguyên chất, nước cốt chanh tươi (hoặc nước cốt chanh dây lọc hạt), mật ong, mù tạt Dijon, muối biển và tiêu đen vào hũ thủy tinh có nắp.',
+          'Đậy kín nắp và lắc mạnh tay trong 20 - 30 giây (hoặc đánh bằng phới lồng) cho đến khi dầu và nước cốt hòa quyện thành hỗn hợp sốt hơi sánh mịn.',
+          'Nếm thử và cân chỉnh độ chua ngọt nhẹ theo khẩu vị gia đình.',
+        ],
+        description:
+          'Cho dầu ô liu, nước cốt chanh (hoặc chanh dây), mật ong, mù tạt Dijon, muối và tiêu đen vào hũ kín, lắc mạnh 20 - 30 giây đến khi sốt nhũ hóa sánh mịn.',
+        tip: 'Chút mù tạt vàng Dijon đóng vai trò chất nhũ hóa tự nhiên giúp sốt bám mượt vào từng lá rau mà không bị tách lớp dầu.',
+      },
+      {
+        step: 5,
+        title: 'Trộn salad đúng kỹ thuật & thưởng thức ngay',
+        time: '3 phút',
+        heat: 'Dùng tươi mát',
+        goal: 'Đĩa salad bơ trứng rực rỡ màu sắc: rau giòn mát thấm sốt, bơ sáp béo mịn, trứng lòng đào tan chảy hài hòa',
+        actionPoints: [
+          'Cho xà lách, rau mầm, dưa leo, cà chua bi và hành tây tím vào tô lớn, rưới 2/3 lượng sốt rồi đảo thật nhẹ tay cho rau áo mỏng gia vị.',
+          'Bày hỗn hợp rau đã trộn ra đĩa sâu lòng hoặc tô salad.',
+          'Xếp đều các lát bơ sáp và trứng gà lòng đào bổ đôi lên trên mặt, rưới phần 1/3 sốt còn lại lên bơ và trứng, rắc hạt mè rang hoặc hạnh nhân lát cùng chút tiêu đen xay rồi thưởng thức ngay.',
+        ],
+        description:
+          'Trộn nhẹ phần rau củ với 2/3 lượng sốt trước, bày ra đĩa rồi xếp bơ sáp và trứng lòng đào lên trên, rưới nốt sốt, rắc mè rang và dùng ngay.',
+        tip: 'Có thể thêm 1 lát bánh mì đen nướng giòn hoặc vài hạt óc chó để biến món salad thành bữa sáng / bữa tối Eat Clean no lâu và đủ chất.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết giúp Salad Bơ Trứng ngon miệng bổ dưỡng chuẩn nhà hàng Eat Clean: 1. Canh đồng hồ chuẩn 6.5 - 7 phút luộc trứng rồi ngâm nước đá ngay để lòng đào dẻo chảy hoàn hảo và dễ bóc; 2. Chọn bơ sáp chín tới, cắt lát sau cùng và áo vài giọt chanh để không thâm; 3. Trộn sốt với rau trước rồi mới đặt bơ và trứng lên trên để đĩa salad đẹp mắt, không bị nát.',
+    recommendedSauce:
+      'Sốt dầu ô liu chanh mật ong (hoặc biến tấu với nước cốt chanh dây tươi) tạo vị chua thanh nhẹ tôn trọn độ béo bùi của bơ sáp và trứng lòng đào; bạn cũng có thể đổi vị với sốt mè rang Nhật hoặc sữa chua không đường trộn thảo mộc.',
+  },
 };
 
 /**

@@ -133,7 +133,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "mien-xao-cua": "Cách Làm Miến Xào Cua Mềm Mượt, Tơi Săn",
   "salad-uc-ga-ap-chao": "Cách Làm Salad Ức Gà Healthy Chua Ngọt",
   "salad-ca-ngu-ngo-ngot": "Cách Làm Salad Cá Ngừ Đơn Giản Siêu Ngon",
-  "poke-bowl-ca-hoi": "Cách Làm Poke Bowl Cá Hồi Đơn Giản Tại Nhà"
+  "poke-bowl-ca-hoi": "Cách Làm Poke Bowl Cá Hồi Đơn Giản Tại Nhà",
+  "salad-bo-trung-long-dao": "Cách Làm Salad Bơ Trứng Ngon Miệng Bổ Dưỡng"
 };
 
 /**
@@ -505,6 +506,9 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'salad-ca-ngu-don-gian': 'cach-lam-salad-ca-ngu-don-gian',
   'poke-bowl-ca-hoi': 'cach-lam-poke-bowl-ca-hoi',
   'poke-bowl': 'cach-lam-poke-bowl-ca-hoi',
+  'salad-bo-trung-long-dao': 'cach-lam-salad-bo-trung-long-dao',
+  'salad-bo-trung': 'cach-lam-salad-bo-trung-long-dao',
+  'salad-bo': 'cach-lam-salad-bo-trung-long-dao',
 };
 
 /**
@@ -1319,6 +1323,16 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-poke-bowl-ca-hoi-don-gian-tai-nha': 'poke-bowl-ca-hoi',
   'cach-lam-poke-bowl-ca-hoi-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'poke-bowl-ca-hoi',
   'cach-nau-poke-bowl-ca-hoi-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'poke-bowl-ca-hoi',
+
+  'salad-bo-trung-long-dao': 'salad-bo-trung-long-dao',
+  'salad-bo-trung': 'salad-bo-trung-long-dao',
+  'salad-bo': 'salad-bo-trung-long-dao',
+  'cach-nau-salad-bo-trung-long-dao': 'salad-bo-trung-long-dao',
+  'cach-lam-salad-bo-trung': 'salad-bo-trung-long-dao',
+  'cach-nau-salad-bo-trung': 'salad-bo-trung-long-dao',
+  'cach-lam-salad-bo-trung-ngon-mieng-bo-duong': 'salad-bo-trung-long-dao',
+  'cach-lam-salad-bo-trung-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-bo-trung-long-dao',
+  'cach-nau-salad-bo-trung-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-bo-trung-long-dao',
 };
 
 /**

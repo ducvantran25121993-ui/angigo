@@ -1372,6 +1372,56 @@
       "source": "/poke-bowl/",
       "destination": "/cach-lam-poke-bowl-ca-hoi",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-bo-trung-long-dao",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-bo-trung-long-dao/",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-bo-trung-long-dao",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-bo-trung-long-dao/",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-bo-trung",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-bo-trung/",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-bo-trung",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-bo-trung/",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-bo-trung",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-bo-trung/",
+      "destination": "/cach-lam-salad-bo-trung-long-dao",
+      "permanent": true
     }
   ],
   "headers": [

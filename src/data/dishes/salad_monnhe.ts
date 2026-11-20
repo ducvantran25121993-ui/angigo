@@ -51,10 +51,10 @@ export const SALAD_MONNHE_DISHES: Dish[] = [
     mealTime: ['sang', 'trua', 'toi'],
     priceRange: '40.000đ - 60.000đ',
     estimatedPrice: 50000,
-    calories: '300 - 380 kcal',
-    description: 'Trái bơ sáp chín tới dẻo quánh, trứng gà ta luộc lòng đào chảy vàng óng ả, rưới sốt chanh dây chua ngọt tươi mát sảng khoái.',
+    calories: '320 - 360 kcal',
+    description: 'Bơ sáp chín tới dẻo bùi không thâm, trứng gà luộc lòng đào chảy vàng óng 6.5 phút, quyện rau xà lách giòn mát, cà chua bi và sốt dầu ô liu chanh mật ong thanh nhẹ bổ dưỡng.',
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&auto=format&fit=crop&q=80',
-    popularTags: ['Trứng lòng đào', 'Bơ sáp dẻo', 'Giữ dáng'],
+    popularTags: ['Trứng lòng đào', 'Bơ sáp dẻo bùi', 'Healthy bổ dưỡng'],
     searchKeyword: 'Salad bơ trứng lòng đào',
   },
   {

@@ -1774,7 +1774,7 @@ ${newContent}
 
           {/* Quick Recipe & Nutrition Summary Card for SEO & Readers */}
           <section
-            id="video-guide"
+            id="recipe-summary"
             className="bg-gradient-to-br from-amber-50/70 via-white to-orange-50/60 rounded-3xl p-5 sm:p-7 border border-orange-200/60 shadow-2xs mb-8 sm:mb-10"
           >
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">

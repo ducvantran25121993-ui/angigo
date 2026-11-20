@@ -2319,7 +2319,6 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
       if (rec?.steps) {
         extraContent += `<h2>Các bước nấu chi tiết</h2><ol>${rec.steps.map(s => `<li><strong>${escapeXml(s.title)}</strong>: ${escapeXml(s.description)}</li>`).join('')}</ol>`;
       }
-      extraContent += `<section id="video-guide"><h2>Video hướng dẫn cách nấu ${escapeXml(td.vietnameseName || td.name)}</h2><p>Xem video hướng dẫn chi tiết từng bước nấu ${escapeXml(td.vietnameseName || td.name)} thơm ngon chuẩn vị gia đình Việt Nam.</p></section>`;
     }
   } else if (cleanPath === '/quan-ngon') {
     extraContent = `<div><h3>Địa chỉ ẩm thực và top nhà hàng chuẩn vị 3 miền</h3><p>Khám phá quán ngon nổi tiếng tại TP.HCM (Quận 1, Quận 3, Bình Thạnh), Hà Nội (Hoàn Kiếm, Cầu Giấy, Đống Đa), Đà Nẵng. Đặt món giao tận nơi qua ShopeeFood, GrabFood, BeFood và chỉ đường chi tiết.</p></div>`;

@@ -1400,5 +1400,10 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "name": "Poke Bowl cá hồi tươi bơ sáp",
     "url": "/images/poke_bowl_ca_hoi.jpg",
     "category": "Cá & Hải Sản"
+  },
+  {
+    "name": "Salad cá ngừ đơn giản ngô ngọt trứng luộc",
+    "url": "/images/salad_ca_ngu_don_gian.jpg",
+    "category": "Cá & Hải Sản"
   }
 ];

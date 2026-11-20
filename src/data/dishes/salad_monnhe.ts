@@ -25,7 +25,7 @@ export const SALAD_MONNHE_DISHES: Dish[] = [
     estimatedPrice: 55000,
     calories: '320 - 380 kcal',
     description: 'Thịt cá ngừ tơi ngọt không tanh quyện ngô ngọt giòn sần sật, xà lách tươi mát, trứng luộc và sốt mayonnaise sữa chua chanh béo dịu thanh nhẹ.',
-    image: '/images/salad_ca_ngu_ngo_ngot.jpg',
+    image: '/images/salad_ca_ngu_don_gian.jpg',
     popularTags: ['Cá ngừ không tanh', 'Ngô ngọt giòn', 'Đơn giản 15p'],
     searchKeyword: 'Salad cá ngừ đơn giản',
   },

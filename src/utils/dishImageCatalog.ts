@@ -1133,7 +1133,7 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
     "category": "mon_ngon"
   },
   {
-    "image": "/images/salad_ca_ngu_ngo_ngot.jpg",
+    "image": "/images/salad_ca_ngu_don_gian.jpg",
     "name": "Salad Cá Ngừ Ngô Ngọt Sốt Mayonnaise",
     "category": "salad_monnhe"
   },

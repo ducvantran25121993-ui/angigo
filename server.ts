@@ -2716,7 +2716,9 @@ app.post("/api/admin/posts/import", (req, res) => {
     };
 
     let customPosts = loadCustomBlogPosts();
-    const sanitizedIncoming = posts.filter((p) => p && (p.slug || p.id)).map(sanitizeImportedPost);
+    const sanitizedIncoming = posts
+      .filter((p) => p && (p.slug || p.id) && String(p.updatedAt || "").trim() !== "2026-11-20T09:00:00.000Z")
+      .map(sanitizeImportedPost);
 
     if (overwrite) {
       customPosts = sanitizedIncoming;

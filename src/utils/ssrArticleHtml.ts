@@ -389,19 +389,28 @@ export function renderArticleBodySemanticHtml(post: {
   return markdownToSemanticHtml(String(post.content || ''), fallbackAlt);
 }
 
-export function buildFullArticleSsrHtml(post: {
-  slug?: string;
-  title?: string;
-  excerpt?: string;
-  content?: string;
-  htmlContent?: string;
-  coverImage?: string;
+export interface SsrRelatedArticleLink {
+  slug: string;
+  title: string;
   category?: string;
-  publishDate?: string;
-  readTime?: string;
-  tags?: string[];
-  author?: { name?: string };
-}): string {
+}
+
+export function buildFullArticleSsrHtml(
+  post: {
+    slug?: string;
+    title?: string;
+    excerpt?: string;
+    content?: string;
+    htmlContent?: string;
+    coverImage?: string;
+    category?: string;
+    publishDate?: string;
+    readTime?: string;
+    tags?: string[];
+    author?: { name?: string };
+  },
+  relatedPosts?: SsrRelatedArticleLink[]
+): string {
   const cleanTitle = String(post.title || 'Blog Ẩm Thực Hôm Nay Ăn Gì').trim();
   const desc = String(post.excerpt || '').trim();
   const bodyHtml = renderArticleBodySemanticHtml(post);
@@ -423,6 +432,24 @@ export function buildFullArticleSsrHtml(post: {
     .filter(Boolean)
     .join(' • ');
 
+  const safeRelated = Array.isArray(relatedPosts)
+    ? relatedPosts.filter((rp) => rp && rp.slug && rp.title).slice(0, 6)
+    : [];
+  const relatedHtml =
+    safeRelated.length > 0
+      ? `<aside aria-label="Bài viết liên quan" style="margin-top: 2rem; padding: 1.25rem; background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 0.85rem;">
+          <h2 style="font-size: 1.15rem; font-weight: 800; margin: 0 0 0.75rem 0; color: #0c0a09;">Bài viết cùng chủ đề nên xem</h2>
+          <ul style="list-style: none; padding: 0; margin: 0; display: grid; gap: 0.5rem;">
+            ${safeRelated
+              .map(
+                (rp) =>
+                  `<li><a href="/${escapeHtml(String(rp.slug).replace(/^\//, ''))}" style="color: #ea580c; font-weight: 600; text-decoration: none;">${escapeHtml(rp.title)}</a></li>`
+              )
+              .join('\n            ')}
+          </ul>
+        </aside>`
+      : '';
+
   return `<article id="prerender-content" style="max-width: 56rem; margin: 2rem auto; padding: 0 1rem; font-family: 'Be Vietnam Pro', system-ui, sans-serif; color: #1c1917; line-height: 1.7;">
         <nav aria-label="Breadcrumb" style="font-size: 0.85rem; color: #78716c; margin-bottom: 1rem;">
           <a href="/" style="color: #ea580c; text-decoration: none;">Trang chủ</a> &rsaquo;
@@ -442,6 +469,7 @@ export function buildFullArticleSsrHtml(post: {
         <section class="article-body">
           ${bodyHtml}
         </section>
+        ${relatedHtml}
         <footer style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e7e5e4; font-size: 0.9rem; color: #57534e;">
           ${tags.length > 0 ? `<p>Chủ đề: ${tags.map((t) => `#${escapeHtml(t)}`).join(', ')}</p>` : ''}
           <p><a href="/blog" style="color: #ea580c;">Xem thêm bài viết Blog Ẩm Thực</a> | <a href="/" style="color: #ea580c;">Gợi ý Hôm Nay Ăn Gì</a></p>

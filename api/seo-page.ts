@@ -739,70 +739,90 @@ function injectPostSeo(baseHtml: string, post: Record<string, any>): string {
       .replace(/<meta\s+name="bingbot"\s+content=".*?"\s*\/?>/i, `<meta name="bingbot" content="noindex, nofollow" />`);
   }
 
+  const graphNodes: Record<string, any>[] = [
+    {
+      '@type': 'BlogPosting',
+      '@id': `${canonicalUrl}#article`,
+      isPartOf: {
+        '@type': 'WebSite',
+        '@id': 'https://angigio.com/#website',
+        name: 'Hôm Nay Ăn Gì',
+        url: 'https://angigio.com/',
+      },
+      inLanguage: 'vi-VN',
+      headline: cleanArtTitle,
+      description: effectiveDesc,
+      image: [fullImageUrl],
+      datePublished: publishedTime,
+      dateModified: modifiedTime,
+      wordCount: plainBodyWords > 0 ? plainBodyWords : undefined,
+      keywords: effectiveKeywords || undefined,
+      articleSection: post.category || 'Bí quyết ẩm thực',
+      author: {
+        '@type': 'Person',
+        name: post.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì',
+        jobTitle: post.author?.role || 'Chuyên gia ẩm thực',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Hôm Nay Ăn Gì',
+        url: 'https://angigio.com/',
+        logo: {
+          '@type': 'ImageObject',
+          url: 'https://angigio.com/logo.png',
+        },
+      },
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': canonicalUrl,
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${canonicalUrl}#breadcrumb`,
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Trang chủ',
+          item: 'https://angigio.com/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Blog Ẩm Thực',
+          item: 'https://angigio.com/blog',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: cleanArtTitle,
+          item: canonicalUrl,
+        },
+      ],
+    },
+  ];
+
+  if (Array.isArray(post.faqs) && post.faqs.length > 0) {
+    graphNodes.push({
+      '@type': 'FAQPage',
+      '@id': `${canonicalUrl}#faq`,
+      mainEntity: post.faqs
+        .filter((f: any) => f && f.question && f.answer)
+        .map((f: any) => ({
+          '@type': 'Question',
+          name: String(f.question),
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: String(f.answer),
+          },
+        })),
+    });
+  }
+
   const articleSchema = {
     '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'BlogPosting',
-        '@id': `${canonicalUrl}#article`,
-        isPartOf: {
-          '@type': 'WebSite',
-          '@id': 'https://angigio.com/#website',
-          name: 'Hôm Nay Ăn Gì',
-          url: 'https://angigio.com/',
-        },
-        headline: cleanArtTitle,
-        description: effectiveDesc,
-        image: [fullImageUrl],
-        datePublished: publishedTime,
-        dateModified: modifiedTime,
-        wordCount: plainBodyWords > 0 ? plainBodyWords : undefined,
-        keywords: effectiveKeywords || undefined,
-        articleSection: post.category || 'Bí quyết ẩm thực',
-        author: {
-          '@type': 'Person',
-          name: post.author?.name || 'Bếp Trưởng Hôm Nay Ăn Gì',
-          jobTitle: post.author?.role || 'Chuyên gia ẩm thực',
-        },
-        publisher: {
-          '@type': 'Organization',
-          name: 'Hôm Nay Ăn Gì',
-          url: 'https://angigio.com/',
-          logo: {
-            '@type': 'ImageObject',
-            url: 'https://angigio.com/logo.png',
-          },
-        },
-        mainEntityOfPage: {
-          '@type': 'WebPage',
-          '@id': canonicalUrl,
-        },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        '@id': `${canonicalUrl}#breadcrumb`,
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: 'Trang chủ',
-            item: 'https://angigio.com/',
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: 'Blog Ẩm Thực',
-            item: 'https://angigio.com/blog',
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: cleanArtTitle,
-            item: canonicalUrl,
-          },
-        ],
-      },
-    ],
+    '@graph': graphNodes,
   };
 
   html = html.replace(/\s*<script>window\.__INITIAL_CUSTOM_POSTS__\s*=[\s\S]*?<\/script>/g, '');
@@ -1318,6 +1338,31 @@ export default async function handler(req: any, res: any) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
       return res.status(200).send(seoHtml);
+    }
+
+    // Fallback to bundled custom_blog_posts.json when Firestore is temporarily rate-limited/unavailable
+    const localCandidates = [
+      path.join(process.cwd(), 'dist', 'custom_blog_posts.json'),
+      path.join(process.cwd(), 'public', 'custom_blog_posts.json'),
+    ];
+    for (const lp of localCandidates) {
+      try {
+        if (fs.existsSync(lp)) {
+          const arr = JSON.parse(fs.readFileSync(lp, 'utf-8'));
+          if (Array.isArray(arr)) {
+            const matched = arr.find(
+              (p: any) => p && String(p.slug || p.id || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '') === slug
+            );
+            if (matched) {
+              const seoHtml = injectPostSeo(baseHtml, matched);
+              res.setHeader('Content-Type', 'text/html; charset=utf-8');
+              res.setHeader('Cache-Control', 'public, s-maxage=1800, stale-while-revalidate=86400');
+              return res.status(200).send(seoHtml);
+            }
+          }
+          break;
+        }
+      } catch {}
     }
 
     if (lookup.status === 'not_found') {

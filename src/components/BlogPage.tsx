@@ -399,6 +399,13 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
     if (activePost) {
       const effectiveTitle = activePost.seoTitle?.trim() || `${activePost.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`;
       const effectiveDesc = activePost.seoDescription?.trim() || activePost.excerpt;
+      const canonicalUrl = `https://angigio.com/${activePost.slug}`;
+      const rawCover = String(activePost.coverImage || '/images/default-dish.jpg').trim();
+      const fullCoverUrl = rawCover.startsWith('http')
+        ? rawCover
+        : rawCover.startsWith('data:')
+          ? 'https://angigio.com/images/default-dish.jpg'
+          : `https://angigio.com${rawCover.startsWith('/') ? '' : '/'}${rawCover}`;
 
       document.title = effectiveTitle;
       if (robotsMeta) {
@@ -412,7 +419,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
 
       const canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
-        canonical.setAttribute('href', `https://angigio.com/${activePost.slug}`);
+        canonical.setAttribute('href', canonicalUrl);
       }
 
       // Smoothly normalize address bar to canonical URL if opened via an alias
@@ -423,7 +430,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         }
       }
 
-      // Update description & OG/Twitter tags
+      // Update description & OG/Twitter tags (always absolute URLs)
       let metaDesc = document.querySelector('meta[name="description"]');
       if (!metaDesc) {
         metaDesc = document.createElement('meta');
@@ -436,17 +443,21 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       if (ogTitle) ogTitle.setAttribute('content', effectiveTitle);
       const ogDesc = document.querySelector('meta[property="og:description"]');
       if (ogDesc) ogDesc.setAttribute('content', effectiveDesc);
+      const ogUrl = document.querySelector('meta[property="og:url"]');
+      if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
       const ogImage = document.querySelector('meta[property="og:image"]');
-      if (ogImage) ogImage.setAttribute('content', activePost.coverImage);
+      if (ogImage) ogImage.setAttribute('content', fullCoverUrl);
 
       const twTitle = document.querySelector('meta[name="twitter:title"]');
       if (twTitle) twTitle.setAttribute('content', effectiveTitle);
       const twDesc = document.querySelector('meta[name="twitter:description"]');
       if (twDesc) twDesc.setAttribute('content', effectiveDesc);
+      const twUrl = document.querySelector('meta[name="twitter:url"]');
+      if (twUrl) twUrl.setAttribute('content', canonicalUrl);
       const twImage = document.querySelector('meta[name="twitter:image"]');
-      if (twImage) twImage.setAttribute('content', activePost.coverImage);
+      if (twImage) twImage.setAttribute('content', fullCoverUrl);
 
-      // JSON-LD Schema for Article, Recipe & Breadcrumbs
+      // JSON-LD Schema for Article & Breadcrumbs (aligned 1:1 with SSR)
       const scriptId = 'blog-post-jsonld';
       let script = document.getElementById(scriptId) as HTMLScriptElement | null;
       if (!script) {
@@ -456,25 +467,33 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         document.head.appendChild(script);
       }
 
-      const fullCoverUrl = activePost.coverImage?.startsWith('http')
-        ? activePost.coverImage
-        : `https://angigio.com${activePost.coverImage || '/images/default-dish.jpg'}`;
+      const plainBodyWords = String(activePost.htmlContent || activePost.content || '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean).length;
+      const keywordsStr = Array.isArray(activePost.tags) ? activePost.tags.filter(Boolean).join(', ') : '';
 
       const graphNodes: any[] = [
         {
           '@type': 'BlogPosting',
-          '@id': `https://angigio.com/${activePost.slug}#article`,
+          '@id': `${canonicalUrl}#article`,
           isPartOf: {
             '@type': 'WebSite',
             '@id': 'https://angigio.com/#website',
             name: 'Hôm Nay Ăn Gì',
             url: 'https://angigio.com/',
           },
+          inLanguage: 'vi-VN',
           headline: activePost.title,
           description: effectiveDesc,
           image: [fullCoverUrl],
           datePublished: '2026-09-28T08:00:00+07:00',
           dateModified: activePost.updatedAt || '2026-10-17T08:00:00+07:00',
+          ...(plainBodyWords > 0 ? { wordCount: plainBodyWords } : {}),
+          ...(keywordsStr ? { keywords: keywordsStr } : {}),
+          articleSection: activePost.category || 'Bí quyết ẩm thực',
           author: {
             '@type': 'Person',
             name: activePost.author.name,
@@ -483,7 +502,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
           publisher: {
             '@type': 'Organization',
             name: 'Hôm Nay Ăn Gì',
-            url: 'https://angigio.com',
+            url: 'https://angigio.com/',
             logo: {
               '@type': 'ImageObject',
               url: 'https://angigio.com/logo.png',
@@ -491,12 +510,12 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
           },
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `https://angigio.com/${activePost.slug}`,
+            '@id': canonicalUrl,
           },
         },
         {
           '@type': 'BreadcrumbList',
-          '@id': `https://angigio.com/${activePost.slug}#breadcrumb`,
+          '@id': `${canonicalUrl}#breadcrumb`,
           itemListElement: [
             {
               '@type': 'ListItem',
@@ -514,7 +533,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
               '@type': 'ListItem',
               position: 3,
               name: activePost.title,
-              item: `https://angigio.com/${activePost.slug}`,
+              item: canonicalUrl,
             },
           ],
         },
@@ -525,16 +544,20 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
         '@graph': graphNodes,
       });
     } else {
-      document.title = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Hôm Nay Ăn Gì';
-      if (robotsMeta) {
-        robotsMeta.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+      // Only apply /blog index metadata when genuinely on /blog — never clobber article canonical/JSON-LD while loading
+      const currentPath = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '/blog';
+      if (currentPath === '/blog' || currentPath === '') {
+        document.title = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Hôm Nay Ăn Gì';
+        if (robotsMeta) {
+          robotsMeta.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+        }
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) {
+          canonical.setAttribute('href', 'https://angigio.com/blog');
+        }
+        const existingScript = document.getElementById('blog-post-jsonld');
+        if (existingScript) existingScript.remove();
       }
-      const canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) {
-        canonical.setAttribute('href', 'https://angigio.com/blog');
-      }
-      const existingScript = document.getElementById('blog-post-jsonld');
-      if (existingScript) existingScript.remove();
     }
   }, [activePost]);
 
@@ -1850,44 +1873,74 @@ ${newContent}
             </div>
           )}
 
-          {/* Related Articles */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-xs mb-8">
+          {/* Related Articles (topically scored & crawlable <a> links aligned with SSR) */}
+          <aside aria-label="Bài viết cùng chủ đề" className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-xs mb-8">
             <h3 className="text-lg sm:text-xl font-black text-stone-900 mb-5 flex items-center gap-2">
               <BookOpen className="w-5 h-5 text-orange-600" />
-              Bài Viết Cùng Chuyên Mục
+              Bài Viết Cùng Chủ Đề
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {allPosts
-                .filter((p) => p.id !== activePost.id)
-                .slice(0, 4)
-                .map((post) => (
-                  <div
-                    key={post.id}
-                    onClick={() => handleOpenPost(post)}
-                    className="flex gap-3.5 p-3 rounded-2xl hover:bg-stone-50 border border-transparent hover:border-stone-200 transition-all cursor-pointer group"
-                  >
-                    <img
-                      src={post.coverImage}
-                      alt={post.title}
-                      className="w-20 h-20 rounded-xl object-cover shrink-0 group-hover:scale-105 transition-transform"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <span className="text-[10px] font-black uppercase text-orange-700 bg-orange-50 px-2 py-0.5 rounded">
-                        {post.category}
-                      </span>
-                      <h4 className="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-orange-600 transition-colors line-clamp-2 mt-1 mb-1">
-                        {post.title}
-                      </h4>
-                      <div className="text-[11px] text-stone-400 flex items-center gap-2">
-                        <span>{post.publishDate}</span>
-                        <span>•</span>
-                        <span>{post.readTime}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {(() => {
+                const curTokens = new Set(
+                  `${activePost.slug || ''} ${activePost.title || ''} ${(activePost.tags || []).join(' ')}`
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .split(/[^a-z0-9]+/)
+                    .filter((w) => w.length >= 3 && !['mon', 'ngon', 'lam', 'cho', 'voi', 'cac', 'cach', 'nha', 'gia', 'dinh'].includes(w))
+                );
+                return allPosts
+                  .filter((p) => p.id !== activePost.id && p.slug !== activePost.slug && !p.noIndex)
+                  .map((cand) => {
+                    const candText = `${cand.slug} ${cand.title} ${(cand.tags || []).join(' ')}`
+                      .toLowerCase()
+                      .normalize('NFD')
+                      .replace(/[\u0300-\u036f]/g, '');
+                    let score = cand.category === activePost.category ? 2 : 0;
+                    for (const tok of curTokens) {
+                      if (candText.includes(tok)) score += 3;
+                    }
+                    return { cand, score };
+                  })
+                  .sort((a, b) => b.score - a.score)
+                  .slice(0, 6)
+                  .map(({ cand: post }) => (
+                    <a
+                      key={post.id}
+                      href={`/${post.slug}`}
+                      onClick={(e) => {
+                        if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey && (e.button === 0 || e.button === undefined)) {
+                          e.preventDefault();
+                          handleOpenPost(post);
+                        }
+                      }}
+                      className="flex gap-3.5 p-3 rounded-2xl hover:bg-stone-50 border border-transparent hover:border-stone-200 transition-all cursor-pointer group no-underline"
+                    >
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="w-20 h-20 rounded-xl object-cover shrink-0 group-hover:scale-105 transition-transform"
+                      />
+                      <div className="flex-1 min-w-0">
+                        <span className="text-[10px] font-black uppercase text-orange-700 bg-orange-50 px-2 py-0.5 rounded">
+                          {post.category}
+                        </span>
+                        <h4 className="text-xs sm:text-sm font-bold text-stone-900 group-hover:text-orange-600 transition-colors line-clamp-2 mt-1 mb-1">
+                          {post.title}
+                        </h4>
+                        <div className="text-[11px] text-stone-400 flex items-center gap-2">
+                          <span>{post.publishDate}</span>
+                          <span>•</span>
+                          <span>{post.readTime}</span>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                ))}
+                    </a>
+                  ));
+              })()}
             </div>
-          </div>
+          </aside>
         </article>
       ) : typeof window !== 'undefined' && window.location.pathname.replace(/\/$/, '') !== '' && window.location.pathname.replace(/\/$/, '') !== '/blog' ? (
         /* 1.5 POST NOT FOUND OR LOADING VIEW */
@@ -1945,10 +1998,16 @@ ${newContent}
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {allPosts.slice(0, 3).map((post) => (
-                    <div
+                    <a
                       key={post.id}
-                      onClick={() => handleOpenPost(post)}
-                      className="p-3 bg-stone-50 hover:bg-orange-50/50 rounded-xl border border-stone-200/80 hover:border-orange-200 transition-colors cursor-pointer group flex flex-col justify-between"
+                      href={`/${post.slug}`}
+                      onClick={(e) => {
+                        if (!e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey && (e.button === 0 || e.button === undefined)) {
+                          e.preventDefault();
+                          handleOpenPost(post);
+                        }
+                      }}
+                      className="p-3 bg-stone-50 hover:bg-orange-50/50 rounded-xl border border-stone-200/80 hover:border-orange-200 transition-colors cursor-pointer group flex flex-col justify-between no-underline"
                     >
                       <h4 className="text-xs font-bold text-stone-900 group-hover:text-orange-600 line-clamp-2 mb-2">
                         {post.title}
@@ -1956,7 +2015,7 @@ ${newContent}
                       <span className="text-[10px] text-stone-400 font-medium">
                         {post.publishDate}
                       </span>
-                    </div>
+                    </a>
                   ))}
                 </div>
               </div>

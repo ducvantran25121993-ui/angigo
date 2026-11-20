@@ -1053,6 +1053,36 @@ export async function syncDeletedPosts(forceRefresh = false): Promise<Set<string
 
 const EXCLUDED_BLOG_SLUGS = new Set(['cach-lam-com-suon-nuong-mat-ong', 'com-tam-suon-bi-cha']);
 
+const BLOG_CACHE_EPOCH_KEY = 'angigio_blog_cache_epoch';
+const CURRENT_BLOG_CACHE_EPOCH = '2026-11-20-admin-restore-v1';
+
+/**
+ * Detects synthetic non-admin rewrite snapshots (2026-11-20T09:00:00.000Z) that must never
+ * override real admin-saved Firestore posts in browser localStorage.
+ */
+export function isDeprecatedSnapshotPost(p: any): boolean {
+  if (!p || typeof p !== 'object') return false;
+  return String(p.updatedAt || '').trim() === '2026-11-20T09:00:00.000Z';
+}
+
+function ensureCleanLocalBlogCacheOnce(): void {
+  if (typeof window === 'undefined') return;
+  try {
+    if (localStorage.getItem(BLOG_CACHE_EPOCH_KEY) === CURRENT_BLOG_CACHE_EPOCH) return;
+    const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        const cleaned = parsed.filter((p: any) => !isDeprecatedSnapshotPost(p));
+        localStorage.setItem(LOCAL_STORAGE_CUSTOM_POSTS, JSON.stringify(cleaned));
+      }
+    }
+    localStorage.removeItem('angigio_rest_posts_cache_v1');
+    localStorage.removeItem('angigio_rest_manifest_cache_v1');
+    localStorage.setItem(BLOG_CACHE_EPOCH_KEY, CURRENT_BLOG_CACHE_EPOCH);
+  } catch {}
+}
+
 /**
  * Clock-skew-proof comparison between an existing post and an incoming post.
  * Admin-saved posts carry a monotonically increasing `revision` (1, 2, 3...) and `adminSaved: true`,
@@ -1167,6 +1197,8 @@ export function getCustomBlogPosts(): BlogPost[] {
       return !deleted.has(s) && !deleted.has(id) && !EXCLUDED_BLOG_SLUGS.has(s) && !EXCLUDED_BLOG_SLUGS.has(id);
     });
 
+  ensureCleanLocalBlogCacheOnce();
+
   // 1. Read from window.__INITIAL_CUSTOM_POSTS__ (injected live by server or hydrated by fetchAndSyncCustomPosts)
   let initialList: BlogPost[] = [];
   const hasServerInjectedPosts =
@@ -1175,7 +1207,11 @@ export function getCustomBlogPosts(): BlogPost[] {
     (window as any).__INITIAL_CUSTOM_POSTS__.length > 0;
 
   if (hasServerInjectedPosts) {
-    initialList = filterDeleted((window as any).__INITIAL_CUSTOM_POSTS__.map(normalizeBlogPost));
+    initialList = filterDeleted(
+      (window as any).__INITIAL_CUSTOM_POSTS__
+        .filter((p: any) => !isDeprecatedSnapshotPost(p))
+        .map(normalizeBlogPost)
+    );
   }
 
   // 2. Read from localStorage
@@ -1186,7 +1222,9 @@ export function getCustomBlogPosts(): BlogPost[] {
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) {
-          localList = filterDeleted(parsed.map(normalizeBlogPost));
+          localList = filterDeleted(
+            parsed.filter((p: any) => !isDeprecatedSnapshotPost(p)).map(normalizeBlogPost)
+          );
         }
       }
     } catch {}
@@ -1395,7 +1433,7 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
   const serverPostMap = new Map<string, BlogPost>();
 
   const mergeItem = (p: any, isAuthoritativeServer = false, recordAsServer = false) => {
-    if (!p || (!p.slug && !p.id)) return;
+    if (!p || (!p.slug && !p.id) || isDeprecatedSnapshotPost(p)) return;
     const normalized = normalizeBlogPost(p);
     const s = (normalized.slug || '').toLowerCase().trim().replace(/^\//, '').replace(/\/$/, '');
     const id = (normalized.id || '').toLowerCase().trim();
@@ -1454,13 +1492,14 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
     // ignore
   }
 
-  // 3. Merge localStorage items (higher revision or adminSaved items always preserved)
+  // 3. Merge localStorage items (higher revision or adminSaved items always preserved, excluding deprecated snapshots)
+  ensureCleanLocalBlogCacheOnce();
   try {
     const raw = localStorage.getItem(LOCAL_STORAGE_CUSTOM_POSTS);
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed)) {
-        parsed.forEach((p) => mergeItem(p, false, false));
+        parsed.filter((p) => !isDeprecatedSnapshotPost(p)).forEach((p) => mergeItem(p, false, false));
       }
     }
   } catch {}
@@ -1512,11 +1551,10 @@ export async function fetchAndSyncCustomPosts(forceRefresh = false): Promise<Blo
 
   const merged = sortCustomPosts(Array.from(postMap.values()));
 
-  // 5. Self-Healing Auto-Sync: If this client (via localStorage from yesterday or via Firestore)
-  // has any adminSaved / custom posts that are missing or older on the Express server,
-  // automatically push them back to /api/admin/posts/import so every other device sees them immediately!
-  if (liveApiSuccess && merged.length > 0) {
+  // 5. Self-Healing Auto-Sync (strictly restricted to /admin sessions so stale visitor caches never overwrite server data)
+  if (isAdmin && liveApiSuccess && merged.length > 0) {
     const unsyncedToServer = merged.filter((p) => {
+      if (isDeprecatedSnapshotPost(p)) return false;
       if (!p.adminSaved && !(p.revision && p.revision > 0)) return false;
       const key = (p.slug || p.id || '').toLowerCase().trim();
       const serverCopy = serverPostMap.get(key);

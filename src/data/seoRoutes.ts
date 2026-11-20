@@ -357,8 +357,8 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
     const rawTags = Array.isArray(post.tags) ? post.tags.join(', ') : (post.tags || '');
     const postMeta: RouteSeoMeta = {
       path: postPath,
-      title: `${post.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`,
-      description: post.excerpt || post.title,
+      title: (post.seoTitle && String(post.seoTitle).trim()) || `${post.title} | Blog Ẩm Thực Hôm Nay Ăn Gì`,
+      description: (post.seoDescription && String(post.seoDescription).trim()) || post.excerpt || post.title,
       keywords: `${rawTags}, ${post.title.toLowerCase()}, blog ẩm thực, mẹo nấu ăn ngon, hôm nay ăn gì`,
       image: post.coverImage || 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80',
       imageAlt: post.title,

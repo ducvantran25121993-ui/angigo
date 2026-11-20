@@ -56,6 +56,12 @@ function injectMeta(
   const safeDesc = escapeXml(effectiveDesc);
   const safeKeywords = escapeXml(meta.keywords || '');
   const safeImageAlt = escapeXml(meta.imageAlt || effectiveTitle);
+  const rawMetaImage = String(meta.image || '/images/default-dish.jpg').trim();
+  const absMetaImage = rawMetaImage.startsWith('http')
+    ? rawMetaImage
+    : rawMetaImage.startsWith('data:')
+      ? 'https://angigio.com/images/default-dish.jpg'
+      : `https://angigio.com${rawMetaImage.startsWith('/') ? '' : '/'}${rawMetaImage}`;
 
   let updatedHtml = html
     .replace(/<title>.*?<\/title>/i, `<title>${safeTitle}</title>`)
@@ -66,12 +72,12 @@ function injectMeta(
     .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${safeTitle}" />`)
     .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${safeDesc}" />`)
     .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i, `<meta property="og:url" content="${canonicalUrl}" />`)
-    .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i, `<meta property="og:image" content="${meta.image}" />`)
+    .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i, `<meta property="og:image" content="${escapeXml(absMetaImage)}" />`)
     .replace(/<meta\s+property="og:image:alt"\s+content=".*?"\s*\/?>/i, `<meta property="og:image:alt" content="${safeImageAlt}" />`)
     .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${safeTitle}" />`)
     .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${safeDesc}" />`)
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${canonicalUrl}" />`)
-    .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${meta.image}" />`);
+    .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${escapeXml(absMetaImage)}" />`);
 
   if (matchedCustomPost?.noIndex) {
     updatedHtml = updatedHtml.replace(
@@ -118,10 +124,16 @@ function injectMeta(
 
   if (meta.isArticle) {
     const publishedTime = '2026-09-28T08:00:00+07:00';
-    const modifiedTime = '2026-09-30T00:00:00+07:00';
+    const modifiedTime = matchedCustomPost?.updatedAt
+      ? String(matchedCustomPost.updatedAt)
+      : meta.lastmod
+        ? `${meta.lastmod}T09:00:00+07:00`
+        : '2026-09-30T00:00:00+07:00';
+    const articleSection = matchedCustomPost?.category || 'Bí quyết ẩm thực';
+    const authorName = matchedCustomPost?.author?.name || 'Hôm Nay Ăn Gì';
     updatedHtml = updatedHtml.replace(
       /<meta\s+property="og:type"\s+content=".*?"\s*\/?>/i,
-      `<meta property="og:type" content="article" />\n    <meta property="article:published_time" content="${publishedTime}" />\n    <meta property="article:modified_time" content="${modifiedTime}" />\n    <meta property="article:author" content="Hôm Nay Ăn Gì" />\n    <meta property="article:section" content="Bí quyết ẩm thực" />`
+      `<meta property="og:type" content="article" />\n    <meta property="article:published_time" content="${escapeXml(publishedTime)}" />\n    <meta property="article:modified_time" content="${escapeXml(modifiedTime)}" />\n    <meta property="article:author" content="${escapeXml(authorName)}" />\n    <meta property="article:section" content="${escapeXml(articleSection)}" />`
     );
 
     const isRecipeRoute = (meta.path.startsWith('/cach-nau-') || meta.path.startsWith('/cach-lam-')) && meta.path !== '/cach-nau-mon-ngon';
@@ -283,70 +295,103 @@ function injectMeta(
         `    <script id="recipe-jsonld" type="application/ld+json">\n${JSON.stringify(recipeSchema, null, 2)}\n    </script>\n  </head>`
       );
     } else {
-      const fullArtImage = meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image || '/images/default-dish.jpg'}`;
-      const cleanArtTitle = meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '').trim();
+      const fullArtImage = absMetaImage;
+      const cleanArtTitle = (matchedCustomPost?.title || meta.title)
+        .replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ|Blog.*)$/i, '')
+        .trim();
+      const plainBodyWords = matchedCustomPost
+        ? String(matchedCustomPost.htmlContent || matchedCustomPost.content || '')
+            .replace(/<[^>]+>/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean).length
+        : 0;
+
+      const graphNodes: Record<string, any>[] = [
+        {
+          "@type": "BlogPosting",
+          "@id": `${canonicalUrl}#article`,
+          "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://angigio.com/#website",
+            "name": "Hôm Nay Ăn Gì",
+            "url": "https://angigio.com/"
+          },
+          "inLanguage": "vi-VN",
+          "headline": cleanArtTitle,
+          "description": effectiveDesc,
+          "image": [fullArtImage],
+          "datePublished": publishedTime,
+          "dateModified": modifiedTime,
+          ...(plainBodyWords > 0 ? { "wordCount": plainBodyWords } : {}),
+          ...(meta.keywords ? { "keywords": meta.keywords } : {}),
+          "articleSection": articleSection,
+          "author": {
+            "@type": "Person",
+            "name": matchedCustomPost?.author?.name || "Bếp Trưởng Hôm Nay Ăn Gì",
+            "jobTitle": matchedCustomPost?.author?.role || "Chuyên gia ẩm thực"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Hôm Nay Ăn Gì",
+            "url": "https://angigio.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://angigio.com/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": canonicalUrl
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "@id": `${canonicalUrl}#breadcrumb`,
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Trang chủ",
+              "item": "https://angigio.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog Ẩm Thực",
+              "item": "https://angigio.com/blog"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": cleanArtTitle,
+              "item": canonicalUrl
+            }
+          ]
+        }
+      ];
+
+      if (Array.isArray(matchedCustomPost?.faqs) && matchedCustomPost.faqs.length > 0) {
+        graphNodes.push({
+          "@type": "FAQPage",
+          "@id": `${canonicalUrl}#faq`,
+          "mainEntity": matchedCustomPost.faqs
+            .filter((f: any) => f && f.question && f.answer)
+            .map((f: any) => ({
+              "@type": "Question",
+              "name": String(f.question),
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": String(f.answer)
+              }
+            }))
+        });
+      }
 
       const articleSchema = {
         "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "BlogPosting",
-            "@id": `${canonicalUrl}#article`,
-            "isPartOf": {
-              "@type": "WebSite",
-              "@id": "https://angigio.com/#website",
-              "name": "Hôm Nay Ăn Gì",
-              "url": "https://angigio.com/"
-            },
-            "headline": cleanArtTitle,
-            "description": meta.description,
-            "image": [fullArtImage],
-            "datePublished": publishedTime,
-            "dateModified": modifiedTime,
-            "author": {
-              "@type": "Person",
-              "name": "Bếp Trưởng Hôm Nay Ăn Gì",
-              "jobTitle": "Chuyên gia ẩm thực"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Hôm Nay Ăn Gì",
-              "url": "https://angigio.com/",
-              "logo": {
-                "@type": "ImageObject",
-                "url": "https://angigio.com/logo.png"
-              }
-            },
-            "mainEntityOfPage": {
-              "@type": "WebPage",
-              "@id": canonicalUrl
-            }
-          },
-          {
-            "@type": "BreadcrumbList",
-            "@id": `${canonicalUrl}#breadcrumb`,
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Trang chủ",
-                "item": "https://angigio.com/"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Blog Ẩm Thực",
-                "item": "https://angigio.com/blog"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": cleanArtTitle,
-                "item": canonicalUrl
-              }
-            ]
-          }
-        ]
+        "@graph": graphNodes
       };
 
       updatedHtml = updatedHtml.replace(
@@ -422,7 +467,28 @@ function injectMeta(
     const bp = matchedCustomPost || INITIAL_BLOG_POSTS.find(p => p.slug === slug || (p.id && p.id === slug));
     if (bp) {
       if (bp.title) pageH1 = bp.title;
-      fullArticleHtmlWrapper = buildFullArticleSsrHtml(bp);
+      const curTokens = new Set(
+        `${bp.slug || ''} ${bp.title || ''} ${(Array.isArray(bp.tags) ? bp.tags.join(' ') : '')}`
+          .toLowerCase()
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .split(/[^a-z0-9]+/)
+          .filter((w) => w.length >= 3 && !['mon', 'ngon', 'lam', 'cho', 'voi', 'cac', 'cach', 'nha', 'gia', 'dinh'].includes(w))
+      );
+      const relatedCandidates = (allActiveBlogPosts || [])
+        .filter((cand) => cand.slug && cand.slug !== slug)
+        .map((cand) => {
+          const candText = `${cand.slug} ${cand.title}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+          let score = cand.category && bp.category && cand.category === bp.category ? 2 : 0;
+          for (const tok of curTokens) {
+            if (candText.includes(tok)) score += 3;
+          }
+          return { cand, score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 6)
+        .map((x) => ({ slug: x.cand.slug, title: x.cand.title, category: x.cand.category }));
+      fullArticleHtmlWrapper = buildFullArticleSsrHtml(bp, relatedCandidates);
     }
   }
 

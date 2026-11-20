@@ -161,7 +161,7 @@ export function buildAiAdvisorSsrHtml(): string {
               <strong>Tụ tập hội bạn 4 người cuối tuần:</strong> <em>&ldquo;Tối thứ 7 nhóm 4 người muốn ăn gì lai rai vui vẻ tầm 120k mỗi người.&rdquo;</em> &rarr; Gợi ý Lẩu riêu cua bắp bò, Lẩu gà lá é hoặc Nướng ngói.
             </li>
             <li style="padding: 0.9rem 1rem; background: #ffffff; border: 1px solid #e7e5e4; border-radius: 0.75rem;">
-              <strong>Mở tủ lạnh còn thịt heo chưa biết nấu gì:</strong> <em>&ldquo;Trong tủ đang có thịt băm và sườn non, gợi ý giúp mình món canh thanh ngọt dễ nấu.&rdquo;</em> &rarr; Xem ngay bộ <a href="/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau" style="color: #ea580c;">12 món canh thịt heo dễ nấu</a>.
+              <strong>Mở tủ lạnh còn thịt heo chưa biết nấu gì:</strong> <em>&ldquo;Trong tủ đang có thịt băm, thịt ba chỉ và sườn non, gợi ý giúp mình món ngon dễ nấu.&rdquo;</em> &rarr; Xem ngay bộ <a href="/thit-ba-chi-lam-mon-gi-ngon" style="color: #ea580c;">10 món ngon từ thịt ba chỉ</a>, <a href="/thit-bam-lam-mon-gi-ngon" style="color: #ea580c;">10 món ngon từ thịt băm</a> và <a href="/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau" style="color: #ea580c;">12 món canh thịt heo dễ nấu</a>.
             </li>
             <li style="padding: 0.9rem 1rem; background: #ffffff; border: 1px solid #e7e5e4; border-radius: 0.75rem;">
               <strong>Chống ngán ngày nắng nóng:</strong> <em>&ldquo;Mấy hôm nay ngán đồ chiên kho quá, có món gì chua ngọt đổi vị dễ ăn không?&rdquo;</em> &rarr; Khám phá gợi ý <a href="/an-gi-cho-do-ngan-goi-y-mon-ngon-doi-vi-de-an-cho-ca-nha" style="color: #ea580c;">ăn gì cho đỡ ngán đổi vị cả nhà</a>.

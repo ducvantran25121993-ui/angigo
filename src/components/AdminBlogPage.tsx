@@ -913,7 +913,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
     // 2. Local custom posts from window or localStorage (higher revision / adminSaved always preserved)
     try {
-      const localCustom = getCustomBlogPosts();
+      const localCustom = getCustomBlogPosts().filter(
+        (p) => String(p.updatedAt || '').trim() !== '2026-11-20T09:00:00.000Z'
+      );
       localCustom.forEach((p) => mergeCustom(p, !apiLoaded, false));
     } catch {}
 
@@ -950,6 +952,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     // that are missing or older on the server, automatically push them to /api/admin/posts/import!
     if (apiLoaded && customList.length > 0) {
       const unsyncedPosts = customList.filter((p) => {
+        if (String(p.updatedAt || '').trim() === '2026-11-20T09:00:00.000Z') return false;
         if (!p.adminSaved && !(p.revision && p.revision > 0)) return false;
         const key = (p.slug || p.id || '').toLowerCase().trim();
         const srv = serverCustomMap.get(key);

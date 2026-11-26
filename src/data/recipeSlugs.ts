@@ -137,7 +137,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "salad-bo-trung-long-dao": "Cách Làm Salad Bơ Trứng Ngon Miệng Bổ Dưỡng",
   "salad-rau-mam-bo-xao": "Cách Làm Salad Rau Mầm Bò Xào Đậm Vị Thơm Ngon",
   "lau-thai-hai-san": "Cách Nấu Lẩu Thái Chua Cay Siêu Ngon Tại Nhà",
-  "lau-bo-nhung-dam": "Cách Nấu Bò Nhúng Dấm Chua Dịu Thơm Ngon"
+  "lau-bo-nhung-dam": "Cách Nấu Bò Nhúng Dấm Chua Dịu Thơm Ngon",
+  "chao-ech-singapore": "Cách Nấu Cháo Ếch Singapore Chuẩn Vị Thơm Ngon"
 };
 
 /**
@@ -524,6 +525,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'lau-bo-nhung-dam': 'cach-nau-bo-nhung-dam-chua-diu-thom-ngon',
   'bo-nhung-dam': 'cach-nau-bo-nhung-dam-chua-diu-thom-ngon',
   'bo-nhung-giam': 'cach-nau-bo-nhung-dam-chua-diu-thom-ngon',
+  'chao-ech-singapore': 'cach-nau-chao-ech-singapore',
+  'chao-ech': 'cach-nau-chao-ech-singapore',
 };
 
 /**
@@ -1392,6 +1395,15 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-bo-nhung-dam-chua-diu-thom-ngon': 'lau-bo-nhung-dam',
   'cach-nau-bo-nhung-dam-chua-diu': 'lau-bo-nhung-dam',
   'cach-nau-bo-nhung-dam-chua-diu-thom-ngon-chuan-vi-gia-dinh': 'lau-bo-nhung-dam',
+
+  'chao-ech-singapore': 'chao-ech-singapore',
+  'chao-ech': 'chao-ech-singapore',
+  'cach-nau-chao-ech-singapore': 'chao-ech-singapore',
+  'cach-lam-chao-ech-singapore': 'chao-ech-singapore',
+  'cach-nau-chao-ech': 'chao-ech-singapore',
+  'cach-lam-chao-ech': 'chao-ech-singapore',
+  'cach-nau-chao-ech-singapore-chuan-vi-thom-ngon': 'chao-ech-singapore',
+  'cach-nau-chao-ech-singapore-bo-duong-thom-ngon-cho-ca-nha': 'chao-ech-singapore',
 };
 
 /**

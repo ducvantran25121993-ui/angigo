@@ -16402,6 +16402,132 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Mắm nêm cá cơm pha dứa (thơm) bằm, sả tỏi phi, đường và nước cốt chanh quất là "linh hồn" chuẩn vị nhất; ai không ăn được mắm nêm có thể chấm kèm nước mắm chua ngọt tỏi ớt gừng băm.',
   },
+  'chao-ech-singapore': {
+    dishId: 'chao-ech-singapore',
+    dishName: 'Cháo Ếch Singapore Niêu Đất Cay Nồng',
+    seoTitle: 'Cách Nấu Cháo Ếch Singapore Chuẩn Vị Thơm Ngon',
+    description:
+      'Hướng dẫn cách nấu cháo ếch Singapore chuẩn vị Geylang: bí quyết sơ chế ếch không tanh, kho niêu đất sốt tương đen ớt khô sánh bóng ăn kèm cháo trắng lá dứa.',
+    ratingValue: '4.9',
+    reviewCount: 342,
+    prepTime: '25 phút (sơ chế ếch sạch tanh, ngâm gạo & ướp sốt)',
+    cookTime: '40 phút (ninh cháo trắng lá dứa & kho ếch niêu đất)',
+    totalTime: '65 phút',
+    difficulty: 'Trung bình',
+    servings: '3 - 4 người ăn',
+    calories: '580 kcal',
+    ingredients: [
+      {
+        category: 'Thịt ếch đồng & Nguyên liệu khử tanh',
+        items: [
+          '700g thịt ếch đồng làm sạch (chặt miếng vừa ăn, lọc bỏ sạch gân chỉ đen ở đùi)',
+          '1 nhánh gừng đập dập; 2 thìa canh rượu trắng; 1 thìa cà phê muối (bóp rửa khử tanh)',
+        ],
+      },
+      {
+        category: 'Sốt kho ếch niêu đất chuẩn vị Singapore',
+        items: [
+          '3 thìa canh nước tương ngon; 1.5 thìa canh hắc xì dầu (tạo màu nâu cánh gián bóng đẹp)',
+          '2 thìa canh dầu hào; 1 thìa canh rượu Mai Quế Lộ (hoặc rượu Thiệu Hưng dậy hương đặc trưng)',
+          '2 thìa canh đường cát trắng; 1/2 thìa cà phê hạt nêm; 1/2 thìa cà phê tiêu xay',
+          '1 củ gừng tươi thái sợi; 1 củ tỏi băm; 3 củ hành tím băm',
+          '8 - 10 quả ớt khô cắt khúc (ngâm mềm); 2 quả ớt hiểm tươi; 1 nắm đầu hành lá cắt khúc',
+          '1 thìa canh bột năng hòa tan với 3 thìa canh nước lọc (tạo độ sánh bóng cho sốt)',
+        ],
+      },
+      {
+        category: 'Cháo trắng sánh mịn thơm lá dứa',
+        items: [
+          '180g gạo tẻ thơm; 40g gạo nếp cái hoa vàng (ngâm 30 phút cho cháo nhanh nhừ sánh mịn)',
+          '3 lá dứa tươi rửa sạch buộc gọn (tạo mùi thơm dịu đặc trưng cháo Singapore)',
+          '1.8 lít nước lọc; 1/2 thìa cà phê muối; 1 thìa cà phê dầu mè thơm',
+          'Hành lá thái nhỏ; ngò rí; tiêu xay (rắc mặt cháo trắng)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt ếch sạch gân chỉ đen & khử tanh triệt để',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Thịt ếch trắng sạch, săn chắc, hoàn toàn hết mùi tanh và không còn đường chỉ đen ở đùi',
+        actionPoints: [
+          'Rạch nhẹ dọc hai đùi ếch để rút bỏ đường gân chỉ đen (mạch máu/ký sinh trùng), bỏ sạch phần màng máu bám dọc xương sống và chặt thịt ếch thành miếng lớn vừa ăn (nên giữ nguyên từng chiếc đùi cho đẹp mắt).',
+          'Cho thịt ếch vào thau, bóp nhẹ với 1 thìa cà phê muối, 1 nhánh gừng đập dập và 2 thìa canh rượu trắng trong 3 phút để khử sạch mùi tanh đặc trưng.',
+          'Xả lại thịt ếch thật sạch dưới vòi nước lạnh rồi dùng giấy bếp thấm thật khô ráo trước khi ướp.',
+        ],
+        description:
+          'Rút bỏ sạch gân chỉ đen ở đùi ếch, chặt miếng vừa ăn rồi bóp rửa với muối, gừng đập dập và rượu trắng để khử tanh triệt để, xả sạch và thấm khô.',
+        tip: 'Thấm thịt ếch thật khô sau khi rửa giúp gia vị ướp bám chặt vào thớ thịt và khi kho trong niêu đất thịt ếch săn ngọt, không bị loãng nước sốt.',
+      },
+      {
+        step: 2,
+        title: 'Pha sốt tương đen & ướp thịt ếch thấm đậm chuẩn Geylang',
+        time: '10 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt ếch thấm đẫm hương thơm rượu Mai Quế Lộ, dầu hào và lên màu nâu cánh gián bóng hấp dẫn',
+        actionPoints: [
+          'Hòa tan trong bát hỗn hợp sốt gồm: 3 thìa canh nước tương ngon, 1.5 thìa canh hắc xì dầu (xì dầu đặc), 2 thìa canh dầu hào, 1 thìa canh rượu Mai Quế Lộ, 2 thìa canh đường, 1/2 thìa cà phê hạt nêm và 1/2 thìa cà phê tiêu xay.',
+          'Cho 1/2 lượng hành tỏi băm và 1/2 gừng thái sợi vào tô thịt ếch cùng 2/3 phần nước sốt vừa pha, trộn đều nhẹ tay.',
+          'Bọc kín và ướp thịt ếch trong ngăn mát khoảng 20 phút để gia vị ngấm sâu (giữ lại 1/3 nước sốt để rưới lúc kho).',
+        ],
+        description:
+          'Pha sốt từ nước tương, hắc xì dầu, dầu hào, rượu Mai Quế Lộ, đường, hạt nêm và tiêu; ướp thịt ếch cùng hành tỏi gừng ít nhất 20 phút cho thấm vị.',
+        tip: 'Hắc xì dầu (dark soy sauce) và 1 thìa rượu Mai Quế Lộ chính là cặp bí quyết tạo màu nâu cánh gián óng ả cùng mùi thơm đặc trưng của quán cháo ếch Geylang Singapore.',
+      },
+      {
+        step: 3,
+        title: 'Ninh niêu cháo trắng sánh mịn thơm dịu mùi lá dứa',
+        time: '35 phút',
+        heat: 'Lửa vừa rồi hạ nhỏ liu riu',
+        goal: 'Cháo trắng sánh mịn như kem, hạt gạo nở nhuyễn không vữa, thoang thoảng mùi thơm thanh mát của lá dứa',
+        actionPoints: [
+          'Trộn 180g gạo tẻ với 40g gạo nếp, vo sạch rồi ngâm nước ấm khoảng 30 phút cho hạt gạo mềm (có thể giã dập nhẹ hạt gạo nếu thích cháo thật nhuyễn mịn).',
+          'Cho gạo vào nồi cùng 1.8 lít nước lọc và 1/2 thìa cà phê muối, đun sôi rồi hạ lửa nhỏ liu riu, thỉnh thoảng khuấy đáy nồi để cháo không bị bén khét.',
+          'Khi hạt gạo đã nở bung sánh mịn (khoảng 25 - 30 phút), thả bó 3 lá dứa tươi vào ninh thêm 5 phút cho cháo dậy hương thanh dịu rồi vớt bỏ lá dứa, giữ cháo luôn nóng.',
+        ],
+        description:
+          'Ngâm gạo tẻ và gạo nếp 30 phút rồi ninh lửa nhỏ với 1.8 lít nước và chút muối đến khi nở bung sánh mịn; thả lá dứa vào 5 phút cuối lấy hương thơm rồi vớt ra.',
+        tip: 'Cháo trắng ăn cùng ếch kho chỉ nên nêm thật nhạt (chút xíu muối) để khi chan nước sốt ếch kho đậm đà vào sẽ cân bằng hoàn hảo mà không bị mặn.',
+      },
+      {
+        step: 4,
+        title: 'Kho ếch niêu đất với gừng sợi, ớt khô & tạo sốt sánh bóng',
+        time: '15 phút',
+        heat: 'Lửa lớn rồi hạ vừa',
+        goal: 'Thịt ếch săn chắc chín tới ngọt mềm, nước sốt nâu cánh gián sánh bóng cay nồng thơm nức mùi gừng hành',
+        actionPoints: [
+          'Đun nóng niêu đất (hoặc chảo sâu lòng rồi trút sang niêu đất) với 2 thìa canh dầu ăn, phi thơm phần hành tím, tỏi băm, gừng thái sợi còn lại và 8 - 10 quả ớt khô cắt khúc.',
+          'Vặn lửa lớn, cho thịt ếch đã ướp vào đảo nhanh tay khoảng 2 phút cho thớ thịt săn lại và dậy mùi thơm.',
+          'Đổ toàn bộ phần nước sốt còn lại cùng 100ml nước lọc vào niêu, hạ lửa vừa kho liu riu khoảng 8 phút cho thịt ếch chín thấm đều.',
+          'Khuấy đều bát nước bột năng đã pha loãng rồi rót từ từ vào niêu, đảo nhẹ tay cho đến khi nước sốt sánh bóng bám đều quanh từng miếng ếch; thả đầu hành trắng cắt khúc và ớt hiểm tươi vào đảo thêm 30 giây rồi tắt bếp.',
+        ],
+        description:
+          'Phi thơm hành tỏi, gừng sợi và ớt khô trong niêu đất; xào săn thịt ếch trên lửa lớn rồi kho 8 phút với nước sốt; xuống nước bột năng tạo độ sánh bóng và thả đầu hành trắng sau cùng.',
+        tip: 'Không kho thịt ếch quá lâu (trên 12 phút) vì thịt đùi ếch sẽ bị bở nát; chỉ kho vừa chín săn rồi tạo độ sánh bằng bột năng để giữ trọn độ dai ngọt.',
+      },
+      {
+        step: 5,
+        title: 'Thưởng thức 2 niêu cháo ếch nóng hổi chuẩn điệu Singapore',
+        time: '5 phút',
+        heat: 'Dùng nóng xèo xèo',
+        goal: 'Niêu cháo trắng nghi ngút khói thơm dầu mè hòa quyện cùng niêu ếch kho cay nồng sóng sánh bùng vị',
+        actionPoints: [
+          'Múc cháo trắng nóng hổi ra niêu đất nhỏ hoặc tô sứ sâu lòng, rưới 1/2 thìa cà phê dầu mè thơm, rắc hành lá thái nhỏ, ngò rí và chút tiêu xay lên mặt.',
+          'Dọn song song niêu cháo trắng cùng niêu thịt ếch kho còn đang sôi xèo xèo bốc khói trên đế lót nồi.',
+          'Khi ăn, múc 2 - 3 thìa nước sốt ếch kho nâu óng cay nồng rưới lên mặt cháo trắng rồi gắp miếng đùi ếch săn ngọt thưởng thức ngay khi còn nóng.',
+        ],
+        description:
+          'Múc cháo trắng ra niêu rưới dầu mè, hành lá, ngò rí và tiêu; dọn cùng niêu ếch kho nóng xèo xèo, rưới sốt ếch đậm đà lên cháo trắng và thưởng thức ngay.',
+        tip: 'Nên ăn riêng từng niêu (chan sốt ếch tới đâu ăn tới đó) thay vì đổ trộn tất cả vào cùng một nồi để cháo trắng không bị vữa và giữ trọn hương thơm lá dứa đến thìa cuối cùng.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu Cháo Ếch Singapore chuẩn vị Geylang tại nhà: 1. Rút sạch gân chỉ đen ở đùi ếch và bóp rửa rượu trắng + gừng để thịt ếch trắng thơm, tuyệt đối không tanh; 2. Sốt kho bắt buộc có hắc xì dầu tạo màu nâu cánh gián bóng đẹp, 1 thìa rượu Mai Quế Lộ dậy hương và xuống nước bột năng cuối cùng để sốt sánh mượt bám thịt; 3. Cháo trắng pha tỷ lệ gạo tẻ : gạo nếp khoảng 4:1 nấu thật nhạt cùng bó lá dứa tươi rồi rưới chút dầu mè khi ăn.',
+    recommendedSauce:
+      'Chính nước sốt tương đen ớt khô sánh bóng trong niêu ếch kho là linh hồn rưới ăn cùng cháo trắng; bạn có thể dọn kèm thêm chén nước tương thả ớt hiểm cắt lát và gừng thái chỉ.',
+  },
 };
 
 /**

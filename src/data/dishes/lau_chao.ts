@@ -80,10 +80,10 @@ export const LAU_CHAO_DISHES: Dish[] = [
     priceRange: '55.000đ - 90.000đ',
     estimatedPrice: 70000,
     calories: '520 - 650 kcal',
-    description: 'Thịt ếch đồng săn chắc kho tộ trong niêu đất sốt tương đen cay xé lưỡi ớt khô, múc một muỗng chan vào niêu cháo trắng hoa mai thơm mùi lá dứa.',
+    description: 'Hướng dẫn cách nấu cháo ếch Singapore chuẩn vị Geylang: bí quyết sơ chế ếch không tanh, kho niêu đất sốt tương đen ớt khô sánh bóng ăn kèm cháo trắng lá dứa.',
     image: '/images/chao_ech.jpg',
-    popularTags: ['Niêu đất nóng hổi', 'Thịt ếch ngọt', 'Sốt cay Singapore'],
-    searchKeyword: 'Cháo ếch Singapore',
+    popularTags: ['Cháo trắng lá dứa', 'Ếch kho niêu đất', 'Chuẩn vị Singapore'],
+    searchKeyword: 'Cách nấu cháo ếch Singapore',
   },
   {
     id: 'chao-long-doi-nong',

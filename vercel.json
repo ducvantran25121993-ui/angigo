@@ -1742,6 +1742,56 @@
       "source": "/cach-lam-bo-nhung-dam-chua-diu-thom-ngon/",
       "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
       "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-ech-singapore",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-ech-singapore/",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/chao-ech-singapore",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/chao-ech-singapore/",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-ech",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-ech/",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-ech",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-ech/",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/chao-ech",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
+    },
+    {
+      "source": "/chao-ech/",
+      "destination": "/cach-nau-chao-ech-singapore",
+      "permanent": true
     }
   ],
   "headers": [

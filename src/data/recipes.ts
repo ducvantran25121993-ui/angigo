@@ -15999,6 +15999,133 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Sốt dầu ô liu chanh mật ong (hoặc biến tấu với nước cốt chanh dây tươi) tạo vị chua thanh nhẹ tôn trọn độ béo bùi của bơ sáp và trứng lòng đào; bạn cũng có thể đổi vị với sốt mè rang Nhật hoặc sữa chua không đường trộn thảo mộc.',
   },
+  'salad-rau-mam-bo-xao': {
+    dishId: 'salad-rau-mam-bo-xao',
+    dishName: 'Salad Rau Mầm Thịt Bò Xào Dầu Giấm',
+    seoTitle: 'Cách Làm Salad Rau Mầm Bò Xào Đậm Vị Thơm Ngon',
+    description:
+      'Hướng dẫn cách làm salad rau mầm bò xào đậm vị thơm ngon: bí quyết ướp xào thịt bò lửa lớn mềm mọng không dai, pha sốt dầu giấm chua ngọt giữ rau mầm giòn mát.',
+    ratingValue: '4.9',
+    reviewCount: 248,
+    prepTime: '15 phút (sơ chế rau mầm & ướp thịt bò thấm vị)',
+    cookTime: '5 phút (xào thịt bò lửa lớn 60 giây & trộn sốt)',
+    totalTime: '20 phút',
+    difficulty: 'Dễ',
+    servings: '2 - 3 người ăn',
+    calories: '380 kcal',
+    ingredients: [
+      {
+        category: 'Thịt bò mềm mọng & Gia vị ướp đậm vị',
+        items: [
+          '250g thịt thăn bò hoặc bắp bò non (thái lát thật mỏng ngang thớ để xào mềm ngọt không dai)',
+          '1 thìa canh dầu hào; 1/2 thìa canh nước tương ngon',
+          '1/2 thìa cà phê hạt nêm; 1/2 thìa cà phê đường; 1/2 thìa cà phê tiêu đen xay',
+          '1 thìa canh tỏi băm nhuyễn; 1 thìa canh dầu ăn (trộn sau cùng giúp khóa ẩm, làm mềm thớ bò)',
+        ],
+      },
+      {
+        category: 'Rau mầm tươi giòn & Topping hài hòa',
+        items: [
+          '200g rau mầm củ cải trắng hoặc rau mầm hướng dương (nhặt sạch vỏ hạt, rửa nhẹ tay để không dập)',
+          '120g cà chua bi đỏ (rửa sạch, bổ đôi)',
+          '1/2 củ hành tây trắng hoặc hành tây tím (thái lát thật mỏng, ngâm nước đá pha giấm cho giòn hết hăng)',
+          '2 thìa canh hành tím phi vàng giòn; 1 thìa canh hạt mè trắng rang thơm',
+        ],
+      },
+      {
+        category: 'Sốt dầu giấm chua ngọt tỷ lệ chuẩn',
+        items: [
+          '3 thìa canh giấm gạo lên men hoặc giấm táo (tạo vị chua thanh dịu, thơm nhẹ)',
+          '2 thìa canh đường cát trắng (hoặc đường nâu thanh vị)',
+          '2 thìa canh dầu ô liu (hoặc dầu thực vật thơm)',
+          '1/2 thìa cà phê muối tinh; 1/2 thìa cà phê tiêu đen xay',
+          '1 thìa cà phê tỏi băm nhỏ; 1 quả ớt sừng bỏ hạt thái lát (tùy khẩu vị cay)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Thái mỏng ngang thớ & ướp thịt bò đậm vị, không bị dai',
+        time: '10 phút',
+        heat: 'Nhiệt độ phòng',
+        goal: 'Thịt bò thấm đều gia vị, thơm mùi tỏi tiêu và giữ trọn độ mềm mọng nhờ lớp dầu ăn khóa ẩm',
+        actionPoints: [
+          'Rửa nhanh miếng thịt thăn bò hoặc bắp bò non với nước muối loãng, thấm thật khô bằng giấy bếp rồi dùng dao sắc thái lát mỏng ngang thớ (dày khoảng 2 mm).',
+          'Cho thịt bò vào tô, ướp cùng 1 thìa canh dầu hào, 1/2 thìa canh nước tương, 1/2 thìa cà phê hạt nêm, 1/2 thìa cà phê đường, 1/2 thìa cà phê tiêu đen và 1/2 lượng tỏi băm.',
+          'Trộn đều rồi thêm 1 thìa canh dầu ăn vào đảo nhẹ sau cùng, để thịt nghỉ 10 phút cho thấm vị (không ướp muối tinh trước để tránh thịt bò bị chảy nước và dai khi xào).',
+        ],
+        description:
+          'Thái thịt thăn bò lát mỏng ngang thớ, ướp dầu hào, nước tương, hạt nêm, đường, tiêu và tỏi băm, sau cùng áo thêm 1 thìa dầu ăn và để thấm 10 phút.',
+        tip: 'Mẹo thái bò siêu mỏng dễ như nhà hàng: Đặt khối thịt bò vào ngăn đá tủ lạnh khoảng 15 - 20 phút cho hơi se cứng bề mặt rồi thái ngang thớ sẽ cực kỳ đều tay và không bị nát.',
+      },
+      {
+        step: 2,
+        title: 'Rửa nhẹ rau mầm & xử lý hành tây giòn ngọt hết hăng',
+        time: '5 phút',
+        heat: 'Nước đá lạnh',
+        goal: 'Rau mầm căng giòn, nguyên cọng không dập nát và ráo nước hoàn toàn; hành tây trắng trong, giòn ngọt không cay mắt',
+        actionPoints: [
+          'Ngắt bỏ phần rễ già (nếu còn), thả rau mầm vào thau nước lớn rửa nhẹ tay 2 lần cho trôi hết vỏ hạt, tuyệt đối không vò mạnh làm dập cọng rau.',
+          'Vớt rau mầm ra rổ thưa, vẩy nhẹ hoặc quay bằng rổ quay salad cho thật ráo nước để khi trộn sốt rau không bị úng mềm.',
+          'Cà chua bi rửa sạch bổ đôi. Hành tây thái lát mỏng dọc củ, ngâm trong bát nước đá lạnh pha 1 thìa cà phê giấm và 1/2 thìa cà phê đường khoảng 5 phút rồi vớt ra để thật ráo.',
+        ],
+        description:
+          'Rửa rau mầm thật nhẹ tay trong thau nước lớn rồi để ráo kiệt; bổ đôi cà chua bi và ngâm lát hành tây trong nước đá pha giấm đường 5 phút để giòn hết hăng.',
+        tip: 'Rau mầm rất mỏng manh và dễ thấm nước: hãy rửa ngay sát giờ ăn và để thật ráo, nếu rau còn đọng nước sốt dầu giấm sẽ bị loãng và nhạt vị.',
+      },
+      {
+        step: 3,
+        title: 'Pha sốt dầu giấm chua ngọt sánh dịu chuẩn tỷ lệ',
+        time: '2 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Nước sốt dầu giấm hòa quyện sánh nhẹ, vị chua thanh – ngọt dịu – mặn vừa, thơm nồng mùi tỏi tiêu',
+        actionPoints: [
+          'Cho 3 thìa canh giấm gạo (hoặc giấm táo), 2 thìa canh đường và 1/2 thìa cà phê muối vào bát, khuấy đều tay đến khi đường và muối tan hoàn toàn.',
+          'Rót từ từ 2 thìa canh dầu ô liu vào bát, vừa rót vừa đánh đều bằng phới lồng (hoặc cho vào hũ đậy nắp lắc mạnh 20 giây) để hỗn hợp nhũ hóa hơi sánh mượt.',
+          'Thêm 1 thìa cà phê tỏi băm nhỏ, 1/2 thìa cà phê tiêu đen xay và ớt sừng thái lát vào khuấy nhẹ, nếm lại cho vừa vị chua ngọt hài hòa.',
+        ],
+        description:
+          'Hòa tan hoàn toàn đường và muối trong giấm, sau đó thêm dầu ô liu khuấy mạnh tay cho sánh nhẹ rồi cho tỏi băm, tiêu đen và ớt thái lát vào.',
+        tip: 'Dùng giấm táo hoặc giấm gạo lên men tự nhiên giúp vị chua thanh dịu và thơm nhẹ, không bị chua gắt như giấm công nghiệp.',
+      },
+      {
+        step: 4,
+        title: 'Xào thịt bò lửa lớn cực nhanh 45 - 60 giây giữ trọn độ mềm mọng',
+        time: '3 phút',
+        heat: 'Lửa lớn (chảo thật nóng)',
+        goal: 'Miếng thịt bò vừa chín tới, mặt ngoài săn thơm mùi tỏi xém nhẹ, bên trong mềm ngọt mọng nước, tuyệt đối không ra nước',
+        actionPoints: [
+          'Đặt chảo lên bếp đun thật nóng già với 1 thìa canh dầu ăn, cho phần tỏi băm còn lại vào phi thơm vàng.',
+          'Vặn lửa lớn nhất, trút toàn bộ thịt bò đã ướp vào trải đều mặt chảo và đảo thật nhanh tay trong khoảng 45 - 60 giây cho đến khi thịt vừa chuyển màu chín tái 90%.',
+          'Có thể cho 1/3 lượng hành tây thái lát vào đảo cùng 10 giây cuối cho dậy mùi thơm, rắc thêm chút tiêu xay rồi tắt bếp ngay (nhiệt dư của chảo sẽ làm thịt chín tới hoàn hảo).',
+        ],
+        description:
+          'Phi thơm tỏi trên chảo dầu thật nóng, cho thịt bò vào đảo nhanh tay trên lửa lớn đúng 45 - 60 giây cho vừa chín tới mềm mọng rồi tắt bếp ngay.',
+        tip: 'Sai lầm phổ biến nhất là xào bò lửa nhỏ hoặc xào quá 2 phút khiến thịt tiết hết nước ngọt và dai cứng. Chỉ xào từng mẻ vừa phải trên chảo thật nóng với lửa lớn.',
+      },
+      {
+        step: 5,
+        title: 'Trộn salad 2 lớp & thưởng thức ngay khi thịt bò còn ấm nóng',
+        time: '2 phút',
+        heat: 'Dùng ngay',
+        goal: 'Đĩa salad rau mầm bò xào rực rỡ, tầng dưới rau mầm giòn mát thấm sốt dầu giấm, tầng trên thịt bò ấm nóng đậm vị béo thơm',
+        actionPoints: [
+          'Cho rau mầm ráo nước, cà chua bi và phần hành tây ngâm lạnh còn lại vào tô lớn, rưới 2/3 lượng sốt dầu giấm rồi dùng đũa trộn thật nhẹ tay cho rau áo đều sốt.',
+          'Bày hỗn hợp rau mầm đã trộn ra đĩa sâu lòng rộng miệng.',
+          'Gắp toàn bộ thịt bò xào còn ấm nóng xếp lên trên mặt đĩa rau, rưới phần 1/3 nước sốt dầu giấm còn lại lên trên cùng.',
+          'Rắc hành tím phi vàng giòn, hạt mè trắng rang thơm và chút tiêu đen xay lên đỉnh rồi thưởng thức ngay lập tức.',
+        ],
+        description:
+          'Trộn nhẹ rau mầm, cà chua bi, hành tây với 2/3 sốt dầu giấm trước rồi bày ra đĩa, xếp thịt bò xào ấm nóng lên trên, rưới nốt sốt, rắc hành phi, mè rang và dùng ngay.',
+        tip: 'Chỉ trộn sốt và đặt thịt bò lên rau ngay trước lúc ăn; hơi ấm của thịt bò kết hợp với vị the mát giòn giòn của rau mầm và sốt dầu giấm chua ngọt sẽ tạo độ ngon bùng nổ mà rau không bị xẹp úng.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết làm Salad Rau Mầm Bò Xào đậm vị thơm ngon chuẩn nhà hàng: 1. Thái bò mỏng ngang thớ, ướp dầu hào – nước tương và áo 1 thìa dầu ăn (không ướp muối trước) rồi xào lửa thật lớn chỉ 45 - 60 giây để bò mềm mọng không dai; 2. Rửa nhẹ và vẩy thật ráo rau mầm, ngâm hành tây nước đá pha giấm để giòn ngọt không hăng; 3. Luôn trộn 2/3 sốt dầu giấm với rau trước rồi mới xếp bò xào ấm nóng lên trên và rưới nốt sốt ngay lúc ăn.',
+    recommendedSauce:
+      'Sốt dầu giấm chua ngọt tỏi tiêu truyền thống là lựa chọn chuẩn vị nhất giúp tôn trọn độ ngọt của thịt bò xào và vị cay the thanh mát của rau mầm; có thể chấm kèm thêm chén nước tương tỏi ớt hoặc muối tiêu chanh.',
+  },
 };
 
 /**

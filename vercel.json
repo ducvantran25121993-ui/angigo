@@ -1492,6 +1492,76 @@
       "source": "/cach-nau-nom-bo-kho-du-du/",
       "destination": "/cach-lam-nom-bo-kho-ha-noi",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-rau-mam-bo-xao",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-rau-mam-bo-xao/",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-rau-mam-bo-xao",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-rau-mam-bo-xao/",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-rau-mam-thit-bo",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-rau-mam-thit-bo/",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-rau-mam-thit-bo",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-rau-mam-thit-bo/",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-rau-mam-thit-bo",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/salad-rau-mam-thit-bo/",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-rau-mam-bo",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-salad-rau-mam-bo/",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-rau-mam-bo",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-salad-rau-mam-bo/",
+      "destination": "/cach-lam-salad-rau-mam-bo-xao",
+      "permanent": true
     }
   ],
   "headers": [

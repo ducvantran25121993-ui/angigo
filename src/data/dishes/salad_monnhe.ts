@@ -108,9 +108,9 @@ export const SALAD_MONNHE_DISHES: Dish[] = [
     priceRange: '50.000đ - 75.000đ',
     estimatedPrice: 60000,
     calories: '360 - 450 kcal',
-    description: 'Rau mầm củ cải cay nồng the mát, thịt bò thăn mềm ngọt xào tỏi xém cạnh rưới dầu giấm chua thanh kích thích vị giác.',
+    description: 'Hướng dẫn cách làm salad rau mầm bò xào đậm vị thơm ngon: bí quyết ướp xào thịt bò lửa lớn mềm mọng không dai, pha sốt dầu giấm chua ngọt giữ rau mầm giòn mát.',
     image: '/images/salad_rau_mam_bo.jpg',
-    popularTags: ['Rau mầm tươi', 'Bò xào tỏi', 'Khai vị'],
-    searchKeyword: 'Salad rau mầm thịt bò',
+    popularTags: ['Rau mầm giòn mát', 'Bò xào mềm mọng', 'Sốt dầu giấm'],
+    searchKeyword: 'Cách làm salad rau mầm bò xào',
   },
 ];

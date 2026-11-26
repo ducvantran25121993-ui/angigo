@@ -134,7 +134,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "salad-uc-ga-ap-chao": "Cách Làm Salad Ức Gà Healthy Chua Ngọt",
   "salad-ca-ngu-ngo-ngot": "Cách Làm Salad Cá Ngừ Đơn Giản Siêu Ngon",
   "poke-bowl-ca-hoi": "Cách Làm Poke Bowl Cá Hồi Đơn Giản Tại Nhà",
-  "salad-bo-trung-long-dao": "Cách Làm Salad Bơ Trứng Ngon Miệng Bổ Dưỡng"
+  "salad-bo-trung-long-dao": "Cách Làm Salad Bơ Trứng Ngon Miệng Bổ Dưỡng",
+  "salad-rau-mam-bo-xao": "Cách Làm Salad Rau Mầm Bò Xào Đậm Vị Thơm Ngon"
 };
 
 /**
@@ -512,6 +513,9 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'nom-bo-kho-ha-noi': 'cach-lam-nom-bo-kho-ha-noi',
   'nom-bo-kho': 'cach-lam-nom-bo-kho-ha-noi',
   'nom-bo-kho-du-du': 'cach-lam-nom-bo-kho-ha-noi',
+  'salad-rau-mam-bo-xao': 'cach-lam-salad-rau-mam-bo-xao',
+  'salad-rau-mam-thit-bo': 'cach-lam-salad-rau-mam-bo-xao',
+  'salad-rau-mam-bo': 'cach-lam-salad-rau-mam-bo-xao',
 };
 
 /**
@@ -1340,6 +1344,18 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-salad-bo-trung-ngon-mieng-bo-duong': 'salad-bo-trung-long-dao',
   'cach-lam-salad-bo-trung-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-bo-trung-long-dao',
   'cach-nau-salad-bo-trung-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-bo-trung-long-dao',
+
+  'salad-rau-mam-bo-xao': 'salad-rau-mam-bo-xao',
+  'salad-rau-mam-thit-bo': 'salad-rau-mam-bo-xao',
+  'salad-rau-mam-bo': 'salad-rau-mam-bo-xao',
+  'cach-nau-salad-rau-mam-bo-xao': 'salad-rau-mam-bo-xao',
+  'cach-lam-salad-rau-mam-thit-bo': 'salad-rau-mam-bo-xao',
+  'cach-nau-salad-rau-mam-thit-bo': 'salad-rau-mam-bo-xao',
+  'cach-lam-salad-rau-mam-bo': 'salad-rau-mam-bo-xao',
+  'cach-nau-salad-rau-mam-bo': 'salad-rau-mam-bo-xao',
+  'cach-lam-salad-rau-mam-bo-xao-dam-vi-thom-ngon': 'salad-rau-mam-bo-xao',
+  'cach-lam-salad-rau-mam-bo-xao-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-rau-mam-bo-xao',
+  'cach-nau-salad-rau-mam-bo-xao-chua-ngot-gion-tan-giai-ngay-cuc-tot': 'salad-rau-mam-bo-xao',
 };
 
 /**

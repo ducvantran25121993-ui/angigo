@@ -1942,6 +1942,276 @@
       "source": "/cach-lam-lau-ech/",
       "destination": "/cach-nau-lau-ech-mang-cay",
       "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ga-ot-hiem",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ga-ot-hiem/",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ga-ot-hiem",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ga-ot-hiem/",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ga-tiem-ot-hiem",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ga-tiem-ot-hiem/",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ga-tiem-ot-hiem",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ga-tiem-ot-hiem/",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ga-tiem-ot-hiem",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ga-tiem-ot-hiem/",
+      "destination": "/cach-nau-lau-ga-ot-hiem",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bao-tu-ham-tieu",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bao-tu-ham-tieu/",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/bao-tu-ham-tieu",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/bao-tu-ham-tieu/",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bao-tu-ham-tieu-xanh",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bao-tu-ham-tieu-xanh/",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bao-tu-ham-tieu-xanh",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bao-tu-ham-tieu-xanh/",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-bao-tu-ham-tieu",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-bao-tu-ham-tieu/",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/lau-bao-tu-ham-tieu",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/lau-bao-tu-ham-tieu/",
+      "destination": "/cach-nau-bao-tu-ham-tieu",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-chua-ca-loc-nam-bo",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-chua-ca-loc-nam-bo/",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-canh-chua-ca-loc-chuan-vi-nam-bo",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-canh-chua-ca-loc-chuan-vi-nam-bo/",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-chua-ca-loc-chuan-vi-nam-bo",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-canh-chua-ca-loc-chuan-vi-nam-bo/",
+      "destination": "/cach-nau-canh-chua-ca-loc",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ca-keo-la-giang",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ca-keo-la-giang/",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ca-keo-la-giang",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ca-keo-la-giang/",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ca-keo",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ca-keo/",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ca-keo",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ca-keo/",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ca-keo",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ca-keo/",
+      "destination": "/cach-nau-lau-ca-keo-la-giang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hai-san-pesto",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hai-san-pesto/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hai-san-pesto",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hai-san-pesto/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hai-san-pesto",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hai-san-pesto/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hai-san-pho-mai",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hai-san-pho-mai/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hai-san-pho-mai",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hai-san-pho-mai/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hai-san",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hai-san/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hai-san",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hai-san/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hai-san",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hai-san/",
+      "destination": "/cach-lam-pizza-hai-san-pho-mai",
+      "permanent": true
     }
   ],
   "headers": [

@@ -259,7 +259,23 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
       dish.description ||
       `Hướng dẫn chi tiết cách làm ${dish.name} thơm ngon chuẩn vị gia đình Việt Nam: Định lượng nguyên liệu chuẩn xác, các bước thực hiện dễ hiểu và mẹo bí quyết bếp trưởng.`;
     const image = dish.image?.startsWith('http') ? dish.image : dish.image;
-    const keywords = `${articleTitle.toLowerCase()}, cách nấu ${dish.name.toLowerCase()}, công thức ${dish.name.toLowerCase()}, cách làm ${dish.name.toLowerCase()}, hướng dẫn nấu ${dish.name.toLowerCase()}, món ngon mỗi ngày, ẩm thực việt nam`;
+    const baseName = (dish.vietnameseName || dish.name).toLowerCase();
+    const isBakingOrWestern = dish.category === 'pizza_pasta' || slug.startsWith('cach-lam-');
+    const cuisineKeyword =
+      dish.category === 'pizza_pasta'
+        ? 'ẩm thực ý'
+        : 'ẩm thực việt nam';
+    const keywords = Array.from(
+      new Set([
+        articleTitle.toLowerCase(),
+        isBakingOrWestern ? `cách làm ${baseName}` : `cách nấu ${baseName}`,
+        `công thức ${baseName}`,
+        isBakingOrWestern ? `hướng dẫn làm ${baseName}` : `hướng dẫn nấu ${baseName}`,
+        ...(dish.popularTags || []).map((t) => t.toLowerCase()),
+        'món ngon mỗi ngày',
+        cuisineKeyword,
+      ])
+    ).join(', ');
 
     routes[path] = {
       path,
@@ -270,7 +286,7 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
       imageAlt: articleTitle,
       priority: 0.85,
       changefreq: 'weekly',
-      lastmod: '2026-09-24',
+      lastmod: dish.id === 'pizza-hai-san-pesto' ? '2026-11-26' : '2026-09-24',
       isArticle: true,
     };
   }

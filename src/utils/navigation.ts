@@ -458,13 +458,25 @@ export async function updateRecipeArticleSEO(dish: Dish, recipe?: DishRecipe): P
     `Hướng dẫn chi tiết ${articleTitle.toLowerCase()}. Công thức định lượng nguyên liệu chuẩn xác, các bước nấu đơn giản và mẹo bí quyết giúp món ăn thơm ngon chuẩn vị.`;
   const image = dish.image?.startsWith('http') ? dish.image : `https://angigio.com${dish.image}`;
 
+  const baseName = (dish.vietnameseName || dish.name).toLowerCase();
+  const isMakeRoute = dish.category === 'pizza_pasta' || recipePath.startsWith('/cach-lam-');
+  const keywords = Array.from(
+    new Set([
+      articleTitle.toLowerCase(),
+      isMakeRoute ? `cách làm ${baseName}` : `cách nấu ${baseName}`,
+      `công thức ${baseName}`,
+      isMakeRoute ? `hướng dẫn làm ${baseName}` : `hướng dẫn nấu ${baseName}`,
+      'món ngon mỗi ngày',
+    ])
+  ).join(', ');
+
   applyMetaToDOM({
     path: recipePath,
     title,
     description,
     label: dish.name,
     shortLabel: dish.name,
-    keywords: `${articleTitle.toLowerCase()}, cách nấu ${dish.name.toLowerCase()}, công thức ${dish.name.toLowerCase()}, hướng dẫn nấu ${dish.name.toLowerCase()}, món ngon mỗi ngày`,
+    keywords,
     ogImage: image,
     ogImageAlt: articleTitle,
   });

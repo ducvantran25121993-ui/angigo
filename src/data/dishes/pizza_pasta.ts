@@ -3,17 +3,17 @@ import { Dish } from '../../types';
 export const PIZZA_PASTA_DISHES: Dish[] = [
   {
     id: 'pizza-hai-san-pesto',
-    name: 'Pizza Hải Sản Sốt Tiêu Đen Phô Mai Kéo Sợi',
+    name: 'Pizza Hải Sản Phô Mai Thơm Ngon',
     vietnameseName: 'Pizza Hải Sản Phô Mai',
     category: 'pizza_pasta',
     mealTime: ['trua', 'toi'],
     priceRange: '130.000đ - 220.000đ',
     estimatedPrice: 165000,
     calories: '800 - 980 kcal',
-    description: 'Đế bánh nướng củi giòn xốp bên ngoài dai mềm bên trong, ngập tràn tôm sú, mực tươi giòn, ớt chuông và phô mai Mozzarella kéo sợi thơm lừng.',
+    description: 'Hướng dẫn cách làm pizza hải sản phô mai thơm ngon chuẩn tiệm: bí quyết nhào đế bánh giòn xốp, xào khô tôm mực không chảy nước và nướng phô mai kéo sợi.',
     image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80',
-    popularTags: ['Hải sản tươi', 'Mozzarella kéo sợi', 'Nướng củi giòn'],
-    searchKeyword: 'Pizza hải sản phô mai',
+    popularTags: ['Pizza hải sản', 'Mozzarella kéo sợi', 'Đế bánh giòn xốp'],
+    searchKeyword: 'Cách làm pizza hải sản phô mai thơm ngon',
   },
   {
     id: 'pizza-pepperoni',

@@ -1260,6 +1260,40 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
             },
           ];
 
+      const CATEGORY_LABELS: Record<string, string> = {
+        com: 'Món Cơm',
+        com_xoi: 'Cơm & Xôi',
+        bun_pho: 'Bún, Phở & Mì',
+        bun_pho_mi: 'Bún, Phở & Mì',
+        banhmi_cuon: 'Bánh Mì & Món Cuốn',
+        lau_chao: 'Lẩu & Cháo',
+        lau_nuong: 'Lẩu & Nướng',
+        nuong_chien: 'Nướng & Chiên',
+        salad_monnhe: 'Salad & Món Nhẹ',
+        an_vat: 'Ăn Vặt',
+        do_uong: 'Đồ Uống',
+        healthy: 'Healthy & Salad',
+        fastfood: 'Fast Food',
+        mon_nhau: 'Món Nhậu',
+        pizza_pasta: 'Pizza & Mì Ý',
+        do_chay: 'Món Chay',
+        mon_khac: 'Món Ngon',
+      };
+      const recipeCategoryLabel = CATEGORY_LABELS[selectedRecipeDish.category] || selectedRecipeDish.category;
+      const recipeCuisineLabel = selectedRecipeDish.category === 'pizza_pasta' ? 'Italian' : 'Vietnamese';
+      const baseDishName = (selectedRecipeDish.vietnameseName || selectedRecipeDish.name).toLowerCase();
+      const isMakeRoute = selectedRecipeDish.category === 'pizza_pasta' || canonicalPath.startsWith('/cach-lam-');
+      const runtimeKeywords = Array.from(
+        new Set([
+          articleTitle.toLowerCase(),
+          isMakeRoute ? `cách làm ${baseDishName}` : `cách nấu ${baseDishName}`,
+          `công thức ${baseDishName}`,
+          isMakeRoute ? `hướng dẫn làm ${baseDishName}` : `hướng dẫn nấu ${baseDishName}`,
+          'món ngon mỗi ngày',
+          recipeCategoryLabel.toLowerCase(),
+        ])
+      ).join(', ');
+
       const schemaData = {
         '@context': 'https://schema.org',
         '@graph': [
@@ -1269,21 +1303,21 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
             url: `https://angigio.com${canonicalPath}`,
             mainEntityOfPage: `https://angigio.com${canonicalPath}`,
             name: articleTitle,
-            headline: `${articleTitle} - Hướng dẫn chi tiết định lượng và các bước nấu chuẩn vị`,
+            headline: `${articleTitle} - Hướng dẫn chi tiết định lượng và các bước làm chuẩn vị`,
             image: [fullImageUrl],
             description:
               currentRecipe.description ||
               selectedRecipeDish.description ||
-              `Hướng dẫn chi tiết từng bước ${articleTitle.toLowerCase()} đậm đà hương vị truyền thống Việt Nam.`,
-            keywords: `${articleTitle.toLowerCase()}, ${currentRecipe.dishName}, cách nấu ${selectedRecipeDish.vietnameseName}, công thức ${selectedRecipeDish.vietnameseName}, cách làm ${selectedRecipeDish.vietnameseName}, món ngon mỗi ngày, ẩm thực Việt Nam, ${selectedRecipeDish.category}`,
-            recipeCategory: selectedRecipeDish.category,
-            recipeCuisine: 'Vietnamese',
+              `Hướng dẫn chi tiết từng bước ${articleTitle.toLowerCase()} thơm ngon chuẩn vị.`,
+            keywords: runtimeKeywords,
+            recipeCategory: recipeCategoryLabel,
+            recipeCuisine: recipeCuisineLabel,
             recipeYield: currentRecipe.servings || '4 người',
             prepTime: prepDurationIso,
             cookTime: cookDurationIso,
             totalTime: totalDurationIso,
             datePublished: '2024-01-15T08:00:00+07:00',
-            dateModified: '2026-09-20T00:00:00+07:00',
+            dateModified: '2026-11-26T00:00:00+07:00',
             nutrition: {
               '@type': 'NutritionInformation',
               calories: `${recipeCaloriesNumber || 480} calories`,

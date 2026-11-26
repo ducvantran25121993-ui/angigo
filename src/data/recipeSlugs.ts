@@ -62,8 +62,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "nem-lui-nuong-cuon": "Cách Làm Nem Lụi Huế Thơm Lừng, Đậm Đà",
   "ram-bap-cuon-rau": "Cách Làm Ram Bắp Quảng Ngãi Giòn Rụm, Thơm Ngọt Chuẩn Vị Xứ Quảng",
   "banh-dap-mam-nem": "Cách Làm Bánh Đập Mắm Nêm Miền Trung Giòn Dẻo & Bí Quyết Pha Mắm Nêm Thơm Lừng",
-  "canh-chua-ca-loc": "Cách Nấu Canh Chua Cá Lóc Nam Bộ Thanh Mát, Đậm Đà Không Tanh",
-  "bao-tu-ham-tieu": "Cách Nấu Bao Tử Hầm Tiêu Xanh Giòn Sần Sật, Nước Dùng Cay Nồng Ngọt Thanh",
+  "canh-chua-ca-loc": "Cách Nấu Canh Chua Cá Lóc Chuẩn Vị Nam Bộ",
+  "bao-tu-ham-tieu": "Cách Nấu Bao Tử Hầm Tiêu Xanh Giòn Sần Sật",
   "long-nuong": "Cách Làm Lòng Nướng Sa Tế Cay Giòn Rụm Than Hoa Thơm Lừng Mồi Nhậu",
   "buffet": "Cách Làm Bàn Tiệc Buffet Lẩu Nướng Hải Sản Tại Nhà Thả Ga, Tiết Kiệm",
   "be-thui": "Cách Làm Bê Thui Cầu Mống Da Giòn Thịt Mềm & Bí Quyết Pha Mắm Nêm Xứ Quảng",
@@ -95,7 +95,7 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "com-ca-kho-to": "Cách Nấu Cơm Cá Kho Tộ Đậm Đà, Mềm Mọng Chuẩn Vị Mẹ Nấu",
   "com-chay-kho-quet": "Cách Nấu Cơm Cháy Kho Quẹt Đậm Đà, Mềm Mọng Chuẩn Vị Mẹ Nấu",
   "chao-ca-loc-rau-dang": "Cách Nấu Cháo Cá Lóc Bổ Dưỡng, Thơm Ngon Cho Cả Nhà",
-  "lau-ca-keo-la-giang": "Cách Nấu Lẩu Cá Kèo Lá Giang Chua Cay Đậm Đà Chuẩn Vị Gia Đình",
+  "lau-ca-keo-la-giang": "Cách Nấu Lẩu Cá Kèo Lá Giang Chua Cay Đậm Đà",
   "vit-nau-chao-can-tho": "Cách Nấu Vịt Nấu Chao Cần Thơ Thơm Ngon Chuẩn Vị Gia Đình",
   "ca-loc-nuong-trui": "Cách Làm Cá Lóc Nướng Trui Da Giòn Thịt Mềm, Thơm Lừng Khói Than",
   "goi-xoai-xanh-ca-sac": "Cách Làm Gỏi Xoài Cá Sặc Ngon Chuẩn Vị",
@@ -140,7 +140,9 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "lau-bo-nhung-dam": "Cách Nấu Bò Nhúng Dấm Chua Dịu Thơm Ngon",
   "chao-ech-singapore": "Cách Nấu Cháo Ếch Singapore Chuẩn Vị Thơm Ngon",
   "chao-long-doi-nong": "Cách Nấu Cháo Lòng Thơm Ngon Chuẩn Vị",
-  "lau-ech-mang-cay": "Cách Nấu Lẩu Ếch Măng Chua Cay Đậm Đà"
+  "lau-ech-mang-cay": "Cách Nấu Lẩu Ếch Măng Chua Cay Đậm Đà",
+  "lau-ga-ot-hiem": "Cách Nấu Lẩu Gà Ớt Hiểm Siêu Ngon",
+  "pizza-hai-san-pesto": "Cách Làm Pizza Hải Sản Phô Mai Thơm Ngon"
 };
 
 /**
@@ -534,6 +536,11 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'lau-ech-mang-cay': 'cach-nau-lau-ech-mang-cay',
   'lau-ech-mang-chua-cay': 'cach-nau-lau-ech-mang-cay',
   'lau-ech': 'cach-nau-lau-ech-mang-cay',
+  'lau-ga-ot-hiem': 'cach-nau-lau-ga-ot-hiem',
+  'lau-ga-tiem-ot-hiem': 'cach-nau-lau-ga-ot-hiem',
+  'pizza-hai-san-pesto': 'cach-lam-pizza-hai-san-pho-mai',
+  'pizza-hai-san-pho-mai': 'cach-lam-pizza-hai-san-pho-mai',
+  'pizza-hai-san': 'cach-lam-pizza-hai-san-pho-mai',
 };
 
 /**
@@ -726,8 +733,11 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
   'cach-lam-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
   'bao-tu-ham-tieu-xanh': 'bao-tu-ham-tieu',
+  'cach-nau-bao-tu-ham-tieu-xanh': 'bao-tu-ham-tieu',
+  'cach-lam-bao-tu-ham-tieu-xanh': 'bao-tu-ham-tieu',
   'lau-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
   'cach-nau-lau-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
+  'cach-lam-lau-bao-tu-ham-tieu': 'bao-tu-ham-tieu',
   'com-thit-kho-tau': 'com-thit-kho-tau',
   'thit-kho-tau': 'com-thit-kho-tau',
   'thit-kho-tau-nuoc-dua': 'com-thit-kho-tau',
@@ -973,6 +983,9 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-nau-canh-chua-ca-loc': 'canh-chua-ca-loc',
   'cach-lam-canh-chua-ca-loc': 'canh-chua-ca-loc',
   'cach-nau-canh-chua-ca-loc-nam-bo': 'canh-chua-ca-loc',
+  'cach-lam-canh-chua-ca-loc-nam-bo': 'canh-chua-ca-loc',
+  'cach-nau-canh-chua-ca-loc-chuan-vi-nam-bo': 'canh-chua-ca-loc',
+  'cach-lam-canh-chua-ca-loc-chuan-vi-nam-bo': 'canh-chua-ca-loc',
   'bun-nuoc-leo-soc-trang': 'bun-nuoc-leo-soc-trang',
   'cach-nau-bun-nuoc-leo-soc-trang': 'bun-nuoc-leo-soc-trang',
   'cach-lam-bun-nuoc-leo-soc-trang': 'bun-nuoc-leo-soc-trang',
@@ -1431,6 +1444,21 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-lau-ech-mang-chua-cay': 'lau-ech-mang-cay',
   'cach-nau-lau-ech': 'lau-ech-mang-cay',
   'cach-lam-lau-ech': 'lau-ech-mang-cay',
+  'lau-ga-ot-hiem': 'lau-ga-ot-hiem',
+  'lau-ga-tiem-ot-hiem': 'lau-ga-ot-hiem',
+  'cach-nau-lau-ga-ot-hiem': 'lau-ga-ot-hiem',
+  'cach-lam-lau-ga-ot-hiem': 'lau-ga-ot-hiem',
+  'cach-nau-lau-ga-tiem-ot-hiem': 'lau-ga-ot-hiem',
+  'cach-lam-lau-ga-tiem-ot-hiem': 'lau-ga-ot-hiem',
+  'pizza-hai-san-pesto': 'pizza-hai-san-pesto',
+  'pizza-hai-san-pho-mai': 'pizza-hai-san-pesto',
+  'pizza-hai-san': 'pizza-hai-san-pesto',
+  'cach-lam-pizza-hai-san-pho-mai': 'pizza-hai-san-pesto',
+  'cach-nau-pizza-hai-san-pho-mai': 'pizza-hai-san-pesto',
+  'cach-nau-pizza-hai-san-pesto': 'pizza-hai-san-pesto',
+  'cach-lam-pizza-hai-san-pesto': 'pizza-hai-san-pesto',
+  'cach-lam-pizza-hai-san': 'pizza-hai-san-pesto',
+  'cach-nau-pizza-hai-san': 'pizza-hai-san-pesto',
 };
 
 /**

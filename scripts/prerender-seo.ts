@@ -152,10 +152,33 @@ function injectMeta(
       const reviewCount = hasRealRating ? String(recipe!.reviewCount) : '';
 
       const dishTitle = recipe?.dishName || targetDish.vietnameseName || targetDish.name;
-      const recipeTitle = recipe?.seoTitle || meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, '');
+      const recipeTitle = recipe?.seoTitle || meta.title.replace(/\s*\|\s*(?:Hôm Nay Ăn Gì|Ăn Gì Giờ)$/i, '');
       const imageUrl = meta.image?.startsWith("http") ? meta.image : `https://angigio.com${meta.image}`;
-      const calNum = targetDish.calories ? (targetDish.calories.match(/(\d+)/)?.[1] || '480') : '480';
+      const rawCalories = recipe?.calories || targetDish.calories || '';
+      const calNum = rawCalories ? (rawCalories.match(/(\d+)/)?.[1] || '480') : '480';
       const cleanCalories = `${calNum} calories`;
+
+      const CATEGORY_LABELS: Record<string, string> = {
+        com: 'Món Cơm',
+        com_xoi: 'Cơm & Xôi',
+        bun_pho: 'Bún, Phở & Mì',
+        bun_pho_mi: 'Bún, Phở & Mì',
+        banhmi_cuon: 'Bánh Mì & Món Cuốn',
+        lau_chao: 'Lẩu & Cháo',
+        lau_nuong: 'Lẩu & Nướng',
+        nuong_chien: 'Nướng & Chiên',
+        salad_monnhe: 'Salad & Món Nhẹ',
+        an_vat: 'Ăn Vặt',
+        do_uong: 'Đồ Uống',
+        healthy: 'Healthy & Salad',
+        fastfood: 'Fast Food',
+        mon_nhau: 'Món Nhậu',
+        pizza_pasta: 'Pizza & Mì Ý',
+        do_chay: 'Món Chay',
+        mon_khac: 'Món Ngon',
+      };
+      const recipeCategoryLabel = CATEGORY_LABELS[targetDish.category] || targetDish.category;
+      const recipeCuisineLabel = targetDish.category === 'pizza_pasta' ? 'Italian' : 'Vietnamese';
 
       // Guarantee non-empty recipe ingredients
       let ingredientsList = formatIngredients(recipe?.ingredients);
@@ -207,7 +230,7 @@ function injectMeta(
 
       const recipeKeywords = meta.keywords && meta.keywords.trim().length > 0
         ? meta.keywords
-        : `cách nấu ${dishTitle.toLowerCase()}, công thức ${dishTitle.toLowerCase()}, cách làm ${dishTitle.toLowerCase()}, món ngon mỗi ngày, ẩm thực việt nam`;
+        : `cách nấu ${dishTitle.toLowerCase()}, công thức ${dishTitle.toLowerCase()}, cách làm ${dishTitle.toLowerCase()}, món ngon mỗi ngày`;
 
       const recipeSchema = {
         "@context": "https://schema.org",
@@ -218,12 +241,12 @@ function injectMeta(
             "url": canonicalUrl,
             "mainEntityOfPage": canonicalUrl,
             "name": recipeTitle,
-            "headline": `${recipeTitle} - Hướng dẫn chi tiết định lượng và các bước nấu chuẩn vị gia đình`,
+            "headline": `${recipeTitle} - Hướng dẫn chi tiết định lượng và các bước làm chuẩn vị`,
             "image": [imageUrl],
             "description": meta.description,
             "keywords": recipeKeywords,
-            "recipeCategory": targetDish.category,
-            "recipeCuisine": "Vietnamese",
+            "recipeCategory": recipeCategoryLabel,
+            "recipeCuisine": recipeCuisineLabel,
             "recipeYield": recipe?.servings || "4 - 6 người",
             "prepTime": parseMinutesToIso(recipe?.prepTime),
             "cookTime": parseMinutesToIso(recipe?.cookTime),
@@ -282,7 +305,7 @@ function injectMeta(
               {
                 "@type": "ListItem",
                 "position": 3,
-                "name": meta.title.replace(/\s*\|\s*Hôm Nay Ăn Gì$/i, ''),
+                "name": recipeTitle,
                 "item": canonicalUrl
               }
             ]

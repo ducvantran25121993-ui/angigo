@@ -1915,6 +1915,10 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
   const safeDesc = escapeXml(meta.description || "");
   const safeKeywords = escapeXml(meta.keywords || "");
   const safeImageAlt = escapeXml(meta.imageAlt || meta.title || "");
+  const absMetaImage = meta.image?.startsWith("http")
+    ? meta.image
+    : `https://angigio.com${meta.image?.startsWith("/") ? meta.image : `/${meta.image || "og-am-thuc-vung-mien.jpg"}`}`;
+  const safeImageUrl = escapeXml(absMetaImage);
 
   let updatedHtml = html
     .replace(/<title>.*?<\/title>/i, `<title>${safeTitle}</title>`)
@@ -1925,12 +1929,12 @@ function injectSeoMeta(html: string, requestedPath: string, overrideCustomPost?:
     .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${safeTitle}" />`)
     .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${safeDesc}" />`)
     .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i, `<meta property="og:url" content="${fullUrl}" />`)
-    .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i, `<meta property="og:image" content="${meta.image}" />`)
+    .replace(/<meta\s+property="og:image"\s+content=".*?"\s*\/?>/i, `<meta property="og:image" content="${safeImageUrl}" />`)
     .replace(/<meta\s+property="og:image:alt"\s+content=".*?"\s*\/?>/i, `<meta property="og:image:alt" content="${safeImageAlt}" />`)
     .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${safeTitle}" />`)
     .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${safeDesc}" />`)
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${fullUrl}" />`)
-    .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${meta.image}" />`);
+    .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${safeImageUrl}" />`);
 
   if (customMatch?.noIndex) {
     updatedHtml = updatedHtml.replace(

@@ -74,8 +74,8 @@ export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
     label: 'Ẩm Thực Vùng Miền',
     shortLabel: 'Vùng Miền',
     keywords: 'ẩm thực vùng miền, ẩm thực 3 miền, ẩm thực việt nam, món ngon miền bắc, món ngon miền trung, món ngon miền nam, ẩm thực miền tây, đặc sản vùng miền việt nam',
-    ogImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
-    ogImageAlt: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực Bắc Trung Nam',
+    ogImage: 'https://angigio.com/og-am-thuc-vung-mien.jpg',
+    ogImageAlt: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc Trung Nam & Miền Tây',
   },
   daily: {
     path: '/thuc-don-moi-ngay',
@@ -167,8 +167,8 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
     label: 'Ẩm Thực Vùng Miền',
     shortLabel: 'Ẩm Thực',
     keywords: 'ẩm thực vùng miền, ẩm thực 3 miền, ẩm thực việt nam, món ngon miền bắc, món ngon miền trung, món ngon miền nam, ẩm thực miền tây, đặc sản vùng miền việt nam',
-    ogImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
-    ogImageAlt: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực Bắc Trung Nam',
+    ogImage: 'https://angigio.com/og-am-thuc-vung-mien.jpg',
+    ogImageAlt: 'Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc Trung Nam & Miền Tây',
   },
   about: {
     path: '/gioi-thieu',

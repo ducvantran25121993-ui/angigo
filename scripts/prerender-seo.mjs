@@ -16,8 +16,8 @@ const SEO_ROUTES_CONFIG = {
     title: "Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc, Trung, Nam & Miền Tây | Hôm Nay Ăn Gì",
     description: "Bản đồ ẩm thực 3 miền Việt Nam: Khám phá hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và trù phú miền Tây sông nước.",
     keywords: "ẩm thực vùng miền, ẩm thực 3 miền, ẩm thực việt nam, món ngon miền bắc, món ngon miền trung, món ngon miền nam, ẩm thực miền tây, đặc sản vùng miền việt nam",
-    image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80",
-    imageAlt: "Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực Bắc Trung Nam",
+    image: "https://angigio.com/og-am-thuc-vung-mien.jpg",
+    imageAlt: "Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc Trung Nam & Miền Tây",
   },
   "/am-thuc-mien-bac": {
     path: "/am-thuc-mien-bac",

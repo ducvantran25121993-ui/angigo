@@ -677,8 +677,8 @@ export const PRESET_FOOD_IMAGES: PresetFoodImage[] = [
     "category": "Lẩu, Canh & Cháo"
   },
   {
-    "name": "Cháo lòng dồi tiết nóng hổi",
-    "url": "/images/chao_long.jpg",
+    "name": "Cháo lòng thơm ngon chuẩn vị",
+    "url": "/images/chao_long_chuan_vi.jpg",
     "category": "Lẩu, Canh & Cháo"
   },
   {

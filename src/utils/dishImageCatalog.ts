@@ -538,8 +538,8 @@ export const ALL_AUTHENTIC_DISH_IMAGES: DishImageItem[] = [
     "category": "lau_chao"
   },
   {
-    "image": "/images/chao_long.jpg",
-    "name": "Cháo Lòng Dồi Nóng Hổi Rắc Tiêu Thơm",
+    "image": "/images/chao_long_chuan_vi.jpg",
+    "name": "Cháo Lòng Thơm Ngon Chuẩn Vị",
     "category": "lau_chao"
   },
   {
@@ -1392,7 +1392,7 @@ export function getDishImageByName(name: string = "", category: string = ""): st
   if (norm.includes("xoi")) return "/images/xoi_pate_lap_xuong.jpg";
   if (norm.includes("chao suon")) return "/images/chao_suon_sun.jpg";
   if (norm.includes("chao ech")) return "/images/chao_ech.jpg";
-  if (norm.includes("chao long")) return "/images/chao_long.jpg";
+  if (norm.includes("chao long")) return "/images/chao_long_chuan_vi.jpg";
   if (norm.includes("chao vit")) return "/images/chao_vit.jpg";
   if (norm.includes("chao")) return "/images/chao_suon_sun.jpg";
   if (norm.includes("bun rieu chay")) return "/images/bun_rieu_chay.jpg";

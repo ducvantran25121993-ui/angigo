@@ -95,7 +95,7 @@ export const LAU_CHAO_DISHES: Dish[] = [
     estimatedPrice: 40000,
     calories: '480 - 600 kcal',
     description: 'Hướng dẫn cách nấu cháo lòng thơm ngon chuẩn vị: bí quyết làm sạch lòng non trắng giòn không đắng, ninh cháo gạo rang sánh ngọt nước xương và pha nước mắm ớt.',
-    image: '/images/chao_long.jpg',
+    image: '/images/chao_long_chuan_vi.jpg',
     popularTags: ['Cháo lòng gạo rang', 'Lòng non trắng giòn', 'Chuẩn vị truyền thống'],
     searchKeyword: 'Cách nấu cháo lòng thơm ngon chuẩn vị',
   },

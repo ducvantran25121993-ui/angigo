@@ -1792,6 +1792,96 @@
       "source": "/chao-ech/",
       "destination": "/cach-nau-chao-ech-singapore",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-long-doi-nong",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-long-doi-nong/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long-doi-nong",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long-doi-nong/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/chao-long-doi-nong",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/chao-long-doi-nong/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-long",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-long/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/chao-long",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/chao-long/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-long-tiet-canh",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-chao-long-tiet-canh/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long-tiet-canh",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long-tiet-canh/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long-thom-ngon-chuan-vi",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-chao-long-thom-ngon-chuan-vi/",
+      "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
+      "permanent": true
     }
   ],
   "headers": [

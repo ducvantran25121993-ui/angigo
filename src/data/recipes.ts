@@ -16528,6 +16528,134 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chính nước sốt tương đen ớt khô sánh bóng trong niêu ếch kho là linh hồn rưới ăn cùng cháo trắng; bạn có thể dọn kèm thêm chén nước tương thả ớt hiểm cắt lát và gừng thái chỉ.',
   },
+  'chao-long-doi-nong': {
+    dishId: 'chao-long-doi-nong',
+    dishName: 'Cháo Lòng Thơm Ngon Chuẩn Vị',
+    seoTitle: 'Cách Nấu Cháo Lòng Thơm Ngon Chuẩn Vị',
+    description:
+      'Hướng dẫn cách nấu cháo lòng thơm ngon chuẩn vị: bí quyết làm sạch lòng non trắng giòn không đắng, ninh cháo gạo rang sánh ngọt nước xương và pha nước mắm ớt.',
+    prepTime: '40 phút (làm sạch lòng, khử mùi & rang gạo)',
+    cookTime: '55 phút (ninh nước xương, luộc lòng giòn & nấu cháo)',
+    totalTime: '95 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người ăn',
+    calories: '540 kcal',
+    ratingValue: '4.9',
+    reviewCount: 386,
+    ingredients: [
+      {
+        category: 'Lòng heo & xương ninh nước dùng',
+        items: [
+          '500g xương ống heo (hoặc xương đuôi heo cho nước ngọt thanh)',
+          '300g lòng non heo (chọn đoạn đầu dày, ống tròn căng, dịch trắng sữa)',
+          '200g gan heo tươi; 200g tim heo (màu đỏ sẫm tự nhiên, đàn hồi tốt)',
+          '200g dạ dày heo (hoặc cuống họng, dồi trường giòn sần sật)',
+          '300g huyết heo đã luộc chín (hoặc thêm 2 thìa tiết tươi tạo màu cháo)',
+          '200g dồi sụn / dồi tiết nướng sẵn (tùy thích ăn kèm cho tròn vị)',
+        ],
+      },
+      {
+        category: 'Gạo nấu cháo & nguyên liệu khử mùi',
+        items: [
+          '180g gạo tẻ thơm; 40g gạo nếp cái hoa vàng (giúp cháo sánh dẻo mượt)',
+          '2 củ hành tím nướng thơm; 1 nhánh gừng già đập dập',
+          '2 thìa canh muối hạt; 2 quả chanh tươi (để bóp sạch nhớt lòng và ngâm nước đá)',
+          '2 thìa canh bột mì (hút sạch nhớt dạ dày cực hiệu quả); 2 thìa canh rượu trắng',
+        ],
+      },
+      {
+        category: 'Gia vị, rau thơm & đồ ăn kèm',
+        items: [
+          '2 thìa canh nước mắm ngon; 1 thìa cà phê hạt nêm',
+          '1 thìa cà phê tiêu xay; 1/2 thìa cà phê muối',
+          '1 bó hành lá; 1 nắm rau răm; 1 nắm hành ngò (rửa sạch, thái nhỏ)',
+          '100g giá đỗ tươi; 1 nắm húng quế; 1 nhánh gừng thái sợi',
+          '4 - 6 chiếc quẩy nóng giòn; 2 quả ớt hiểm tươi',
+          'Nước chấm: 3 thìa canh nước mắm; 1 thìa canh nước cốt chanh; ớt băm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế lòng non, dạ dày, gan, tim trắng sạch & khử mùi hôi',
+        time: '25 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Các loại lòng heo sạch nhớt hoàn toàn, trắng hồng tự nhiên và không còn mùi hôi tanh',
+        actionPoints: [
+          'Lộn trái dạ dày và lòng non, cạo sạch lớp màng nhớt bám bên trong. Cho 2 thìa canh bột mì, 1 thìa canh muối hạt và nước cốt 1 quả chanh vào bóp kỹ trong 5 phút rồi xả sạch nhiều lần dưới vòi nước lạnh (bột mì giúp hút sạch mùi và chất nhờn rất hiệu quả).',
+          'Tim heo bổ đôi, nặn rửa sạch máu đông bên trong; gan heo ngâm nhanh với chút nước muối loãng (hoặc sữa tươi không đường) khoảng 10 phút rồi rửa sạch, để ráo.',
+          'Xương ống heo chặt khúc, chần qua nước sôi có vài lát gừng đập dập trong 3 phút rồi vớt ra rửa sạch bọt bẩn.',
+        ],
+        description:
+          'Lộn trái lòng non và dạ dày, bóp kỹ với bột mì, muối hạt và chanh rồi xả thật sạch; làm sạch máu đọng trong tim, khử tanh gan và chần sơ xương ống với gừng.',
+        tip: 'Không nên bóp lòng non quá mạnh tay hoặc ngâm muối quá lâu vì sẽ làm lòng bị mất độ giòn ngọt và dễ dai khi luộc.',
+      },
+      {
+        step: 2,
+        title: 'Ninh nước dùng xương ống & rang gạo dậy mùi thơm béo',
+        time: '40 phút',
+        heat: 'Lửa nhỏ liu riu',
+        goal: 'Nước xương ngọt thanh tự nhiên, hạt gạo rang se mặt thơm lừng để cháo nấu sánh mịn không bị vữa',
+        actionPoints: [
+          'Cho xương ống đã chần vào nồi cùng 2.5 lít nước lọc, 2 củ hành tím nướng thơm và 1/2 thìa cà phê muối. Đun sôi, hớt sạch bọt rồi hạ lửa nhỏ ninh liu riu khoảng 40 phút lấy nước ngọt.',
+          'Trộn 180g gạo tẻ với 40g gạo nếp, vo sạch 2 nước rồi để thật ráo. Bắc chảo khô lên bếp, cho gạo vào rang đều tay trên lửa vừa khoảng 4 - 5 phút đến khi hạt gạo khô ráo, chuyển màu trắng đục và thơm nhẹ thì tắt bếp.',
+        ],
+        description:
+          'Ninh xương ống với 2.5 lít nước, hành tím nướng và chút muối trong 40 phút cho ngọt nước; vo ráo gạo tẻ pha gạo nếp rồi rang sơ 4 - 5 phút cho thơm.',
+        tip: 'Rang gạo sơ trước khi nấu giúp hạt gạo khi ninh cháo nở bung thành hoa đều đẹp, dậy mùi thơm đặc trưng và giữ nồi cháo sánh mượt suốt nhiều giờ mà không bị tách nước.',
+      },
+      {
+        step: 3,
+        title: 'Luộc lòng đúng thứ tự & ngâm nước đá chanh cho trắng giòn',
+        time: '20 phút',
+        heat: 'Lửa vừa sôi lăn tăn',
+        goal: 'Lòng non trắng giòn không đắng, dạ dày sần sật, gan chín bùi không khô xác và không bị thâm đen',
+        actionPoints: [
+          'Lọc lấy phần nước dùng xương trong sang nồi nấu cháo, đun sôi cùng 1 nhánh gừng đập dập và 2 thìa canh rượu trắng để luộc lòng (nước luộc lòng sẽ giúp cháo ngọt đậm hơn rất nhiều).',
+          'Thả dạ dày và tim heo vào luộc trước khoảng 15 - 20 phút, tiếp theo cho gan heo luộc thêm 10 phút; cuối cùng mới thả lòng non vào luộc nhanh 5 - 7 phút vừa chín tới.',
+          'Chuẩn bị sẵn một âu nước đá lạnh có vắt 1/2 quả chanh. Vớt từng loại lòng vừa chín ra thả ngay vào âu nước đá ngâm 5 phút cho nguội hẳn rồi vớt ra đĩa để ráo, thái miếng vừa ăn.',
+        ],
+        description:
+          'Luộc lòng trong nước dùng xương có gừng và rượu trắng theo thứ tự dạ dày và tim trước, đến gan và cuối cùng là lòng non 5 - 7 phút; vớt thả ngay vào âu nước đá chanh 5 phút rồi thái miếng.',
+        tip: 'Sốc nhiệt bằng nước đá pha cốt chanh là bí quyết kinh điển của các quán cháo lòng ngon: lòng non giữ nguyên màu trắng ngần, không bị thâm xỉn khi gặp không khí và giòn rụm khi nhai.',
+      },
+      {
+        step: 4,
+        title: 'Ninh cháo gạo rang sánh mịn & tạo vị cháo huyết chuẩn quán',
+        time: '30 phút',
+        heat: 'Lửa nhỏ liu riu',
+        goal: 'Nồi cháo nở bung sánh dẻo, ngọt sâu vị nước xương luộc lòng, đậm đà thơm nồng mùi tiêu gừng',
+        actionPoints: [
+          'Vớt bỏ gừng trong nồi nước luộc lòng (châm thêm nước sôi nếu cần để đủ khoảng 2.2 - 2.5 lít nước), trút gạo đã rang vào nấu sôi rồi hạ lửa nhỏ ninh liu riu 25 - 30 phút cho hạt gạo nhừ sánh, thỉnh thoảng khuấy nhẹ đáy nồi chống khét.',
+          'Cắt huyết heo đã luộc chín thành miếng vuông vừa ăn, thả vào nồi cháo đun sôi nhẹ 5 phút cho nóng ngọt (nếu muốn cháo có màu nâu sóng sánh đặc trưng, hòa 2 thìa canh tiết tươi với 3 thìa nước nguội rồi rót từ từ vào nồi cháo đang sôi, khuấy đều tay và đun sôi kỹ thêm 5 phút cho chín hoàn toàn).',
+          'Nêm nồi cháo với 2 thìa canh nước mắm ngon, 1 thìa cà phê hạt nêm và 1/2 thìa cà phê tiêu xay, nếm lại vừa miệng rồi giữ nóng trên lửa thật nhỏ.',
+        ],
+        description:
+          'Cho gạo rang vào nồi nước luộc lòng ninh lửa nhỏ 25 - 30 phút cho sánh nhừ; thả huyết luộc vào nấu nóng và nêm nước mắm, hạt nêm, tiêu xay vừa ăn.',
+        tip: 'Luôn ninh cháo với nước luộc lòng đã hớt sạch bọt để tô cháo có độ béo ngọt tự nhiên mà không cần dùng nhiều bột ngọt.',
+      },
+      {
+        step: 5,
+        title: 'Pha nước mắm ớt gừng, múc cháo nóng hổi & thưởng thức',
+        time: '5 phút',
+        heat: 'Dùng nóng hổi',
+        goal: 'Tô cháo lòng bốc khói nghi ngút, đầy đặn lòng dồi trắng giòn, thơm lừng rau răm hành lá và tiêu xay',
+        actionPoints: [
+          'Pha chén nước chấm gồm 3 thìa canh nước mắm ngon, 1 thìa canh nước cốt chanh, ớt hiểm cắt lát và vài sợi gừng tươi (có thể dọn kèm thêm mắm tôm đánh bông với chanh ớt nếu thích vị Bắc).',
+          'Cho ít giá đỗ tươi xuống đáy tô, múc cháo nóng ngập tô kèm vài miếng huyết, xếp lòng non, dạ dày, tim, gan và vài khoanh dồi nóng lên trên.',
+          'Rắc đều hành lá, rau răm thái nhỏ, gừng thái sợi và thật nhiều tiêu xay thơm nồng; thưởng thức ngay khi nóng hổi cùng quẩy giòn tan và rau húng quế.',
+        ],
+        description:
+          'Pha nước mắm chanh ớt gừng; múc cháo nóng ra tô có giá đỗ, xếp đầy đủ lòng non, dạ dày, gan, tim, dồi và huyết lên trên, rắc hành lá, rau răm, gừng sợi, tiêu xay và ăn kèm quẩy giòn.',
+        tip: 'Cháo lòng ngon nhất khi ăn nóng hổi ngay lúc vừa múc ra tô; chấm riêng từng miếng lòng trắng giòn vào nước mắm ớt cay nồng rồi húp thìa cháo sánh ngọt sẽ cực kỳ tròn vị.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu Cháo Lòng thơm ngon chuẩn vị quán: 1. Bóp rửa lòng non và dạ dày bằng bột mì + muối hạt + chanh để hút sạch nhớt và khử hoàn toàn mùi hôi; 2. Luộc lòng theo đúng thứ tự chín lâu trước - chín nhanh sau rồi thả ngay vào nước đá vắt chanh giúp lòng trắng giòn sần sật, không thâm đen; 3. Rang sơ hỗn hợp gạo tẻ pha gạo nếp trước khi ninh trong chính nồi nước xương luộc lòng để cháo sánh mượt, thơm béo tự nhiên.',
+    recommendedSauce:
+      'Chén nước mắm nguyên chất vắt chanh, thả ớt hiểm cắt lát và gừng thái sợi là lựa chọn chuẩn vị nhất cho cả ba miền; ngoài ra có thể chấm kèm mắm tôm đánh sủi bọt với quất (tắc) và ớt tươi.',
+  },
 };
 
 /**

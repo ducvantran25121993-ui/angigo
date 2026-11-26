@@ -138,7 +138,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "salad-rau-mam-bo-xao": "Cách Làm Salad Rau Mầm Bò Xào Đậm Vị Thơm Ngon",
   "lau-thai-hai-san": "Cách Nấu Lẩu Thái Chua Cay Siêu Ngon Tại Nhà",
   "lau-bo-nhung-dam": "Cách Nấu Bò Nhúng Dấm Chua Dịu Thơm Ngon",
-  "chao-ech-singapore": "Cách Nấu Cháo Ếch Singapore Chuẩn Vị Thơm Ngon"
+  "chao-ech-singapore": "Cách Nấu Cháo Ếch Singapore Chuẩn Vị Thơm Ngon",
+  "chao-long-doi-nong": "Cách Nấu Cháo Lòng Thơm Ngon Chuẩn Vị"
 };
 
 /**
@@ -527,6 +528,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'bo-nhung-giam': 'cach-nau-bo-nhung-dam-chua-diu-thom-ngon',
   'chao-ech-singapore': 'cach-nau-chao-ech-singapore',
   'chao-ech': 'cach-nau-chao-ech-singapore',
+  'chao-long-doi-nong': 'cach-nau-chao-long-thom-ngon-chuan-vi',
+  'chao-long': 'cach-nau-chao-long-thom-ngon-chuan-vi',
 };
 
 /**
@@ -1404,6 +1407,17 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-chao-ech': 'chao-ech-singapore',
   'cach-nau-chao-ech-singapore-chuan-vi-thom-ngon': 'chao-ech-singapore',
   'cach-nau-chao-ech-singapore-bo-duong-thom-ngon-cho-ca-nha': 'chao-ech-singapore',
+  'chao-long-doi-nong': 'chao-long-doi-nong',
+  'chao-long': 'chao-long-doi-nong',
+  'chao-long-tiet-canh': 'chao-long-doi-nong',
+  'cach-nau-chao-long-thom-ngon-chuan-vi': 'chao-long-doi-nong',
+  'cach-lam-chao-long-thom-ngon-chuan-vi': 'chao-long-doi-nong',
+  'cach-nau-chao-long-doi-nong': 'chao-long-doi-nong',
+  'cach-lam-chao-long-doi-nong': 'chao-long-doi-nong',
+  'cach-nau-chao-long': 'chao-long-doi-nong',
+  'cach-lam-chao-long': 'chao-long-doi-nong',
+  'cach-nau-chao-long-tiet-canh': 'chao-long-doi-nong',
+  'cach-lam-chao-long-tiet-canh': 'chao-long-doi-nong',
 };
 
 /**

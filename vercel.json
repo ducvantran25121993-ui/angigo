@@ -2212,6 +2212,56 @@
       "source": "/pizza-hai-san/",
       "destination": "/cach-lam-pizza-hai-san-pho-mai",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-pepperoni",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-pepperoni/",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-pepperoni",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-pepperoni/",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-xuc-xich-y",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-xuc-xich-y/",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-xuc-xich-y",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-xuc-xich-y/",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-xuc-xich-y",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-xuc-xich-y/",
+      "destination": "/cach-lam-pizza-pepperoni",
+      "permanent": true
     }
   ],
   "headers": [

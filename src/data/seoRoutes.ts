@@ -286,7 +286,7 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
       imageAlt: articleTitle,
       priority: 0.85,
       changefreq: 'weekly',
-      lastmod: dish.id === 'pizza-hai-san-pesto' ? '2026-11-26' : '2026-09-24',
+      lastmod: dish.id === 'pizza-hai-san-pesto' || dish.id === 'pizza-pepperoni' ? '2026-11-26' : '2026-09-24',
       isArticle: true,
     };
   }

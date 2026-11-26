@@ -17085,6 +17085,134 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chấm hoặc xịt kèm tương cà (ketchup), tương ớt cay dịu và sốt mayonnaise béo ngậy; rắc thêm chút ớt bột khô (chili flakes) nếu thích vị cay nồng chuẩn Ý.',
   },
+  'pizza-pepperoni': {
+    dishId: 'pizza-pepperoni',
+    dishName: 'Pizza Pepperoni',
+    seoTitle: 'Cách Làm Pizza Pepperoni Thơm Ngon',
+    description:
+      'Hướng dẫn cách làm pizza pepperoni thơm ngon chuẩn vị Ý: bí quyết nhào đế giòn xốp, nấu sốt cà chua đậm đà, phô mai kéo sợi và xúc xích xém cạnh.',
+    prepTime: '70 phút (gồm 55 phút ủ bột; chỉ 10 phút nếu dùng đế sẵn)',
+    cookTime: '20 phút (sên sốt & nướng bánh)',
+    totalTime: '90 phút',
+    servings: '2 chiếc cỡ 24cm (3 - 4 người ăn)',
+    calories: '840 kcal',
+    difficulty: 'Trung bình',
+    ratingValue: '4.9',
+    reviewCount: 382,
+    ingredients: [
+      {
+        category: 'Đế bánh Pizza giòn xốp (2 chiếc cỡ 24cm — hoặc mua đế sẵn)',
+        items: [
+          '250g bột mì số 13 (bột làm bánh mì giàu protein giúp đế dai xốp)',
+          '4g men nở khô Instant; 155ml nước ấm (35 - 40 độ C)',
+          '1.5 thìa canh dầu ô liu nguyên chất; 4g muối tinh; 1 thìa cà phê đường',
+        ],
+      },
+      {
+        category: 'Sốt cà chua Ý thảo mộc đậm đà',
+        items: [
+          '220g cà chua chín đỏ bóc vỏ nghiền (hoặc cà chua hộp Ý San Marzano)',
+          '1.5 thìa canh tương cà chua cô đặc (tomato paste)',
+          '3 tép tỏi băm nhuyễn; 1 thìa canh dầu ô liu',
+          '1 thìa cà phê lá Oregano khô; 1/2 thìa cà phê lá húng quế Tây khô',
+          '1/2 thìa cà phê muối; 1 thìa cà phê đường; 1/2 thìa cà phê tiêu đen',
+        ],
+      },
+      {
+        category: 'Nhân xúc xích Pepperoni & Phô mai kéo sợi',
+        items: [
+          '160g xúc xích Pepperoni thái lát mỏng (cỡ 2 - 2.5mm, khoảng 36 - 40 lát)',
+          '240g phô mai Mozzarella khối tự bào sợi (độ ẩm thấp, kéo sợi dai béo)',
+          '25g phô mai Parmesan bào mịn',
+          '1/2 thìa cà phê ớt bột khô (chili flakes); 1 thìa cà phê mật ong (tùy chọn)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Kích hoạt men, nhào bột & ủ đế bánh Pizza giòn xốp',
+        time: '60 phút',
+        heat: 'Nhiệt độ phòng (ủ kín gió)',
+        goal: 'Khối bột mịn dẻo đàn hồi, nở gấp đôi có thớ khí đều giúp đế bánh giòn vỏ xốp ruột',
+        actionPoints: [
+          'Hòa tan 4g men nở khô và 1 thìa cà phê đường vào 155ml nước ấm (35 - 40°C), để yên 8 - 10 phút đến khi men sủi bọt mịn như gạch cua.',
+          'Trộn đều 250g bột mì số 13 với 4g muối trong âu lớn, tạo hố giữa rồi đổ hỗn hợp men và 1.5 thìa canh dầu ô liu vào trộn đều thành khối.',
+          'Nhào bột bằng tay khoảng 10 - 12 phút (hoặc máy trộn bột 7 phút) đến khi bề mặt bột mịn màng, ấn ngón tay vào thấy đàn hồi nhẹ trở lại.',
+          'Vo tròn khối bột, quét lớp dầu ô liu mỏng quanh âu, bọc kín màng bọc thực phẩm và ủ ở nơi ấm khoảng 45 - 60 phút cho đến khi bột nở gấp đôi.',
+        ],
+        description:
+          'Kích hoạt men nở với nước ấm và đường, nhào cùng bột mì số 13, muối và dầu ô liu đến khi mịn đàn hồi rồi ủ kín 45 - 60 phút cho bột nở gấp đôi (có thể dùng đế pizza bán sẵn để rút ngắn bước này).',
+        tip: 'Nếu muốn tiết kiệm thời gian, bạn có thể dùng 2 đế pizza bán sẵn cỡ 24cm, để rã đông hoàn toàn ở nhiệt độ phòng trước khi phết sốt.',
+      },
+      {
+        step: 2,
+        title: 'Nấu sốt cà chua Ý thảo mộc sánh đặc',
+        time: '12 phút',
+        heat: 'Lửa vừa rồi hạ lửa nhỏ',
+        goal: 'Sốt cà chua đỏ au, sánh mịn bám thìa, thơm mùi tỏi và lá Oregano chuẩn vị Ý',
+        actionPoints: [
+          'Khứa chữ thập đáy cà chua, trụng nước sôi 30 giây, bóc vỏ bỏ hạt rồi băm hoặc xay nhuyễn (hoặc dùng 220g cà chua nghiền đóng hộp San Marzano).',
+          'Đun nóng 1 thìa canh dầu ô liu trên lửa vừa, phi thơm 3 tép tỏi băm (không để cháy vàng sậm gây đắng).',
+          'Cho cà chua nghiền và 1.5 thìa canh tương cà cô đặc vào đảo đều, nêm 1/2 thìa cà phê muối, 1 thìa cà phê đường, 1/2 thìa cà phê tiêu đen, 1 thìa cà phê lá Oregano khô và 1/2 thìa cà phê húng quế Tây khô.',
+          'Hạ lửa nhỏ sên mở vung khoảng 8 - 10 phút đến khi sốt đặc sánh không còn nước loãng, tắt bếp để nguội hoàn toàn trước khi phết lên đế.',
+        ],
+        description:
+          'Phi thơm tỏi với dầu ô liu, cho cà chua nghiền, tương cà đặc cùng lá Oregano và húng quế Tây vào sên lửa nhỏ 8 - 10 phút đến khi sốt sánh đặc rồi để nguội hẳn.',
+        tip: 'Luôn để sốt cà chua nguội hẳn mới phết lên bột sống; sốt còn nóng sẽ làm bột bị chảy nhão và xẹp men trước khi vào lò.',
+      },
+      {
+        step: 3,
+        title: 'Chuẩn bị phô mai Mozzarella & lát xúc xích Pepperoni',
+        time: '5 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Phô mai tơi khô ráo dễ tan chảy kéo sợi, lát Pepperoni khô mặt dễ nướng giòn viền',
+        actionPoints: [
+          'Dùng bàn bào lỗ to bào sợi 240g phô mai Mozzarella nguyên khối, giữ lạnh trong ngăn mát đến sát lúc xếp bánh để phô mai chảy đều mà không tách dầu.',
+          'Bào mịn 25g phô mai Parmesan để riêng.',
+          'Kiểm tra 160g lát xúc xích Pepperoni (độ dày lý tưởng 2 - 2.5mm); dùng giấy thấm bếp thấm nhẹ lớp ẩm bề mặt giúp xúc xích nhanh cong viền giòn rụm khi nướng.',
+        ],
+        description:
+          'Bào sợi phô mai Mozzarella nguyên khối (giữ mát) cùng phô mai Parmesan bào mịn; thấm khô bề mặt lát xúc xích Pepperoni để nướng lên nhanh xém cạnh giòn thơm.',
+        tip: 'Tránh dùng phô mai Mozzarella bào sẵn đóng túi vì thường có lớp tinh bột chống dính khiến phô mai kém dẻo và khó kéo sợi mượt.',
+      },
+      {
+        step: 4,
+        title: 'Cán tạo hình đế bánh, phết sốt & xếp lớp phô mai — Pepperoni',
+        time: '8 phút',
+        heat: 'Làm nóng lò trước ở 230°C',
+        goal: 'Đế bánh tròn đều viền phồng nhẹ, lát Pepperoni phủ đều không chồng đè để xém giòn trọn vẹn',
+        actionPoints: [
+          'Chia khối bột làm 2 phần bằng nhau, ấn nhẹ xả khí rồi cán hoặc kéo tay thành hình tròn đường kính 24cm (đáy dày ~3 - 4mm, chừa viền ngoài dày hơn nhẹ), đặt lên khay lót giấy nến.',
+          'Dùng nĩa xâm đều các lỗ nhỏ khắp phần lòng bánh (chừa phần viền ngoài) để đế không phồng rộp bất thường; quét một lớp mỏng dầu ô liu quanh viền.',
+          'Phết khoảng 3 - 4 thìa canh sốt cà chua nguội đều khắp mặt đế (chừa viền 1.5cm), tránh phết quá dày gây ướt bánh.',
+          'Rải đều phô mai Mozzarella bào và phô mai Parmesan lên trên, sau đó xếp 18 - 20 lát xúc xích Pepperoni lên mặt phô mai (xếp sát nhau vừa phải, không chồng lớp lên nhau).',
+        ],
+        description:
+          'Cán bột thành đế tròn 24cm, xâm lỗ bằng nĩa, phết lớp sốt cà chua vừa phải, phủ đều Mozzarella và Parmesan rồi xếp các lát Pepperoni phủ kín mặt bánh (không chồng đè).',
+        tip: 'Đặt lát Pepperoni nằm trên cùng (không phủ phô mai đè lên xúc xích) là kỹ thuật giúp cạnh xúc xích tiếp xúc trực tiếp với nhiệt trên, cong viền và xém giòn thơm nức chuẩn tiệm.',
+      },
+      {
+        step: 5,
+        title: 'Nướng nhiệt cao giòn viền, xém cạnh Pepperoni & thưởng thức nóng',
+        time: '12 phút',
+        heat: 'Lò nướng 230°C (hoặc nồi chiên không dầu 190°C)',
+        goal: 'Viền bánh vàng rụm, phô mai sôi lăn tăn xém vàng nhẹ, lát Pepperoni cong viền giòn béo thơm lừng',
+        actionPoints: [
+          'Làm nóng lò nướng trước tối thiểu 10 - 15 phút ở mức 230°C (hai lửa, không quạt hoặc quạt nhẹ). Đưa khay pizza vào rãnh giữa, nướng 11 - 13 phút đến khi viền bánh vàng giòn, phô mai tan chảy có đốm nâu vàng và mép Pepperoni cong lên hơi xém cạnh.',
+          'Nếu nướng bằng nồi chiên không dầu: làm nóng nồi ở 190°C trong 5 phút, nướng bánh 8 - 10 phút (có thể nướng sơ đế 2 - 3 phút trước khi phết sốt để đáy giòn hơn).',
+          'Lấy bánh ra thớt gỗ nghỉ 1 - 2 phút cho phô mai ổn định, rắc thêm chút lá Oregano khô, ớt bột khô hoặc rưới vài giọt mật ong lên mặt bánh; cắt 6 - 8 miếng tam giác thưởng thức ngay khi nóng hổi.',
+        ],
+        description:
+          'Nướng bánh trong lò đã làm nóng ở 230°C khoảng 11 - 13 phút (hoặc nồi chiên không dầu 190°C 8 - 10 phút) đến khi viền vàng giòn, phô mai tan chảy và mép Pepperoni cong xém; cắt miếng dùng nóng.',
+        tip: 'Nếu thấy mặt Pepperoni tươm nhiều dầu sau khi ra lò, bạn có thể chạm nhẹ góc khăn giấy ăn lên phần dầu đọng giữa lát xúc xích để bánh ráo ngon không bị ngấy.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết làm Pizza Pepperoni ngon đúng chuẩn tiệm Ý: 1. Nhiệt lò phải thật cao (230°C và làm nóng lò kỹ trước 15 phút) để viền bánh nở giòn nhanh và mép Pepperoni cong xém giòn rụm (cup-and-char); 2. Dùng phô mai Mozzarella khối độ ẩm thấp tự bào kết hợp thêm Parmesan để kéo sợi dày mà không chảy nước; 3. Xếp lát Pepperoni lên lớp trên cùng và không phết quá nhiều sốt cà chua.',
+    recommendedSauce:
+      'Thưởng thức cùng tương cà (ketchup), tương ớt, rắc thêm ớt bột khô (chili flakes) và lá Oregano khô; đặc biệt hợp khi rưới thêm chút mật ong cay (hot honey) hoặc chấm sốt bơ tỏi mayonnaise.',
+  },
 };
 
 /**

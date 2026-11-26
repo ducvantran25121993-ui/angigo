@@ -142,7 +142,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "chao-long-doi-nong": "Cách Nấu Cháo Lòng Thơm Ngon Chuẩn Vị",
   "lau-ech-mang-cay": "Cách Nấu Lẩu Ếch Măng Chua Cay Đậm Đà",
   "lau-ga-ot-hiem": "Cách Nấu Lẩu Gà Ớt Hiểm Siêu Ngon",
-  "pizza-hai-san-pesto": "Cách Làm Pizza Hải Sản Phô Mai Thơm Ngon"
+  "pizza-hai-san-pesto": "Cách Làm Pizza Hải Sản Phô Mai Thơm Ngon",
+  "pizza-pepperoni": "Cách Làm Pizza Pepperoni Thơm Ngon"
 };
 
 /**
@@ -541,6 +542,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'pizza-hai-san-pesto': 'cach-lam-pizza-hai-san-pho-mai',
   'pizza-hai-san-pho-mai': 'cach-lam-pizza-hai-san-pho-mai',
   'pizza-hai-san': 'cach-lam-pizza-hai-san-pho-mai',
+  'pizza-pepperoni': 'cach-lam-pizza-pepperoni',
+  'pizza-xuc-xich-y': 'cach-lam-pizza-pepperoni',
 };
 
 /**
@@ -1459,6 +1462,12 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-pizza-hai-san-pesto': 'pizza-hai-san-pesto',
   'cach-lam-pizza-hai-san': 'pizza-hai-san-pesto',
   'cach-nau-pizza-hai-san': 'pizza-hai-san-pesto',
+  'pizza-pepperoni': 'pizza-pepperoni',
+  'cach-lam-pizza-pepperoni': 'pizza-pepperoni',
+  'cach-nau-pizza-pepperoni': 'pizza-pepperoni',
+  'pizza-xuc-xich-y': 'pizza-pepperoni',
+  'cach-lam-pizza-xuc-xich-y': 'pizza-pepperoni',
+  'cach-nau-pizza-xuc-xich-y': 'pizza-pepperoni',
 };
 
 /**

@@ -10,10 +10,10 @@ export const LAU_CHAO_DISHES: Dish[] = [
     priceRange: '150.000đ - 250.000đ',
     estimatedPrice: 180000,
     calories: '700 - 950 kcal',
-    description: 'Nước lẩu Tomyum bùng nổ hương vị lá chanh kaffir, riềng non và nước cốt dừa béo bùi. Tôm sú tươi, mực giòn, nghêu và nấm kim châm.',
+    description: 'Hướng dẫn cách nấu lẩu Thái hải sản chua cay siêu ngon tại nhà: bí quyết ninh nước dùng ngọt thanh, xào sa tế riềng sả lá chanh chuẩn Tom Yum không cần gói sẵn.',
     image: '/images/lau_thai_hai_san.jpg',
-    popularTags: ['Tomyum chua cay', 'Hải sản tươi', 'Tụ tập cuối tuần'],
-    searchKeyword: 'Lẩu Thái hải sản',
+    popularTags: ['Lẩu Thái Tom Yum', 'Hải sản tươi giòn', 'Chua cay đậm đà'],
+    searchKeyword: 'Cách nấu lẩu Thái hải sản chua cay',
   },
   {
     id: 'lau-rieu-cua-bap-bo',

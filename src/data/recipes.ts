@@ -16126,6 +16126,138 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Sốt dầu giấm chua ngọt tỏi tiêu truyền thống là lựa chọn chuẩn vị nhất giúp tôn trọn độ ngọt của thịt bò xào và vị cay the thanh mát của rau mầm; có thể chấm kèm thêm chén nước tương tỏi ớt hoặc muối tiêu chanh.',
   },
+  'lau-thai-hai-san': {
+    dishId: 'lau-thai-hai-san',
+    dishName: 'Lẩu Thái Hải Sản Chua Cay Tomyum',
+    seoTitle: 'Cách Nấu Lẩu Thái Chua Cay Siêu Ngon Tại Nhà',
+    description:
+      'Hướng dẫn cách nấu lẩu Thái hải sản chua cay siêu ngon tại nhà: bí quyết ninh nước dùng ngọt thanh, xào sa tế riềng sả lá chanh chuẩn Tom Yum không cần gói sẵn.',
+    ratingValue: '4.9',
+    reviewCount: 428,
+    prepTime: '25 phút (sơ chế hải sản sạch tanh & rau nấm nhúng lẩu)',
+    cookTime: '45 phút (ninh nước dùng xương & nấu nước lẩu Tom Yum)',
+    totalTime: '70 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 6 người ăn',
+    calories: '780 kcal',
+    ingredients: [
+      {
+        category: 'Nước dùng xương ngọt thanh & Gia vị lẩu Thái Tom Yum',
+        items: [
+          '500g xương ống heo hoặc xương gà (chần sạch, ninh lấy 2.2 lít nước dùng ngọt thanh)',
+          '5 cây sả tươi (đập dập, cắt khúc 5 cm)',
+          '1 củ riềng tươi (khoảng 50g, thái lát mỏng)',
+          '8 - 10 lá chanh Thái (hoặc lá chanh thường, vò nhẹ cho dậy tinh dầu thơm)',
+          '3 quả cà chua chín đỏ (bổ múi cau); 1/4 quả thơm chín (dứa thái lát mỏng)',
+          '2 thìa canh sốt Tom Yum hoặc sa tế tôm; 4 thìa canh nước cốt me chua',
+          '3 thìa canh nước mắm ngon; 2.5 thìa canh đường phèn; 1 thìa cà phê muối',
+          '3 quả ớt hiểm đỏ đập dập; 100ml nước cốt dừa (tùy chọn cho nước lẩu béo dịu chuẩn vị Thái)',
+        ],
+      },
+      {
+        category: 'Hải sản tươi & Thịt nhúng lẩu đầy đặn',
+        items: [
+          '400g tôm sú tươi (cắt râu, rút chỉ lưng, giữ phần đầu tôm xào lấy nước ngọt)',
+          '300g mực ống tươi (làm sạch, rửa rượu gừng khử tanh, khứa vảy rồng cắt miếng vừa ăn)',
+          '500g nghêu tươi (ngâm nước vo gạo pha ớt 1 giờ cho nhả sạch cát)',
+          '250g thịt ba chỉ bò Mỹ thái mỏng (hoặc phi lê cá basa cắt lát)',
+          '2 bìa đậu phụ non hoặc đậu phụ chiên vàng cắt khối',
+        ],
+      },
+      {
+        category: 'Nấm, Rau nhúng lẩu & Bún mì ăn kèm',
+        items: [
+          '200g nấm kim châm; 200g nấm rơm hoặc nấm đùi gà',
+          '1 bó rau muống chẻ; 1 bó rau nhút hoặc cải thảo tươi',
+          '500g bún tươi sợi nhỏ hoặc 4 gói mì tôm',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Ninh nước dùng xương ống trong ngọt tự nhiên',
+        time: '35 phút',
+        heat: 'Lửa nhỏ liu riu',
+        goal: 'Thu được khoảng 2.2 lít nước dùng trong veo, ngọt thanh tự nhiên và không còn mùi hôi xương',
+        actionPoints: [
+          'Rửa sạch 500g xương ống heo (hoặc xương gà), chần qua nước sôi có pha vài lát gừng và chút muối hạt trong 3 phút rồi vớt ra xả sạch dưới vòi nước lạnh.',
+          'Cho xương vào nồi cùng 2.5 lít nước lọc và 2 củ hành tím nướng thơm, đun sôi rồi hạ lửa nhỏ liu riu ninh khoảng 30 phút.',
+          'Hớt sạch bọt nổi lên bề mặt thường xuyên để nước dùng trong vắt, sau đó lọc lấy phần nước dùng nóng sẵn sàng nấu lẩu.',
+        ],
+        description:
+          'Chần xương ống với gừng muối cho sạch bọt bẩn, rửa lại rồi ninh lửa nhỏ 30 phút với 2.5 lít nước và hành tím nướng để lấy 2.2 lít nước dùng trong ngọt.',
+        tip: 'Tuyệt đối không đậy kín vung và không đun lửa quá lớn khi ninh xương để nước dùng luôn trong, không bị đục hay lẫn mùi hôi.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế hải sản giòn ngọt không tanh & chuẩn bị rau nấm',
+        time: '15 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Hải sản tươi giòn sạch cát, không tanh; rau nấm tươi xanh ráo nước bày đĩa bắt mắt',
+        actionPoints: [
+          'Nghêu ngâm trong thau nước vo gạo (hoặc nước muối loãng) kèm 2 quả ớt cắt lát khoảng 1 tiếng cho nhả hết cát rồi chà sạch vỏ.',
+          'Tôm sú cắt bỏ râu, chân cứng và rút chỉ đen dọc sống lưng; nếu dùng tôm to có thể tách riêng đầu tôm để phi thơm lấy gạch ngọt nước.',
+          'Mực ống rút túi mực, bóc màng tím, bóp rửa nhanh với chút rượu trắng và gừng đập dập rồi xả sạch, khứa vảy rồng và cắt miếng vừa ăn.',
+          'Thịt ba chỉ bò Mỹ xếp đĩa riêng; nấm kim châm, nấm rơm cắt gốc rửa nước muối loãng; rau muống, rau nhút nhặt sạch để ráo.',
+        ],
+        description:
+          'Ngâm nghêu nước ớt nhả sạch cát, rút chỉ lưng tôm, rửa mực với rượu gừng khử tanh rồi khứa vảy rồng; sơ chế sạch rau muống, nấm và xếp riêng từng đĩa nhúng lẩu.',
+        tip: 'Mực sau khi rửa rượu gừng chỉ nên để ráo ở ngăn mát tủ lạnh sát giờ ăn giúp khi nhúng lẩu thịt mực giòn sần sật và không bị ra nước.',
+      },
+      {
+        step: 3,
+        title: 'Xào thơm riềng, sả, cà chua, thơm & sốt Tom Yum tạo màu đỏ cam óng',
+        time: '8 phút',
+        heat: 'Lửa vừa',
+        goal: 'Hỗn hợp cốt lẩu Thái bốc mùi thơm nồng nàn của riềng sả, cà chua và thơm mềm nhuyễn quyện sắc đỏ cam hấp dẫn',
+        actionPoints: [
+          'Đun nóng 2 thìa canh dầu ăn trong nồi lớn, phi thơm hành tím và tỏi băm rồi cho riềng thái lát, sả đập dập cắt khúc (và đầu tôm nếu có) vào xào săn dậy mùi.',
+          'Cho tiếp 3 quả cà chua bổ múi cau và 1/4 quả thơm thái lát mỏng vào xào khoảng 3 phút cho cà chua mềm ra màu tự nhiên.',
+          'Thêm 2 thìa canh sốt Tom Yum (hoặc sa tế tôm ngon) vào đảo đều 1 phút cho cốt lẩu lên màu đỏ cam sóng sánh cực kỳ bắt mắt.',
+        ],
+        description:
+          'Phi thơm hành tỏi cùng riềng lát, sả đập dập và đầu tôm, sau đó xào mềm cà chua, thơm thái lát với 2 thìa canh sốt Tom Yum hoặc sa tế tôm để tạo màu đỏ cam thơm nức.',
+        tip: 'Xào thơm (dứa) cùng cà chua giúp nước lẩu Thái có vị chua ngọt dịu tự nhiên và hương thơm đặc trưng mà không cần lạm dụng gói gia vị công nghiệp.',
+      },
+      {
+        step: 4,
+        title: 'Nấu & cân chỉnh nước lẩu Thái chua cay chuẩn tỷ lệ vàng',
+        time: '10 phút',
+        heat: 'Lửa vừa rồi hạ nhỏ',
+        goal: 'Nước lẩu Thái cân bằng hoàn hảo 4 vị chua thanh – cay nồng – mặn đậm – ngọt hậu, thơm ngát lá chanh Thái không bị đắng',
+        actionPoints: [
+          'Đổ 2.2 lít nước dùng xương nóng vào nồi hương liệu vừa xào, đun sôi rồi hạ lửa vừa nấu thêm 5 phút để tinh dầu riềng sả hòa quyện hoàn toàn vào nước.',
+          'Nêm nếm theo tỷ lệ vàng: 4 thìa canh nước cốt me lọc hạt, 3 thìa canh nước mắm ngon, 2.5 thìa canh đường phèn, 1 thìa cà phê muối và 3 quả ớt hiểm đập dập.',
+          'Vò nhẹ 8 - 10 lá chanh Thái thả vào nồi sau cùng (không đun lá chanh quá lâu để tránh bị đắng).',
+          'Nếu thích nước lẩu béo dịu kiểu Tom Yum Nam Khon, rót thêm 100ml nước cốt dừa (hoặc sữa tươi không đường) vào khuấy nhẹ trên lửa nhỏ rồi tắt bếp ngay.',
+        ],
+        description:
+          'Đổ nước dùng xương vào nồi cốt lẩu đun sôi 5 phút, nêm nước cốt me, nước mắm, đường phèn, muối, ớt đập dập; thả lá chanh Thái vò nhẹ và thêm nước cốt dừa sau cùng.',
+        tip: 'Nếu dùng nước cốt chanh thay nước cốt me, chỉ vắt chanh khi nước lẩu đã giảm sôi ngay trước khi dọn bàn để nước lẩu không bị đắng.',
+      },
+      {
+        step: 5,
+        title: 'Dọn bàn lẩu nóng hổi & nhúng hải sản đúng thứ tự',
+        time: '5 phút',
+        heat: 'Nồi lẩu sôi lăn tăn',
+        goal: 'Bàn tiệc lẩu Thái sôi sùng sục thơm lừng, hải sản nhúng vừa chín tới ngọt giòn, ăn kèm rau nấm và bún mì trọn vị',
+        actionPoints: [
+          'Múc nước lẩu Thái cùng riềng sả cà chua sang nồi lẩu điện hoặc bếp ga mini đặt giữa bàn ăn, đun sôi lăn tăn.',
+          'Thả nghêu, đậu phụ và các loại nấm vào nồi trước để nước lẩu thêm ngọt đậm đà.',
+          'Khi ăn mới nhúng tôm sú, mực ống, ba chỉ bò Mỹ và rau muống, rau nhút vừa chín tới (tôm vừa chuyển đỏ cong, mực vừa săn trong 1 - 2 phút là vớt ngay để giữ độ giòn ngọt).',
+          'Chấm hải sản cùng muối ớt xanh (hoặc nước mắm ớt cắt lát), chan nước lẩu nóng hổi ăn kèm bún tươi hoặc mì gói.',
+        ],
+        description:
+          'Đặt nồi lẩu sôi lăn tăn giữa bàn, thả nghêu, nấm và đậu phụ trước rồi nhúng tôm, mực, ba chỉ bò và rau xanh vừa chín tới, chấm muối ớt xanh ăn kèm bún hoặc mì.',
+        tip: 'Không thả toàn bộ mực và thịt bò vào nồi cùng lúc; nhúng đến đâu ăn đến đó giúp hải sản luôn giòn ngọt và nước lẩu không bị mặn dần về cuối bữa.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu Lẩu Thái Chua Cay siêu ngon tại nhà chuẩn vị nhà hàng: 1. Bộ ba hương liệu bắt buộc phải có là riềng tươi, sả đập dập và lá chanh Thái (thả lá chanh sau cùng để thơm nồng không đắng); 2. Xào thơm (dứa), cà chua và đầu tôm cùng sốt Tom Yum/sa tế tôm trước khi đổ nước dùng xương giúp nước lẩu đỏ cam óng đẹp và ngọt thanh tự nhiên; 3. Tạo vị chua bằng nước cốt me chín kết hợp chút nước cốt dừa béo dịu giúp nước lẩu tròn vị chua – cay – mặn – ngọt cực kỳ đưa miệng.',
+    recommendedSauce:
+      'Muối ớt xanh hải sản (xay từ ớt xiêm xanh, lá chanh, muối, đường, sữa đặc và nước cốt chanh) là "chân ái" chấm tôm mực; kèm thêm chén nước mắm cốt nhĩ thả vài lát ớt hiểm cay nồng cho thịt bò nhúng.',
+  },
 };
 
 /**

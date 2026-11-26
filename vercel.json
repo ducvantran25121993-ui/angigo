@@ -1562,6 +1562,96 @@
       "source": "/cach-nau-salad-rau-mam-bo/",
       "destination": "/cach-lam-salad-rau-mam-bo-xao",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-thai-hai-san",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-thai-hai-san/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-thai-hai-san",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-thai-hai-san/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-thai-hai-san",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-thai-hai-san/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-thai-hai-san-chua-cay",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-thai-hai-san-chua-cay/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-thai-chua-cay",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-thai-chua-cay/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-thai-chua-cay",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-thai-chua-cay/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-thai-chua-cay",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-thai-chua-cay/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-thai",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-thai/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-thai",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-thai/",
+      "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
+      "permanent": true
     }
   ],
   "headers": [

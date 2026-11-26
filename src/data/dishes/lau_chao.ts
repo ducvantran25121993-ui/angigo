@@ -24,10 +24,10 @@ export const LAU_CHAO_DISHES: Dish[] = [
     priceRange: '180.000đ - 300.000đ',
     estimatedPrice: 220000,
     calories: '750 - 980 kcal',
-    description: 'Từng mảng riêu cua đồng nổi vàng óng ánh trên nồi nước lẩu chua thanh giấm bỗng, nhúng bắp bò hoa giòn ngọt và sườn sụn non xần xật.',
+    description: 'Hướng dẫn cách nấu lẩu riêu cua bắp bò siêu ngon tại nhà: bí quyết nấu riêu cua đồng đóng tảng béo ngậy, nước dùng chua thanh giấm bỗng, nhúng bắp bò giòn ngọt.',
     image: '/images/lau_rieu_cua_bap_bo.jpg?v=2',
     popularTags: ['Riêu cua đồng', 'Bắp bò hoa', 'Sườn sụn giòn'],
-    searchKeyword: 'Lẩu riêu cua bắp bò',
+    searchKeyword: 'Cách nấu lẩu riêu cua bắp bò',
   },
   {
     id: 'lau-bo-nhung-dam',

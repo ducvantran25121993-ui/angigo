@@ -364,9 +364,9 @@ export const CURATED_RECIPE_META: Record<string, RecipeCardMeta> = {
     "seoTitle": "Cách Nấu Cháo Sườn Sụn Hà Nội Sánh Mịn Chuẩn Vị Phố Cổ, Quẩy Giòn Rụm"
   },
   "lau-rieu-cua-bap-bo": {
-    "cookTime": "45 - 50 phút (ninh sườn sụn & nấu nước lẩu riêu cua)",
+    "cookTime": "45 phút (ninh sườn sụn & nấu nước lẩu riêu cua)",
     "difficulty": "Trung bình",
-    "seoTitle": "Cách Nấu Lẩu Riêu Cua Bắp Bò Chua Cay Đậm Đà Chuẩn Vị Gia Đình"
+    "seoTitle": "Cách Nấu Lẩu Riêu Cua Bắp Bò Siêu Ngon Tại Nhà"
   },
   "mien-luon-gion-xao-lan": {
     "cookTime": "45 - 50 phút (ninh nước dùng xương lươn & chiên lươn 2 lửa giòn rụm)",

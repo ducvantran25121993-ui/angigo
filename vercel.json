@@ -1882,6 +1882,66 @@
       "source": "/cach-lam-chao-long-thom-ngon-chuan-vi/",
       "destination": "/cach-nau-chao-long-thom-ngon-chuan-vi",
       "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ech-mang-cay",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ech-mang-cay/",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ech-mang-cay",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/lau-ech-mang-cay/",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ech-mang-chua-cay",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ech-mang-chua-cay/",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ech-mang-chua-cay",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ech-mang-chua-cay/",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ech",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-ech/",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ech",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-ech/",
+      "destination": "/cach-nau-lau-ech-mang-cay",
+      "permanent": true
     }
   ],
   "headers": [

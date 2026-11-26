@@ -16656,6 +16656,138 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Chén nước mắm nguyên chất vắt chanh, thả ớt hiểm cắt lát và gừng thái sợi là lựa chọn chuẩn vị nhất cho cả ba miền; ngoài ra có thể chấm kèm mắm tôm đánh sủi bọt với quất (tắc) và ớt tươi.',
   },
+  'lau-ech-mang-cay': {
+    dishId: 'lau-ech-mang-cay',
+    dishName: 'Lẩu Ếch Măng Chua Cay Đậm Đà',
+    seoTitle: 'Cách Nấu Lẩu Ếch Măng Chua Cay Đậm Đà',
+    description:
+      'Hướng dẫn cách nấu lẩu ếch măng chua cay đậm đà chuẩn quán: bí quyết sơ chế ếch không tanh, xào săn măng chua vàng thơm, chiên da ếch giòn và ninh nước lẩu.',
+    prepTime: '30 phút (sơ chế ếch hết tanh, luộc măng & nhặt rau)',
+    cookTime: '45 phút (ninh nước xương, xào ếch măng & nấu nước lẩu)',
+    totalTime: '75 phút',
+    difficulty: 'Trung bình',
+    servings: '4 - 5 người ăn',
+    calories: '680 kcal',
+    ratingValue: '4.9',
+    reviewCount: 428,
+    ingredients: [
+      {
+        category: 'Thịt ếch, măng chua & nước dùng xương',
+        items: [
+          '1kg ếch đồng tươi (làm sạch, tách riêng phần thịt đùi và da ếch)',
+          '500g xương ống heo (hoặc xương sườn ninh ngọt nước dùng lẩu)',
+          '400g măng củ chua (hoặc măng lá chua thái lát vừa ăn)',
+          '3 bìa đậu phụ (cắt miếng chiên vàng đều); 100g váng đậu chiên',
+          '2 thìa canh bột chiên giòn (áo chiên da ếch vàng rụm)',
+        ],
+      },
+      {
+        category: 'Gia vị xào ếch & nấu nước lẩu chua cay',
+        items: [
+          '3 cây sả đập dập; 3 quả cà chua bổ múi cau',
+          '1/4 quả dứa chín cắt lát; 3 củ hành tím; 4 tép tỏi',
+          '1 nhánh gừng tươi; 1 thìa cà phê bột nghệ (tạo màu vàng ươm hấp dẫn)',
+          '50g me vắt (hoặc 4 quả sấu / 3 thìa dấm bỗng tạo vị chua thanh)',
+          '2 thìa canh sa tế tôm; 3 quả ớt hiểm tươi',
+          '3 thìa canh nước mắm ngon; 2 thìa cà phê hạt nêm',
+          '1.5 thìa canh đường phèn; 2 thìa canh rượu trắng',
+          '1 thìa cà phê tiêu xay; 3 thìa canh dầu ăn',
+        ],
+      },
+      {
+        category: 'Rau nhúng lẩu, rau thơm & đồ ăn kèm',
+        items: [
+          '1 bó rau muống chẻ; 200g hoa chuối bào',
+          '200g nấm kim châm (hoặc nấm đùi gà); 1 bó rau cải thảo',
+          '1 nắm lá lốt tươi; 1 nắm tía tô; 1 nắm mùi tàu',
+          '500g bún tươi (hoặc 3 gói mì tôm nhúng lẩu)',
+          'Nước chấm: 2 thìa cà phê muối tiêu; 1 quả chanh; ớt lát',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Sơ chế thịt ếch sạch tanh, tách da chiên & xử lý măng chua',
+        time: '20 phút',
+        heat: 'Lửa vừa (luộc măng)',
+        goal: 'Thịt ếch trắng sạch săn chắc không còn mùi tanh, măng chua hết hăng gắt và giòn ngon',
+        actionPoints: [
+          'Rạch nhẹ dọc đùi ếch rút sạch đường gân chỉ đen và màng máu dọc xương sống, chặt miếng lớn vừa ăn (giữ nguyên đùi). Bóp nhẹ thịt và da ếch với muối, gừng đập dập và 2 thìa canh rượu trắng trong 3 phút rồi xả sạch, thấm thật khô.',
+          'Ướp thịt ếch với 1 thìa cà phê bột nghệ, 1 thìa canh nước mắm, 1 thìa cà phê hạt nêm, 1/2 thìa cà phê tiêu xay và 1/2 hành tỏi băm trong 15 phút cho thấm đậm.',
+          'Măng chua rửa sạch, cho vào nồi luộc sôi 2 lần (mỗi lần 5 phút, mở vung để bay hết vị hăng và độc tố), vớt ra xả lại nước lạnh rồi vắt nhẹ cho ráo.',
+        ],
+        description:
+          'Rút sạch gân chỉ đen trên đùi ếch, rửa rượu gừng muối khử tanh rồi ướp thịt ếch với nghệ, mắm, tiêu và hành tỏi; luộc măng chua 2 nước mở vung rồi vắt ráo.',
+        tip: 'Mở vung khi luộc măng chua giúp hơi hăng và độc tố tự nhiên trong măng bay đi hoàn toàn, giữ lại độ giòn sần sật và vị chua thanh dịu.',
+      },
+      {
+        step: 2,
+        title: 'Ninh nước dùng xương ống ngọt thanh & chiên da ếch giòn rụm',
+        time: '35 phút',
+        heat: 'Lửa nhỏ liu riu & lửa vừa',
+        goal: 'Nước dùng xương trong ngọt sâu, da ếch phồng giòn rụm vàng ruộm làm topping cực cuốn',
+        actionPoints: [
+          'Xương ống heo chần nước sôi 3 phút rồi rửa sạch, cho vào nồi ninh cùng 2.2 lít nước lọc, 1 củ hành tím nướng và 1/2 thìa cà phê muối trong 35 phút, hớt bọt thường xuyên cho nước dùng trong.',
+          'Áo đều phần da ếch đã thấm khô với 2 thìa canh bột chiên giòn, chiên ngập dầu trên lửa vừa đến khi da ếch phồng giòn vàng rụm thì vớt ra giấy thấm dầu.',
+          'Đậu phụ cắt miếng vuông vừa ăn, chiên vàng đều các mặt (có thể chiên sơ váng đậu cho giòn thơm).',
+        ],
+        description:
+          'Ninh xương ống heo 35 phút lấy 2 lít nước dùng ngọt trong; áo bột chiên giòn da ếch vàng rụm và chiên vàng đậu phụ để ăn kèm lẩu.',
+        tip: 'Da ếch phải được thấm thật khô ráo trước khi áo bột chiên để không bị bắn dầu và giữ độ giòn tan lâu khi dọn lên bàn.',
+      },
+      {
+        step: 3,
+        title: 'Xào săn thịt ếch vàng thơm & đảo măng chua thấm vị lá lốt',
+        time: '12 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thịt ếch vàng ươm săn ngọt không bở, măng chua thấm đậm dầu sa tế và dậy mùi lá lốt thơm nức',
+        actionPoints: [
+          'Đun nóng chảo với 2 thìa canh dầu ăn, phi thơm hành tỏi băm rồi cho thịt ếch đã ướp vào xào nhanh tay trên lửa lớn khoảng 3 - 4 phút cho thịt săn lại, lên màu vàng nghệ đẹp mắt rồi trút riêng ra đĩa.',
+          'Dùng chính chảo đó thêm 1 thìa canh sa tế tôm, cho măng chua đã vắt ráo vào đảo đều 5 phút với 1/2 thìa canh nước mắm và 1/2 thìa cà phê hạt nêm cho măng ngấm đậm gia vị.',
+          'Khi măng đã săn thơm, cho phần thịt ếch vừa xào cùng 1/2 lượng lá lốt thái sợi vào đảo chung thêm 1 phút rồi tắt bếp.',
+        ],
+        description:
+          'Xào săn thịt ếch trên lửa lớn với hành tỏi cho vàng thơm; đảo riêng măng chua với sa tế và nước mắm cho đậm vị rồi trộn cùng thịt ếch và lá lốt.',
+        tip: 'Bí quyết chuẩn quán Hà Nội là luôn xào săn thịt ếch và măng chua với lá lốt trước khi cho vào nồi lẩu để thịt ếch săn chắc đậm đà, ăn không bị nhạt hay tanh.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nước lẩu ếch măng chua cay đỏ au cân bằng vị',
+        time: '15 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước lẩu có màu đỏ cam bắt mắt từ cà chua và sa tế, vị chua thanh ngọt dịu, cay nồng ấm bụng',
+        actionPoints: [
+          'Ngâm 50g me vắt với 100ml nước nóng, dầm lấy nước cốt bỏ hạt.',
+          'Đun nóng nồi với 1 thìa canh dầu ăn, phi thơm hành tỏi băm, 3 cây sả đập dập cắt khúc và 1 thìa canh sa tế tôm; cho cà chua bổ múi cau và dứa cắt lát vào xào mềm lên màu đẹp.',
+          'Đổ 2 lít nước dùng xương ống vào nồi đun sôi, sau đó cho nước cốt me, 1.5 thìa canh nước mắm ngon, 1.5 thìa canh đường phèn và 1 thìa cà phê hạt nêm vào khuấy tan.',
+          'Cho khoảng 1/2 phần măng xào vào đun sôi liu riu 5 phút để nước lẩu dậy trọn hương măng chua cay, nêm nếm lại vừa khẩu vị chua - cay - mặn - ngọt.',
+        ],
+        description:
+          'Phi thơm sả, hành tỏi, sa tế cùng cà chua và dứa; đổ nước dùng xương vào đun sôi rồi nêm nước cốt me, nước mắm, đường phèn, hạt nêm và thả một phần măng xào vào lấy vị.',
+        tip: 'Nêm đường phèn thay cho đường cát giúp vị ngọt của nồi nước lẩu ếch thanh dịu hơn, cân bằng hoàn hảo với vị chua của me và độ cay nồng của sa tế.',
+      },
+      {
+        step: 5,
+        title: 'Bày nồi lẩu nóng hổi, nhúng rau thơm & thưởng thức chuẩn quán',
+        time: '5 phút',
+        heat: 'Đun sôi nhẹ trên bếp lẩu',
+        goal: 'Nồi lẩu sôi sùng sục thơm nức mùi sả lá lốt, đùi ếch săn ngọt chấm muối tiêu chanh cực bắt vị',
+        actionPoints: [
+          'Chuyển nước lẩu sang nồi lẩu đặt trên bếp điện hoặc bếp gas mini, xếp thịt ếch xào măng, đậu phụ chiên và vài lát ớt tươi lên trên cùng rắc mùi tàu, lá lốt, tía tô cho dậy hương.',
+          'Bày xung quanh các đĩa da ếch chiên giòn, váng đậu chiên, rau muống chẻ, hoa chuối bào, nấm kim châm và bún tươi.',
+          'Khi nước lẩu sôi lăn tăn, gắp đùi ếch nóng hổi chấm muối tiêu chanh ớt (hoặc nước mắm gừng ớt), nhúng rau muống chẻ, hoa chuối và váng đậu ăn kèm bún tươi ngay khi còn nóng.',
+        ],
+        description:
+          'Đặt nồi lẩu lên bếp nóng, thả ếch xào măng, đậu phụ chiên và rau thơm; dọn kèm da ếch chiên giòn, váng đậu, rau muống chẻ, hoa chuối, bún tươi và muối tiêu chanh ớt.',
+        tip: 'Chỉ nên thả thịt ếch xào vào nồi lẩu vừa đủ ăn từng lượt để thịt luôn giữ độ săn giòn, không bị ninh quá lâu làm rục thịt; da ếch chiên giòn ăn trực tiếp hoặc nhúng nhanh 3 giây là ngon nhất.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu Lẩu Ếch Măng Chua Cay ngon như quán nổi tiếng Hà Nội: 1. Rút sạch gân chỉ đen ở đùi ếch, tách riêng da ếch áo bột chiên giòn rụm và ướp thịt ếch với chút bột nghệ trước khi xào săn; 2. Măng chua bắt buộc luộc mở vung 2 nước rồi xào săn với sa tế và lá lốt cho hết hăng và thấm vị; 3. Nước lẩu kết hợp nước hầm xương ngọt thanh, cà chua, dứa, sả đập dập và nước cốt me + đường phèn tạo vị chua cay hài hòa không gắt.',
+    recommendedSauce:
+      'Muối tiêu chanh ớt (vắt thêm chút quất/tắc thơm) là đồ chấm đỉnh nhất cho đùi ếch săn ngọt; ngoài ra có thể chuẩn bị thêm chén nước mắm nguyên chất dầm ớt hiểm và gừng sợi.',
+  },
 };
 
 /**

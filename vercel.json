@@ -1652,6 +1652,96 @@
       "source": "/lau-thai/",
       "destination": "/cach-nau-lau-thai-hai-san-chua-cay",
       "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-bo-nhung-dam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-lau-bo-nhung-dam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/lau-bo-nhung-dam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/lau-bo-nhung-dam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-bo-nhung-dam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-lau-bo-nhung-dam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-nhung-dam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-nhung-dam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-nhung-dam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-nhung-dam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/bo-nhung-dam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/bo-nhung-dam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-nhung-giam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-bo-nhung-giam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-nhung-giam",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-nhung-giam/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-nhung-dam-chua-diu-thom-ngon",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-bo-nhung-dam-chua-diu-thom-ngon/",
+      "destination": "/cach-nau-bo-nhung-dam-chua-diu-thom-ngon",
+      "permanent": true
     }
   ],
   "headers": [

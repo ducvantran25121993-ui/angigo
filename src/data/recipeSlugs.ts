@@ -136,7 +136,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "poke-bowl-ca-hoi": "Cách Làm Poke Bowl Cá Hồi Đơn Giản Tại Nhà",
   "salad-bo-trung-long-dao": "Cách Làm Salad Bơ Trứng Ngon Miệng Bổ Dưỡng",
   "salad-rau-mam-bo-xao": "Cách Làm Salad Rau Mầm Bò Xào Đậm Vị Thơm Ngon",
-  "lau-thai-hai-san": "Cách Nấu Lẩu Thái Chua Cay Siêu Ngon Tại Nhà"
+  "lau-thai-hai-san": "Cách Nấu Lẩu Thái Chua Cay Siêu Ngon Tại Nhà",
+  "lau-bo-nhung-dam": "Cách Nấu Bò Nhúng Dấm Chua Dịu Thơm Ngon"
 };
 
 /**
@@ -520,6 +521,9 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'lau-thai-hai-san': 'cach-nau-lau-thai-hai-san-chua-cay',
   'lau-thai-chua-cay': 'cach-nau-lau-thai-hai-san-chua-cay',
   'lau-thai': 'cach-nau-lau-thai-hai-san-chua-cay',
+  'lau-bo-nhung-dam': 'cach-nau-bo-nhung-dam-chua-diu-thom-ngon',
+  'bo-nhung-dam': 'cach-nau-bo-nhung-dam-chua-diu-thom-ngon',
+  'bo-nhung-giam': 'cach-nau-bo-nhung-dam-chua-diu-thom-ngon',
 };
 
 /**
@@ -1375,6 +1379,19 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-lau-thai': 'lau-thai-hai-san',
   'cach-nau-lau-thai-chua-cay-sieu-ngon-tai-nha': 'lau-thai-hai-san',
   'cach-nau-lau-thai-chua-cay-chua-cay-dam-da-chuan-vi-gia-dinh': 'lau-thai-hai-san',
+
+  'lau-bo-nhung-dam': 'lau-bo-nhung-dam',
+  'bo-nhung-dam': 'lau-bo-nhung-dam',
+  'bo-nhung-giam': 'lau-bo-nhung-dam',
+  'cach-nau-lau-bo-nhung-dam': 'lau-bo-nhung-dam',
+  'cach-lam-lau-bo-nhung-dam': 'lau-bo-nhung-dam',
+  'cach-nau-bo-nhung-dam': 'lau-bo-nhung-dam',
+  'cach-lam-bo-nhung-dam': 'lau-bo-nhung-dam',
+  'cach-nau-bo-nhung-giam': 'lau-bo-nhung-dam',
+  'cach-lam-bo-nhung-giam': 'lau-bo-nhung-dam',
+  'cach-lam-bo-nhung-dam-chua-diu-thom-ngon': 'lau-bo-nhung-dam',
+  'cach-nau-bo-nhung-dam-chua-diu': 'lau-bo-nhung-dam',
+  'cach-nau-bo-nhung-dam-chua-diu-thom-ngon-chuan-vi-gia-dinh': 'lau-bo-nhung-dam',
 };
 
 /**

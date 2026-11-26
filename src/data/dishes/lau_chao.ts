@@ -38,10 +38,10 @@ export const LAU_CHAO_DISHES: Dish[] = [
     priceRange: '160.000đ - 260.000đ',
     estimatedPrice: 200000,
     calories: '650 - 850 kcal',
-    description: 'Nồi nước dấm gạo nấu nước dừa xiêm chua thanh ngọt dịu, nhúng từng lát bắp bò tươi thái mỏng cuốn bánh tráng rau rừng chấm mắm nêm đậm đà.',
+    description: 'Hướng dẫn cách nấu bò nhúng dấm chua dịu thơm ngon với nước dừa xiêm, sả thơm, bắp bò mềm ngọt cuốn bánh tráng rau sống và công thức pha mắm nêm dứa chuẩn quán.',
     image: '/images/bo_nhung_dam.jpg',
-    popularTags: ['Dấm gạo chua thanh', 'Bò tơ mềm', 'Cuốn bánh tráng'],
-    searchKeyword: 'Bò nhúng dấm chua dịu',
+    popularTags: ['Nước dấm dừa xiêm', 'Bắp bò mềm ngọt', 'Mắm nêm dứa'],
+    searchKeyword: 'Cách nấu bò nhúng dấm chua dịu',
   },
   {
     id: 'lau-ga-la-e',

@@ -16264,6 +16264,144 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Muối ớt xanh hải sản (xay từ ớt xiêm xanh, lá chanh, muối, đường, sữa đặc và nước cốt chanh) là "chân ái" chấm tôm mực; kèm thêm chén nước mắm cốt nhĩ thả vài lát ớt hiểm cay nồng cho thịt bò nhúng.',
   },
+  'lau-bo-nhung-dam': {
+    dishId: 'lau-bo-nhung-dam',
+    dishName: 'Bò Nhúng Dấm Chua Dịu',
+    seoTitle: 'Cách Nấu Bò Nhúng Dấm Chua Dịu Thơm Ngon',
+    description:
+      'Hướng dẫn cách nấu bò nhúng dấm chua dịu thơm ngon với nước dừa xiêm, sả thơm, bắp bò mềm ngọt cuốn bánh tráng rau sống và công thức pha mắm nêm dứa chuẩn quán.',
+    ratingValue: '4.9',
+    reviewCount: 365,
+    prepTime: '25 phút (thái mỏng bắp bò, sơ chế rau sống & pha mắm nêm)',
+    cookTime: '20 phút (nấu nồi nước dấm dừa xiêm sả thơm)',
+    totalTime: '45 phút',
+    difficulty: 'Dễ',
+    servings: '4 - 5 người ăn',
+    calories: '680 kcal',
+    ingredients: [
+      {
+        category: 'Thịt bò nhúng mềm ngọt',
+        items: [
+          '600g bắp bò hoa hoặc thịt thăn bò tươi (thái lát thật mỏng ngang thớ)',
+          '1 củ hành tây trắng (nửa củ thái khoanh xếp đĩa bò, nửa củ bổ múi cau thả nồi nước lẩu)',
+          '1 nhánh gừng tươi thái chỉ; 1 thìa canh dầu ăn; 1/2 thìa cà phê tiêu đen xay',
+        ],
+      },
+      {
+        category: 'Nước lẩu dấm dừa xiêm chua dịu thơm lừng',
+        items: [
+          '1 lít nước dừa xiêm tươi (tạo vị ngọt thanh dịu tự nhiên cho nước nhúng)',
+          '500ml nước lọc sạch',
+          '150ml giấm gạo lên men (hoặc giấm nuôi thanh dịu, không chua gắt)',
+          '1/2 quả thơm chín (dứa cắt lát mỏng thả nồi cho thơm ngọt)',
+          '5 cây sả tươi (đập dập, cắt khúc 5 cm); 3 củ hành tím thái lát',
+          '2 thìa canh đường phèn; 1.5 thìa cà phê muối; 1 thìa canh hạt nêm',
+          '1 thìa canh nước mắm ngon; 2 quả ớt hiểm đỏ đập dập',
+        ],
+      },
+      {
+        category: 'Mắm nêm dứa bằm đậm đà (linh hồn món ăn)',
+        items: [
+          '120ml mắm nêm nguyên chất (chọn loại mắm nêm cá cơm thơm ngon)',
+          '1/3 quả thơm chín bằm thật nhuyễn',
+          '3 thìa canh đường cát trắng; 2 thìa canh nước cốt chanh hoặc quất tươi',
+          '2 thìa canh nước lọc ấm; 1 thìa canh tỏi ớt băm; 1 thìa canh sả băm',
+        ],
+      },
+      {
+        category: 'Bánh tráng, Bún tươi & Rau sống cuốn kèm',
+        items: [
+          '1 xấp bánh tráng mỏng dẻo; 500g bún tươi sợi nhỏ',
+          '2 quả chuối chát; 2 quả khế chua; 2 quả dưa leo (thái thanh dài vừa cuốn)',
+          '300g rau xà lách và rau thơm (tía tô, húng lủi, diếp cá, ngò rí); 150g giá đỗ',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Thái mỏng bắp bò ngang thớ & ướp nhẹ giữ trọn vị ngọt',
+        time: '10 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Lát thịt bò mỏng đều đẹp mắt, không bị nát, khi nhúng vừa chín tái mềm giòn ngọt thịt',
+        actionPoints: [
+          'Rửa nhanh 600g bắp bò hoa hoặc thăn bò với nước muối loãng, thấm thật khô bằng giấy bếp rồi cho vào ngăn đá tủ lạnh 15 phút để khối thịt hơi se cứng, dễ thái mỏng đều tay.',
+          'Dùng dao thật bén thái thịt bò thành lát mỏng ngang thớ (dày khoảng 1.5 - 2 mm).',
+          'Trộn nhẹ thịt bò với 1 thìa canh dầu ăn, 1/2 thìa cà phê tiêu đen xay và chút gừng thái chỉ (tuyệt đối không ướp muối hay nước mắm trước để bò không bị ra nước và dai).',
+          'Xếp thịt bò trải đều ra đĩa lớn cùng nửa củ hành tây thái lát mỏng lên trên cho thơm đẹp.',
+        ],
+        description:
+          'Làm se nhẹ bắp bò rồi thái lát thật mỏng ngang thớ, trộn nhẹ dầu ăn, tiêu xay và gừng chỉ (không ướp mặn) rồi xếp ra đĩa cùng hành tây thái lát.',
+        tip: 'Bắp bò hoa (hoặc bắp lõi rùa) có các đường gân mảnh xen kẽ thịt nạc, khi nhúng dấm sẽ giòn sần sật và ngọt thơm hơn hẳn thịt nạc thường.',
+      },
+      {
+        step: 2,
+        title: 'Sơ chế chuối chát không thâm & rau sống cuốn bánh tráng',
+        time: '10 phút',
+        heat: 'Không dùng nhiệt',
+        goal: 'Chuối chát trắng giòn hết vị chát gắt, khế chua và rau sống tươi xanh ráo nước sẵn sàng cuốn',
+        actionPoints: [
+          'Chuối chát tước bỏ lớp vỏ xanh ngoài, thái lát mỏng hoặc thanh dài rồi ngâm ngay vào tô nước lạnh có pha nước cốt nửa quả chanh và chút muối trong 10 phút cho chuối trắng đẹp, không bị thâm đen.',
+          'Khế chua cắt bỏ viền cạnh, thái lát ngôi sao mỏng; dưa leo rửa sạch bỏ ruột, cắt thanh dài vừa cuốn.',
+          'Xà lách, tía tô, húng lủi, diếp cá, ngò rí và giá đỗ nhặt sạch, ngâm nước muối loãng 5 phút rồi vớt ra vẩy thật ráo nước; bày bánh tráng và bún tươi ra đĩa riêng.',
+        ],
+        description:
+          'Thái mỏng chuối chát ngâm nước chanh muối chống thâm; cắt khế chua, dưa leo và rửa ráo rau xà lách, rau thơm, giá đỗ bày kèm bánh tráng và bún tươi.',
+        tip: 'Vớt chuối chát ra sát giờ ăn và vẩy ráo nước giúp lát chuối giữ được màu trắng ngà tươi sáng và độ giòn bùi suốt bữa tiệc.',
+      },
+      {
+        step: 3,
+        title: 'Pha mắm nêm dứa bằm thơm lừng chuẩn vị quán',
+        time: '5 phút',
+        heat: 'Lửa nhỏ (xào thơm dứa)',
+        goal: 'Chén mắm nêm sánh thơm mùi dứa sả, dịu nhẹ không nồng gắt, hòa quyện 4 vị mặn – ngọt – chua – cay',
+        actionPoints: [
+          'Bắc chảo nhỏ với 1 thìa cà phê dầu ăn, phi thơm nửa lượng sả băm và tỏi băm rồi cho 1/3 quả thơm bằm nhuyễn cùng 3 thìa canh đường vào xào lửa nhỏ 2 phút cho đường tan và thơm dịu mùi.',
+          'Tắt bếp để hỗn hợp thơm nguội bớt, sau đó cho vào bát cùng 120ml mắm nêm nguyên chất và 2 thìa canh nước lọc ấm khuấy đều.',
+          'Thêm phần tỏi ớt sả băm còn lại cùng 2 thìa canh nước cốt chanh (hoặc quất tươi), khuấy tan rồi nếm cân chỉnh vị mặn ngọt chua cay thật vừa miệng.',
+        ],
+        description:
+          'Xào thơm dứa bằm với đường và sả tỏi phi, để nguội bớt rồi pha cùng 120ml mắm nêm, nước ấm, tỏi ớt băm và nước cốt chanh quất đến khi đậm đà hài hòa.',
+        tip: 'Xào sơ dứa bằm với đường trước khi trộn mắm nêm là bí quyết giúp nước chấm sánh mịn, dịu mùi mắm cá và giữ được vị ngọt thanh rất dễ ăn.',
+      },
+      {
+        step: 4,
+        title: 'Nấu nồi nước lẩu bò nhúng dấm dừa xiêm chua dịu thanh mát',
+        time: '15 phút',
+        heat: 'Lửa vừa',
+        goal: 'Nước nhúng trong thơm mùi sả dứa, vị chua thanh dịu của giấm gạo quyện độ ngọt tự nhiên của nước dừa xiêm, không bị chua gắt',
+        actionPoints: [
+          'Đặt nồi lên bếp với 1 thìa canh dầu ăn, phi thơm 3 củ hành tím thái lát và 5 cây sả đập dập cắt khúc cho dậy hương.',
+          'Đổ 1 lít nước dừa xiêm tươi và 500ml nước lọc vào nồi đun sôi, thả 1/2 quả thơm cắt lát và nửa củ hành tây bổ múi cau vào nấu khoảng 5 phút cho tiết vị ngọt thanh.',
+          'Hạ lửa vừa, rót từ từ 150ml giấm gạo lên men vào nồi rồi nêm 2 thìa canh đường phèn, 1.5 thìa cà phê muối, 1 thìa canh hạt nêm, 1 thìa canh nước mắm ngon và 2 quả ớt hiểm đập dập.',
+          'Nếm thử: nước dấm có vị chua thanh mở đầu, ngọt dịu ở hậu vị và thơm nồng mùi sả dứa là đạt chuẩn.',
+        ],
+        description:
+          'Phi thơm hành tím và sả đập dập, đổ nước dừa xiêm cùng nước lọc đun sôi với thơm và hành tây; rót giấm gạo vào nêm đường phèn, muối, hạt nêm, nước mắm và ớt cho vị chua dịu thanh mát.',
+        tip: 'Tuyệt đối dùng nước dừa xiêm kết hợp đường phèn và giấm gạo lên men (không dùng giấm tinh luyện công nghiệp) để nồi nước nhúng thơm thanh, càng sôi càng ngọt mà không gắt cổ.',
+      },
+      {
+        step: 5,
+        title: 'Nhúng bò chín tái 15 giây, cuốn bánh tráng & chấm mắm nêm',
+        time: '5 phút',
+        heat: 'Nồi lẩu sôi lăn tăn',
+        goal: 'Miếng bò nhúng tái hồng mềm mọng quyện mùi dấm dừa sả thơm, cuốn bánh tráng rau sống chấm mắm nêm dứa bùng vị',
+        actionPoints: [
+          'Chuyển nồi nước dấm sang bếp ga mini hoặc nồi lẩu điện giữa bàn, giữ lửa sôi lăn tăn nhẹ.',
+          'Gắp từng lát bắp bò kèm ít hành tây nhúng vào nồi nước dấm sôi khoảng 15 - 20 giây cho thịt vừa chín tái hồng mềm ngọt thì vớt ra ngay (không nhúng quá lâu khiến thịt dai).',
+          'Trải bánh tráng mỏng (có thể nhúng sơ nước nếu dùng loại khô), xếp xà lách, rau thơm, giá đỗ, bún tươi, lát chuối chát, khế chua, dưa leo và thịt bò nóng hổi lên trên.',
+          'Cuốn thật chắc tay rồi chấm đẫm chén mắm nêm dứa sả tỏi ớt thơm nồng và thưởng thức ngay.',
+        ],
+        description:
+          'Giữ nồi nước dấm sôi lăn tăn giữa bàn, nhúng lát bò 15 - 20 giây cho chín tái mềm ngọt, cuốn bánh tráng cùng bún tươi, chuối chát, khế chua, rau sống và chấm mắm nêm dứa.',
+        tip: 'Nên nhúng bò từng ít một để ăn nóng đến đâu cuốn đến đó; nếu còn thừa nước dấm ngọt thịt cuối bữa, có thể chan ăn cùng bún tươi cực kỳ thanh mát giải ngấy.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng nấu Bò Nhúng Dấm chua dịu thơm ngon chuẩn vị quán: 1. Tỷ lệ nền nước lẩu 1 lít nước dừa xiêm + 500ml nước lọc + 150ml giấm gạo lên men nấu cùng sả đập dập, thơm (dứa) và đường phèn giúp nước chua thanh dịu, thơm nức mà không gắt; 2. Chọn bắp bò hoa thái mỏng ngang thớ, chỉ áo nhẹ dầu ăn gừng tiêu (không ướp mặn) và nhúng đúng 15 - 20 giây để thịt mềm giòn ngọt nước; 3. Xào sơ dứa bằm với đường sả tỏi trước khi pha mắm nêm giúp nước chấm sánh thơm đậm đà cực kỳ bắt vị.',
+    recommendedSauce:
+      'Mắm nêm cá cơm pha dứa (thơm) bằm, sả tỏi phi, đường và nước cốt chanh quất là "linh hồn" chuẩn vị nhất; ai không ăn được mắm nêm có thể chấm kèm nước mắm chua ngọt tỏi ớt gừng băm.',
+  },
 };
 
 /**

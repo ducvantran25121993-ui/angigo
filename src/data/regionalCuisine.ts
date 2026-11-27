@@ -9,9 +9,9 @@ export const REGIONAL_CUISINES: RegionalCuisine[] = [
     title: 'Tinh Hoa Thanh Cảnh & Vị Ngọt Tự Nhiên Của Đất Kinh Kỳ',
     badge: 'Hà Nội & Bắc Bộ',
     path: '/am-thuc-mien-bac',
-    metaTitle: 'Ẩm Thực Miền Bắc - Tinh Hoa Hương Vị Thanh Tao Đất Kinh Kỳ | Hôm Nay Ăn Gì',
+    metaTitle: 'Ẩm Thực Miền Bắc - Tinh Hoa Món Ngon Kinh Kỳ | Ăn Gì Giờ',
     metaDescription:
-      'Khám phá tinh hoa ẩm thực miền Bắc: Hương vị thanh tao, hài hòa gia vị của phở bò tái lăn, bún chả than hoa, chả cá Lã Vọng, bún thang, xôi xéo và phở cuốn trứ danh.',
+      'Khám phá tinh hoa ẩm thực miền Bắc với hương vị thanh tao hài hòa của phở bò tái lăn, bún chả than hoa, chả cá Lã Vọng, bún thang, xôi xéo và phở cuốn Hà Nội.',
     description:
       'Ẩm thực miền Bắc nổi bật bởi sự tinh tế, cầu kỳ và cân bằng gia vị vừa vặn. Không quá cay nồng như miền Trung cũng không thiên ngọt béo như phương Nam, món Bắc tôn vinh vị ngọt thanh tao của nước hầm xương, hương thơm ấm nồng của tiêu gừng hành hoa và giấm bỗng chua dịu.',
     tasteProfile: ['Thanh tao', 'Hài hòa', 'Dậy mùi tiêu gừng', 'Chua dịu giấm bỗng'],
@@ -58,9 +58,9 @@ export const REGIONAL_CUISINES: RegionalCuisine[] = [
     title: 'Đậm Đà Cay Nồng Nàn & Màu Sắc Rực Rỡ Xứ Cố Đô',
     badge: 'Huế & Duyên Hải Nam Trung Bộ',
     path: '/am-thuc-mien-trung',
-    metaTitle: 'Ẩm Thực Miền Trung - Đậm Đà Cay Nồng Nàn Xứ Cố Đô | Hôm Nay Ăn Gì',
+    metaTitle: 'Ẩm Thực Miền Trung - Đậm Đà Cay Nồng Cố Đô | Ăn Gì Giờ',
     metaDescription:
-      'Khám phá ẩm thực miền Trung đặc sắc: Vị cay nồng nàn, đậm đà mắm ruốc của bún bò Huế, mì Quảng, nem nướng Nha Trang, bánh canh chả cá, cơm gà Hội An và bánh bèo chén.',
+      'Khám phá ẩm thực miền Trung đặc sắc: vị cay nồng đậm đà mắm ruốc của bún bò Huế, mì Quảng, nem nướng Nha Trang, bánh canh chả cá, cơm gà Hội An và bánh bèo.',
     description:
       'Địa hình khắc nghiệt với nắng gió biển mặn tạo nên nét ẩm thực miền Trung vô cùng đặc sắc: vị đậm đà sâu thẳm, cay nồng xé lưỡi và màu sắc rực rỡ từ ớt đỏ và dầu màu điều. Ẩm thực Cố Đô Huế tinh xảo cầu kỳ từ cung đình đến đường phố, trong khi Đà Nẵng, Quảng Nam và Nha Trang lại cuốn hút bởi hải sản tươi giòn và bánh tráng cuốn trứ danh.',
     tasteProfile: ['Cay nồng nàn', 'Đậm đà sả ớt', 'Thơm nức mắm ruốc', 'Chua cay giòn ngọt'],
@@ -100,9 +100,9 @@ export const REGIONAL_CUISINES: RegionalCuisine[] = [
     title: 'Hào Sảng Phóng Khoáng & Vị Béo Ngọt Đậm Chất Đường Phố',
     badge: 'Sài Gòn & Đông Nam Bộ',
     path: '/am-thuc-mien-nam',
-    metaTitle: 'Ẩm Thực Miền Nam & Sài Gòn - Hào Sảng & Đậm Vị Phố Thị | Hôm Nay Ăn Gì',
+    metaTitle: 'Ẩm Thực Miền Nam & Sài Gòn - Đậm Vị Phố Thị | Ăn Gì Giờ',
     metaDescription:
-      'Thưởng thức ẩm thực miền Nam & Sài Gòn: Hương vị béo ngọt, hào sảng phóng khoáng với cơm tấm sườn bì chả, hủ tiếu Nam Vang, bánh mì chảo, bò kho, phá lấu và gỏi cuốn tôm thịt.',
+      'Thưởng thức ẩm thực miền Nam & Sài Gòn với vị béo ngọt hào sảng của cơm tấm sườn bì chả, hủ tiếu Nam Vang, bánh mì chảo, bò kho, phá lấu và gỏi cuốn trứ danh.',
     description:
       'Là vùng đất trù phú và điểm giao thoa văn hóa rực rỡ, ẩm thực Sài Gòn và miền Nam mang tính cách hào sảng, phóng khoáng của con người nơi đây. Món ăn miền Nam rõ vị: ngọt ra ngọt, cay ra cay, béo ngậy nước cốt dừa và rực rỡ sắc màu của các loại rau sống phong phú. Bữa ăn Sài Gòn tiện lợi, nhanh gọn nhưng luôn tràn đầy năng lượng tích cực.',
     tasteProfile: ['Ngọt béo đậm đà', 'Thơm ngậy mỡ hành', 'Hào sảng', 'Phong phú rau sống'],
@@ -152,9 +152,9 @@ export const REGIONAL_CUISINES: RegionalCuisine[] = [
     title: 'Hương Đồng Gió Nội & Đậm Đà Tình Nghĩa Phù Sa',
     badge: 'Đồng Bằng Sông Cửu Long',
     path: '/am-thuc-mien-tay',
-    metaTitle: 'Ẩm Thực Miền Tây Sông Nước - Hương Đồng Gió Nội & Đậm Tình Phù Sa | Hôm Nay Ăn Gì',
+    metaTitle: 'Ẩm Thực Miền Tây Sông Nước - Đặc Sản Phù Sa | Ăn Gì Giờ',
     metaDescription:
-      'Khám phá ẩm thực miền Tây Nam Bộ: Nét mộc mạc dân dã, thơm ngon ngây ngất với lẩu mắm miền Tây, cá kho tộ, canh chua cá lóc, lẩu cá kèo lá giang và bánh xèo giòn rụm.',
+      'Khám phá ẩm thực miền Tây sông nước mộc mạc, đậm đà tình phù sa với lẩu mắm miền Tây, cá kho tộ, canh chua cá lóc, lẩu cá kèo lá giang và bánh xèo giòn rụm.',
     description:
       'Vùng châu thổ Cửu Long hào phóng ban tặng cho miền Tây nguồn thủy sản dồi dào và vô số loại rau đồng hoa dại: bông điên điển, bông súng, rau đắng, lục bình. Ẩm thực miền Tây mộc mạc, đậm chất thiên nhiên nhưng để lại dư vị khó phai nhờ vị mặn mà của các loại mắm cá linh, cá sặc và vị chua thanh mát lành của me dốt mùa nước nổi.',
     tasteProfile: ['Chua thanh me chín', 'Đậm đà mắm đồng', 'Mộc mạc dân dã', 'Bùi béo ngọt tự nhiên'],

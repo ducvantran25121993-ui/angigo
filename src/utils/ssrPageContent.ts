@@ -49,9 +49,9 @@ export function buildAiAdvisorSchemaJsonLd(): Record<string, any> {
         '@type': 'WebPage',
         '@id': 'https://angigio.com/ai-goi-y-mon-an#webpage',
         url: 'https://angigio.com/ai-goi-y-mon-an',
-        name: 'Trợ Lý AI Gợi Ý Món Ăn - Chọn Món Ngon Theo Gu & Đặt Ship Gần Bạn | Ăn Gì Giờ',
+        name: 'Trợ Lý AI Gợi Ý Món Ăn Theo Gu & Thời Tiết | Ăn Gì Giờ',
         description:
-          'Gợi ý món ăn thông minh và gần gũi: Chọn món ngon mỗi ngày theo tâm trạng, thời tiết, ngân sách và sở thích ăn uống. Tự động kết nối quán ngon gần bạn.',
+          'Trợ lý AI gợi ý món ăn thông minh theo tâm trạng, thời tiết, ngân sách và khẩu vị riêng của bạn. Chốt món ngon mỗi ngày chỉ trong vài giây và đặt ship gần bạn.',
         inLanguage: 'vi-VN',
         isPartOf: {
           '@type': 'WebSite',
@@ -245,9 +245,9 @@ export function buildBlogIndexSchemaJsonLd(posts: BlogSsrCardItem[]): Record<str
         '@type': 'CollectionPage',
         '@id': 'https://angigio.com/blog#webpage',
         url: 'https://angigio.com/blog',
-        name: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Ăn Gì Giờ',
+        name: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Mẹo Bếp | Ăn Gì Giờ',
         description:
-          'Chuyên trang chia sẻ kiến thức ẩm thực, cẩm nang nấu ăn, mẹo vặt nhà bếp, thực đơn gia đình và bí quyết chế biến món Việt chuẩn vị.',
+          'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam mỗi ngày.',
         inLanguage: 'vi-VN',
         isPartOf: {
           '@type': 'WebSite',

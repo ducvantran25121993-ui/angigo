@@ -547,7 +547,21 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       // Only apply /blog index metadata when genuinely on /blog — never clobber article canonical/JSON-LD while loading
       const currentPath = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '/blog';
       if (currentPath === '/blog' || currentPath === '') {
-        document.title = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Hôm Nay Ăn Gì';
+        const blogIndexTitle = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Mẹo Bếp | Ăn Gì Giờ';
+        const blogIndexDesc = 'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam mỗi ngày.';
+        document.title = blogIndexTitle;
+        const metaTitle = document.querySelector('meta[name="title"]');
+        if (metaTitle) metaTitle.setAttribute('content', blogIndexTitle);
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) metaDesc.setAttribute('content', blogIndexDesc);
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.setAttribute('content', blogIndexTitle);
+        const ogDesc = document.querySelector('meta[property="og:description"]');
+        if (ogDesc) ogDesc.setAttribute('content', blogIndexDesc);
+        const twTitle = document.querySelector('meta[name="twitter:title"]');
+        if (twTitle) twTitle.setAttribute('content', blogIndexTitle);
+        const twDesc = document.querySelector('meta[name="twitter:description"]');
+        if (twDesc) twDesc.setAttribute('content', blogIndexDesc);
         if (robotsMeta) {
           robotsMeta.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
         }

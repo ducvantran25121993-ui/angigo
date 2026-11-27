@@ -1138,7 +1138,7 @@ export const SeoContentFaq: React.FC<{
                     "@id": "https://angigio.com/#webpage",
                     "url": "https://angigio.com/",
                     "name": "Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị",
-                    "description": "Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh mỗi ngày và đặt món nhanh chóng.",
+                    "description": "Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon 3 miền và đặt giao ngay.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
@@ -1534,8 +1534,8 @@ export const SeoContentFaq: React.FC<{
                     "@type": "WebPage",
                     "@id": "https://angigio.com/vong-quay#webpage",
                     "url": "https://angigio.com/vong-quay",
-                    "name": "Vòng Quay Ăn Gì - Quay Món Ngẫu Nhiên Trong 3 Giây | Hôm Nay Ăn Gì",
-                    "description": "Quay vòng quay ăn gì ngẫu nhiên giúp bạn chốt món chỉ trong 3 giây. Tùy chỉnh danh sách món ngon, chọn chủ đề cơm trưa, bún phở, lẩu nướng và kết nối đặt ship ngay.",
+                    "name": "Vòng Quay Ăn Gì - Chọn Món Ngẫu Nhiên 3 Giây | Ăn Gì Giờ",
+                    "description": "Quay vòng quay ăn gì ngẫu nhiên giúp bạn chốt món chỉ trong 3 giây. Tùy chỉnh thực đơn món ngon theo chủ đề cơm trưa, bún phở, lẩu nướng và đặt ship giao ngay!",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
@@ -1909,8 +1909,8 @@ export const SeoContentFaq: React.FC<{
                     "@type": "WebPage",
                     "@id": "https://angigio.com/lich-an-theo-tuan#webpage",
                     "url": "https://angigio.com/lich-an-theo-tuan",
-                    "name": "Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Chuẩn Vị & Tiết Kiệm | Hôm Nay Ăn Gì",
-                    "description": "Lên lịch ăn tuần thông minh từ Thứ 2 đến Chủ Nhật: Tự động chống trùng món, tính calo & chi phí, đổi món linh hoạt, gợi ý bữa sáng trưa tối chuẩn ngon.",
+                    "name": "Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Tiết Kiệm | Ăn Gì Giờ",
+                    "description": "Lên lịch ăn theo tuần từ Thứ 2 đến Chủ Nhật thông minh: tự động chống trùng món, tính calo & chi phí, đổi món linh hoạt cho đủ bữa sáng trưa tối ngon mỗi ngày.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
@@ -2402,8 +2402,8 @@ export const SeoContentFaq: React.FC<{
                     "@type": "WebPage",
                     "@id": "https://angigio.com/ai-goi-y-mon-an#webpage",
                     "url": "https://angigio.com/ai-goi-y-mon-an",
-                    "name": "Trợ Lý Gợi Ý Món Ăn - Người Bạn Đồng Hành Bữa Cơm Ngon | Hôm Nay Ăn Gì",
-                    "description": "Trợ lý gợi ý món ăn thông minh và gần gũi, giúp bạn chọn món theo tâm trạng, thời tiết, ngân sách và khẩu vị, kết nối tìm quán ngon gần nhất.",
+                    "name": "Trợ Lý AI Gợi Ý Món Ăn Theo Gu & Thời Tiết | Ăn Gì Giờ",
+                    "description": "Trợ lý AI gợi ý món ăn thông minh theo tâm trạng, thời tiết, ngân sách và khẩu vị riêng của bạn. Chốt món ngon mỗi ngày chỉ trong vài giây và đặt ship gần bạn.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
@@ -2811,8 +2811,8 @@ export const SeoContentFaq: React.FC<{
                     "@type": "WebPage",
                     "@id": "https://angigio.com/mon-ngon#webpage",
                     "url": "https://angigio.com/mon-ngon",
-                    "name": "Thực Đơn 160+ Món Ngon Việt Nam - Món Ngon 3 Miền Chuẩn Vị | Hôm Nay Ăn Gì",
-                    "description": "Bách khoa toàn thư ẩm thực với hơn 160 món ngon đặc sản 3 miền Bắc - Trung - Nam, minh bạch calo, nguyên liệu, tầm giá và đặt ship ShopeeFood, GrabFood.",
+                    "name": "Thực Đơn 160+ Món Ngon Việt Nam Đủ 3 Miền | Ăn Gì Giờ",
+                    "description": "Khám phá thực đơn hơn 160 món ngon Việt Nam đặc sắc 3 miền Bắc - Trung - Nam: cơm, bún, phở, lẩu nướng, đồ chay kèm ước tính calo, mức giá và đặt ship nhanh.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",
@@ -3064,8 +3064,8 @@ export const SeoContentFaq: React.FC<{
                     "@type": "WebPage",
                     "@id": "https://angigio.com/do-uong-an-vat#webpage",
                     "url": "https://angigio.com/do-uong-an-vat",
-                    "name": "Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê, Sinh Tố & Món Ăn Vặt Xế Chiều Hot Trend | Hôm Nay Ăn Gì",
-                    "description": "Thưởng thức thế giới trà sữa trân châu, cà phê muối, trà trái cây tươi mát cùng bánh tráng trộn, nem chua rán, bánh tráng nướng giòn rụm kèm liên kết đặt ship hỏa tốc gần bạn.",
+                    "name": "Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê Xế Chiều | Ăn Gì Giờ",
+                    "description": "Khám phá 35+ đồ uống & món ăn vặt xế chiều hot trend: trà sữa trân châu, cà phê muối, trà trái cây, bánh tráng trộn, nem chua rán kèm đặt ship hỏa tốc gần bạn.",
                     "inLanguage": "vi-VN",
                     "isPartOf": {
                       "@type": "WebSite",

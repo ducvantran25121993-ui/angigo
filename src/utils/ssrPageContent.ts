@@ -51,7 +51,7 @@ export function buildAiAdvisorSchemaJsonLd(): Record<string, any> {
         url: 'https://angigio.com/ai-goi-y-mon-an',
         name: 'Trợ Lý AI Gợi Ý Món Ăn Theo Gu & Thời Tiết | Ăn Gì Giờ',
         description:
-          'Trợ lý AI gợi ý món ăn thông minh theo tâm trạng, thời tiết, ngân sách và khẩu vị riêng của bạn. Chốt món ngon mỗi ngày chỉ trong vài giây và đặt ship gần bạn.',
+          'Trợ lý AI gợi ý món ăn thông minh theo tâm trạng, thời tiết, ngân sách và khẩu vị của bạn. Chốt món ngon mỗi ngày trong vài giây và đặt ship gần bạn.',
         inLanguage: 'vi-VN',
         isPartOf: {
           '@type': 'WebSite',
@@ -247,7 +247,7 @@ export function buildBlogIndexSchemaJsonLd(posts: BlogSsrCardItem[]): Record<str
         url: 'https://angigio.com/blog',
         name: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Mẹo Bếp | Ăn Gì Giờ',
         description:
-          'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam mỗi ngày.',
+          'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam.',
         inLanguage: 'vi-VN',
         isPartOf: {
           '@type': 'WebSite',

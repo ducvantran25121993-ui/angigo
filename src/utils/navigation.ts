@@ -70,7 +70,7 @@ export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
   region: {
     path: '/am-thuc-vung-mien',
     title: 'Ẩm Thực Vùng Miền - Tinh Hoa Món Ngon 3 Miền | Ăn Gì Giờ',
-    description: 'Khám phá bản đồ ẩm thực 3 miền Việt Nam: hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và đặc sản miền Tây sông nước chuẩn vị.',
+    description: 'Khám phá bản đồ ẩm thực 3 miền Việt Nam: hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và đặc sản miền Tây sông nước.',
     label: 'Ẩm Thực Vùng Miền',
     shortLabel: 'Vùng Miền',
     keywords: 'ẩm thực vùng miền, ẩm thực 3 miền, ẩm thực việt nam, món ngon miền bắc, món ngon miền trung, món ngon miền nam, ẩm thực miền tây, đặc sản vùng miền việt nam',
@@ -80,7 +80,7 @@ export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
   daily: {
     path: '/thuc-don-moi-ngay',
     title: 'Thực Đơn Mỗi Ngày - Gợi Ý Cơm Nhà Chuẩn Vị | Ăn Gì Giờ',
-    description: 'Gợi ý thực đơn mỗi ngày từ Thứ 2 đến Chủ Nhật: mâm cơm nhà mẹ nấu, bữa trưa văn phòng, thực đơn eat clean giảm cân và tiệc lẩu nướng cuối tuần đủ dinh dưỡng.',
+    description: 'Gợi ý thực đơn mỗi ngày từ Thứ 2 đến Chủ Nhật: mâm cơm nhà mẹ nấu, bữa trưa văn phòng, thực đơn eat clean giảm cân và tiệc lẩu nướng cuối tuần chuẩn vị.',
     label: 'Thực Đơn Mỗi Ngày',
     shortLabel: 'Thực Đơn',
     keywords: 'thực đơn mỗi ngày, thực đơn hôm nay, gợi ý thực đơn, cơm nhà mẹ nấu, thực đơn trưa văn phòng, eat clean giảm cân, thực đơn gia đình, món ngon mỗi ngày',
@@ -90,7 +90,7 @@ export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
   recipe: {
     path: '/cach-nau-mon-ngon',
     title: 'Cách Nấu Món Ngon - 210+ Công Thức Chuẩn Vị | Ăn Gì Giờ',
-    description: 'Tổng hợp cách nấu hơn 210+ món ngon chuẩn vị gia đình Việt: định lượng nguyên liệu chi tiết, từng bước dễ làm cùng bí quyết bếp trưởng cho bữa cơm ngon đậm đà.',
+    description: 'Tổng hợp cách nấu hơn 210+ món ngon chuẩn vị gia đình Việt: định lượng nguyên liệu chi tiết, từng bước dễ làm cùng bí quyết bếp trưởng cho bữa ăn đậm đà.',
     label: 'Cách Nấu Món Ngon',
     shortLabel: 'Cách Nấu',
     keywords: 'cách nấu món ngon, công thức nấu ăn, hướng dẫn nấu ăn, bí quyết nấu ăn ngon, cách nấu phở, cách nấu bún bò huế, món ngon mỗi ngày, công thức chuẩn vị',
@@ -103,7 +103,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   tarot: {
     path: '/',
     title: 'Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị',
-    description: 'Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon 3 miền và đặt giao ngay.',
+    description: 'Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon và đặt ship ngay.',
     label: 'Tarot Ẩm Thực',
     shortLabel: 'Tarot',
     keywords: 'hôm nay ăn gì, tarot ẩm thực, quẻ bói món ăn, bói bài ăn gì, 12 cung hoàng đạo, vòng quay ăn gì, trưa nay ăn gì, tối nay ăn gì, món ngon mỗi ngày, ẩm thực việt nam, gợi ý món ăn, đặt món shopeefood, grabfood, befood',
@@ -113,7 +113,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   wheel: {
     path: '/vong-quay',
     title: 'Vòng Quay Ăn Gì - Chọn Món Ngẫu Nhiên 3 Giây | Ăn Gì Giờ',
-    description: 'Quay vòng quay ăn gì ngẫu nhiên giúp bạn chốt món chỉ trong 3 giây. Tùy chỉnh thực đơn món ngon theo chủ đề cơm trưa, bún phở, lẩu nướng và đặt ship giao ngay!',
+    description: 'Quay vòng quay ăn gì ngẫu nhiên giúp bạn chốt món chỉ trong 3 giây. Tùy chỉnh thực đơn cơm trưa, bún phở, lẩu nướng chuẩn vị và đặt ship giao ngay!',
     label: 'Vòng Quay',
     shortLabel: 'Vòng Quay',
     keywords: 'vòng quay ăn gì, vòng quay món ăn, bánh xe món ăn, hôm nay ăn gì, trưa nay ăn gì, vòng quay may mắn, chọn món ngẫu nhiên, quyết định món ăn, đặt món shopeefood, grabfood, befood',
@@ -123,7 +123,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   planner: {
     path: '/lich-an-theo-tuan',
     title: 'Lịch Ăn Theo Tuần - Thực Đơn 7 Ngày Tiết Kiệm | Ăn Gì Giờ',
-    description: 'Lên lịch ăn theo tuần từ Thứ 2 đến Chủ Nhật thông minh: tự động chống trùng món, tính calo & chi phí, đổi món linh hoạt cho đủ bữa sáng trưa tối ngon mỗi ngày.',
+    description: 'Lên lịch ăn theo tuần từ Thứ 2 đến Chủ Nhật: tự động chống trùng món, tính calo & chi phí, đổi món linh hoạt cho đủ bữa sáng trưa tối chuẩn ngon.',
     label: 'Lịch Ăn Tuần',
     shortLabel: 'Lịch Ăn Tuần',
     keywords: 'lịch ăn theo tuần, lịch ăn tuần, thực đơn theo tuần, thực đơn 7 ngày, lên lịch ăn, thực đơn gia đình theo tuần, thực đơn giảm cân theo tuần, ăn gì hôm nay',
@@ -133,7 +133,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   ai: {
     path: '/ai-goi-y-mon-an',
     title: 'Trợ Lý AI Gợi Ý Món Ăn Theo Gu & Thời Tiết | Ăn Gì Giờ',
-    description: 'Trợ lý AI gợi ý món ăn thông minh theo tâm trạng, thời tiết, ngân sách và khẩu vị riêng của bạn. Chốt món ngon mỗi ngày chỉ trong vài giây và đặt ship gần bạn.',
+    description: 'Trợ lý AI gợi ý món ăn thông minh theo tâm trạng, thời tiết, ngân sách và khẩu vị của bạn. Chốt món ngon mỗi ngày trong vài giây và đặt ship gần bạn.',
     label: 'Trợ Lý AI',
     shortLabel: 'Trợ Lý AI',
     keywords: 'trợ lý ai món ăn, ai gợi ý món ăn, hôm nay ăn gì ai, gợi ý món ăn thông minh, tìm món theo thời tiết, tìm món theo tâm trạng, đặt món giao tận nơi',
@@ -143,7 +143,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   catalog: {
     path: '/mon-ngon',
     title: 'Thực Đơn 160+ Món Ngon Việt Nam Đủ 3 Miền | Ăn Gì Giờ',
-    description: 'Khám phá thực đơn hơn 160 món ngon Việt Nam đặc sắc 3 miền Bắc - Trung - Nam: cơm, bún, phở, lẩu nướng, đồ chay kèm ước tính calo, mức giá và đặt ship nhanh.',
+    description: 'Khám phá thực đơn hơn 160 món ngon Việt Nam 3 miền Bắc - Trung - Nam: cơm, bún, phở, lẩu nướng, đồ chay kèm ước tính calo, mức giá và đặt ship nhanh.',
     label: 'Món Ngon',
     shortLabel: 'Món Ngon',
     keywords: 'món ngon việt nam, thực đơn món ngon, 160 món ngon, món ngon 3 miền, món ăn bắc trung nam, danh sách món ngon, đặt món online, tra cứu món ăn',
@@ -153,7 +153,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   snacks: {
     path: '/do-uong-an-vat',
     title: 'Đồ Uống & Ăn Vặt - Trà Sữa, Cà Phê Xế Chiều | Ăn Gì Giờ',
-    description: 'Khám phá 35+ đồ uống & món ăn vặt xế chiều hot trend: trà sữa trân châu, cà phê muối, trà trái cây, bánh tráng trộn, nem chua rán kèm đặt ship hỏa tốc gần bạn.',
+    description: 'Khám phá 35+ đồ uống & món ăn vặt xế chiều hot trend: trà sữa trân châu, cà phê muối, trà trái cây, bánh tráng trộn, nem chua rán kèm đặt ship nhanh.',
     label: 'Đồ Uống & Ăn Vặt',
     shortLabel: 'Đồ Uống & Ăn Vặt',
     keywords: 'đồ uống ăn vặt, trà sữa ăn vặt, trà sữa trân châu, đồ ăn vặt, ăn vặt đường phố, trà đào cam sả, cà phê muối, bánh tráng trộn, bánh tráng nướng, ăn xế chiều',
@@ -163,7 +163,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   discover: {
     path: '/am-thuc-vung-mien',
     title: 'Ẩm Thực Vùng Miền - Tinh Hoa Món Ngon 3 Miền | Ăn Gì Giờ',
-    description: 'Khám phá bản đồ ẩm thực 3 miền Việt Nam: hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và đặc sản miền Tây sông nước chuẩn vị.',
+    description: 'Khám phá bản đồ ẩm thực 3 miền Việt Nam: hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và đặc sản miền Tây sông nước.',
     label: 'Ẩm Thực Vùng Miền',
     shortLabel: 'Ẩm Thực',
     keywords: 'ẩm thực vùng miền, ẩm thực 3 miền, ẩm thực việt nam, món ngon miền bắc, món ngon miền trung, món ngon miền nam, ẩm thực miền tây, đặc sản vùng miền việt nam',
@@ -213,7 +213,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   blog: {
     path: '/blog',
     title: 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Mẹo Bếp | Ăn Gì Giờ',
-    description: 'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam mỗi ngày.',
+    description: 'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam.',
     label: 'Blog Ẩm Thực',
     shortLabel: 'Blog',
     keywords: 'blog ẩm thực, cẩm nang nấu ăn, mẹo nấu ăn ngon, văn hóa ẩm thực việt nam, kiến thức dinh dưỡng, công thức món ngon, hôm nay ăn gì',
@@ -223,7 +223,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
   restaurants: {
     path: '/quan-ngon',
     title: 'Top Quán Ngon Gần Bạn - Quán Ăn Ngon 3 Miền | Ăn Gì Giờ',
-    description: 'Khám phá top quán ngon gần bạn, quán ăn lâu đời và địa chỉ ẩm thực uy tín khắp 3 miền. Đặt giao món nhanh qua ShopeeFood, GrabFood, BeFood kèm chỉ đường Maps.',
+    description: 'Khám phá top quán ngon gần bạn, quán ăn lâu đời và địa chỉ ẩm thực uy tín 3 miền. Đặt món nhanh qua ShopeeFood, GrabFood, BeFood kèm chỉ đường Maps.',
     label: 'Quán Ngon',
     shortLabel: 'Quán Ngon',
     keywords: 'quán ngon, quán ăn ngon, top quán ngon gần đây, địa chỉ ẩm thực, quán ngon hà nội, quán ngon sài gòn, quán ngon đà nẵng, quán ngon việt nam, đặt món shopeefood, grabfood, befood',

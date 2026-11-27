@@ -548,7 +548,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onNavigate, onSelectDish }) 
       const currentPath = typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') : '/blog';
       if (currentPath === '/blog' || currentPath === '') {
         const blogIndexTitle = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Mẹo Bếp | Ăn Gì Giờ';
-        const blogIndexDesc = 'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam mỗi ngày.';
+        const blogIndexDesc = 'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam.';
         document.title = blogIndexTitle;
         const metaTitle = document.querySelector('meta[name="title"]');
         if (metaTitle) metaTitle.setAttribute('content', blogIndexTitle);

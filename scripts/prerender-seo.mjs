@@ -6,7 +6,7 @@ const SEO_ROUTES_CONFIG = {
   "/": {
     path: "/",
     title: "Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị",
-    description: "Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon 3 miền và đặt giao ngay.",
+    description: "Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon và đặt ship ngay.",
     keywords: "hôm nay ăn gì, tarot ẩm thực, quẻ bói món ăn, bói bài ăn gì, 12 cung hoàng đạo, vòng quay ăn gì, trưa nay ăn gì, tối nay ăn gì, món ngon mỗi ngày, ẩm thực việt nam, gợi ý món ăn, đặt món shopeefood, grabfood, befood",
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo & Gợi Ý Món Chuẩn Vị",
@@ -14,7 +14,7 @@ const SEO_ROUTES_CONFIG = {
   "/am-thuc-vung-mien": {
     path: "/am-thuc-vung-mien",
     title: "Ẩm Thực Vùng Miền - Tinh Hoa Món Ngon 3 Miền | Ăn Gì Giờ",
-    description: "Khám phá bản đồ ẩm thực 3 miền Việt Nam: hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và đặc sản miền Tây sông nước chuẩn vị.",
+    description: "Khám phá bản đồ ẩm thực 3 miền Việt Nam: hương vị thanh tao miền Bắc, đậm đà cay nồng miền Trung, phóng khoáng miền Nam và đặc sản miền Tây sông nước.",
     keywords: "ẩm thực vùng miền, ẩm thực 3 miền, ẩm thực việt nam, món ngon miền bắc, món ngon miền trung, món ngon miền nam, ẩm thực miền tây, đặc sản vùng miền việt nam",
     image: "https://angigio.com/og-am-thuc-vung-mien.jpg",
     imageAlt: "Ẩm Thực Vùng Miền - Tinh Hoa Ẩm Thực 3 Miền Bắc Trung Nam & Miền Tây",
@@ -22,7 +22,7 @@ const SEO_ROUTES_CONFIG = {
   "/am-thuc-mien-bac": {
     path: "/am-thuc-mien-bac",
     title: "Ẩm Thực Miền Bắc - Tinh Hoa Món Ngon Kinh Kỳ | Ăn Gì Giờ",
-    description: "Khám phá tinh hoa ẩm thực miền Bắc với hương vị thanh tao hài hòa của phở bò tái lăn, bún chả than hoa, chả cá Lã Vọng, bún thang, xôi xéo và phở cuốn Hà Nội.",
+    description: "Khám phá tinh hoa ẩm thực miền Bắc với hương vị thanh tao hài hòa của phở bò tái lăn, bún chả than hoa, chả cá Lã Vọng, bún thang, xôi xéo và phở cuốn.",
     keywords: "ẩm thực miền bắc, món ngon miền bắc, đặc sản miền bắc, ẩm thực hà nội, phở bò tái lăn, bún chả hà nội, chả cá lã vọng, bún thang, xôi xéo, phở cuốn",
     image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Ẩm Thực Miền Bắc - Tinh Hoa Hương Vị Thanh Tao Đất Kinh Kỳ",
@@ -30,7 +30,7 @@ const SEO_ROUTES_CONFIG = {
   "/am-thuc-mien-trung": {
     path: "/am-thuc-mien-trung",
     title: "Ẩm Thực Miền Trung - Đậm Đà Cay Nồng Cố Đô | Ăn Gì Giờ",
-    description: "Khám phá ẩm thực miền Trung đặc sắc: vị cay nồng đậm đà mắm ruốc của bún bò Huế, mì Quảng, nem nướng Nha Trang, bánh canh chả cá, cơm gà Hội An và bánh bèo.",
+    description: "Khám phá ẩm thực miền Trung đặc sắc với vị cay nồng đậm đà mắm ruốc của bún bò Huế, mì Quảng, nem nướng Nha Trang, bánh canh chả cá và cơm gà Hội An.",
     keywords: "ẩm thực miền trung, món ngon miền trung, đặc sản miền trung, ẩm thực huế, ẩm thực đà nẵng, bún bò huế, mì quảng, nem nướng nha trang, cơm gà hội an, bánh bèo chén",
     image: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Ẩm Thực Miền Trung - Đậm Đà Cay Nồng Nàn Xứ Cố Đô",
@@ -38,7 +38,7 @@ const SEO_ROUTES_CONFIG = {
   "/am-thuc-mien-nam": {
     path: "/am-thuc-mien-nam",
     title: "Ẩm Thực Miền Nam & Sài Gòn - Đậm Vị Phố Thị | Ăn Gì Giờ",
-    description: "Thưởng thức ẩm thực miền Nam & Sài Gòn với vị béo ngọt hào sảng của cơm tấm sườn bì chả, hủ tiếu Nam Vang, bánh mì chảo, bò kho, phá lấu và gỏi cuốn trứ danh.",
+    description: "Thưởng thức ẩm thực miền Nam & Sài Gòn vị béo ngọt hào sảng với cơm tấm sườn bì chả, hủ tiếu Nam Vang, bánh mì chảo, bò kho, phá lấu và gỏi cuốn ngon.",
     keywords: "ẩm thực miền nam, ẩm thực sài gòn, món ngon miền nam, món ngon sài gòn, cơm tấm sườn bì chả, hủ tiếu nam vang, bánh mì thịt nướng, phá lấu bò, gỏi cuốn tôm thịt",
     image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Ẩm Thực Miền Nam & Sài Gòn - Hào Sảng Phóng Khoáng",
@@ -46,7 +46,7 @@ const SEO_ROUTES_CONFIG = {
   "/am-thuc-mien-tay": {
     path: "/am-thuc-mien-tay",
     title: "Ẩm Thực Miền Tây Sông Nước - Đặc Sản Phù Sa | Ăn Gì Giờ",
-    description: "Khám phá ẩm thực miền Tây sông nước mộc mạc, đậm đà tình phù sa với lẩu mắm miền Tây, cá kho tộ, canh chua cá lóc, lẩu cá kèo lá giang và bánh xèo giòn rụm.",
+    description: "Khám phá ẩm thực miền Tây sông nước mộc mạc, đậm tình phù sa với lẩu mắm miền Tây, cá kho tộ, canh chua cá lóc, lẩu cá kèo lá giang và bánh xèo giòn.",
     keywords: "ẩm thực miền tây, ẩm thực miền tây sông nước, đặc sản miền tây, món ngon miền tây, lẩu mắm miền tây, canh chua cá lóc, cá kho tộ, lẩu cá kèo, bánh xèo miền tây",
     image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Ẩm Thực Miền Tây Sông Nước - Hương Đồng Gió Nội",
@@ -54,7 +54,7 @@ const SEO_ROUTES_CONFIG = {
   "/thuc-don-moi-ngay": {
     path: "/thuc-don-moi-ngay",
     title: "Thực Đơn Mỗi Ngày - Gợi Ý Cơm Nhà Chuẩn Vị | Ăn Gì Giờ",
-    description: "Gợi ý thực đơn mỗi ngày từ Thứ 2 đến Chủ Nhật: mâm cơm nhà mẹ nấu, bữa trưa văn phòng, thực đơn eat clean giảm cân và tiệc lẩu nướng cuối tuần đủ dinh dưỡng.",
+    description: "Gợi ý thực đơn mỗi ngày từ Thứ 2 đến Chủ Nhật: mâm cơm nhà mẹ nấu, bữa trưa văn phòng, thực đơn eat clean giảm cân và tiệc lẩu nướng cuối tuần chuẩn vị.",
     keywords: "thực đơn mỗi ngày, thực đơn hôm nay, gợi ý thực đơn, cơm nhà mẹ nấu, thực đơn trưa văn phòng, eat clean giảm cân, thực đơn gia đình, món ngon mỗi ngày",
     image: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Thực Đơn Mỗi Ngày - Bữa Cơm Gia Đình Đủ Dinh Dưỡng",
@@ -62,7 +62,7 @@ const SEO_ROUTES_CONFIG = {
   "/cach-nau-mon-ngon": {
     path: "/cach-nau-mon-ngon",
     title: "Cách Nấu Món Ngon - 210+ Công Thức Chuẩn Vị | Ăn Gì Giờ",
-    description: "Tổng hợp cách nấu hơn 210+ món ngon chuẩn vị gia đình Việt: định lượng nguyên liệu chi tiết, từng bước dễ làm cùng bí quyết bếp trưởng cho bữa cơm ngon đậm đà.",
+    description: "Tổng hợp cách nấu hơn 210+ món ngon chuẩn vị gia đình Việt: định lượng nguyên liệu chi tiết, từng bước dễ làm cùng bí quyết bếp trưởng cho bữa ăn đậm đà.",
     keywords: "cách nấu món ngon, công thức nấu ăn, hướng dẫn nấu ăn, bí quyết nấu ăn ngon, cách nấu phở bò tái lăn, cách nấu cơm tấm sườn bì chả, cách làm cơm gà xối mỡ, món ngon mỗi ngày",
     image: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&auto=format&fit=crop&q=80",
     imageAlt: "Cách Nấu Món Ngon - 210+ Công Thức Nấu Ăn Chuẩn Vị Gia Đình",

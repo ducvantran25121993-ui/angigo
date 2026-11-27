@@ -17250,6 +17250,387 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
     recommendedSauce:
       'Thưởng thức cùng tương cà (ketchup), tương ớt, rắc thêm ớt bột khô (chili flakes) và lá Oregano khô; đặc biệt hợp khi rưới thêm chút mật ong cay (hot honey) hoặc chấm sốt bơ tỏi mayonnaise.',
   },
+  'pizza-4-cheese': {
+    dishId: 'pizza-4-cheese',
+    dishName: 'Pizza 4 Loại Phô Mai',
+    seoTitle: 'Cách Làm Pizza 4 Loại Phô Mai Thơm Ngon',
+    description:
+      'Hướng dẫn cách làm pizza 4 loại phô mai (Quattro Formaggi) chuẩn vị Ý: đế bánh giòn xốp, 4 lớp phô mai tan chảy béo ngậy quyện mật ong rừng thơm lừng.',
+    prepTime: '70 phút (gồm 55 phút ủ bột; chỉ 10 phút nếu dùng đế sẵn)',
+    cookTime: '15 phút (làm nóng lò & nướng bánh)',
+    totalTime: '85 phút',
+    servings: '2 chiếc cỡ 24cm (3 - 4 người ăn)',
+    calories: '880 kcal',
+    difficulty: 'Trung bình',
+    ratingValue: '4.9',
+    reviewCount: 426,
+    ingredients: [
+      {
+        category: 'Đế bánh Pizza giòn xốp (2 chiếc cỡ 24cm — hoặc mua đế sẵn)',
+        items: [
+          '250g bột mì số 13 (bột làm bánh mì giúp đế dai xốp chuẩn Ý)',
+          '4g men nở khô Instant; 155ml nước ấm (35 - 40 độ C)',
+          '1.5 thìa canh dầu ô liu nguyên chất; 4g muối tinh; 1 thìa cà phê đường',
+        ],
+      },
+      {
+        category: '4 loại phô mai chuẩn Ý (Quattro Formaggi)',
+        items: [
+          '160g phô mai Mozzarella nguyên khối tự bào sợi (kéo sợi mượt, ít nước)',
+          '70g phô mai Ricotta tươi (hoặc Mascarpone) tạo lớp nền kem mịn béo dịu',
+          '45g phô mai xanh Gorgonzola bẻ vụn (có thể thay bằng Cheddar nếu không quen mùi xanh)',
+          '35g phô mai Parmesan (Parmigiano-Reggiano) bào mịn tạo vị đậm đà',
+        ],
+      },
+      {
+        category: 'Nền dầu ô liu tỏi & Topping rưới hoàn thiện',
+        items: [
+          '2 thìa canh dầu ô liu nguyên chất; 2 tép tỏi băm nhỏ (hoặc 1/2 thìa cà phê bột tỏi)',
+          '2 thìa canh mật ong rừng nguyên chất rưới khi ăn',
+          '1/2 thìa cà phê tiêu đen xay thô; 1/2 thìa cà phê lá Oregano hoặc xạ hương (thyme)',
+          'Vài lá húng quế Tây tươi (basil) trang trí (tùy chọn)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Kích hoạt men, nhào bột & ủ đế bánh Pizza giòn xốp',
+        time: '60 phút',
+        heat: 'Nhiệt độ phòng (ủ kín gió)',
+        goal: 'Khối bột mịn dẻo đàn hồi, nở gấp đôi có bọt khí đều để nướng lên đế giòn vỏ xốp ruột',
+        actionPoints: [
+          'Hòa tan 4g men nở khô và 1 thìa cà phê đường trong 155ml nước ấm (35 - 40°C), để yên 8 - 10 phút đến khi men nổi bọt mịn như gạch cua.',
+          'Trộn đều 250g bột mì số 13 với 4g muối trong âu lớn, đổ hỗn hợp men và 1.5 thìa canh dầu ô liu vào trộn thành khối đồng nhất.',
+          'Nhào bột bằng tay khoảng 10 - 12 phút (hoặc máy trộn 7 phút) cho đến khi mặt bột láng mịn, ấn nhẹ thấy đàn hồi trở lại.',
+          'Vo tròn khối bột, áo lớp dầu ô liu mỏng, bọc kín màng bọc thực phẩm và ủ 45 - 60 phút ở nơi ấm đến khi bột nở gấp đôi.',
+        ],
+        description:
+          'Kích hoạt men nở với nước ấm và đường, nhào cùng bột mì số 13, muối và dầu ô liu đến khi mịn đàn hồi rồi ủ kín 45 - 60 phút cho bột nở gấp đôi (có thể dùng 2 đế pizza làm sẵn cỡ 24cm để rút ngắn thời gian).',
+        tip: 'Nếu dùng đế pizza bán sẵn, hãy để đế rã đông hoàn toàn ở nhiệt độ phòng trước khi xếp phô mai để đế nướng chín giòn đều từ đáy.',
+      },
+      {
+        step: 2,
+        title: 'Chuẩn bị 4 loại phô mai đúng tỷ lệ & pha sốt nền Ricotta tỏi',
+        time: '8 phút',
+        heat: 'Không dùng nhiệt',
+        goal: '4 loại phô mai tơi ráo, giữ lạnh sát giờ nướng; lớp nền Ricotta dầu ô liu tỏi mịn thơm không bị loãng nước',
+        actionPoints: [
+          'Dùng bàn bào lỗ to bào sợi 160g phô mai Mozzarella nguyên khối, bào mịn 35g Parmesan và bẻ nhỏ 45g phô mai xanh Gorgonzola thành từng miếng cỡ hạt đậu.',
+          'Trộn đều 70g phô mai Ricotta tươi (đã chắt ráo nước nếu có) với 1 thìa canh dầu ô liu, 2 tép tỏi băm thật nhuyễn và chút tiêu đen xay thô tạo lớp sốt kem trắng (Pizza Bianca).',
+          'Giữ toàn bộ phô mai trong ngăn mát đến sát lúc xếp bánh giúp phô mai tan chảy mượt mà, không bị tách dầu khi vào lò nhiệt cao.',
+        ],
+        description:
+          'Bào sợi Mozzarella khối, bào mịn Parmesan, bẻ nhỏ Gorgonzola và trộn Ricotta với dầu ô liu, tỏi băm, tiêu đen làm lớp nền sốt trắng chuẩn vị Pizza Bianca Ý.',
+        tip: 'Pizza 4 Cheese chuẩn Ý truyền thống là Pizza Bianca (không dùng sốt cà chua) để giữ trọn hương thơm tinh tế của 4 tầng phô mai; nếu bạn hoặc bé không quen vị nồng của Gorgonzola, hãy thay bằng 50g phô mai Cheddar đỏ hoặc Emmental bào sợi.',
+      },
+      {
+        step: 3,
+        title: 'Cán tạo hình đế bánh & xếp 4 tầng phô mai cân bằng vị',
+        time: '7 phút',
+        heat: 'Làm nóng lò trước ở 230°C',
+        goal: 'Đế bánh tròn đều viền phồng đẹp, 4 loại phô mai phân bổ đều khắp mặt bánh không dồn cục hay quá mặn',
+        actionPoints: [
+          'Chia bột làm 2 phần bằng nhau, ấn nhẹ xả khí rồi cán hoặc kéo tay thành 2 đế tròn đường kính 24cm (đáy dày ~3 - 4mm, chừa viền dày hơn một chút), đặt lên khay lót giấy nến.',
+          'Dùng nĩa xâm nhẹ khắp lòng đế bánh để không bị phồng rộp bất thường, quét 1 lớp mỏng dầu ô liu quanh viền bánh giúp viền nướng lên vàng giòn thơm.',
+          'Phết đều lớp nền Ricotta dầu tỏi lên mặt bánh (chừa viền 1.5cm), sau đó rải phủ lớp Mozzarella bào sợi làm nền kéo sợi.',
+          'Rải xen kẽ đều tay các mẩu Gorgonzola bẻ vụn (không xếp quá dày một chỗ) rồi phủ đều lớp Parmesan bào mịn và chút lá Oregano/xạ hương lên trên cùng.',
+        ],
+        description:
+          'Cán đế tròn 24cm, xâm lỗ bằng nĩa và quét dầu ô liu lên viền. Phết đều nền Ricotta tỏi, phủ lớp Mozzarella bào, rải xen kẽ Gorgonzola và phủ Parmesan bào mịn cùng lá thơm lên trên cùng.',
+        tip: 'Phủ Parmesan ở lớp trên cùng giúp mặt bánh khi nướng gặp nhiệt cao tạo các đốm xém vàng nâu thơm phức đặc trưng của phô mai nướng lò Ý.',
+      },
+      {
+        step: 4,
+        title: 'Nướng nhiệt cao 230°C giòn viền, phô mai sôi vàng óng',
+        time: '12 phút',
+        heat: 'Lò nướng 230°C (hoặc nồi chiên không dầu 190°C)',
+        goal: 'Viền bánh nở phồng vàng ruộm giòn rụm, 4 lớp phô mai tan chảy hòa quyện sôi lăn tăn có đốm xém nâu nhẹ',
+        actionPoints: [
+          'Làm nóng lò nướng trước tối thiểu 10 - 15 phút ở 230°C (hai lửa). Đặt khay pizza ở rãnh giữa lò và nướng khoảng 10 - 12 phút đến khi viền bánh vàng giòn và mặt phô mai sôi nhẹ, lấm tấm đốm vàng nâu thơm nức.',
+          'Nếu nướng bằng nồi chiên không dầu: làm nóng nồi ở 190°C trong 5 phút, nướng sơ đế 2 phút rồi xếp phô mai lên nướng tiếp 7 - 9 phút là phô mai tan chảy hoàn hảo.',
+          'Quan sát kỹ 2 phút cuối để không nướng quá lâu làm phô mai bị khô cứng hoặc tách dầu.',
+        ],
+        description:
+          'Nướng bánh trong lò đã làm nóng ở 230°C trong 10 - 12 phút (hoặc nồi chiên không dầu 190°C khoảng 7 - 9 phút) đến khi viền vàng giòn, 4 lớp phô mai tan chảy hòa quyện có đốm nâu vàng đẹp mắt.',
+        tip: 'Nhiệt cao và thời gian nướng nhanh (10 - 12 phút) là chìa khóa giúp đế bánh giòn rụm bên ngoài mà 4 loại phô mai vẫn mềm ẩm, kéo sợi dài mướt không bị tách béo.',
+      },
+      {
+        step: 5,
+        title: 'Rưới mật ong rừng nguyên chất & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Thưởng thức ngay khi bánh vừa ra lò',
+        goal: 'Miếng pizza nóng hổi kéo sợi dài béo ngậy, vị mặn đậm của phô mai hòa quyện ngọt thanh của mật ong rừng và thơm cay nhẹ của tiêu đen',
+        actionPoints: [
+          'Lấy pizza ra khỏi lò đặt lên thớt gỗ, để nghỉ 1 - 2 phút cho lớp phô mai ổn định không bị trôi khi cắt.',
+          'Cắt bánh thành 6 - 8 miếng tam giác bằng dao lăn pizza, rắc thêm chút tiêu đen xay thô và vài lá húng quế Tây tươi.',
+          'Rưới nhẹ 1 - 2 thìa canh mật ong rừng nguyên chất theo đường zíc zắc lên mặt bánh (hoặc rót ra chén nhỏ để chấm trực tiếp từng miếng) và thưởng thức ngay khi còn nóng kéo sợi!',
+        ],
+        description:
+          'Để bánh nghỉ 1 - 2 phút trên thớt gỗ, cắt 6 - 8 miếng tam giác, rắc tiêu đen xay thô, lá húng quế Tây và rưới mật ong rừng nguyên chất lên mặt bánh rồi thưởng thức ngay khi phô mai còn nóng hổi kéo sợi.',
+        tip: 'Mật ong rừng giúp cân bằng hoàn hảo độ béo mặn của 4 loại phô mai khiến ăn liền nhiều miếng vẫn thanh ngon không hề bị ngán.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết vàng làm Pizza 4 Loại Phô Mai (Quattro Formaggi) ngon chuẩn nhà hàng Ý: 1. Kết hợp đúng 4 vai trò phô mai (Mozzarella khối kéo sợi + Ricotta nền kem mượt + Gorgonzola tạo chiều sâu hương vị + Parmesan đậm đà xém mặt); 2. Giữ phô mai lạnh sát lúc nướng và nướng nhanh ở nhiệt cao 230°C để phô mai tan mượt không tách dầu; 3. Rưới mật ong rừng nguyên chất và chút tiêu đen xay thô ngay khi vừa ra lò để tạo điểm nhấn ngọt thanh chống ngấy.',
+    recommendedSauce:
+      'Rưới trực tiếp mật ong rừng nguyên chất hoặc mật ong cay (hot honey) lên từng miếng bánh; có thể ăn kèm chút ớt bột khô (chili flakes) và salad dầu giấm giải ngấy.',
+  },
+  'pizza-hawaiian': {
+    dishId: 'pizza-hawaiian',
+    dishName: 'Pizza Hawaiian',
+    seoTitle: 'Cách Làm Pizza Hawaiian Thơm Ngon',
+    description:
+      'Hướng dẫn cách làm pizza Hawaiian thơm ngon chuẩn tiệm: đế giòn xốp, sốt cà chua đậm đà, dứa áp chảo caramel không chảy nước, dăm bông và phô mai kéo sợi.',
+    prepTime: '70 phút (gồm 55 phút ủ bột; chỉ 15 phút nếu dùng đế sẵn)',
+    cookTime: '20 phút (nấu sốt, áp chảo dứa & nướng bánh)',
+    totalTime: '90 phút',
+    servings: '2 chiếc cỡ 24cm (3 - 4 người ăn)',
+    calories: '780 kcal',
+    difficulty: 'Trung bình',
+    ratingValue: '4.9',
+    reviewCount: 468,
+    ingredients: [
+      {
+        category: 'Đế bánh Pizza giòn xốp (2 chiếc cỡ 24cm — hoặc mua đế sẵn)',
+        items: [
+          '250g bột mì số 13 (bột làm bánh mì giúp đế dai xốp chuẩn tiệm)',
+          '4g men nở khô Instant; 155ml nước ấm (35 - 40 độ C)',
+          '1.5 thìa canh dầu ô liu nguyên chất; 4g muối tinh; 1 thìa cà phê đường',
+        ],
+      },
+      {
+        category: 'Sốt cà chua Pizza sánh đậm không chảy nước',
+        items: [
+          '200g cà chua nghiền hộp (passata) hoặc 3 quả cà chua chín bóc vỏ xay nhuyễn',
+          '1 thìa canh dầu ô liu; 2 tép tỏi băm nhỏ',
+          '1 thìa cà phê lá Oregano khô; 1/2 thìa cà phê húng quế khô (basil)',
+          '1/2 thìa cà phê đường; 1/3 thìa cà phê muối; 1/4 thìa cà phê tiêu đen',
+        ],
+      },
+      {
+        category: 'Topping chuẩn Pizza Hawaiian (dứa, thịt nguội & phô mai)',
+        items: [
+          '180g dứa chín vàng (thơm) cắt miếng nhỏ dày 5 - 7mm, thấm khô nước',
+          '140g thịt nguội dăm bông xông khói (hoặc 90g dăm bông + 50g bacon)',
+          '200g phô mai Mozzarella nguyên khối tự bào sợi (độ ẩm thấp)',
+          '25g phô mai Parmesan bào mịn; 1/4 củ hành tây tím thái lát thật mỏng',
+          '1/2 thìa cà phê lá Oregano khô rắc mặt (thêm ớt chuông xanh tùy thích)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Kích hoạt men, nhào bột & ủ đế bánh Pizza giòn xốp',
+        time: '60 phút',
+        heat: 'Nhiệt độ phòng (ủ kín gió)',
+        goal: 'Khối bột mịn dẻo đàn hồi, nở gấp đôi có bọt khí đều để nướng lên đế giòn vỏ xốp ruột',
+        actionPoints: [
+          'Hòa tan 4g men nở khô với 1 thìa cà phê đường trong 155ml nước ấm (35 - 40°C), để yên 8 - 10 phút đến khi men nổi bọt mịn như gạch cua.',
+          'Trộn đều 250g bột mì số 13 và 4g muối tinh trong âu lớn, đổ hỗn hợp men cùng 1.5 thìa canh dầu ô liu vào trộn thành khối đồng nhất.',
+          'Nhào bột bằng tay khoảng 10 - 12 phút (hoặc máy trộn 7 phút) đến khi mặt bột láng mịn, ấn nhẹ thấy đàn hồi trở lại.',
+          'Vo tròn khối bột, áo lớp dầu ô liu mỏng, bọc kín màng bọc thực phẩm và ủ 45 - 60 phút ở nơi ấm cho bột nở gấp đôi.',
+        ],
+        description:
+          'Kích hoạt men nở trong nước ấm pha đường, nhào cùng bột mì số 13, muối và dầu ô liu đến khi mịn đàn hồi rồi ủ kín 45 - 60 phút cho bột nở gấp đôi (có thể dùng 2 đế pizza làm sẵn cỡ 24cm để rút ngắn thời gian).',
+        tip: 'Nếu dùng đế pizza đông lạnh bán sẵn, hãy để rã đông hoàn toàn ở nhiệt độ phòng trước khi xếp nhân để đế chín giòn đều từ đáy.',
+      },
+      {
+        step: 2,
+        title: 'Nấu sốt cà chua sánh đặc & áp chảo khô dứa caramel (bí quyết chống nhão đế)',
+        time: '12 phút',
+        heat: 'Lửa vừa và lửa lớn',
+        goal: 'Sốt cà chua sánh sệt đậm thơm mùi Oregano; miếng dứa ráo nước xém vàng ngọt đậm, thịt nguội dậy mùi khói',
+        actionPoints: [
+          'Đun nóng 1 thìa canh dầu ô liu, phi thơm 2 tép tỏi băm rồi cho 200g cà chua nghiền, 1 thìa cà phê Oregano, 1/2 thìa cà phê húng quế khô, đường, muối và tiêu đen vào đảo đều.',
+          'Hạ lửa vừa rim mở vung 6 - 8 phút cho sốt cạn bớt nước, sánh đặc lại rồi tắt bếp để nguội hoàn toàn trước khi phết lên bánh.',
+          'Dùng khăn giấy bếp thấm thật khô 180g dứa cắt miếng (nếu dùng dứa đóng hộp càng phải vắt nhẹ và thấm khô kỹ). Làm nóng chảo chống dính không dầu ở lửa lớn, áp chảo nhanh từng mặt dứa 1 - 1.5 phút đến khi hơi xém cạnh caramel rồi gắp ra đĩa.',
+          'Thái miếng vuông vừa ăn 140g thịt nguội dăm bông xông khói (nếu có kèm ba chỉ xông khói bacon, áp chảo sơ 1 phút cho ráo bớt mỡ và thơm hơn).',
+        ],
+        description:
+          'Rim sốt cà chua với tỏi, dầu ô liu và lá thơm đến khi sánh đặc để nguội; thấm thật khô dứa rồi áp chảo khô lửa lớn 1 - 1.5 phút cho bốc nước và hơi xém caramel, thái vuông dăm bông xông khói.',
+        tip: 'Bước thấm khô và áp chảo sơ dứa là bí quyết quan trọng nhất của Pizza Hawaiian: giúp đường tự nhiên trong dứa dậy vị ngọt thơm như nướng lò củi và tuyệt đối không tiết nước làm ướt đế bánh.',
+      },
+      {
+        step: 3,
+        title: 'Cán đế bánh & xếp lớp sốt – phô mai – thịt nguội – dứa cân bằng',
+        time: '8 phút',
+        heat: 'Làm nóng lò nướng trước ở 230°C',
+        goal: 'Đế bánh tròn đều viền phồng đẹp, lớp sốt mỏng vừa phải và topping phân bổ hài hòa không bị ướt đáy',
+        actionPoints: [
+          'Chia bột làm 2 phần bằng nhau, ấn xả khí rồi cán hoặc kéo tay thành 2 đế tròn đường kính 24cm (đáy dày ~3 - 4mm, viền dày hơn một chút), đặt lên khay lót giấy nến.',
+          'Dùng nĩa xâm nhẹ khắp lòng đế để không phồng rộp bất thường, quét lớp mỏng dầu ô liu quanh viền bánh giúp viền nướng lên vàng giòn.',
+          'Phết đều chỉ 2 - 3 thìa canh sốt cà chua đã nguội lên mặt bánh (chừa viền 1.5cm), sau đó rải phủ 2/3 lượng phô mai Mozzarella bào sợi làm lớp đệm chống thấm.',
+          'Xếp xen kẽ đều tay thịt nguội dăm bông, dứa áp chảo caramel và vài lát hành tây tím thật mỏng, rồi rải 1/3 lượng Mozzarella còn lại cùng Parmesan bào mịn lên trên.',
+        ],
+        description:
+          'Cán đế tròn 24cm, xâm nĩa và quét dầu ô liu lên viền. Phết lớp mỏng sốt cà chua nguội, rải 2/3 Mozzarella làm nền, xếp đều dăm bông, dứa áp chảo, hành tây tím rồi phủ nốt Mozzarella và Parmesan.',
+        tip: 'Không phết sốt cà chua quá dày và luôn để sốt nguội hẳn trước khi phết; lớp Mozzarella rải bên dưới topping giúp khóa ẩm và cố định miếng dứa cùng thịt nguội bám chắc vào bánh.',
+      },
+      {
+        step: 4,
+        title: 'Nướng nhiệt cao 230°C giòn viền, phô mai sôi vàng kéo sợi',
+        time: '12 phút',
+        heat: 'Lò nướng 230°C (hoặc nồi chiên không dầu 190°C)',
+        goal: 'Viền bánh nở vàng ruộm giòn xốp, phô mai tan chảy sôi nhẹ có đốm xém vàng, mép thịt nguội và dứa thơm lừng',
+        actionPoints: [
+          'Làm nóng lò nướng trước ít nhất 10 - 15 phút ở 230°C (hai lửa). Đặt khay pizza vào rãnh giữa lò nướng 10 - 12 phút đến khi viền bánh vàng giòn và mặt phô mai sôi nhẹ, có vài đốm nâu vàng đẹp mắt.',
+          'Nếu nướng bằng nồi chiên không dầu: làm nóng nồi ở 190°C trong 5 phút, nướng sơ đế 2 phút rồi xếp sốt và topping nướng tiếp 8 - 10 phút là chín giòn kéo sợi.',
+          'Theo dõi 2 phút cuối để rút bánh đúng lúc khi phô mai vừa tan chảy mướt, không nướng quá lâu làm dăm bông bị khô cứng.',
+        ],
+        description:
+          'Nướng bánh trong lò đã làm nóng ở 230°C trong 10 - 12 phút (hoặc nồi chiên không dầu 190°C khoảng 8 - 10 phút) đến khi viền vàng ruộm, phô mai tan chảy sôi nhẹ và mép dăm bông, dứa hơi xém thơm.',
+        tip: 'Đặt khay nướng lên viên đá nướng pizza hoặc khay kim loại đã làm nóng sẵn trong lò giúp đáy bánh Pizza Hawaiian giòn rụm như tiệm.',
+      },
+      {
+        step: 5,
+        title: 'Cắt bánh, rắc lá Oregano & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Thưởng thức ngay khi bánh vừa ra lò',
+        goal: 'Miếng pizza nóng hổi kéo sợi dài, cân bằng hoàn hảo vị chua ngọt mọng thơm của dứa nướng, mặn khói của dăm bông và béo ngậy của phô mai',
+        actionPoints: [
+          'Lấy pizza ra khỏi lò đặt lên thớt gỗ, để nghỉ 1 - 2 phút cho lớp phô mai và sốt ổn định không bị trượt khi cắt.',
+          'Dùng dao lăn cắt bánh thành 6 - 8 miếng tam giác đều nhau, rắc thêm chút lá Oregano khô hoặc ớt bột khô (chili flakes) nếu thích vị cay nhẹ.',
+          'Thưởng thức ngay khi còn nóng hổi để cảm nhận trọn vẹn độ giòn của đế bánh, vị ngọt thanh của dứa caramel quyện cùng thịt nguội đậm đà và phô mai kéo sợi.',
+        ],
+        description:
+          'Để bánh nghỉ 1 - 2 phút trên thớt gỗ, cắt 6 - 8 miếng tam giác, rắc thêm chút lá Oregano khô và thưởng thức ngay khi phô mai còn nóng hổi kéo sợi.',
+        tip: 'Nếu thích vị cay nhẹ bùng vị kiểu hiện đại, bạn có thể thêm vài lát ớt jalapeño muối chua hoặc rưới một chút tương ớt/mật ong cay trước khi ăn.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết làm Pizza Hawaiian ngon chuẩn tiệm không bao giờ bị ướt đế: 1. Thấm thật khô và áp chảo khô lửa lớn miếng dứa chín trước khi xếp lên bánh để khử nước thừa và tạo vị caramel ngọt đậm; 2. Nấu sốt cà chua cô sánh và để nguội hẳn, chỉ phết một lớp mỏng 2 - 3 thìa canh; 3. Dùng Mozzarella khối độ ẩm thấp tự bào kết hợp rải 2/3 phô mai dưới topping để khóa ẩm và nướng nhanh ở nhiệt cao 230°C.',
+    recommendedSauce:
+      'Thưởng thức cùng tương cà (ketchup), tương ớt, ớt bột khô (chili flakes) hoặc sốt mayonnaise bơ tỏi; dùng kèm trà đào cam sả hay nước có ga lạnh giúp bữa ăn thêm tròn vị.',
+  },
+  'pizza-ga-nam-bbq': {
+    dishId: 'pizza-ga-nam-bbq',
+    dishName: 'Pizza Gà Nấm BBQ',
+    seoTitle: 'Cách Làm Pizza Gà Nấm BBQ Siêu Ngon',
+    description:
+      'Hướng dẫn cách làm pizza gà nấm BBQ siêu ngon chuẩn tiệm: đế giòn xốp, sốt BBQ khói đậm vị, gà mềm mọng, nấm xào ráo không chảy nước và phô mai kéo sợi.',
+    prepTime: '75 phút (gồm 55 phút ủ bột; chỉ 20 phút nếu dùng đế sẵn)',
+    cookTime: '22 phút (áp chảo gà, xào khô nấm & nướng bánh)',
+    totalTime: '95 phút',
+    servings: '2 chiếc cỡ 24cm (3 - 4 người ăn)',
+    calories: '820 kcal',
+    difficulty: 'Trung bình',
+    ratingValue: '4.9',
+    reviewCount: 492,
+    ingredients: [
+      {
+        category: 'Đế bánh Pizza giòn xốp (2 chiếc cỡ 24cm — hoặc mua đế sẵn)',
+        items: [
+          '250g bột mì số 13 (bột làm bánh mì giúp đế dai xốp chuẩn tiệm)',
+          '4g men nở khô Instant; 155ml nước ấm (35 - 40 độ C)',
+          '1.5 thìa canh dầu ô liu nguyên chất; 4g muối tinh; 1 thìa cà phê đường',
+        ],
+      },
+      {
+        category: 'Nhân gà BBQ mềm mọng & nấm mỡ xào khô thơm bùi',
+        items: [
+          '220g má đùi gà lọc xương hoặc ức gà tươi thái miếng mỏng vừa ăn',
+          '150g nấm mỡ tươi (hoặc nấm đùi gà) lau sạch thái lát dày 4 - 5mm',
+          '3 thìa canh sốt BBQ khói (2 thìa ướp gà + 1 thìa áo sau khi áp chảo)',
+          '1 thìa cà phê bột tỏi; 1/2 thìa cà phê bột ớt hun khói (smoked paprika)',
+          '1 thìa canh dầu ô liu; 1/2 thìa cà phê tiêu đen xay; 1/3 thìa cà phê muối',
+        ],
+      },
+      {
+        category: 'Sốt nền BBQ khói, bộ đôi phô mai & rau thơm hoàn thiện',
+        items: [
+          '5 thìa canh sốt BBQ khói nguyên chất (có thể pha thêm 1 thìa sốt cà chua)',
+          '170g phô mai Mozzarella nguyên khối tự bào sợi (độ ẩm thấp)',
+          '50g phô mai Cheddar đỏ hoặc Gouda hun khói bào sợi tăng độ béo đậm',
+          '1/2 củ hành tây tím thái lát mỏng; 1 ít ngò rí tươi (hoặc lá Oregano khô)',
+        ],
+      },
+    ],
+    steps: [
+      {
+        step: 1,
+        title: 'Kích hoạt men, nhào bột & ủ đế bánh Pizza giòn xốp',
+        time: '60 phút',
+        heat: 'Nhiệt độ phòng (ủ kín gió)',
+        goal: 'Khối bột mịn dẻo đàn hồi, nở gấp đôi có bọt khí đều giúp đế nướng giòn vỏ xốp ruột',
+        actionPoints: [
+          'Hòa tan 4g men nở khô cùng 1 thìa cà phê đường trong 155ml nước ấm (35 - 40°C), để yên 8 - 10 phút đến khi men nổi bọt mịn như gạch cua.',
+          'Trộn đều 250g bột mì số 13 và 4g muối tinh trong âu lớn, đổ hỗn hợp men và 1.5 thìa canh dầu ô liu vào trộn thành khối đồng nhất.',
+          'Nhào bột bằng tay khoảng 10 - 12 phút (hoặc máy trộn 7 phút) đến khi mặt bột láng mịn, ấn nhẹ thấy đàn hồi trở lại.',
+          'Vo tròn khối bột, áo lớp dầu ô liu mỏng, bọc kín màng bọc thực phẩm và ủ 45 - 60 phút ở nơi ấm đến khi bột nở gấp đôi.',
+        ],
+        description:
+          'Kích hoạt men nở với nước ấm và đường, nhào cùng bột mì số 13, muối và dầu ô liu đến khi mịn đàn hồi rồi ủ kín 45 - 60 phút cho nở gấp đôi (có thể dùng 2 đế pizza làm sẵn cỡ 24cm để rút ngắn thời gian).',
+        tip: 'Nếu dùng đế pizza đông lạnh bán sẵn, hãy rã đông hoàn toàn ở nhiệt độ phòng trước khi phết sốt để đế chín giòn đều không bị sống đáy.',
+      },
+      {
+        step: 2,
+        title: 'Áp chảo gà BBQ chín tới & xào khô nấm mỡ chống chảy nước',
+        time: '15 phút',
+        heat: 'Lửa lớn',
+        goal: 'Thịt gà chín mềm mọng thấm sốt khói không bị khô bã; nấm mỡ săn ráo xém cạnh thơm bùi, tuyệt đối không tiết nước',
+        actionPoints: [
+          'Ướp 220g thịt gà thái miếng mỏng với 2 thìa canh sốt BBQ khói, 1 thìa cà phê bột tỏi, 1/2 thìa cà phê bột ớt hun khói, tiêu đen và 1 thìa cà phê dầu ô liu trong 15 phút.',
+          'Làm nóng chảo với 1 thìa cà phê dầu ô liu ở lửa lớn, cho nấm mỡ thái lát vào xào mở vung 2 - 3 phút kèm chút muối đến khi nấm rút sạch nước và hơi xém vàng cạnh thì trút ra đĩa để ráo.',
+          'Dùng lại chảo nóng đó áp chảo nhanh thịt gà ở lửa lớn khoảng 3 - 4 phút cho gà chín tới 85 - 90% và hơi xém cạnh, tắt bếp rồi trộn áo thêm 1 thìa canh sốt BBQ cho miếng gà bóng mọng đậm vị.',
+        ],
+        description:
+          'Ướp gà với sốt BBQ, bột tỏi, paprika và tiêu đen 15 phút; xào khô nấm mỡ lửa lớn cho bốc hết nước rồi áp chảo gà chín tới 85 - 90%, trộn áo thêm 1 thìa canh sốt BBQ để thịt luôn mềm mọng khi vào lò.',
+        tip: 'Bí quyết kép giúp Pizza Gà Nấm BBQ ngon như tiệm: luôn xào khô nấm trước để không chảy nước làm nhão đế, và chỉ áp chảo gà chín khoảng 85 - 90% vì gà sẽ còn nướng tiếp 10 phút trong lò.',
+      },
+      {
+        step: 3,
+        title: 'Cán đế bánh, phết sốt BBQ khói & xếp tầng phô mai – gà – nấm',
+        time: '7 phút',
+        heat: 'Làm nóng lò nướng trước ở 230°C',
+        goal: 'Đế bánh tròn đều viền phồng đẹp, lớp sốt BBQ vừa vặn không quá ngọt gắt và topping phân bổ đều khắp mặt bánh',
+        actionPoints: [
+          'Chia bột làm 2 phần bằng nhau, ấn nhẹ xả khí rồi cán hoặc kéo tay thành 2 đế tròn đường kính 24cm (đáy dày ~3 - 4mm, chừa viền dày hơn chút), đặt lên khay lót giấy nến.',
+          'Dùng nĩa xâm nhẹ lòng đế bánh để tránh phồng rộp bất thường, quét lớp mỏng dầu ô liu quanh viền bánh.',
+          'Phết đều 2.5 - 3 thìa canh sốt BBQ khói (có thể trộn thêm 1 thìa sốt cà chua cho dịu vị) lên mặt mỗi đế bánh, chừa viền 1.5cm.',
+          'Rải phủ 2/3 lượng Mozzarella trộn Cheddar bào sợi lên lớp sốt, xếp đều thịt gà BBQ, nấm mỡ xào khô và lát hành tây tím mỏng, rồi rải nốt 1/3 phô mai còn lại lên trên.',
+        ],
+        description:
+          'Cán đế tròn 24cm, xâm nĩa và quét dầu ô liu quanh viền. Phết lớp mỏng sốt BBQ khói, phủ 2/3 bộ đôi phô mai Mozzarella – Cheddar làm nền, xếp đều gà BBQ, nấm xào khô, hành tây tím rồi rải nốt phô mai lên trên.',
+        tip: 'Kết hợp Mozzarella (kéo sợi mượt) cùng Cheddar đỏ hoặc Gouda hun khói (béo đậm mặn nhẹ) tạo nên chiều sâu hương vị đúng chuẩn BBQ Chicken Pizza kiểu Mỹ-Ý.',
+      },
+      {
+        step: 4,
+        title: 'Nướng nhiệt cao 230°C giòn viền, phô mai sôi vàng óng',
+        time: '12 phút',
+        heat: 'Lò nướng 230°C (hoặc nồi chiên không dầu 190°C)',
+        goal: 'Viền bánh vàng ruộm giòn xốp, phô mai tan chảy sôi nhẹ có đốm xém vàng nâu, hành tây tím ngọt mềm thơm phức',
+        actionPoints: [
+          'Làm nóng lò nướng trước ít nhất 10 - 15 phút ở 230°C (hai lửa). Đặt khay pizza ở rãnh giữa lò và nướng 10 - 12 phút đến khi viền bánh vàng giòn, phô mai tan chảy sôi nhẹ và mặt bánh lấm tấm đốm vàng nâu.',
+          'Nếu nướng bằng nồi chiên không dầu: làm nóng nồi ở 190°C trong 5 phút, nướng sơ đế 2 phút rồi xếp sốt và topping nướng tiếp 8 - 10 phút là chín giòn kéo sợi.',
+          'Quan sát 2 phút cuối để rút bánh đúng độ, tránh nướng quá tay làm sốt BBQ dễ bị cháy xém đắng.',
+        ],
+        description:
+          'Nướng bánh trong lò đã làm nóng ở 230°C trong 10 - 12 phút (hoặc nồi chiên không dầu 190°C khoảng 8 - 10 phút) đến khi viền vàng giòn, phô mai tan chảy sôi nhẹ và dậy mùi khói BBQ thơm lừng.',
+        tip: 'Vì sốt BBQ có hàm lượng đường cao hơn sốt cà chua nên bạn chỉ nên nướng ở rãnh giữa lò (không đặt quá sát thanh nhiệt trên) để mặt bánh lên màu đẹp mà không bị khét.',
+      },
+      {
+        step: 5,
+        title: 'Rưới thêm sốt BBQ, rắc rau thơm & thưởng thức nóng hổi',
+        time: '3 phút',
+        heat: 'Thưởng thức ngay khi bánh vừa ra lò',
+        goal: 'Miếng pizza nóng hổi kéo sợi béo đậm, thịt gà mềm mọng thấm khói, nấm dai ngọt quyện vị thanh thơm của hành tây tím và ngò rí',
+        actionPoints: [
+          'Lấy pizza ra đặt lên thớt gỗ, để nghỉ 1 - 2 phút cho lớp phô mai ổn định rồi dùng dao lăn cắt thành 6 - 8 miếng tam giác đều nhau.',
+          'Rưới nhẹ thêm một đường zíc zắc mỏng sốt BBQ khói lên mặt bánh (tùy thích) và rắc chút ngò rí tươi thái nhỏ hoặc lá Oregano khô cho dậy hương thanh mát.',
+          'Thưởng thức ngay khi còn nóng kéo sợi để cảm nhận trọn vẹn vỏ giòn xốp, gà mềm, nấm giòn ngọt và sốt BBQ đậm đà.',
+        ],
+        description:
+          'Để bánh nghỉ 1 - 2 phút trên thớt gỗ, cắt 6 - 8 miếng tam giác, rưới nhẹ thêm đường sốt BBQ khói và rắc chút ngò rí tươi hoặc lá Oregano rồi thưởng thức ngay khi còn nóng hổi kéo sợi.',
+        tip: 'Một chút ngò rí tươi rắc ngay sau khi ra lò (phong cách California BBQ Chicken Pizza) giúp cân bằng hoàn hảo vị đậm khói của sốt BBQ và độ béo của phô mai.',
+      },
+    ],
+    chefSecret:
+      '3 bí quyết làm Pizza Gà Nấm BBQ siêu ngon chuẩn tiệm: 1. Luôn xào khô nấm mỡ lửa lớn trước để khử nước, giữ đế bánh giòn rụm không bị nhão; 2. Chỉ áp chảo gà BBQ chín tới 85 - 90% và áo thêm sốt trước khi nướng để thịt gà mềm mọng không khô bã; 3. Phối trộn Mozzarella với Cheddar đỏ hoặc Gouda hun khói cùng hành tây tím thái mỏng và ngò rí tươi rắc sau cùng để hương vị bùng nổ chuẩn nhà hàng.',
+    recommendedSauce:
+      'Chấm kèm sốt BBQ khói, tương ớt, tương cà hoặc sốt mayonnaise bơ tỏi (ranch/garlic mayo); rắc thêm chút ớt bột khô (chili flakes) nếu thích vị cay nồng.',
+  },
 };
 
 /**

@@ -896,6 +896,22 @@ export const SeoContentFaq: React.FC<{
             <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
               Không chỉ là một trò chơi giải trí thú vị, bói bài Tarot món ăn còn là liệu pháp tâm lý giúp bạn thoát khỏi hội chứng &quot;áp lực lựa chọn&quot; (decision fatigue), mở rộng trải nghiệm ẩm thực với hơn 160 đặc sản ba miền Bắc - Trung - Nam và đón nhận lá bùa hộ mệnh may mắn cho công việc hanh thông suốt cả ngày.
             </p>
+
+            <figure className="mt-6 overflow-hidden rounded-2xl border border-stone-200/80 bg-stone-900 shadow-sm">
+              <img
+                src="/og-home.jpg"
+                alt="Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo với mâm món ngon Việt Nam phở bò, bún chả, cơm tấm, nem rán và gỏi cuốn"
+                width={1200}
+                height={630}
+                loading="eager"
+                decoding="async"
+                referrerPolicy="no-referrer"
+                className="w-full aspect-[1200/630] object-cover"
+              />
+              <figcaption className="bg-stone-50 px-4 py-2.5 text-xs sm:text-sm text-stone-600 border-t border-stone-200/70">
+                Trải bài Tarot Ẩm Thực kết nối 12 cung hoàng đạo với tinh hoa món ngon 3 miền Việt Nam tại Hôm Nay Ăn Gì.
+              </figcaption>
+            </figure>
           </header>
 
           {/* 4 Core Pillars of Tarot Food Reading */}

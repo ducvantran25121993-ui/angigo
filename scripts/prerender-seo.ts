@@ -69,6 +69,7 @@ function injectMeta(
     .replace(/<meta\s+name="description"\s+content=".*?"\s*\/?>/i, `<meta name="description" content="${safeDesc}" />`)
     .replace(/<meta\s+name="keywords"\s+content=".*?"\s*\/?>/i, `<meta name="keywords" content="${safeKeywords}" />`)
     .replace(/<link\s+rel="canonical"\s+href=".*?"\s*\/?>/i, `<link rel="canonical" href="${canonicalUrl}" />`)
+    .replace(/<link\s+rel="image_src"\s+href=".*?"\s*\/?>/i, `<link rel="image_src" href="${escapeXml(absMetaImage)}" />`)
     .replace(/<meta\s+property="og:title"\s+content=".*?"\s*\/?>/i, `<meta property="og:title" content="${safeTitle}" />`)
     .replace(/<meta\s+property="og:description"\s+content=".*?"\s*\/?>/i, `<meta property="og:description" content="${safeDesc}" />`)
     .replace(/<meta\s+property="og:url"\s+content=".*?"\s*\/?>/i, `<meta property="og:url" content="${canonicalUrl}" />`)
@@ -77,7 +78,8 @@ function injectMeta(
     .replace(/<meta\s+name="twitter:title"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:title" content="${safeTitle}" />`)
     .replace(/<meta\s+name="twitter:description"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:description" content="${safeDesc}" />`)
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${canonicalUrl}" />`)
-    .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${escapeXml(absMetaImage)}" />`);
+    .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${escapeXml(absMetaImage)}" />`)
+    .replace(/<meta\s+name="twitter:image:alt"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image:alt" content="${safeImageAlt}" />`);
 
   if (meta.noIndex || matchedCustomPost?.noIndex) {
     updatedHtml = updatedHtml.replace(
@@ -467,7 +469,9 @@ function injectMeta(
   let extraContent = '';
   let fullArticleHtmlWrapper: string | null = null;
 
-  if (cleanPath === '/ai-goi-y-mon-an') {
+  if (cleanPath === '/') {
+    extraContent = `<img src="/og-home.jpg" alt="${safeImageAlt}" width="1200" height="630" />`;
+  } else if (cleanPath === '/ai-goi-y-mon-an') {
     fullArticleHtmlWrapper = buildAiAdvisorSsrHtml();
   } else if (cleanPath === '/blog') {
     fullArticleHtmlWrapper = buildBlogIndexSsrHtml(allActiveBlogPosts || []);

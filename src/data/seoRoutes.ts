@@ -29,7 +29,7 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
     title: 'Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị',
     description: 'Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon và đặt ship ngay.',
     keywords: 'hôm nay ăn gì, tarot ẩm thực, quẻ bói món ăn, bói bài ăn gì, 12 cung hoàng đạo, vòng quay ăn gì, trưa nay ăn gì, tối nay ăn gì, món ngon mỗi ngày, ẩm thực việt nam, gợi ý món ăn, đặt món shopeefood, grabfood, befood',
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
+    image: 'https://angigio.com/og-home.jpg',
     imageAlt: 'Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo & Gợi Ý Món Chuẩn Vị',
     priority: 1.0,
     changefreq: 'daily',
@@ -293,6 +293,9 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
       lastmod:
         dish.id === 'pizza-hai-san-pesto' ||
         dish.id === 'pizza-pepperoni' ||
+        dish.id === 'pizza-4-cheese' ||
+        dish.id === 'pizza-hawaiian' ||
+        dish.id === 'pizza-ga-nam-bbq' ||
         dish.id === 'nem-nuong-nha-trang-cuon'
           ? '2026-11-26'
           : '2026-09-24',

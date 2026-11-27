@@ -64,7 +64,7 @@ export interface TabMeta {
   ogImageAlt?: string;
 }
 
-const DEFAULT_OG_IMAGE = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80';
+const DEFAULT_OG_IMAGE = 'https://angigio.com/og-home.jpg';
 
 export const DISCOVER_SUB_CONFIG: Record<DiscoverSubSection, TabMeta> = {
   region: {
@@ -107,7 +107,7 @@ export const TAB_CONFIG: Record<TabType, TabMeta> = {
     label: 'Tarot Ẩm Thực',
     shortLabel: 'Tarot',
     keywords: 'hôm nay ăn gì, tarot ẩm thực, quẻ bói món ăn, bói bài ăn gì, 12 cung hoàng đạo, vòng quay ăn gì, trưa nay ăn gì, tối nay ăn gì, món ngon mỗi ngày, ẩm thực việt nam, gợi ý món ăn, đặt món shopeefood, grabfood, befood',
-    ogImage: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80',
+    ogImage: 'https://angigio.com/og-home.jpg',
     ogImageAlt: 'Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo & Gợi Ý Món Chuẩn Vị',
   },
   wheel: {
@@ -373,8 +373,17 @@ function applyMetaToDOM(meta: TabMeta): void {
   setOrCreateMeta('meta[name="twitter:description"]', 'name', 'twitter:description', meta.description);
   setOrCreateMeta('meta[name="twitter:url"]', 'name', 'twitter:url', fullUrl);
   setOrCreateMeta('meta[name="twitter:image"]', 'name', 'twitter:image', image);
+  setOrCreateMeta('meta[name="twitter:image:alt"]', 'name', 'twitter:image:alt', imageAlt);
 
-  // 5. Canonical link
+  // 5. Image src link & Canonical link
+  let imageSrc = document.querySelector('link[rel="image_src"]');
+  if (!imageSrc) {
+    imageSrc = document.createElement('link');
+    imageSrc.setAttribute('rel', 'image_src');
+    document.head.appendChild(imageSrc);
+  }
+  imageSrc.setAttribute('href', image);
+
   let canonical = document.querySelector('link[rel="canonical"]');
   if (!canonical) {
     canonical = document.createElement('link');

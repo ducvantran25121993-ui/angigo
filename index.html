@@ -74,7 +74,7 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/pwa-512x512.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="mask-icon" href="/logo.svg" color="#ea580c" />
-    <link rel="image_src" href="https://angigio.com/logo.png" />
+    <link rel="image_src" href="https://angigio.com/og-home.jpg" />
 
     <!-- Open Graph / Facebook Meta Tags -->
     <meta property="og:type" content="website" />
@@ -83,7 +83,8 @@
     <meta property="og:url" content="https://angigio.com/" />
     <meta property="og:title" content="Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị" />
     <meta property="og:description" content="Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon và đặt ship ngay." />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80" />
+    <meta property="og:image" content="https://angigio.com/og-home.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo & Gợi Ý Món Chuẩn Vị" />
@@ -94,7 +95,8 @@
     <meta name="twitter:url" content="https://angigio.com/" />
     <meta name="twitter:title" content="Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị" />
     <meta name="twitter:description" content="Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon và đặt ship ngay." />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&auto=format&fit=crop&q=80" />
+    <meta name="twitter:image" content="https://angigio.com/og-home.jpg" />
+    <meta name="twitter:image:alt" content="Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo & Gợi Ý Món Chuẩn Vị" />
 
     <!-- Fonts (Non-render-blocking via media swap) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,10 +112,43 @@
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "ImageObject",
+          "@id": "https://angigio.com/#primaryimage",
+          "url": "https://angigio.com/og-home.jpg",
+          "contentUrl": "https://angigio.com/og-home.jpg",
+          "caption": "Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo & Mâm Món Ngon Việt Nam",
+          "width": 1200,
+          "height": 630,
+          "inLanguage": "vi-VN"
+        },
+        {
+          "@type": "WebPage",
+          "@id": "https://angigio.com/#webpage",
+          "url": "https://angigio.com/",
+          "name": "Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo Chuẩn Vị",
+          "description": "Hôm nay Vũ Trụ mách bạn ăn gì? Trải bài Tarot ẩm thực 12 cung hoàng đạo, khám phá quẻ bói món ăn định mệnh, quay vòng chọn món ngon và đặt ship ngay.",
+          "isPartOf": {
+            "@id": "https://angigio.com/#website"
+          },
+          "about": {
+            "@id": "https://angigio.com/#organization"
+          },
+          "primaryImageOfPage": {
+            "@id": "https://angigio.com/#primaryimage"
+          },
+          "thumbnailUrl": "https://angigio.com/og-home-square.jpg",
+          "image": [
+            "https://angigio.com/og-home.jpg",
+            "https://angigio.com/og-home-square.jpg"
+          ],
+          "inLanguage": "vi-VN"
+        },
+        {
           "@type": "WebApplication",
           "@id": "https://angigio.com/#webapp",
           "name": "Hôm Nay Ăn Gì",
           "url": "https://angigio.com/",
+          "image": "https://angigio.com/og-home.jpg",
           "applicationCategory": "LifestyleApplication",
           "operatingSystem": "All",
           "description": "Ứng dụng gợi ý món ăn thông minh với Tarot ẩm thực 12 cung hoàng đạo, Vòng quay may mắn, Trợ lý AI và kết nối đặt món ShopeeFood, GrabFood.",
@@ -145,12 +180,7 @@
             "height": 1024
           },
           "image": {
-            "@type": "ImageObject",
-            "@id": "https://angigio.com/#brandImage",
-            "url": "https://angigio.com/logo.png",
-            "caption": "Biểu Tượng Hôm Nay Ăn Gì",
-            "width": 1024,
-            "height": 1024
+            "@id": "https://angigio.com/#primaryimage"
           },
           "email": "ducvantran25121993@gmail.com",
           "contactPoint": {
@@ -176,7 +206,9 @@
             "Angigio"
           ],
           "description": "Gợi ý món ăn chuẩn vị • Tarot ẩm thực chiêm tinh • Vòng quay ngẫu nhiên",
-          "image": "https://angigio.com/logo.png",
+          "image": {
+            "@id": "https://angigio.com/#primaryimage"
+          },
           "publisher": {
             "@id": "https://angigio.com/#organization"
           },
@@ -342,6 +374,7 @@
       <header class="sr-only">
         <h1>Hôm Nay Ăn Gì - Gợi Ý Món Ăn Ngon Mỗi Ngày, Lịch Ăn Tuần &amp; Công Thức Chuẩn Vị</h1>
         <p>Gợi ý món ăn thông minh hôm nay ăn gì với vòng quay may mắn, bốc bài tarot ẩm thực 12 cung hoàng đạo, thực đơn 21 bữa mỗi tuần và hướng dẫn công thức nấu ăn chuẩn vị gia đình Việt Nam.</p>
+        <img src="/og-home.jpg" alt="Hôm Nay Ăn Gì - Tarot Ẩm Thực 12 Cung Hoàng Đạo &amp; Mâm Món Ngon Việt Nam" width="1200" height="630" />
       </header>
     </div>
     <script type="module" src="/src/main.tsx"></script>

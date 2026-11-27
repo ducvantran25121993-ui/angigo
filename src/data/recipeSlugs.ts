@@ -144,7 +144,10 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "lau-ech-mang-cay": "Cách Nấu Lẩu Ếch Măng Chua Cay Đậm Đà",
   "lau-ga-ot-hiem": "Cách Nấu Lẩu Gà Ớt Hiểm Siêu Ngon",
   "pizza-hai-san-pesto": "Cách Làm Pizza Hải Sản Phô Mai Thơm Ngon",
-  "pizza-pepperoni": "Cách Làm Pizza Pepperoni Thơm Ngon"
+  "pizza-pepperoni": "Cách Làm Pizza Pepperoni Thơm Ngon",
+  "pizza-4-cheese": "Cách Làm Pizza 4 Loại Phô Mai Thơm Ngon",
+  "pizza-hawaiian": "Cách Làm Pizza Hawaiian Thơm Ngon",
+  "pizza-ga-nam-bbq": "Cách Làm Pizza Gà Nấm BBQ Siêu Ngon"
 };
 
 /**
@@ -547,6 +550,14 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'pizza-hai-san': 'cach-lam-pizza-hai-san-pho-mai',
   'pizza-pepperoni': 'cach-lam-pizza-pepperoni',
   'pizza-xuc-xich-y': 'cach-lam-pizza-pepperoni',
+  'pizza-4-cheese': 'cach-lam-pizza-4-loai-pho-mai',
+  'pizza-4-loai-pho-mai': 'cach-lam-pizza-4-loai-pho-mai',
+  'pizza-bon-loai-pho-mai': 'cach-lam-pizza-4-loai-pho-mai',
+  'pizza-quattro-formaggi': 'cach-lam-pizza-4-loai-pho-mai',
+  'pizza-hawaiian': 'cach-lam-pizza-hawaiian-thom-ngon',
+  'pizza-thit-nguoi-dua': 'cach-lam-pizza-hawaiian-thom-ngon',
+  'pizza-ga-nam-bbq': 'cach-lam-pizza-ga-nam-bbq',
+  'pizza-ga-nuong-bbq': 'cach-lam-pizza-ga-nam-bbq',
 };
 
 /**
@@ -1474,6 +1485,36 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'pizza-xuc-xich-y': 'pizza-pepperoni',
   'cach-lam-pizza-xuc-xich-y': 'pizza-pepperoni',
   'cach-nau-pizza-xuc-xich-y': 'pizza-pepperoni',
+  'pizza-4-cheese': 'pizza-4-cheese',
+  'cach-lam-pizza-4-loai-pho-mai': 'pizza-4-cheese',
+  'cach-nau-pizza-4-loai-pho-mai': 'pizza-4-cheese',
+  'cach-nau-pizza-4-cheese': 'pizza-4-cheese',
+  'cach-lam-pizza-4-cheese': 'pizza-4-cheese',
+  'pizza-4-loai-pho-mai': 'pizza-4-cheese',
+  'pizza-bon-loai-pho-mai': 'pizza-4-cheese',
+  'cach-lam-pizza-bon-loai-pho-mai': 'pizza-4-cheese',
+  'cach-nau-pizza-bon-loai-pho-mai': 'pizza-4-cheese',
+  'pizza-quattro-formaggi': 'pizza-4-cheese',
+  'cach-lam-pizza-quattro-formaggi': 'pizza-4-cheese',
+  'cach-nau-pizza-quattro-formaggi': 'pizza-4-cheese',
+  'pizza-hawaiian': 'pizza-hawaiian',
+  'cach-nau-pizza-hawaiian-thom-ngon': 'pizza-hawaiian',
+  'cach-lam-pizza-hawaiian-thom-ngon': 'pizza-hawaiian',
+  'cach-nau-pizza-hawaiian': 'pizza-hawaiian',
+  'cach-lam-pizza-hawaiian': 'pizza-hawaiian',
+  'cach-nau-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh': 'pizza-hawaiian',
+  'cach-lam-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh': 'pizza-hawaiian',
+  'pizza-thit-nguoi-dua': 'pizza-hawaiian',
+  'cach-lam-pizza-thit-nguoi-dua': 'pizza-hawaiian',
+  'cach-nau-pizza-thit-nguoi-dua': 'pizza-hawaiian',
+  'pizza-ga-nam-bbq': 'pizza-ga-nam-bbq',
+  'cach-lam-pizza-ga-nam-bbq': 'pizza-ga-nam-bbq',
+  'cach-nau-pizza-ga-nam-bbq': 'pizza-ga-nam-bbq',
+  'cach-lam-pizza-ga-nam-bbq-sieu-ngon': 'pizza-ga-nam-bbq',
+  'cach-nau-pizza-ga-nam-bbq-thom-ngon-chuan-vi-gia-dinh': 'pizza-ga-nam-bbq',
+  'pizza-ga-nuong-bbq': 'pizza-ga-nam-bbq',
+  'cach-lam-pizza-ga-nuong-bbq': 'pizza-ga-nam-bbq',
+  'cach-nau-pizza-ga-nuong-bbq': 'pizza-ga-nam-bbq',
 };
 
 /**

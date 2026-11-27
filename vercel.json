@@ -14,6 +14,246 @@
   },
   "redirects": [
     {
+      "source": "/cach-nau-pizza-ga-nam-bbq",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-ga-nam-bbq/",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-ga-nam-bbq",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-ga-nam-bbq/",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-ga-nam-bbq-sieu-ngon",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-ga-nam-bbq-sieu-ngon/",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-ga-nam-bbq-thom-ngon-chuan-vi-gia-dinh",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-ga-nam-bbq-thom-ngon-chuan-vi-gia-dinh/",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-ga-nuong-bbq",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-ga-nuong-bbq/",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-ga-nuong-bbq",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-ga-nuong-bbq/",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-ga-nuong-bbq",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-ga-nuong-bbq/",
+      "destination": "/cach-lam-pizza-ga-nam-bbq",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hawaiian",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hawaiian/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hawaiian",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hawaiian/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hawaiian-thom-ngon",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hawaiian-thom-ngon/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hawaiian",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-hawaiian/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-thit-nguoi-dua",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-thit-nguoi-dua/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-thit-nguoi-dua",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-thit-nguoi-dua/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-thit-nguoi-dua",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-thit-nguoi-dua/",
+      "destination": "/cach-lam-pizza-hawaiian-thom-ngon",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-4-cheese",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-4-cheese/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-4-cheese",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-4-cheese/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-4-cheese",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-4-cheese/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-4-loai-pho-mai",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-4-loai-pho-mai/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-4-loai-pho-mai",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-4-loai-pho-mai/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-bon-loai-pho-mai",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-pizza-bon-loai-pho-mai/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-bon-loai-pho-mai",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-pizza-bon-loai-pho-mai/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-quattro-formaggi",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
+      "source": "/pizza-quattro-formaggi/",
+      "destination": "/cach-lam-pizza-4-loai-pho-mai",
+      "permanent": true
+    },
+    {
       "source": "/cach-nau-nem-nuong-nha-trang-cuon",
       "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
       "permanent": true

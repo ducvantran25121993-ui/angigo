@@ -184,6 +184,39 @@ export default function App() {
         pathname === '/nem-nuong-nha-trang-cuon'
       ) {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-nem-nuong-nha-trang-cuon-banh-trang');
+      } else if (
+        pathname === '/cach-nau-pizza-4-cheese' ||
+        pathname === '/cach-lam-pizza-4-cheese' ||
+        pathname === '/pizza-4-cheese' ||
+        pathname === '/cach-nau-pizza-4-loai-pho-mai' ||
+        pathname === '/pizza-4-loai-pho-mai' ||
+        pathname === '/cach-lam-pizza-bon-loai-pho-mai' ||
+        pathname === '/cach-nau-pizza-bon-loai-pho-mai' ||
+        pathname === '/pizza-quattro-formaggi'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-pizza-4-loai-pho-mai');
+      } else if (
+        pathname === '/cach-nau-pizza-hawaiian' ||
+        pathname === '/cach-lam-pizza-hawaiian' ||
+        pathname === '/cach-nau-pizza-hawaiian-thom-ngon' ||
+        pathname === '/pizza-hawaiian' ||
+        pathname === '/cach-nau-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh' ||
+        pathname === '/cach-lam-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh' ||
+        pathname === '/pizza-thit-nguoi-dua' ||
+        pathname === '/cach-lam-pizza-thit-nguoi-dua' ||
+        pathname === '/cach-nau-pizza-thit-nguoi-dua'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-pizza-hawaiian-thom-ngon');
+      } else if (
+        pathname === '/cach-nau-pizza-ga-nam-bbq' ||
+        pathname === '/pizza-ga-nam-bbq' ||
+        pathname === '/cach-lam-pizza-ga-nam-bbq-sieu-ngon' ||
+        pathname === '/cach-nau-pizza-ga-nam-bbq-thom-ngon-chuan-vi-gia-dinh' ||
+        pathname === '/pizza-ga-nuong-bbq' ||
+        pathname === '/cach-lam-pizza-ga-nuong-bbq' ||
+        pathname === '/cach-nau-pizza-ga-nuong-bbq'
+      ) {
+        window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-pizza-ga-nam-bbq');
       } else if (pathname === '/cach-nau-banh-mi-doner-kebab' || pathname === '/cach-lam-banh-mi-kebab' || pathname === '/cach-nau-banh-mi-kebab' || pathname === '/cach-lam-banh-mi-doner-kebab-gion-rum-dam-da-chuan-vi-duong-pho' || pathname === '/cach-nau-banh-mi-doner-kebab-gion-rum-dam-da-chuan-vi-duong-pho') {
         window.history.replaceState({ tab: 'discover', sub: 'recipe' }, '', '/cach-lam-banh-mi-doner-kebab');
       } else if (pathname === '/cach-nau-banh-mi-cha-ca-nong') {

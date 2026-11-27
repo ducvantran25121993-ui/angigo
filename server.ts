@@ -3462,6 +3462,72 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang");
   });
 
+  // 301 Permanent Redirect for pizza 4 loai pho mai
+  app.get([
+    "/cach-nau-pizza-4-cheese",
+    "/cach-nau-pizza-4-cheese/",
+    "/cach-lam-pizza-4-cheese",
+    "/cach-lam-pizza-4-cheese/",
+    "/pizza-4-cheese",
+    "/pizza-4-cheese/",
+    "/cach-nau-pizza-4-loai-pho-mai",
+    "/cach-nau-pizza-4-loai-pho-mai/",
+    "/pizza-4-loai-pho-mai",
+    "/pizza-4-loai-pho-mai/",
+    "/cach-lam-pizza-bon-loai-pho-mai",
+    "/cach-lam-pizza-bon-loai-pho-mai/",
+    "/cach-nau-pizza-bon-loai-pho-mai",
+    "/cach-nau-pizza-bon-loai-pho-mai/",
+    "/pizza-quattro-formaggi",
+    "/pizza-quattro-formaggi/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-pizza-4-loai-pho-mai");
+  });
+
+  // 301 Permanent Redirect for pizza hawaiian
+  app.get([
+    "/cach-nau-pizza-hawaiian",
+    "/cach-nau-pizza-hawaiian/",
+    "/cach-lam-pizza-hawaiian",
+    "/cach-lam-pizza-hawaiian/",
+    "/cach-nau-pizza-hawaiian-thom-ngon",
+    "/cach-nau-pizza-hawaiian-thom-ngon/",
+    "/pizza-hawaiian",
+    "/pizza-hawaiian/",
+    "/cach-nau-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh",
+    "/cach-nau-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh/",
+    "/cach-lam-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh",
+    "/cach-lam-pizza-hawaiian-thom-ngon-chuan-vi-gia-dinh/",
+    "/pizza-thit-nguoi-dua",
+    "/pizza-thit-nguoi-dua/",
+    "/cach-lam-pizza-thit-nguoi-dua",
+    "/cach-lam-pizza-thit-nguoi-dua/",
+    "/cach-nau-pizza-thit-nguoi-dua",
+    "/cach-nau-pizza-thit-nguoi-dua/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-pizza-hawaiian-thom-ngon");
+  });
+
+  // 301 Permanent Redirect for pizza ga nam bbq
+  app.get([
+    "/cach-nau-pizza-ga-nam-bbq",
+    "/cach-nau-pizza-ga-nam-bbq/",
+    "/pizza-ga-nam-bbq",
+    "/pizza-ga-nam-bbq/",
+    "/cach-lam-pizza-ga-nam-bbq-sieu-ngon",
+    "/cach-lam-pizza-ga-nam-bbq-sieu-ngon/",
+    "/cach-nau-pizza-ga-nam-bbq-thom-ngon-chuan-vi-gia-dinh",
+    "/cach-nau-pizza-ga-nam-bbq-thom-ngon-chuan-vi-gia-dinh/",
+    "/pizza-ga-nuong-bbq",
+    "/pizza-ga-nuong-bbq/",
+    "/cach-lam-pizza-ga-nuong-bbq",
+    "/cach-lam-pizza-ga-nuong-bbq/",
+    "/cach-nau-pizza-ga-nuong-bbq",
+    "/cach-nau-pizza-ga-nuong-bbq/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-pizza-ga-nam-bbq");
+  });
+
   // 301 Permanent Redirect for banh mi cha ca nong
   app.get([
     "/cach-nau-banh-mi-cha-ca-nong",

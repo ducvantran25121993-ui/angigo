@@ -14,6 +14,76 @@
   },
   "redirects": [
     {
+      "source": "/cach-nau-nem-nuong-nha-trang-cuon",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nem-nuong-nha-trang-cuon/",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nem-nuong-nha-trang-cuon",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nem-nuong-nha-trang-cuon/",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nem-nuong-nha-trang",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nem-nuong-nha-trang/",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nem-nuong-nha-trang",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-lam-nem-nuong-nha-trang/",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nem-nuong-nha-trang-cuon-banh-trang",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/cach-nau-nem-nuong-nha-trang-cuon-banh-trang/",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/nem-nuong-nha-trang",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/nem-nuong-nha-trang/",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/nem-nuong-nha-trang-cuon",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
+      "source": "/nem-nuong-nha-trang-cuon/",
+      "destination": "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang",
+      "permanent": true
+    },
+    {
       "source": "/cac-mon-canh-thit-heo-thanh-mat",
       "destination": "/thit-heo-nau-canh-gi-ngon-goi-y-12-mon-canh-de-nau",
       "permanent": true

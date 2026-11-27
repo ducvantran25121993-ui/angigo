@@ -6813,101 +6813,138 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
   },
 
   'nem-nuong-nha-trang': {
-    dishId: 'nem-nuong-nha-trang',
+    dishId: 'nem-nuong-nha-trang-cuon',
     dishName: 'Nem Nướng Nha Trang Cuốn Bánh Tráng',
-    seoTitle: 'Cách Làm Nem Nướng Nha Trang Cuốn Bánh Tráng & Nước Sốt Tương Gan Chuẩn Vị',
+    seoTitle: 'Cách Làm Nem Nướng Nha Trang Cuốn Bánh Tráng & Nước Sốt Tương',
+    description:
+      'Hướng dẫn cách làm nem nướng Nha Trang cuốn bánh tráng chuẩn vị: nem dai giòn thơm lừng, ram chiên rụm và bí quyết nấu nước sốt tương nếp béo bùi.',
+    ratingValue: '4.9',
+    reviewCount: 512,
     prepTime: '30 phút',
-    cookTime: '25 phút',
+    cookTime: '30 phút',
+    totalTime: '60 phút',
+    calories: '520 kcal',
     difficulty: 'Trung bình',
     servings: '4 người',
     ingredients: [
       {
-        category: 'Nguyên liệu làm nem',
+        category: 'Nguyên liệu làm nem nướng chuẩn vị Nha Trang',
         items: [
-          '500g giò sống (mọc heo) dẻo quánh',
-          '200g mỡ heo luộc chín thái hạt lựu nhỏ trộn đường',
-          'Tỏi băm, hạt tiêu giã dập, nước mắm ngon, dầu màu điều',
-          'Que xiên tre ngâm nước tránh cháy',
+          '400g thịt nạc vai heo xay mịn (để ngăn đá 45 phút cho dẻo lạnh)',
+          '200g giò sống (mọc heo) tươi dẻo quánh',
+          '100g mỡ gáy heo luộc chín, thái hạt lựu nhỏ trộn 1 thìa đường phơi gió 20 phút',
+          '2 thìa canh nước mắm ngon, 1.5 thìa canh đường (hoặc mật ong), 1 thìa cà phê tiêu xay',
+          '1 thìa canh tỏi hành tím băm nhuyễn, 1 thìa canh dầu màu điều',
+          '1 thìa canh bột năng và 1/2 thìa cà phê bột nở (baking powder) giúp nem dai xốp',
+          'Que xiên tre hoặc đũa tre ngâm nước lạnh 30 phút chống cháy',
         ],
       },
       {
-        category: 'Nguyên liệu làm Nước Chấm Tương Gan thần thánh',
+        category: 'Nguyên liệu nấu Nước Sốt Tương Nếp đặc trưng Nha Trang',
         items: [
-          '100g thịt nạc heo xay, 50g gan heo ngâm sữa tươi khử tanh băm nhuyễn',
-          '50g gạo nếp nấu thành cháo xay nhuyễn tạo độ sánh',
-          '2 thìa canh tương đậu nành (tương hột băm nhuyễn)',
-          'Dầu màu điều, tỏi băm, đường, hạt nêm',
+          '60g gạo nếp ngon (ngâm 2 tiếng rồi nấu nhừ thành cháo sánh mịn)',
+          '100g thịt nạc vai băm nhuyễn + 100g tôm tươi bóc vỏ băm nhuyễn',
+          '3 thìa canh tương đậu nành (tương hột xay nhuyễn)',
+          '50g đậu phộng rang vàng xát vỏ, giã hoặc xay nhuyễn',
+          '2 thìa canh dầu màu điều, 1 thìa canh hành tỏi băm, 1 thìa canh ớt băm',
+          '300ml nước lọc, 2.5 thìa canh đường cát, 1 thìa canh nước mắm ngon, 1 thìa cà phê hạt nêm',
         ],
       },
       {
-        category: 'Rau cuốn và bánh tráng',
-        items: ['Bánh tráng cuốn, ram chiên giòn rụm, xoài xanh bào sợi, dưa chuột, xà lách, rau thơm các loại'],
+        category: 'Ram chiên giòn, đồ chua và rau cuốn bánh tráng',
+        items: [
+          '1 xấp bánh tráng mỏng cuốn nem + 15 lá bánh tráng bía nhỏ cuộn ống chiên ram giòn',
+          '1 quả xoài xanh bào sợi hoặc chẻ que, 2 quả dưa leo chẻ thanh dài',
+          '1 củ cà rốt + 1 củ cải trắng bào sợi ngâm giấm đường làm đồ chua',
+          'Rau sống tươi: xà lách, húng quế, húng lủi, diếp cá, tía tô, lá hẹ',
+        ],
       },
     ],
     steps: [
       {
         step: 1,
-        title: 'Quết giò sống và mỡ hạt lựu dai giòn tự nhiên',
-        time: '15 phút',
-        heat: 'Nhiệt độ phòng (lạnh)',
-        goal: 'Hỗn hợp nem dẻo quánh, dính chặt, phân bổ đều hạt mỡ li ti',
+        title: 'Trộn mỡ hạt lựu trong giòn và quết thịt nem dẻo dai tự nhiên',
+        time: '20 phút',
+        heat: 'Nhiệt độ lạnh (ngăn đá 30 phút)',
+        goal: 'Khối thịt nem lạnh dẻo quánh, kết dính chặt, phân bổ đều hạt mỡ trong giòn không bị bở',
         actionPoints: [
-          '200g mỡ heo luộc chín, thái hạt lựu thật nhỏ, trộn cùng 1 thìa đường rồi phơi gió 20 phút cho hạt mỡ trong veo.',
-          'Cho 500g giò sống lạnh vào âu, thêm mỡ hạt lựu, 1 thìa tỏi phi thơm, 1 thìa tiêu giã dập, 1 thìa mắm ngon và 1 thìa dầu màu điều.',
-          'Dùng muôi gỗ hoặc găng tay miết quết liên tục theo 1 chiều trong 10 phút cho khối thịt dẻo dai kết dính bóng bẩy.',
+          'Luộc chín 100g mỡ gáy heo, thái hạt lựu thật nhỏ rồi trộn với 1 thìa đường cát, để nơi thoáng gió 20 phút giúp hạt mỡ trong veo và giòn sần sật khi ăn.',
+          'Cho 400g thịt nạc vai xay dẻo lạnh cùng 200g giò sống vào âu lớn, thêm mỡ hạt lựu, hành tỏi băm, 2 thìa nước mắm ngon, 1.5 thìa đường, tiêu xay, dầu màu điều, 1 thìa bột năng và 1/2 thìa cà phê bột nở.',
+          'Dùng phới dẹt hoặc găng tay miết quết mạnh liên tục theo 1 chiều trong 8 - 10 phút đến khi khối thịt dẻo mịn, kéo sợi dính chặt rồi bọc kín để ngăn mát/ngăn đá 30 phút cho nem săn chắc.',
         ],
         description:
-          'Trộn đều giò sống với mỡ heo thái hạt lựu, tỏi phi, tiêu, nước mắm và chút dầu màu điều. Dùng muôi quết đều tay theo 1 chiều cho hỗn hợp thật dẻo dai kết dính.',
+          'Ướp mỡ gáy luộc thái hạt lựu với đường cho trong giòn. Trộn thịt nạc vai xay lạnh, giò sống, mỡ hạt lựu cùng gia vị, dầu màu điều, bột năng và chút bột nở rồi quết mạnh theo một chiều cho dẻo quánh, giữ lạnh 30 phút.',
+        tip: 'Thịt nạc vai giữ thật lạnh (hơi dăm đá nhẹ) kết hợp 1/2 thìa cà phê bột nở là bí quyết giúp nem nướng Nha Trang dai giòn sần sật tự nhiên, không bị bở hay khô xác.',
       },
       {
         step: 2,
-        title: 'Nắn nem vào xiên tre & nướng xém vàng',
+        title: 'Nắn nem vào xiên tre và nướng vàng óng xém cạnh',
         time: '15 - 20 phút',
         heat: 'Than hoa đỏ vừa / Nồi chiên không dầu 180°C',
-        goal: 'Nem chín vàng ruộm xém cạnh, tươm mỡ thơm nức, bên trong dai giòn ngọt thịt',
+        goal: 'Cây nem chín vàng cánh gián bóng bẩy, tươm mỡ thơm lừng mùi khói, bên trong mọng ngọt',
         actionPoints: [
-          'Xiên tre ngâm nước 30 phút trước khi dùng để không bị cháy đen khi nướng.',
-          'Thoa chút dầu ăn lên lòng bàn tay, lấy lượng thịt vừa phải bọc tròn đều quanh que xiên (dài khoảng 10 - 12cm).',
-          'Đặt xiên nem lên vỉ nướng than hoa (hoặc xếp vào nồi chiên không dầu nướng 180°C trong 12 phút).',
-          'Trở mặt đều tay và quét chút dầu màu điều lên mặt cho nem bóng bẩy, xém vàng cánh gián dậy mùi thơm nức.',
+          'Ngâm que xiên tre trong nước lạnh 30 phút để que không bị cháy sém khi nướng.',
+          'Thoa chút dầu màu điều lên lòng bàn tay, lấy lượng thịt vừa phải nắm tròn dài khoảng 10 - 12cm và bóp chặt ôm kín quanh que xiên.',
+          'Nướng trên bếp than hoa đỏ vừa khoảng 12 - 15 phút, xoay trở liên tục (hoặc nướng bằng nồi chiên không dầu 180°C trong 12 phút, trở mặt giữa chừng).',
+          'Phết thêm một lớp mỏng dầu màu điều pha mật ong ở 3 phút cuối để thân nem căng bóng, lên màu vàng cam xém cạnh cực hấp dẫn.',
         ],
         description:
-          'Thoa chút dầu ăn lên tay, nắn thịt bao quanh que xiên tre. Nướng trên than hoa đỏ hoặc nồi chiên không dầu ở 180°C trong 15 phút, trở mặt liên tục cho nem xém vàng óng mỡ.',
+          'Thoa dầu lên tay, nắn thịt bọc chắc quanh xiên tre. Nướng trên than hoa hoặc nồi chiên không dầu 180°C khoảng 12 - 15 phút, trở đều tay và phết dầu màu điều mật ong cho nem chín vàng óng thơm lừng.',
+        tip: 'Không nướng lửa quá to hoặc quá lâu kẻo nem bị nứt vỏ và mất độ ngọt mọng bên trong; khi thấy nem căng phồng, xém nhẹ và tươm mỡ thơm là đạt chuẩn.',
       },
       {
         step: 3,
-        title: 'Nấu sốt chấm tương gan nếp sánh mịn béo bùi',
+        title: 'Cuốn ram bánh tráng chiên giòn, làm đồ chua và rửa rau cuốn',
         time: '15 phút',
-        heat: 'Lửa nhỏ khuấy đều',
-        goal: 'Nước chấm sánh dẻo màu vàng cam óng ả, vị ngọt bùi béo ngậy khó cưỡng',
+        heat: 'Dầu sôi vừa 160°C - 170°C',
+        goal: 'Thanh ram giòn rụm vàng ươm không ngấm dầu, đồ chua giòn thanh, rau sống xanh mướt ráo nước',
         actionPoints: [
-          'Phi thơm tỏi băm với 2 thìa dầu màu điều, cho 100g thịt heo xay và 50g gan heo băm nhuyễn vào xào chín săn.',
-          'Đổ 2 thìa tương hột băm và 1 bát con cháo nếp xay nhuyễn vào khuấy đều tay trên lửa nhỏ.',
-          'Nêm 2 thìa đường cát, 1 thìa hạt nêm, đun sôi liu riu khuấy liên tục cho sốt sánh mịn đặc sệt màu cam đất hấp dẫn.',
-          'Múc sốt ra bát, rắc đậu phộng rang giã dập và ớt băm lên bề mặt khi còn ấm nóng.',
+          'Cắt bánh tráng bía thành miếng vuông nhỏ, cuộn tròn thành từng ống rỗng đường kính khoảng 1.5cm, dán mép bằng chút nước lọc.',
+          'Đun nóng dầu ăn lửa vừa, thả các ống bánh tráng vào chiên nhanh tay đến khi phồng vàng ruộm thì vớt ngay ra giấy thấm dầu.',
+          'Ngâm cà rốt và củ cải bào sợi với 2 thìa giấm + 2 thìa đường + 1/2 thìa cà phê muối trong 15 phút rồi vắt nhẹ cho giòn chua thanh.',
+          'Rửa sạch xà lách, rau thơm các loại để thật ráo nước; gọt xoài xanh và dưa leo chẻ thành thanh dài vừa cuốn.',
         ],
         description:
-          'Phi thơm tỏi với dầu điều, cho thịt xay và gan băm vào xào chín săn. Đổ tương hột và cháo nếp xay nhuyễn vào khuấy đều tay lửa nhỏ cho sốt sánh mịn, béo ngậy màu cam đất quyến rũ.',
+          'Cuộn bánh tráng mỏng thành ống nhỏ rồi chiên ngập dầu vàng giòn làm ram ăn kèm. Ngâm đồ chua cà rốt củ cải giấm đường, rửa sạch rau sống để ráo và chẻ thanh xoài xanh, dưa leo.',
+        tip: 'Bánh tráng cuộn ram chiên rất nhanh cháy, chỉ cần thả vào dầu nóng vừa khoảng 30 - 45 giây vừa chuyển màu vàng nhạt là vớt ngay vì sức nóng dư sẽ làm ram vàng giòn hoàn hảo.',
       },
       {
         step: 4,
-        title: 'Cuốn bánh tráng với ram giòn, xoài non và thưởng thức cùng sốt tương gan',
-        time: '5 phút',
-        heat: 'Thưởng thức ngay',
-        goal: 'Mỗi cuốn nem tròn căng, cắn ngập miệng cảm nhận thớ nem dai ngọt, ram giòn rụm, xoài chua thanh và sốt béo bùi',
+        title: 'Nấu nước sốt tương nếp Nha Trang sánh mịn béo bùi chuẩn vị',
+        time: '15 phút',
+        heat: 'Lửa nhỏ khuấy đều tay',
+        goal: 'Nước sốt tương màu cam đỏ óng ả, sánh dẻo mịn màng tự nhiên từ gạo nếp, vị béo bùi ngọt đậm hài hòa',
         actionPoints: [
-          'Trải bánh tráng mỏng lên đĩa phẳng, đặt xà lách, rau thơm các loại, dưa leo và xoài xanh bào sợi.',
-          'Đặt một thanh ram chiên giòn rụm và một xiên nem nướng thơm nức lên giữa.',
-          'Cuộn tròn chặt tay bánh tráng lại.',
-          'Chấm ngập cuốn nem vào chén sốt tương gan nếp ấm nóng rắc đậu phộng thơm bùi và thưởng thức trọn vẹn đặc sản phố biển Nha Trang!',
+          'Nấu nhừ 60g gạo nếp đã ngâm với 300ml nước thành cháo đặc, để nguội bớt rồi xay thật nhuyễn mịn cùng 3 thìa tương đậu nành.',
+          'Phi thơm hành tỏi băm với 2 thìa canh dầu màu điều, cho 100g thịt nạc băm và 100g tôm tươi băm nhuyễn vào đảo săn chín đều.',
+          'Trút hỗn hợp cháo nếp tương hột xay mịn cùng đậu phộng rang xay nhuyễn vào chảo, khuấy đều liên tục trên lửa nhỏ để không bị bén đáy nồi.',
+          'Nêm 2.5 thìa đường, 1 thìa nước mắm ngon, 1 thìa cà phê hạt nêm và chút nước lọc điều chỉnh độ sánh vừa ăn; đun sôi lăn tăn 3 phút rồi tắt bếp.',
         ],
         description:
-          'Trải bánh tráng, xếp rau sống, xoài xanh bào sợi, dưa leo, ram giòn rụm và xiên nem nướng lên trên rồi cuộn tròn chặt tay. Chấm đẫm cuốn nem vào bát sốt tương gan béo bùi ấm nóng rắc đậu phộng rang giã dập cay tê.',
+          'Xay nhuyễn cháo gạo nếp nấu nhừ với tương đậu nành. Phi thơm hành tỏi dầu điều xào săn thịt tôm băm, đổ hỗn hợp nếp tương và đậu phộng xay vào khuấy lửa nhỏ, nêm đường mắm vừa miệng đến khi sốt sánh mịn màu cam óng.',
+        tip: 'Độ sánh mịn tự nhiên từ gạo nếp giúp nước sốt tương Nha Trang thơm bùi và không bị vữa nước khi để nguội như bột năng; nếu thích vị béo đậm kiểu truyền thống xưa, có thể thêm 50g gan heo ngâm sữa tươi băm nhuyễn xào cùng thịt tôm.',
+      },
+      {
+        step: 5,
+        title: 'Cuốn bánh tráng nem nướng giòn thơm và thưởng thức nóng',
+        time: '5 phút',
+        heat: 'Thưởng thức ngay khi nem và sốt còn ấm',
+        goal: 'Cuốn bánh tráng chắc tay đẹp mắt, hòa quyện đủ vị dai ngọt của nem, giòn rụm của ram, chua thanh của xoài và béo bùi của nước sốt tương',
+        actionPoints: [
+          'Múc nước sốt tương ấm nóng ra bát nhỏ, rắc thêm đậu phộng rang giã dập, hành phi và ớt băm (hoặc tương ớt rim Nha Trang).',
+          'Trải bánh tráng gạo mỏng lên đĩa, xếp lần lượt xà lách, rau thơm, lá hẹ, dưa leo, xoài xanh và chút đồ chua.',
+          'Đặt 1 thanh ram chiên giòn rụm cùng 1 phần nem nướng nóng hổi vào giữa rồi cuộn tròn thật chắc tay.',
+          'Chấm đẫm cuốn nem vào bát nước sốt tương sánh mịn ấm nóng và thưởng thức trọn vẹn hương vị đặc sản Nha Trang ngay tại nhà!',
+        ],
+        description:
+          'Trải bánh tráng, xếp rau sống, dưa leo, xoài xanh, đồ chua, thanh ram chiên giòn và nem nướng nóng hổi rồi cuốn chặt tay. Chấm đẫm bát nước sốt tương nếp ấm nóng rắc đậu phộng rang và ớt băm.',
+        tip: 'Nên dùng bánh tráng gạo mỏng Nha Trang hoặc bánh tráng dẻo không cần nhúng quá nhiều nước để cuốn không bị rách và giữ trọn độ giòn tan của thanh ram bên trong.',
       },
     ],
     chefSecret:
-      'Bí quyết nước chấm nem nướng Nha Trang thơm bùi gây nghiện nằm ở cháo nếp xay nhuyễn kết hợp gan heo ngâm sữa tươi và tương hột, tạo độ sánh dẻo tự nhiên không cần bột năng; ăn kèm ram giòn chiên phồng và xoài xanh chua thanh cân bằng vị giác hoàn hảo.',
-    recommendedSauce: 'Nước chấm tương gan nếp ấm nóng rắc đậu phộng rang giã dập và tương ớt rim sa tế.',
+      'Chuẩn vị Nem Nướng Nha Trang nằm ở 3 điểm vàng: thịt nạc vai giữ lạnh quết cùng giò sống, mỡ hạt lựu ướp đường phơi gió và chút bột nở để nem dai giòn không bở; ram bánh tráng cuộn ống chiên giòn rụm; và nước sốt tương sánh mịn tự nhiên từ gạo nếp xay quyện tương hột, tôm thịt băm và đậu phộng rang béo bùi.',
+    recommendedSauce:
+      'Nước sốt tương nếp tôm thịt ấm nóng rắc đậu phộng rang giã dập, hành phi và tương ớt rim sa tế cay nhẹ.',
   },
 
   'nem-lui-nuong-cuon': {
@@ -17223,9 +17260,16 @@ export const CURATED_RECIPES: Record<string, DishRecipe> = {
 export function getDishRecipe(dish: Dish): DishRecipe {
   let curated = CURATED_RECIPES[dish.id];
   if (!curated) {
-    const aliasId = RECIPE_SLUG_ALIASES[dish.id] || Object.keys(RECIPE_SLUG_ALIASES).find((k) => RECIPE_SLUG_ALIASES[k] === dish.id);
-    if (aliasId && CURATED_RECIPES[aliasId]) {
-      curated = CURATED_RECIPES[aliasId];
+    const directAlias = RECIPE_SLUG_ALIASES[dish.id];
+    if (directAlias && CURATED_RECIPES[directAlias]) {
+      curated = CURATED_RECIPES[directAlias];
+    } else {
+      const reverseAlias = Object.keys(RECIPE_SLUG_ALIASES).find(
+        (k) => RECIPE_SLUG_ALIASES[k] === dish.id && Boolean(CURATED_RECIPES[k])
+      );
+      if (reverseAlias) {
+        curated = CURATED_RECIPES[reverseAlias];
+      }
     }
   }
   if (curated) {

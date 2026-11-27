@@ -391,6 +391,17 @@ export function updateTabSEO(tab: TabType): void {
   if (typeof document === 'undefined') return;
 
   if (tab === 'discover') {
+    const currentPath =
+      typeof window !== 'undefined' ? window.location.pathname.replace(/\/$/, '') || '/' : '/';
+    const isIndividualRecipePath =
+      currentPath !== '/cach-nau-mon-ngon' &&
+      (currentPath.startsWith('/cach-nau-') ||
+        currentPath.startsWith('/cach-lam-') ||
+        currentPath.startsWith('/cach-nau-mon-ngon/'));
+    if (isIndividualRecipePath) {
+      return;
+    }
+
     const sub = getDiscoverSubSectionFromUrl();
     const subMeta = DISCOVER_SUB_CONFIG[sub];
     if (subMeta) {

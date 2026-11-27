@@ -79,7 +79,7 @@ function injectMeta(
     .replace(/<meta\s+name="twitter:url"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:url" content="${canonicalUrl}" />`)
     .replace(/<meta\s+name="twitter:image"\s+content=".*?"\s*\/?>/i, `<meta name="twitter:image" content="${escapeXml(absMetaImage)}" />`);
 
-  if (matchedCustomPost?.noIndex) {
+  if (meta.noIndex || matchedCustomPost?.noIndex) {
     updatedHtml = updatedHtml.replace(
       /<meta\s+name="robots"\s+content=".*?"\s*\/?>/i,
       `<meta name="robots" content="noindex, nofollow" />`
@@ -531,9 +531,20 @@ function injectMeta(
   return updatedHtml;
 }
 
-function generateSitemapXml(routes: Record<string, RouteSeoMeta>) {
+function generateSitemapXml(
+  routes: Record<string, RouteSeoMeta>,
+  redirectAliases: Record<string, string> = {},
+  vercelRedirectSources: Set<string> = new Set()
+) {
   const urlEntries = Object.values(routes)
-    .filter((meta: RouteSeoMeta) => !meta.isAlias)
+    .filter((meta: RouteSeoMeta) => {
+      if (meta.isAlias || meta.noIndex) return false;
+      const clean = (meta.path || '/').replace(/\/+$/, '').toLowerCase() || '/';
+      if (clean === '/admin' || clean === '/quan-tri') return false;
+      if (meta.canonicalPath && meta.canonicalPath.replace(/\/+$/, '').toLowerCase() !== clean) return false;
+      if (redirectAliases[clean] || vercelRedirectSources.has(clean)) return false;
+      return true;
+    })
     .map((meta: RouteSeoMeta) => {
     const loc = `https://angigio.com${meta.path === '/' ? '/' : meta.path}`;
     const lastmod = meta.lastmod || '2026-09-24';
@@ -772,8 +783,27 @@ function generateStaticHtmlPages() {
     }
   }
 
+  // Load vercel.json redirect sources so sitemap NEVER contains a redirected URL
+  const vercelRedirectSources = new Set<string>();
+  try {
+    const vjPath = path.resolve(process.cwd(), 'vercel.json');
+    if (fs.existsSync(vjPath)) {
+      const vj = JSON.parse(fs.readFileSync(vjPath, 'utf-8'));
+      if (Array.isArray(vj?.redirects)) {
+        for (const r of vj.redirects) {
+          if (r?.source && typeof r.source === 'string' && !r.source.includes(':') && !r.source.includes('(')) {
+            const cleanSrc = ('/' + r.source.replace(/^\/+/, '')).replace(/\/+$/, '').toLowerCase();
+            if (cleanSrc && cleanSrc !== '/') {
+              vercelRedirectSources.add(cleanSrc);
+            }
+          }
+        }
+      }
+    }
+  } catch {}
+
   // Generate & update sitemap.xml + sitemap-base.xml
-  const sitemapXml = generateSitemapXml(routes);
+  const sitemapXml = generateSitemapXml(routes, redirectAliases, vercelRedirectSources);
   fs.writeFileSync(path.join(distDir, 'sitemap-base.xml'), sitemapXml, 'utf-8');
   const publicDir = path.resolve(process.cwd(), 'public');
   if (fs.existsSync(publicDir)) {

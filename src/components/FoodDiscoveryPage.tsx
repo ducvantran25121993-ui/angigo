@@ -352,6 +352,18 @@ export const FoodDiscoveryPage: React.FC<FoodDiscoveryPageProps> = ({
         updateDiscoverSubSEO('recipe');
         return;
       }
+      const isIndividualRecipeRoute =
+        pathname !== '/cach-nau-mon-ngon' &&
+        (pathname.startsWith('/cach-nau-') ||
+          pathname.startsWith('/cach-lam-') ||
+          pathname.startsWith('/cach-nau-mon-ngon/'));
+      if (isIndividualRecipeRoute) {
+        setSectionTab('recipe');
+        if (onSubSectionChange) {
+          onSubSectionChange('recipe');
+        }
+        return;
+      }
       const currentSub = getDiscoverSubSectionFromUrl();
       setSectionTab(currentSub);
       if (currentSub !== 'recipe') {

@@ -167,7 +167,7 @@ export const BANHMI_CUON_DISHES: Dish[] = [
     priceRange: '45.000đ - 65.000đ',
     estimatedPrice: 55000,
     calories: '500 - 620 kcal',
-    description: 'Từng thanh nem nướng thơm phức bốc khói, ram chiên giòn tan, dưa chuột, xoài xanh bào sợi chấm bát nước sốt thịt gan ấm nồng.',
+    description: 'Từng thanh nem nướng dai giòn thơm lừng, ram chiên rụm, dưa chuột, xoài xanh bào sợi cuốn bánh tráng chấm nước sốt tương nếp béo bùi ấm nóng.',
     image: '/images/nem_nuong_nha_trang.jpg',
     popularTags: ['Ram giòn rụm', 'Nước chấm thần thánh', 'Nha Trang'],
     searchKeyword: 'Nem nướng Nha Trang',

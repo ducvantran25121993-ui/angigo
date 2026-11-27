@@ -1205,9 +1205,9 @@ async function renderDynamicBlogPageHtml(baseHtml: string): Promise<string> {
 
   // Emergency fallback if dist/blog-base.html wasn't bundled
   const canonicalUrl = 'https://angigio.com/blog';
-  const title = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Bí Quyết Nấu Nướng | Ăn Gì Giờ';
+  const title = 'Blog Ẩm Thực - Cẩm Nang Món Ngon & Mẹo Bếp | Ăn Gì Giờ';
   const desc =
-    'Chuyên trang chia sẻ kiến thức ẩm thực, cẩm nang nấu ăn, mẹo vặt nhà bếp, dinh dưỡng lành mạnh và câu chuyện văn hóa ẩm thực truyền thống Việt Nam.';
+    'Khám phá Blog Ẩm Thực chia sẻ cẩm nang nấu ăn chuẩn vị, mẹo vặt nhà bếp, gợi ý thực đơn gia đình, kiến thức dinh dưỡng và văn hóa ẩm thực Việt Nam.';
   const excluded = new Set<string>(manifest.deletedSlugs);
   const cards = manifest.posts
     .filter((p) => {

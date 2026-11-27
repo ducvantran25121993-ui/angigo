@@ -19,6 +19,7 @@ export interface RouteSeoMeta {
   isArticle?: boolean;
   canonicalPath?: string;
   isAlias?: boolean;
+  noIndex?: boolean;
   h1?: string;
 }
 
@@ -198,10 +199,13 @@ export const BASE_SEO_ROUTES: Record<string, RouteSeoMeta> = {
     priority: 0.1,
     changefreq: 'monthly',
     lastmod: '2026-10-02',
+    noIndex: true,
   },
   '/quan-tri': {
     path: '/quan-tri',
     canonicalPath: '/admin',
+    isAlias: true,
+    noIndex: true,
     title: 'Trang Quản Trị Bài Viết & Soạn Thảo WordPress | Ăn Gì Giờ',
     description: 'Bảng điều khiển quản trị bài viết ẩm thực, soạn thảo trực quan phong cách WordPress & Word.',
     keywords: 'quản trị bài viết, admin ẩm thực, soạn thảo bài viết, hôm nay ăn gì',
@@ -286,19 +290,24 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
       imageAlt: articleTitle,
       priority: 0.85,
       changefreq: 'weekly',
-      lastmod: dish.id === 'pizza-hai-san-pesto' || dish.id === 'pizza-pepperoni' ? '2026-11-26' : '2026-09-24',
+      lastmod:
+        dish.id === 'pizza-hai-san-pesto' ||
+        dish.id === 'pizza-pepperoni' ||
+        dish.id === 'nem-nuong-nha-trang-cuon'
+          ? '2026-11-26'
+          : '2026-09-24',
       isArticle: true,
     };
   }
 
-  // 3. Aliases
+  // 3. Aliases (explicit RECIPE_SLUG_ALIASES + standard variant forms for every dish)
   for (const [aliasSlug, canonicalDishId] of Object.entries(RECIPE_SLUG_ALIASES)) {
     const aliasPath = `/${aliasSlug}`;
     if (!routes[aliasPath]) {
       const targetDish = INITIAL_DISHES.find((d) => d.id === canonicalDishId);
       if (targetDish) {
         const canonicalPath = `/${getRecipeSlug(targetDish)}`;
-        if (routes[canonicalPath]) {
+        if (routes[canonicalPath] && aliasPath !== canonicalPath) {
           routes[aliasPath] = {
             ...routes[canonicalPath],
             path: aliasPath,
@@ -306,6 +315,28 @@ export function getAllSeoRoutes(): Record<string, RouteSeoMeta> {
             isAlias: true,
           };
         }
+      }
+    }
+  }
+
+  for (const dish of INITIAL_DISHES) {
+    const canonicalSlug = getRecipeSlug(dish);
+    const canonicalPath = `/${canonicalSlug}`;
+    if (!routes[canonicalPath]) continue;
+    const baseId = dish.id.replace(/^(cach-nau-|cach-lam-)/, '');
+    const variantPaths = [
+      `/${baseId}`,
+      `/cach-nau-${baseId}`,
+      `/cach-lam-${baseId}`,
+    ];
+    for (const variantPath of variantPaths) {
+      if (variantPath !== canonicalPath && !routes[variantPath]) {
+        routes[variantPath] = {
+          ...routes[canonicalPath],
+          path: variantPath,
+          canonicalPath,
+          isAlias: true,
+        };
       }
     }
   }

@@ -58,7 +58,8 @@ export const CURATED_RECIPE_SEO_TITLES: Record<string, string> = {
   "bun-bo-hue": "Cách Nấu Bún Bò Huế Chả Cua Đậm Đà Chuẩn Vị Cố Đô Tại Nhà",
   "mi-quang-tom-thit": "Cách Nấu Mì Quảng Tôm Thịt Đậm Đà Chuẩn Vị Xứ Quảng Tại Nhà",
   "thit-kho-tau": "Cách Nấu Thịt Kho Tàu Nước Dừa Trứng Cút Mềm Rục, Màu Cánh Gián Óng Ả",
-  "nem-nuong-nha-trang": "Cách Làm Nem Nướng Nha Trang Cuốn Bánh Tráng & Nước Sốt Tương Gan Chuẩn Vị",
+  "nem-nuong-nha-trang": "Cách Làm Nem Nướng Nha Trang Cuốn Bánh Tráng & Nước Sốt Tương",
+  "nem-nuong-nha-trang-cuon": "Cách Làm Nem Nướng Nha Trang Cuốn Bánh Tráng & Nước Sốt Tương",
   "nem-lui-nuong-cuon": "Cách Làm Nem Lụi Huế Thơm Lừng, Đậm Đà",
   "ram-bap-cuon-rau": "Cách Làm Ram Bắp Quảng Ngãi Giòn Rụm, Thơm Ngọt Chuẩn Vị Xứ Quảng",
   "banh-dap-mam-nem": "Cách Làm Bánh Đập Mắm Nêm Miền Trung Giòn Dẻo & Bí Quyết Pha Mắm Nêm Thơm Lừng",
@@ -403,6 +404,8 @@ export const CUSTOM_RECIPE_SLUGS: Record<string, string> = {
   'banh-dap-mam-nem': 'cach-lam-banh-dap-mam-nem',
   'banh-beo': 'cach-lam-banh-beo',
   'nem-lui-nuong-cuon': 'cach-lam-nem-lui-hue',
+  'nem-nuong-nha-trang-cuon': 'cach-lam-nem-nuong-nha-trang-cuon-banh-trang',
+  'nem-nuong-nha-trang': 'cach-lam-nem-nuong-nha-trang-cuon-banh-trang',
   'banh-mi-cha-ca-nong': 'cach-lam-banh-mi-cha-ca-nong',
   'de-tai-chanh-tuong-ban': 'cach-lam-de-tai-chanh',
   'banh-mi-chao-xiu-mai': 'cach-lam-banh-mi-chao',
@@ -1144,12 +1147,14 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-nem-lui-hue-nuong-than-thom-nuc-nuoc-leo-gan-dau-beo-bui-chuan-vi-co-do': 'nem-lui-nuong-cuon',
   'cach-lam-nem-lui-hue-thom-lung-dam-da': 'nem-lui-nuong-cuon',
 
-  'nem-nuong-nha-trang-cuon': 'nem-nuong-nha-trang',
-  'nem-nuong-nha-trang': 'nem-nuong-nha-trang',
-  'cach-nau-nem-nuong-nha-trang-cuon': 'nem-nuong-nha-trang',
-  'cach-lam-nem-nuong-nha-trang-cuon': 'nem-nuong-nha-trang',
-  'cach-nau-nem-nuong-nha-trang': 'nem-nuong-nha-trang',
-  'cach-lam-nem-nuong-nha-trang': 'nem-nuong-nha-trang',
+  'nem-nuong-nha-trang': 'nem-nuong-nha-trang-cuon',
+  'nem-nuong-nha-trang-cuon-banh-trang': 'nem-nuong-nha-trang-cuon',
+  'cach-lam-nem-nuong-nha-trang-cuon-banh-trang': 'nem-nuong-nha-trang-cuon',
+  'cach-nau-nem-nuong-nha-trang-cuon-banh-trang': 'nem-nuong-nha-trang-cuon',
+  'cach-nau-nem-nuong-nha-trang-cuon': 'nem-nuong-nha-trang-cuon',
+  'cach-lam-nem-nuong-nha-trang-cuon': 'nem-nuong-nha-trang-cuon',
+  'cach-nau-nem-nuong-nha-trang': 'nem-nuong-nha-trang-cuon',
+  'cach-lam-nem-nuong-nha-trang': 'nem-nuong-nha-trang-cuon',
 
   'ram-bap-cuon-rau': 'ram-bap-cuon-rau',
   'cach-nau-ram-bap-cuon-rau': 'ram-bap-cuon-rau',
@@ -1204,9 +1209,10 @@ export const RECIPE_SLUG_ALIASES: Record<string, string> = {
   'cach-lam-be-thui-cau-mong': 'be-thui',
 
   'bun-bo-hue': 'bun-bo-hue-dac-biet',
-  'bun-bo-hue-dac-biet': 'bun-bo-hue',
   'cach-nau-bun-bo-hue': 'bun-bo-hue-dac-biet',
+  'cach-lam-bun-bo-hue': 'bun-bo-hue-dac-biet',
   'cach-nau-bun-bo-hue-dac-biet': 'bun-bo-hue-dac-biet',
+  'cach-lam-bun-bo-hue-dac-biet': 'bun-bo-hue-dac-biet',
   'mi-quang': 'mi-quang-tom-thit',
   'mi-quang-tom-thit': 'mi-quang-tom-thit',
   'cach-nau-mi-quang': 'mi-quang-tom-thit',
@@ -1506,6 +1512,9 @@ export function findDishByRecipeSlug(slugOrHash: string, dishes: Dish[]): Dish |
  */
 export function formatRecipeSeoTitle(dishNameOrRecipeTitle: string): string {
   const trimmed = dishNameOrRecipeTitle.trim();
+  if (trimmed === 'Cách Làm Nem Nướng Nha Trang Cuốn Bánh Tráng & Nước Sốt Tương') {
+    return trimmed;
+  }
   if (trimmed.toLowerCase().startsWith('cách nấu') || trimmed.toLowerCase().startsWith('cách làm')) {
     return `${trimmed} | Ăn Gì Giờ`;
   }

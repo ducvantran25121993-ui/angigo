@@ -3442,6 +3442,26 @@ async function startServer() {
     return res.redirect(301, "/cach-lam-nem-lui-nuong-cuon");
   });
 
+  // 301 Permanent Redirect for nem nuong nha trang cuon banh trang
+  app.get([
+    "/cach-nau-nem-nuong-nha-trang-cuon",
+    "/cach-nau-nem-nuong-nha-trang-cuon/",
+    "/cach-lam-nem-nuong-nha-trang-cuon",
+    "/cach-lam-nem-nuong-nha-trang-cuon/",
+    "/cach-nau-nem-nuong-nha-trang",
+    "/cach-nau-nem-nuong-nha-trang/",
+    "/cach-lam-nem-nuong-nha-trang",
+    "/cach-lam-nem-nuong-nha-trang/",
+    "/cach-nau-nem-nuong-nha-trang-cuon-banh-trang",
+    "/cach-nau-nem-nuong-nha-trang-cuon-banh-trang/",
+    "/nem-nuong-nha-trang",
+    "/nem-nuong-nha-trang/",
+    "/nem-nuong-nha-trang-cuon",
+    "/nem-nuong-nha-trang-cuon/",
+  ], (_req, res) => {
+    return res.redirect(301, "/cach-lam-nem-nuong-nha-trang-cuon-banh-trang");
+  });
+
   // 301 Permanent Redirect for banh mi cha ca nong
   app.get([
     "/cach-nau-banh-mi-cha-ca-nong",

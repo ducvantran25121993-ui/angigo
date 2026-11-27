@@ -24,9 +24,9 @@ export const NotFoundPage: React.FC<NotFoundPageProps> = ({ onNavigate, onSelect
   const featuredDishes: Dish[] = [
     INITIAL_DISHES.find((d) => d.id === 'pho-bo-tai-lan') || INITIAL_DISHES[0],
     INITIAL_DISHES.find((d) => d.id === 'com-tam-suon-bi-cha') || INITIAL_DISHES[1],
-    INITIAL_DISHES.find((d) => d.id === 'bun-bo-hue') || INITIAL_DISHES[2],
+    INITIAL_DISHES.find((d) => d.id === 'bun-bo-hue-dac-biet') || INITIAL_DISHES[2],
     INITIAL_DISHES.find((d) => d.id === 'xoi-xeo-ha-noi') || INITIAL_DISHES[3],
-    INITIAL_DISHES.find((d) => d.id === 'nem-nuong-nha-trang') || INITIAL_DISHES[4],
+    INITIAL_DISHES.find((d) => d.id === 'nem-nuong-nha-trang-cuon') || INITIAL_DISHES[4],
     INITIAL_DISHES.find((d) => d.id === 'com-ga-xoi-mo') || INITIAL_DISHES[5],
   ].filter(Boolean) as Dish[];
 

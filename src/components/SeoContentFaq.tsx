@@ -3120,24 +3120,34 @@ export const SeoContentFaq: React.FC<{
   let currentRegionData: DiscoverSeoItem | null = null;
 
   if (activeTab === 'discover') {
+    const normalizedPath = currentPath.replace(/\/$/, '') || '/';
+    const isIndividualRecipePage =
+      normalizedPath !== '/cach-nau-mon-ngon' &&
+      (normalizedPath.startsWith('/cach-nau-') ||
+        normalizedPath.startsWith('/cach-lam-') ||
+        normalizedPath.startsWith('/cach-nau-mon-ngon/'));
+    if (isIndividualRecipePage) {
+      return null;
+    }
+
     const regionId = getRegionFromUrl();
     const subSection = getDiscoverSubSectionFromUrl();
 
     if (regionId && DISCOVER_SEO_DETAILS[regionId]) {
       currentRegionData = DISCOVER_SEO_DETAILS[regionId];
-    } else if (subSection === 'daily' || currentPath.includes('/thuc-don-moi-ngay')) {
+    } else if (subSection === 'daily' || normalizedPath === '/thuc-don-moi-ngay') {
       currentRegionData = DISCOVER_SEO_DETAILS['daily'];
-    } else if (subSection === 'recipe' || currentPath.includes('/cach-nau-')) {
+    } else if (subSection === 'recipe' || normalizedPath === '/cach-nau-mon-ngon') {
       currentRegionData = DISCOVER_SEO_DETAILS['recipe'];
-    } else if (currentPath.includes('/am-thuc-mien-bac')) {
+    } else if (normalizedPath === '/am-thuc-mien-bac') {
       currentRegionData = DISCOVER_SEO_DETAILS['bac'];
-    } else if (currentPath.includes('/am-thuc-mien-trung')) {
+    } else if (normalizedPath === '/am-thuc-mien-trung') {
       currentRegionData = DISCOVER_SEO_DETAILS['trung'];
-    } else if (currentPath.includes('/am-thuc-mien-nam')) {
+    } else if (normalizedPath === '/am-thuc-mien-nam') {
       currentRegionData = DISCOVER_SEO_DETAILS['nam'];
-    } else if (currentPath.includes('/am-thuc-mien-tay')) {
+    } else if (normalizedPath === '/am-thuc-mien-tay') {
       currentRegionData = DISCOVER_SEO_DETAILS['mientay'];
-    } else if (currentPath === '/am-thuc-vung-mien' || currentPath === '/am-thuc-vung-mien/') {
+    } else if (normalizedPath === '/am-thuc-vung-mien') {
       currentRegionData = DISCOVER_SEO_DETAILS['bac'];
     }
   }

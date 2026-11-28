@@ -20,6 +20,7 @@ import {
   buildBlogIndexSchemaJsonLd,
   BlogSsrCardItem,
 } from "./src/utils/ssrPageContent";
+import indexNowHandler from "./api/indexnow";
 
 function parseMinutesToIso(str?: string): string {
   if (!str) return 'PT30M';
@@ -3213,6 +3214,22 @@ async function startServer() {
     } else {
       res.type("application/xml").send(`<?xml version="1.0"?>\n<users>\n\t<user>149C7981B16C035B95D859D5F31A28BC</user>\n</users>`);
     }
+  });
+
+  // IndexNow domain verification key file & authenticated submission API
+  app.get("/ce0d7a94729144969b522dacce411a38.txt", (_req, res) => {
+    const distFile = path.join(process.cwd(), "dist", "ce0d7a94729144969b522dacce411a38.txt");
+    const pubFile = path.join(process.cwd(), "public", "ce0d7a94729144969b522dacce411a38.txt");
+    const target = fs.existsSync(distFile) ? distFile : pubFile;
+    if (fs.existsSync(target)) {
+      res.type("text/plain; charset=utf-8").sendFile(target);
+    } else {
+      res.type("text/plain; charset=utf-8").send("ce0d7a94729144969b522dacce411a38");
+    }
+  });
+
+  app.all("/api/indexnow", (req, res) => {
+    return indexNowHandler(req, res);
   });
 
   // Universal 301 Permanent Redirect middleware for recipe aliases and non-canonical recipe URLs

@@ -10,6 +10,9 @@
     },
     "api/blog-sync.ts": {
       "includeFiles": "firebase-applet-config.json"
+    },
+    "api/indexnow.ts": {
+      "includeFiles": "{dist/sitemap-base.xml,public/sitemap.xml,public/ce0d7a94729144969b522dacce411a38.txt,firebase-applet-config.json}"
     }
   },
   "redirects": [
@@ -2621,6 +2624,13 @@
       "source": "/recipes/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/ce0d7a94729144969b522dacce411a38.txt",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
       ]
     }
   ],

@@ -411,6 +411,7 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
   // Data Storage & Backup Center State
   const [isDataModalOpen, setIsDataModalOpen] = useState(false);
   const [syncingServer, setSyncingServer] = useState(false);
+  const [pushingIndexNow, setPushingIndexNow] = useState(false);
   const [copiedDataJson, setCopiedDataJson] = useState(false);
   const [remoteServerUrl, setRemoteServerUrl] = useState('');
   const [syncingRemote, setSyncingRemote] = useState(false);
@@ -696,6 +697,62 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
       }
     };
     reader.readAsText(file);
+  };
+
+  // Submit URLs or entire Sitemap to IndexNow (Bing, Yandex, Copilot, DuckDuckGo)
+  const submitUrlsToIndexNow = useCallback(
+    async (urls: string[], mode: 'urls' | 'sitemap' = 'urls', silent = false) => {
+      try {
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+          if (!silent) {
+            showToast('Vui lòng đăng nhập lại Google Admin để gửi IndexNow.', 'warning');
+          }
+          return false;
+        }
+        const idToken = await currentUser.getIdToken();
+        const res = await fetch('/api/indexnow', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${idToken}`,
+          },
+          body: JSON.stringify(mode === 'sitemap' ? { mode: 'sitemap', urls } : { urls }),
+        });
+        const data = await res.json().catch(() => null);
+        if (res.ok && data?.ok) {
+          if (!silent) {
+            showToast(
+              data.message || `Đã gửi ${data.submittedCount || urls.length} URL lên IndexNow (Bing) thành công!`,
+              'success'
+            );
+          }
+          return true;
+        }
+        if (!silent) {
+          showToast(data?.message || `Không thể gửi IndexNow (HTTP ${res.status}).`, 'warning');
+        }
+        return false;
+      } catch {
+        if (!silent) {
+          showToast('Không thể kết nối tới API IndexNow lúc này.', 'error');
+        }
+        return false;
+      }
+    },
+    []
+  );
+
+  const handlePushIndexNowSitemap = async () => {
+    setPushingIndexNow(true);
+    try {
+      const activeBlogUrls = posts
+        .filter((p) => p?.slug && !p.noIndex)
+        .map((p) => `https://angigio.com/${String(p.slug).replace(/^\//, '')}`);
+      await submitUrlsToIndexNow(activeBlogUrls, 'sitemap', false);
+    } finally {
+      setPushingIndexNow(false);
+    }
   };
 
   // Sync All Data to Server & Cloud Firestore
@@ -3101,6 +3158,13 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
     const isPermissionError = /permission|insufficient/i.test(cloudErrorReason);
     if (cloudSaved) {
       showToast(`Đã lưu bài viết lên Cloud! Tất cả các máy khác đều xem được ngay tại /${cleanSlug}`, 'success');
+      if (!finalSavedPost.noIndex) {
+        const pingList = [`https://angigio.com/${cleanSlug}`, 'https://angigio.com/blog'];
+        if (oldSlug && oldSlug !== cleanSlug) {
+          pingList.push(`https://angigio.com/${oldSlug}`);
+        }
+        void submitUrlsToIndexNow(pingList, 'urls', true);
+      }
     } else if (isPermissionError) {
       showToast(
         `Đã lưu tạm trên máy này, NHƯNG tài khoản Google chưa được cấp quyền ghi Cloud Firestore. Hãy đăng xuất và đăng nhập lại đúng Gmail Admin!`,
@@ -3258,6 +3322,9 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
 
       if (cloudDeleted) {
         showToast(`Đã xóa bài viết "${postToDelete.title}" lên Cloud thành công trên mọi thiết bị!`, 'success');
+        if (targetSlug) {
+          void submitUrlsToIndexNow([`https://angigio.com/${targetSlug}`, 'https://angigio.com/blog'], 'urls', true);
+        }
       } else {
         const isQuota = /quota|resource-exhausted|429/i.test(cloudDeleteError);
         const isPerm = /permission|insufficient/i.test(cloudDeleteError);
@@ -3812,6 +3879,17 @@ export const AdminBlogPage: React.FC<AdminBlogPageProps> = ({ onNavigate }) => {
                   >
                     <RefreshCw className={`w-3.5 h-3.5 ${syncingServer ? 'animate-spin' : ''}`} />
                     <span>{syncingServer ? 'Đang Lưu...' : 'Lưu Lên Server'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handlePushIndexNowSitemap}
+                    disabled={pushingIndexNow}
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer disabled:opacity-50"
+                    title="Đẩy toàn bộ URL trong Sitemap lên IndexNow (Microsoft Bing, Copilot, Yandex, DuckDuckGo)"
+                  >
+                    <Globe className={`w-3.5 h-3.5 ${pushingIndexNow ? 'animate-spin' : ''}`} />
+                    <span>{pushingIndexNow ? 'Đang Gửi...' : 'Đẩy IndexNow (Bing)'}</span>
                   </button>
                 </div>
               </div>

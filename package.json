@@ -13,6 +13,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "optimize:images": "node scripts/optimize-image.cjs",
+    "indexnow": "tsx scripts/submit-indexnow.ts",
     "lint": "tsc --noEmit"
   },
   "dependencies": {
